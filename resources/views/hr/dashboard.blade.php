@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('contents')
-<div class="main-content">
     <div class="dashboard-breadcrumb mb-25">
         <h2> Welcome To HRMS Dashboard</h2>
         <div class="input-group dashboard-filter">
@@ -345,7 +344,7 @@
                     <ul class="upcoming-interview">
                         <li>
                             <div class="avatar avatar-lg">
-                                <img src="assets/images/avatar-2.png" class="rounded" alt="user">
+                                <img src="{{asset('assets/images/avatar-2.png')}}" class="rounded" alt="user">
                             </div>
                             <div class="part-txt">
                                 <span class="applicant-name">Natalie Gibson</span>
@@ -356,7 +355,7 @@
                         </li>
                         <li>
                             <div class="avatar avatar-lg">
-                                <img src="assets/images/avatar-3.png" class="rounded" alt="user">
+                                <img src="{{asset('assets/images/avatar-3.png')}}" class="rounded" alt="user">
                             </div>
                             <div class="part-txt">
                                 <span class="applicant-name">Natalie Gibson</span>
@@ -367,7 +366,7 @@
                         </li>
                         <li>
                             <div class="avatar avatar-lg">
-                                <img src="assets/images/avatar-4.png" class="rounded" alt="user">
+                                <img src="{{asset('assets/images/avatar-4.png')}}" class="rounded" alt="user">
                             </div>
                             <div class="part-txt">
                                 <span class="applicant-name">Natalie Gibson</span>
@@ -378,7 +377,7 @@
                         </li>
                         <li>
                             <div class="avatar avatar-lg">
-                                <img src="assets/images/avatar-5.png" class="rounded" alt="user">
+                                <img src="{{asset('assets/images/avatar-5.png')}}" class="rounded" alt="user">
                             </div>
                             <div class="part-txt">
                                 <span class="applicant-name">Natalie Gibson</span>
@@ -389,7 +388,7 @@
                         </li>
                         <li>
                             <div class="avatar avatar-lg">
-                                <img src="assets/images/avatar-6.png" class="rounded" alt="user">
+                                <img src="{{asset('assets/images/avatar-6.png')}}" class="rounded" alt="user">
                             </div>
                             <div class="part-txt">
                                 <span class="applicant-name">Natalie Gibson</span>
@@ -403,5 +402,7 @@
             </div>
         </div>
     </div>
-</div>
+@endsection
+@section('script')
+<script src={{asset('assets/js/dashboard.js')}}></script>
 @endsection
