@@ -398,7 +398,7 @@
                         </ul> --}}
                     </li>
                     <li class="sidebar-dropdown-item">
-                        <a role="button" class="sidebar-link has-sub" data-dropdown="hrmDropdown"><span class="nav-icon"><i class="fa-light fa-user-tie"></i></span> <span class="sidebar-txt">HRMS</span></a>
+                        <a role="button" class="sidebar-link has-sub" data-dropdown="hrmDropdown"><span class="nav-icon"><i class="fa-light fa-user-tie"></i></span> <span class="sidebar-txt">Employee</span></a>
                         <ul class="sidebar-dropdown-menu" id="hrmDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('add-employee') }}" class="sidebar-link">Add Employee</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('employee-list')}}" class="sidebar-link">All Employee</a></li>
@@ -425,13 +425,16 @@
                         <a href="email.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-envelope"></i></span> <span class="sidebar-txt">Email</span></a>
                     </li>
                     <li class="sidebar-dropdown-item">
-                        <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-light fa-envelope-open-text"></i></span> <span class="sidebar-txt">Email Templates</span></a>
+                        <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-light fa-envelope-open-text"></i></span> <span class="sidebar-txt">Master Data</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="card-declined.html" class="sidebar-link">Card Declined</a></li>
-                            <li class="sidebar-dropdown-item"><a href="promotion.html" class="sidebar-link">Promotional</a></li>
-                            <li class="sidebar-dropdown-item"><a href="subscription-confirm.html" class="sidebar-link">Subscription Confirm</a></li>
-                            <li class="sidebar-dropdown-item"><a href="welcome-mail.html" class="sidebar-link">Welcome</a></li>
-                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Reset Password</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('department')}}" class="sidebar-link">Department</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('skill')}}" class="sidebar-link">Skill</a></li>
+                            <li class="sidebar-dropdown-item"><a href="subscription-confirm.html" class="sidebar-link">Company Master</a></li>
+                            <li class="sidebar-dropdown-item"><a href="welcome-mail.html" class="sidebar-link">Functional Role</a></li>
+                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Qualification</a></li>
+                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Bank Details</a></li>
+                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Organisations</a></li>
+                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Designation</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">

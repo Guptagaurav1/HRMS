@@ -51,6 +51,14 @@ Route::prefix('hr')->group(function () {
         return view("send-letter");
     })->name("send-letter");
 
+    Route::get("department", function () {
+        return view("department");
+    })->name("department");
+
+    Route::get("skill", function () {
+        return view("skill");
+    })->name("skill");
+
 });
 
 
