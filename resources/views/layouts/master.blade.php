@@ -15,6 +15,8 @@
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}"/>
     <link rel="stylesheet" id="rtlStyle" href="#"/>
     @yield('style')
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.2/dist/sweetalert2.min.css
+" rel="stylesheet">
 </head>
 <body class="body-padding body-p-top light-theme">
      <!-- preloader start -->
@@ -30,12 +32,9 @@
     @include('layouts.header')
     @include('layouts.sidebar')
     <div class="main-content">
-    @yield('contents')
-    @include('layouts.footer')
-
+        @yield('contents')
+        @include('layouts.footer')
     </div>
-    
- 
 
     <script src="{{asset('assets/vendor/js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('assets/vendor/js/jquery.overlayScrollbars.min.js')}}"></script>
@@ -45,10 +44,14 @@
     <script src="{{asset('assets/vendor/js/daterangepicker.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.2/dist/sweetalert2.all.min.js" integrity="sha256-TrylDJQSjAaKLYPzjbm/0liHQ5aeHImKTdAZrjYKA7E=" crossorigin="anonymous"></script>
+    <script>
+        const SITE_URL = "{{ config('js.site_url')}}";
+    </script>
+    <script src="{{asset('assets/js/master.js')}}"></script>
        
      @yield('script')
   
-    
     <script>
         var rtlReady = $('html').attr('dir', 'ltr');
         if (rtlReady !== undefined) {

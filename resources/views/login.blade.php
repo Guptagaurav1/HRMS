@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" href="assets/vendor/css/all.min.css">
-    <link rel="stylesheet" href="assets/vendor/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" href="assets/vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" id="primaryColor" href="assets/css/blue-color.css">
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/OverlayScrollbars.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}">
     <link rel="stylesheet" id="rtlStyle" href="#">
 
-    
 </head>
 <body class="light-theme">
     <div class="main-content login-panel">
@@ -41,17 +40,29 @@
                 
                 <!-- Tab Contents -->
                 <div id="department-content" class="tab-content">
-                    <form>
+                    @if(session()->has('error'))
+                    <span class="text-danger">{{session()->get('message')}}</span>
+                    @endif
+                   
+                    <form action="{{route('department_login')}}" method="post">
+                        @csrf
                         <div class="input-group mb-25">
                             <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-                            <input type="text" class="form-control" placeholder="Enter Email Id">
+                            <input type="text" class="form-control" name="email" placeholder="Enter Email Id" required>
+                            @error('email')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="input-group mb-20">
                             <span class="input-group-text"><i class="fa-regular fa-lock"></i></span>
-                            <input type="password" class="form-control rounded-end" placeholder="Password">
+                            <input type="password" name="password" class="form-control rounded-end" placeholder="Password" required>
                             <a role="button" class="password-show"><i class="fa-duotone fa-eye"></i></a>
+                            @error('password')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
-                        <button class="btn btn-primary w-100 login-btn">Submit</button>
+                       
+                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                 </div>
                 <div id="employee-content" class="tab-content">
@@ -65,17 +76,13 @@
                             <input type="password" class="form-control rounded-end" placeholder="Password">
                             <a role="button" class="password-show"><i class="fa-duotone fa-eye"></i></a>
                         </div>
+                        
                         <button class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                 </div>
             </div>
-            <div class="d-flex justify-content-between mb-25 mx-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="loginCheckbox">
-                    <label class="form-check-label text-white" for="loginCheckbox">
-                        Remember Me
-                    </label>
-                </div>
+            <div class="d-flex justify-content-end mb-25 mx-3">
+               
                 <a href="reset-password.html" class="text-white fs-14">Forgot Password?</a>
             </div>
             
@@ -84,44 +91,9 @@
             <p>Copyright© <script>document.write(new Date().getFullYear())</script> All Rights Reserved By <span class="text-primary">HRMS</span></p>
         </div>
     </div>
-    <script src="assets/vendor/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/vendor/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const departmentTab = document.getElementById('department-tab');
-            const employeeTab = document.getElementById('employee-tab');
-            const departmentContent = document.getElementById('department-content');
-            const employeeContent = document.getElementById('employee-content');
-
-      
-            departmentTab.addEventListener('click', function () {
-                
-                departmentTab.classList.add('active');
-                departmentTab.classList.remove('inactive');
-                employeeTab.classList.remove('active');
-                employeeTab.classList.add('inactive');
-                
-                
-                departmentContent.classList.add('active');
-                employeeContent.classList.remove('active');
-            });
-
-            
-            employeeTab.addEventListener('click', function () {
-                
-                employeeTab.classList.add('active');
-                employeeTab.classList.remove('inactive');
-                departmentTab.classList.remove('active');
-                departmentTab.classList.add('inactive');
-                
-              
-                employeeContent.classList.add('active');
-                departmentContent.classList.remove('active');
-            });
-
-            // Default active tab
-            departmentTab.click();
-        });
-    </script>
+    <script src="{{asset('assets/vendor/js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/js/login.js')}}"></script>
+    
 </body>
 </html>
