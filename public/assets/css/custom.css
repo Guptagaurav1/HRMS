@@ -1,0 +1,75 @@
+ /* Adjust table layout to auto, so content-based widths will be applied */
+ .table {
+    table-layout: auto;
+}
+/* Allow large content to wrap inside table cells */
+.table td {
+    word-wrap: break-word;
+    white-space: normal;
+}
+/* Optionally, set column width for specific columns (for example, the "Attributes" column) */
+.table td.attributes-column {
+    max-width: 300px; /* Adjust this width as needed */
+    word-wrap: break-word;
+    white-space: normal;
+}
+.table td.srno-column {
+    width: 50px; /* Fix the width for small content columns */
+}
+.table td.rid-column {
+    width: 100px; /* Fix the width for small content columns */
+}
+
+
+#bb
+{background: #2A3F54;
+    color: white;
+    width: 150px;
+}
+
+/* Ensure the table is scrollable on smaller screens */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* For smoother scrolling on mobile devices */
+}
+
+/* Style adjustments for smaller devices */
+@media (max-width: 768px) {
+    table {
+        font-size: 12px; /* Smaller font size on smaller screens */
+    }
+    th, td {
+        padding: 8px; /* Reduce padding on smaller screens */
+    }
+    th {
+        white-space: nowrap; /* Prevent text from wrapping */
+    }
+}
+
+/* Further adjustments for very small devices */
+@media (max-width: 480px) {
+    table {
+        font-size: 10px; /* Even smaller font size */
+    }
+    th, td {
+        padding: 6px; /* Further reduce padding */
+    }
+    th {
+        display: block;
+        width: 100%; /* Display header items in block form */
+        text-align: left;
+    }
+    td {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding-left: 50%; /* Indent the data to align with the header */
+    }
+    td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 50%;
+        text-align: left;
+    }
+}

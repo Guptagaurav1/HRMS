@@ -385,7 +385,7 @@
                 </ul>
             </li>
             <li class="sidebar-item">
-                <a role="button" class="sidebar-link-group-title has-sub">Apps</a>
+                <a role="button" class="sidebar-link-group-title has-sub">HR</a>
                 <ul class="sidebar-link-group">
                     <li class="sidebar-dropdown-item">
                         {{-- <a role="button" class="sidebar-link has-sub" data-dropdown="crmDropdown"><span class="nav-icon"><i class="fa-light fa-user-headset"></i></span> <span class="sidebar-txt">CRM</span></a> --}}
@@ -401,7 +401,7 @@
                         <a role="button" class="sidebar-link has-sub" data-dropdown="hrmDropdown"><span class="nav-icon"><i class="fa-light fa-user-tie"></i></span> <span class="sidebar-txt">Employee</span></a>
                         <ul class="sidebar-dropdown-menu" id="hrmDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('add-employee') }}" class="sidebar-link">Add Employee</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('employee-list')}}" class="sidebar-link">All Employee</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-list')}}" class="sidebar-link">Employee List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('edit-employee')}}" class="sidebar-link">Edit Employee</a></li>
                         </ul>
                     </li>
@@ -415,30 +415,35 @@
                             <li class="sidebar-dropdown-item"><a href="order.html" class="sidebar-link">Order</a></li>
                         </ul> --}}
                     </li>
-                    <li class="sidebar-dropdown-item">
+                    {{-- <li class="sidebar-dropdown-item">
                         <a href="calendar.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-calendar"></i></span> <span class="sidebar-txt">Calendar</span></a>
-                    </li>
-                    <li class="sidebar-dropdown-item">
+                    </li> --}}
+                    {{-- <li class="sidebar-dropdown-item">
                         <a href="chat.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-messages"></i></span> <span class="sidebar-txt">Chat</span></a>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a href="email.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-envelope"></i></span> <span class="sidebar-txt">Email</span></a>
-                    </li>
+                    </li> --}}
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-light fa-envelope-open-text"></i></span> <span class="sidebar-txt">Master Data</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('department')}}" class="sidebar-link">Department</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('skill')}}" class="sidebar-link">Skill</a></li>
-                            <li class="sidebar-dropdown-item"><a href="subscription-confirm.html" class="sidebar-link">Company Master</a></li>
-                            <li class="sidebar-dropdown-item"><a href="welcome-mail.html" class="sidebar-link">Functional Role</a></li>
-                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Qualification</a></li>
-                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Bank Details</a></li>
-                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Organisations</a></li>
-                            <li class="sidebar-dropdown-item"><a href="reset-password-mail.html" class="sidebar-link">Designation</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('company-master')}}" class="sidebar-link">Company Master</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('functional-role')}}" class="sidebar-link">Functional Role</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('qualification')}}" class="sidebar-link">Qualification</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('bank-details')}}" class="sidebar-link">Bank Details</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('organisation')}}" class="sidebar-link">Organisations</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('designation')}}" class="sidebar-link">Designation</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
-                        <a href="invoices.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-file-invoice"></i></span> <span class="sidebar-txt">Invoices</span></a>
+                        <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-light fa-envelope-open-text"></i></span> <span class="sidebar-txt">User & Role</span></a>
+                        <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+                            <li class="sidebar-dropdown-item"><a href="{{route('add-user')}}" class="sidebar-link">Add User</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Manage (Roles)</a></li>
+                           
+                        </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a href="contact.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-user-plus"></i></span> <span class="sidebar-txt">Contacts</span></a>
