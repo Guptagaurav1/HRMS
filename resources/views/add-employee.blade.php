@@ -1,7 +1,12 @@
 
 @extends('layouts.master')
+@section('style')
+<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
+<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 
-<div class="main-content">
+@endsection
+
+@section('contents')
     <div class="dashboard-breadcrumb mb-25">
         <h2>Add Employee</h2>
         <div class="btn-box">
@@ -446,8 +451,18 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
+<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
+<script src={{asset('assets/js/select2-init.js')}}></script>
+
+
+@endsection
+
     
-</div>
+
 
 
 

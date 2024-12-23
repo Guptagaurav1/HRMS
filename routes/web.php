@@ -45,6 +45,50 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("send-letter");
     })->name("send-letter");
 
+    Route::get("department", function () {
+        return view("department");
+    })->name("department");
+
+    Route::get("skill", function () {
+        return view("skill");
+    })->name("skill");
+
+    Route::get("add-user", function () {
+        return view("add-user");
+    })->name("add-user");
+
+    Route::get("manage-roles", function () {
+        return view("manage-roles");
+    })->name("manage-roles");
+
+    Route::get("users-list", function () {
+        return view("users-list");
+    })->name("users-list");
+
+    Route::get("functional-role", function () {
+        return view("functional-role");
+    })->name("functional-role");
+
+    Route::get("qualification", function () {
+        return view("qualification");
+    })->name("qualification");
+
+    Route::get("bank-details", function () {
+        return view("bank-details");
+    })->name("bank-details");
+
+    Route::get("organisation", function () {
+        return view("organisation");
+    })->name("organisation");
+
+    Route::get("designation", function () {
+        return view("designation");
+    })->name("designation");
+
+    Route::get("company-master", function () {
+        return view("company-master");
+    })->name("company-master");
+
 });
 
 

@@ -1,7 +1,13 @@
 
 @extends('layouts.master')
 
-<div class="main-content">
+@section('style')
+<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
+<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
+
+@endsection
+
+@section('contents')
     <div class="dashboard-breadcrumb">
         <h2>Send Appointment Letter</h2>
     </div>
@@ -344,13 +350,13 @@
                     <div class="row g-3">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <label>All Fields are Mandatory. Those Fields are not in Used Set as 0 (Zero ) value</label>
-                            <p class="red"><span>Gross =</span> <span>Basic + HRA + DA + PA + Conveyence + Telephone + Uniform + School Fee + Car + Grade Pay + Special Allowance</span></p>
-                            <p class="red"><span>Net Salary =</span> <span>Gross - Employee Contribution</span></p>
-                            <p class="red"><span>Employee Contribution =</span> <span>PF + ESI + LWF + Professional Tax</span></p>
-                            <p class="red"><span>PF(EMPLOYEE) =</span> <span>12 % of Basic</span></p>
-                            <p class="red"><span>PF(EMPLOYER) =</span> <span>13 % of Basic</span></p>
-                            <p class="red"><span>ESIC(EMPLOYEE) =</span> <span>0.75 % of Gross</span></p>
-                            <p class="red"><span>ESIC(EMPLOYER) =</span> <span>3.25 % of Gross</span></p>
+                            <p class="red" style="color: red"><span>Gross =</span> <span>Basic + HRA + DA + PA + Conveyence + Telephone + Uniform + School Fee + Car + Grade Pay + Special Allowance</span></p>
+                            <p class="red" style="color: red"><span>Net Salary =</span> <span>Gross - Employee Contribution</span></p>
+                            <p class="red" style="color: red"><span>Employee Contribution =</span> <span>PF + ESI + LWF + Professional Tax</span></p>
+                            <p class="red" style="color: red"><span>PF(EMPLOYEE) =</span> <span>12 % of Basic</span></p>
+                            <p class="red" style="color: red"><span>PF(EMPLOYER) =</span> <span>13 % of Basic</span></p>
+                            <p class="red" style="color: red"><span>ESIC(EMPLOYEE) =</span> <span>0.75 % of Gross</span></p>
+                            <p class="red" style="color: red"><span>ESIC(EMPLOYER) =</span> <span>3.25 % of Gross</span></p>
                           </div>
                     </div>
                 </div>
@@ -400,8 +406,15 @@
     
 </div>
 
-</div>
+@endsection
 
+@section('script')
+    <script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
+    <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
+    <script src={{asset('assets/js/select2-init.js')}}></script>
+    
+    
+    @endsection
 
 
 

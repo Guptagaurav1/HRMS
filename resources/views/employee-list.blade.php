@@ -1,6 +1,13 @@
 @extends('layouts.master')
+
+@section('style')
+<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
+<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
+
+@endsection
+
         
-<div class="main-content">
+@section('contents')
     <div class="row">
         <div class="col-12">
             <div class="panel">
@@ -99,7 +106,14 @@
     </div>
 
    
-</div>
+    @endsection
+@section('script')
+<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
+<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
+<script src={{asset('assets/js/select2-init.js')}}></script>
+
+
+@endsection
    
         
    
