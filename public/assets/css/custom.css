@@ -46,30 +46,19 @@
     }
 }
 
-/* Further adjustments for very small devices */
-@media (max-width: 480px) {
-    table {
-        font-size: 10px; /* Even smaller font size */
-    }
-    th, td {
-        padding: 6px; /* Further reduce padding */
-    }
-    th {
-        display: block;
-        width: 100%; /* Display header items in block form */
-        text-align: left;
-    }
-    td {
-        display: block;
-        width: 100%;
-        text-align: left;
-        padding-left: 50%; /* Indent the data to align with the header */
-    }
-    td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        display: inline-block;
-        width: 50%;
-        text-align: left;
-    }
+
+
+#send-letter{
+    font-size: 14px;
+}
+
+.alert-success {
+    color: #fff;
+    background-color: rgba(38, 185, 154, .88);
+    border-color: rgba(38, 185, 154, .88);
+}
+/* Additional styling for the table */
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
 }

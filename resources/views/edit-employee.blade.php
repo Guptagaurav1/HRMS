@@ -178,7 +178,7 @@
                                 </select>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label for="formFileSm" class="form-label">Upload Resume</label>
+                            <label for="formFileSm" class="form-label">Upload Resume</label>
                             <input class="form-control form-control-sm" id="formFileSm" type="file">
                             </div>
                         </div>

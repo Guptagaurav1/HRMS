@@ -57,12 +57,13 @@
 
                 <tr>
                     <th id="bb">Company Address</th>
-                    <td colspan="3" data-label="Company Address">C - 11, LGF, Opp. State Bank of India, Malviya Nagar New Delhi - 110017</td>
+                    <td colspan="" data-label="Company Address">C - 11, LGF, Opp. State Bank of India, Malviya Nagar New Delhi - 110017</td>
                 </tr>
 
                 <tr>
                     <th colspan="4"><center> Bank Details</center></th>
                 </tr>
+                
 
                 <tr>
                     <th id="bb">Payee Name</th>

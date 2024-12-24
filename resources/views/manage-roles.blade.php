@@ -35,7 +35,7 @@
                 </div>
                 
                 <div class="panel-body">
-                    <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
                                 <th class="srno-column">Sr No.</th>

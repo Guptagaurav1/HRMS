@@ -89,6 +89,41 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("company-master");
     })->name("company-master");
 
+    Route::get("position-request", function () {
+        return view("position-request");
+    })->name("position-request");
+
+    Route::get("recruitment-report", function () {
+        return view("recruitment-report");
+    })->name("recruitment-report");
+
+    Route::get("recruitment-list", function () {
+        return view("recruitment-list");
+    })->name("recruitment-list");
+
+    Route::get("addnew-candidate", function () {
+        return view("addnew-candidate");
+    })->name("addnew-candidate");
+
+    Route::get("recruitment-plan", function () {
+        return view("recruitment-plan");
+    })->name("recruitment-plan");
+
+    Route::get("addcontact-form", function () {
+        return view("addcontact-form");
+    })->name("addcontact-form");
+
+    Route::get("offerlettershared-list", function () {
+        return view("offerlettershared-list");
+    })->name("offerlettershared-list");
+
+    Route::get("position-review-dept", function () {
+        return view("position-review-dept");
+    })->name("position-review-dept");
+
+    
+    
+
 });
 
 
