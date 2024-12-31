@@ -7,7 +7,7 @@ use App\Http\Controllers\AuthController;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where yTou can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
@@ -16,17 +16,18 @@ use App\Http\Controllers\AuthController;
 Route::controller(AuthController::class)->group(function () {
     Route::get('/', 'login')->name('login');
     Route::post('d-login', 'd_login')->name('department_login');
+    Route::post('emp-login', 'emp_login')->name('employee_login');
     Route::get('d-logout', 'd_logout')->name('department_logout');
 });
 
 Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::get("/", function () {
-    return view("hr.dashboard");
+        return view("hr.dashboard");
     })->name('hr_dashboard');
 
     Route::get("add-employee", function () {
-    return view("add-employee");
+        return view("add-employee");
     })->name('add-employee');
 
     Route::get("edit-employee", function () {
@@ -38,7 +39,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     })->name("employee-list");
 
     Route::get("view-letter", function () {
-    return view("view-letter");
+        return view("view-letter");
     })->name("view-letter");
 
     Route::get("send-letter", function () {
@@ -89,6 +90,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("company-master");
     })->name("company-master");
 
+});
+
+Route::middleware('employee')->prefix('employee')->group(function () {
+    Route::get('/', function(){
+        return view('employee.dashboard');
+    })->name('employee_dashboard');
 });
 
 

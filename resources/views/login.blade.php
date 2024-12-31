@@ -66,18 +66,28 @@
                     </form>
                 </div>
                 <div id="employee-content" class="tab-content">
-                    <form>
+                    @if(session()->has('emperror'))
+                    <span class="text-danger">{{session()->get('message')}}</span>
+                    @endif
+                    <form action="{{route('employee_login')}}" method="post">
+                        @csrf
                         <div class="input-group mb-25">
                             <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-                            <input type="text" class="form-control" placeholder="Enter Employee Code">
+                            <input type="text" class="form-control" name="emp_code" placeholder="Enter Employee Code" required>
+                            @error('emp_code')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="input-group mb-20">
                             <span class="input-group-text"><i class="fa-regular fa-lock"></i></span>
-                            <input type="password" class="form-control rounded-end" placeholder="Password">
+                            <input type="password" class="form-control rounded-end" name="emp_password" placeholder="Password" required>
                             <a role="button" class="password-show"><i class="fa-duotone fa-eye"></i></a>
+                            @error('emp_password')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         
-                        <button class="btn btn-primary w-100 login-btn">Submit</button>
+                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                 </div>
             </div>
