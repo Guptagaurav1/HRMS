@@ -12,30 +12,30 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Bank Details</h5>
+                    <h5>Department</h5>
                 </div>
                 <div class="row px-3 mt-2">
                     <div class="col-md-3">
-                        <label class="form-label">Bank<span style="color: red">*</span></label>
+                        <label class="form-label">Department<span style="color: red">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                        
                         
 
                     </div>
                     <div class="col-md-3">
-                        {{-- <label class="form-label">Reporting Email</label>
+                        <label class="form-label">Skills</label>
                         <select id="inputState" class="form-select">
-                            <option selected>Not Specify</option>
+                            <option selected>Select</option>
                             <option>Select 1</option>
                             <option>Select 1</option>
                             <option>Select 1</option>
                         </select>
 
-                        </label> --}}
+                        </label>
                         
                     </div>
                     <div class="col-md-6">
-                        <a href="{{'qualification'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add New Bank</button></a>
+                        <a href="#"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
                         
                     </div>
                 </div>
@@ -44,13 +44,15 @@
                    
                     
                     
-                    <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-
+                                
+                                
                                 <th>Sr No.</th>
-                                <th>Bank Name</th>
-                                <th>Type Of Bank</th>
+                                <th>Department</th>
+                                
+                                
                                 <th>Action</th>
                               
                             </tr>
@@ -60,11 +62,10 @@
                                 <td>
                                     1
                                 </td>
-                                <td>Central bank Of India</td>
-                                <td>Public Sector</td>
+                                <td>HR</td>
                              <td> 
-                                <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Deactivate</button></a>
-                               
+                                <a href="{{'send-letter'}}"><button class="btn btn-sm btn-primary">Edit </button></a>
+                                <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete</button></a>
                             </td>
                         </tr>
                          

@@ -18,12 +18,12 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>User Details</h5>
+                    <h4 class="mt-1">User Details</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label class="form-label">Select Comapny Name <span style="color: red">*</span></label>
+                            <label class="form-label">Select Comapny Name </label>
                             <select id="inputState" class="form-select">
                                 <option value=""> Select Any One</option>
                                 <option value="0">Select 1</option>
@@ -32,7 +32,7 @@
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label class="form-label">Select User Type <span style="color: red">*</span></label>
+                            <label class="form-label">Select User Type </label>
                             <select id="inputState" class="form-select">
                                 <option value=""> Department</option>
                                 <option value="0">Select 1</option>
@@ -41,15 +41,15 @@
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label class="form-label">First Name <span style="color: red">*</span></label>
+                            <label class="form-label">First Name</label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label class="form-label">Last Name <span style="color: red">*</span></label>
+                            <label class="form-label">Last Name </label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label class="form-label">Department<span style="color: red">*</span></label>
+                            <label class="form-label">Department</label>
                             <select id="inputState" class="form-select">
                                 <option value="">Select Department</option>
                                 <option value="0">Shift 1</option>
@@ -58,7 +58,7 @@
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label for="inputDate" class="form-label">Gender <span style="color: red">*</span></label>
+                            <label for="inputDate" class="form-label">Gender </label>
                             <select id="inputState" class="form-select">
                                 <option value="">Select Gender</option>
                                 <option value="0">Male</option>
@@ -67,7 +67,7 @@
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label class="form-label">Contact <span style="color: red">*</span></label>
+                            <label class="form-label">Contact </label>
                             <input type="number" class="form-control" id="inputDate">
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
@@ -75,7 +75,7 @@
                             <input type="date" class="form-control" id="inputDate">
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label class="form-label">Email <span style="color: red">*</span></label>
+                            <label class="form-label">Email </label>
                             <input type="email" class="form-control form-control-sm">
                         </div>
                     </div>
@@ -89,7 +89,7 @@
         </div>
         
         <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary">Submit</button>
+            <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 

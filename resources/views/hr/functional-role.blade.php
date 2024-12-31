@@ -12,11 +12,11 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Skill</h5>
+                    <h5>Functional Role</h5>
                 </div>
                 <div class="row px-3 mt-2">
                     <div class="col-md-3">
-                        <label class="form-label">Skills <span style="color: red">*</span></label>
+                        <label class="form-label">Functional Role<span style="color: red">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                        
                         
@@ -35,7 +35,7 @@
                         
                     </div>
                     <div class="col-md-6">
-                        <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Skills</button></a>
+                        <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Functional Role</button></a>
                         
                     </div>
                 </div>
@@ -44,16 +44,12 @@
                    
                     
                     
-                    <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                
-                                
+
                                 <th>Sr No.</th>
-                                <th>Department</th>
-                                <th>Skills</th>
-                                
-                                
+                                <th>Functional Role</th>
                                 <th>Action</th>
                               
                             </tr>
@@ -63,10 +59,9 @@
                                 <td>
                                     1
                                 </td>
-                                <td>HR</td>
-                                <td>Tally , ERP9 , Excel</td>
+                                <td>Accounts</td>
                              <td> 
-                               
+                                <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Edit</button></a>
                                 <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete</button></a>
                             </td>
                         </tr>

@@ -1,4 +1,4 @@
-   document.addEventListener('DOMContentLoaded', function () {
+          document.addEventListener('DOMContentLoaded', function () {
             const departmentTab = document.getElementById('department-tab');
             const employeeTab = document.getElementById('employee-tab');
             const departmentContent = document.getElementById('department-content');
@@ -7,7 +7,7 @@
       
             departmentTab.addEventListener('click', function () {
                 
-                departmentTab.classList.add('active');
+              departmentTab.classList.add('active');
                 departmentTab.classList.remove('inactive');
                 employeeTab.classList.remove('active');
                 employeeTab.classList.add('inactive');

@@ -3,6 +3,12 @@
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
+<style>
+    button {
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
+</style>
 
 @endsection
 
@@ -12,8 +18,13 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Employee List</h5>
-                  
+                    
+                   
+                    <h2 class="mt-2">Employee List</h2>
+                </div>
+                <div class="row" class="mt-5">
+                    <p style="color: red;margin-left:15px; font-size:13px">** Seacrh applicable on Emp Id/Name/Work Order Number/Designation/Contact/Email (Official/ Personal )/Job Place/Qualification</p>
+
                 </div>
                 <div class="panel-body">
                     <div class="table-filter-option">
@@ -29,7 +40,7 @@
                                     </div>
                                     
                                     <div class="col">
-                                        <button class="btn btn-sm btn-primary">Send Credential</button>
+                                        <button class="btn btn-sm btn-primary"><i class="fa-solid fa-key"></i> Send Credential</button>
                                     </div>
                                    
                                 </div>
@@ -40,7 +51,7 @@
                         </div>
                     </div>
                     
-                    <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
                                 <th >
@@ -88,11 +99,12 @@
                             <td>3-years</td>
                              <td>Btech</td>
                              <td><span class="active-mark"><i class="fa-regular fa-check"></i></span> Active</td>
-                             <td> <a href="{{'edit-employee'}}"><button class="btn btn-sm btn-primary">Edit</button></td></a>
+                             <td> <a href="{{'edit-employee'}}"><button class="btn btn-sm btn-primary"> <i class="fa-solid fa-pen-to-square"></i> Edit</button></td></a>
                            
-                             <td> 
-                                <a href="{{'send-letter'}}"><button class="btn btn-sm btn-primary">Send Letter</button></a>
-                                <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">View Letter</button></a>
+                             <td class="d-flex gap-2 flex-column"> 
+
+                                <a href="{{'send-letter'}}"><button class="btn btn-sm btn-primary"> <i class="fa-solid fa-share-from-square"></i> Send Letter</button></a>
+                                <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary"> <i class="fa-solid fa-eye"></i> View Letter</button></a>
                              </td>
 
                         </tr>

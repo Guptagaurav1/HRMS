@@ -305,7 +305,7 @@ input[type=checkbox]:checked {
 }
 
 .sidebar-menu .help-center {
-  background: #0D99FF;
+  background: slategray;
 }
 
 .light-theme .main-sidebar.horizontal-menu {
@@ -315,7 +315,7 @@ input[type=checkbox]:checked {
   background: rgba(13, 153, 255, 0.7);
 }
 .light-theme .sidebar-link-group-title {
-  background: #0D99FF;
+  background: slategrey;
 }
 
 /* Main Content Section */
