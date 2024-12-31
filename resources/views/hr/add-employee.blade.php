@@ -7,43 +7,43 @@
 @endsection
 
 @section('contents')
-    <div class="dashboard-breadcrumb mb-25">
-        <h2>Add Employee</h2>
-        <div class="btn-box">
-            <a href="{{route('employee-list')}}" class="btn btn-sm btn-primary">Employee List</a>
-        </div>
+    <div class="">
+        <h2>Generate Employee</h2>
+        <h5>Create Employee details</h5>
+
+        
     </div>
     <div class="dashboard-breadcrumb mb-25">
         
         <div class="d-flex gap-2 justify-items-center align-items-center">
-            <input type="radio" id="html" name="fav_language" value="HTML">
+            <input type="radio" class="tab-links active" id="html" name="fav_language" value="HTML" data-tab="1">
             <label for="html">Single Entry</label><br>
-            <input type="radio" id="html" name="fav_language" value="HTML">
+            <input type="radio" class="tab-links" id="html" name="fav_language" value="HTML" data-tab="2">
             <label for="html">Bulk Entry</label><br>
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="tab-1">
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Employee Details</h5>
+                    <h5 class="text-dark">Employee Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Work Order Number <span style="color: red">*</span></label>
+                            <label class="form-label" class="text-dark">Work Order Number <span style="color: red">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Employee Code <span style="color: red">*</span></label>
+                            <label class="form-label" class="text-dark">Employee Code <span style="color: red">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Employee Name <span style="color: red">*</span></label>
+                            <label class="form-label" class="text-dark">Employee Name <span style="color: red">*</span></label>
                             <input type="email" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Gender <span style="color: red">*</span></label>
+                            <label class="form-label" class="text-dark">Gender <span style="color: red">*</span></label>
                             <select id="inputState" class="form-select">
                                 <option value=""> Select Gender</option>
                                 <option value="0">Male</option>
@@ -447,7 +447,30 @@
             </div>
         </div>
         <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary">Submit</button>
+            <button class="btn btn-sm btn-primary"> Submit <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+    <div class="row" id="tab-2" style="display: none">
+        <div class="col-12">
+            <div class="panel">
+                <div class="panel-header">
+                    <h5 class="text-dark">Bulk Upload Employee</h5>
+                    <div class="btn-box">
+                        <a href="{{route('employee-list')}}" class="btn btn-sm btn-primary"><i class="fa-solid fa-download"></i> Download CSV Format</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row g-3">
+                        <div class="col-xxl-3 col-lg-8 col-sm-6">
+                            <label for="formFileSm" class="form-label">Select CSV File<span style="color: red"> *</span></label>
+                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-sm btn-primary"> <i class="fa-solid fa-upload"></i> Upload CSV</button>
         </div>
     </div>
 
@@ -457,6 +480,7 @@
 <script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
 <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
 <script src={{asset('assets/js/select2-init.js')}}></script>
+<script src={{asset('assets/js/tab-changes.js')}}
 
 
 @endsection

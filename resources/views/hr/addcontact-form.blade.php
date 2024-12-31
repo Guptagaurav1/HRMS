@@ -21,7 +21,7 @@
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Position Title (Client Name) <span style="color: red">*</span></label>
+                            <label class="form-label" style="color: black;font-weight:bold">Position Title (Client Name) </label>
                             <select id="inputState" class="form-select">
                                 <option value=""> Select Title</option>
                                 <option value="0">Select 1</option>
@@ -43,12 +43,12 @@
                             
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Experience<span style="color: red">*</span></label>
+                            <label class="form-label">Experience</label>
                             <input type="number" class="form-control form-control-sm">
                             
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6 d-flex flex-wrap">
-                            <label class="form-label w-100">CTC <span style="color: red">*</span></label>
+                            <label class="form-label w-100">CTC </label>
                             <div class="d-flex w-100">
                                 <input type="number" class="form-control form-control-sm me-2" placeholder="Current CTC">
                                 <input type="number" class="form-control form-control-sm" placeholder="Expected CTC">
@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Notice Period<span style="color: red">*</span></label>
+                            <label class="form-label">Notice Period</label>
                             <input type="number" class="form-control form-control-sm">
                            
                         </div>
@@ -72,7 +72,7 @@
                        
                         
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Loaction<span style="color: red">*</span></label>
+                            <label class="form-label">Loaction</label>
                             <input type="text" class="form-control form-control-sm">
                            
                         </div>
@@ -81,7 +81,7 @@
                             <input class="form-control form-control-sm" id="formFileSm" type="file">
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label for="exampleTextarea" class="form-label">Remarks  <span style="color: red">*</span><span></label>
+                            <label for="exampleTextarea" class="form-label">Remarks </label>
                             <textarea class="form-control" id="exampleTextarea"></textarea>
                         </div>
                         
@@ -96,7 +96,7 @@
         
         <div class="col-12 d-flex justify-content-end ">
             
-            <button class="btn btn-sm btn-primary">Submit</button>
+            <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
         </div>
         
     </div>

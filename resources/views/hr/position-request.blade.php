@@ -28,16 +28,21 @@
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Position Title <span style="color: red">*</span></label>
+                            <label class="form-label">Position Title</label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Client Name <span style="color: red">*</span></label>
+                            <label class="form-label">Client Name </label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Department<span style="color: red">*</span></label>
-                            <input type="text" class="form-control form-control-sm">
+                            <select id="inputState" class="form-select">
+                                <option value=""> Select Department</option>
+                                <option value="0">HR</option>
+                                <option value="1">Sales</option>
+                                <option value="2">IT</option>
+                            </select>
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Employement Type<span style="color: red">*</span></label>
@@ -50,7 +55,7 @@
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">No Of Requirments <span style="color: red">*</span></label>
-                            <input type="text" class="form-control form-control-sm">
+                            <input type="number" class="form-control form-control-sm">
                             
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -186,7 +191,7 @@
         
         <div class="col-12 d-flex justify-content-end align-items-center">
             <p style="color: red" class=" me-3 mb-0">* For Final PR click Final Submit Button.</p>
-            <button class="btn btn-sm btn-primary">Submit</button>
+            <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
         </div>
         
     </div>

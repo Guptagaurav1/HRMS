@@ -4,6 +4,13 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
+<style>
+    .alert-success {
+    color: #fff;
+    background-color: rgba(38, 185, 154, .88);
+    border-color: rgba(38, 185, 154, .88);
+}
+</style>
 
 @endsection
 
@@ -11,8 +18,8 @@
     <div class="row">
         <div class="col-12">
             <div class="panel">
-                <div class="panel-header">
-                    <h5>Recruitment Report</h5>
+                <div class="panel-header ">
+                    <h4 class=" mt-2 text-center">Offer Letter Shared Candidate List</h4>
                 </div>
                 <div class="row px-3 mt-2">
                     <div class="col-md-3">
@@ -29,8 +36,8 @@
                         </select>
                         </label> --}}
                     </div>
-                    <div class="col-md-12 d-flex justify-content-end ml-5">
-                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add New Candidate</button></a>
+                    <div class="col-md-6">
+                        {{-- <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Skills</button></a> --}}
                     </div>
                 </div>
                 
@@ -38,39 +45,33 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="srno-column">S.No.</th>
-                                <th class="rid-column">Position Title</th>
+                                <th class="srno-column">Recruitment Id</th>
+                                <th class="rid-column">Name</th>
+                                <th>Contact Details</th>
+                                <th class="attributes-column">Job Position</th>
                                 <th>Client Name</th>
-                                <th class="attributes-column">Total Contacted Person</th>
-                                <th>Date of Request</th>
-                                <th>Date of Fullfillment</th>
-                                <th>Loaction</th>
-                                <th>Work Assigned</th>
-                                <th>Completed/Required</th>
+                                <th>Location</th>
+                                <th>Experience</th>
+                                <th>Recruitment Status</th>
                                 <th>Action</th>
-                                <th>Current Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="srno-column">1</td>
-                                <td class="rid-column">Sales and Marketing Specialist</td>
+                                <td class="rid-column">Gaurav</td>
+                                <td>g.kashyap@iitg.ac.in / 9636252935</td>
+                                <td> Sales and Marketing Specialist</td>
                                 <td>Prakhar Software Solutions Pvt. Ltd.</td>
-                                <td class="attributes-column">2 Contacts</td>
-                                <td>23rd December, 2024</td>
-                                <td>26rd December, 2024</td>
-                                <td>New Delhi</td>
-                                <td>Pallavi , Arzoo</td>
-                                <td>0/1</td>
                                 <td> 
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Share Job Description</button></a>
-                                    
+                                    Prakhar Software Solutions Pvt. Ltd, Malviya Nagar, New Delhi
                                 </td>
-                                <td>Pending</td>
+                                <td>1</td>
+                                <td><span class="badge alert-success">Recruitment Process</span></td>
+                                <td><a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">View</button></a></td>
                             </tr>
                         </tbody>
                     </table>
-                   
                     <div class="table-bottom-control"></div>
                 </div>
             </div>
@@ -83,5 +84,3 @@
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
 @endsection
-
-

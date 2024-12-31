@@ -28,38 +28,38 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="table-responsive">
+                    <div class="">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                             <thead>
-                                <tr role="row">
-                                    <th><strong>Recruitment Id</strong></th>
-                                    <th><strong>Name</strong></th>
-                                    <th><strong>Contact Details</strong></th>
-                                    <th><strong>Job Position</strong></th>
-                                    <th><strong>Client Name</strong></th>
-                                    <th><strong>DOB</strong></th>
-                                    <th><strong>Location</strong></th>
-                                    <th><strong>Experience</strong></th>
-                                    <th><strong>Skills</strong></th>
-                                    <th><strong>Education</strong></th>
-                                    <th><strong>Status</strong></th>
-                                    <th><strong>Employee Status</strong></th>
-                                    <th><strong>Action</strong></th>
+                                <tr style="background-color: #2A3F54">
+                                    <th class="text-white"><strong>Recruitment Id</strong></th>
+                                    <th class="text-white"><strong>Name</strong></th>
+                                    <th class="text-white"><strong>Contact Details</strong></th>
+                                    <th class="text-white"><strong>Job Position</strong></th>
+                                    <th class="text-white"><strong>Client Name</strong></th>
+                                    <th class="text-white"><strong>DOB</strong></th>
+                                    <th class="text-white"><strong>Location</strong></th>
+                                    <th class="text-white"><strong>Experience</strong></th>
+                                    <th class="text-white"><strong>Skills</strong></th>
+                                    <th class="text-white"><strong>Education</strong></th>
+                                    <th class="text-white"><strong>Status</strong></th>
+                                    <th class="text-white"><strong>Employee Status</strong></th>
+                                    <th class="text-white"><strong>Action</strong></th>
                                 </tr>
-                                <tr class="filters" role="row">
-                                    <th><input type="text" placeholder="Recruitment Id"></th>
-                                    <th><input type="text" placeholder="Name"></th>
-                                    <th><input type="text" placeholder="Contact Details"></th>
-                                    <th><input type="text" placeholder="Job Position"></th>
-                                    <th><input type="text" placeholder="Client Name"></th>
-                                    <th><input type="text" placeholder="DOB"></th>
-                                    <th><input type="text" placeholder="Location"></th>
-                                    <th><input type="text" placeholder="Experience"></th>
-                                    <th><input type="text" placeholder="Skills"></th>
-                                    <th><input type="text" placeholder="Education"></th>
-                                    <th><input type="text" placeholder="Status"></th>
-                                    <th><input type="text" placeholder="Employee Status"></th>
-                                    <th><input type="text" placeholder="Action"></th>
+                                <tr>
+                                    <th><input type="text" placeholder="Recruitment Id"  class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Name"  class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Contact Details" class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Job Position"  class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Client Name"  class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="DOB"  class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Location"  class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Experience"  class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Skills"  class="rec-list_head"></th>
+                                    <th>Education</th>
+                                    <th>Status</th>
+                                    <th>Employee Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,17 +74,17 @@
                                     <td>0</td>
                                     <td>MARKETING</td>
                                     <td>MBA</td>
-                                    <td>Offer Letter Sent</td>
+                                    <td><span class="badge alert-success">Offer Accepted</span></td>
                                     <td>Not Deployed</td>
                                     <td>
-                                        <button class="btn btn-sm btn-info">View</button>
+                                        <button class="btn btn-sm btn-primary">View</button>
                                     </td>
                                 </tr>
                               
                             </tbody>
                         </table>
                     </div>
-                    <div class="table-bottom-control"></div>
+                   
                 </div>
             </div>
         </div>

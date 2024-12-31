@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Manage Roles</h5>
+                    <h3 class="mt-2">POSH Complaint List</h3>
                 </div>
                 <div class="row px-3 mt-2">
                     <div class="col-md-3">
@@ -38,25 +38,34 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="srno-column">Sr No.</th>
-                                <th class="rid-column">RID</th>
-                                <th>Role Name</th>
-                                <th class="attributes-column">Attributes</th>
-                                <th>Time Added On</th>
+                                <th class="srno-column">S.No.</th>
+                                <th class="rid-column">Employee Code</th>
+                                <th>Name</th>
+                                <th class="attributes-column">Subject</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Complaint Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="srno-column">1</td>
-                                <td class="rid-column">R-5</td>
-                                <td>HR_OPERATIONS</td>
-                                <td class="attributes-column">Home, Recruitment Report, Recruitment List, Compose Mail, User Job Position Request, User Request Log, Add contact Form, Direct Recruitment Form, Offer Letter Shared List</td>
-                                <td>2022-04-26 15:12:35</td>
+                                <td class="rid-column">PSSPL/DEL/2021-22/0174</td>
+                                <td>Gaurav Gupta</td>
+                                <td class="attributes-column">Checking</td>
+                                <td>Nothing</td>
                                 <td> 
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete</button></a>
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Edit</button></a>
+                                    
+                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Wait</button></a>
                                 </td>
+                                <td>19-march-2024</td>
+                                <td> 
+                                    
+                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">View <i class="fa-solid fa-eye"></i></i></button></a>
+                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Response</button></a>
+                                </td>
+                                
                             </tr>
                         </tbody>
                     </table>

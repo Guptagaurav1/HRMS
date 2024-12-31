@@ -4,13 +4,6 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
-<style>
-    .alert-success {
-    color: #fff;
-    background-color: rgba(38, 185, 154, .88);
-    border-color: rgba(38, 185, 154, .88);
-}
-</style>
 
 @endsection
 
@@ -18,8 +11,8 @@
     <div class="row">
         <div class="col-12">
             <div class="panel">
-                <div class="panel-header border bg-success">
-                    <h4 class="text-white mt-2">Offer Letter Shared Candidate List</h4>
+                <div class="panel-header">
+                    <h3 class="mt-2">Employee Credenial Log</h3>
                 </div>
                 <div class="row px-3 mt-2">
                     <div class="col-md-3">
@@ -45,30 +38,24 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="srno-column">Recruitment Id</th>
-                                <th class="rid-column">Name</th>
-                                <th>Contact Details</th>
-                                <th class="attributes-column">Job Position</th>
-                                <th>Client Name</th>
-                                <th>Location</th>
-                                <th>Experience</th>
-                                <th>Recruitment Status</th>
-                                <th>Action</th>
+                                <th class="srno-column">ID.</th>
+                                <th class="rid-column">Emp Code</th>
+                                <th>Name</th>
+                                <th class="attributes-column">Work Order</th>
+                                <th>Email</th>
+                                <th>Sent Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="srno-column">1</td>
-                                <td class="rid-column">Gaurav</td>
-                                <td>g.kashyap@iitg.ac.in / 9636252935</td>
-                                <td> Sales and Marketing Specialist</td>
-                                <td>Prakhar Software Solutions Pvt. Ltd.</td>
+                                <td class="rid-column">PSSPL/2022-23/2382</td>
+                                <td>Ghanshyam Kumar</td>
+                                <td class="attributes-column">BECIL/CG/CMSCL/MAN/2425/1367</td>
+                                <td>sonukksahu20@gmail.com</td>
                                 <td> 
-                                    Prakhar Software Solutions Pvt. Ltd, Malviya Nagar, New Delhi
+                                    27th December, 2024
                                 </td>
-                                <td>1</td>
-                                <td><span class="badge alert-success">Recruitment Process</span></td>
-                                <td><a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">View</button></a></td>
                             </tr>
                         </tbody>
                     </table>

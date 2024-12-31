@@ -28,23 +28,23 @@
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">First Name <span style="color: red">*</span></label>
+                            <label class="form-label">First Name </label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Last Name <span style="color: red">*</span></label>
+                            <label class="form-label">Last Name</label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Date Of Birth<span style="color: red">*</span></label>
+                            <label class="form-label">Date Of Birth</label>
                             <input type="date" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Position Title<span style="color: red">*</span></label>
+                            <label class="form-label">Position Title</label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Department <span style="color: red">*</span></label>
+                            <label class="form-label">Department</label>
                             <select id="inputState" class="form-select">
                                 <option value=""> Select Department Type</option>
                                 <option value="0">Select 1</option>
@@ -54,22 +54,22 @@
                             
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Education<span style="color: red">*</span></label>
+                            <label class="form-label">Education</label>
                             <input type="text" class="form-control form-control-sm">
                             
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Loaction<span style="color: red">*</span></label>
+                            <label class="form-label">Loaction</label>
                             <input type="text" class="form-control form-control-sm">
                             
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Experience<span style="color: red">*</span></label>
+                            <label class="form-label">Experience</label>
                             <input type="text" class="form-control form-control-sm">
                             
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Recruitment Type<span style="color: red">*</span></label>
+                            <label class="form-label">Recruitment Type</label>
                             <select id="inputState" class="form-select">
                                 <option value=""> Select Type</option>
                                 <option value="0">Select 1</option>
@@ -87,8 +87,17 @@
                         </div>
                         
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label for="formFileSm" class="form-label">Attachments</label>
+                            <label for="formFileSm" class="form-label">Resume</label>
                             <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        </div>
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                            <label class="form-label">Skills</label>
+                            <select id="inputState" class="form-select">
+                                <option value=""> Select Skills</option>
+                                <option value="0">Select 1</option>
+                                <option value="1">Select 2</option>
+                                <option value="2">Select 3</option>
+                            </select>
                         </div>
                         
                     </div>
@@ -99,7 +108,7 @@
         
         <div class="col-12 d-flex justify-content-end ">
             
-            <button class="btn btn-sm btn-primary">Submit</button>
+            <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
         </div>
         
     </div>
