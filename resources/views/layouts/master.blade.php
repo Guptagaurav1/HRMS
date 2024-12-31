@@ -14,9 +14,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}"/>
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}"/>
     <link rel="stylesheet" id="rtlStyle" href="#"/>
+    <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet">
     @yield('style')
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.2/dist/sweetalert2.min.css
-" rel="stylesheet">
 </head>
 <body class="body-padding body-p-top light-theme">
      <!-- preloader start -->
@@ -44,7 +43,7 @@
     <script src="{{asset('assets/vendor/js/daterangepicker.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.2/dist/sweetalert2.all.min.js" integrity="sha256-TrylDJQSjAaKLYPzjbm/0liHQ5aeHImKTdAZrjYKA7E=" crossorigin="anonymous"></script>
+    <script src="{{asset('assets/js/sweetalert2.all.min.js')}}"></script>
     <script>
         const SITE_URL = "{{ config('js.site_url')}}";
     </script>
