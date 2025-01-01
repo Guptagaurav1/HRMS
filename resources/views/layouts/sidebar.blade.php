@@ -524,6 +524,16 @@
                            
                         </ul>
                     </li>
+                    <li class="sidebar-dropdown-item">
+                        <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-people-group"></i></span> <span class="sidebar-txt">Upcoming Event</span></a>
+                        <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+                            <li class="sidebar-dropdown-item"><a href="{{route('birthday-list')}}" class="sidebar-link">Birthday List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('my-team-list')}}" class="sidebar-link">Marriage Anniversary List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('my-team-list')}}" class="sidebar-link">Work Anniversary List</a></li>
+                            
+                           
+                        </ul>
+                    </li>
                     <ul class="sidebar-link-group">
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span> <span class="sidebar-txt">Logs</span></a>

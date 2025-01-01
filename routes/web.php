@@ -138,6 +138,10 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.my-team-list");
     })->name("my-team-list");
 
+    Route::get("birthday-list", function () {
+        return view("hr.birthday-list");
+    })->name("birthday-list");
+
 });
 
 Route::middleware('employee')->prefix('employee')->group(function () {

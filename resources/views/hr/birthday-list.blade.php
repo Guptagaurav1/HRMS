@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-2">Recruitment Report</h2>
+                    <h2 class="mt-2">Upcoming 40 days Birthday List</h2>
                 </div>
                 <div class="row px-3 mt-2">
                     <div class="col-md-3">
@@ -29,9 +29,7 @@
                         </select>
                         </label> --}}
                     </div>
-                    <div class="col-md-12 d-flex justify-content-end ml-5">
-                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add New Candidate</button></a>
-                    </div>
+                   
                 </div>
                 
                 <div class="panel-body">
@@ -39,34 +37,31 @@
                         <thead>
                             <tr>
                                 <th class="srno-column">S.No.</th>
-                                <th class="rid-column">Position Title</th>
-                                <th>Client Name</th>
-                                <th class="attributes-column">Total Contacted Person</th>
-                                <th>Date of Request</th>
-                                <th>Date of Fullfillment</th>
-                                <th>Loaction</th>
-                                <th>Work Assigned</th>
-                                <th>Completed/Required</th>
+                                <th class="rid-column">EMP Code</th>
+                                <th>Work Order</th>
+                                <th class="attributes-column">Name</th>
+                                <th>Email</th>
+                                <th>DOB</th>
+                                <th>Image</th>
                                 <th>Action</th>
-                                <th>Current Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="srno-column">1</td>
-                                <td class="rid-column">Sales and Marketing Specialist</td>
-                                <td>Prakhar Software Solutions Pvt. Ltd.</td>
+                                <td class="rid-column">PSSPL/2023-24/3380</td>
+                                <td>GEMC-511687718522647</td>
                                 <td class="attributes-column">ADVANCE PHP,Oracale Database,Oracle Database,SQL Database,HTML,CSS,CORE PHP,JAVA,WORDPRESS,NODE JS,ANGULAR JS,GrapesJs,SDK,Android Studio,Rest Api,MYSQL,Firebase,Indesign,python,Laravel,Mongo DB,Nodejs,Javascript,Golang,PHP,MongoDB,Interpersonal Skill,Vuejs,ReactJs,Negotiation Skill,Communication Skill,Writing Skills,Research Skills,Digital Marketing,dotnet</td>
-                                <td>23rd December, 2024</td>
+                                <td>234567890@gmail.com</td>
                                 <td>26rd December, 2024</td>
-                                <td>New Delhi</td>
-                                <td>Pallavi , Arzoo</td>
-                                <td>0/1</td>
+                                <td>No Image</td>
+                                
                                 <td> 
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Share Job Description</button></a>
+                                    <a href="#"><button class="btn btn-sm btn-primary">View Template Image</button></a>
+                                    <a href="#"><button class="btn btn-sm btn-primary">Send Email</button></a>
                                     
                                 </td>
-                                <td>Pending</td>
+                                
                             </tr>
                         </tbody>
                     </table>
