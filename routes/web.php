@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MasterController;
+use App\Http\Controllers\hr\HrController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,9 +25,13 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth')->prefix('hr')->group(function () {
 
-    Route::get("/", function () {
-        return view("hr.dashboard");
-    })->name('hr_dashboard');
+    Route::controller(HrController::class)->group(function () {
+        Route::get("/", 'dashboard')->name("hr_dashboard");
+    });
+
+    Route::controller(MasterController::class)->prefix('master')->group(function () {
+        Route::get("skill", 'skills')->name("skill");
+    });
 
     Route::get("add-employee", function () {
         return view("hr.add-employee");
@@ -49,10 +56,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("department", function () {
         return view(" hr.department");
     })->name("department");
-
-    Route::get("skill", function () {
-        return view(" hr.skill");
-    })->name("skill");
 
     Route::get("add-user", function () {
         return view(" hr.add-user");

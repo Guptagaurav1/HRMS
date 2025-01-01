@@ -217,8 +217,13 @@
                         <ul class="dropdown-menu profile-dropdown-menu">
                             <li>
                                 <div class="dropdown-txt text-center">
-                                    <p class="mb-0">Gaurav Gupta</p>
-                                    <span class="d-block">Front End Developer</span>
+                                    @if(auth()->check())
+                                    <p class="mb-0">{{auth()->user()->first_name. " ".auth()->user()->last_name }}</p>
+                                    <span class="d-block text-capitalize">{{auth()->user()->user_type }}</span>
+                                    @elseif(auth('employee')->check())
+                                    <p class="mb-0">{{auth('employee')->user()->emp_name}}</p>
+                                    <span class="d-block">{{auth('employee')->user()->emp_designation}}</span>
+                                    @endif
                                 </div>
                             </li>
                             <li><a class="dropdown-item" href="view-profile.html"><span class="dropdown-icon"><i class="fa-regular fa-circle-user"></i></span> Profile</a></li>
