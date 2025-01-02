@@ -16,18 +16,16 @@
             </div>
             <p class="px-3 mt-2">Your Team User Listed Below
             </p>
-            <div class="row px-3 mt-2">
-                <div class="col-md-3">
-                    {{-- Placeholder for future input fields --}}
-                </div>
-                <div class="col-md-3">
-                    {{-- Placeholder for future dropdown --}}
-                </div>
-                <div class="col-md-6">
-                    {{-- Placeholder for future button --}}
-                </div>
+            <div class="col-md-12 d-flex justify-content-start mx-3">
+                <form class="row g-3">
+                    <div class="col-auto mb-3">
+                        <input type="text" class="form-control" placeholder="Search" required>
+                    </div>
+                    
+                </form>
             </div>
-            <div class="panel-body">
+            
+            <div class="table-responsive">
                 <div class="col-sm-12">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>

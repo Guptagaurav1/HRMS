@@ -12,7 +12,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h2 class="mt-2">Upcoming 40 days Birthday List</h2>
+                <h2 class="mt-2">Upcoming 40 days Work Anniversary List</h2>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
                 <form class="row g-3">
@@ -32,7 +32,8 @@
                             <th>Work Order</th>
                             <th class="attributes-column">Name</th>
                             <th>Email</th>
-                            <th>DOB</th>
+                            <th>Date of Joining</th>
+                            <th>Year Completed</th>
                             <th>Image</th>
                             <th>Action</th>
                         </tr>
@@ -49,6 +50,7 @@
                                 Skill,Communication Skill,Writing Skills,Research Skills,Digital Marketing,dotnet</td>
                             <td>234567890@gmail.com</td>
                             <td>26rd December, 2024</td>
+                            <td>2</td>
                             <td>No Image</td>
                             <td>
                                 <a href="#"><button class="btn btn-sm btn-primary">View Template Image</button></a>

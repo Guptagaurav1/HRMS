@@ -525,11 +525,18 @@
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
-                        <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-people-group"></i></span> <span class="sidebar-txt">Upcoming Event</span></a>
+                        <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-brands fa-creative-commons-by"></i></span> <span class="sidebar-txt">Attendace</span></a>
+                        <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+                            <li class="sidebar-dropdown-item"><a href="{{route('upload-attendance')}}" class="sidebar-link">Upload Attendace</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('attendance-list')}}" class="sidebar-link">Attendance List</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-dropdown-item">
+                        <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-calendar-days"></i></span> <span class="sidebar-txt">Upcoming Event</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('birthday-list')}}" class="sidebar-link">Birthday List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('my-team-list')}}" class="sidebar-link">Marriage Anniversary List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('my-team-list')}}" class="sidebar-link">Work Anniversary List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('marriage-anniversary-list')}}" class="sidebar-link">Marriage Anniversary List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('work-anniversary-list')}}" class="sidebar-link">Work Anniversary List</a></li>
                             
                            
                         </ul>

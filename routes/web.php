@@ -145,6 +145,23 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.birthday-list");
     })->name("birthday-list");
 
+    Route::get("marriage-anniversary-list", function () {
+        return view("hr.marriage-anniversary-list");
+    })->name("marriage-anniversary-list");
+
+    Route::get("work-anniversary-list", function () {
+        return view("hr.work-anniversary-list");
+    })->name("work-anniversary-list");
+
+    Route::get("upload-attendance", function () {
+        return view("hr.upload-attendance");
+    })->name("upload-attendance");
+
+    Route::get("attendance-list", function () {
+        return view("hr.attendance-list");
+    })->name("attendance-list");
+
+
 });
 
 Route::middleware('employee')->prefix('employee')->group(function () {
