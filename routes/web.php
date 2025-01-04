@@ -46,6 +46,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/", 'index')->name("departments.index");
         Route::post("/save", 'save')->name("departments.save");
         Route::get("/edit/{department}", 'edit')->name("departments.edit");
+    Route::controller(MasterController::class)->prefix('master')->group(function () {
+        Route::get("skill", 'skills')->name("skill");
+        Route::get("company-master", 'company_details')->name("company-master");
     });
 
     Route::get("add-employee", function () {
@@ -103,10 +106,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("designation", function () {
         return view(" hr.designation");
     })->name("designation");
-
-    Route::get("company-master", function () {
-        return view(" hr.company-master");
-    })->name("company-master");
 
     Route::get("position-request", function () {
         return view(" hr.position-request");
