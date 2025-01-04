@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\DepartmentSkill;
 use App\Models\Skill;
-use DB;
+use App\Models\CompanyMaster;
+use DB;\
+
 class MasterController extends Controller
 {
     /**
@@ -21,5 +23,15 @@ class MasterController extends Controller
 
         return view("hr.skill", compact('skills'));
     }
+
+    /**
+     * Get all company details.
+    */
+    public function company_details(Request $request)
+    {
+        $details = CompanyMaster::get();
+        return view("hr.company-master", compact('details'));
+    }
+
 
 }
