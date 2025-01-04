@@ -13,13 +13,13 @@ class MasterController extends Controller
      * Get Skills.
     */
     public function skills(Request $request){
-        $skills = DepartmentSkill::select('department.department', DB::raw('group_concat(skills.skill SEPARATOR ", ") AS skill') )
-        ->join('skills', 'department_skills.skill_id', '=', 'skills.id')
-        ->join('department', 'department_skills.dept_id', '=', 'department.id')
-        ->groupBy('department_skills.dept_id', 'department.department')
-        ->paginate(10);
+        // $skills = DepartmentSkill::select('department.department', DB::raw('group_concat(skills.skill SEPARATOR ", ") AS skill') )
+        // ->join('skills', 'department_skills.skill_id', '=', 'skills.id')
+        // ->join('department', 'department_skills.dept_id', '=', 'department.id')
+        // ->groupBy('department_skills.dept_id', 'department.department')
+        // ->paginate(10);
 
-        return view("hr.skill", compact('skills'));
+        // return view("hr.skill");
     }
 
 }

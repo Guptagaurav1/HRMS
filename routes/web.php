@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\hr\HrController;
+use App\Http\Controllers\master\DepartmentController;
+use App\Http\Controllers\master\SkillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +31,21 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
     });
 
-    Route::controller(MasterController::class)->prefix('master')->group(function () {
-        Route::get("skill", 'skills')->name("skill");
+    // Route::controller(MasterController::class)->prefix('master')->group(function () {
+    //     Route::get("skill", 'skills')->name("skill");
+    // });
+
+
+    Route::controller(SkillController::class)->prefix('skills')->group(function () {
+        Route::get("/", 'index')->name("skill.index");
+        Route::post("/save", 'save')->name("skill.save");
+        Route::get("/destroy/{id}", 'destroy')->name("skill.destroy");
+    });
+
+    Route::controller(DepartmentController::class)->prefix('departments')->group(function (){
+        Route::get("/", 'index')->name("departments.index");
+        Route::post("/save", 'save')->name("departments.save");
+        Route::get("/edit/{department}", 'edit')->name("departments.edit");
     });
 
     Route::get("add-employee", function () {
@@ -53,9 +68,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view(" hr.send-letter");
     })->name("send-letter");
 
-    Route::get("department", function () {
-        return view(" hr.department");
-    })->name("department");
+    // Route::get("department", function () {
+    //     return view(" hr.department");
+    // })->name("department");
 
     Route::get("add-user", function () {
         return view(" hr.add-user");
