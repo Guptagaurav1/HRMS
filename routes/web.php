@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\hr\HrController;
+use App\Http\Controllers\hr\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("skill", 'skills')->name("skill");
     });
 
+    // add by kusham
+    Route::resource('users',UserController::class);
+
     Route::get("add-employee", function () {
         return view("hr.add-employee");
     })->name('add-employee');
@@ -57,17 +62,17 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view(" hr.department");
     })->name("department");
 
-    Route::get("add-user", function () {
-        return view(" hr.add-user");
-    })->name("add-user");
+    // Route::get("add-user", function () {
+    //     return view(" hr.add-user");
+    // })->name("add-user");
 
     Route::get("manage-roles", function () {
         return view(" hr.manage-roles");
     })->name("manage-roles");
 
-    Route::get("users-list", function () {
-        return view(" hr.users-list");
-    })->name("users-list");
+    // Route::get("users-list", function () {
+    //     return view(" hr.users-list");
+    // })->name("users-list");
 
     Route::get("functional-role", function () {
         return view(" hr.functional-role");

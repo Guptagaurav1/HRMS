@@ -48,18 +48,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="srno-column">1</td>
-                                <td class="rid-column">MIS</td>
-                                <td>Deepak Kumar/deepak.kumar@prakharsoftwares.com/8383083435</td>
-                                <td class="attributes-column">2021-12-21 22:50:47</td>
-                                <td>2021-12-21 22:50:47</td>
-                                <td>Active</td>
-                                <td> 
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Edit</button></a>
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Deactivate</button></a>
-                                </td>
-                            </tr>
+                            @foreach ($users as $key => $user)
+                                <tr>
+                                    <td class="srno-column">{{$key+1}}</td>
+                                    <td class="rid-column">{{$user->department_id}}</td>
+                                    <td>{{$user->first_name}} {{$user->last_name}} / {{$user->email}} / {{$user->phone}}</td>
+                                    <td class="attributes-column">{{$user->created_at}}</td>
+                                    <td>{{$user->updated_at}}</td>
+                                    <td>@if ($user->status == '1')
+                                           {{ 'Active' }} 
+                                        @else 
+                                           {{ 'Inactive' }}
+                                        @endif
+                                    </td>
+                                    <td> 
+                                       
+                                        <a href="{{ route('users.update', $user->id) }}"><button class="btn btn-sm btn-primary">Edit</button></a>
+                                        <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Deactivate</button></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <div class="table-bottom-control"></div>
