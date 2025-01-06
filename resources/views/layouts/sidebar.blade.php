@@ -405,8 +405,8 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> <span class="sidebar-txt">Master Data</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('department')}}" class="sidebar-link">Department</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('skill')}}" class="sidebar-link">Skill</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('departments.index')}}" class="sidebar-link">Department</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('skill.index')}}" class="sidebar-link">Skill</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('company-master')}}" class="sidebar-link">Company Master</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('functional-role')}}" class="sidebar-link">Functional Role</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('qualification')}}" class="sidebar-link">Qualification</a></li>
@@ -456,6 +456,8 @@
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('add-work-order')}}" class="sidebar-link">Add Work Order</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('work-order-list')}}" class="sidebar-link">Work Order List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('users.index')}}" class="sidebar-link">Add Work Order</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Work Order List</a></li>
                            
                         </ul>
                     </li>
@@ -468,13 +470,18 @@
                             <li class="sidebar-dropdown-item"><a href="{{route('create-billing-structure')}}" class="sidebar-link">Create Billing Structure</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('biling-structure-list')}}" class="sidebar-link">Billing Structure List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('form16')}}" class="sidebar-link">Form 16</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('users.index')}}" class="sidebar-link">Generate Invoice</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Invoice List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Create Billing Structure</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Billing Structure List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Form 16</a></li>
                            
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-light fa-envelope-open-text"></i></span> <span class="sidebar-txt">User & Role</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('add-user')}}" class="sidebar-link">Add User</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('users.create')}}" class="sidebar-link">Add User</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Manage (Roles)</a></li>
                            
                         </ul>

@@ -5,6 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\hr\HrController;
 
+use App\Http\Controllers\hr\UserController;
+
+use App\Http\Controllers\master\DepartmentController;
+use App\Http\Controllers\master\SkillController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,9 +34,30 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
     });
 
+    // Route::controller(MasterController::class)->prefix('master')->group(function () {
+    //     Route::get("skill", 'skills')->name("skill");
+    // });
+
+
+    Route::controller(SkillController::class)->prefix('skills')->group(function () {
+        Route::get("/", 'index')->name("skill.index");
+        Route::post("/save", 'save')->name("skill.save");
+        Route::get("/destroy/{id}", 'destroy')->name("skill.destroy");
+    });
+
+    Route::controller(DepartmentController::class)->prefix('departments')->group(function (){
+        Route::get("/", 'index')->name("departments.index");
+        Route::post("/save", 'save')->name("departments.save");
+        Route::get("/edit/{department}", 'edit')->name("departments.edit");
+    });
+  
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
+        Route::get("company-master", 'company_details')->name("company-master");
     });
+
+    // add by kusham
+    Route::resource('users',UserController::class);
 
     Route::get("add-employee", function () {
         return view("hr.add-employee");
@@ -53,21 +79,21 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view(" hr.send-letter");
     })->name("send-letter");
 
-    Route::get("department", function () {
-        return view(" hr.department");
-    })->name("department");
+    // Route::get("department", function () {
+    //     return view(" hr.department");
+    // })->name("department");
 
-    Route::get("add-user", function () {
-        return view(" hr.add-user");
-    })->name("add-user");
+    // Route::get("add-user", function () {
+    //     return view(" hr.add-user");
+    // })->name("add-user");
 
     Route::get("manage-roles", function () {
         return view(" hr.manage-roles");
     })->name("manage-roles");
 
-    Route::get("users-list", function () {
-        return view(" hr.users-list");
-    })->name("users-list");
+    // Route::get("users-list", function () {
+    //     return view(" hr.users-list");
+    // })->name("users-list");
 
     Route::get("functional-role", function () {
         return view(" hr.functional-role");
@@ -88,10 +114,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("designation", function () {
         return view(" hr.designation");
     })->name("designation");
-
-    Route::get("company-master", function () {
-        return view(" hr.company-master");
-    })->name("company-master");
 
     Route::get("position-request", function () {
         return view(" hr.position-request");

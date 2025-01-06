@@ -49,7 +49,8 @@
         const SITE_URL = "{{ config('js.site_url')}}";
     </script>
     <script src="{{asset('assets/js/master.js')}}"></script>
-       
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
      @yield('script')
   
     <script>
@@ -57,6 +58,11 @@
         if (rtlReady !== undefined) {
             localStorage.setItem('layoutDirection', 'ltr');
         }
+
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+
     </script>
 </body>
 

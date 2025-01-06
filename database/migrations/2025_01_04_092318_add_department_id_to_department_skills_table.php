@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email', 255)->charset('utf8'); // Using utf8 instead of utf8mb4
-            $table->primary('email');
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::table('department_skills', function (Blueprint $table) {
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('NO ACTION');
         });
     }
 
@@ -24,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('password_reset_tokens');
+        Schema::table('department_skills', function (Blueprint $table) {
+            //
+        });
     }
 };
