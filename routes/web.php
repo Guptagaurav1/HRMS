@@ -46,6 +46,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/", 'index')->name("departments.index");
         Route::post("/save", 'save')->name("departments.save");
         Route::get("/edit/{department}", 'edit')->name("departments.edit");
+    });
+  
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
         Route::get("company-master", 'company_details')->name("company-master");
