@@ -11,17 +11,19 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h3 class="mt-2">My Team User List ( You Are HR Head )</h3>
+                <h3 class="mt-2">Holiday List</h3>
               
             </div>
-            <p class="px-3 mt-2">Your Team User Listed Below
+            <p class="px-3 mt-2">Your Holiday List
             </p>
             <div class="col-md-12 d-flex justify-content-start mx-3">
                 <form class="row g-3">
                     <div class="col-auto mb-3">
                         <input type="text" class="form-control" placeholder="Search" required>
                     </div>
-                    
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    </div>
                 </form>
             </div>
             
@@ -30,11 +32,11 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th >Name</th>
-                                <th>Email / Contact</th>
-                                <th>Department</th>
-                                <th>Role</th>
-                                <th>Created</th>
+                                <th>Holiday Name</th>
+                                <th>Date</th>
+                                <th>Month</th>
+                                <th>Day</th>
+                                <th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,11 +75,11 @@
                                 <td>EMPLOYEE</td>
                                 <td>30th September, 2024</td>
                             </tr>
-                         
+                          
                         </tbody>
                     </table>
                 </div>
-               
+              
             </div>
         </div>
     </div>

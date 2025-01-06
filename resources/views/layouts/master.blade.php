@@ -15,6 +15,7 @@
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}"/>
     <link rel="stylesheet" id="rtlStyle" href="#"/>
     <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet">
+    
     @yield('style')
 </head>
 <body class="body-padding body-p-top light-theme">

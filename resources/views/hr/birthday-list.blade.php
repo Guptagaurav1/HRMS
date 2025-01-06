@@ -17,7 +17,6 @@
             <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
                 <form class="row g-3">
                     <div class="col-auto ">
-
                         <input type="text" class="form-control" placeholder="Search" required>
                     </div>
                 </form>
