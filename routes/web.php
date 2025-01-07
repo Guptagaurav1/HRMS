@@ -36,6 +36,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // });
 
 
+    // Masters
+    // ----------------------------------------
+
     Route::controller(SkillController::class)->prefix('skills')->group(function () {
         Route::get("/", 'index')->name("skill.index");
         Route::post("/save", 'save')->name("skill.save");
@@ -44,12 +47,23 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(DepartmentController::class)->prefix('departments')->group(function (){
         Route::get("/", 'index')->name("departments.index");
+        Route::get("/create", 'create')->name("departments.create");
         Route::post("/save", 'save')->name("departments.save");
         Route::get("/edit/{department}", 'edit')->name("departments.edit");
+        Route::post("/update/{department}", 'update')->name("departments.update");
+        Route::get("/delete/{department}", 'destroy')->name("departments.destroy");
+    });
+
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
         Route::get("company-master", 'company_details')->name("company-master");
     });
+
+
+
+    // end masters
+// --------------------------------
+
 
     Route::get("add-employee", function () {
         return view("hr.add-employee");
@@ -177,6 +191,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 
 });
+    
 
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){

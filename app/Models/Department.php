@@ -19,6 +19,6 @@ class Department extends Model
 
     public function skills()
     {
-        return $this->belongsToMany(Skill::class, 'department_skills', 'department_id', 'skill_id');
+        return $this->belongsToMany(Skill::class, 'department_skills', 'department_id', 'skill_id')->whereNull('department_skills.deleted_at') ;
     }
 }

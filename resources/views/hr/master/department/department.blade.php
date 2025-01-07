@@ -41,7 +41,7 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <a href="#"><button type="submit" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
+                    <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
                 </form>
                 </div>
             </div>
@@ -64,7 +64,9 @@
                             <td>{{ $value->department }}</td>
                             <td>
                                 <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit </button></a>
-                                <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete</button></a>
+                                <a href="{{ route('departments.destroy', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Delete</button></a>
+
+                                
                             </td>
                         </tr>
                         @empty
@@ -72,7 +74,6 @@
                             <td colspan="3" class="text-center">
                                 <span class="text-danger ">Record not found</span>
                             </td>
-
                         </tr>
                         @endforelse
 
@@ -80,7 +81,9 @@
 
                     </tbody>
                 </table>
-                <div class="table-bottom-control"></div>
+                <div class="table-bottom-control">
+                    {{ $departments->links() }}
+                </div>
             </div>
         </div>
     </div>

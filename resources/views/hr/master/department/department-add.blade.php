@@ -26,23 +26,17 @@
                 
 
                 <div class="col-md-6">
-                    <form method="post" action="{{route('departments.update', $department->id)}}">
+                    <form method="post" action="{{ route('departments.save') }}">
                         @csrf
                     <label class="form-label">Department<span style="color: red">*</span></label>
-                    <input type="text" name="department"  value="{{ $department->department }}" placeholder="Enter department name" class="form-control">
+                    <input type="text" name="department"  value="" placeholder="Enter department name" class="form-control">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Skills</label>
                     <select id="inputState" name="skill[]" class="js-example-basic-multiple" name="states[]" multiple="multiple">
                         <option value="">Select Skill</option>
                         @foreach ($skills as $skill)
-
-                            @if(!empty($department->skills))
-                                @foreach($department->skills as $value)
-                                    <option value="{{$skill->id}}" {{ $skill->id === $value->id ? "selected" : '' }} >{{ ucwords($skill->skill) }}</option>
-                                @endforeach
-                            @endif
-                        <option value="{{$skill->id}}">{{ ucwords($skill->skill) }}</option>
+                            <option value="{{$skill->id}}">{{ ucwords($skill->skill) }}</option> 
                         @endforeach
                     </select>
                 </div>

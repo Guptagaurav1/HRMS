@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('department_skills', function (Blueprint $table) {
             $table->id();
-            
             $table->unsignedBigInteger('dept_id')->nullable();
             $table->foreign('dept_id')->references('id')->on('departments')->onDelete('NO ACTION');
             

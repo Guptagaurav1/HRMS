@@ -13,8 +13,10 @@ use DB;
 class SkillController extends Controller
 {
     public function index(Request $request){
-        $departments = Department::with('skills')->whereHas('skills')->where('deleted_at', NULL);
-        $departments =  $departments->paginate(10);
+        $departments = Department::whereHas('skills', function($q){
+            $q->whereNull('skills.deleted_at'); 
+        })
+        ->paginate(10);
 
         return view("hr.master.skills.skill", compact('departments'));
     }
@@ -37,7 +39,6 @@ class SkillController extends Controller
         $departments = DepartmentSkill::where('department_id', $id)->get();
         foreach($departments as $department){
             $data = DepartmentSkill::find($department->id);
-            // $data->skill_id = NULL;
             $data->delete();
         }
 
