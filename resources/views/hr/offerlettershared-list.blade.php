@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 
-                <div class="panel-body">
+                <div class="table-responsive">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>

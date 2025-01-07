@@ -5,16 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-
-
-class Skill extends Model
+class FunctionalRole extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $table = 'skills';
+    use HasFactory, SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['role'];
 
+    /**
+     * Save User id on CRUD operation.
+     */
     public static function boot()
     {
         parent::boot();
@@ -31,10 +36,5 @@ class Skill extends Model
                 $model->deleted_by = auth()->user()->id;
             });
         }
-    }
-
-    public function departments()
-    {
-        return $this->belongsToMany(Department::class, 'department_skills', 'skill_id', 'department_id');
     }
 }

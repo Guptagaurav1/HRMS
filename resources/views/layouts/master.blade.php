@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HRMS</title>
+    <title>{{!empty($title) ? $title : 'HRMS'}}</title>
     <link rel="shortcut icon" href="favicon.png">
     <link rel="stylesheet" href="{{asset('assets/vendor/css/all.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/vendor/css/OverlayScrollbars.min.css')}}"/>
@@ -14,12 +14,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}"/>
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}"/>
     <link rel="stylesheet" id="rtlStyle" href="#"/>
-    {{-- <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet"> --}}
-
-    {{-- select2 --}}
-
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet">
+    
     @yield('style')
 </head>
 <body class="body-padding body-p-top light-theme">
