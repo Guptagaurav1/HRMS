@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Functional Roles'])
 
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
@@ -18,9 +18,6 @@
                     <div class="col-md-3">
                         <label class="form-label">Functional Role<span style="color: red">*</span></label>
                             <input type="text" class="form-control form-control-sm">
-                       
-                        
-
                     </div>
                     <div class="col-md-3">
                         {{-- <label class="form-label">Reporting Email</label>
@@ -41,31 +38,30 @@
                 </div>
                 
                 <div class="panel-body">
-                   
-                    
                     
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-
                                 <th>Sr No.</th>
                                 <th>Functional Role</th>
                                 <th>Action</th>
-                              
                             </tr>
                         </thead>
                         <tbody>
+                             @forelse($roles as $role) 
                             <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>Accounts</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $role->role }}</td>
                              <td> 
                                 <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Edit</button></a>
                                 <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete</button></a>
                             </td>
                         </tr>
-                         
+                            @empty 
+                            <tr>
+                                <td class="text-danger text-center" colspan="3">No Record Found</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     <div class="table-bottom-control"></div>

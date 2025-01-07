@@ -6,6 +6,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\hr\HrController;
 use App\Http\Controllers\master\DepartmentController;
 use App\Http\Controllers\master\SkillController;
+use App\Http\Controllers\master\FunctionalRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,10 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("company-master", 'company_details')->name("company-master");
     });
 
+    Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
+        Route::get("/", 'index')->name("functional-role");
+    });
+
     Route::get("add-employee", function () {
         return view("hr.add-employee");
     })->name('add-employee');
@@ -88,10 +93,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("users-list", function () {
         return view(" hr.users-list");
     })->name("users-list");
-
-    Route::get("functional-role", function () {
-        return view(" hr.functional-role");
-    })->name("functional-role");
 
     Route::get("qualification", function () {
         return view(" hr.qualification");
