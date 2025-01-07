@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FunctionalRole extends Model
+class Qualification extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,7 +15,7 @@ class FunctionalRole extends Model
      *
      * @var array
      */
-    protected $fillable = ['role'];
+    protected $fillable = ['qualification'];
 
     /**
      * Save User id on CRUD operation.

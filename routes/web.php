@@ -10,6 +10,8 @@ use App\Http\Controllers\hr\UserController;
 use App\Http\Controllers\master\DepartmentController;
 use App\Http\Controllers\master\SkillController;
 use App\Http\Controllers\master\FunctionalRoleController;
+use App\Http\Controllers\master\QualificationController;
+use App\Http\Controllers\master\BankController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,27 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
         Route::get("/", 'index')->name("functional-role");
+        Route::get("/add", 'create')->name("add-functional-role");
+        Route::post("/store", 'store')->name("store-functional-role");
+        Route::get("/edit/{id}", 'edit')->name("edit-functional-role");
+        Route::post("/update/{id}", 'update')->name("update-functional-role");
+        Route::post("/delete/{id}", 'destroy');
+    });  
+    Route::controller(QualificationController::class)->prefix('qualification')->group(function (){
+        Route::get("/", 'index')->name("qualification");
+        Route::get("/add", 'create')->name("add-qualification");
+        Route::post("/store", 'store')->name("store-qualification");
+        Route::get("/edit/{id}", 'edit')->name("edit-qualification");
+        Route::post("/update/{id}", 'update')->name("update-qualification");
+        Route::post("/delete/{id}", 'destroy');
+    });    
+    Route::controller(BankController::class)->prefix('bank')->group(function (){
+        Route::get("/", 'index')->name("bank-details");
+        Route::get("/add", 'create')->name("add-bank");
+        // Route::post("/store", 'store')->name("store-qualification");
+        // Route::get("/edit/{id}", 'edit')->name("edit-qualification");
+        // Route::post("/update/{id}", 'update')->name("update-qualification");
+        // Route::post("/delete/{id}", 'destroy');
     });
 
     // add by kusham
@@ -99,14 +122,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // Route::get("users-list", function () {
     //     return view(" hr.users-list");
     // })->name("users-list");
-
-    Route::get("qualification", function () {
-        return view(" hr.qualification");
-    })->name("qualification");
-
-    Route::get("bank-details", function () {
-        return view(" hr.bank-details");
-    })->name("bank-details");
 
     Route::get("organisation", function () {
         return view(" hr.organisation");
