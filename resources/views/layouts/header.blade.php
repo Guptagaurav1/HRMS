@@ -4,6 +4,8 @@
             <div class="col-xxl-6 col-xl-5 col-4 d-flex align-items-center gap-20">
                 <div class="main-logo d-lg-block d-none">
                     <div class="logo-big">
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
+
                         <a href="index.html">
                             <img src="{{asset('assets/images/PrakharNEWLogo.png')}}" alt="Logo" width="105px" class="mt-1">
                         </a>
