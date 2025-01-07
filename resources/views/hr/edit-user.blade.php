@@ -27,9 +27,9 @@
                                     <label for="company_id" class="form-label">Select Comapny Name <span class="text-danger"> ** </span></label>
                                     <select id="company_id" name="company_id" class="form-select">
                                         <option value=""> Select Any One</option>
-                                        <option value="0" {{ old('company_id') == 0 ? 'selected' : '' }}>Select 1</option>
-                                        <option value="1" {{ old('company_id') == 1 ? 'selected' : '' }}>Select 2</option>
-                                        <option value="2" {{ old('company_id') == 2 ? 'selected' : '' }}>Select 3</option>
+                                        <option value="0" {{ old('company_id',$user->company_id) == 0 ? 'selected' : '' }}>Select 1</option>
+                                        <option value="1" {{ old('company_id',$user->company_id) == 1 ? 'selected' : '' }}>Select 2</option>
+                                        <option value="2" {{ old('company_id',$user->company_id) == 2 ? 'selected' : '' }}>Select 3</option>
                                     </select>
                                     @error('company_id')
                                         <div class="text-danger">{{ $message }}</div>
@@ -39,9 +39,9 @@
                                     <label for="user_type" class="form-label">Select User Type <span class="text-danger"> ** </span></label>
                                     <select id="user_type" name="user_type" class="form-select">
                                         <option value=""> Department</option>
-                                        <option value="0" {{ old('user_type') == 0 ? 'selected' : '' }}>Select 1</option>
-                                        <option value="1" {{ old('user_type') == 1 ? 'selected' : '' }}>Select 2</option>
-                                        <option value="2" {{ old('user_type') == 2 ? 'selected' : '' }}>Select 3</option>
+                                        <option value="0" {{ old('user_type',$user->user_type) == 0 ? 'selected' : '' }}>Select 1</option>
+                                        <option value="1" {{ old('user_type',$user->user_type) == 1 ? 'selected' : '' }}>Select 2</option>
+                                        <option value="2" {{ old('user_type',$user->user_type) == 2 ? 'selected' : '' }}>Select 3</option>
                                     </select>
                                     @error('user_type')
                                         <div class="text-danger">{{ $message }}</div>
@@ -49,14 +49,14 @@
                                 </div>
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                                     <label for="first_name" class="form-label">First Name <span class="text-danger"> ** </span></label>
-                                    <input type="text" name="first_name" class="form-control form-control-sm" name="{{ old('first_name') }}">
+                                    <input type="text" name="first_name" class="form-control form-control-sm" value="{{ old('first_name', $user->first_name) }}">
                                     @error('first_name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                                     <label for="last_name" class="form-label">Last Name <span class="text-danger"> ** </span> </label>
-                                    <input type="text" name="last_name" class="form-control form-control-sm" value="{{ old('last_name') }}">
+                                    <input type="text" name="last_name" class="form-control form-control-sm" value="{{ old('last_name',$user->last_name) }}">
                                     @error('last_name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -65,9 +65,9 @@
                                     <label for="department" class="form-label">Department <span class="text-danger"> ** </span></label>
                                     <select id="department" name="department" class="form-select">
                                         <option value="">Select Department</option>
-                                        <option value="0" {{ old('department') == 0 ? 'selected' : '' }}>Shift 1</option>
-                                        <option value="1" {{ old('department') == 1 ? 'selected' : '' }}>Shift 2</option>
-                                        <option value="2" {{ old('department') == 2 ? 'selected' : '' }}>Shift 3</option>
+                                        <option value="0" {{ old('department',$user->department) == 0 ? 'selected' : '' }}>Shift 1</option>
+                                        <option value="1" {{ old('department',$user->department) == 1 ? 'selected' : '' }}>Shift 2</option>
+                                        <option value="2" {{ old('department',$user->department) == 2 ? 'selected' : '' }}>Shift 3</option>
                                     </select>
                                     @error('department')
                                         <div class="text-danger">{{ $message }}</div>
@@ -77,25 +77,25 @@
                                     <label for="gender" class="form-label">Gender </label>
                                     <select id="gender" name="gender" class="form-select">
                                         <option value="">Select Gender</option>
-                                        <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                        <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                                        <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Others</option>
+                                        <option value="male" {{ old('gender',$user->gender) == 'male' ? 'selected' : '' }}>Male</option>
+                                        <option value="female" {{ old('gender',$user->gender) == 'female' ? 'selected' : '' }}>Female</option>
+                                        <option value="other" {{ old('gender',$user->gender) == 'other' ? 'selected' : '' }}>Others</option>
                                     </select>
                                 </div>
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                                     <label for="contact" class="form-label">Contact<span class="text-danger"> ** </span> </label>
-                                    <input type="number" id="contact" name="contact" class="form-control" value="{{ old('contact') }}" >
+                                    <input type="number" id="contact" name="contact" class="form-control" value="{{ old('contact',$user->phone) }}" >
                                     @error('contact')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                                     <label for="dob" class="form-label">Date of Birth </label>
-                                    <input type="date" id="dob" name="dob" class="form-control"  value="{{ old('dob') }}">
+                                    <input type="date" id="dob" name="dob" class="form-control"  value="{{ old('dob',$user->dob) }}">
                                 </div>
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                                     <label for="email" class="form-label">Email <span class="text-danger"> ** </span> </label>
-                                    <input type="email" name="email" class="form-control form-control-sm" value="{{ old('email') }}">
+                                    <input type="email" name="email" class="form-control form-control-sm" value="{{ old('email',$user->email) }}">
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
