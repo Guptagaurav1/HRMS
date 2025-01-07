@@ -6,7 +6,6 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\hr\HrController;
 
 use App\Http\Controllers\hr\UserController;
-
 use App\Http\Controllers\master\DepartmentController;
 use App\Http\Controllers\master\SkillController;
 
@@ -56,9 +55,10 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("company-master", 'company_details')->name("company-master");
     });
 
-    // add by kusham
+    // user routes 
+    Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
     Route::resource('users',UserController::class);
-
+    
     Route::get("add-employee", function () {
         return view("hr.add-employee");
     })->name('add-employee');

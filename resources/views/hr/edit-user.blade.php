@@ -12,8 +12,10 @@
             <a href="{{route('users.index')}}" class="btn btn-sm btn-primary">User List</a>
         </div>
     </div>
-    <form action="{{ route('users.store') }}" method="post">
+    
+    <form action="{{ route('users.update',$user->id) }}" method="post">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-12">
                 <div class="panel">
@@ -64,10 +66,14 @@
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                                     <label for="department" class="form-label">Department <span class="text-danger"> ** </span></label>
                                     <select id="department" name="department" class="form-select">
-                                        <option value="">Select Department</option>
-                                        <option value="0" {{ old('department',$user->department) == 0 ? 'selected' : '' }}>Shift 1</option>
-                                        <option value="1" {{ old('department',$user->department) == 1 ? 'selected' : '' }}>Shift 2</option>
-                                        <option value="2" {{ old('department',$user->department) == 2 ? 'selected' : '' }}>Shift 3</option>
+                                        <option value="">-- Select Department --</option>
+                                        @foreach($departments as $department)
+                                        <option value="{{ $department->id }}" 
+                                            @if ($department->id == old('department', $user->department_id)) selected @endif>
+                                            {{ $department->department }}
+                                        </option>
+                                        @endforeach
+                                    
                                     </select>
                                     @error('department')
                                         <div class="text-danger">{{ $message }}</div>

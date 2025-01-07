@@ -7,7 +7,7 @@ use App\Models\Department;
 use App\Models\DepartmentSkill;
 use App\Models\Skill;
 use App\Models\CompanyMaster;
-use DB;\
+use DB;
 
 class MasterController extends Controller
 {
