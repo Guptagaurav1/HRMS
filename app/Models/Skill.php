@@ -13,6 +13,7 @@ class Skill extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'skills';
+    protected $fillable =['skill'];
 
 
     public static function boot()

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('qualifications', function (Blueprint $table) {
             $table->id();
-            $table->string('department');
-            $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+            $table->string('qualification');
+            $table->integer('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->integer('updated_by')->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('qualifications');
     }
 };

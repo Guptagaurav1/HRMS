@@ -31,18 +31,21 @@
                 <div class="header-right-btns d-flex justify-content-end align-items-center">
                     <div class="header-collapse-group">
                         <div class="header-right-btns d-flex justify-content-end align-items-center p-0">
-                            <form class="header-form">
+                           <!--  <form class="header-form">
                                 <input type="search" name="search" placeholder="Search..." required>
                                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </form>
+                            </form> -->
                             <div class="header-right-btns d-flex justify-content-end align-items-center p-0">
-                                <div class="lang-select">
+                                <!-- Language Icon -->
+                               <!--  <div class="lang-select">
                                     <span>Language:</span>
                                     <select>
                                         <option value="">EN</option>
                                     </select>
-                                </div>
-                                <div class="header-btn-box">
+                                </div> -->
+
+                                <!-- Message icon -->
+                                <!-- <div class="header-btn-box">
                                     <button class="header-btn" id="messageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-light fa-comment-dots"></i>
                                         <span class="badge bg-danger">3</span>
@@ -88,7 +91,7 @@
                                             <a href="#" class="show-all-btn">Show all message</a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                                 <div class="header-btn-box">
                                     <button class="header-btn" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-light fa-bell"></i>

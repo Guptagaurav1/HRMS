@@ -6,18 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Department extends Model
+class Qualification extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     /**
-     * The table associated with the model.
+     * The attributes that are mass assignable.
      *
-     * @var string
+     * @var array
      */
-    protected $table = 'departments';
+    protected $fillable = ['qualification'];
 
-
+    /**
+     * Save User id on CRUD operation.
+     */
     public static function boot()
     {
         parent::boot();
@@ -32,13 +34,8 @@ class Department extends Model
 
             static::deleting(function ($model) {
                 $model->deleted_by = auth()->user()->id;
+                $model->save();
             });
         }
-    }
-    
-
-    public function skills()
-    {
-        return $this->belongsToMany(Skill::class, 'department_skills', 'department_id', 'skill_id');
     }
 }

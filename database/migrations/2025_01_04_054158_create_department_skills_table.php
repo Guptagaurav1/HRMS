@@ -13,14 +13,11 @@ return new class extends Migration
     {
         Schema::create('department_skills', function (Blueprint $table) {
             $table->id();
-            
-            $table->unsignedBigInteger('dept_id')->nullable();
-            $table->foreign('dept_id')->references('id')->on('departments')->onDelete('NO ACTION');
-            
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('NO ACTION');
             $table->unsignedBigInteger('skill_id')->nullable();
             $table->foreign('skill_id')->references('id')->on('skills')->onDelete('NO ACTION');
-
-            $table->enum('status', [0,1]);
+            $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->integer('updated_by')->nullable();
