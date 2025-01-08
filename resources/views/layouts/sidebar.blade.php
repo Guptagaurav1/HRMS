@@ -406,7 +406,7 @@
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> <span class="sidebar-txt">Master Data</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('departments.index')}}" class="sidebar-link">Department</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('skill.index')}}" class="sidebar-link">Skill</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('skills.index')}}" class="sidebar-link">Skill</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('company-master')}}" class="sidebar-link">Company Master</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('functional-role')}}" class="sidebar-link">Functional Role</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('qualification')}}" class="sidebar-link">Qualification</a></li>

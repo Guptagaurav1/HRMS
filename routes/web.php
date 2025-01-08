@@ -41,16 +41,27 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // });
 
 
+    // Masters
+    // ----------------------------------------
+
     Route::controller(SkillController::class)->prefix('skills')->group(function () {
-        Route::get("/", 'index')->name("skill.index");
-        Route::post("/save", 'save')->name("skill.save");
-        Route::get("/destroy/{id}", 'destroy')->name("skill.destroy");
+        Route::get("/", 'index')->name("skills.index");
+        Route::get("/create", 'create')->name("skills.create");
+        Route::post("/save", 'save')->name("skills.save");
+        Route::get("/edit/{skill}", 'edit')->name("skills.edit");
+        Route::post("/update/{skill}", 'update')->name("skills.update");
+        Route::get("/destroy/{id}", 'destroy')->name("skills.destroy");
     });
 
     Route::controller(DepartmentController::class)->prefix('departments')->group(function (){
         Route::get("/", 'index')->name("departments.index");
+        Route::get("/create", 'create')->name("departments.create");
         Route::post("/save", 'save')->name("departments.save");
         Route::get("/edit/{department}", 'edit')->name("departments.edit");
+        Route::post("/update/{department}", 'update')->name("departments.update");
+        Route::get("/delete/{department}", 'destroy')->name("departments.destroy");
+    });
+
     });
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
@@ -58,7 +69,39 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("company-master", 'company_details')->name("company-master");
     });
 
-    // user routes 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    // end masters
+// --------------------------------
+
+    ////////////////////////// user routes //////////////////////////////////////////////////////////
+
+
     Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
     Route::resource('users',UserController::class);
     
@@ -86,6 +129,31 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/activate/{id}", 'activate');
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /////////////////////////////user////////////////////////////////////////////////////////////
   
     Route::get("add-employee", function () {
         return view("hr.add-employee");
@@ -290,7 +358,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     
 
 
-});
+
+    
 
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){

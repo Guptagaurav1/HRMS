@@ -1,4 +1,4 @@
-@extends('layouts.master',['title' => 'Update Department'])
+@extends('layouts.master',['title' => 'Add Department'])
 @section('style')
 {{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" /> --}}
 {{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" /> --}}
@@ -26,25 +26,26 @@
                 
 
                 <div class="col-md-6">
-                    <form method="post" action="{{route('departments.update', $department->id)}}">
+                    <form method="post" action="{{ route('departments.save') }}">
                         @csrf
                     <label class="form-label">Department<span style="color: red">*</span></label>
-                    <input type="text" name="department"  value="{{ $department->department }}" placeholder="Enter department name" class="form-control">
+                    <input type="text" name="department"  value="" placeholder="Enter department name" class="form-control">
+                    @error('department')
+                        <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Skills</label>
                     <select id="inputState" name="skill[]" class="js-example-basic-multiple" name="states[]" multiple="multiple">
                         <option value="">Select Skill</option>
                         @foreach ($skills as $skill)
-
-                            @if(!empty($department->skills))
-                                @foreach($department->skills as $value)
-                                    <option value="{{$skill->id}}" {{ $skill->id === $value->id ? "selected" : '' }} >{{ ucwords($skill->skill) }}</option>
-                                @endforeach
-                            @endif
-                        <option value="{{$skill->id}}">{{ ucwords($skill->skill) }}</option>
+                            <option value="{{$skill->id}}">{{ ucwords($skill->skill) }}</option> 
                         @endforeach
                     </select>
+
+                    @error('skill')
+                        <small class="text-danger">{{$message}}</small>
+                     @enderror
                 </div>
                 <div class="col-md-12 mb-4 text-end">
                     <button type="submit" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Submit</button>

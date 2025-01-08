@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master',['title' => 'Department Listing'])
 @section('style')
 {{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" /> --}}
 {{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" /> --}}
@@ -15,33 +15,15 @@
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>{{ $message }}</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @else
                     <div class="alert alert-error alert-dismissible fade show" role="alert">
                         <strong>{{ $message }}</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                
 
-                <div class="col-md-3">
-                    <form method="post" action="{{route('departments.save')}}">
-                        @csrf
-                    <label class="form-label">Department<span style="color: red">*</span></label>
-                    <input type="text" name="department" placeholder="Enter department name" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Skills</label>
-                    <select id="inputState" name="skill[]" class="js-example-basic-multiple" name="states[]" multiple="multiple">
-                        <option value="" selected>Select Skill</option>
-                        @foreach ($skills as $skill)
-                            <option value="{{$skill->id}}">{{ ucwords($skill->skill) }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <a href="#"><button type="submit" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
+                <div class="text-end">
+                    <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
                 </form>
                 </div>
             </div>
@@ -64,7 +46,9 @@
                             <td>{{ $value->department }}</td>
                             <td>
                                 <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit </button></a>
-                                <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete</button></a>
+                                <a  class="delete-department" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete</button></a>
+
+                                
                             </td>
                         </tr>
                         @empty
@@ -72,15 +56,13 @@
                             <td colspan="3" class="text-center">
                                 <span class="text-danger ">Record not found</span>
                             </td>
-
                         </tr>
                         @endforelse
-
-
-
                     </tbody>
                 </table>
-                <div class="table-bottom-control"></div>
+                <div class="table-bottom-control">
+                    {{ $departments->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -92,6 +74,8 @@
 <script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
 <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
 <script src={{asset('assets/js/select2-init.js')}}></script>
+
+<script src={{asset('assets/js/masters/department.js')}}></script>
 
 
 @endsection
