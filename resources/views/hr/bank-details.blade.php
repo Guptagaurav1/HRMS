@@ -11,7 +11,7 @@
                 <div class="panel-body">
                     <div class="row my-2">
                         <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{route('add-qualification')}}"><button class="btn btn-sm btn-primary">Add Bank</button></a>  
+                        <a href="{{route('add-bank')}}"><button class="btn btn-sm btn-primary">Add Bank</button></a>  
                         </div> 
 
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -65,13 +65,17 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $bank->name_of_bank }}</td>
                                 <td>{{ $bank->type_of_bank }}</td>
-                             <td> 
-                                <button class="btn btn-sm btn-primary delete" data-id="{{$bank->id}}">DeActivate</button>
-                            </td>
-                        </tr>
+                                <td> 
+                                    @if($bank->status)
+                                    <button class="btn btn-sm btn-danger deactivate" data-id="{{$bank->id}}">DeActivate</button>
+                                    @else
+                                    <button class="btn btn-sm btn-primary activate" data-id="{{$bank->id}}">Activate</button>
+                                    @endif
+                                </td>
+                            </tr>
                             @empty 
                             <tr>
-                                <td class="text-danger text-center" colspan="3">No Record Found</td>
+                                <td class="text-danger text-center" colspan="4">No Record Found</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -88,6 +92,6 @@
 
 @endsection
 @section('script')
-<script src="{{asset('assets/js/qualification.js')}}"></script>
+<script src="{{asset('assets/js/bank-details.js')}}"></script>
 
 @endsection

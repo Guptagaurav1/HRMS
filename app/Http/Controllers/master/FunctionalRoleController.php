@@ -17,7 +17,7 @@ class FunctionalRoleController extends Controller
      */
     public function index()
     {
-        $roles = FunctionalRole::paginate(10);
+        $roles = FunctionalRole::orderByDesc('id')->paginate(10);
         return view('hr.functional-role', compact('roles'));
     }
 

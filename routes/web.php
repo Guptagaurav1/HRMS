@@ -9,6 +9,8 @@ use App\Http\Controllers\hr\UserController;
 use App\Http\Controllers\master\DepartmentController;
 use App\Http\Controllers\master\SkillController;
 use App\Http\Controllers\master\FunctionalRoleController;
+
+use App\Http\Controllers\hr\RoleController;
 use App\Http\Controllers\master\QualificationController;
 use App\Http\Controllers\master\BankController;
 use App\Http\Controllers\master\OrganizationController;
@@ -144,10 +146,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(BankController::class)->prefix('bank')->group(function (){
         Route::get("/", 'index')->name("bank-details");
         Route::get("/add", 'create')->name("add-bank");
-        // Route::post("/store", 'store')->name("store-qualification");
-        // Route::get("/edit/{id}", 'edit')->name("edit-qualification");
-        // Route::post("/update/{id}", 'update')->name("update-qualification");
-        // Route::post("/delete/{id}", 'destroy');
+        Route::post("/store", 'store')->name("store-bank");
+        Route::post("/deactivate/{id}", 'deactivate');
+        Route::post("/activate/{id}", 'activate');
     });
 
 });
@@ -206,9 +207,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     //     return view(" hr.add-user");
     // })->name("add-user");
 
-    Route::get("manage-roles", function () {
-        return view(" hr.manage-roles");
-    })->name("manage-roles");
+    // Route::get("manage-roles", function () {
+    //     return view(" hr.manage-roles");
+    // })->name("manage-roles");
+    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
+        Route::get("/", 'index')->name("manage-roles");
+    });
 
     // Route::get("users-list", function () {
     //     return view(" hr.users-list");

@@ -47,17 +47,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($roles as $key => $role)
                             <tr>
-                                <td class="srno-column">1</td>
-                                <td class="rid-column">R-5</td>
-                                <td>HR_OPERATIONS</td>
-                                <td class="attributes-column">Home, Recruitment Report, Recruitment List, Compose Mail, User Job Position Request, User Request Log, Add contact Form, Direct Recruitment Form, Offer Letter Shared List</td>
-                                <td>2022-04-26 15:12:35</td>
+                                <td class="srno-column"> {{ $key }} </td>
+                                <td class="rid-column"> {{ $role->rid}}</td>
+                                <td>{{ $role->role_name}}</td>
+                                <td class="attributes-column">{{ $role->rid}}</td>
+                                <td>{{ $role->created_at}}</td>
                                 <td> 
                                     <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
                                     <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <div class="table-bottom-control"></div>

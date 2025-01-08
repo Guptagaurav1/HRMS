@@ -11,20 +11,28 @@
                 <div class="panel-body">
                     <div class="row my-2">
                         <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{route('qualification')}}"><button class="btn btn-sm btn-primary">Back</button></a>  
+                        <a href="{{route('bank-details')}}"><button class="btn btn-sm btn-primary">Back</button></a>  
                         </div> 
 
-                        <div class="col-md-12 d-flex justify-content-center">
-                        <form class="row g-3" method="post" action="{{route('store-qualification')}}">
+                        <div class="col-md-12">
+                        <form class="row g-3" method="post" action="{{route('store-bank')}}">
                         	@csrf
-  							<div class="col-auto">
-  							  <input type="text" class="form-control" name="qualification" value="{{old('qualification')}}" placeholder="Enter Functional Role" required>
-  							  @error('qualification')
+  							<div class="col-md-6">
+                              <label class="form-label">Bank Name<span class="text-danger">*</span></label>
+  							  <input type="text" class="form-control" name="name_of_bank" value="{{old('name_of_bank')}}" placeholder="Enter Bank Name" required>
+  							  @error('name_of_bank')
   							  	<span class="text-danger">{{$message}}</span>
   							  @enderror
   							</div>
-  							<div class="col-auto">
-  							  <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                            <div class="col-md-6">
+                                <label class="form-label">Bank Type<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="type_of_bank" value="{{old('type_of_bank')}}" placeholder="Enter type of bank" required>
+                                @error('type_of_bank')
+                                  <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+  							<div class="col-md-12 d-flex justify-content-center">
+  							  <button type="submit" class="btn btn-primary mb-3 text-end">Submit</button>
   							</div>
 						</form>
                         </div>
