@@ -411,8 +411,8 @@
                             <li class="sidebar-dropdown-item"><a href="{{route('functional-role')}}" class="sidebar-link">Functional Role</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('qualification')}}" class="sidebar-link">Qualification</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('bank-details')}}" class="sidebar-link">Bank Details</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('organisation')}}" class="sidebar-link">Organisations</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('designation')}}" class="sidebar-link">Designation</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('organizations.index')}}" class="sidebar-link">Organization</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('designations.index')}}" class="sidebar-link">Designation</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">

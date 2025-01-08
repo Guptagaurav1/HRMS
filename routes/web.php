@@ -11,6 +11,8 @@ use App\Http\Controllers\master\SkillController;
 use App\Http\Controllers\master\FunctionalRoleController;
 use App\Http\Controllers\master\QualificationController;
 use App\Http\Controllers\master\BankController;
+use App\Http\Controllers\master\OrganizationController;
+use App\Http\Controllers\master\DesignationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +64,25 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/delete/{department}", 'destroy')->name("departments.destroy");
     });
 
+    Route::controller(OrganizationController::class)->prefix('organizations')->group(function (){
+        Route::get("/", 'index')->name("organizations.index");
+        Route::get("/create", 'create')->name("organizations.create");
+        Route::post("/store", 'store')->name("organizations.store");
+        Route::get("/edit/{organization}", 'edit')->name("organizations.edit");
+        Route::post("/update/{organization}", 'update')->name("organizations.update");
+        Route::get("/delete/{organization}", 'destroy')->name("organizations.destroy");
     });
+
+    Route::controller(DesignationController::class)->prefix('designations')->group(function (){
+        Route::get("/", 'index')->name("designations.index");
+        Route::get("/create", 'create')->name("designations.create");
+        Route::post("/store", 'store')->name("designations.store");
+        Route::get("/edit/{designation}", 'edit')->name("designations.edit");
+        Route::post("/update/{designation}", 'update')->name("designations.update");
+        Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
+    });
+
+
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
@@ -92,7 +112,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 
 
-    
+
 
 
 
@@ -129,6 +149,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         // Route::post("/update/{id}", 'update')->name("update-qualification");
         // Route::post("/delete/{id}", 'destroy');
     });
+
+});
 
 
 
@@ -192,13 +214,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     //     return view(" hr.users-list");
     // })->name("users-list");
 
-    Route::get("organisation", function () {
-        return view(" hr.organisation");
-    })->name("organisation");
-
-    Route::get("designation", function () {
-        return view(" hr.designation");
-    })->name("designation");
 
     Route::get("position-request", function () {
         return view(" hr.position-request");

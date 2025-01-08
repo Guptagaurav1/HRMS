@@ -24,7 +24,6 @@
 
                 <div class="text-end">
                     <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
-                </form>
                 </div>
             </div>
             <div class="panel-body">
