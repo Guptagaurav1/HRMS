@@ -9,6 +9,7 @@ use App\Http\Controllers\hr\UserController;
 use App\Http\Controllers\master\DepartmentController;
 use App\Http\Controllers\master\SkillController;
 use App\Http\Controllers\master\FunctionalRoleController;
+use App\Http\Controllers\hr\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,9 +94,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     //     return view(" hr.add-user");
     // })->name("add-user");
 
-    Route::get("manage-roles", function () {
-        return view(" hr.manage-roles");
-    })->name("manage-roles");
+    // Route::get("manage-roles", function () {
+    //     return view(" hr.manage-roles");
+    // })->name("manage-roles");
+    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
+        Route::get("/", 'index')->name("manage-roles");
+    });
 
     // Route::get("users-list", function () {
     //     return view(" hr.users-list");
