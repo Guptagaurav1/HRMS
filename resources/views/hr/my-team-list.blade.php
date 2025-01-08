@@ -73,11 +73,11 @@
                                 <td>EMPLOYEE</td>
                                 <td>30th September, 2024</td>
                             </tr>
-                            <!-- Additional rows omitted for brevity -->
+                         
                         </tbody>
                     </table>
                 </div>
-                <div class="table-bottom-control"></div>
+               
             </div>
         </div>
     </div>

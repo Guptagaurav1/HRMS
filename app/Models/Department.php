@@ -17,8 +17,28 @@ class Department extends Model
      */
     protected $table = 'departments';
 
+
+    public static function boot()
+    {
+        parent::boot();
+        if (auth()->check()) {
+            static::creating(function ($model) {
+                $model->created_by = auth()->user()->id;
+            });
+
+            static::updating(function ($model) {
+                $model->updated_by = auth()->user()->id;
+            });
+
+            static::deleting(function ($model) {
+                $model->deleted_by = auth()->user()->id;
+            });
+        }
+    }
+    
+
     public function skills()
     {
-        return $this->belongsToMany(Skill::class, 'department_skills', 'department_id', 'skill_id')->whereNull('department_skills.deleted_at') ;
+        return $this->belongsToMany(Skill::class, 'department_skills', 'department_id', 'skill_id');
     }
 }

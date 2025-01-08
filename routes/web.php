@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\hr\HrController;
+
+use App\Http\Controllers\hr\UserController;
+
 use App\Http\Controllers\master\DepartmentController;
 use App\Http\Controllers\master\SkillController;
+use App\Http\Controllers\master\FunctionalRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +44,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // ----------------------------------------
 
     Route::controller(SkillController::class)->prefix('skills')->group(function () {
-        Route::get("/", 'index')->name("skill.index");
-        Route::post("/save", 'save')->name("skill.save");
-        Route::get("/destroy/{id}", 'destroy')->name("skill.destroy");
+        Route::get("/", 'index')->name("skills.index");
+        Route::get("/create", 'create')->name("skills.create");
+        Route::post("/save", 'save')->name("skills.save");
+        Route::get("/edit/{skill}", 'edit')->name("skills.edit");
+        Route::post("/update/{skill}", 'update')->name("skills.update");
+        Route::get("/destroy/{id}", 'destroy')->name("skills.destroy");
     });
 
     Route::controller(DepartmentController::class)->prefix('departments')->group(function (){
@@ -54,6 +61,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/delete/{department}", 'destroy')->name("departments.destroy");
     });
 
+    });
+  
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
         Route::get("company-master", 'company_details')->name("company-master");
@@ -64,6 +73,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // end masters
 // --------------------------------
 
+    Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
+        Route::get("/", 'index')->name("functional-role");
+    });
+
+    // add by kusham
+    Route::resource('users',UserController::class);
 
     Route::get("add-employee", function () {
         return view("hr.add-employee");
@@ -89,21 +104,17 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     //     return view(" hr.department");
     // })->name("department");
 
-    Route::get("add-user", function () {
-        return view(" hr.add-user");
-    })->name("add-user");
+    // Route::get("add-user", function () {
+    //     return view(" hr.add-user");
+    // })->name("add-user");
 
     Route::get("manage-roles", function () {
         return view(" hr.manage-roles");
     })->name("manage-roles");
 
-    Route::get("users-list", function () {
-        return view(" hr.users-list");
-    })->name("users-list");
-
-    Route::get("functional-role", function () {
-        return view(" hr.functional-role");
-    })->name("functional-role");
+    // Route::get("users-list", function () {
+    //     return view(" hr.users-list");
+    // })->name("users-list");
 
     Route::get("qualification", function () {
         return view(" hr.qualification");
@@ -189,8 +200,98 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.attendance-list");
     })->name("attendance-list");
 
+    Route::get("employee-profile-response-log", function () {
+        return view("hr.employee-profile-response-log");
+    })->name("employee-profile-response-log");
 
-});
+    Route::get("recruiter-response-log", function () {
+        return view("hr.recruiter-response-log");
+    })->name("recruiter-response-log");
+
+    Route::get("anniversary-wish-log", function () {
+        return view("hr.anniversary-wish-log");
+    })->name("anniversary-wish-log");
+
+    Route::get("birthday-wish-log", function () {
+        return view("hr.birthday-wish-log");
+    })->name("birthday-wish-log");
+
+    Route::get("work-anniversary-wish-log", function () {
+        return view("hr.work-anniversary-wish-log");
+    })->name("work-anniversary-wish-log");
+
+    Route::get("salary-slip", function () {
+        return view("hr.salary-slip");
+    })->name("salary-slip");
+
+    Route::get("generate-invoice", function () {
+        return view("hr.generate-invoice");
+    })->name("generate-invoice");
+
+    Route::get("invoice-list", function () {
+        return view("hr.invoice-list");
+    })->name("invoice-list");
+
+    Route::get("biling-structure-list", function () {
+        return view("hr.biling-structure-list");
+    })->name("biling-structure-list");
+
+    Route::get("form16", function () {
+        return view("hr.form16");
+    })->name("form16");
+
+    Route::get("add-new-form16", function () {
+        return view("hr.add-new-form16");
+    })->name("add-new-form16");
+
+    Route::get("create-billing-structure", function () {
+        return view("hr.create-billing-structure");
+    })->name("create-billing-structure");
+
+    Route::get("add-work-order", function () {
+        return view("hr.add-work-order");
+    })->name("add-work-order");
+
+    Route::get("work-order-list", function () {
+        return view("hr.work-order-list");
+    })->name("work-order-list");
+
+    Route::get("edit-work-order", function () {
+        return view("hr.edit-work-order");
+    })->name("edit-work-order");
+
+    Route::get("view-work-order", function () {
+        return view("hr.view-work-order");
+    })->name("view-work-order");
+
+    Route::get("go-to-attendance", function () {
+        return view("hr.go-to-attendance");
+    })->name("go-to-attendance");
+
+    Route::get("work-order-salary-sheet", function () {
+        return view("hr.work-order-salary-sheet");
+    })->name("work-order-salary-sheet");
+
+    Route::get("salary-list", function () {
+        return view("hr.salary-list");
+    })->name("salary-list");
+
+    Route::get("holiday-list", function () {
+        return view("hr.holiday-list");
+    })->name("holiday-list");
+
+    Route::get("applied-request-list", function () {
+        return view("hr.applied-request-list");
+    })->name("applied-request-list");
+
+    Route::get("leave-regularization", function () {
+        return view("hr.leave-regularization");
+    })->name("leave-regularization");
+   
+    
+
+
+
     
 
 Route::middleware('employee')->prefix('employee')->group(function () {

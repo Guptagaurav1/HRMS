@@ -88,6 +88,11 @@ class DepartmentController extends Controller
         public function destroy(Department $department){
             DepartmentSkill::where('department_id', $department->id)->delete();
             Department::where('id', $department->id)->delete();
+
+            // return response()->json([
+            //     'status' => 'success',
+            //     'msg' => 'Department Deleted Successfully !',
+            // ])
             return redirect()->route('departments.index')->with(['success' =>'Department Deleted !']);
         }
 }

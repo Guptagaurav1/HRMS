@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('department');
-            $table->enum('status', [0,1]);
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+            $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->unsignedBigInteger('deleted_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->softDeletes();
             $table->timestamps();

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master',['title' => 'Add Department'])
 @section('style')
 {{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" /> --}}
 {{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" /> --}}
@@ -30,6 +30,9 @@
                         @csrf
                     <label class="form-label">Department<span style="color: red">*</span></label>
                     <input type="text" name="department"  value="" placeholder="Enter department name" class="form-control">
+                    @error('department')
+                        <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Skills</label>
@@ -39,6 +42,10 @@
                             <option value="{{$skill->id}}">{{ ucwords($skill->skill) }}</option> 
                         @endforeach
                     </select>
+
+                    @error('skill')
+                        <small class="text-danger">{{$message}}</small>
+                     @enderror
                 </div>
                 <div class="col-md-12 mb-4 text-end">
                     <button type="submit" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Submit</button>

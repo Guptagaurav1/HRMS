@@ -13,12 +13,14 @@ use DB;
 class SkillController extends Controller
 {
     public function index(Request $request){
-        $departments = Department::whereHas('skills', function($q){
-            $q->whereNull('skills.deleted_at'); 
-        })
+        $departments = Department::with('skills')
         ->paginate(10);
 
         return view("hr.master.skills.skill", compact('departments'));
+    }
+
+    public function create(){
+        return view("hr.master.skills.skill-add");
     }
 
     public function save(Request $request){
@@ -28,11 +30,30 @@ class SkillController extends Controller
 
             $skill = new Skill();
             $skill->skill = $request->skill;
-            $skill->status = 1;
+            $skill->status = '1';
             $skill->save();
             if($skill){
-                return redirect()->back()->with('success','Skill Added Successfully !');
+                return redirect()->route('skills.index')->with('success','Skill Added Successfully !');
             }
+    }
+
+    public function edit(Skill $skill){
+
+        return view("hr.master.skills.skill-edit", compact('skill'));
+    }
+
+    public function update(Skill $skill, Request $request){
+       
+        $request->validate([
+            'skill' => 'required|unique:skills,skill,'.$skill->id,
+        ]);
+        $skill->skill = $request->skill;
+        $skill->status = '1';
+        $skill->save();
+        
+        if($skill){
+            return redirect()->route('skills.index')->with('success','Skill updated Successfully !');
+        }
     }
 
     public function destroy($id){
