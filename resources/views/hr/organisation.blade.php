@@ -37,7 +37,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="form-label">Organisation List</label>
+                        <label class="form-label">Organisation List</label>
                         <select id="inputState" class="form-select">
                             <option selected>Select Organisation</option>
                             <option>Select 1</option>

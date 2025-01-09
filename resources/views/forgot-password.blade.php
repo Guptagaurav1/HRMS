@@ -93,7 +93,7 @@
             </div>
             <div class="d-flex justify-content-end mb-25 mx-3">
                
-                <a href="{{'forgot-password'}}" class="text-white fs-14">Forgot Password?</a>
+                <a href="reset-password.html" class="text-white fs-14">Forgot Password?</a>
             </div>
             
         </div>
