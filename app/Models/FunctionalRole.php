@@ -34,6 +34,7 @@ class FunctionalRole extends Model
 
             static::deleting(function ($model) {
                 $model->deleted_by = auth()->user()->id;
+                $model->save();
             });
         }
     }

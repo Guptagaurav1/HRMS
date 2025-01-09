@@ -6,10 +6,15 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\hr\HrController;
 
 use App\Http\Controllers\hr\UserController;
-
 use App\Http\Controllers\master\DepartmentController;
 use App\Http\Controllers\master\SkillController;
 use App\Http\Controllers\master\FunctionalRoleController;
+
+use App\Http\Controllers\hr\RoleController;
+use App\Http\Controllers\master\QualificationController;
+use App\Http\Controllers\master\BankController;
+use App\Http\Controllers\master\OrganizationController;
+use App\Http\Controllers\master\DesignationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,30 +48,140 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // });
 
 
+    // Masters
+    // ----------------------------------------
+
     Route::controller(SkillController::class)->prefix('skills')->group(function () {
-        Route::get("/", 'index')->name("skill.index");
-        Route::post("/save", 'save')->name("skill.save");
-        Route::get("/destroy/{id}", 'destroy')->name("skill.destroy");
+        Route::get("/", 'index')->name("skills.index");
+        Route::get("/create", 'create')->name("skills.create");
+        Route::post("/save", 'save')->name("skills.save");
+        Route::get("/edit/{skill}", 'edit')->name("skills.edit");
+        Route::post("/update/{skill}", 'update')->name("skills.update");
+        Route::get("/destroy/{id}", 'destroy')->name("skills.destroy");
     });
 
     Route::controller(DepartmentController::class)->prefix('departments')->group(function (){
         Route::get("/", 'index')->name("departments.index");
+        Route::get("/create", 'create')->name("departments.create");
         Route::post("/save", 'save')->name("departments.save");
         Route::get("/edit/{department}", 'edit')->name("departments.edit");
+        Route::post("/update/{department}", 'update')->name("departments.update");
+        Route::get("/delete/{department}", 'destroy')->name("departments.destroy");
     });
+
+    Route::controller(OrganizationController::class)->prefix('organizations')->group(function (){
+        Route::get("/", 'index')->name("organizations.index");
+        Route::get("/create", 'create')->name("organizations.create");
+        Route::post("/store", 'store')->name("organizations.store");
+        Route::get("/edit/{organization}", 'edit')->name("organizations.edit");
+        Route::post("/update/{organization}", 'update')->name("organizations.update");
+        Route::get("/delete/{organization}", 'destroy')->name("organizations.destroy");
+    });
+
+    Route::controller(DesignationController::class)->prefix('designations')->group(function (){
+        Route::get("/", 'index')->name("designations.index");
+        Route::get("/create", 'create')->name("designations.create");
+        Route::post("/store", 'store')->name("designations.store");
+        Route::get("/edit/{designation}", 'edit')->name("designations.edit");
+        Route::post("/update/{designation}", 'update')->name("designations.update");
+        Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
+    });
+
+
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
         Route::get("company-master", 'company_details')->name("company-master");
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // end masters
+// --------------------------------
+
+    ////////////////////////// user routes //////////////////////////////////////////////////////////
+
+
+    Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
+    Route::resource('users',UserController::class);
+    
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
         Route::get("/", 'index')->name("functional-role");
+        Route::get("/add", 'create')->name("add-functional-role");
+        Route::post("/store", 'store')->name("store-functional-role");
+        Route::get("/edit/{id}", 'edit')->name("edit-functional-role");
+        Route::post("/update/{id}", 'update')->name("update-functional-role");
+        Route::post("/delete/{id}", 'destroy');
+    });  
+    Route::controller(QualificationController::class)->prefix('qualification')->group(function (){
+        Route::get("/", 'index')->name("qualification");
+        Route::get("/add", 'create')->name("add-qualification");
+        Route::post("/store", 'store')->name("store-qualification");
+        Route::get("/edit/{id}", 'edit')->name("edit-qualification");
+        Route::post("/update/{id}", 'update')->name("update-qualification");
+        Route::post("/delete/{id}", 'destroy');
+    });    
+    Route::controller(BankController::class)->prefix('bank')->group(function (){
+        Route::get("/", 'index')->name("bank-details");
+        Route::get("/add", 'create')->name("add-bank");
+        Route::post("/store", 'store')->name("store-bank");
+        Route::post("/deactivate/{id}", 'deactivate');
+        Route::post("/activate/{id}", 'activate');
     });
 
-    // add by kusham
-    Route::resource('users',UserController::class);
+});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /////////////////////////////user////////////////////////////////////////////////////////////
+  
     Route::get("add-employee", function () {
         return view("hr.add-employee");
     })->name('add-employee');
@@ -95,29 +210,17 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     //     return view(" hr.add-user");
     // })->name("add-user");
 
-    Route::get("manage-roles", function () {
-        return view(" hr.manage-roles");
-    })->name("manage-roles");
+    // Route::get("manage-roles", function () {
+    //     return view(" hr.manage-roles");
+    // })->name("manage-roles");
+    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
+        Route::get("/", 'index')->name("manage-roles");
+    });
 
     // Route::get("users-list", function () {
     //     return view(" hr.users-list");
     // })->name("users-list");
 
-    Route::get("qualification", function () {
-        return view(" hr.qualification");
-    })->name("qualification");
-
-    Route::get("bank-details", function () {
-        return view(" hr.bank-details");
-    })->name("bank-details");
-
-    Route::get("organisation", function () {
-        return view(" hr.organisation");
-    })->name("organisation");
-
-    Route::get("designation", function () {
-        return view(" hr.designation");
-    })->name("designation");
 
     Route::get("position-request", function () {
         return view(" hr.position-request");
@@ -303,7 +406,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     
   
 
-});
+
+    
 
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){

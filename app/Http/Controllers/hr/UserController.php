@@ -5,6 +5,7 @@ namespace App\Http\Controllers\hr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Department;
 use App\Mail\AddUser;
 use Illuminate\Support\Facades\Mail;
 
@@ -18,9 +19,12 @@ class UserController extends Controller
     public function index()
     {
         // $users = user::all();
-        $users = user::orderBy('id','desc');
-        $users = $users->paginate(10);
-        // dd($users);
+        // $users = user::orderBy('id','desc');
+        // $users = $users->paginate(10);
+        $users = user::with('department') // Eager load the related department data
+        ->orderBy('id', 'desc') // Order users by id in descending order
+        ->paginate(10); // Paginate the results
+        $departments = Department::orderBy('id', 'desc')->get();
         return view(" hr.users-list",compact('users'));
     }
 
@@ -29,8 +33,8 @@ class UserController extends Controller
      */
     public function create()
     {
-
-        return view(" hr.add-user");
+        $departments = Department::orderBy('id','desc')->get();
+        return view(" hr.add-user",compact('departments'));
     }
 
     /**
@@ -58,7 +62,6 @@ class UserController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-        $user->password = $request->enc_password;
         $user->password = $enc_password;
         $user->phone = $request->contact;
         $user->department_id = $request->department;
@@ -81,9 +84,8 @@ class UserController extends Controller
         $user->save();
         // User::create($request->all());
         return redirect()->route('users.index')
-        ->with('success', 'User created successfully.');
-      
-
+        ->with('success', 'User Added Successfully !');
+       
     }
 
     /**
@@ -91,11 +93,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = user::find($id);
-        // return View::make('hr.edit-user')
-        //     ->with('user', $user);
-        return view('hr.edit-user', compact('user'));
         
+        $user = user::find($id);
+        $departments = Department::orderBy('id','desc')->get();
+        return view('hr.edit-user', compact('user','departments'));
     }
 
     /**
@@ -103,7 +104,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = user::find($id);
+        return view('hr.edit-user', compact('user'));
     }
 
     /**
@@ -111,8 +113,54 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'department' => 'required',
+            'email' => 'required',
+            'contact' => 'required|digits:10',
+            'company_id' => 'required',
+            'user_type' => 'required'
+          ]);
+       
+        
+        $user= user::find($id);
+        $user->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->contact,
+            'department_id' => $request->department,
+            'company_id' => $request->company_id,
+            'user_type' => $request->user_type,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+        ]);
+
+        return redirect()->route('users.index')->with('success','User Updated Successfully !');
     }
+  
+    // user active/deactive method
+    public function updateStatus(Request $request, User $user)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'status' => 'required|boolean', // Ensure status is either 0 or 1
+        ]);
+
+        // Update the user status
+        $user->status = $request->status;
+        $user->save();
+
+        // Return a response with the updated status
+        return response()->json([
+            'status' => $user->status,
+            'message' => 'User status updated successfully.'
+        ]);
+    }
+
 
     /**
      * Remove the specified resource from storage.

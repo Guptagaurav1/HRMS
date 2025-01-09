@@ -428,7 +428,7 @@
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('departments.index')}}"
                                     class="sidebar-link">Department</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('skill.index')}}"
+                            <li class="sidebar-dropdown-item"><a href="{{route('skills.index')}}"
                                     class="sidebar-link">Skill</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('company-master')}}"
                                     class="sidebar-link">Company Master</a></li>
@@ -438,9 +438,9 @@
                                     class="sidebar-link">Qualification</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('bank-details')}}"
                                     class="sidebar-link">Bank Details</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('organisation')}}"
-                                    class="sidebar-link">Organisations</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('designation')}}"
+                            <li class="sidebar-dropdown-item"><a href="{{route('organizations.index')}}"
+                                    class="sidebar-link">Organization</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('designations.index')}}"
                                     class="sidebar-link">Designation</a></li>
                         </ul>
                     </li>
