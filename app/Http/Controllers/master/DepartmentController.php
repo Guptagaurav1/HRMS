@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\Skill;
 use App\Models\DepartmentSkill;
+use Illuminate\Support\Facades\DB;
+use Throwable;
+
 
 class DepartmentController extends Controller
 {
@@ -25,8 +28,9 @@ class DepartmentController extends Controller
 
     public function save(Request $request){
         $request->validate([
-            'department' => 'required|unique:departments',
-            'skill' => 'required'
+            'department' => 'required|unique:departments|max:255',
+
+            'skill' => 'required|max:255'
         ]);
 
         $departments = new Department();
@@ -49,7 +53,7 @@ class DepartmentController extends Controller
     }
 
     public function edit(Department $department){
-        $department = $department->load('skills'); 
+        $department = DepartmentSkill::with('skills')->whereNotNull('deleted_at')->where('permanent_id',$department->id)->get(); 
         $skills = Skill::select('id','skill')->get();
         $departments = Department::select('id','department')->get();
         return view('hr.master.department.department-edit',compact('department','departments','skills'));
@@ -58,30 +62,50 @@ class DepartmentController extends Controller
     public function update(Department $department, Request $request){
        
             $request->validate([
-                'department' => 'required|unique:departments',
-                'skill' => 'required'
+                'department' => 'required|max:255|unique:departments,department,'.$department->id,
+                'skill' => 'required|max:255'
             ]);
-        
+
+            try{
+
+           // Update the department details
             $department->department = $request->department;
             $department->save();
 
+            // Validate the skills input
             $skills = $request->skill;
 
             if ($skills === null || empty($skills)) {
                 return redirect()->back()->with(['error' => 'Please select at least one skill.']);
             }
 
-            DepartmentSkill::where('department_id', $department->id)->delete();
+            // Get current skill associations for the department
+            $currentSkills = DepartmentSkill::where('department_id', $department->id)->pluck('skill_id')->toArray();
 
-                foreach ($skills as $skillId) {
-                    $newDepartmentSkill = new DepartmentSkill();
-                    $newDepartmentSkill->department_id = $department->id;
-                    $newDepartmentSkill->skill_id = $skillId; // Assuming $skillId is the ID of the skill
-                    $newDepartmentSkill->status = 1;
-                    $newDepartmentSkill->save();
-                }
+            // Determine skills to add and remove
+            $skillsToAdd = array_diff($skills, $currentSkills);
+            $skillsToRemove = array_diff($currentSkills, $skills);
 
-                    return redirect()->route('departments.index')->with(['success' =>'Department Updated !']);
+            // Remove unselected skills
+            DepartmentSkill::where('department_id', $department->id)
+                ->whereIn('skill_id', $skillsToRemove)
+                ->delete();
+
+                // Add new skills
+            foreach ($skillsToAdd as $skillId) {
+                DepartmentSkill::create([
+                    'department_id' => $department->id,
+                    'skill_id' => $skillId,
+                    'status' => '1', // Assuming status is required
+                ]);
+            }
+
+                \DB::commit();
+            }catch(Throwable $th){
+                DB::rollBack();
+            return redirect()->route('departments.index')->with(['success' =>'Department Updated !']);
+
+            }
                 
         }
 

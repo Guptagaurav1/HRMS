@@ -66,7 +66,7 @@ class UserController extends Controller
         $user->phone = $request->contact;
         $user->department_id = $request->department;
         $user->company_id = $request->company_id;
-        $user->user_type = $request->user_type;
+        $user->role_id = $request->user_type;
         $user->gender = $request->gender;
         $user->dob = $request->dob;
         

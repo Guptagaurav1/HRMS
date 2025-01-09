@@ -25,7 +25,7 @@ class SkillController extends Controller
 
     public function save(Request $request){
             $request->validate([
-                'skill' => 'required|unique:skills'
+                'skill' => 'required|max:255|unique:skills'
             ]);
 
             $skill = new Skill();
@@ -45,7 +45,7 @@ class SkillController extends Controller
     public function update(Skill $skill, Request $request){
        
         $request->validate([
-            'skill' => 'required|unique:skills,skill,'.$skill->id,
+            'skill' => 'required|max:255|unique:skills,skill,'.$skill->id,
         ]);
         $skill->skill = $request->skill;
         $skill->status = '1';

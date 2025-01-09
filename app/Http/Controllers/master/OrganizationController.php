@@ -28,9 +28,9 @@ class OrganizationController extends Controller
 
     public function store(Request $request){
             $request->validate([
-                'name' => 'required|unique:organizations',
+                'name' => 'required|unique:organizations|max:255',
                 'address' => 'required|max:255',
-                'email' => 'required',
+                'email' => 'required|max:255',
                 'contact' => 'required|digits:10',
             ]);
 
@@ -51,9 +51,9 @@ class OrganizationController extends Controller
     public function update(Organization $organization, Request $request){
        
         $request->validate([
-                'name' => 'required|unique:organizations,name,'.$organization->id,
+                'name' => 'required|max:255|unique:organizations,name,'.$organization->id,
                 'address' => 'required|max:255',
-                'email' => 'required',
+                'email' => 'required|max:255',
                 'contact' => 'required|digits:10',
         ]);
         $organization->fill($request->all());

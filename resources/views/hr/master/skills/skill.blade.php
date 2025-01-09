@@ -25,7 +25,7 @@
 
                 <div class="col-md-12">
                     <div class="text-end">
-                        <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
+                        <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Skill</button></a>
                     </div>
                 </div>
                 <div class="table-responsive">

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('users')) {
         Schema::create('users', function (Blueprint $table) {
-            $table->primary('id')->increments('id');
+            $table->integer('id')->autoIncrement();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email',191)->unique();
@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('password');
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->bigInteger('phone');
-            $table->integer('user_type')->nullable();
+            $table->integer('role_id')->nullable();
             $table->integer('department_id')->nullable();
             $table->integer('company_id')->nullable();
-            $table->foreign('user_type')->references('id')->on('roles')->onDelete('NO ACTION');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('NO ACTION');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('NO ACTION');
             $table->foreign('company_id')->references('id')->on('company_master')->onDelete('NO ACTION');
 

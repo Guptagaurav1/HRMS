@@ -34,7 +34,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('d-logout', 'd_logout')->name('department_logout');
 });
 
-Route::middleware('auth')->prefix('hr')->group(function () {
+// Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
@@ -151,7 +151,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/activate/{id}", 'activate');
     });
 
-});
+// });
 
 
 
