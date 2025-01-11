@@ -43,7 +43,7 @@
                                 <td class="text-center">1</td>
                                 <td class="text-center">Sales and Marketing Specialist</td>
                                 <td class="text-center">Prakhar Software Solutions Pvt. Ltd.</td>
-                                <td class="text-left">
+                                <td class="attributes-column">
                                     ADVANCE PHP, Oracle Database, SQL Database, HTML, CSS, CORE PHP, JAVA, WORDPRESS, NODE JS, ANGULAR JS, GrapesJs, SDK, Android Studio, Rest API, MYSQL, Firebase, Indesign, Python, Laravel, Mongo DB, Nodejs, Javascript, Golang, PHP, Vuejs, ReactJs, Negotiation Skill, Communication Skill, Writing Skills, Research Skills, Digital Marketing, dotnet
                                 </td>
                                 <td class="text-center">23rd December, 2024</td>

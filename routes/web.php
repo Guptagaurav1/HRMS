@@ -13,6 +13,8 @@ use App\Http\Controllers\master\FunctionalRoleController;
 use App\Http\Controllers\hr\RoleController;
 use App\Http\Controllers\master\QualificationController;
 use App\Http\Controllers\master\BankController;
+use App\Http\Controllers\master\OrganizationController;
+use App\Http\Controllers\master\DesignationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +33,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('emp-login', 'emp_login')->name('employee_login');
     Route::get('d-logout', 'd_logout')->name('department_logout');
 });
+Route::get("forgot-password", function () {
+    return view("forgot-password");
+})->name("forgot-password");
 
-Route::middleware('auth')->prefix('hr')->group(function () {
+// Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
@@ -64,7 +69,25 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/delete/{department}", 'destroy')->name("departments.destroy");
     });
 
+    Route::controller(OrganizationController::class)->prefix('organizations')->group(function (){
+        Route::get("/", 'index')->name("organizations.index");
+        Route::get("/create", 'create')->name("organizations.create");
+        Route::post("/store", 'store')->name("organizations.store");
+        Route::get("/edit/{organization}", 'edit')->name("organizations.edit");
+        Route::post("/update/{organization}", 'update')->name("organizations.update");
+        Route::get("/delete/{organization}", 'destroy')->name("organizations.destroy");
     });
+
+    Route::controller(DesignationController::class)->prefix('designations')->group(function (){
+        Route::get("/", 'index')->name("designations.index");
+        Route::get("/create", 'create')->name("designations.create");
+        Route::post("/store", 'store')->name("designations.store");
+        Route::get("/edit/{designation}", 'edit')->name("designations.edit");
+        Route::post("/update/{designation}", 'update')->name("designations.update");
+        Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
+    });
+
+
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
@@ -94,7 +117,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 
 
-    
+
 
 
 
@@ -136,6 +159,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/deactivate/{id}", 'deactivate');
         Route::post("/activate/{id}", 'activate');
     });
+
+// });
 
 
 
@@ -200,13 +225,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     //     return view(" hr.users-list");
     // })->name("users-list");
 
-    Route::get("organisation", function () {
-        return view(" hr.organisation");
-    })->name("organisation");
-
-    Route::get("designation", function () {
-        return view(" hr.designation");
-    })->name("designation");
 
     Route::get("position-request", function () {
         return view(" hr.position-request");
@@ -363,9 +381,34 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("leave-regularization", function () {
         return view("hr.leave-regularization");
     })->name("leave-regularization");
-   
-    
 
+    Route::get("profile-detail-request-list", function () {
+        return view("hr.profile-detail-request-list");
+    })->name("profile-detail-request-list");
+
+    Route::get("create-salary", function () {
+        return view("hr.create-salary");
+    })->name("create-salary");
+
+    Route::get("modify-profile-request", function () {
+        return view("hr.modify-profile-request");
+    })->name("modify-profile-request");
+
+    Route::get("compose-email", function () {
+        return view("hr.compose-email");
+    })->name("compose-email");
+
+    Route::get("email-list", function () {
+        return view("hr.email-list");
+    })->name("email-list");
+
+    Route::get("add-role", function () {
+        return view("hr.add-role");
+    })->name("add-role");
+
+    
+    
+  
 
 
     
@@ -374,6 +417,9 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){
         return view('employee.dashboard');
     })->name('employee_dashboard');
+
+    
+   
 });
 
 

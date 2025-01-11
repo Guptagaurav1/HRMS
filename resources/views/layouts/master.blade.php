@@ -16,6 +16,7 @@
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}"/>
     <link rel="stylesheet" id="rtlStyle" href="#"/>
     <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     
     @yield('style')
 </head>
@@ -50,6 +51,7 @@
         const SITE_URL = "{{ config('js.site_url')}}";
     </script>
     <script src="{{asset('assets/js/master.js')}}"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
      @yield('script')

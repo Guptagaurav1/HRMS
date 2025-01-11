@@ -12,20 +12,36 @@
             <div class="panel-header">
                 <h5>Skill</h5>
             </div>
-            <div class="row my-4">
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{ $message }}</strong>
-                </div>
-                @else
-                <div class="alert alert-error alert-dismissible fade show" role="alert">
-                    <strong>{{ $message }}</strong>
+            <div class="row">
+                @if($message = Session::get('success'))
+                <div class="col-md-12">
+                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                         <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                        <div>
+                         {{ $message }}
+                        </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
                 @endif
+                @if($message = Session::get('error'))
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                            {{$message}}
+                        </div>
+                     
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+
+              
 
                 <div class="col-md-12">
-                    <div class="text-end">
-                        <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
+                    <div class="text-end p-2">
+                        <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Skill</button></a>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -33,30 +49,23 @@
                         <thead>
                             <tr>
                                 <th>Sr No.</th>
-                                <th>Department</th>
                                 <th>Skills</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($departments as $department)
+                            @forelse($skills as $skill)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    {{ $department->department }}
+                                    {{ ucwords($skill->skill) }}
                                 </td>
 
+                              
                                 <td>
-                                    <?php
-                                        $skill = $department->skills->pluck('skill')->toArray();
-                                        $skills1 = implode(', ',$skill);
-                                    ?>
-                                        {{ $skills1 }}
-                                </td>
-                                <td>
-                                    <a  href="{{ route('skills.edit',['skill' => $department->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
+                                    <a  href="{{ route('skills.edit',['skill' => $skill->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
 
-                                    <a  class="delete-skill" data-id="{{ $department->id }}"><button type="button" class="btn btn-sm btn-primary">Delete</button></a>
+                                    <a  class="delete-skill" data-id="{{ $skill->id }}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a>
                                 </td>
                             </tr>
                             @empty
@@ -68,7 +77,7 @@
                         </tbody>
                     </table>
                     <div class="col-md-12 d-flex justify-content-center my-4">
-                        {{$departments->links() }}
+                        {{$skills->links() }}
                     </div>
                 </div>
             </div>

@@ -82,7 +82,7 @@
                                     <td>0%</td>
                                     <td>Mr. Awadhesh Pandit (Deputy General Manager -Finance & Accounts)</td>
                                     <td>panditmd@becil.com</td>
-                                    <td><a href=""><button class="btn btn-sm btn-primary">Edit</button></a></td>
+                                    <td><a href=""><button class="btn btn-sm btn-primary">Edit  <i class="fa-solid fa-pen-to-square"></i></button></a></td>
                                     <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
@@ -98,8 +98,8 @@
                                     <td>0</td>
                                     <td>0</td>
                                     <td>0</td>
-                                    <td><a href=""><button class="btn btn-sm btn-primary">Edit</button></a>
-                                        <a href=""><button class="btn btn-sm btn-primary">Delete</button></a>
+                                    <td><a href=""><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        <a href=""><button class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
                                     </td>
                                 </tr>
                             </tbody>

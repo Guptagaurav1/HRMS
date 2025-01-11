@@ -52,9 +52,11 @@
                             <td class="text-center"><span class="badge alert-success">Approved</span></td>
                             <td class="text-center">2024-12-23</td>
                             <td class="text-center">
-                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#leaveDetailsModal">View <i class="fa-solid fa-eye"></i></button>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#leaveDetailsModal">View <i class="fa-solid fa-eye"></i></button>
                                 <a href="{{'view-letter'}}">
-                                    <button class="btn btn-sm btn-primary">Print <i class="fa-solid fa-print"></i></button>
+                                    <button class="btn btn-sm btn-primary">Print <i
+                                            class="fa-solid fa-print"></i></button>
                                 </a>
                             </td>
                         </tr>
@@ -71,169 +73,121 @@
 
 <div class="modal fade" id="leaveDetailsModal" tabindex="-1" aria-labelledby="leaveDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header bg-primary">
                 <h5 class="modal-title text-white" id="leaveDetailsModalLabel">Leave Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
-                
                     <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label>Leave Code</label>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Leave Code:</label>
+                                <span>Leave/0293/CL/0867</span>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <span>Leave/0293/CL/0867</span>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Employee Code:</label>
+                                <span>PSSPL/DEL/2023-24/0293</span>
+                            </div>
                         </div>
                     </div>
-                
                     <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label>Employee Code</label>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Employee Name:</label>
+                                <span>Gaurav Gupta</span>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <span >PSSPL/DEL/2023-24/0293</span>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">CC Mail:</label>
+                                <span>example@example.com</span>
+                            </div>
                         </div>
                     </div>
-                  
                     <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >Employee Name</label>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Reason Of Absence:</label>
+                                <span>Medical Leave</span>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <span >Vikas Verma</span>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Absence Dates:</label>
+                                <span>01/01/2025 - 04/01/2025</span>
+                            </div>
                         </div>
                     </div>
-                 
                     <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >CC Email</label>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">No Of Days:</label>
+                                <span>4</span>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <span >data-reason="Half</span>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Employee Comment:</label>
+                                <span>Feeling unwell, needed rest</span>
+                            </div>
                         </div>
                     </div>
-                   
                     <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >Reason of Absence</label>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Revert By:</label>
+                                <span>HR Manager</span>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <span > </span>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Revert Comment:</label>
+                                <span>Approved as per policy</span>
+                            </div>
                         </div>
                     </div>
-                  
                     <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >Absence Dates</label>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Approved By:</label>
+                                <span>Gaurav Gupta</span>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <span >21st June, 2025</span>
-                        </div>
-                    </div>
-                   
-                    <div class="row mb-3 st-end-date">
-                        <div class="col-md-4">
-                            <label >Leave Start Date</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span >N/A </span>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Approved Comment:</label>
+                                <span>Leave granted</span>
+                            </div>
                         </div>
                     </div>
-                   
-                    <div class="row mb-3 st-end-date">
-                        <div class="col-md-4">
-                            <label >Leave End Date</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span>N/A</span>
-                        </div>
-                    </div>
-                  
                     <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >No. of Days</label>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Status:</label>
+                                <span>Approved</span>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <span >Half Day leave</span>
-                        </div>
-                    </div>
-                  
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >Employee Comment</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span ></span>
-                        </div>
-                    </div>
-                   
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label>Revert By</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span ></span>
-                        </div>
-                    </div>
-                   
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label>Revert Comment</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span></span>
-                        </div>
-                    </div>
-                  
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >Reapproved By</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span ></span>
-                        </div>
-                    </div>
-                 
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >Reapproved Comment</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span ></span>
-                        </div>
-                    </div>
-                   
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="fw-bold">Status</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span id="mstatus">Approved</span>
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label >Apply Date</label>
-                        </div>
-                        <div class="col-md-8">
-                            <span >1st July, 2025</span>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Apply Date:</label>
+                                <span>31/12/2024</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-           
         </div>
     </div>
 </div>
 
 
-@section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
 
 
-@endsection
+
+
+
+

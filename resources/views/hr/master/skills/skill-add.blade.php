@@ -28,6 +28,9 @@
                         @csrf
                         <div class="col-md-6">
                             <input type="text" name="skill" class="form-control" placeholder="Enter Skill">
+                            @error('skill')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror 
                         </div>
                     </div>
                 </div>

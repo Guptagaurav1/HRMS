@@ -33,11 +33,10 @@
                         {{-- <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Skills</button></a> --}}
                     </div>
                 </div>
-                
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label class="form-label">Organisation List</label>
+                        <label class="form-label">Organisation List</label>
                         <select id="inputState" class="form-select">
                             <option selected>Select Organisation</option>
                             <option>Select 1</option>
@@ -45,14 +44,11 @@
                             <option>Select 1</option>
                         </select>
                         </label>
-
                         </div>
                         <div class="col-md-6">
                             <a href="{{'qualification'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Organisation</button></a>
                         </div>
                     </div>
-                   
-                    
                 </div>
             </div>
         </div>
