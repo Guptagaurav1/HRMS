@@ -16,6 +16,17 @@
                         <a href="{{route('users.create')}}" class="btn btn-sm btn-primary">Add User</a>
                     </div>
                 </div>
+                <div class="row px-3 mt-2">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @else
+                        <div class="alert alert-error alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
@@ -33,7 +44,7 @@
                             @foreach ($users as $key => $user)
                                 <tr>
                                     <td class="srno-column">{{$key+1}}</td>
-                                    <td class="rid-column">{{$user->department->department}}</td>
+                                    <td class="rid-column">{{$user->department->department??NULL}}</td>
                                     <td>{{$user->first_name}} {{$user->last_name}} / {{$user->email}} / {{$user->phone}}</td>
                                     <td class="attributes-column">{{$user->created_at}}</td>
                                     <td>{{$user->updated_at}}</td>

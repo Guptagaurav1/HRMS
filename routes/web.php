@@ -106,6 +106,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
     Route::resource('users',UserController::class);
+
+    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
+        Route::get("/", 'index')->name("manage-roles");
+        Route::get("/create", 'create')->name("add-manage-role");
+        Route::post("/store", 'store')->name("store-manage-role");
+    });
     
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
         Route::get("/", 'index')->name("functional-role");
@@ -188,9 +194,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // Route::get("manage-roles", function () {
     //     return view(" hr.manage-roles");
     // })->name("manage-roles");
-    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
-        Route::get("/", 'index')->name("manage-roles");
-    });
+   
 
     // Route::get("users-list", function () {
     //     return view(" hr.users-list");
