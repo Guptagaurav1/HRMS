@@ -367,21 +367,26 @@
 <!-- right sidebar end -->
 
 <!-- main sidebar start -->
-<div class="main-sidebar">
+<div class="main-sidebar ">
     <div class="main-menu">
         <ul class="sidebar-menu scrollable">
-           
+
             <li class="sidebar-item">
                 <a role="button" class="sidebar-link-group-title has-sub">HRMS</a>
                 <ul class="sidebar-link-group">
                     <li class="sidebar-dropdown-item">
-                        {{-- <a role="button" class="sidebar-link has-sub" data-dropdown="crmDropdown"><span class="nav-icon"><i class="fa-light fa-user-headset"></i></span> <span class="sidebar-txt">CRM</span></a> --}}
+                        {{-- <a role="button" class="sidebar-link has-sub" data-dropdown="crmDropdown"><span
+                                class="nav-icon"><i class="fa-light fa-user-headset"></i></span> <span
+                                class="sidebar-txt">CRM</span></a> --}}
                         {{-- <ul class="sidebar-dropdown-menu" id="crmDropdown">
-                            <li class="sidebar-dropdown-item"><a href="audience.html" class="sidebar-link">Target Audience</a></li>
-                            <li class="sidebar-dropdown-item"><a href="company.html" class="sidebar-link">Company</a></li>
+                            <li class="sidebar-dropdown-item"><a href="audience.html" class="sidebar-link">Target
+                                    Audience</a></li>
+                            <li class="sidebar-dropdown-item"><a href="company.html" class="sidebar-link">Company</a>
+                            </li>
                             <li class="sidebar-dropdown-item"><a href="task.html" class="sidebar-link">Task</a></li>
                             <li class="sidebar-dropdown-item"><a href="leads.html" class="sidebar-link">Leads</a></li>
-                            <li class="sidebar-dropdown-item"><a href="customer.html" class="sidebar-link">Customer</a></li>
+                            <li class="sidebar-dropdown-item"><a href="customer.html" class="sidebar-link">Customer</a>
+                            </li>
                         </ul> --}}
                     </li>
                     <li class="sidebar-dropdown-item">
@@ -392,15 +397,19 @@
                             <li class="sidebar-dropdown-item"><a href="{{route('edit-employee')}}" class="sidebar-link">Edit Employee</a></li>
                         </ul>
                     </li>
-                   
+
                     {{-- <li class="sidebar-dropdown-item">
-                        <a href="calendar.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-calendar"></i></span> <span class="sidebar-txt">Calendar</span></a>
+                        <a href="calendar.html" class="sidebar-link"><span class="nav-icon"><i
+                                    class="fa-light fa-calendar"></i></span> <span
+                                class="sidebar-txt">Calendar</span></a>
                     </li> --}}
                     {{-- <li class="sidebar-dropdown-item">
-                        <a href="chat.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-messages"></i></span> <span class="sidebar-txt">Chat</span></a>
+                        <a href="chat.html" class="sidebar-link"><span class="nav-icon"><i
+                                    class="fa-light fa-messages"></i></span> <span class="sidebar-txt">Chat</span></a>
                     </li>
                     <li class="sidebar-dropdown-item">
-                        <a href="email.html" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-envelope"></i></span> <span class="sidebar-txt">Email</span></a>
+                        <a href="email.html" class="sidebar-link"><span class="nav-icon"><i
+                                    class="fa-light fa-envelope"></i></span> <span class="sidebar-txt">Email</span></a>
                     </li> --}}
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> <span class="sidebar-txt">Master Data</span></a>
@@ -430,25 +439,25 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-indian-rupee-sign"></i></span> <span class="sidebar-txt">Salary Structure</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">Create Salary</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('create-salary')}}" class="sidebar-link">Create Salary</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('salary-list')}}" class="sidebar-link">Salary List</a></li>
-                            
+
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-user"></i></span> <span class="sidebar-txt">Profile</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">My Account</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('recruitment-report')}}" class="sidebar-link">Modify Profile Request</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('recruitment-report')}}" class="sidebar-link">Profile Request Log</a></li>
-                            
+                            <li class="sidebar-dropdown-item"><a href="{{route('modify-profile-request')}}" class="sidebar-link">Modify Profile Request</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
+
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-envelope"></i></span> <span class="sidebar-txt">Helpdesk</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">Compose Mail</a></li>
-                           
+                            <li class="sidebar-dropdown-item"><a href="{{route('compose-email')}}" class="sidebar-link">Compose Mail</a></li>
+
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
@@ -456,12 +465,11 @@
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('add-work-order')}}" class="sidebar-link">Add Work Order</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('work-order-list')}}" class="sidebar-link">Work Order List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('users.index')}}" class="sidebar-link">Add Work Order</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Work Order List</a></li>
-                           
+
+
                         </ul>
                     </li>
-                    
+
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-file-invoice"></i></span> <span class="sidebar-txt">Invoice & Billing</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
@@ -469,13 +477,14 @@
                             <li class="sidebar-dropdown-item"><a href="{{route('invoice-list')}}" class="sidebar-link">Invoice List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('create-billing-structure')}}" class="sidebar-link">Create Billing Structure</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('biling-structure-list')}}" class="sidebar-link">Billing Structure List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('form16')}}" class="sidebar-link">Form 16</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('form16')}}" class="sidebar-link">Form
+                                    16</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('users.index')}}" class="sidebar-link">Generate Invoice</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Invoice List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Create Billing Structure</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Billing Structure List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Form 16</a></li>
-                           
+
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
@@ -483,7 +492,7 @@
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('users.create')}}" class="sidebar-link">Add User</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}" class="sidebar-link">Manage (Roles)</a></li>
-                           
+
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
@@ -519,23 +528,23 @@
                             <li class="sidebar-dropdown-item"><a href="{{route('anniversary-wish-log')}}" class="sidebar-link">Anniversary Wish Log</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('birthday-wish-log')}}" class="sidebar-link">Birthday Wish Log</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('work-anniversary-wish-log')}}" class="sidebar-link">Work Anniversary Wish Log</a></li>
-                            
+
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-business-time"></i></span> <span class="sidebar-txt">Reimbursement</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('reimbursement-list')}}" class="sidebar-link">Reimbursement List</a></li>
-                            
-                           
+
+
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-people-group"></i></span> <span class="sidebar-txt">My Team </span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('my-team-list')}}" class="sidebar-link">Team User</a></li>
-                            
-                           
+
+
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
@@ -551,8 +560,8 @@
                             <li class="sidebar-dropdown-item"><a href="{{route('birthday-list')}}" class="sidebar-link">Birthday List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('marriage-anniversary-list')}}" class="sidebar-link">Marriage Anniversary List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('work-anniversary-list')}}" class="sidebar-link">Work Anniversary List</a></li>
-                            
-                           
+
+
                         </ul>
                     </li>
                     <ul class="sidebar-link-group">
@@ -560,14 +569,14 @@
                             <a role="button" class="sidebar-link has-sub" data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span> <span class="sidebar-txt">Logs</span></a>
                             <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
                                 <li class="sidebar-dropdown-item"><a href="{{route('credential_log_list')}}" class="sidebar-link">Credential Log List</a></li>
-                               
+
                             </ul>
                         </li>
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-person"></i></span> <span class="sidebar-txt">Posh</span></a>
                             <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
                                 <li class="sidebar-dropdown-item"><a href="{{route('posh-complaint-list')}}" class="sidebar-link">Posh Complaint List</a></li>
-                               
+
                             </ul>
                         </li>
                         <li class="help-center">
@@ -575,17 +584,14 @@
                             <p>We're an award-winning, forward thinking</p>
                             <a href="#" class="btn btn-sm btn-light">Go to Help Center</a>
                         </li>
-                        
-                       
+
+
                     </ul>
                 </ul>
             </li>
-            
-           
-            
+
+
+
         </ul>
     </div>
 </div>
-<!-- main sidebar end -->
-
-<!-- main content start -->

@@ -91,9 +91,7 @@ class BankController extends Controller
             DB::beginTransaction();
 
             $bank = Bank::findOrFail($id);
- 
             $bank->status = 1;
-             
             $bank->save();
 
             DB::commit();

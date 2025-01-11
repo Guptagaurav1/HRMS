@@ -38,15 +38,13 @@
                     <label class="form-label">Skills</label>
                     <select id="inputState" name="skill[]" class="js-example-basic-multiple" name="states[]" multiple="multiple">
                         <option value="">Select Skill</option>
-                        @foreach ($skills as $skill)
-
-                            @if(!empty($department->skills))
-                                @foreach($department->skills as $value)
-                                    <option value="{{$skill->id}}" {{ $skill->id === $value->id ? "selected" : '' }} >{{ ucwords($skill->skill) }}</option>
-                                @endforeach
-                            @endif
-                        <option value="{{$skill->id}}">{{ ucwords($skill->skill) }}</option>
+                        @foreach ($total_skill as $key => $skill)
+                            <option value="{{ $skill->id }}" @if (in_array($skill->id, $skills)) selected @else @endif>
+                             {{$skill->skill}} 
+                            </option>
                         @endforeach
+                    
+                    
                     </select>
 
                     @error('skill')

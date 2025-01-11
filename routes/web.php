@@ -33,6 +33,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('emp-login', 'emp_login')->name('employee_login');
     Route::get('d-logout', 'd_logout')->name('department_logout');
 });
+Route::get("forgot-password", function () {
+    return view("forgot-password");
+})->name("forgot-password");
 
 // Route::middleware('auth')->prefix('hr')->group(function () {
 
@@ -374,9 +377,34 @@ Route::controller(AuthController::class)->group(function () {
     Route::get("leave-regularization", function () {
         return view("hr.leave-regularization");
     })->name("leave-regularization");
-   
-    
 
+    Route::get("profile-detail-request-list", function () {
+        return view("hr.profile-detail-request-list");
+    })->name("profile-detail-request-list");
+
+    Route::get("create-salary", function () {
+        return view("hr.create-salary");
+    })->name("create-salary");
+
+    Route::get("modify-profile-request", function () {
+        return view("hr.modify-profile-request");
+    })->name("modify-profile-request");
+
+    Route::get("compose-email", function () {
+        return view("hr.compose-email");
+    })->name("compose-email");
+
+    Route::get("email-list", function () {
+        return view("hr.email-list");
+    })->name("email-list");
+
+    Route::get("add-role", function () {
+        return view("hr.add-role");
+    })->name("add-role");
+
+    
+    
+  
 
 
     
@@ -385,6 +413,9 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){
         return view('employee.dashboard');
     })->name('employee_dashboard');
+
+    
+   
 });
 
 

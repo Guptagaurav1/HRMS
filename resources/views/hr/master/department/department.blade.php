@@ -12,15 +12,30 @@
                 <h5>Department</h5>
             </div>
             <div class="row px-3 mt-2">
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </div>
-                @else
-                    <div class="alert alert-error alert-dismissible fade show" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </div>
-                @endif
+                @if($message = Session::get('success'))
+                        <div class="col-md-12">
+                            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                <div>
+                                  {{ $message }}
+                                </div>
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        @endif
+
+                    @if($message = Session::get('error'))
+                        <div class="col-md-12">
+                            <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                <div>
+                                    {{ $message }}
+                                </div>
+                             
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
 
                 <div class="text-end">
                     <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
@@ -32,6 +47,7 @@
                         <tr>
                             <th>Sr No.</th>
                             <th>Department</th>
+                            <th>Skills</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -43,6 +59,14 @@
                                 {{$loop->iteration}}
                             </td>
                             <td>{{ $value->department }}</td>
+                            <td>
+                                    <?php
+                                    $skill = $value->skills->pluck('skill')->toArray();
+                                    $unique = array_unique($skill);
+                                    $skills1 = implode(', ',$unique);
+                                ?>
+                                    {{ $skills1 }}
+                            </td>
                             <td>
                                 <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit </button></a>
                                 <a  class="delete-department" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete</button></a>
