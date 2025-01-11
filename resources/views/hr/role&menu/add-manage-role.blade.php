@@ -31,6 +31,37 @@
                             
                         </div>
                     </div>
+                    <div class="col-12 panel_1">
+                        <label class="form-label">Select Roles *</label>
+                        <div class="table-responsive mt-3 ">
+                            
+                                <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                                    id="allEmployeeTable">
+                                    @foreach ($menus as $section => $menu )
+                                        <tr>
+                                            <td>
+                                            <label class="form-check-label" for="gridCheck">
+                                            {{ $section }} </label>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            @foreach ($menu as $sub_menu)
+                                                <td class="srno-column">
+                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id}}" type="checkbox" id="gridCheck">
+                                                    <label class="form-check-label" for="gridCheck">
+                                                    {{$sub_menu->name}}
+                                                    </label>
+                                                </td>
+                                                
+                                            @endforeach
+                                        
+                                        </tr>
+                                    @endforeach
+                                </table>
+                        
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

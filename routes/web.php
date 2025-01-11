@@ -37,7 +37,7 @@ Route::get("forgot-password", function () {
     return view("forgot-password");
 })->name("forgot-password");
 
-// Route::middleware('auth')->prefix('hr')->group(function () {
+Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
@@ -86,7 +86,8 @@ Route::get("forgot-password", function () {
         Route::post("/update/{designation}", 'update')->name("designations.update");
         Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
     });
-
+    });
+        
 
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
@@ -134,8 +135,10 @@ Route::get("forgot-password", function () {
         Route::get("/", 'index')->name("manage-roles");
         Route::get("/create", 'create')->name("add-manage-role");
         Route::post("/store", 'store')->name("store-manage-role");
+        Route::get("/edit/{id}", 'edit')->name("edit-manage-role");
+        Route::post("/update/{id}", 'update')->name("update-manage-role");
     });
-    
+   
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
         Route::get("/", 'index')->name("functional-role");
         Route::get("/add", 'create')->name("add-functional-role");

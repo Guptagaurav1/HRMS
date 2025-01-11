@@ -55,6 +55,7 @@ class UserController extends Controller
         $password_s =date('d-m-Y',strtotime($dob));
         $password = str_replace("-", "", $password_s);
         $enc_password = md5($password);
+       
         $user = new User();
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -73,7 +74,7 @@ class UserController extends Controller
             $email = $request->email;
         $url ='https/hrms';
        
-        
+        // dd($user);
         if ($email != " ") {
             Mail::to($email)->send(new AddUser($name, $email, $password, $url, $role_id));    //
         }

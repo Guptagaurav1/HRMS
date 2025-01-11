@@ -77,7 +77,7 @@
                                 <td>{{ $role->created_at}}</td>
                                 <td> 
                                     <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <a href="{{route('edit-manage-role',$role->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                 </td>
                             </tr>
                             @endforeach

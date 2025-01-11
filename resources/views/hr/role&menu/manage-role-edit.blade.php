@@ -26,64 +26,47 @@
                 </div>
                 <div class="col-sm-12 col-md-4 px-3">
                     <label class="form-label">Role Name <span class="text-danger">*</span></label>
-                    <select id="inputState" class="form-select">
-                        <option selected>Select Role</option>
-                        <option>Select 1</option>
-                        <option>Select 1</option>
-                        <option>Select 1</option>
-                    </select>
+                    <input type="text" class="form-control" value="{{$role->role_name}}" disabled>
                 </div>
-                <div class="col-12 panel_1">
-                    <label class="form-label">Select Roles *</label>
-                    <div class="table-responsive mt-3 ">
-                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
-                            id="allEmployeeTable">
-                            <thead>
-                                <tr>
-                                    <th class="srno-column">Home.</th>
-                                    <th class="rid-column">Master Data</th>
-                                    <th>Master Data</th>
-                                    <th class="attributes-column">Master Data</th>
-                                    <th>Master Data</th>
-                                    <th>Master Data</th>
-                                    <th>Master Data</th>
-                                    <th>Master Data</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="srno-column">
-                                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                                        <label class="form-check-label" for="gridCheck">
-                                            Home
-                                        </label>
-                                    </td>
-                                    <td class="rid-column"><input class="form-check-input" type="checkbox"
-                                            id="gridCheck">
-                                        <label class="form-check-label" for="gridCheck">
-                                            Department
-                                        </label>
-                                    </td>
-                                    <td>NA</td>
-                                    <td class="attributes-column">NA</td>
-                                    <td>Nothing</td>
-                                    <td>
-                                        NA
-                                    </td>
-                                    <td>NA</td>
-                                    <td>
-                                        NA
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <form action=" {{route('update-manage-role',$role->id)}}" method="post">
+                @csrf
+                    <div class="col-12 panel_1">
+                        <label class="form-label">Select Roles *</label>
+                        <div class="table-responsive mt-3 ">
+                            
+                                <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                                    id="allEmployeeTable">
+                                    @foreach ($menus as $section => $menu )
+                                        <tr>
+                                            <td>
+                                            <label class="form-check-label" for="gridCheck">
+                                            {{ $section }} </label>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            @foreach ($menu as $sub_menu)
+                                                <td class="srno-column">
+                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id}}" type="checkbox" id="gridCheck">
+                                                    <label class="form-check-label" for="gridCheck">
+                                                    {{$sub_menu->name}}
+                                                    </label>
+                                                </td>
+                                                
+                                            @endforeach
+                                        
+                                        </tr>
+                                    @endforeach
+                                </table>
+                        
+                        </div>
                     </div>
-                </div>
-                <div class="col-12 d-flex justify-content-end py-4 px-3">
-                    <button class="btn btn-sm btn-primary">
-                        Update Role <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
+                    <div class="col-12 d-flex justify-content-end py-4 px-3">
+                        <button class="btn btn-sm btn-primary">
+                            Update Role <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
