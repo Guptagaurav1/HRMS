@@ -530,16 +530,7 @@
                                     class="sidebar-link">Billing Structure List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('form16')}}" class="sidebar-link">Form
                                     16</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('users.index')}}"
-                                    class="sidebar-link">Generate Invoice</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}"
-                                    class="sidebar-link">Invoice List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}"
-                                    class="sidebar-link">Create Billing Structure</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}"
-                                    class="sidebar-link">Billing Structure List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('manage-roles')}}"
-                                    class="sidebar-link">Form 16</a></li>
+        
 
                         </ul>
                     </li>
@@ -618,8 +609,6 @@
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('reimbursement-list')}}"
                                     class="sidebar-link">Reimbursement List</a></li>
-
-
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
@@ -629,8 +618,6 @@
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('my-team-list')}}"
                                     class="sidebar-link">Team User</a></li>
-
-
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
@@ -655,8 +642,6 @@
                                     class="sidebar-link">Marriage Anniversary List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('work-anniversary-list')}}"
                                     class="sidebar-link">Work Anniversary List</a></li>
-
-
                         </ul>
                     </li>
                     <ul class="sidebar-link-group">
@@ -667,7 +652,6 @@
                             <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
                                 <li class="sidebar-dropdown-item"><a href="{{route('credential_log_list')}}"
                                         class="sidebar-link">Credential Log List</a></li>
-
                             </ul>
                         </li>
                         <li class="sidebar-dropdown-item">
@@ -677,7 +661,6 @@
                             <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
                                 <li class="sidebar-dropdown-item"><a href="{{route('posh-complaint-list')}}"
                                         class="sidebar-link">Posh Complaint List</a></li>
-
                             </ul>
                         </li>
                         <li class="help-center">
@@ -685,14 +668,9 @@
                             <p>We're an award-winning, forward thinking</p>
                             <a href="#" class="btn btn-sm btn-light">Go to Help Center</a>
                         </li>
-
-
                     </ul>
                 </ul>
             </li>
-
-
-
         </ul>
     </div>
 </div>

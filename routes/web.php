@@ -37,7 +37,7 @@ Route::get("forgot-password", function () {
     return view("forgot-password");
 })->name("forgot-password");
 
-Route::middleware('auth')->prefix('hr')->group(function () {
+  Route::middleware('auth')->prefix(prefix: 'hr')->group(function () {
 
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
@@ -154,7 +154,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/activate/{id}", 'activate');
     });
 
-});
+ });
 
 
 

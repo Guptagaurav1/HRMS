@@ -17,10 +17,10 @@
                     <a href="#"><button class="btn btn-sm btn-primary mt-3 " id="add-more-btn">Add More</button></a>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive after-add-more" id="add-field">
                 <table class="table table-bordered table-hover digi-dataTable table-striped" id="allEmployeeTable">
-                    <thead>
-                        <tr>
+                    <thead id="table-head">
+                        <tr >
                             <th class="text-center">S.No.</th>
                             <th class="text-center">Query Type</th>
                             <th class="text-center">Particular Field</th>
@@ -30,7 +30,7 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody  id="add-field" class="after-add-more">
+                    <tbody>
                         <tr>
                             <td class="text-center">
                                 1
@@ -60,9 +60,9 @@
                                 <a href="{{'view-letter'}}">
                                     <button class="btn btn-sm btn-primary">Reset</button>
                                 </a>
-                                <a href="{{'view-letter'}}" id="remove-btn">
+                                <!-- <a href="{{'view-letter'}}" id="remove-btn">
                                     <button class="btn btn-sm btn-primary " >Remove</button>
-                                </a>
+                                </a> -->
                             </td>
                         </tr>
                     </tbody>
