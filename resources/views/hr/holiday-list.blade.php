@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Holidays'])
 
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
@@ -12,22 +12,22 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Holiday List</h3>
-              
             </div>
             <p class="px-3 mt-2">Your Holiday List
             </p>
             <div class="col-md-12 d-flex justify-content-start mx-3">
                 <form class="row g-3">
                     <div class="col-auto mb-3">
-                        <input type="text" class="form-control" placeholder="Search" required>
+                        <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
+                        <a href="{{route('holiday-list')}}" class="btn btn-primary mb-3">Reset</a>
                     </div>
                 </form>
             </div>
             
-            <div class="table-responsive">
+            <div class="table-responsive vh-100">
                 <div class="col-sm-12">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
@@ -39,47 +39,26 @@
                                 <th>Type</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
+                            @forelse($holidays as $holiday)
                             <tr>
-                                <td>Manish Kumar Pathania</td>
-                                <td>manish.pathania@prakharsoftwares.com / 9958466912</td>
-                                <td>HR</td>
-                                <td>EMPLOYEE</td>
-                                <td>15th November, 2024</td>
+                                <td>{{$holiday->holiday_name}}</td>
+                                <td>{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
+                                <td>{{date('F', strtotime($holiday->holiday_date))}}</td>
+                                <td>{{date('l', strtotime($holiday->holiday_date))}}</td>
+                                <td class="text-center">{{$holiday->holiday_type}}</td>
                             </tr>
+                            @empty
                             <tr>
-                                <td>Kriti Singhvi</td>
-                                <td>kriti.singhvi@prakharsoftwares.com / 9821298777</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td>15th November, 2024</td>
+                                <td class="text-danger text-center" colspan="5">No Record Found</td>
                             </tr>
-                            <tr>
-                                <td>Mayank Puri</td>
-                                <td>mayank.puri@prakharsoftwares.com / 9717368860</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td>14th November, 2024</td>
-                            </tr>
-                            <tr>
-                                <td>Nikhil Baswal</td>
-                                <td>nikhil.baswal@prakharsoftwares.com / 9711546517</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td>10th October, 2024</td>
-                            </tr>
-                            <tr>
-                                <td>Nidhi Sharma</td>
-                                <td>nidhi.sharma@prakharsoftwares.com / 9654386141</td>
-                                <td>HR</td>
-                                <td>EMPLOYEE</td>
-                                <td>30th September, 2024</td>
-                            </tr>
-                          
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
-              
+                <div class="col-md-12 my-2 d-flex justify-content-center">
+                    {{$holidays->links()}}
+                </div>
             </div>
         </div>
     </div>

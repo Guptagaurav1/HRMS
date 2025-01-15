@@ -133,7 +133,7 @@
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Education<span style="color: red">*</span> <a href="{{route('designation')}}" class="ms-2">
+                            <label class="form-label">Education<span style="color: red">*</span> <a href="" class="ms-2">
                                 <i class="fa-solid fa-plus d-inline-block bg-success text-white rounded-circle p-1" style="font-size: 10px;"></i>
                             </a></label>
                             <select id="inputState" class="form-select">
