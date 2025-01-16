@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'My Team'])
 
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
@@ -11,15 +11,18 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h3 class="mt-2">My Team User List ( You Are HR Head )</h3>
-              
+                <h3 class="mt-2">My Team User List ( You Are {{auth()->user()->role->role_name}} Head )</h3>
             </div>
             <p class="px-3 mt-2">Your Team User Listed Below
             </p>
             <div class="col-md-12 d-flex justify-content-start mx-3">
-                <form class="row g-3">
+                <form class="row g-3" method="get">
                     <div class="col-auto mb-3">
-                        <input type="text" class="form-control" placeholder="Search" required>
+                        <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
+                    </div>
+                     <div class="col-auto mb-3">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <a href="{{route('my-team-list')}}" class="btn btn-primary">Reset</a>
                     </div>
                     
                 </form>
@@ -30,7 +33,7 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th >Name</th>
+                                <th>Name</th>
                                 <th>Email / Contact</th>
                                 <th>Department</th>
                                 <th>Role</th>
@@ -38,46 +41,25 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($employees as $employee)
                             <tr>
-                                <td>Manish Kumar Pathania</td>
-                                <td>manish.pathania@prakharsoftwares.com / 9958466912</td>
-                                <td>HR</td>
-                                <td>EMPLOYEE</td>
-                                <td>15th November, 2024</td>
+                                <td>{{$employee->emp_name}}</td>
+                                <td>{{$employee->emp_email_first."/".$employee->emp_phone_first}}</td>
+                                <td>{{$employee->department}}</td>
+                                <td>{{$employee->user_type}}</td>
+                                <td>{{date('d-M-Y', strtotime($employee->adding_date))}}</td>
                             </tr>
+                            @empty
                             <tr>
-                                <td>Kriti Singhvi</td>
-                                <td>kriti.singhvi@prakharsoftwares.com / 9821298777</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td>15th November, 2024</td>
+                                <td class="text-danger text-center" colspan="5">No Record Found</td>
                             </tr>
-                            <tr>
-                                <td>Mayank Puri</td>
-                                <td>mayank.puri@prakharsoftwares.com / 9717368860</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td>14th November, 2024</td>
-                            </tr>
-                            <tr>
-                                <td>Nikhil Baswal</td>
-                                <td>nikhil.baswal@prakharsoftwares.com / 9711546517</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td>10th October, 2024</td>
-                            </tr>
-                            <tr>
-                                <td>Nidhi Sharma</td>
-                                <td>nidhi.sharma@prakharsoftwares.com / 9654386141</td>
-                                <td>HR</td>
-                                <td>EMPLOYEE</td>
-                                <td>30th September, 2024</td>
-                            </tr>
-                         
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
-               
+            </div>
+            <div class="col-md-12 my-2 d-flex justify-content-center">
+                {{$employees->links()}}
             </div>
         </div>
     </div>

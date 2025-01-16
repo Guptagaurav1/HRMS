@@ -6,12 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Role extends Model
+class Holiday extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $table = 'roles';
-    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['holiday_name', 'holiday_date', 'holiday_type', 'location'];
+
+    /**
+     * Save User id on CRUD operation.
+     */
     public static function boot()
     {
         parent::boot();
@@ -30,10 +38,4 @@ class Role extends Model
             });
         }
     }
-
-    public function menu()
-    {
-        return $this->belongsTo(Menu::class, 'menu_id');  // 'menu_id' is the foreign key
-    }
-
 }

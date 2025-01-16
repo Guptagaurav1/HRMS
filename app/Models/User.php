@@ -66,9 +66,14 @@ class User extends Authenticatable
         {
             return $this->belongsTo(Department::class, 'department_id');
         }
-    
-    public function role()
-        {
-            return $this->belongsTo(Role::class, 'role_id');
-        }
+
+
+
+    /**
+     * Get role name.
+    */
+    public function role(){
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
 }

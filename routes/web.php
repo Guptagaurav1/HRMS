@@ -16,6 +16,9 @@ use App\Http\Controllers\master\BankController;
 use App\Http\Controllers\master\OrganizationController;
 use App\Http\Controllers\master\DesignationController;
 
+use App\Http\Controllers\hr\TeamController;
+use App\Http\Controllers\hr\HolidayController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,15 +30,17 @@ use App\Http\Controllers\master\DesignationController;
 |
 */
 
-Route::controller(AuthController::class)->group(function () {
-    Route::get('/', 'login')->name('login');
-    Route::post('d-login', 'd_login')->name('department_login');
-    Route::post('emp-login', 'emp_login')->name('employee_login');
-    Route::get('d-logout', 'd_logout')->name('department_logout');
+Route::middleware('guest')->group(function () {
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('/', 'login')->name('login');
+        Route::post('d-login', 'd_login')->name('department_login');
+        Route::post('emp-login', 'emp_login')->name('employee_login');
+    });
+    Route::get("forgot-password", function () {
+        return view("forgot-password");
+    })->name("forgot-password");
+
 });
-Route::get("forgot-password", function () {
-    return view("forgot-password");
-})->name("forgot-password");
 
 Route::middleware('auth')->prefix('hr')->group(function () {
 
@@ -86,14 +91,11 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/update/{designation}", 'update')->name("designations.update");
         Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
     });
-    });
-        
 
-  
-    Route::controller(MasterController::class)->prefix('master')->group(function () {
-        Route::get("skill", 'skills')->name("skill");
-        Route::get("company-master", 'company_details')->name("company-master");
+    Route::controller(TeamController::class)->prefix('teams')->group(function () {
+        Route::get("/", 'index')->name("my-team-list");
     });
+
 
 
 
@@ -141,6 +143,10 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     });
     // Route::resource('users',UserController::class);
 
+
+
+  ////////////////////////// Menu & role routes //////////////////////////////////////////////////////////
+
     Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
         Route::get("/", 'index')->name("manage-roles");
         Route::get("/create", 'create')->name("add-manage-role");
@@ -149,7 +155,22 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/update/{id}", 'update')->name("update-manage-role");
         Route::get("/delete/{id}", 'destroy')->name("delete-manage-role");
     });
-   
+
+
+
+
+
+
+
+    Route::controller(HolidayController::class)->prefix('holiday')->group(function () {
+        Route::get("/", 'index')->name("holiday-list");
+
+    });
+
+    Route::get("position-request", function () {
+        return view(" hr.position-request");
+    })->name("position-request");
+
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
         Route::get("/", 'index')->name("functional-role");
         Route::get("/add", 'create')->name("add-functional-role");
@@ -173,31 +194,35 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/deactivate/{id}", 'deactivate');
         Route::post("/activate/{id}", 'activate');
     });
+  
+    Route::controller(MasterController::class)->prefix('master')->group(function () {
+        Route::get("skill", 'skills')->name("skill");
+        Route::get("company-master", 'company_details')->name("company-master");
+    });
+ // end masters
 
-// });
+// --------------------------------
 
-
-
-
-
-
-
-
-
-
+    ////////////////////////// user routes //////////////////////////////////////////////////////////
 
 
+    Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
+    Route::resource('users',UserController::class);
+
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('d-logout', 'd_logout')->name('department_logout');
+    });
+    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
+        Route::get("/", 'index')->name("manage-roles");
+        Route::get("/create", 'create')->name("add-manage-role");
+        Route::post("/store", 'store')->name("store-manage-role");
+        Route::get("/edit/{id}", 'edit')->name("edit-manage-role");
+        Route::post("/update/{id}", 'update')->name("update-manage-role");
+    });
+   
 
 
-
-
-
-
-
-
-
-
-
+});
 
 
     /////////////////////////////user////////////////////////////////////////////////////////////
@@ -240,9 +265,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // })->name("users-list");
 
 
-    Route::get("position-request", function () {
-        return view(" hr.position-request");
-    })->name("position-request");
 
     Route::get("recruitment-report", function () {
         return view(" hr.recruitment-report");
@@ -283,10 +305,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("reimbursement-list", function () {
         return view(" hr.reimbursement-list");
     })->name("reimbursement-list");
-
-    Route::get("my-team-list", function () {
-        return view("hr.my-team-list");
-    })->name("my-team-list");
 
     Route::get("birthday-list", function () {
         return view("hr.birthday-list");
@@ -384,9 +402,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.salary-list");
     })->name("salary-list");
 
-    Route::get("holiday-list", function () {
-        return view("hr.holiday-list");
-    })->name("holiday-list");
 
     Route::get("applied-request-list", function () {
         return view("hr.applied-request-list");

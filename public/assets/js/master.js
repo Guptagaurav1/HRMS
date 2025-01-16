@@ -10,7 +10,7 @@ $(document).ready(function () {
                   confirmButtonText: "Confirm"
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    window.location.href = SITE_URL+'/d-logout';
+                    window.location.href = SITE_URL+'/hr/d-logout';
                   }
                 });
         })
