@@ -105,63 +105,10 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // end masters
 // --------------------------------
 
-    ////////////////////////// user routes //////////////////////////////////////////////////////////
-
-
-    // Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
-    Route::controller(UserController::class)->prefix('users')->group(function(){
-        Route::post('/{user}/update-status', 'updateStatus')->name('users.update-status');
-
-        Route::get("/", 'index')->name("users");
-        Route::get("/create", 'create')->name("add-user");
-        Route::post("/store", 'store')->name("store-user");
-        Route::get("/edit/{id}", 'edit')->name("edit-user");
-        Route::post("/update/{id}", 'update')->name("update-user");
-        Route::get("/delete/{id}", 'destroy')->name("delete");
-    });
-    // Route::resource('users',UserController::class);
-
-
-
-  ////////////////////////// Menu & role routes //////////////////////////////////////////////////////////
-
-    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
-        Route::get("/", 'index')->name("manage-roles");
-        Route::get("/create", 'create')->name("add-manage-role");
-        Route::post("/store", 'store')->name("store-manage-role");
-        Route::get("/edit/{id}", 'edit')->name("edit-manage-role");
-        Route::post("/update/{id}", 'update')->name("update-manage-role");
-        Route::get("/delete/{id}", 'destroy')->name("delete-manage-role");
-    });
-
-
-
-
-
-
-
+  
     Route::controller(HolidayController::class)->prefix('holiday')->group(function () {
         Route::get("/", 'index')->name("holiday-list");
 
@@ -203,29 +150,56 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 // --------------------------------
 
-    ////////////////////////// user routes //////////////////////////////////////////////////////////
-
-
-    Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
-    Route::resource('users',UserController::class);
-
     Route::controller(AuthController::class)->group(function () {
         Route::get('d-logout', 'd_logout')->name('department_logout');
     });
-    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
-        Route::get("/", 'index')->name("manage-roles");
-        Route::get("/create", 'create')->name("add-manage-role");
-        Route::post("/store", 'store')->name("store-manage-role");
-        Route::get("/edit/{id}", 'edit')->name("edit-manage-role");
-        Route::post("/update/{id}", 'update')->name("update-manage-role");
-    });
+   
    
 
 
 });
 
 
-    /////////////////////////////user////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ////////////////////////// user routes //////////////////////////////////////////////////////////
+
+
+    // Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
+    Route::controller(UserController::class)->prefix('users')->group(function(){
+        Route::post('/{user}/update-status', 'updateStatus')->name('users.update-status');
+
+        Route::get("/", 'index')->name("users");
+        Route::get("/create", 'create')->name("add-user");
+        Route::post("/store", 'store')->name("store-user");
+        Route::get("/edit/{id}", 'edit')->name("edit-user");
+        Route::post("/update/{id}", 'update')->name("update-user");
+        Route::get("/delete/{id}", 'destroy')->name("delete");
+    });
+    // Route::resource('users',UserController::class);
+
+    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
+        Route::get("/", 'index')->name("manage-roles");
+        Route::get("/create", 'create')->name("add-manage-role");
+        Route::post("/store", 'store')->name("store-manage-role");
+        Route::get("/edit/{id}", 'edit')->name("edit-manage-role");
+        Route::post("/update/{id}", 'update')->name("update-manage-role");
+        Route::get("/delete/{id}", 'destroy')->name("delete-manage-role");
+    });
+    /////////////////////////////end user////////////////////////////////////////////////////////////
   
     Route::get("add-employee", function () {
         return view("hr.add-employee");
