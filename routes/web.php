@@ -128,8 +128,18 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     ////////////////////////// user routes //////////////////////////////////////////////////////////
 
 
-    Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
-    Route::resource('users',UserController::class);
+    // Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
+    Route::controller(UserController::class)->prefix('users')->group(function(){
+        Route::post('/{user}/update-status', 'updateStatus')->name('users.update-status');
+
+        Route::get("/", 'index')->name("users");
+        Route::get("/create", 'create')->name("add-user");
+        Route::post("/store", 'store')->name("store-user");
+        Route::get("/edit/{id}", 'edit')->name("edit-user");
+        Route::post("/update/{id}", 'update')->name("update-user");
+        Route::get("/delete/{id}", 'destroy')->name("delete");
+    });
+    // Route::resource('users',UserController::class);
 
     Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
         Route::get("/", 'index')->name("manage-roles");
@@ -137,6 +147,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/store", 'store')->name("store-manage-role");
         Route::get("/edit/{id}", 'edit')->name("edit-manage-role");
         Route::post("/update/{id}", 'update')->name("update-manage-role");
+        Route::get("/delete/{id}", 'destroy')->name("delete-manage-role");
     });
    
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
@@ -145,7 +156,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/store", 'store')->name("store-functional-role");
         Route::get("/edit/{id}", 'edit')->name("edit-functional-role");
         Route::post("/update/{id}", 'update')->name("update-functional-role");
-        Route::post("/delete/{id}", 'destroy');
+        Route::get("/delete/{id}", 'destroy');
     });  
     Route::controller(QualificationController::class)->prefix('qualification')->group(function (){
         Route::get("/", 'index')->name("qualification");

@@ -47,7 +47,8 @@
                                         <tr>
                                             @foreach ($menu as $sub_menu)
                                                 <td class="srno-column">
-                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id}}" type="checkbox" id="gridCheck">
+                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id}}" type="checkbox" id="gridCheck"  {{ old('checkbox', $sub_menu->id ?? false) ? 'checked' : '' }}>
+                                                    
                                                     <label class="form-check-label" for="gridCheck">
                                                     {{$sub_menu->name}}
                                                     </label>

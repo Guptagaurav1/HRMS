@@ -9,6 +9,29 @@
 
 @section('contents')
     <div class="row">
+    @if($message = Session::get('success'))
+                <div class="col-md-12">
+                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                         <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                        <div>
+                         {{ $message }}
+                        </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                @endif
+                @if($message = Session::get('error'))
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                            {{$message}}
+                        </div>
+                     
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
@@ -76,8 +99,8 @@
                               
                                 <td>{{ $role->created_at}}</td>
                                 <td> 
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
-                                    <a href="{{route('edit-manage-role',$role->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <a href="{{route('edit-manage-role',$role->id)}}" title="Edit"><button class="btn btn-sm btn-primary"> <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <a class="delete-role" data-id="{{ $role->id }}" ><button title="Delete" class="btn btn-sm btn-danger"> <i class="fa-solid fa-trash"></i></button></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -94,4 +117,5 @@
 <script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
+<script src="{{asset('assets/js/users/role.js')}}"></script>
 @endsection
