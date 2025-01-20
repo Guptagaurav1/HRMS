@@ -18,14 +18,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = user::all();
-        // $users = user::orderBy('id','desc');
-        // $users = $users->paginate(10);
+      
         $users = user::with('department') // Eager load the related department data
         ->orderBy('id', 'desc') // Order users by id in descending order
         ->paginate(10); // Paginate the results
         $departments = Department::orderBy('id', 'desc')->get();
-        return view(" hr.users-list",compact('users'));
+        return view(" hr.user.users-list",compact('users'));
     }
 
     /**
@@ -34,7 +32,7 @@ class UserController extends Controller
     public function create()
     {
         $departments = Department::orderBy('id','desc')->get();
-        return view(" hr.add-user",compact('departments'));
+        return view(" hr.user.add-user",compact('departments'));
     }
 
     /**
@@ -42,22 +40,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // dd($request->first_name);
+        
         $request->validate([
             
             'first_name' => 'required',
             'last_name' => 'required',
             'department' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'contact' => 'required|digits:10',
             'company_id' => 'required',
-            'user_type' => 'required'
+            'role_id' => 'required'
           ]);
         $dob = $request->dob;
         $password_s =date('d-m-Y',strtotime($dob));
         $password = str_replace("-", "", $password_s);
         $enc_password = md5($password);
+       
         $user = new User();
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -66,20 +64,19 @@ class UserController extends Controller
         $user->phone = $request->contact;
         $user->department_id = $request->department;
         $user->company_id = $request->company_id;
-        $user->role_id = $request->user_type;
+        $user->role_id = $request->role_id;
+
         $user->gender = $request->gender;
         $user->dob = $request->dob;
         
-        $user_type = $request->user_type;
+        $role_id = $request->role_id;
         $name = $request->first_name .''.$request->last_name;
             $email = $request->email;
         $url ='https/hrms';
-        // $url = env(APP_URL);
-        // mail  to user 
-        // dd($name, $to, $password_s, $url, $user_type);
-        
+       
+        // dd($user);
         if ($email != " ") {
-            Mail::to($email)->send(new AddUser($name, $email, $password, $url, $user_type));    //
+            Mail::to($email)->send(new AddUser($name, $email, $password, $url, $role_id));    //
         }
         $user->save();
         // User::create($request->all());
@@ -96,7 +93,7 @@ class UserController extends Controller
         
         $user = user::find($id);
         $departments = Department::orderBy('id','desc')->get();
-        return view('hr.edit-user', compact('user','departments'));
+        return view('hr.user.edit-user', compact('user','departments'));
     }
 
     /**
@@ -105,7 +102,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = user::find($id);
-        return view('hr.edit-user', compact('user'));
+        return view('hr.user.edit-user', compact('user'));
     }
 
     /**
@@ -122,7 +119,7 @@ class UserController extends Controller
             'email' => 'required',
             'contact' => 'required|digits:10',
             'company_id' => 'required',
-            'user_type' => 'required'
+            'role_id' => 'required'
           ]);
        
         
@@ -134,7 +131,7 @@ class UserController extends Controller
             'phone' => $request->contact,
             'department_id' => $request->department,
             'company_id' => $request->company_id,
-            'user_type' => $request->user_type,
+            'role_id' => $request->role_id,
             'gender' => $request->gender,
             'dob' => $request->dob,
         ]);

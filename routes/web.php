@@ -37,7 +37,7 @@ Route::get("forgot-password", function () {
     return view("forgot-password");
 })->name("forgot-password");
 
-  Route::middleware('auth')->prefix(prefix: 'hr')->group(function () {
+  Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
@@ -86,7 +86,8 @@ Route::get("forgot-password", function () {
         Route::post("/update/{designation}", 'update')->name("designations.update");
         Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
     });
-
+ 
+        
 
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
@@ -129,7 +130,15 @@ Route::get("forgot-password", function () {
 
     Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
     Route::resource('users',UserController::class);
-    
+
+    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
+        Route::get("/", 'index')->name("manage-roles");
+        Route::get("/create", 'create')->name("add-manage-role");
+        Route::post("/store", 'store')->name("store-manage-role");
+        Route::get("/edit/{id}", 'edit')->name("edit-manage-role");
+        Route::post("/update/{id}", 'update')->name("update-manage-role");
+    });
+   
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
         Route::get("/", 'index')->name("functional-role");
         Route::get("/add", 'create')->name("add-functional-role");
@@ -154,7 +163,7 @@ Route::get("forgot-password", function () {
         Route::post("/activate/{id}", 'activate');
     });
 
- });
+});
 
 
 
@@ -213,9 +222,7 @@ Route::get("forgot-password", function () {
     // Route::get("manage-roles", function () {
     //     return view(" hr.manage-roles");
     // })->name("manage-roles");
-    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
-        Route::get("/", 'index')->name("manage-roles");
-    });
+   
 
     // Route::get("users-list", function () {
     //     return view(" hr.users-list");
@@ -402,6 +409,10 @@ Route::get("forgot-password", function () {
         return view("hr.add-role");
     })->name("add-role");
 
+    Route::get("employee-details", function () {
+        return view("hr.employee-details");
+    })->name("employee-details");
+
     
     
   
@@ -414,8 +425,47 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         return view('employee.dashboard');
     })->name('employee_dashboard');
 
-    
+    Route::get("compose-email", function () {
+        return view("employee.compose-email");
+    })->name("compose-email");
+
+    Route::get("holiday-list", function () {
+        return view("employee.holiday-list");
+    })->name("holiday-list");
+
+    // Route::get("applied-request-list", function () {
+    //     return view("employee.applied-request-list");
+    // })->name("applied-request-list");
+
+    Route::get("reimbursement-list", function () {
+        return view("employee.reimbursement-list");
+    })->name("reimbursement-list");
+
+    Route::get("modify-profile-request", function () {
+        return view("employee.modify-profile-request");
+    })->name("modify-profile-request");
    
+
+    Route::get("profile-detail-request-list", function () {
+        return view("employee.profile-detail-request-list");
+    })->name("profile-detail-request-list");
+
+    Route::get("create-reimbursement", function () {
+        return view("employee.create-reimbursement");
+    })->name("create-reimbursement");
+
+    Route::get("apply-leave-request", function () {
+        return view("employee.apply-leave-request");
+    })->name("apply-leave-request");
+
+    Route::get("leave-taken", function () {
+        return view("employee.leave-taken");
+    })->name("leave-taken");
+
+    
+
+   
+
 });
 
 

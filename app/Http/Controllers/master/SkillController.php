@@ -13,10 +13,9 @@ use DB;
 class SkillController extends Controller
 {
     public function index(Request $request){
-        $departments = Department::with('skills')
-        ->paginate(10);
+        $skills = Skill::orderBy('id','desc')->paginate(10);
 
-        return view("hr.master.skills.skill", compact('departments'));
+        return view("hr.master.skills.skill", compact('skills'));
     }
 
     public function create(){
@@ -25,7 +24,7 @@ class SkillController extends Controller
 
     public function save(Request $request){
             $request->validate([
-                'skill' => 'required|unique:skills'
+                'skill' => 'required|max:255|unique:skills'
             ]);
 
             $skill = new Skill();
@@ -45,7 +44,7 @@ class SkillController extends Controller
     public function update(Skill $skill, Request $request){
        
         $request->validate([
-            'skill' => 'required|unique:skills,skill,'.$skill->id,
+            'skill' => 'required|max:255|unique:skills,skill,'.$skill->id,
         ]);
         $skill->skill = $request->skill;
         $skill->status = '1';

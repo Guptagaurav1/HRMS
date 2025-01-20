@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use HasFactory;
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class, 'menu_id');  // 'menu_id' is the foreign key
+    }
 }

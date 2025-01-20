@@ -37,14 +37,14 @@
                                     @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                    <label for="user_type" class="form-label">Select User Type <span class="text-danger"> ** </span></label>
-                                    <select id="user_type" name="user_type" class="form-select">
+                                    <label for="role_id" class="form-label">Select User Type <span class="text-danger"> ** </span></label>
+                                    <select id="role_id" name="role_id" class="form-select">
                                         <option value=""> Department</option>
-                                        <option value="0" {{ old('user_type') == 0 ? 'selected' : '' }}>Select 1</option>
-                                        <option value="1" {{ old('user_type') == 1 ? 'selected' : '' }}>Select 2</option>
-                                        <option value="2" {{ old('user_type') == 2 ? 'selected' : '' }}>Select 3</option>
+                                        <option value="0" {{ old('role_id') == 0 ? 'selected' : '' }}>Select 1</option>
+                                        <option value="1" {{ old('role_id') == 1 ? 'selected' : '' }}>Select 2</option>
+                                        <option value="2" {{ old('role_id') == 2 ? 'selected' : '' }}>Select 3</option>
                                     </select>
-                                    @error('user_type')
+                                    @error('role_id')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

@@ -12,33 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         if (!Schema::hasTable('users')) {
+
         Schema::create('users', function (Blueprint $table) {
+
             $table->integer('id')->autoIncrement();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email',191)->unique();
+            $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->enum('gender', ['male', 'female', 'other']);
             $table->bigInteger('phone');
-            $table->integer('role_id')->nullable();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('NO ACTION');
-            $table->integer('department_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('NO ACTION');
-            $table->integer('company_id')->nullable();
-            $table->foreign('company_id')->references('id')->on('company_master')->onDelete('NO ACTION');
 
             $table->date('dob');
-            $table->enum('status', ['1', '0'])->default('1');
-            
-            $table->integer('updated_by')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->integer('deleted_by')->nullable();
            
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->rememberToken();
+            $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
             
