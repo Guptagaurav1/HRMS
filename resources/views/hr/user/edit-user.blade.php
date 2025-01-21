@@ -7,15 +7,15 @@
 
 @section('contents')
     <div class="dashboard-breadcrumb mb-25">
-        <h2>Create User</h2>
+        <h2>Edit User</h2>
         <div class="btn-box">
-            <a href="{{route('users.index')}}" class="btn btn-sm btn-primary">User List</a>
+            <a href="{{route('users')}}" class="btn btn-sm btn-primary">User List</a>
         </div>
     </div>
     
-    <form action="{{ route('users.update',$user->id) }}" method="post">
+    <form action="{{ route('update-user',$user->id) }}" method="post">
         @csrf
-        @method('PUT')
+        <!-- @method('PUT') -->
         <div class="row">
             <div class="col-12">
                 <div class="panel">
@@ -29,9 +29,12 @@
                                     <label for="company_id" class="form-label">Select Comapny Name <span class="text-danger"> ** </span></label>
                                     <select id="company_id" name="company_id" class="form-select">
                                         <option value=""> Select Any One</option>
-                                        <option value="0" {{ old('company_id',$user->company_id) == 0 ? 'selected' : '' }}>Select 1</option>
-                                        <option value="1" {{ old('company_id',$user->company_id) == 1 ? 'selected' : '' }}>Select 2</option>
-                                        <option value="2" {{ old('company_id',$user->company_id) == 2 ? 'selected' : '' }}>Select 3</option>
+                                        @foreach($companys as $company)
+                                        <option value="{{ $company->id }}" 
+                                            @if ($company->id == old('company', $user->company_id)) selected @endif>
+                                            {{ $company->name }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                     @error('company_id')
                                         <div class="text-danger">{{ $message }}</div>
@@ -40,10 +43,13 @@
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                                     <label for="role_id" class="form-label">Select User Type <span class="text-danger"> ** </span></label>
                                     <select id="role_id" name="role_id" class="form-select">
-                                        <option value=""> Department</option>
-                                        <option value="0" {{ old('role_id',$user->role_id) == 0 ? 'selected' : '' }}>Select 1</option>
-                                        <option value="1" {{ old('role_id',$user->role_id) == 1 ? 'selected' : '' }}>Select 2</option>
-                                        <option value="2" {{ old('role_id',$user->role_id) == 2 ? 'selected' : '' }}>Select 3</option>
+                                        <option value=""> Select Use Type</option>
+                                        @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" 
+                                            @if ($role->id == old('role', $user->role_id)) selected @endif>
+                                            {{ $role->role_name }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                     @error('role_id')
                                         <div class="text-danger">{{ $message }}</div>

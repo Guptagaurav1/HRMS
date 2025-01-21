@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\Company;
+use App\Models\Role;
 use App\Mail\AddUser;
 use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 
 
@@ -19,10 +22,10 @@ class UserController extends Controller
     public function index()
     {
       
-        $users = user::with('department') // Eager load the related department data
-        ->orderBy('id', 'desc') // Order users by id in descending order
-        ->paginate(10); // Paginate the results
-        $departments = Department::orderBy('id', 'desc')->get();
+        // $users = user::with('department') // Eager load the related department data
+        $users = user::with('role') 
+        ->orderBy('id', 'desc') 
+        ->paginate(10);
         return view(" hr.user.users-list",compact('users'));
     }
 
@@ -32,7 +35,9 @@ class UserController extends Controller
     public function create()
     {
         $departments = Department::orderBy('id','desc')->get();
-        return view(" hr.user.add-user",compact('departments'));
+        $roles = Role::orderBy('id','desc')->get();
+        $companys = Company::orderBy('id','desc')->get();
+        return view(" hr.user.add-user",compact('departments','roles','companys'));
     }
 
     /**
@@ -80,7 +85,7 @@ class UserController extends Controller
         }
         $user->save();
         // User::create($request->all());
-        return redirect()->route('users.index')
+        return redirect()->route('users')
         ->with('success', 'User Added Successfully !');
        
     }
@@ -93,7 +98,9 @@ class UserController extends Controller
         
         $user = user::find($id);
         $departments = Department::orderBy('id','desc')->get();
-        return view('hr.user.edit-user', compact('user','departments'));
+        $roles = Role::orderBy('id','desc')->get();
+        $companys = Company::orderBy('id','desc')->get();
+        return view('hr.user.edit-user', compact('user','departments','roles','companys'));
     }
 
     /**
@@ -102,7 +109,10 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = user::find($id);
-        return view('hr.user.edit-user', compact('user'));
+        $departments = Department::orderBy('id','desc')->get();
+        $roles = Role::orderBy('id','desc')->get();
+        $companys = Company::orderBy('id','desc')->get();
+        return view('hr.user.edit-user', compact('user','departments','roles','companys'));
     }
 
     /**
@@ -120,7 +130,7 @@ class UserController extends Controller
             'contact' => 'required|digits:10',
             'company_id' => 'required',
             'role_id' => 'required'
-          ]);
+        ]);
        
         
         $user= user::find($id);
@@ -136,7 +146,7 @@ class UserController extends Controller
             'dob' => $request->dob,
         ]);
 
-        return redirect()->route('users.index')->with('success','User Updated Successfully !');
+        return redirect()->route('users')->with('success','User Updated Successfully !');
     }
   
     // user active/deactive method
@@ -162,8 +172,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Request $request, $id)
+    { 
+        // dd($id);
+        User::where('id', $id)->delete();
+        // return redirect()->back()->with('success','User Deleted Successfully !');
+        return redirect()->route('users')->with(['success' =>'Role Deleted !']);
     }
 }

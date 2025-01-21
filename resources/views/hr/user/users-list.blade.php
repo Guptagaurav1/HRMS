@@ -8,12 +8,35 @@
 
 @section('contents')
     <div class="row">
+            @if($message = Session::get('success'))
+                <div class="col-md-12">
+                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                         <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                        <div>
+                         {{ $message }}
+                        </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                @endif
+                @if($message = Session::get('error'))
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                            {{$message}}
+                        </div>
+                     
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="text-white mt-2">Users List</h3>
                     <div class="btn-box">
-                        <a href="{{route('users.create')}}" class="btn btn-sm btn-primary">Add User</a>
+                        <a href="{{route('add-user')}}" class="btn btn-sm btn-primary">Add User</a>
                     </div>
                 </div>
                 <div class="row px-3 mt-2">
@@ -44,7 +67,7 @@
                             @foreach ($users as $key => $user)
                                 <tr>
                                     <td class="srno-column">{{$key+1}}</td>
-                                    <td class="rid-column">{{$user->department->department??NULL}}</td>
+                                    <td class="rid-column">{{$user->role->role_name??NULL}}</td>
                                     <td>{{$user->first_name}} {{$user->last_name}} / {{$user->email}} / {{$user->phone}}</td>
                                     <td class="attributes-column">{{$user->created_at}}</td>
                                     <td>{{$user->updated_at}}</td>
@@ -56,7 +79,8 @@
                                         @endif
                                     </td>
                                     <td> 
-                                        <a href="{{ route('users.update', $user->id) }}"><button class="btn btn-sm btn-primary">Edit</button></a>
+                                        <a href="{{ route('edit-user', $user->id) }}"><button class="btn btn-sm btn-primary" title="Edit"> <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        <a data-id="{{ $user->id }}"  class="delete-user"><button class="btn btn-sm btn-danger"  title="Delete"> <i class="fa-solid fa-trash"></i></button></a>
                                         
                                         <button 
                                             class="status-toggle btn btn-{{ $user->status == 1 ? 'success' : 'danger' }}" 
@@ -127,4 +151,7 @@
 <script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
+
+<script src="{{asset('assets/js/users/user.js')}}"></script>
+
 @endsection

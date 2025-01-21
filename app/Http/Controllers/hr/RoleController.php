@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Menu;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class RoleController extends Controller
 {
@@ -91,5 +92,12 @@ class RoleController extends Controller
     $role->menu_id =$checkString;
     $role->save();
     return redirect()->route('manage-roles')->with('success','Role updated successfully !');
+    }
+
+
+    public function destroy(Request $request,$id){
+       
+        Role::where('id', $id)->delete();
+        return redirect()->route('manage-roles')->with(['success' =>'Role Deleted !']);
     }
 }
