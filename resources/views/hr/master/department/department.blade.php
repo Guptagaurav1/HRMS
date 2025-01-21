@@ -1,7 +1,7 @@
 @extends('layouts.master',['title' => 'Department Listing'])
 @section('style')
-{{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" /> --}}
-{{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" /> --}}
+
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
@@ -9,7 +9,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h5>Department</h5>
+                <h3 class="mt-2">Department</h3>
             </div>
             <div class="row px-3 mt-2">
                 @if($message = Session::get('success'))
@@ -38,7 +38,7 @@
                     @endif
 
                 <div class="text-end">
-                    <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Department</button></a>
+                    <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary">Add Department</button></a>
                 </div>
             </div>
             <div class="panel-body">
@@ -70,8 +70,6 @@
                             <td>
                                 <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit </button></a>
                                 <a  class="delete-department" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete</button></a>
-
-                                
                             </td>
                         </tr>
                         @empty

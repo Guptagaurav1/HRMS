@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Users List</h5>
+                    <h3 class="text-white mt-2">Users List</h3>
                     <div class="btn-box">
                         <a href="{{route('add-user')}}" class="btn btn-sm btn-primary">Add User</a>
                     </div>

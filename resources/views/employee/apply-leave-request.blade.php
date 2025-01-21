@@ -3,11 +3,6 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
-<style>
-
-
-
-</style>
 @endsection
 
 @section('contents')
@@ -15,27 +10,20 @@
     <div class="row align-items-center justify-content-center ">
         <div class="col-lg-8 col-md-10">
             <div class="card">
-                <div class="panel-header py-3 px-2 d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Compose Email</h5>
-                    <div>
-                        <div class="d-flex justify-content-end px-2">
-                            <a href="{{route('email-list')}}"> <button type="submit" class="btn btn-primary ">Email List <i
-                                        class="fa-solid fa-envelope"></i></button></a>
-                        </div>
-                    </div>
-                   
+                <div class="panel-header py-3 px-2 ">
+                    <h5 class="mb-0">Apply Leave</h5>
                 </div>
-                
+
                 <div class="card-body">
-                    <form>
+                  
                         <div class="row">
                             <div class="col-md-6 mb-1">
-                                <label for="recipient" class="form-label">From</label>
+                                <label for="recipient" class="form-label">To</label>
                                 <input type="text" class="form-control" id="from" name="from"
                                     placeholder="Enter sender email">
                             </div>
                             <div class="col-md-6 mb-1">
-                                <label for="to" class="form-label">To</label>
+                                <label for="to" class="form-label">Concern Department Head:</label>
                                 <input type="text" class="form-control" id="to" name="to"
                                     placeholder="Enter recipient email">
                             </div>
@@ -46,9 +34,14 @@
                                 <input type="text" class="form-control" id="cc" name="cc" placeholder="Enter CC email">
                             </div>
                             <div class="col-md-6">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="subject" name="subject"
-                                    placeholder="Enter email subject">
+                                <label class="form-label" class="form-control">Reason for Absence: <span
+                                        class="text-danger">*</span></label>
+                                <select id="inputState" class="form-control">
+                                    <option value=""> Select Any One</option>
+                                    <option value="0">Male</option>
+                                    <option value="1">Female</option>
+                                    <option value="2">Others</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -58,18 +51,12 @@
                                     placeholder="Write your message here"></textarea>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="attachments" class="form-label">Attachments</label>
-                                <input type="file" class="form-control" id="attachments">
-                            </div>
-                        </div>
                 </div>
 
                 <div class="d-flex justify-content-end pb-3 px-3">
-                    <button type="submit" class="btn btn-primary ">Send <i class="fa-solid fa-paper-plane"></i></button>
+                    <button type="submit" class="btn btn-primary ">Confirm <i class="fa-solid fa-paper-plane"></i></button>
                 </div>
-                </form>
+                 
             </div>
         </div>
     </div>

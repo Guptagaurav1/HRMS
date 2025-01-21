@@ -44,7 +44,7 @@ Route::middleware('guest')->group(function () {
 
 });
 
-Route::middleware('auth')->prefix('hr')->group(function () {
+  Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
@@ -93,7 +93,14 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/update/{designation}", 'update')->name("designations.update");
         Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
     });
+ 
+        
 
+  
+    Route::controller(MasterController::class)->prefix('master')->group(function () {
+        Route::get("skill", 'skills')->name("skill");
+        Route::get("company-master", 'company_details')->name("company-master");
+    });
     Route::controller(TeamController::class)->prefix('teams')->group(function () {
         Route::get("/", 'index')->name("my-team-list");
     });
@@ -156,8 +163,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get('d-logout', 'd_logout')->name('department_logout');
     });
    
-   
-
 
 
 /////////// workorder routes start ///////
@@ -172,6 +177,7 @@ Route::controller(WorkOrderController::class)->group(function (){
     Route::get("view-work-order/{id}","show")->name("view-work-order");
 
     
+
 });
 /////////// workorder routes end ///////
   
@@ -431,6 +437,30 @@ Route::controller(WorkOrderController::class)->group(function (){
         return view("hr.add-role");
     })->name("add-role");
 
+    Route::get("employee-details", function () {
+        return view("hr.employee-details");
+    })->name("employee-details");
+
+    Route::get("employee-details-salary-retainer", function () {
+        return view("hr.employee-details-salary-retainer");
+    })->name("employee-details-salary-retainer");
+
+    Route::get("salary-slip-edit", function () {
+        return view("hr.salary-slip-edit");
+    })->name("salary-slip-edit");
+
+    Route::get("preview-salary-slip", function () {
+        return view("hr.preview-salary-slip");
+    })->name("preview-salary-slip");
+
+    Route::get("employee-code-retainer", function () {
+        return view("hr.employee-code-retainer");
+    })->name("employee-code-retainer");
+
+    Route::get("employee-month-salary-slip", function () {
+        return view("hr.employee-month-salary-slip");
+    })->name("employee-month-salary-slip");
+
     
     
   
@@ -443,8 +473,48 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         return view('employee.dashboard');
     })->name('employee_dashboard');
 
-    
+    Route::get("compose-email", function () {
+        return view("employee.compose-email");
+    })->name("employee-compose-email");
+
+    Route::get("holiday-list", function () {
+        return view("employee.holiday-list");
+    })->name("employee-holiday-list");
+
+    Route::get("applied-request-list", function () {
+        return view("employee.applied-request-list");
+    })->name("employee-applied-request-list");
+
+    Route::get("reimbursement-list", function () {
+        return view("employee.reimbursement-list");
+    })->name("employee-reimbursement-list");
+
+    Route::get("modify-profile-request", function () {
+        return view("employee.modify-profile-request");
+    })->name("modify-profile-request");
    
+
+    Route::get("profile-detail-request-list", function () {
+        return view("employee.profile-detail-request-list");
+    })->name("profile-detail-request-list");
+
+    Route::get("create-reimbursement", function () {
+        return view("employee.create-reimbursement");
+    })->name("create-reimbursement");
+
+    Route::get("apply-leave-request", function () {
+        return view("employee.apply-leave-request");
+    })->name("apply-leave-request");
+
+    Route::get("leave-taken", function () {
+        return view("employee.leave-taken");
+    })->name("leave-taken");
+
+    // Route::get("employee-month-salary-slip", function () {
+    //     return view("employee.employee-month-salary-slip");
+    // })->name("employee-employee-month-salary-slip");
+
+    
 });
 
 
