@@ -19,6 +19,8 @@ use App\Http\Controllers\master\DesignationController;
 use App\Http\Controllers\hr\TeamController;
 use App\Http\Controllers\hr\HolidayController;
 
+use App\Http\Controllers\hr\WorkOrderController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -157,7 +159,22 @@ Route::middleware('auth')->prefix('hr')->group(function () {
    
 
 
+
+/////////// workorder routes start ///////
+Route::controller(WorkOrderController::class)->group(function (){
+
+    
+    Route::get("work-order-list","index")->name("work-order-list");
+    Route::get("add-work-order","create")->name("add-work-order");
+    Route::post("store-work-order","store")->name("store-work-order");
+    Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
+    Route::post("update-work-order/{id}","update")->name("update-work-order");
+    Route::get("view-work-order/{id}","show")->name("view-work-order");
+
+    
 });
+/////////// workorder routes end ///////
+  
 
 
 
@@ -174,10 +191,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 
 
+
+});
 
   ////////////////////////// user routes //////////////////////////////////////////////////////////
 
-
+  Route::middleware('auth')->prefix('admin')->group(function () {
     // Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
     Route::controller(UserController::class)->prefix('users')->group(function(){
         Route::post('/{user}/update-status', 'updateStatus')->name('users.update-status');
@@ -200,6 +219,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/delete/{id}", 'destroy')->name("delete-manage-role");
     });
     /////////////////////////////end user////////////////////////////////////////////////////////////
+
+});
+
   
     Route::get("add-employee", function () {
         return view("hr.add-employee");
@@ -348,21 +370,21 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.create-billing-structure");
     })->name("create-billing-structure");
 
-    Route::get("add-work-order", function () {
-        return view("hr.add-work-order");
-    })->name("add-work-order");
+    // Route::get("add-work-order", function () {
+    //     return view("hr.add-work-order");
+    // })->name("add-work-order");
 
-    Route::get("work-order-list", function () {
-        return view("hr.work-order-list");
-    })->name("work-order-list");
+    // Route::get("work-order-list", function () {
+    //     return view("hr.work-order-list");
+    // })->name("work-order-list");
 
-    Route::get("edit-work-order", function () {
-        return view("hr.edit-work-order");
-    })->name("edit-work-order");
+    // Route::get("edit-work-order", function () {
+    //     return view("hr.edit-work-order");
+    // })->name("edit-work-order");
 
-    Route::get("view-work-order", function () {
-        return view("hr.view-work-order");
-    })->name("view-work-order");
+    // Route::get("view-work-order", function () {
+    //     return view("hr.view-work-order");
+    // })->name("view-work-order");
 
     Route::get("go-to-attendance", function () {
         return view("hr.go-to-attendance");
