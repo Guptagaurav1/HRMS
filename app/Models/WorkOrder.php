@@ -12,6 +12,6 @@ class WorkOrder extends Model
 
     public function contacts()
     {
-        return $this->hasMany(WorkOrderContact::class);
+        return $this->hasMany(WoContactDetail::class);
     }
 }
