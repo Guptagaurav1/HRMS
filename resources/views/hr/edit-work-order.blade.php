@@ -2,7 +2,7 @@
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}"/>
 
 @endsection
 
@@ -23,7 +23,7 @@
                     <h5 class="mb-0 text-white" >Work Order Details</h5>
                     <div>
                         <div class="d-flex justify-content-end px-2">
-                            <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 "> Work Order List</button></a>  
+                            <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3"> Work Order List</button></a>  
                         </div>
                     </div>
                    

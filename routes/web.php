@@ -18,6 +18,9 @@ use App\Http\Controllers\master\DesignationController;
 
 use App\Http\Controllers\hr\TeamController;
 use App\Http\Controllers\hr\HolidayController;
+use App\Http\Controllers\hr\HelpdeskController;
+
+use App\Http\Controllers\hr\WorkOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,9 +119,10 @@ Route::middleware('guest')->group(function () {
 // --------------------------------
 
   
-    Route::controller(HolidayController::class)->prefix('holiday')->group(function () {
+    Route::controller(HolidayController::class)->prefix('leave')->group(function () {
         Route::get("/", 'index')->name("holiday-list");
-
+        Route::get("request-list", 'leave_requests')->name("applied-request-list");
+        Route::get("leave-regularization", 'leave_regularization')->name("leave-regularization");
     });
 
     Route::get("position-request", function () {
@@ -160,28 +164,34 @@ Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('d-logout', 'd_logout')->name('department_logout');
     });
+
+/////////// workorder routes start ///////
+Route::controller(WorkOrderController::class)->group(function (){
+
+    
+    Route::get("work-order-list","index")->name("work-order-list");
+    Route::get("add-work-order","create")->name("add-work-order");
+    Route::post("store-work-order","store")->name("store-work-order");
+    Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
+    Route::post("update-work-order/{id}","update")->name("update-work-order");
+    Route::get("view-work-order/{id}","show")->name("view-work-order");
+
+    
+
+});
+/////////// workorder routes end ///////
+  
+  Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
+        Route::get('compose-email', 'compose')->name('compose-email');
+        Route::post('send-email', 'send_mail')->name('compose');
+        Route::get("mail-logs", 'mail_log')->name("email-list");
+    });
    
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ////////////////////////// user routes //////////////////////////////////////////////////////////
 
-
+  Route::middleware('auth')->prefix('admin')->group(function () {
     // Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
     Route::controller(UserController::class)->prefix('users')->group(function(){
         Route::post('/{user}/update-status', 'updateStatus')->name('users.update-status');
@@ -204,6 +214,9 @@ Route::middleware('guest')->group(function () {
         Route::get("/delete/{id}", 'destroy')->name("delete-manage-role");
     });
     /////////////////////////////end user////////////////////////////////////////////////////////////
+
+});
+
   
     Route::get("add-employee", function () {
         return view("hr.add-employee");
@@ -352,21 +365,21 @@ Route::middleware('guest')->group(function () {
         return view("hr.create-billing-structure");
     })->name("create-billing-structure");
 
-    Route::get("add-work-order", function () {
-        return view("hr.add-work-order");
-    })->name("add-work-order");
+    // Route::get("add-work-order", function () {
+    //     return view("hr.add-work-order");
+    // })->name("add-work-order");
 
-    Route::get("work-order-list", function () {
-        return view("hr.work-order-list");
-    })->name("work-order-list");
+    // Route::get("work-order-list", function () {
+    //     return view("hr.work-order-list");
+    // })->name("work-order-list");
 
-    Route::get("edit-work-order", function () {
-        return view("hr.edit-work-order");
-    })->name("edit-work-order");
+    // Route::get("edit-work-order", function () {
+    //     return view("hr.edit-work-order");
+    // })->name("edit-work-order");
 
-    Route::get("view-work-order", function () {
-        return view("hr.view-work-order");
-    })->name("view-work-order");
+    // Route::get("view-work-order", function () {
+    //     return view("hr.view-work-order");
+    // })->name("view-work-order");
 
     Route::get("go-to-attendance", function () {
         return view("hr.go-to-attendance");
@@ -380,15 +393,6 @@ Route::middleware('guest')->group(function () {
         return view("hr.salary-list");
     })->name("salary-list");
 
-
-    Route::get("applied-request-list", function () {
-        return view("hr.applied-request-list");
-    })->name("applied-request-list");
-
-    Route::get("leave-regularization", function () {
-        return view("hr.leave-regularization");
-    })->name("leave-regularization");
-
     Route::get("profile-detail-request-list", function () {
         return view("hr.profile-detail-request-list");
     })->name("profile-detail-request-list");
@@ -401,17 +405,10 @@ Route::middleware('guest')->group(function () {
         return view("hr.modify-profile-request");
     })->name("modify-profile-request");
 
-    Route::get("compose-email", function () {
-        return view("hr.compose-email");
-    })->name("compose-email");
-
-    Route::get("email-list", function () {
-        return view("hr.email-list");
-    })->name("email-list");
-
     Route::get("add-role", function () {
         return view("hr.add-role");
     })->name("add-role");
+
 
     Route::get("employee-details", function () {
         return view("hr.employee-details");
@@ -446,7 +443,7 @@ Route::middleware('guest')->group(function () {
   
 
 
-    
+
 
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){
