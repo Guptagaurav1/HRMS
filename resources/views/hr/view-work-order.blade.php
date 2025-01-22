@@ -2,13 +2,14 @@
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
 
 @endsection
 
 @section('contents')
 
 <div class="fluid-container">
-    <div class="row">
+    <div class="row panel-header">
         <h2>Update Work Order Form</h2>
 
     </div>
@@ -18,11 +19,14 @@
             <div class="panel p-2">
                 <h6>Work Order : BECIL/ND/DRDO/MAN/2425/1323_Extension Added On : 2024-11-14 11:37:39</h6>
 
-                <div class="col-12 d-flex justify-content-end">
-                  <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Work Order List</button></a>  
-                </div>
-                <div class="panel-header">
-                    <h5>Work Order Details</h5>
+                <div class="panel-header py-3 px-2 d-flex align-items-center justify-content-between mt-5">
+                    <h5 class="mb-0 text-white" >Work Order Details</h5>
+                    <div>
+                        <div class="d-flex justify-content-end px-2">
+                            <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 "> Work Order List</button></a>  
+                        </div>
+                    </div>
+                   
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
@@ -161,7 +165,7 @@
                 </div>
 
                 <div class="panel-header">
-                    <h5>Contacts Details</h5>
+                    <h5 class="text-white">Contacts Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="col-12 d-flex justify-content-end">
@@ -202,7 +206,7 @@
                     </div>
                 </div>
                 <div class="panel-header">
-                    <h5>Invoice Details</h5>
+                    <h5 class="text-white">Invoice Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -225,7 +229,7 @@
                     </div>
                 </div>
                 <div class="panel-header">
-                    <h5>Amendment Details</h5>
+                    <h5 class="text-white">Amendment Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -245,7 +249,7 @@
                     </div>
                 </div>
                 <div class="panel-header">
-                    <h5>Remarks</h5>
+                    <h5 class="text-white">Remarks</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -256,7 +260,7 @@
                     </div>
                 </div>
                 <div class="panel-header">
-                    <h5>Attachment</h5>
+                    <h5 class="text-white">Attachment</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -280,9 +284,6 @@
 @endsection
 
 @section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
 <script src={{asset('assets/vendor/js/addmore.js')}}></script>
 
 @endsection

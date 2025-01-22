@@ -63,12 +63,12 @@
                                 <td>19956707</td>
                                 <td>14th November, 2024</td>
                                 <td>
-                                    <a href=""><button type="submit" class="btn btn-primary mb-3"> Download</button></a>
+                                    <a href=""><button type="submit" class="btn btn-primary mb-3"> Download <i class="fa-solid fa-download"></i></button></a>
                                     
                                 </td>
                                 <td>
-                                    <a href="{{route('edit-work-order')}}"><button type="submit" class="btn btn-primary mb-3"> Edit</button></a>
-                                    <a href="{{route('view-work-order')}}"><button type="submit" class="btn btn-primary mb-3"> View</button></a><br>
+                                    <a href="{{route('edit-work-order')}}"><button type="submit" class="btn btn-primary mb-3"> Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <a href="{{route('view-work-order')}}"><button type="submit" class="btn btn-primary mb-3"> View <i class="fa-solid fa-eye"></i></button></a><br>
                                     <a href="{{route('go-to-attendance')}}"><button type="submit" class="btn btn-primary mb-3">Go To Attandence</button></a><br>
                                     <a href="{{route('work-order-salary-sheet')}}"><button type="submit" class="btn btn-primary mb-3">Go To Salary Sheet</button></a>
                                     

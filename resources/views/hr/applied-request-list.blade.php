@@ -1,16 +1,15 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
+
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
 <div class="row">
     <div class="col-12">
         <div class="panel">
-            <div class="panel-header">                         
+            <div class="panel-header">
                 <h2 class="mt-2">Leave Request List</h2>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3">
@@ -54,7 +53,7 @@
                             <td class="text-center">
                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#leaveDetailsModal">View <i class="fa-solid fa-eye"></i></button>
-                                <a href="{{'view-letter'}}">
+                                <a href="{{route('leave-request-reciept')}}">
                                     <button class="btn btn-sm btn-primary">Print <i
                                             class="fa-solid fa-print"></i></button>
                                 </a>
@@ -66,12 +65,10 @@
         </div>
     </div>
 </div>
+
+
 @endsection
-
-
-
-
-<div class="modal fade" id="leaveDetailsModal" tabindex="-1" aria-labelledby="leaveDetailsModalLabel"
+<div class="modal fade" id="leaveDetailsModal" tabindex="1" aria-labelledby="leaveDetailsModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content shadow-lg">
@@ -106,7 +103,7 @@
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">CC Mail:</label>
                                 <span>
-                                    
+
                                     example@example.com</span>
                             </div>
                         </div>
@@ -187,7 +184,8 @@
                         <div class="field-container shadow-lg d-flex flex-column">
                             <label class="fw-bold">Leave Comment:</label>
                             <div class="employee-comment mt-2">
-                                <span class="mt-">I hope this email finds you well. I am writing to formally request a day of Half
+                                <span class="mt-">I hope this email finds you well. I am writing to formally request a
+                                    day of Half
                                     Day leave today, as I need to accompany my family to Sani Dev for a personal visit.
                                     This trip has been planned for some time, and it is important for me to be with my
                                     .</span>
@@ -201,4 +199,10 @@
         </div>
     </div>
 </div>
-</div>
+
+
+
+
+
+
+
