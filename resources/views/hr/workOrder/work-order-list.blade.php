@@ -21,6 +21,18 @@
                         <a href="{{'add-work-order'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Work Order</button></a>
                     </div>
                 </div>
+
+                <div class="row px-3 mt-2">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @else
+                        <div class="alert alert-error alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
+                </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3">
                         <div class="col-auto">
@@ -51,32 +63,36 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($workOrdercontacts as $key => $value)
                             <tr>
-                                <td class="srno-column">Becil</td>
-                                <td class="rid-column">BECIL/ND/DRDO/MAN/2425/1323_Extension</td>
-                                <td>BECIL/MANPOWER-Agency/Empanelment</td>
-                                <td class="attributes-column">14th October, 2024</td>
-                                <td>BEGOV21M1203</td>
-                                <td>Defence Research & Development Organisation (DRDO)</td>
-                                <td>Binay Tiwari</td>
-                                <td>19956707</td>
-                                <td>19956707</td>
-                                <td>14th November, 2024</td>
+                                <td class="srno-column">{{$value->wo_oraganisation_name}}</td>
+                                <td class="rid-column">{{$value->wo_number}}</td>
+                                <td>{{$value->wo_empanelment_reference}}</td>
+                                <td class="attributes-column">{{$value->wo_date_of_issue}}</td>
+                                <td>{{$value->wo_project_number}}</td>
+                                <td>{{$value->wo_project_name}}</td>
+                                <td>{{$value->wo_project_coordinator}}</td>
+                                <td>{{$value->wo_amount}}</td>
+                                <td>{{$value->wo_details}}</td>
+                                <td>{{$value->created_at}}</td>
                                 <td>
-                                    <a href=""><button type="submit" class="btn btn-primary mb-3"> Download</button></a>
-                                    
+                                    @if(!empty($value->wo_attached_file))
+                                        <a href="{{ asset('storage/uploadWorkOrder/' . $value->wo_attached_file) }}"><button type="submit" class="btn btn-primary mb-3" target="_blank"> Download</button></a>
+                                    @else
+                                        {{ 'Not Uploaded' }}
+                                    @endif
                                 </td>
                                 <td>
-                                    <a href="{{route('edit-work-order')}}"><button type="submit" class="btn btn-primary mb-3"> Edit</button></a>
-                                    <a href="{{route('view-work-order')}}"><button type="submit" class="btn btn-primary mb-3"> View</button></a><br>
+                                    <a href="{{route('edit-work-order',$value->id)}}"><button type="submit" class="btn btn-primary mb-3"> Edit</button></a>
+                                    <a href="{{route('view-work-order',$value->id)}}"><button type="submit" class="btn btn-primary mb-3"> View</button></a><br>
                                     <a href="{{route('go-to-attendance')}}"><button type="submit" class="btn btn-primary mb-3">Go To Attandence</button></a><br>
                                     <a href="{{route('work-order-salary-sheet')}}"><button type="submit" class="btn btn-primary mb-3">Go To Salary Sheet</button></a>
                                     
                                 </td>
 
-                               
                                 
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                    

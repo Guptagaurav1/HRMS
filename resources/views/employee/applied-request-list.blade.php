@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'Leave Requests'])
+@extends('layouts.master')
 
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
@@ -16,13 +16,10 @@
             <div class="col-md-12 d-flex justify-content-start mx-3">
                 <form class="row g-3 mt-2">
                     <div class="col-auto mb-3">
-                        <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
+                        <input type="text" class="form-control" placeholder="Search" required>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
-                    </div>
-                    <div class="col-auto">
-                        <a href="{{route('applied-request-list')}}" class="btn btn-primary mb-3">Reset</a>
                     </div>
                 </form>
             </div>
@@ -44,17 +41,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($leave_requests as $leave_request)
                         <tr>
-                            <td class="text-center">{{$loop->iteration}}</td>
-                            <td class="text-center">{{$leave_request->leave_code}}</td>
-                            <td class="text-center">{{$leave_request->emp_code}}</td>
-                            <td class="text-center">{{$leave_request->emp_name}}</td>
-                            <td class="text-center">{{$leave_request->reason_for_absence}}</td>
-                            <td class="text-center">{{$leave_request->reporting_mail}}</td>
-                            <td class="text-center">{{$leave_request->total_days}}</td>
-                            <td class="text-center"><span class="badge alert-success">{{$leave_request->status}}</span></td>
-                            <td class="text-center">{{date('d-M-Y', strtotime($leave_request->created_on))}}</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">LID-001</td>
+                            <td class="text-center">EMP-123</td>
+                            <td class="text-center">John Doe</td>
+                            <td class="text-center">Medical</td>
+                            <td class="text-center">john.doe@example.com</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center"><span class="badge alert-success">Approved</span></td>
+                            <td class="text-center">2024-12-23</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#leaveDetailsModal">View <i class="fa-solid fa-eye"></i></button>
@@ -64,24 +60,16 @@
                                 </a>
                             </td>
                         </tr>
-                        @empty
-                        <tr>
-                            <td class="text-center text-danger" colspan="10">No Record Found</td>
-                        </tr>
-                        @endforelse
                     </tbody>
                 </table>
-            </div>
-
-            <div class="col-md-12 d-flex justify-content-center my-3">
-                {{$leave_requests->links()}}
             </div>
         </div>
     </div>
 </div>
-
-
 @endsection
+
+
+
 
 <div class="modal fade" id="leaveDetailsModal" tabindex="-1" aria-labelledby="leaveDetailsModalLabel"
     aria-hidden="true">
@@ -212,4 +200,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

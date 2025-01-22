@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'Compose Mail'])
+@extends('layouts.master')
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
@@ -22,57 +22,41 @@
                 </div>
                 
                 <div class="card-body">
-                    <form class="form" method="post" action="{{route('compose')}}" enctype="multipart/form-data">
-                        @csrf
+                    <form>
                         <div class="row">
                             <div class="col-md-6 mb-1">
                                 <label for="recipient" class="form-label">From</label>
-                                <input type="text" class="form-control"  name="from"
-                                    placeholder="Enter sender email" value="{{auth()->user()->email}}" readonly>
-                                @error('from')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
+                                <input type="text" class="form-control" id="from" name="from"
+                                    placeholder="Enter sender email">
                             </div>
                             <div class="col-md-6 mb-1">
                                 <label for="to" class="form-label">To</label>
-                                <input type="text" class="form-control"  name="to"
-                                    placeholder="Enter recipient email" required>
-                                @error('to')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
+                                <input type="text" class="form-control" id="to" name="to"
+                                    placeholder="Enter recipient email">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="cc" class="form-label">CC</label>
-                                <input type="text" class="form-control" name="cc" placeholder="Enter CC email">
+                                <input type="text" class="form-control" id="cc" name="cc" placeholder="Enter CC email">
                             </div>
                             <div class="col-md-6">
                                 <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" name="subject"
-                                    placeholder="Enter email subject" required>
-                                @error('subject')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
+                                <input type="text" class="form-control" id="subject" name="subject"
+                                    placeholder="Enter email subject">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="body" class="form-label">Message / Query</label>
-                                <textarea class="form-control" name="body" rows="6"
-                                    placeholder="Write your message here" required></textarea>
-                                @error('body')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
+                                <textarea class="form-control" id="body" name="body" rows="6"
+                                    placeholder="Write your message here"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="attachments" class="form-label">Attachments</label>
-                                <input type="file" class="form-control" name="attachment">
-                                @error('attachment')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
+                                <input type="file" class="form-control" id="attachments">
                             </div>
                         </div>
                 </div>

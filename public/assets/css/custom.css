@@ -22,22 +22,22 @@
     width: 150px;
 }
 
-/* Ensure the table is scrollable on smaller screens */
+
 .table-responsive {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* For smoother scrolling on mobile devices */
+    -webkit-overflow-scrolling: touch; 
 }
 
-/* Style adjustments for smaller devices */
+
 @media (max-width: 768px) {
     table {
-        font-size: 12px; /* Smaller font size on smaller screens */
+        font-size: 12px; 
     }
     th, td {
-        padding: 8px; /* Reduce padding on smaller screens */
+        padding: 8px; 
     }
     th {
-        white-space: nowrap; /* Prevent text from wrapping */
+        white-space: nowrap; 
     }
 }
 
@@ -178,6 +178,81 @@ label{
 
 #remove-btn{
     display: none;
+}
+
+.panel_1 {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 30px;
+    width: 100%;
+    border: 1px solid white;
+
+}
+
+
+.leave-box {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
+}
+
+.leave-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.leave-box p {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.leave-box span {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.leave-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.row-divider {
+    margin: 15px 0;
+}
+
+
+.styled-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.styled-list li {
+    margin-bottom: 8px; 
+    padding: 8px 12px; 
+    display: flex;
+    justify-content: space-between; 
+    
+   
+}
+
+.styled-list li span {
+    font-weight: 900; 
+    font-size: 15px;
+    color: black;
+}
+.payment li {
+    font-weight: 900; 
+    font-size: 15px;
+    color: black;
+    padding-top: 5px;
 }
 
 

@@ -20,7 +20,7 @@
             <div class="table-responsive after-add-more" id="add-field">
                 <table class="table table-bordered table-hover digi-dataTable table-striped" id="allEmployeeTable">
                     <thead id="table-head">
-                        <tr>
+                        <tr >
                             <th class="text-center">S.No.</th>
                             <th class="text-center">Query Type</th>
                             <th class="text-center">Particular Field</th>

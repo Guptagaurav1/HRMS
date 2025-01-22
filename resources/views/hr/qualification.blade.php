@@ -1,15 +1,19 @@
 @extends('layouts.master', ['title' => 'Qualifications'])
+@section('style')
+
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
+@endsection
         
 @section('contents')
     <div class="row">
         <div class="col-12">
-            <div class="panel vh-100">
+            <div class="panel">
                 <div class="panel-header">
-                    <h5>Qualifications</h5>
+                    <h3 class="mt-2">Qualifications</h3>
                 </div>
             
                 <div class="panel-body">
-                    <div class="row my-2">
+                    <div class="row">
                         <div class="col-md-12 d-flex justify-content-end">
                         <a href="{{route('add-qualification')}}"><button class="btn btn-sm btn-primary">Add Qualification</button></a>  
                         </div> 

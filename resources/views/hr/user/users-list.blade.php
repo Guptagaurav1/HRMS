@@ -8,33 +8,10 @@
 
 @section('contents')
     <div class="row">
-            @if($message = Session::get('success'))
-                <div class="col-md-12">
-                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                         <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                        <div>
-                         {{ $message }}
-                        </div>
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-                @endif
-                @if($message = Session::get('error'))
-                <div class="col-md-12">
-                    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                        <div>
-                            {{$message}}
-                        </div>
-                     
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            @endif
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Users List</h5>
+                    <h3 class="text-white mt-2">Users List</h3>
                     <div class="btn-box">
                         <a href="{{route('add-user')}}" class="btn btn-sm btn-primary">Add User</a>
                     </div>

@@ -16,7 +16,7 @@
             <div class="col-md-12 text-center py-3 ">
                 <label>Select Month :</label><br>
                 <input type="text" name="birthday" value="10/24/1984" />
-                <button type="submit" class="btn btn-primary">Chec</button>
+                <button type="submit" class="btn btn-primary">Check</button>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3">
                 <form class="row g-3 mt-2">
@@ -42,7 +42,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="text-center">PSSPL/DEL/2019-20/0035 </td>
+                            <td class="text-center"><a href="{{route('employee-details')}}" class="text-primary">PSSPL/DEL/2019-20/0035</a> </td>
                             <td class="text-center">Shakuntala Namdeo</td>
                             <td class="text-center">OPERATION MANAGER.</td>
                             <td class="attributes-column">
