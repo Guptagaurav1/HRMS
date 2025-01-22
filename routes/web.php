@@ -19,6 +19,11 @@ use App\Http\Controllers\master\DesignationController;
 use App\Http\Controllers\hr\TeamController;
 use App\Http\Controllers\hr\HolidayController;
 
+use App\Http\Controllers\hr\HelpdeskController;
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,9 +114,10 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 // --------------------------------
 
   
-    Route::controller(HolidayController::class)->prefix('holiday')->group(function () {
+    Route::controller(HolidayController::class)->prefix('leave')->group(function () {
         Route::get("/", 'index')->name("holiday-list");
-
+        Route::get("request-list", 'leave_requests')->name("applied-request-list");
+        Route::get("leave-regularization", 'leave_regularization')->name("leave-regularization");
     });
 
     Route::get("position-request", function () {
@@ -153,25 +159,14 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('d-logout', 'd_logout')->name('department_logout');
     });
-   
-   
 
-
+    Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
+        Route::get('compose-email', 'compose')->name('compose-email');
+        Route::post('send-email', 'send_mail')->name('compose');
+        Route::get("mail-logs", 'mail_log')->name("email-list");
+    });
+   
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -376,15 +371,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.salary-list");
     })->name("salary-list");
 
-
-    Route::get("applied-request-list", function () {
-        return view("hr.applied-request-list");
-    })->name("applied-request-list");
-
-    Route::get("leave-regularization", function () {
-        return view("hr.leave-regularization");
-    })->name("leave-regularization");
-
     Route::get("profile-detail-request-list", function () {
         return view("hr.profile-detail-request-list");
     })->name("profile-detail-request-list");
@@ -397,31 +383,15 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.modify-profile-request");
     })->name("modify-profile-request");
 
-    Route::get("compose-email", function () {
-        return view("hr.compose-email");
-    })->name("compose-email");
-
-    Route::get("email-list", function () {
-        return view("hr.email-list");
-    })->name("email-list");
-
     Route::get("add-role", function () {
         return view("hr.add-role");
     })->name("add-role");
 
-    
-    
-  
-
-
-    
 
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){
         return view('employee.dashboard');
     })->name('employee_dashboard');
-
-    
    
 });
 
