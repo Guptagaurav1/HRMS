@@ -2,7 +2,7 @@
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}"/>
 
 @endsection
 
@@ -18,12 +18,12 @@
         <div class="col-12">
             <div class="panel p-2">
                 <h6>Work Order : BECIL/ND/DRDO/MAN/2425/1323_Extension Added On : 2024-11-14 11:37:39</h6>
-
+               
                 <div class="panel-header py-3 px-2 d-flex align-items-center justify-content-between mt-5">
                     <h5 class="mb-0 text-white" >Work Order Details</h5>
                     <div>
                         <div class="d-flex justify-content-end px-2">
-                            <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 "> Work Order List</button></a>  
+                            <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3"> Work Order List</button></a>  
                         </div>
                     </div>
                    
@@ -278,12 +278,15 @@
             </div>
         </div>
        
-       
+        <div class="col-md-12 d-flex justify-content-end">
+            <button class="btn btn-sm btn-primary"> Update Work Order <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
     </div>
 </div>
 @endsection
 
 @section('script')
+
 <script src={{asset('assets/vendor/js/addmore.js')}}></script>
 
 @endsection

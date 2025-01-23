@@ -433,6 +433,10 @@ Route::controller(WorkOrderController::class)->group(function (){
         return view("hr.employee-month-salary-slip");
     })->name("employee-month-salary-slip");
 
+    Route::get("leave-request-reciept", function () {
+        return view("hr.leave-request-reciept");
+    })->name("leave-request-reciept");
+
     
     
   

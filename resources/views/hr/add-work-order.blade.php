@@ -9,21 +9,18 @@
 @section('contents')
 
 <div class="fluid-container">
-    <div class="row panel-header">
-        <h2>Update Work Order Form</h2>
+    <div class="panel-header">
+        <h2 class="mt-2 px-2">Work Order Form</h2>
 
     </div>
-   
     <div class="row" id="tab-1">
         <div class="col-12">
-            <div class="panel p-2">
-                <h6>Work Order : BECIL/ND/DRDO/MAN/2425/1323_Extension Added On : 2024-11-14 11:37:39</h6>
-
+            <div class="panel">
                 <div class="panel-header py-3 px-2 d-flex align-items-center justify-content-between mt-5">
                     <h5 class="mb-0 text-white" >Work Order Details</h5>
                     <div>
                         <div class="d-flex justify-content-end px-2">
-                            <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 "> Work Order List</button></a>  
+                            <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 my-3"> Work Order List</button></a>  
                         </div>
                     </div>
                    
@@ -264,26 +261,25 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-sm-12 col-md-9 text-wrap">
-                            <label for="formFileSm" class="form-label">Attachment<span style="color: red"> *</span></label>
+                        <div class="col-sm-12 col-md-12 text-wrap">
                            
                             <input class="form-control form-control-sm" id="formFileSm" type="file">
-                        </div>
-                        <div class="col-sm-12 col-md-3 text-wrap ml-5">
-                            <label for="formFileSm" class="form-label">Attachment Work Order</label>
-                            <a href=""> <button class="btn btn-sm btn-primary"> Download Extension  <i class="fa-solid fa-download"></i></button></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-       
-       
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-sm btn-primary"> Register Work Order <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
     </div>
 </div>
 @endsection
 
 @section('script')
+<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
+<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
+<script src={{asset('assets/js/select2-init.js')}}></script>
 <script src={{asset('assets/vendor/js/addmore.js')}}></script>
 
 @endsection

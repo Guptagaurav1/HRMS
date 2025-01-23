@@ -18,7 +18,7 @@ class WorkOrderController extends Controller
         foreach ($workOrders as $workOrder) {
             // dd($workOrder->id);
             $work_order_id = $workOrder->id;
-            $workOrderDetails = WoContactDetail::where('workOrder_id', $work_order_id)->orderBy('id', 'desc')->first(); 
+            $workOrderDetails = WoContactDetail::where('work_order_id', $work_order_id)->orderBy('id', 'desc')->first(); 
             if(!empty($workOrderDetails)){
                 $workOrder->wo_details = $workOrderDetails->wo_client_contact_person .'/'. $workOrderDetails->wo_client_email;
             }else{
@@ -108,13 +108,124 @@ class WorkOrderController extends Controller
 
     }
     public function edit(string $id){
-        $workOrder = WorkOrder::find($id);
-        // dd($WorkOrder);
+       
+        $workOrder = WorkOrder::with('contacts')->findOrFail($id);
+           
+        // dd($workOrder->contacts);
         $organization = Organization::orderBy('id','desc')->get();
         return view("hr.workOrder.edit-work-order",compact('workOrder','organization'));
     }
-    public function update(Request $request){
-       dd($request);
+    public function update(Request $request,string $id){
+        //    dd($id);
+        $request->validate([
+            // 'attachment' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', // Validate the file type and size
+            'organisation' => 'required',
+            // 'work_order' => 'required'
+
+        ]);
+
+        
+        
+        try {   
+            // dd($request);
+            $workOrder= WorkOrder::find($id);
+            
+            // update attechment of workorder
+            if ($request->hasFile('attachment') && $request->file('attachment')->isValid()) {
+
+                $file = $request->file('attachment');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('uploadWorkOrder', $fileName, 'public');
+    
+            }else{
+                $fileName=  $workOrder->wo_attached_file;
+            } 
+            // dd($workOrder->wo_attached_file);
+            //  dd($fileName);
+            $workOrder->wo_internal_ref_no = $request->internal_reference;
+            $workOrder->wo_oraganisation_name = $request->organisation;
+            $workOrder->wo_number = $request->work_order;
+            $workOrder->prev_wo_no = $request->prev_wo_no;
+            $workOrder->wo_date_of_issue = $request->issue_date;
+            $workOrder->wo_project_number = $request->project_no;
+            $workOrder->wo_project_name = $request->project_name;
+            $workOrder->wo_concern_ministry = $request->concern_ministry;
+            $workOrder->wo_empanelment_reference = $request->empanelment_reference;
+            $workOrder->wo_no_of_resources = $request->no_of_resource;
+            $workOrder->wo_project_duration = $request->project_duration_month;
+            $workOrder->wo_project_duration_day = $request->project_duration_days;
+            $workOrder->wo_start_date = $request->start_date;
+            $workOrder->wo_end_date = $request->end_date;
+            $workOrder->wo_location = $request->location;
+            $workOrder->wo_city = $request->city;
+            $workOrder->wo_amount = $request->amount;
+            $workOrder->wo_project_coordinator = $request->coordinator_name;
+            $workOrder->wo_invoice_address = $request->invoice_address;
+
+        
+            $workOrder->wo_invoice_name = $request->invoice_client_name;
+
+            $workOrder->wo_state = $request->invoice_state;
+            $workOrder->wo_pin = $request->invoice_pin;
+            $workOrder->amendment_number = $request->amendment_number;
+            $workOrder->amendment_date = $request->amendment_date;
+            $workOrder->previous_order_no = $request->prev_order_no;
+            $workOrder->wo_remarks = $request->remarks;
+            $workOrder->wo_attached_file = $fileName;
+            $workOrder->update();
+        
+            if($request->input('contacts')){
+                $contactsData = $request->input('contacts');
+                foreach($contactsData['c_person_name'] as $key => $value){
+                    // dd($value);
+                    $woContactDetail = new WoContactDetail();
+                    $woContactDetail->wo_client_contact_person = $value;
+                    $woContactDetail->wo_client_designation = $contactsData['c_designation'][$key];
+                    $woContactDetail->wo_client_contact = $contactsData['c_contact'][$key];
+                    $woContactDetail->wo_client_email = $contactsData['c_email'][$key];
+                    $woContactDetail->wo_client_remarks = $contactsData['c_remarks'][$key];
+                    $woContactDetail->workOrder_id = $workOrder->id;
+                    // dd($woContactDetail);
+                    $woContactDetail->save();
+                }
+            }else{
+                $contactsData = $request->c_person_name;
+                
+                foreach($contactsData as $key => $value){
+                    // dd($woContactDetail);
+                    $woContactDetail = WoContactDetail::where('work_order_id', $id)
+                    ->where('id', $key)
+                    ->first();
+                 
+                    // if(!empty($woContactDetail)){
+    
+                        $woContactDetail->wo_client_contact_person = $value;
+                        $woContactDetail->wo_client_designation = $request->c_designation[$key];
+                        $woContactDetail->wo_client_contact = $request->c_contact[$key];
+                        $woContactDetail->wo_client_email = $request->c_email[$key];
+                        $woContactDetail->wo_client_remarks = $request->c_remarks[$key];
+                     
+                        // dd($woContactDetail);
+                        $woContactDetail->update();
+                    // }else{
+                    //     $woContactDetail = new WoContactDetail();
+                    //     $woContactDetail->wo_client_contact_person = $value;
+                    //     $woContactDetail->wo_client_designation = $request->c_designation[$key];
+                    //     $woContactDetail->wo_client_contact = $request->c_contact[$key];
+                    //     $woContactDetail->wo_client_email = $request->c_email[$key];
+                    //     $woContactDetail->wo_client_remarks = $request->c_remarks[$key];
+                     
+                    //     // dd($woContactDetail);
+                    //     $woContactDetail->save();
+                    // }
+                    
+                }
+            }
+
+            return redirect()->route('work-order-list')->with('success','WorkOrder updated !');
+        }catch(Throwable $th){
+                return response()->json(['error' => true, 'message' => 'Server Error.']); 
+        }
     }
     public function show(){
         return view("hr.workOrder.view-work-order");
