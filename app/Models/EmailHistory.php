@@ -14,14 +14,7 @@ class EmailHistory extends Model
     *
     * @var string
     */
-    protected $table = 'emails_history';
-
-    /**
-    * Indicates if the model should be timestamped.
-    *
-    * @var bool
-    */
-    public $timestamps = false;
+    protected $table = 'email_history';
 
     /**
      * The attributes that are mass assignable.
@@ -30,4 +23,27 @@ class EmailHistory extends Model
      */
     protected $fillable = ['from_mail', 'to_mail', 'sender_id', 'cc', 'subject', 'content', 'attatchment', 'send_time'];
 
+    /**
+    * Update fields on inserting record.
+    *
+    * @var array
+    */
+    public static function boot()
+    {
+        parent::boot();
+        if (auth()->check()) {
+            static::creating(function ($model) {
+                $model->created_by = auth()->user()->id;
+            });
+
+            static::updating(function ($model) {
+                $model->updated_by = auth()->user()->id;
+            });
+
+            static::deleting(function ($model) {
+                $model->deleted_by = auth()->user()->id;
+                $model->save();
+            });
+        }
+    }
 }
