@@ -21,6 +21,7 @@ use App\Http\Controllers\hr\HolidayController;
 use App\Http\Controllers\hr\HelpdeskController;
 
 use App\Http\Controllers\hr\WorkOrderController;
+use App\Http\Controllers\hr\SalarySlipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -186,7 +187,13 @@ Route::controller(WorkOrderController::class)->group(function (){
         Route::post('send-email', 'send_mail')->name('compose');
         Route::get("mail-logs", 'mail_log')->name("email-list");
     });
-   
+
+    Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
+        Route::get('/', 'index')->name("salary-slip");
+
+    Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
+
+});
 });
 
   ////////////////////////// user routes //////////////////////////////////////////////////////////
@@ -337,10 +344,6 @@ Route::controller(WorkOrderController::class)->group(function (){
         return view("hr.work-anniversary-wish-log");
     })->name("work-anniversary-wish-log");
 
-    Route::get("salary-slip", function () {
-        return view("hr.salary-slip");
-    })->name("salary-slip");
-
     Route::get("generate-invoice", function () {
         return view("hr.generate-invoice");
     })->name("generate-invoice");
@@ -421,10 +424,6 @@ Route::controller(WorkOrderController::class)->group(function (){
     Route::get("salary-slip-edit", function () {
         return view("hr.salary-slip-edit");
     })->name("salary-slip-edit");
-
-    Route::get("preview-salary-slip", function () {
-        return view("hr.preview-salary-slip");
-    })->name("preview-salary-slip");
 
     Route::get("employee-code-retainer", function () {
         return view("hr.employee-code-retainer");

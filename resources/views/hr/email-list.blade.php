@@ -48,12 +48,15 @@
                 @endif
 
             <div class="col-md-12 d-flex justify-content-start mx-3">
-                <form class="row g-3 py-2 mt-2">
+                <form class="row g-3 py-2 mt-2" >
                     <div class="col-auto ">
-                        <input type="text" class="form-control" placeholder="Search" required>
+                        <input type="search" class="form-control" placeholder="Search" name="search" value="{{$search}}" required>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{route('email-list')}}" class="btn btn-primary mb-3">Reset</a>
                     </div>
                 </form>
             </div>
@@ -83,7 +86,7 @@
                             <td>{{$email->content}}</td>
                             <td>{{$email->cc}}</td>
                             <td>{{$email->attatchment}}</td>
-                            <td>{{date('d M Y', strtotime($email->send_time))}}</td>
+                            <td>{{date('d M Y', strtotime($email->created_at))}}</td>
                         </tr>
                         @empty
                         <tr>
@@ -93,7 +96,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 d-flex justify-content-center my-2">
                 {{$emails->links()}}
             </div>
         </div>
