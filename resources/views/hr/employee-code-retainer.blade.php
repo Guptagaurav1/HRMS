@@ -16,7 +16,7 @@
             <div class="row px-4 mt-3">
                 <div class="col-sm-4 col-xs-6">
                     <label class="form-label">Date Of Resigning</label>
-                    <input type="date" class="form-control date-picker" id="inputDate">
+                    <input type="text" class="form-control date-picker" id="inputDate" placeholder="MM-Year">
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-12 d-flex  gap-2">
