@@ -20,11 +20,10 @@
                     <div class="col-auto mb-3">
                         <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
                     </div>
-                     <div class="col-auto mb-3">
+                    <div class="col-auto mb-3">
                         <button type="submit" class="btn btn-primary">Search</button>
                         <a href="{{route('my-team-list')}}" class="btn btn-primary">Reset</a>
                     </div>
-                    
                 </form>
             </div>
             
