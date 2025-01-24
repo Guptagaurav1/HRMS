@@ -13,13 +13,13 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="text-white mt-2">Recruitment List</h2>
+                    <h2 class="text-white mt-2">Contact Candidate By Call Form</h2>
                 </div>
                 <div class="row px-3 ">
 
                     <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary mt-2"
-                               >CSV</button></a>
+                        <button class="btn btn-sm btn-primary mt-2"
+                               >Export All  <i class="fa-solid fa-arrow-up-from-bracket"></i></button>
                     </div>
                 </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
@@ -39,33 +39,29 @@
                             id="allEmployeeTable">
                             <thead>
                                 <tr style="background-color: #2A3F54">
-                                    <th class="text-white"><strong>Recruitment Id</strong></th>
-                                    <th class="text-white"><strong>Name</strong></th>
-                                    <th class="text-white"><strong>Contact Details</strong></th>
-                                    <th class="text-white"><strong>Job Position</strong></th>
+                                    <th class="text-white"><strong>S.NO.</strong></th>
                                     <th class="text-white"><strong>Client Name</strong></th>
-                                    <th class="text-white"><strong>DOB</strong></th>
-                                    <th class="text-white"><strong>Location</strong></th>
-                                    <th class="text-white"><strong>Experience</strong></th>
-                                    <th class="text-white"><strong>Skills</strong></th>
-                                    <th class="text-white"><strong>Education</strong></th>
-                                    <th class="text-white"><strong>Status</strong></th>
-                                    <th class="text-white"><strong>Employee Status</strong></th>
+                                    <th class="text-white"><strong>Position Title</strong></th>
+                                    <th class="text-white"><strong>Name</strong></th>
+                                    <th class="text-white"><strong>Email</strong></th>
+                                    <th class="text-white"><strong>Contact Number</strong></th>
+                                    <th class="text-white"><strong>Recruiter Name/Email</strong></th>
+                                    <th class="text-white"><strong>Remarks</strong></th>
+                                    <th class="text-white"><strong>Contacted On</strong></th>
+                                    <th class="text-white"><strong>Resume</strong></th>
                                     <th class="text-white"><strong>Action</strong></th>
                                 </tr>
                                 <tr>
-                                    <th><input type="text" placeholder="Recruitment Id" class="rec-list_head"></th>
-                                    <th><input type="text" placeholder="Name" class="rec-list_head"></th>
-                                    <th><input type="text" placeholder="Contact Details" class="rec-list_head"></th>
-                                    <th><input type="text" placeholder="Job Position" class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="S.NO." class=" form-control"></th>
                                     <th><input type="text" placeholder="Client Name" class="rec-list_head"></th>
-                                    <th><input type="text" placeholder="DOB" class="rec-list_head"></th>
-                                    <th><input type="text" placeholder="Location" class="rec-list_head"></th>
-                                    <th><input type="text" placeholder="Experience" class="rec-list_head"></th>
-                                    <th><input type="text" placeholder="Skills" class="rec-list_head"></th>
-                                    <th>Education</th>
-                                    <th>Status</th>
-                                    <th>Employee Status</th>
+                                    <th><input type="text" placeholder="Position Title" class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Name" class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Email" class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Contact Number" class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Recruiter Name/Email" class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Recruiter Name/Email" class="rec-list_head"></th>
+                                    <th><input type="text" placeholder="Contacted On" class="rec-list_head"></th>
+                                    <th>Resume</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -78,13 +74,13 @@
                                     <td>Prakhar Software Solutions Pvt. Ltd.</td>
                                     <td>1995-01-04</td>
                                     <td>Prakhar Software Solutions Pvt. Ltd, Malviya Nagar, New Delhi</td>
-                                    <td>0</td>
-                                    <td>MARKETING</td>
+                                    
+                                   
                                     <td>MBA</td>
                                     <td><span class="badge alert-success">Offer Accepted</span></td>
-                                    <td>Not Deployed</td>
+                                    <td><a href=""><span class="badge text-bg-success">Download <i class="fa-solid fa-download"></i></span></a></td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary">View <i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button>
                                     </td>
                                 </tr>
                             </tbody>

@@ -437,8 +437,24 @@ Route::controller(WorkOrderController::class)->group(function (){
         return view("hr.leave-request-reciept");
     })->name("leave-request-reciept");
 
+    Route::get("preview-executive-description", function () {
+        return view("hr.preview-executive-description");
+    })->name("preview-executive-description");
+
+    Route::get("show-assign-work-log", function () {
+        return view("hr.show-assign-work-log");
+    })->name("show-assign-work-log");
+
+    Route::get("Candidate-Contacted-By-Cal-Log", function () {
+        return view("hr.Candidate-Contacted-By-Cal-Log");
+    })->name("Candidate-Contacted-By-Cal-Log");
+
+    
+
     
     
+    
+   
   
 
 

@@ -1,8 +1,8 @@
 @extends('layouts.master',['title' => 'Designation List'])
 
 @section('style')
-{{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" /> --}}
+
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
@@ -11,17 +11,18 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Designation Lists</h3>
-                <a href="{{ route('designations.create') }}" class="mt-3"><button type="button" class="btn btn-primary mb-3">Add Designation</button></a>
-
             </div>
-            <div class="col-md-12 d-flex justify-content-start mx-3 mt-4">
+            <div class="text-end px-2 mt-3">
+                <a href="{{ route('designations.create') }}"><button type="button" class="btn btn-primary mb-3">Add Designation <i class="fa-solid fa-plus"></i></button></a>
+            </div>
+            <div class="col-md-12 d-flex justify-content-start px-2">
                 <form class="row g-3" method="get">
                     <div class="col-auto mb-3">
                         <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Search</button>
-                        <a href="{{ route('designations.index') }}"><button type="button" class="btn btn-primary mb-3">Clear</button></a>
+                        <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                        <a href="{{ route('designations.index') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
                     </div>
                 </form>
             </div>
@@ -49,8 +50,8 @@
                                     </td>
                                 </tr>
                             @empty
-                            <tr>
-                                <td colspan="3"><span class="text-danger">No Record Found</span></td>
+                            <tr >
+                                <td colspan="3" class="text-center"><span class="text-danger">No Record Found</span></td>
                             </tr>  
                             @endforelse
                         </tbody>

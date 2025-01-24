@@ -1,25 +1,22 @@
 
 @extends('layouts.master')
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
+
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
-    <div class="dashboard-breadcrumb mb-25">
-        <h2>Create Organization</h2>
-        <div class="btn-box">
-            <a href="{{route('organizations.index')}}" class="btn btn-sm btn-primary">Back</a>
-        </div>
-    </div>
-    
+<div class="row">
     <form action="{{ route('organizations.store') }}" method="post">
         @csrf
         <div class="row">
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        {{-- <h4 class="mt-1">User Details</h4> --}}
+                        <h4 class="mt-2">Create Organization</h4>
+                        <div class="btn-box">
+                            <a href="{{route('organizations.index')}}" class="btn btn-sm btn-primary">Back</a>
+                        </div>
                     </div>
                 
                         <div class="panel-body">
@@ -68,6 +65,8 @@
             </div>
         </div>
     </form>
+</div>
+   
 
 @endsection
 

@@ -1,9 +1,8 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
         
@@ -22,18 +21,7 @@
                         
 
                     </div>
-                    <div class="col-md-3">
-                        {{-- <label class="form-label">Reporting Email</label>
-                        <select id="inputState" class="form-select">
-                            <option selected>Not Specify</option>
-                            <option>Select 1</option>
-                            <option>Select 1</option>
-                            <option>Select 1</option>
-                        </select>
-
-                        </label> --}}
-                        
-                    </div>
+                    
                     <div class="col-md-6">
                         <a href="{{'designation'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Designation</button></a>
                         

@@ -1,15 +1,19 @@
 @extends('layouts.master', ['title' => 'Add Bank'])
+@section('style')
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
+
+@endsection
 
 @section('contents')
 	<div class="row">
 		<div class="col-12">
-			<div class="panel vh-100">
+			<div class="panel">
                 <div class="panel-header">
-                    <h5>Add Bank</h5>
+                    <h3 class="text-white mt-2">Add Bank</h3>
                 </div>
 
                 <div class="panel-body">
-                    <div class="row my-2">
+                    <div class="row">
                         <div class="col-md-12 d-flex justify-content-end">
                         <a href="{{route('bank-details')}}"><button class="btn btn-sm btn-primary">Back</button></a>  
                         </div> 
@@ -31,12 +35,13 @@
                                   <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
-  							<div class="col-md-12 d-flex justify-content-center">
-  							  <button type="submit" class="btn btn-primary mb-3 text-end">Submit</button>
-  							</div>
+  							
 						</form>
                         </div>
                     </div>
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary mb-3 text-end">Submit <i class="fa-solid fa-arrow-right"></i></button>
+                      </div>
                 </div>
             </div>
    
