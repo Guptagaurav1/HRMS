@@ -9,6 +9,7 @@ use App\Mail\ComposeMail;
 use stdclass;
 use App\Models\EmailHistory;
 use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\DB;
 
 class HelpdeskController extends Controller
 {
@@ -33,6 +34,8 @@ class HelpdeskController extends Controller
         ]);
 
         try {
+            DB::beginTransaction();
+
             $maildata = new stdclass();
             $maildata->from = $request->from;
             $maildata->subject = $request->subject;
@@ -59,14 +62,14 @@ class HelpdeskController extends Controller
                 'cc' => $request->cc,
                 'subject' => $request->subject,
                 'content' => $request->body,
-                'send_time' => date('Y-m-d G:i:s'),
                 'attatchment' => $filename ? $filename : ''
             ]);
             Mail::to($to)->cc($cc)->send(new ComposeMail($maildata));
-
+            DB::commit();
         return redirect()->route('email-list')->with(['success' => true, 'message' => 'Mail Sent Successfully']);
         }
         catch(Throwable $th){
+            DB::rollBack();
          return redirect()->route('email-list')->with(['error' => true, 'message' => 'Server Error']);
         }
   
@@ -77,7 +80,18 @@ class HelpdeskController extends Controller
     */
     public function mail_log(Request $request){
         $usermail = auth()->user()->email;
-       $emails = EmailHistory::where('from_mail', $usermail)->orderByDesc('id')->paginate(10);
-        return view("hr.email-list", compact('emails'));
+       $emails = EmailHistory::where('from_mail', $usermail);
+        $search = '';
+        if ($request->search) {
+            $search = $request->search;
+            $emails = $emails->whereAny([
+                'to_mail',
+                'subject',
+                'content'
+            ], 'LIKE', '%'.$request->search.'%');
+        }
+        $emails = $emails->orderByDesc('id')->paginate(10)->withQueryString();
+
+        return view("hr.email-list", compact('emails', 'search'));
     } 
 }

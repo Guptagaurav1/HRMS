@@ -1,9 +1,8 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
+<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+
 @endsection
 
 @section('contents')
@@ -13,9 +12,9 @@
             <div class="panel-header">
                 <h2 class="mt-2">Leave Regularization List</h2>
             </div>
-            <div class="col-md-12 text-center py-3 ">
+            <div class="col-md-12 text-center py-3">
                 <label>Select Month :</label><br>
-                <input type="text" name="birthday" value="10/24/1984" />
+                <input name="startDate" id="startDate" class="date-picker" placeholder="mm-year" />
                 <button type="submit" class="btn btn-primary">Check</button>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3">
@@ -42,20 +41,26 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="text-center"><a href="{{route('employee-details')}}" class="text-primary">PSSPL/DEL/2019-20/0035</a> </td>
+                            <td class="text-center">
+                                <a href="{{ route('employee-details') }}"
+                                    class="text-primary">PSSPL/DEL/2019-20/0035</a>
+                            </td>
                             <td class="text-center">Shakuntala Namdeo</td>
                             <td class="text-center">OPERATION MANAGER.</td>
                             <td class="attributes-column">
                                 1234567890 / hr@prakharsoftwares.com
                             </td>
                             <td class="text-center">
-                                <a href="{{'view-letter'}}">
-                                    <button class="btn btn-sm btn-primary">Select Dates</button>
-                                </a>
+                                <div class="mbsc-form-group">
+                                    <input type="text" id="multiDatePicker" name="leave_dates"
+                                        class="btn btn-sm btn-primary multiDatePicker" style="color: white;"
+                                        placeholder="Select Date" autocomplete="off" value="">
+                                </div>
+
                             </td>
                             <td class="text-center">
-                                <a href="{{'view-letter'}}">
-                                    <button class="btn btn-sm btn-primary">Send Mail</button>
+                                <a href="{{ route('view-letter')}}">
+                                    <button type="button" class="btn btn-sm btn-primary">Send Mail</button>
                                 </a>
                             </td>
                         </tr>
@@ -68,7 +73,5 @@
 @endsection
 
 @section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
+<script src={{asset('assets/vendor/js/calenderOpen.js')}}></script>
 @endsection

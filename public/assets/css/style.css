@@ -7831,9 +7831,9 @@ pre .punctuation {
 .main-content .digi-dataTable tr td:first-child {
   text-align: left;
 }
-.main-content .digi-dataTable tr td:last-child {
+/* .main-content .digi-dataTable tr td:last-child {
   text-align: right;
-}
+} */
 .main-content .digi-dataTable .btn-box {
   width: -webkit-max-content;
   width: -moz-max-content;
