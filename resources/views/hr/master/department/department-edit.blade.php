@@ -1,7 +1,7 @@
 @extends('layouts.master',['title' => 'Update Department'])
 @section('style')
-{{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" /> --}}
-{{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" /> --}}
+
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
@@ -9,7 +9,7 @@
     <div class="col-12">
         <div class="panel mb-4">
             <div class="panel-header">
-                <h5>Department</h5>
+                <h4 class="text-white mt-2">Department</h4>
             </div>
             <div class="row px-3 mt-2">
                 @if ($message = Session::get('success'))
@@ -28,7 +28,7 @@
                 <div class="col-md-6">
                     <form method="post" action="{{route('departments.update', $department->id)}}">
                         @csrf
-                    <label class="form-label">Department<span style="color: red">*</span></label>
+                    <label class="form-label">Department<span class="text-danger">*</span></label>
                     <input type="text" name="department"  value="{{ $department->department }}" placeholder="Enter department name" class="form-control">
                     @error('department')
                         <small class="text-danger">{{$message}}</small>
@@ -44,7 +44,6 @@
                             </option>
                         @endforeach
                     
-                    
                     </select>
 
                     @error('skill')
@@ -52,7 +51,7 @@
                     @enderror   
                 </div>
                 <div class="col-md-12 mb-4 text-end">
-                    <button type="submit" class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Submit</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
                 </form>
                 </div>
             </div>

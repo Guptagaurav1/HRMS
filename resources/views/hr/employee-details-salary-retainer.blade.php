@@ -131,7 +131,7 @@
     <div class="row mt-2">
         <div class="col-md-12 d-flex justify-content-end gap-2 mb-2">
         
-          <a href="{{route('employee-code-retainer')}}"> <button class="btn btn-sm btn-primary">Print Salary Slip <i class="fa-solid fa-print"></i></button></a>  
+          <a href="{{route('employee-code-retainer', ['id' => $salaryid])}}"> <button class="btn btn-sm btn-primary">Print Salary Slip <i class="fa-solid fa-print"></i></button></a>  
     
         </div>
     </div>

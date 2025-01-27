@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wo_contact_details', function (Blueprint $table) {
-            $table->id();
+            $table->id();            
             $table->unsignedBigInteger('work_order_id')->nullable();
             $table->foreign('work_order_id')->references('id')->on('work_orders')->onDelete('NO ACTION');
             $table->string('wo_client_contact_person')->nullable();;

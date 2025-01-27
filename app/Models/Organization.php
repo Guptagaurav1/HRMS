@@ -31,6 +31,14 @@ class Organization extends Model
                 $model->save();
             });
         }
+        
     }
+
+    public function workOrders()
+    {
+        return $this->hasMany(WorkOrder::class);
+    }
+
+    
 
 }

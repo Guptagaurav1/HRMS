@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('work_orders', function (Blueprint $table) {
             $table->id();
             $table->string('wo_internal_ref_no')->nullable();
-            $table->string('wo_oraganisation_name')->nullable();
+            $table->unsignedBigInteger('wo_oraganisation_name')->nullable();
+            $table->foreign('wo_oraganisation_name')->references('id')->on('organizations')->onDelete('NO ACTION');
+
             $table->string('wo_number')->nullable();
             $table->string('prev_wo_no')->nullable();
             $table->date('wo_date_of_issue')->nullable();

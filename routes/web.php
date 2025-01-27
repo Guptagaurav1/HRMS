@@ -95,9 +95,6 @@ Route::middleware('guest')->group(function () {
         Route::post("/update/{designation}", 'update')->name("designations.update");
         Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
     });
- 
-        
-
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
@@ -108,14 +105,6 @@ Route::middleware('guest')->group(function () {
     });
 
 
-
-
-
-
-
-
-
-
     // end masters
 // --------------------------------
 
@@ -124,6 +113,8 @@ Route::middleware('guest')->group(function () {
         Route::get("/", 'index')->name("holiday-list");
         Route::get("request-list", 'leave_requests')->name("applied-request-list");
         Route::get("leave-regularization", 'leave_regularization')->name("leave-regularization");
+        Route::post('request-details', 'leave_details');
+        Route::get("leave-request-reciept/{id}", 'leave_receipt')->name("leave-request-reciept");
     });
 
     Route::get("position-request", function () {
@@ -169,7 +160,6 @@ Route::middleware('guest')->group(function () {
 /////////// workorder routes start ///////
 Route::controller(WorkOrderController::class)->group(function (){
 
-    
     Route::get("work-order-list","index")->name("work-order-list");
     Route::get("add-work-order","create")->name("add-work-order");
     Route::post("store-work-order","store")->name("store-work-order");
@@ -196,8 +186,9 @@ Route::controller(WorkOrderController::class)->group(function (){
         Route::post('export', 'export_csv')->name("export-salary");
         Route::get("edit/{id}", 'edit_slip')->name("salary-slip-edit");
         Route::post("update-slip", 'update_slip')->name("salary-slip-update");
-        Route::get("print", 'print_salary_slip')->name("employee-code-retainer");
+        Route::get("print/{id}", 'print_salary_slip')->name("employee-code-retainer");
     });
+
 });
 
   ////////////////////////// user routes //////////////////////////////////////////////////////////
@@ -425,12 +416,24 @@ Route::controller(WorkOrderController::class)->group(function (){
         return view("hr.employee-month-salary-slip");
     })->name("employee-month-salary-slip");
 
-    Route::get("leave-request-reciept", function () {
-        return view("hr.leave-request-reciept");
-    })->name("leave-request-reciept");
+    Route::get("preview-executive-description", function () {
+        return view("hr.preview-executive-description");
+    })->name("preview-executive-description");
+
+    Route::get("show-assign-work-log", function () {
+        return view("hr.show-assign-work-log");
+    })->name("show-assign-work-log");
+
+    Route::get("Candidate-Contacted-By-Cal-Log", function () {
+        return view("hr.Candidate-Contacted-By-Cal-Log");
+    })->name("Candidate-Contacted-By-Cal-Log");
+
+    
 
     
     
+    
+   
   
 
 

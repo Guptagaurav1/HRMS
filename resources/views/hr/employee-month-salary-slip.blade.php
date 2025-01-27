@@ -13,9 +13,9 @@
                 <p class="mt-3">Name : Sanjay Rawat</p>
             </div>
             <div class="row px-4 mt-3">
-                <div class="col-sm-6 col-xs-6">
+                <div class="col-sm-6 col-md-3">
                     <label class="form-label">Select Month</label>
-                    <input type="date" class="form-control" id="inputDate">
+                    <input type="" class="form-control date-picker" id="inputDate" placeholder="mm-year">
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-12 d-flex  gap-2">
@@ -36,4 +36,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script src={{asset('assets/vendor/js/employeeSalarycalender.js')}}></script>
 @endsection

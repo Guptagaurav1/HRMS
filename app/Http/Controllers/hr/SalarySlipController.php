@@ -74,7 +74,7 @@ class SalarySlipController extends Controller
         $emp_code = EmpSalarySlip::where('emp_salary_id', $salaryid)->value('sal_emp_code');
         $empdetails = EmpDetail::where('emp_code', $emp_code)->first();
         if ($empdetails) {
-            return view("hr.employee-details-salary-retainer", compact('empdetails'));
+            return view("hr.employee-details-salary-retainer", compact('empdetails', 'salaryid'));
         }
         else {
              return redirect()->route('salary-slip')->with(['error' => true, 'message' => 'Server Error']);
@@ -170,8 +170,19 @@ class SalarySlipController extends Controller
         return redirect()->route('salary-slip')->with(['success' => true, 'message' => 'Record updated successfully.']);
     }
 
-    public function print_salary_slip(Request $request){
-        return view("hr.employee-code-retainer");
+    public function print_salary_slip(Request $request, $salaryid){
+        $salary_slip_record = EmpSalarySlip::findOrFail($salaryid);
+        $slip_get = false;
+        $month = '';
+        $filter_record = '';
+        if ($request->month) {
+            $month = $request->month;
+            $filter_record = EmpSalarySlip::where('sal_emp_code', $salary_slip_record->sal_emp_code)->where('sal_month', $request->month)->first();
+            if ($filter_record) {
+                $slip_get = true;
+            }
+        }
+            return view("hr.employee-code-retainer", compact('salary_slip_record', 'salaryid', 'slip_get', 'month', 'filter_record'));
     }
 
 }

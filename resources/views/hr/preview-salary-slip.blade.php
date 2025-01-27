@@ -131,7 +131,6 @@
 </div>
 @endsection
 @section('script')
-<script type="text/JavaScript" src="{{asset('assets/js/jQuery.print.js')}}"></script>
 <script src="{{asset('assets/js/previewSalary.js')}}"></script>
 
 @endsection

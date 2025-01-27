@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasColumn('emp_salary_slip', 'created_by')) {
         Schema::table('emp_salary_slip', function (Blueprint $table) {
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+        }
     }
 
     /**
