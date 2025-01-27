@@ -1,9 +1,8 @@
 @extends('layouts.master', ['title' => 'Functional Roles'])
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
         
@@ -12,13 +11,13 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Functional Role</h5>
+                    <h4 class="text-white mt-2">Functional Role</h4>
                 </div>
             
                 <div class="panel-body">
-                    <div class="row my-2">
+                    <div class="row ">
                         <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{route('add-functional-role')}}"><button class="btn btn-sm btn-primary">Add Functional Role</button></a>  
+                        <a href="{{route('add-functional-role')}}"><button class="btn btn-sm btn-primary">Add Functional Role <i class="fa-solid fa-plus"></i></button></a>  
                         </div> 
 
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -49,40 +48,40 @@
                                 <div>
                                   {{session()->get('message')}}
                                 </div>
-                             
+                    
                               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>
                         @endif
                     </div>
 
-
-                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
-                        <thead>
-                            <tr>
-                                <th>Sr No.</th>
-                                <th>Functional Role</th>
-                                <th>Action</th>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>Functional Role</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 @forelse($roles as $role) 
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $role->role }}</td>
+                                 <td> 
+                                    <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button class="btn btn-sm btn-primary">Edit</button></a>
+                                    <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete</button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                             @forelse($roles as $role) 
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $role->role }}</td>
-                             <td> 
-                                <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button class="btn btn-sm btn-primary">Edit</button></a>
-                                <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete</button>
-                            </td>
-                        </tr>
-                            @empty 
-                            <tr>
-                                <td class="text-danger text-center" colspan="3">No Record Found</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-
+                                @empty 
+                                <tr>
+                                    <td class="text-danger text-center" colspan="3">No Record Found</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="col-md-12">
                         {{$roles->links()}}
                     </div>

@@ -1,21 +1,25 @@
 @extends('layouts.master', ['title' => 'Add Functional Role'])
 
-@section('contents')
-	<div class="row">
-		<div class="col-12">
-			<div class="panel vh-100">
-                <div class="panel-header">
-                    <h5>Add Functional Role</h5>
-                </div>
+@section('style')
 
-                <div class="panel-body">
-                    <div class="row my-2">
-                        <div class="col-md-12 d-flex justify-content-end">
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
+@endsection
+
+@section('contents')
+
+
+	<div class="fluid-container">
+		<div class="row">
+			<div class="col-12">
+				<div class="panel">
+					<div class="panel-header  heading-stripe">
+						<h3 class="mt-2 text-center" >Add Functionl Role</h3>
+					</div>
+					<div class="col-md-12 d-flex justify-content-end px-3 my-3">
                         <a href="{{route('functional-role')}}"><button class="btn btn-sm btn-primary">Back</button></a>  
                         </div> 
-
-                        <div class="col-md-12 d-flex justify-content-center">
-                        <form class="row g-3" method="post" action="{{route('store-functional-role')}}">
+					<div class="col-md-12 d-flex justify-content-center mx-3 ">
+						 <form class="row g-3" method="post" action="{{route('store-functional-role')}}">
                         	@csrf
   							<div class="col-auto">
   							  <input type="text" class="form-control" name="role" value="{{old('role')}}" placeholder="Enter Functional Role" required>
@@ -27,11 +31,9 @@
   							  <button type="submit" class="btn btn-primary mb-3">Submit</button>
   							</div>
 						</form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-   
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 

@@ -1,9 +1,8 @@
 
 @extends('layouts.master')
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
@@ -23,7 +22,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Position Details</h5>
+                    <h5 class="text-white">Position Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
@@ -128,7 +127,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>ELIGIBILTY  CRITERIA</h5>
+                    <h5 class="text-white">ELIGIBILTY  CRITERIA</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
@@ -142,7 +141,6 @@
                                 <option value="1">Shift 2</option>
                                 <option value="2">Shift 3</option>
                             </select>
-                           
                            
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6 d-flex flex-wrap">
@@ -180,9 +178,7 @@
                                 <option value="1">Shift 2</option>
                                 <option value="2">Shift 3</option>
                             </select>
-                        </div>
-                       
-                        
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -190,21 +186,14 @@
        
         
         <div class="col-12 d-flex justify-content-end align-items-center">
-            <p style="color: red" class=" me-3 mb-0">* For Final PR click Final Submit Button.</p>
+            <p  class=" me-3 mb-0 text-danger">* For Final PR click Final Submit Button.</p>
             <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-        
+        </div>        
     </div>
 
 @endsection
 
-@section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
 
-
-@endsection
 
     
 

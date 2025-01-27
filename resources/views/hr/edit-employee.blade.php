@@ -1,23 +1,18 @@
-
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
+<div class="container-fluid">
+    <div class="panel-header">
+        <h2 class="px-2 mt-2">Edit Employee</h2>
 
-
-    <div class="dashboard-breadcrumb mb-25">
-        <h2>Edit Employee</h2>
-        <div class="btn-box">
-            <a href="{{'employee-list'}}" class="btn btn-sm btn-primary">Employee List</a>
-        </div>
     </div>
     <div class="dashboard-breadcrumb mb-25">
-        
+
         <div class="d-flex gap-2 justify-items-center align-items-center">
             <input type="radio" id="html" name="fav_language" value="HTML">
             <label for="html">Single Entry</label><br>
@@ -29,24 +24,27 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Employee Details</h5>
+                    <h5 class="text-white">Employee Details</h5>
+                    <div class="btn-box">
+                        <a href="{{'employee-list'}}" class="btn btn-sm btn-primary">Employee List  <i class="fa-solid fa-list"></i></a>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Work Order Number <span style="color: red">*</span></label>
+                            <label class="form-label">Work Order Number <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Employee Code <span style="color: red">*</span></label>
+                            <label class="form-label">Employee Code <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Employee Name <span style="color: red">*</span></label>
+                            <label class="form-label">Employee Name <span class="text-danger">*</span></label>
                             <input type="email" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Gender <span style="color: red">*</span></label>
+                            <label class="form-label">Gender <span class="text-danger">*</span></label>
                             <select id="inputState" class="form-select">
                                 <option value=""> Select Gender</option>
                                 <option value="0">Male</option>
@@ -55,7 +53,7 @@
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Category  <span style="color: red">*</span></label>
+                            <label class="form-label">Category <span class="text-danger">*</span></label>
                             <select id="inputState" class="form-select">
                                 <option value="">Select Category</option>
                                 <option value="0">Shift 1</option>
@@ -64,11 +62,12 @@
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label for="inputDate" class="form-label">Date of Birth <span style="color: red">*</span></label>
+                            <label for="inputDate" class="form-label">Date of Birth <span
+                                class="text-danger">*</span></label>
                             <input type="date" class="form-control" id="inputDate">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Date Of Joining <span style="color: red">*</span></label>
+                            <label class="form-label">Date Of Joining <span class="text-danger">*</span></label>
                             <input type="date" class="form-control" id="inputDate">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -76,11 +75,11 @@
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Highest Qualification <span style="color: red">*</span></label>
+                            <label class="form-label">Highest Qualification <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Designation <span style="color: red">*</span></label>
+                            <label class="form-label">Designation <span class="text-danger">*</span></label>
                             <select id="inputState" class="form-select">
                                 <option value="">Select Designation</option>
                                 <option value="0">Shift 1</option>
@@ -89,7 +88,7 @@
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Department <span style="color: red">*</span></label>
+                            <label class="form-label">Department <span class="text-danger">*</span></label>
                             <select id="inputState" class="form-select">
                                 <option value="">Select Department</option>
                                 <option value="0">Shift 1</option>
@@ -106,39 +105,41 @@
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Total Experience <span style="color: red">*</span></label>
+                            <label class="form-label">Total Experience <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Contact(Personal) <span style="color: red">*</span></label>
+                            <label class="form-label">Contact(Personal) <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Email(Personal)<span style="color: red">*</span></label>
+                            <label class="form-label">Email(Personal)<span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Contact (Office) <span style="color: red">*</span></label>
+                            <label class="form-label">Contact (Office) <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Email (Office) <span style="color: red">*</span></label>
+                            <label class="form-label">Email (Office) <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Guardian Name(Parents/Others) <span style="color: red">*</span></label>
+                            <label class="form-label">Guardian Name(Parents/Others) <span
+                                class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Guardian(Parents/Others) Contact No.<span style="color: red">*</span></label>
+                            <label class="form-label">Guardian(Parents/Others) Contact No.<span
+                                class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Blood Group <span style="color: red">*</span></label>
+                            <label class="form-label">Blood Group <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Martial Status<span style="color: red">*</span></label>
+                            <label class="form-label">Martial Status<span class="text-danger">*</span></label>
                             <select id="inputState" class="form-select">
                                 <option value="">Select Martial Status</option>
                                 <option value="0">Shift 1</option>
@@ -147,20 +148,20 @@
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Date Of Marriage <span style="color: red">*</span></label>
+                            <label class="form-label">Date Of Marriage <span class="text-danger">*</span></label>
                             <input type="date" class="form-control" id="inputDate">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">No Of Children <span style="color: red">*</span></label>
+                            <label class="form-label">No Of Children <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Spouse Name <span style="color: red">*</span></label>
+                            <label class="form-label">Spouse Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <label class="form-label">Functional Role<span style="color: red">*</span></label>
+                                <label class="form-label">Functional Role<span class="text-danger">*</span></label>
                                 <select id="inputState" class="form-select">
                                     <option value="">Select Functional Role</option>
                                     <option value="0">Shift 1</option>
@@ -169,7 +170,7 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Select Some Skills<span style="color: red">*</span></label>
+                                <label class="form-label">Select Some Skills<span class="text-danger">*</span></label>
                                 <select id="inputState" class="form-select">
                                     <option value="">Select Some Skills</option>
                                     <option value="0">Shift 1</option>
@@ -178,14 +179,10 @@
                                 </select>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label for="formFileSm" class="form-label">Upload Resume</label>
-                            <input class="form-control form-control-sm" id="formFileSm" type="file">
+                                <label for="formFileSm" class="form-label">Upload Resume</label>
+                                <input class="form-control form-control-sm" id="formFileSm" type="file">
                             </div>
                         </div>
-                       
-                        
-                        
-
                     </div>
                 </div>
             </div>
@@ -193,7 +190,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Communication Details</h5>
+                    <h5 class="text-white">Communication Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
@@ -202,7 +199,9 @@
                             <textarea class="form-control" id="exampleTextarea"></textarea>
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
-                            <label for="exampleTextarea" class="form-label">Correspondence Address <span><input class="form-check-input" type="checkbox" id="inlineFormCheck"></span>Same as permanent</label>
+                            <label for="exampleTextarea" class="form-label">Correspondence Address <span><input
+                                        class="form-check-input" type="checkbox" id="inlineFormCheck"></span>Same as
+                                permanent</label>
                             <textarea class="form-control" id="exampleTextarea"></textarea>
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
@@ -217,40 +216,40 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Banking Account Details</h5>
+                    <h5 class="text-white">Banking Account Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Bank Name <span style="color: red">*</span></label>
+                            <label class="form-label">Bank Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Bank Branch Name <span style="color: red">*</span></label>
+                            <label class="form-label">Bank Branch Name <span class="text-danger">*</span></label>
                             <input type="tel" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Bank Account Number <span style="color: red">*</span></label>
+                            <label class="form-label">Bank Account Number <span class="text-danger">*</span></label>
                             <input type="number" class="form-control form-control-sm">
                         </div>
-                        
+
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">IFSC Code <span style="color: red">*</span></label>
+                            <label class="form-label">IFSC Code <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">Aadhar Number <span style="color: red">*</span></label>
+                            <label class="form-label">Aadhar Number <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
-                            <label class="form-label">PAN Number <span style="color: red">*</span></label>
+                            <label class="form-label">PAN Number <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm">
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -258,9 +257,9 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Educational Qualification</h5>
+                    <h5 class="text-white">Educational Qualification</h5>
                 </div>
-                
+
                 <div class="card mb-20">
                     <div class="card-header">
                         10th Qualification
@@ -278,9 +277,9 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Board Name</label>
                                 <input type="number" class="form-control form-control-sm">
-                                
+
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -301,9 +300,9 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Board Name</label>
                                 <input type="number" class="form-control form-control-sm">
-                                
+
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -314,7 +313,8 @@
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Passing Year/Persuing <span style="color: red">*</span></label>
+                                <label class="form-label">Passing Year/Persuing <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm">
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -324,19 +324,19 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Mode Of Graduation</label>
                                 <input type="number" class="form-control form-control-sm">
-                                
+
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Degree Name</label>
                                 <input type="number" class="form-control form-control-sm">
-                                
+
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Degree In (Stream Name)</label>
                                 <input type="number" class="form-control form-control-sm">
-                                
+
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -347,7 +347,8 @@
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Passing Year/Persuing <span style="color: red">*</span></label>
+                                <label class="form-label">Passing Year/Persuing <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm">
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -357,29 +358,29 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Mode Of Graduation</label>
                                 <input type="number" class="form-control form-control-sm">
-                                
+
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Degree Name</label>
                                 <input type="number" class="form-control form-control-sm">
-                                
+
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Degree In (Stream Name)</label>
                                 <input type="number" class="form-control form-control-sm">
-                                
+
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-     
+
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Other Details</h5>
+                    <h5 class="text-white">Other Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
@@ -407,31 +408,23 @@
                                 <option value="1">Deactive</option>
                             </select>
                         </div>
-                       
-                        <div class="col-xxl-3 col-lg-6 col-sm-6">
-                          
-                            <label class="form-label">Date Of Resigning</label>
-                                <input type="date" class="form-control" id="inputDate">
-                            
 
-                           
+                        <div class="col-xxl-3 col-lg-6 col-sm-6">
+                            <label class="form-label">Date Of Resigning</label>
+                            <input type="date" class="form-control" id="inputDate">
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
                             <label for="exampleTextarea" class="form-label">Remarks</label>
-                                <textarea class="form-control" id="exampleTextarea"></textarea>
-
-                            
+                            <textarea class="form-control" id="exampleTextarea"></textarea>
                         </div>
-                        
                     </div>
                 </div>
             </div>
         </div>
-       
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Reporting Details</h5>
+                    <h5 class="text-white">Reporting Details</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
@@ -443,40 +436,16 @@
                                 <option>Select 1</option>
                                 <option>Select 1</option>
                             </select>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary">Submit</button>
+            <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
+</div>
 
 @endsection
-
-
-@section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
-
-
-@endsection
-
-    
-
-
-
-
-
-
-
-
-
-  
-    
-    
-
-

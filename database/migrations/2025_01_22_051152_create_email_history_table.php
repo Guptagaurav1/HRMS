@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wo_contact_details', function (Blueprint $table) {
-            $table->id();            
-            $table->unsignedBigInteger('work_order_id')->nullable();
-            $table->foreign('work_order_id')->references('id')->on('work_orders')->onDelete('NO ACTION');
-            $table->string('wo_client_contact_person')->nullable();;
-            $table->string('wo_client_designation')->nullable();;
-            $table->string('wo_client_contact')->nullable();;
-            $table->string('wo_client_email')->nullable();;
-            $table->string('wo_client_remarks')->nullable();;
-
+        Schema::create('email_history', function (Blueprint $table) {
+            $table->id();
+            $table->string('from_mail');
+            $table->string('to_mail');
+            $table->string('sender_id')->nullable();
+            $table->string('cc')->nullable();
+            $table->string('subject');
+            $table->text('content');
+            $table->string('attatchment')->nullable();
             $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->integer('updated_by')->nullable();
@@ -30,7 +30,8 @@ return new class extends Migration
             $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->softDeletes();
             $table->timestamps();
-        });
+            });
+
     }
 
     /**
@@ -38,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wo_contact_details');
+        Schema::dropIfExists('email_history');
     }
 };

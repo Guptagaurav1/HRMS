@@ -5,6 +5,7 @@ $(function() {
           console.log("Selected Dates:", $(this).multiDatesPicker('getDates'));
       }
   });
+  
   $('.date-picker').datepicker( {
   changeMonth: true,
   changeYear: true,

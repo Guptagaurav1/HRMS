@@ -56,11 +56,11 @@
         <div class="panel-body">
             <div class="row g-3">
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                    <label class="form-label">Employee Salary <span style="color: red">*</span></label>
+                    <label class="form-label">Employee Salary <span class="text-danger">*</span></label>
                     <input type="number" class="form-control form-control-sm">
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                    <label class="form-label">Employee Designation <span style="color: red">*</span></label>
+                    <label class="form-label">Employee Designation <span class="text-danger">*</span></label>
                     <select id="inputState" class="form-select">
                         <option selected>Office Assistant(Stage-2)</option>
                         <option>Select 1</option>
@@ -90,16 +90,16 @@
 <div class="col-12">
     <div class="panel">
         <div class="panel-header">
-            <h5>Employee Details (Only shows Salary Structure Status Pending )</h5>
+            <h5 class="text-white">Employee Details (Only shows Salary Structure Status Pending )</h5>
         </div>
         <div class="panel-body">
             <div class="row g-3">
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                    <label class="form-label">Employee Code <span style="color: red">*</span></label>
+                    <label class="form-label">Employee Code <span class="text-danger">*</span></label>
                     <input type="text" class="form-control form-control-sm">
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                    <label class="form-label">Employee Name <span style="color: red">*</span></label>
+                    <label class="form-label">Employee Name <span class="text-danger">*</span></label>
                     <input type="tel" class="form-control form-control-sm">
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -141,7 +141,7 @@
             <div class="col-12 px-2 m-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck" style="color: red">
+                    <label class="form-check-label" for="gridCheck" class="text-danger">
                         (Please Tick For Special PF Case)
                     </label>
                 </div>
@@ -149,7 +149,7 @@
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Basic <span style="color: red">*</span></label>
+                        <label class="form-label">Basic <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -181,7 +181,7 @@
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">PF Employer <span style="color: red">*</span></label>
+                        <label class="form-label">PF Employer <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -204,7 +204,7 @@
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Telephone <span style="color: red">*</span></label>
+                        <label class="form-label">Telephone <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -242,7 +242,7 @@
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">PF Employee<span style="color: red">*</span></label>
+                        <label class="form-label">PF Employee<span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -359,14 +359,14 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <button class="btn btn-sm btn-primary">Add Salary BreakUp</button>
+                    <button class="btn btn-sm btn-primary">Add Salary BreakUp <i class="fa-solid fa-plus"></i></button>
 
 
                 </div>
             </div>
             <div class="d-flex align-items-center justify-content-center mt-2">
                 <div>
-                    <button class="btn btn-sm btn-primary">Preview Letter</button>
+                    <button class="btn btn-sm btn-primary">Preview Letter <i class="fa-solid fa-arrow-left"></i></button>
                 </div>
             </div>
 
@@ -375,8 +375,8 @@
 </div>
 <div class="row mt-2">
     <div class="col-md-12 d-flex justify-content-end gap-2 mb-2">
-        <button class="btn btn-sm btn-primary">Dismiss</button>
-        <button class="btn btn-sm btn-primary">Send Letter</button>
+        <button class="btn btn-sm btn-primary">Dismiss <i class="fa-solid fa-circle-xmark"></i></button>
+        <button class="btn btn-sm btn-primary">Send Letter <i class="fa-regular fa-paper-plane"></i></button>
 
     </div>
 </div>

@@ -15,7 +15,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{route('add-qualification')}}"><button class="btn btn-sm btn-primary">Add Qualification</button></a>  
+                        <a href="{{route('add-qualification')}}"><button class="btn btn-sm btn-primary">Add Qualification <i class="fa-solid fa-plus"></i></button></a>  
                         </div> 
 
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -53,32 +53,34 @@
                         @endif
                     </div>
 
-
-                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
-                        <thead>
-                            <tr>
-                                <th>Sr No.</th>
-                                <th>Qualification</th>
-                                <th>Action</th>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Sr No.</th>
+                                    <th class="text-center">Qualification</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 @forelse($qualifications as $qualification) 
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $qualification->qualification }}</td>
+                                 <td class="text-center"> 
+                                    <a href="{{route('edit-qualification', ['id' => $qualification->id])}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <button class="btn btn-sm btn-primary delete" data-id="{{$qualification->id}}">Delete <i class="fa-solid fa-trash"></i></button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                             @forelse($qualifications as $qualification) 
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $qualification->qualification }}</td>
-                             <td> 
-                                <a href="{{route('edit-qualification', ['id' => $qualification->id])}}"><button class="btn btn-sm btn-primary">Edit</button></a>
-                                <button class="btn btn-sm btn-primary delete" data-id="{{$qualification->id}}">Delete</button>
-                            </td>
-                        </tr>
-                            @empty 
-                            <tr>
-                                <td class="text-danger text-center" colspan="3">No Record Found</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                @empty 
+                                <tr>
+                                    <td class="text-danger text-center" colspan="3">No Record Found</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    
 
                     <div class="col-md-12">
                         {{$qualifications->links()}}
@@ -88,6 +90,8 @@
             </div>
         </div>
     </div>
+
+    
 
 @endsection
 @section('script')
