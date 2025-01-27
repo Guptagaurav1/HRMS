@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Employee Details'])
 
 @section('style')
 
@@ -10,8 +10,11 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <p class="mt-3">EMP CODE : Retainer/2023-24/0052</p>
-                <p class="mt-3">Name : Sanjay Rawat</p>
+                <p class="mt-3">EMP CODE : {{$empdetails->emp_code}}</p>
+                <p class="mt-3">Name : {{$empdetails->emp_name}}</p>
+            </div>
+            <div class="col-md-12 d-flex justify-content-end my-2 mr-2">
+                <a href="{{route('salary-slip')}}" class="btn btn-primary">Back</a>
             </div>
             <div class="table-responsive mt-3">
                 <div class="row px-4">
@@ -22,95 +25,95 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Gender</td>
-                                    <td>PSSPL/DEL/2021-22/0172</td>
+                                    <td>{{$empdetails->emp_gender}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Date Of Birth</td>
-                                    <td>Sumit Kumar</td>
+                                    <td>{{$empdetails->emp_dob}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Work Order</td>
-                                    <td>Male</td>
+                                    <td>{{$empdetails->emp_work_order}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Posting Place</td>
-                                    <td>GENERAL</td>
+                                    <td>{{$empdetails->emp_place_of_posting}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Highest Qualification</td>
-                                    <td>PSSPL Internal Employees</td>
+                                    <td>{{$empdetails->emp_highest_qualification}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Father Name</td>
-                                    <td>Delhi</td>
+                                    <td>{{$empdetails->emp_father_name}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Designation</td>
-                                    <td>MIS HEAD</td>
+                                    <td>{{$empdetails->emp_designation}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Date Of Joining</td>
-                                    <td>IT</td>
+                                    <td>{{$empdetails->emp_doj}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Salary</td>
-                                    <td>DATA ENTRY OPERATOR</td>
+                                    <td>{{$empdetails->emp_salary}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">PAN No</td>
-                                    <td>2nd November, 2021</td>
+                                    <td>{{$empdetails->emp_pan}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Account No</td>
-                                    <td>EXCEL</td>
+                                    <td>{{$empdetails->emp_account_no}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Bank Name</td>
-                                    <td>₹ 21,100.00</td>
+                                    <td>{{$empdetails->emp_bank}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">IFSC Code</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_ifsc}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Blood Group</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_blood_group}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Permanent Address</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_permanent_address}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Local Address</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_local_address}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">City</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_city}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">State</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_state}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Phone No.</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_phone_first}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Alternate Phone no</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_phone_second}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Email</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_email_first}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Alternate Email</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_email_second}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Emergency Contact No.</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_emergency_contact}}</td>
                                 </tr>
                             </tbody>
                         </table>

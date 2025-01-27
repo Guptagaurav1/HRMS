@@ -17,6 +17,9 @@
                     </div>
                     
                     <div class="panel-body invoice printarea" id="invoiceBody">
+                        <div class="d-none">
+                            <input type="hidden" id="slip-id" value="{{$id}}">
+                        </div>
                         <div class="invoice-header mb-25">
                             <div class="row justify-content-between align-items-end">
                             
