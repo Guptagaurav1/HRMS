@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Holiday;
 use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
+use Throwable;
 
 class HolidayController extends Controller
 {
@@ -61,19 +62,27 @@ class HolidayController extends Controller
     }
 
     /**
-     * Display the specified holiday.
+     * Get the details of requested leave.
      */
-    public function show(Holiday $holiday)
+    public function leave_details(Request $request)
     {
-        //
+        try{
+            $data = LeaveRequest::select('leave_request.*', 'emp_details.emp_name', 'users.email as revert_by', 'u.email as reapproved_by')->join('emp_details', 'leave_request.emp_code', '=', 'emp_details.emp_code')->leftJoin('users', 'leave_request.approved_disapproved_by', '=', 'users.id')->leftJoin('users AS u', 'leave_request.reapproved_redisapproved_by', '=', 'u.id')->where('leave_request.id', $request->requestId)->first();
+            return response()->json(['success' => true, 'data' => $data]);
+        }
+        catch(Throwable $th){
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+       
     }
 
     /**
-     * Show the form for editing the specified holiday.
+     * Show the leave receipt.
      */
-    public function edit(Holiday $holiday)
+    public function leave_receipt(Request $request, $leave_id)
     {
-        //
+          $data = LeaveRequest::select('leave_request.*', 'emp_details.emp_name', 'emp_details.department', 'emp_details.emp_designation', 'users.first_name', 'users.last_name', 'roles.role_name')->join('emp_details', 'leave_request.emp_code', '=', 'emp_details.emp_code')->leftJoin('users', 'leave_request.approved_disapproved_by', '=', 'users.id')->leftJoin('roles', 'users.role_id', '=', 'roles.id')->where('leave_request.id', $leave_id)->first();
+         return view("hr.leave-request-reciept", compact('data'));
     }
 
     /**

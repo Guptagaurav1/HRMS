@@ -16,8 +16,8 @@
                 <div class="row px-3 mb-3">
                     
                     
-                    <div class="col-md-12 d-flex justify-content-end ml-5">
-                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add New Candidate</button></a>
+                    <div class="col-md-12 d-flex justify-content-end mt-4">
+                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">Add New Candidate <i class="fa-solid fa-plus"></i></button></a>
                     </div>
                 </div>
                 
@@ -44,7 +44,7 @@
                                 <td class="text-center">Sales and Marketing Specialist</td>
                                 <td class="text-center">Prakhar Software Solutions Pvt. Ltd.</td>
                                 <td class="attributes-column">
-                                    ADVANCE PHP, Oracle Database, SQL Database, HTML, CSS, CORE PHP, JAVA, WORDPRESS, NODE JS, ANGULAR JS, GrapesJs, SDK, Android Studio, Rest API, MYSQL, Firebase, Indesign, Python, Laravel, Mongo DB, Nodejs, Javascript, Golang, PHP, Vuejs, ReactJs, Negotiation Skill, Communication Skill, Writing Skills, Research Skills, Digital Marketing, dotnet
+                                    <a href="{{route('show-assign-work-log')}}" class="text-primary">01 <span>Contacts</span></a>
                                 </td>
                                 <td class="text-center">23rd December, 2024</td>
                                 <td class="text-center">26th December, 2024</td>
@@ -52,24 +52,18 @@
                                 <td class="text-center">Pallavi, Arzoo</td>
                                 <td class="text-center">0/1</td>
                                 <td class="text-center">
-                                    <a href="{{'view-letter'}}">
-                                        <button class="btn btn-sm btn-primary">Share Job Description</button>
+                                    <a href="{{'preview-executive-description'}}">
+                                        <button class="btn btn-sm btn-primary" >Share Job Description <i class="fa-solid fa-paper-plane"></i></button>
                                     </a>
                                 </td>
-                                <td class="text-center">Pending</td>
+                                <td class="text-center"><span class="badge text-bg-success">Pending</span></td>
                             </tr>
                         </tbody>
                     </table>
-                   
-                    <div class="table-bottom-control"></div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
-@section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
-@endsection
+

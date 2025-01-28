@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Leave Request Receipt'])
 
 @section('style')
 
@@ -15,10 +15,13 @@
 
 <div class="fluid-container">
     <div class="row">
+        <div class="col-md-12 d-flex justify-content-end bg-light py-2">
+            <a href="{{route('applied-request-list')}}" class="btn btn-primary float-right">Back</a>
+        </div>
         <div class="col-md-12">
-            <div class="panel">
+            <div class="panel printarea">
                 <div class="d-flex align-items-center justify-content-center">
-                    <img src="assets/images/PrakharNEWLogo.png" alt="Logo" width="120" class="text-center my-2">
+                    <img src="{{asset('assets/images/PrakharNEWLogo.png')}}" alt="Logo" width="120" class="text-center my-2">
                 </div>
 
                 <div class="invoice-header d-flex justify-content-center align-items-centerSS">
@@ -39,77 +42,77 @@
                                 <th class="dark">
                                     Leave Code :
                                 </th>
-                                <td>VIKAS VERMA</td>
+                                <td>{{$data->leave_code}}</td>
                                 <th class="dark">
                                     Applied Date:
                                 </th>
-                                <td>9th January, 2025</td>
+                                <td>{{date('M d, Y', strtotime($data->created_on))}}</td>
                             </tr>
                             <tr>
                                 <th class="dark">
                                     Name :
                                 </th>
-                                <td>VIKAS VERMA</td>
+                                <td>{{$data->emp_name}}</td>
                                 <th class="dark">
                                     EMP Code :
                                 </th>
-                                <td>PSSPL/DEL/2023-24/0293</td>
+                                <td>{{$data->emp_code}}</td>
                             </tr>
                             <tr>
                                 <th class="dark">
                                     Designation :
                                 </th>
-                                <td>PHP DEVELOPER</td>
+                                <td>{{$data->emp_designation}}</td>
                                 <th class="dark">
                                     Department :
                                 </th>
-                                <td>IT</td>
+                                <td>{{$data->department}}</td>
                             </tr>
                             <tr>
                                 <th class="dark">
                                     Type Of Leave Requested :
                                 </th>
                                 <td colspan="3">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Sick leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Sick Leave
                                     </label>
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Casual leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Casual Leave
                                     </label>
 
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Birthday leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Birthday Leave
                                     </label>
 
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Aniversary leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Anniversary Leave
                                     </label>
 
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Half Day leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Half Day Leave
                                     </label>
 
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Short Day leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Short Day Leave
                                     </label>
                                     <br>
                                    
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Tour/Travel leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Official Tour/Travel
                                     </label>
                                     
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Comp Off leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Comp Off
                                     </label>
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <input class="form-check-input" type="checkbox" {{$data->reason_for_absence == 'Other leave' ? 'checked' : 'disabled'}}>
                                     <label class="form-check-label" for="gridCheck">
                                         Other
                                     </label>
@@ -121,8 +124,7 @@
                                 <th class="dark">
                                     Date of Leave :
                                 </th>
-                                <td colspan="3">18th September, 2025, 17th September, 2025, 13th September, 2025, 13th
-                                    October, 2025 </td>
+                                <td colspan="3">{{$data->absence_dates}}</td>
 
                             </tr>
                             <tr>
@@ -130,13 +132,13 @@
                                     Total No. Of days :
                                 </th>
                                 <td colspan="3">
-                                    8 </td>
+                                    {{$data->total_days}} </td>
                             </tr>
                             <tr>
                                 <th class="dark">
                                     Reason For Absence :
                                 </th>
-                                <td colspan="3" class="res_com">NA </td>
+                                <td colspan="3" class="res_com">{{$data->reason_for_absence}} </td>
 
                             </tr>
                         </tbody>
@@ -153,12 +155,12 @@
                 </div>
                 <div class="row mt-2 px-2">
                     <div class="col-md-6">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <input class="form-check-input" type="checkbox" {{$data->status == 'Approved' || $data->status == 'Reapproved' ? 'checked' : 'disabled'}}>
                         <label class="form-check-label" for="gridCheck">
                             Approved
                     </div>
                     <div class="col-md-6">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <input class="form-check-input" type="checkbox" {{$data->status == 'Disapproved' || $data->status == 'Redisapproved' ? 'checked' : 'disabled'}}>
                         <label class="form-check-label" for="gridCheck">
                             Rejected
                     </div>
@@ -168,18 +170,21 @@
                 </div>
                 <div class="row mt-2 px-2">
                     <div class="col-md-8 payment">
-                        <p>Date : <span class="text-black">9th January 2025</span></p>
+                        <p>Date : <span class="text-black">{{date('M d, Y', strtotime($data->created_on))}}</span></p>
                     </div>
                     <div class="col-md-4 payment">
-                        <p class="text-dark">Approved By : <span>Harsh Singh</span></p>
+                        <p class="text-dark">Approved By : <span>{{$data->first_name." ".$data->last_name." - ".$data->role_name}}</span></p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary"> Print <i class="fa-solid fa-print"></i></button>
+            <button class="btn btn-sm btn-primary" onclick="printmydoc()"> Print <i class="fa-solid fa-print"></i></button>
         </div>
     </div>
 </div>
 
+@endsection
+@section('script')
+<script src="{{asset('assets/js/hr/request-recept.js')}}"></script>
 @endsection

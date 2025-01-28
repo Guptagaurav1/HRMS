@@ -38,28 +38,28 @@
                     @endif
 
                 <div class="text-end">
-                    <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary">Add Department</button></a>
+                    <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary">Add Department <i class="fa-solid fa-plus"></i></button></a>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="table-responsive">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                     <thead>
                         <tr>
-                            <th>Sr No.</th>
-                            <th>Department</th>
-                            <th>Skills</th>
-                            <th>Action</th>
+                            <th class="text-center">Sr No.</th>
+                            <th class="text-center">Department</th>
+                            <th class="text-center">Skills</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         @forelse($departments as $key => $value)
                         <tr>
-                            <td>
+                            <td class="text-center">
                                 {{$loop->iteration}}
                             </td>
-                            <td>{{ $value->department }}</td>
-                            <td>
+                            <td class="text-center">{{ $value->department }}</td>
+                            <td class="text-center">
                                     <?php
                                     $skill = $value->skills->pluck('skill')->toArray();
                                     $unique = array_unique($skill);
@@ -67,15 +67,15 @@
                                 ?>
                                     {{ $skills1 }}
                             </td>
-                            <td>
-                                <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit </button></a>
-                                <a  class="delete-department" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete</button></a>
+                            <td class="text-center m-2 gap-2">
+                                <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit  <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                <a class="delete-department" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
                             </td>
                         </tr>
                         @empty
                         <tr>
                             <td colspan="3" class="text-center">
-                                <span class="text-danger ">Record not found</span>
+                                <span class="text-danger">Record not found</span>
                             </td>
                         </tr>
                         @endforelse

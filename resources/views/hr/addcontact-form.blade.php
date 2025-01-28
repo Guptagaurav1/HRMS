@@ -1,8 +1,6 @@
 @extends('layouts.master')
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-
+<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
 @endsection
 
 @section('contents')
@@ -15,7 +13,10 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h5>Add Details</h5>
+                <h5 class="text-white">Add Details</h5>
+            </div>
+            <div class="text-end mt-2 px-2">
+                <a href="{{ route(('Candidate-Contacted-By-Cal-Log'))}}"><button type="button" class="btn btn-sm btn-primary">Contacted Candidate List <i class="fa-solid fa-list"></i></button></a>
             </div>
             <div class="panel-body">
                 <div class="row g-3">

@@ -18,8 +18,8 @@
                 <div class="row px-3 ">
 
                     <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary"
-                                style="margin-left: 120px;margin-top:25px">CSV</button></a>
+                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary mt-2"
+                               >CSV</button></a>
                     </div>
                 </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
@@ -82,9 +82,9 @@
                                     <td>MARKETING</td>
                                     <td>MBA</td>
                                     <td><span class="badge alert-success">Offer Accepted</span></td>
-                                    <td>Not Deployed</td>
+                                    <td> <a href="{{route("employee-details")}}">PSSPL/2024-25-35 </a>  <span class="badge text-bg-danger">Active</span></td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary">View <i class="fa-solid fa-eye"></i></button>
+                                       <a href="{{route("applicant-recruitment-details-summary")}}"> <button class="btn btn-sm btn-primary">View <i class="fa-solid fa-eye"></i></button></a>
                                     </td>
                                 </tr>
                             </tbody>

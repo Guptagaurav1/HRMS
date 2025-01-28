@@ -96,9 +96,6 @@ Route::middleware('guest')->group(function () {
         Route::post("/update/{designation}", 'update')->name("designations.update");
         Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
     });
- 
-        
-
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
@@ -109,14 +106,6 @@ Route::middleware('guest')->group(function () {
     });
 
 
-
-
-
-
-
-
-
-
     // end masters
 // --------------------------------
 
@@ -125,6 +114,8 @@ Route::middleware('guest')->group(function () {
         Route::get("/", 'index')->name("holiday-list");
         Route::get("request-list", 'leave_requests')->name("applied-request-list");
         Route::get("leave-regularization", 'leave_regularization')->name("leave-regularization");
+        Route::post('request-details', 'leave_details');
+        Route::get("leave-request-reciept/{id}", 'leave_receipt')->name("leave-request-reciept");
     });
 
     Route::get("position-request", function () {
@@ -167,23 +158,22 @@ Route::middleware('guest')->group(function () {
         Route::get('d-logout', 'd_logout')->name('department_logout');
     });
 
-/////////// workorder routes start ///////
-Route::controller(WorkOrderController::class)->group(function (){
+    /////////// workorder routes start ///////
+    Route::controller(WorkOrderController::class)->group(function (){
 
-    
-    Route::get("work-order-list","index")->name("work-order-list");
-    Route::get("add-work-order","create")->name("add-work-order");
-    Route::post("store-work-order","store")->name("store-work-order");
-    Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
-    Route::post("update-work-order/{id}","update")->name("update-work-order");
-    Route::get("view-work-order/{id}","show")->name("view-work-order");
+        Route::get("work-order-list","index")->name("work-order-list");
+        Route::get("add-work-order","create")->name("add-work-order");
+        Route::post("store-work-order","store")->name("store-work-order");
+        Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
+        Route::post("update-work-order/{id}","update")->name("update-work-order");
+        Route::get("view-work-order/{id}","show")->name("view-work-order");
 
-    
+        
 
-});
-/////////// workorder routes end ///////
+    });
+    /////////// workorder routes end ///////
   
-  Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
+    Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
         Route::get('compose-email', 'compose')->name('compose-email');
         Route::post('send-email', 'send_mail')->name('compose');
         Route::get("mail-logs", 'mail_log')->name("email-list");
@@ -191,18 +181,22 @@ Route::controller(WorkOrderController::class)->group(function (){
 
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
         Route::get('/', 'index')->name("salary-slip");
+        Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
+        Route::post('send-mail/{id}', 'send_mail');
+        Route::get('employee-details/{salaryid}', 'employee_details')->name("employee-details-salary-retainer");
+        Route::post('export', 'export_csv')->name("export-salary");
+        Route::get("edit/{id}", 'edit_slip')->name("salary-slip-edit");
+        Route::post("update-slip", 'update_slip')->name("salary-slip-update");
+        Route::get("print/{id}", 'print_salary_slip')->name("employee-code-retainer");
+    });
 
-    Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
-
-});
 
 
 
-Route::controller(AttendanceController::class)->prefix('attendance')->group(function () {
-    Route::get('go-to-attendance/{wo_id}', 'index')->name("go-to-attendance");
-    Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
-});
-
+    Route::controller(AttendanceController::class)->prefix('attendance')->group(function () {
+        Route::get('go-to-attendance/{wo_id}', 'index')->name("go-to-attendance");
+        Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
+    });
 
 
 
@@ -438,28 +432,46 @@ Route::controller(AttendanceController::class)->prefix('attendance')->group(func
         return view("hr.employee-details");
     })->name("employee-details");
 
-    Route::get("employee-details-salary-retainer", function () {
-        return view("hr.employee-details-salary-retainer");
-    })->name("employee-details-salary-retainer");
-
-    Route::get("salary-slip-edit", function () {
-        return view("hr.salary-slip-edit");
-    })->name("salary-slip-edit");
-
-    Route::get("employee-code-retainer", function () {
-        return view("hr.employee-code-retainer");
-    })->name("employee-code-retainer");
-
     Route::get("employee-month-salary-slip", function () {
         return view("hr.employee-month-salary-slip");
     })->name("employee-month-salary-slip");
 
-    Route::get("leave-request-reciept", function () {
-        return view("hr.leave-request-reciept");
-    })->name("leave-request-reciept");
+    Route::get("preview-executive-description", function () {
+        return view("hr.preview-executive-description");
+    })->name("preview-executive-description");
+
+    Route::get("show-assign-work-log", function () {
+        return view("hr.show-assign-work-log");
+    })->name("show-assign-work-log");
+
+    Route::get("Candidate-Contacted-By-Cal-Log", function () {
+        return view("hr.Candidate-Contacted-By-Cal-Log");
+    })->name("Candidate-Contacted-By-Cal-Log");
+
+    Route::get("Edit-Candidate-Details-Contacted-By-Call", function () {
+        return view("hr.Edit-Candidate-Details-Contacted-By-Call");
+    })->name("Edit-Candidate-Details-Contacted-By-Call");
+
+    Route::get("recruitment-plan-page-summary", function () {
+        return view("hr.recruitment-plan-page-summary");
+    })->name("recruitment-plan-page-summary");
+
+    Route::get("applicant-recruitment-details-summary", function () {
+        return view("hr.applicant-recruitment-details-summary");
+    })->name("applicant-recruitment-details-summary");
+
+   
+
+   
+
+    
+
+    
 
     
     
+    
+   
   
 
 

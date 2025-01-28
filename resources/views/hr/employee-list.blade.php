@@ -1,15 +1,8 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<style>
-    button {
-        white-space: nowrap;
 
-    }
-</style>
-
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
@@ -82,9 +75,12 @@
                                         <input class="form-check-input" type="checkbox">
                                     </div>
                                 </td>
-                                <td>
-                                    ID-1002
-                                </td>
+                                
+                                    <td>
+                                        <a href="{{route('employee-details')}}" class="text-primary"> ID-1002</a>
+                                    </td>
+                                
+                               
                                 <td>Gaurav </td>
                                 <td>
                                     NGP/23134
@@ -102,8 +98,8 @@
                                 <td> <a href="{{'edit-employee'}}"><button class="btn btn-sm btn-primary"> <i
                                                 class="fa-solid fa-pen-to-square"></i> Edit</button></td></a>
                                                 <td class="my-3">
-                                                    <a href="{{'send-letter'}}"><button class="btn btn-sm btn-primary">Send Letter </button></a>
-                                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary mt-2">View Letter</button></a>
+                                                    <a href="{{'send-letter'}}"><button class="btn btn-sm btn-primary">Send Letter <i class="fa-solid fa-paper-plane"></i></button></a>
+                                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">View Letter  <i class="fa-solid fa-eye"></i></button></a>
                                                 </td>
                             </tr>
                         </tbody>
