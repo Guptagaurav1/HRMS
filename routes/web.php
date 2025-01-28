@@ -22,6 +22,7 @@ use App\Http\Controllers\hr\HelpdeskController;
 
 use App\Http\Controllers\hr\WorkOrderController;
 use App\Http\Controllers\hr\SalarySlipController;
+use App\Http\Controllers\hr\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -194,6 +195,26 @@ Route::controller(WorkOrderController::class)->group(function (){
     Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
 
 });
+
+
+
+Route::controller(AttendanceController::class)->prefix('attendance')->group(function () {
+    Route::get('go-to-attendance/{wo_id}', 'index')->name("go-to-attendance");
+    Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
   ////////////////////////// user routes //////////////////////////////////////////////////////////
@@ -384,9 +405,9 @@ Route::controller(WorkOrderController::class)->group(function (){
     //     return view("hr.view-work-order");
     // })->name("view-work-order");
 
-    Route::get("go-to-attendance", function () {
-        return view("hr.go-to-attendance");
-    })->name("go-to-attendance");
+    // Route::get("go-to-attendance", function () {
+    //     return view("hr.go-to-attendance");
+    // })->name("go-to-attendance");
 
     Route::get("work-order-salary-sheet", function () {
         return view("hr.work-order-salary-sheet");
