@@ -67,7 +67,7 @@
                                 </td>
                                 <td>1</td>
                                 <td><span class="badge alert-success">Recruitment Process</span></td>
-                                <td><a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">View</button></a></td>
+                                <td><a href="{{route('applicant-recruitment-details-summary')}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a></td>
                             </tr>
                         </tbody>
                     </table>

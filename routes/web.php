@@ -449,6 +449,24 @@ Route::controller(WorkOrderController::class)->group(function (){
         return view("hr.Candidate-Contacted-By-Cal-Log");
     })->name("Candidate-Contacted-By-Cal-Log");
 
+    Route::get("Edit-Candidate-Details-Contacted-By-Call", function () {
+        return view("hr.Edit-Candidate-Details-Contacted-By-Call");
+    })->name("Edit-Candidate-Details-Contacted-By-Call");
+
+    Route::get("recruitment-plan-page-summary", function () {
+        return view("hr.recruitment-plan-page-summary");
+    })->name("recruitment-plan-page-summary");
+
+    Route::get("applicant-recruitment-details-summary", function () {
+        return view("hr.applicant-recruitment-details-summary");
+    })->name("applicant-recruitment-details-summary");
+
+   
+
+   
+
+    
+
     
 
     
