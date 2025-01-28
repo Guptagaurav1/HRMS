@@ -56,8 +56,8 @@
                             <td class="text-center">{{date('d-M-Y', strtotime($leave_request->created_on))}}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#leaveDetailsModal">View <i class="fa-solid fa-eye"></i></button>
-                                <a href="{{route('leave-request-reciept')}}">
+                                    data-bs-target="#leaveDetailsModal" data-bs-whatever="{{$leave_request->id}}">View <i class="fa-solid fa-eye"></i></button>
+                                <a href="{{route('leave-request-reciept', ['id' => $leave_request->id])}}">
                                     <button class="btn btn-sm btn-primary">Print <i
                                             class="fa-solid fa-print"></i></button>
                                 </a>
@@ -94,13 +94,13 @@
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Leave Code:</label>
-                                <span>Leave/0293/CL/0867</span>
+                                <span class="leave_code"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Employee Code:</label>
-                                <span>PSSPL/DEL/2023-24/0293</span>
+                                <span class="emp_code"></span>
                             </div>
                         </div>
                     </div>
@@ -108,15 +108,13 @@
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Employee Name:</label>
-                                <span>Gaurav Gupta</span>
+                                <span class="emp_name"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">CC Mail:</label>
-                                <span>
-
-                                    example@example.com</span>
+                                <span class="cc text-wrap"></span>
                             </div>
                         </div>
                     </div>
@@ -124,28 +122,28 @@
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Reason Of Absence:</label>
-                                <span>Medical Leave</span>
+                                <span class="reason"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Absence Dates:</label>
-                                <span>01/01/2025 - 04/01/2025</span>
+                                <span class="absence_dates"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
-                                <label class="fw-bold">From No Of Days:</label>
-                                <span>4</span>
+                                <label class="fw-bold">No Of Days:</label>
+                                <span class="total_days"></span>
                             </div>
 
                         </div>
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
-                                <label class="fw-bold">To No Of Days:</label>
-                                <span>4</span>
+                                <label class="fw-bold">Department Head Email</label>
+                                <span class="head_mail"></span>
                             </div>
 
                         </div>
@@ -154,27 +152,27 @@
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Revert By:</label>
-                                <span>HR Manager</span>
+                                <span class="revert_by"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Revert Comment:</label>
-                                <span>Approved as per policy</span>
+                                <span class="revert_comment"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
-                                <label class="fw-bold">Approved By:</label>
-                                <span>Gaurav Gupta</span>
+                                <label class="fw-bold">Reapproved By:</label>
+                                <span class="approved_by"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
-                                <label class="fw-bold">Approved Comment:</label>
-                                <span>Leave granted</span>
+                                <label class="fw-bold">Reapproved Comment:</label>
+                                <span class="approved_comment"></span>
                             </div>
                         </div>
                     </div>
@@ -182,13 +180,13 @@
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Status:</label>
-                                <span>Approved</span>
+                                <span class="status"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
                                 <label class="fw-bold">Apply Date:</label>
-                                <span>31/12/2024</span>
+                                <span class="apply_date"></span>
                             </div>
                         </div>
                     </div>
@@ -196,11 +194,7 @@
                         <div class="field-container shadow-lg d-flex flex-column">
                             <label class="fw-bold">Leave Comment:</label>
                             <div class="employee-comment mt-2">
-                                <span class="mt-">I hope this email finds you well. I am writing to formally request a
-                                    day of Half
-                                    Day leave today, as I need to accompany my family to Sani Dev for a personal visit.
-                                    This trip has been planned for some time, and it is important for me to be with my
-                                    .</span>
+                                <span class="mt leave_comment"></span>
                             </div>
                         </div>
                     </div>
@@ -211,5 +205,9 @@
         </div>
     </div>
 </div>
+
+@section('script')
+<script src="{{asset('assets/js/hr/leave_request.js')}}"></script>
+@endsection
 
 

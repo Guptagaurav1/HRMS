@@ -16,4 +16,10 @@ class LeaveRequest extends Model
      * @var string
      */
     protected $table = 'leave_request';
+
+    /**
+     * Customize the names of the columns used to store the timestamps.
+     */ 
+    const CREATED_AT = 'created_on';
+    const UPDATED_AT = 'updated_on';
 }

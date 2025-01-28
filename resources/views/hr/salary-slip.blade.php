@@ -18,13 +18,20 @@
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3 mt-2">
                         <div class="col-auto">
-                            <input type="text" class="form-control" placeholder="Search" required>
+                            <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" required>
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3"> CSV </button>
+                            <a href="{{route('salary-slip')}}" class="btn btn-primary mb-3">Reset</a>
+                        </div>
+                    </form>
+                    <form action="{{route('export-salary')}}" class="row g-3 mt-2 mx-1" method="post">
+                        @csrf
+                        <div class="col-auto">
+                           <input type="hidden" name="search" value="{{$search}}">
+                           <button type="submit" class="btn btn-primary mb-3"> CSV</button>
                         </div>
                     </form>
 
@@ -37,6 +44,18 @@
                             </symbol>
                     </svg>
                 </div>
+                 @if(session()->has('success'))
+                        <div class="col-md-12">
+                            <div class="alert alert-success alert-dismissible d-flex align-items-center fade show" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                <div>
+                                  {{session()->get('message')}}
+                                </div>
+                             
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
                     @if(session()->has('error'))
                         <div class="col-md-12">
                             <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
@@ -48,7 +67,7 @@
                               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>
-                        @endif
+                    @endif
                 <div class="table-responsive mt-3 ">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                         id="allEmployeeTable">
@@ -73,7 +92,7 @@
                              @forelse($slips as $slip)
                             <tr>
                                 <td class="srno-column">{{$loop->iteration}}</td>
-                                <td class="rid-column"><a href="{{route('employee-details-salary-retainer')}}" class="text-primary">{{$slip->sal_emp_code}}</a></td>
+                                <td class="rid-column"><a href="{{route('employee-details-salary-retainer', ['salaryid' => $slip->emp_salary_id])}}" class="text-primary">{{$slip->sal_emp_code}}</a></td>
                                 <td>{{$slip->sal_emp_name}}</td>
                                 <td class="attributes-column">{{$slip->sal_month}}</td>
                                 <td>{{$slip->sal_working_days}}</td>
@@ -92,7 +111,7 @@
                                 </td>
                                 <td>
     
-                                    <a href="{{route("salary-slip-edit")}}"><button class="btn btn-sm btn-primary" >Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <a href="{{route('salary-slip-edit', ['id' => $slip->emp_salary_id])}}"><button class="btn btn-sm btn-primary" >Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                     <a href="{{route('preview-salary-slip', ['id' => $slip->emp_salary_id])}}"><button class="btn btn-sm btn-primary">View <i class="fa-solid fa-eye"></i></button></a>
                                 </td>
                             </tr>
