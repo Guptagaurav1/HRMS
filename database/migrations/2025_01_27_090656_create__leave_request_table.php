@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('leave_code');
             $table->string('emp_code');
-            $table->foreign('emp_code')->references('emp_code')->on('emp_details');
             $table->string('cc');
             $table->string('department_head_email');
             $table->string('reason_for_absence');

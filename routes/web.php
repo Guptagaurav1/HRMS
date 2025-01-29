@@ -115,6 +115,8 @@ Route::middleware('guest')->group(function () {
         Route::get("leave-regularization", 'leave_regularization')->name("leave-regularization");
         Route::post('request-details', 'leave_details');
         Route::get("leave-request-reciept/{id}", 'leave_receipt')->name("leave-request-reciept");
+        Route::get("employee-details/{empid}", 'emp_details')->name("employee-details");
+        Route::post("send_regularization", 'send_mail');
     });
 
     Route::get("position-request", function () {
@@ -407,10 +409,6 @@ Route::controller(WorkOrderController::class)->group(function (){
         return view("hr.add-role");
     })->name("add-role");
 
-
-    Route::get("employee-details", function () {
-        return view("hr.employee-details");
-    })->name("employee-details");
 
     Route::get("employee-month-salary-slip", function () {
         return view("hr.employee-month-salary-slip");
