@@ -92,7 +92,7 @@
                                         <td>
                                             <a href="{{route('edit-work-order',$value->id)}}"><button type="submit" class="btn btn-primary mb-3"> Edit</button></a>
                                             <a href="{{route('view-work-order',$value->id)}}"><button type="submit" class="btn btn-primary mb-3"> View</button></a><br>
-                                            <a href="{{route('go-to-attendance')}}"><button type="submit" class="btn btn-primary mb-3">Go To Attandence</button></a><br>
+                                            <a href="{{route('go-to-attendance',$value->id)}}"><button type="submit" class="btn btn-primary mb-3">Go To Attandence</button></a><br>
                                             <a href="{{route('work-order-salary-sheet')}}"><button type="submit" class="btn btn-primary mb-3">Go To Salary Sheet</button></a>
                                             
                                         </td>

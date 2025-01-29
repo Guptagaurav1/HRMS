@@ -54,7 +54,7 @@
                                 <td>Download <a href> <i class="fa-solid fa-download"></i></a></td>
                                <td class="text-center"> <span class="badge bg-success">Success</span></td>
                                 <td> 
-                                    <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a>
+                                    <a href="{{'recruitment-plan-page-summary'}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a>
                                   
                                 </td>
                                 <td colspan="3"> 

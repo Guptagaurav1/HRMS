@@ -22,6 +22,7 @@ use App\Http\Controllers\hr\HelpdeskController;
 
 use App\Http\Controllers\hr\WorkOrderController;
 use App\Http\Controllers\hr\SalarySlipController;
+use App\Http\Controllers\hr\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,22 +160,22 @@ Route::middleware('guest')->group(function () {
         Route::get('d-logout', 'd_logout')->name('department_logout');
     });
 
-/////////// workorder routes start ///////
-Route::controller(WorkOrderController::class)->group(function (){
+    /////////// workorder routes start ///////
+    Route::controller(WorkOrderController::class)->group(function (){
 
-    Route::get("work-order-list","index")->name("work-order-list");
-    Route::get("add-work-order","create")->name("add-work-order");
-    Route::post("store-work-order","store")->name("store-work-order");
-    Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
-    Route::post("update-work-order/{id}","update")->name("update-work-order");
-    Route::get("view-work-order/{id}","show")->name("view-work-order");
+        Route::get("work-order-list","index")->name("work-order-list");
+        Route::get("add-work-order","create")->name("add-work-order");
+        Route::post("store-work-order","store")->name("store-work-order");
+        Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
+        Route::post("update-work-order/{id}","update")->name("update-work-order");
+        Route::get("view-work-order/{id}","show")->name("view-work-order");
 
-    
+        
 
-});
-/////////// workorder routes end ///////
+    });
+    /////////// workorder routes end ///////
   
-  Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
+    Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
         Route::get('compose-email', 'compose')->name('compose-email');
         Route::post('send-email', 'send_mail')->name('compose');
         Route::get("mail-logs", 'mail_log')->name("email-list");
@@ -190,6 +191,25 @@ Route::controller(WorkOrderController::class)->group(function (){
         Route::post("update-slip", 'update_slip')->name("salary-slip-update");
         Route::get("print/{id}", 'print_salary_slip')->name("employee-code-retainer");
     });
+
+
+
+
+    Route::controller(AttendanceController::class)->prefix('attendance')->group(function () {
+        Route::get('go-to-attendance/{wo_id}', 'index')->name("go-to-attendance");
+        Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
+    });
+
+
+
+
+
+
+
+
+
+
+
 
 });
 
@@ -381,9 +401,9 @@ Route::controller(WorkOrderController::class)->group(function (){
     //     return view("hr.view-work-order");
     // })->name("view-work-order");
 
-    Route::get("go-to-attendance", function () {
-        return view("hr.go-to-attendance");
-    })->name("go-to-attendance");
+    // Route::get("go-to-attendance", function () {
+    //     return view("hr.go-to-attendance");
+    // })->name("go-to-attendance");
 
     Route::get("work-order-salary-sheet", function () {
         return view("hr.work-order-salary-sheet");
@@ -425,6 +445,24 @@ Route::controller(WorkOrderController::class)->group(function (){
     Route::get("Candidate-Contacted-By-Cal-Log", function () {
         return view("hr.Candidate-Contacted-By-Cal-Log");
     })->name("Candidate-Contacted-By-Cal-Log");
+
+    Route::get("Edit-Candidate-Details-Contacted-By-Call", function () {
+        return view("hr.Edit-Candidate-Details-Contacted-By-Call");
+    })->name("Edit-Candidate-Details-Contacted-By-Call");
+
+    Route::get("recruitment-plan-page-summary", function () {
+        return view("hr.recruitment-plan-page-summary");
+    })->name("recruitment-plan-page-summary");
+
+    Route::get("applicant-recruitment-details-summary", function () {
+        return view("hr.applicant-recruitment-details-summary");
+    })->name("applicant-recruitment-details-summary");
+
+   
+
+   
+
+    
 
     
 

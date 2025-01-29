@@ -8,6 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class WoAttendance extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
+    
+    public static function boot()
+    {
+        parent::boot();
+        if (auth()->check()) {
+            static::creating(function ($model) {
+                $model->created_by = auth()->user()->id;
+            });
+
+            static::updating(function ($model) {
+                $model->updated_by = auth()->user()->id;
+            });
+
+            static::deleting(function ($model) {
+                $model->deleted_by = auth()->user()->id;
+                $model->save();
+            });
+        }
+        
+    }
+=======
     /**
      * The table associated with the model.
      *
@@ -28,4 +50,5 @@ class WoAttendance extends Model
      * @var bool
      */
     public $timestamps = false;
+>>>>>>> 84ca41b2e6009648cc55dbbd5671e3b87b6517cf
 }
