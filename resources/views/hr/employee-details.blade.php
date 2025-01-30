@@ -1,5 +1,4 @@
-@extends('layouts.master')
-
+@extends('layouts.master', ['title' => 'Employee Details'])
 @section('style')
 
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
@@ -12,16 +11,8 @@
             <div class="panel-header">
                 <h3 class="mt-2">Employee Details</h3>
             </div>
-
-            <div class="col-md-12 d-flex justify-content-start mx-3 mt-4">
-                <form class="row g-3">
-                    <div class="col-auto mb-3">
-                        <input type="text" class="form-control" placeholder="Search" required>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Search</button>
-                    </div>
-                </form>
+            <div class="col-md-12 d-flex justify-content-end my-2">
+                <a href="{{route('leave-regularization')}}" class="btn btn-primary">Back</a>
             </div>
 
             <div class="table-responsive">
@@ -33,55 +24,55 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Employee Code:</td>
-                                    <td>PSSPL/DEL/2021-22/0172</td>
+                                    <td>{{$empdetails->emp_code}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Employee Name:</td>
-                                    <td>Sumit Kumar</td>
+                                    <td>{{$empdetails->emp_name}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Gender:</td>
-                                    <td>Male</td>
+                                    <td>{{$empdetails->emp_gender}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Category:</td>
-                                    <td>GENERAL</td>
+                                    <td>{{$empdetails->emp_category}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Work Order No:</td>
-                                    <td>PSSPL Internal Employees</td>
+                                    <td>{{$empdetails->emp_work_order}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Job Place:</td>
-                                    <td>Delhi</td>
+                                    <td>{{$empdetails->emp_place_of_posting}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Designation:</td>
-                                    <td>MIS HEAD</td>
+                                    <td>{{$empdetails->emp_designation}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Department:</td>
-                                    <td>IT</td>
+                                    <td>{{$empdetails->department}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Functional Role:</td>
-                                    <td>DATA ENTRY OPERATOR</td>
+                                    <td>{{$empdetails->emp_functional_role}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Date of Joining:</td>
-                                    <td>2nd November, 2021</td>
+                                    <td>{{$empdetails->emp_doj}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Skills:</td>
-                                    <td>EXCEL</td>
+                                    <td>{{$empdetails->emp_skills}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">CTC:</td>
-                                    <td>₹ 21,100.00</td>
+                                    <td>{{$empdetails->emp_salary}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Reporting To:</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->reporting_email}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -93,59 +84,59 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Permanent Address:</td>
-                                    <td>PSSPL/DEL/2021-22/0172</td>
+                                    <td>{{$empdetails->emp_permanent_address}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Correspondence Address:</td>
-                                    <td>Sumit Kumar</td>
+                                    <td>{{$empdetails->emp_local_address}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Date of birth:</td>
-                                    <td>Male</td>
+                                    <td>{{$empdetails->emp_dob}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Personal Contact no:</td>
-                                    <td>GENERAL</td>
+                                    <td>{{$empdetails->emp_phone_first}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Alternate Contact no:</td>
-                                    <td>PSSPL Internal Employees</td>
+                                    <td>{{$empdetails->emp_phone_second}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Personal Email Id:</td>
-                                    <td>Delhi</td>
+                                    <td>{{$empdetails->emp_email_first}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Official Email Id:</td>
-                                    <td>MIS HEAD</td>
+                                    <td>{{$empdetails->emp_email_second}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Father Name:</td>
-                                    <td>IT</td>
+                                    <td>{{$empdetails->emp_father_name}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Father Contact No:</td>
-                                    <td>DATA ENTRY OPERATOR</td>
+                                    <td>{{$empdetails->emp_phone_second}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Blood Group :</td>
-                                    <td>2nd November, 2021</td>
+                                    <td>{{$empdetails->emp_blood_group}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Marital Status :</td>
-                                    <td>EXCEL</td>
+                                    <td>{{$empdetails->emp_martial_status}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Date of Marriage :</td>
-                                    <td>₹ 21,100.00</td>
+                                    <td>{{$empdetails->emp_dom}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Husband / Wife Name :</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_husband_wife_name}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">No of Childrens :</td>
-                                    <td>hr@prakharsoftwares.com</td>
+                                    <td>{{$empdetails->emp_children}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -166,15 +157,15 @@
 
                                 <tr>
                                     <td class="bold">10th Passing Year:</td>
-                                    <td>2015</td>
+                                    <td>{{$empdetails->emp_tenth_year}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Percentage/Grade:</td>
-                                    <td>80%</td>
+                                    <td>{{$empdetails->emp_tenth_percentage}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Board Name</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_tenth_board_name}}</td>
                                 </tr>
 
                             </tbody>
@@ -191,15 +182,15 @@
 
                                 <tr>
                                     <td class="bold">12th Passing Year:</td>
-                                    <td>2015</td>
+                                    <td>{{$empdetails->emp_twelve_year}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Percentage/Grade:</td>
-                                    <td>80%</td>
+                                    <td>{{$empdetails->emp_twelve_percentage}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Board Name</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_twelve_board_name}}</td>
                                 </tr>
 
                             </tbody>
@@ -216,19 +207,19 @@
 
                                 <tr>
                                     <td class="bold">Graduation Passing Year/pursuing</td>
-                                    <td>2015</td>
+                                    <td>{{$empdetails->emp_graduation_year}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Percentage/Grade:</td>
-                                    <td>80%</td>
+                                    <td>{{$empdetails->emp_graduation_percentage}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Mode Of Graduation</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_graduation_mode}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Degree Name</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_graduation_in}}</td>
                                 </tr>
 
                             </tbody>
@@ -245,19 +236,19 @@
 
                                 <tr>
                                     <td class="bold">Post Graduation Passing Year/pursuing</td>
-                                    <td>2015</td>
+                                    <td>{{$empdetails->emp_postgraduation_year}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Percentage/Grade:</td>
-                                    <td>80%</td>
+                                    <td>{{$empdetails->emp_postgraduation_percentage}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Mode Of Post Graduation</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_postgraduation_mode}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Degree Name</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_postgraduation_in}}</td>
                                 </tr>
 
                             </tbody>
@@ -273,15 +264,15 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Diploam/Course/Certificate Name</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_certification}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Duration</td>
-                                    <td>NA</td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Marks/Percentage/Grade</td>
-                                    <td>NA</td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -296,27 +287,27 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Bank Name :</td>
-                                    <td>HDFC Bank</td>
+                                    <td>{{$empdetails->emp_bank}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Branch Name :</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_branch}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Ifsc code :</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_ifsc}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Account No :</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_account_no}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Aadhar No :</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_aadhaar_no}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Pan No :</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_pan}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -328,23 +319,23 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">PF UIN No :</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_pf_no}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">ESI No :</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_esi_no}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Passport No. :</td>
-                                    <td>NA</td>
+                                    <td>{{$empdetails->emp_passport_no}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Departments Recommendation :</td>
-                                    <td>NA</td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Working Status:</td>
-                                    <td><span class="badge text-bg-success">Active</span></td>
+                                    <td><span class="badge text-bg-success">{{$empdetails->emp_status}}</span></td>
                                 </tr>
                             </tbody>
                         </table>

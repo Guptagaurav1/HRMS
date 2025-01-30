@@ -170,6 +170,9 @@ class SalarySlipController extends Controller
         return redirect()->route('salary-slip')->with(['success' => true, 'message' => 'Record updated successfully.']);
     }
 
+     /**
+     * Print Salary Slip.
+     */
     public function print_salary_slip(Request $request, $salaryid){
         $salary_slip_record = EmpSalarySlip::findOrFail($salaryid);
         $slip_get = false;

@@ -2,10 +2,10 @@ $(function() {
     $('.multiDatePicker').multiDatesPicker({
         dateFormat: "yy-mm-dd",
         onSelect: function(dateText) {
-            console.log("Selected Dates:", $(this).multiDatesPicker('getDates'));
+            // console.log("Selected Dates:", $(this).multiDatesPicker('getDates'));
         }
     });
-    $('.date-picker').datepicker( {
+    $('.date-picker').datepicker({
     changeMonth: true,
     changeYear: true,
     showButtonPanel: true,

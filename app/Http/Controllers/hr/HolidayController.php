@@ -5,8 +5,14 @@ namespace App\Http\Controllers\hr;
 use App\Http\Controllers\Controller;
 use App\Models\Holiday;
 use App\Models\LeaveRequest;
+use App\Models\LeaveRegularization;
+use App\Models\EmpDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Throwable;
+use DateTime;
+use Mail;
+use App\Mail\LeaveRegularization as LeaveMail;
 
 class HolidayController extends Controller
 {
@@ -58,7 +64,43 @@ class HolidayController extends Controller
      */
     public function leave_regularization(Request $request)
     {
-        return view("hr.leave-regularization");
+        $previous_month = date('F Y', strtotime('last month'));
+        if ($request->month) {
+            $previous_month = $request->month;
+        }
+        $pre_month_year = new DateTime($previous_month);
+        $last_month = date("m", strtotime('last month')); // Previous month.
+        $last_year = date("Y", strtotime('last month'));  // Previous year.
+        $last_date = cal_days_in_month(CAL_GREGORIAN, $last_month, $last_year); // Previous month last date.
+        $prev_month_startdate = $pre_month_year->format("Y-m-01");
+        $prev_month_enddate = $pre_month_year->format("Y-m-$last_date"); // format last date.
+        $search = '';
+        $data = EmpDetail::select('emp_id', 'emp_name', 'emp_email_first', 'emp_phone_first', 'emp_code', 'emp_designation')->where('emp_work_order', 'PSSPL Internal Employees')
+                ->where('emp_status', 'Active')
+                ->where('emp_doj', '<', $prev_month_enddate)
+                ->whereRaw("CONCAT(emp_id, '', ?) NOT IN (SELECT at_emp FROM leave_regularizations)", [$previous_month])
+                ->where(function ($query) use ($prev_month_startdate) {
+                    $query->where('emp_dor', '>', $prev_month_startdate)
+                          ->orWhere('emp_dor', '')
+                          ->orWhereNull('emp_dor');
+                });
+        if ($request->search) {
+            $search = $request->search;
+            $data = $data->whereAny([
+                'emp_name',
+                'emp_email_first',
+                'emp_phone_first',
+                'emp_code',
+                'emp_designation',
+            ], 'LIKE', '%'.$request->search.'%');
+        }
+        $data = $data->paginate(10)->withQueryString();
+
+        // print_r($data->toSql());
+        // print_r($data->getBindings());die;
+
+
+        return view("hr.leave-regularization", compact('previous_month', 'data', 'search'));
     }
 
     /**
@@ -86,18 +128,60 @@ class HolidayController extends Controller
     }
 
     /**
-     * Update the specified holiday in storage.
+     * Show the employee all details.
      */
-    public function update(Request $request, Holiday $holiday)
-    {
-        //
+    public function emp_details(Request $request, $empid)
+    {   
+        try
+        {
+            $empdetails = EmpDetail::findOrFail($empid);
+            return view("hr.employee-details", compact('empdetails'));
+        }
+        catch(Throwable $th){
+            return redirect()->route('leave-regularization')->with(['error' => true, 'message' => 'Server Error']);
+        }
+       
     }
 
     /**
-     * Remove the specified holiday from storage.
+     * Send regularization mail to employees for absent dates.
      */
-    public function destroy(Holiday $holiday)
+    public function send_mail(Request $request)
     {
-        //
+        // print_r($request->all());
+        try {
+            $this->validate($request, [
+                'emp_id' => ['required'],
+                'month' => ['required'],
+                'absent_dates' => ['required']
+            ]);
+            $emp_details = EmpDetail::select('emp_work_order', 'emp_id', 'emp_code', 'emp_email_first', 'emp_name')->where('emp_code', $request->emp_id)->first();
+
+            LeaveRegularization::create([
+                'wo_number' => $emp_details->emp_work_order,
+                'at_emp' => $emp_details->emp_id.$request->month,
+                'emp_id' => $emp_details->emp_id,
+                'emp_code' => $emp_details->emp_code,
+                'leave_month' => $request->month,
+                'leave_dates' => $request->absent_dates
+            ]);
+            $absents = explode(",", $request->absent_dates);
+            $absentHtml = '';
+            for ($i=0; $i < count($absents); $i++) { 
+                $absentHtml .= $absents[$i]." - Absents "."<br>";
+            }
+
+            $mailData = [
+                'absent_dates' => $absentHtml,
+                'emp_name' => $emp_details->emp_name
+            ];
+            $cc = ['sagar.tiwari@prakharsoftwares.com'];
+            Mail::to($emp_details->emp_email_first)->cc($cc)->send(new LeaveMail($mailData));
+
+            return response()->json(['success' => true, 'message' => 'Mail Sent Successfully.']);
+        }
+        catch(Throwable $th){
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
     }
 }
