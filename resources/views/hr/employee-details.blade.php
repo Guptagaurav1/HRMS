@@ -84,6 +84,7 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Permanent Address:</td>
+                                    <td class="attributes-column">PSSPL/DEL/2021-22/0172,PSSPL/DEL/2021-22/0172,PSSPL/DEL/2021-22/0172</td>
                                     <td>{{$empdetails->emp_permanent_address}}</td>
                                 </tr>
                                 <tr>

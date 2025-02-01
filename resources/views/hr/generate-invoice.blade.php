@@ -1,8 +1,6 @@
 @extends('layouts.master')
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
@@ -15,13 +13,13 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5>Create Invoice</h5>
+                    <h5 class="text-white">Create Invoice</h5>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">
                         <div class="col-sm-12 col-md-12">
                             <label class="form-label">Client Name (Organisation)</label>
-                            <select id="inputState" class="form-select">
+                            <select  class="form-select">
                                 <option selected>Select Organisation</option>
                                 <option>Select 1</option>
                                 <option>Select 1</option>

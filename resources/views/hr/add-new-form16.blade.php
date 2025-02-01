@@ -1,13 +1,11 @@
 @extends('layouts.master')
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
 @section('contents')
-<div class="">
-    <h2>Form 16</h2>
+<div class="panel-header ">
+    <h2 class="px-2 mt-2">Form 16</h2>
 </div>
 <div class="dashboard-breadcrumb mb-25">
 
@@ -19,7 +17,7 @@
             <label for="html">Bulk Entry</label><br>
         </div>
         <div>
-            <a href="{{route('form16')}}"><button class="btn btn-sm btn-primary ml-5"> Form 16 List</button></a>
+            <a href="{{route('form16')}}"><button class="btn btn-sm btn-primary ml-5"> Form 16 List <i class="fa-solid fa-list"></i></button></a>
         </div>
     </div>
     
@@ -29,7 +27,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h5 class="text-dark">Form 16 Details</h5>
+                <h5 class="text-white">Form 16 Details</h5>
             </div>
             <div class="panel-body">
                 <div class="row g-3">
@@ -47,15 +45,15 @@
                         <input type="text" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Employee Name <span style="color: red">*</span></label>
+                        <label class="form-label">Employee Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Work Order<span style="color: red">*</span></label>
+                        <label class="form-label">Work Order<span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Financial Year <span style="color: red">*</span></label>
+                        <label class="form-label">Financial Year <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm">
                     </div>
 
@@ -83,7 +81,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h5 class="text-dark">Bulk Upload Form 16</h5>
+                <h5 class="text-white">Bulk Upload Form 16</h5>
                 <div class="btn-box">
                     <a href="{{route('employee-list')}}" class="btn btn-sm btn-primary"><i
                             class="fa-solid fa-download"></i> Download CSV Format</a>
@@ -92,7 +90,7 @@
             <div class="panel-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-8 col-sm-6">
-                        <label for="formFileSm" class="form-label">Select Zip File<span style="color: red">
+                        <label for="formFileSm" class="form-label">Select Zip File<span class="text-danger">
                                 *</span></label>
                         <input class="form-control form-control-sm" id="formFileSm" type="file">
                     </div>
@@ -108,7 +106,6 @@
 @endsection
 
 @section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
-<script src={{asset('assets/js/tab-changes.js')}} @endsection
+
+<script src={{asset('assets/js/tab-changes.js')}}></script>
+ @endsection

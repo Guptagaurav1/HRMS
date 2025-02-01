@@ -462,6 +462,39 @@ Route::middleware('guest')->group(function () {
         return view("hr.applicant-recruitment-details-summary");
     })->name("applicant-recruitment-details-summary");
 
+    Route::get("verify-documents", function () {
+        return view("hr.verify-documents");
+    })->name("verify-documents");
+
+    Route::get("edit-salary", function () {
+        return view("hr.edit-salary");
+    })->name("edit-salary");
+
+    Route::get("update-billing-structure", function () {
+        return view("hr.update-billing-structure");
+    })->name("update-billing-structure");
+
+    Route::get("tax-invoice", function () {
+        return view("hr.tax-invoice");
+    })->name("tax-invoice");
+
+    Route::get("invoice-encloser", function () {
+        return view("hr.invoice-encloser");
+    })->name("invoice-encloser");
+
+    Route::get("view-reciept", function () {
+        return view("hr.view-reciept");
+    })->name("view-reciept");
+
+    Route::get("view-more-attachment", function () {
+        return view("hr.view-more-attachment");
+    })->name("view-more-attachment");
+
+   
+
+
+    
+
    
 
    
@@ -500,14 +533,14 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         return view("employee.reimbursement-list");
     })->name("employee-reimbursement-list");
 
-    Route::get("modify-profile-request", function () {
-        return view("employee.modify-profile-request");
-    })->name("modify-profile-request");
+    // Route::get("modify-profile-request", function () {
+    //     return view("employee.modify-profile-request");
+    // })->name("modify-profile-request");
    
 
-    Route::get("profile-detail-request-list", function () {
-        return view("employee.profile-detail-request-list");
-    })->name("profile-detail-request-list");
+    // Route::get("profile-detail-request-list", function () {
+    //     return view("employee.profile-detail-request-list");
+    // })->name("profile-detail-request-list");
 
     Route::get("create-reimbursement", function () {
         return view("employee.create-reimbursement");
