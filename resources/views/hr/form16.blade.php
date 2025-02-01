@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
@@ -18,7 +17,7 @@
                 </div>
                 <p class="px-3 mt-2">Billing Structure</p>
                 <div class="col-md-12 d-flex justify-content-end ">
-                   <a href="{{route('add-new-form16')}}"><button type="button" class="btn btn-primary m-1">Add New Form 16</button></a> 
+                   <a href="{{route('add-new-form16')}}"><button type="button" class="btn btn-primary m-1">Add New Form 16 <i class="fa-solid fa-plus"></i></button></a> 
                 </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3">
@@ -26,7 +25,7 @@
                             <input type="text" class="form-control" placeholder="Search" required>
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search</button>
+                            <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
     
                     </form>
@@ -59,7 +58,7 @@
                                     <td>2023-2024</td>
                                     <td>8th November, 2024</td>
                                     
-                                    <td><a href=""><button class="btn btn-sm btn-primary">View Document</button></a></td>
+                                    <td><a href=""><button class="btn btn-sm btn-primary">View Document <i class="fa-solid fa-eye"></i></button></a></td>
                                 </tr>
                             </tbody>
                         </table>

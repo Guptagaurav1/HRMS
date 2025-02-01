@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
@@ -22,7 +21,7 @@
                         <input type="text" class="form-control" placeholder="Search" required>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Search</button>
+                        <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
 
                 </form>
@@ -48,36 +47,10 @@
                                 <td>PSSPL Internal Employees</td>
                                 <td>HR</td>
                                 <td>EMPLOYEE</td>
-                                <td><a href=""><button class="btn btn-sm btn-primary">View</button></a></td>
+                                <td class="text-ceter"><a href="{{route('tax-invoice')}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a><span class="text-danger px-2">Not Saved Invoice</span></span></td>
                             </tr>
-                            <tr>
-                                <td>Kriti Singhvi</td>
-                                <td>kriti.singhvi@prakharsoftwares.com / 9821298777</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td><a href=""><button class="btn btn-sm btn-primary">View</button></a></td>
-                            </tr>
-                            <tr>
-                                <td>Mayank Puri</td>
-                                <td>mayank.puri@prakharsoftwares.com / 9717368860</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td><a href=""><button class="btn btn-sm btn-primary">View</button></a></td>
-                            </tr>
-                            <tr>
-                                <td>Nikhil Baswal</td>
-                                <td>nikhil.baswal@prakharsoftwares.com / 9711546517</td>
-                                <td>IT</td>
-                                <td>EMPLOYEE</td>
-                                <td><a href=""><button class="btn btn-sm btn-primary">View</button></a></td>
-                            </tr>
-                            <tr>
-                                <td>Nidhi Sharma</td>
-                                <td>nidhi.sharma@prakharsoftwares.com / 9654386141</td>
-                                <td>HR</td>
-                                <td>EMPLOYEE</td>
-                                <td><a href=""><button class="btn btn-sm btn-primary">View</button></a></td>
-                            </tr>
+                          
+                           
                            
                         </tbody>
                     </table>
