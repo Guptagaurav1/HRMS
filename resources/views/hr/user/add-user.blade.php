@@ -100,8 +100,11 @@
                                     @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                    <label for="dob" class="form-label">Date of Birth </label>
+                                    <label for="dob" class="form-label">Date of Birth <span class="text-danger"> ** </span></label>
                                     <input type="date" id="dob" name="dob" class="form-control"  value="{{ old('dob') }}">
+                                    @error('dob')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                                     <label for="email" class="form-label">Email <span class="text-danger"> ** </span> </label>

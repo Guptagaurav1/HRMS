@@ -169,6 +169,8 @@ Route::middleware('guest')->group(function () {
         Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
         Route::post("update-work-order/{id}","update")->name("update-work-order");
         Route::get("view-work-order/{id}","show")->name("view-work-order");
+        Route::get("wo-project-list","woProject")->name("wo-project-list");
+        Route::get("wo-project-report/{project_no}","woReport")->name("wo-project-report");
 
         
 
