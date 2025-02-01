@@ -4,32 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class WoAttendance extends Model
+class LeaveRegularization extends Model
 {
-    use HasFactory;
-
-  
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'wo_attendances';
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['wo_number', 'at_emp', 'emp_id', 'emp_code', 'attendance_month', 'approve_leave', 'lwp_leave', 'recovery', 'advance', 'overtime_rate', 'total_working_hrs', 'emp_vendor_rate', 'designation', 'ctc', 'remarks', 'attendance_status', 'status', 'user_id', 'updated_by'];
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
+    protected $fillable = ['wo_number', 'at_emp', 'emp_id', 'emp_code', 'leave_month', 'leave_dates'];
 
     public static function boot()
     {
@@ -50,6 +36,4 @@ class WoAttendance extends Model
         }
         
     }
-
-
 }

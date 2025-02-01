@@ -14,7 +14,6 @@ class WorkOrderController extends Controller
     public function index(Request $request){
      
         $search = $request->search;
-        // dd($search);
         $workOrders = WorkOrder::with(['organizations', 'contacts' => function ($query) {
             $query->orderBy('id', 'desc')->limit(1);  // Get the most recent contact detail
         }])
