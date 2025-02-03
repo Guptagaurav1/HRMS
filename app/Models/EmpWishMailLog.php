@@ -4,16 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class Skill extends Model
+class EmpWishMailLog extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $table = 'skills';
-    protected $fillable =['skill'];
+    use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['emp_code', 'emp_name', 'emp_email', 'emp_dob', 'emp_dom', 'emp_doj', 'message', 'attachment', 'wish_type'];
 
+    /**
+     * Save User id on CRUD operation.
+     */
     public static function boot()
     {
         parent::boot();
@@ -31,10 +36,5 @@ class Skill extends Model
                 $model->save();
             });
         }
-    }
-
-    public function departments()
-    {
-        return $this->belongsToMany(Department::class, 'department_skills', 'skill_id', 'department_id');
     }
 }

@@ -60,25 +60,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($skills as $skill)
+                            @forelse($skills as $skill1)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    {{ ucwords($skill->skill) }}
+                                    {{ ucwords($skill1->skill) }}
                                 </td>
 
-                              
                                 <td>
-                                    <?php
-                                        $skill = $department->skills->pluck('skill')->toArray();
-                                        $skills1 = implode(', ',$skill);
-                                    ?>
-                                    {{ $skills1 }}
-                                </td>
-                                <td>
-                                    <a  href="{{ route('skills.edit',['skill' => $skill->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
+                                    <a  href="{{ route('skills.edit',['skill' => $skill1->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
 
-                                    <a  class="delete-skill" data-id="{{ $skill->id }}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a>
+                                    <a  class="delete-skill" data-id="{{ $skill1->id }}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a>
                                 </td>
                             </tr>
                             @empty
