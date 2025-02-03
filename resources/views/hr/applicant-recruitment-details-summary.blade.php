@@ -339,9 +339,11 @@
                                                 <td>
                                                     <input type="text" class="form-control bg-success text-white"
                                                         placeholder="Document Verification" hidden>
+                                                        <a href="{{route("verify-documents")}}">
                                                     <button class="btn btn-sm btn-primary mt-2">Check <i
                                                             class="fa-solid fa-check"></i>
                                                     </button>
+                                                        </a>
                                                 </td>
 
                                             </tr>

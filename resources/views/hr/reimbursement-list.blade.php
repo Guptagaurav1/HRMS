@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
@@ -14,9 +13,12 @@
                 <h3 class="mt-2">Reimbursement List</h3>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3">
-                <form class="row g-3 my-3">
+                <form class="row g-3 mt-2">
                     <div class="col-auto">
-                        <input type="search" class="form-control" placeholder="Search" required>
+                        <input type="text" class="form-control" placeholder="Search" required>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
             </div>
@@ -52,7 +54,7 @@
                                 <span class="badge alert-success">Pending</span>
                             </td>
                             <td class="text-nowrap text-center">
-                                <a href="{{'view-letter'}}">
+                                <a href="{{'view-reciept'}}">
                                     <button class="btn btn-sm btn-primary">View Receipt <i
                                             class="fa-solid fa-file"></i></button>
                                 </a>

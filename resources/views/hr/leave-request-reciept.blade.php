@@ -4,10 +4,7 @@
 
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 <style>
-  td {
-        white-space: pre-wrap; /* Preserves whitespace and wraps text */
-        word-wrap: break-word; /* Breaks long words if needed */
-    }
+  
 </style>
 
 @endsection

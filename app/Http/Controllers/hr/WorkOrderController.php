@@ -251,7 +251,37 @@ class WorkOrderController extends Controller
         return view("hr.workOrder.view-work-order",compact('workOrder'));
 
     }
+    
     public function delete(){
 
     }
+
+    public function woProject(){
+        $workOrder='';
+        $woProjects = WorkOrder::selectRaw('wo_oraganisation_name, wo_project_number, COUNT(wo_number) as total_wo,SUM(wo_amount) as amount')
+        ->groupBy('wo_oraganisation_name', 'wo_project_number')
+        ->with(['organizations']) 
+        ->orderBy('wo_project_number', 'desc')
+        ->paginate(10);
+            // dd($woProjects);
+        return view("hr.workOrder.wo-project-list",compact('woProjects'));
+    }
+
+    public function woReport(Request $request){
+        // dd($request->project_no);
+        $project_no =$request->project_no;
+        $workOrder='';
+        $woReport = WorkOrder::selectRaw('wo_oraganisation_name, wo_number, wo_project_name,wo_project_coordinator, wo_project_number, wo_start_date,wo_end_date,wo_amount')
+        ->with(['organizations'])
+        ->where('wo_project_number','=',$request->project_no) 
+        ->orderBy('id', 'desc')
+        ->get();
+        $totalAmount = $woReport->sum('wo_amount');
+       
+        return view("hr.workOrder.work-order-report",compact('woReport','project_no','totalAmount'));
+    }
+
+
+
+
 }

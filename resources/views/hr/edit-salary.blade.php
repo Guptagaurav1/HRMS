@@ -3,6 +3,8 @@
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
+
+
 @endsection
 
 
@@ -11,18 +13,11 @@
 <div class="fluid-container">
 
     <div class="row">
-
-
         <div class="col-12">
             <div class="panel">
                 <div class="col-md-12 py-3 px-3">
                     <span class="text-danger">All Fields are Mandatory. Those Fields are not in Used Set as 0 (Zero)
                         value</span>
-                    <input class="" type="radio" id="gridCheck">
-                    <label class="" for="gridCheck">
-                        Single Entry
-                    </label>
-
                 </div>
                 <div class="panel-header">
                     <h5 class="text-white">Salary Breakup Form</h5>
@@ -64,7 +59,6 @@
                             <label class="form-label">Net Salary <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm" placeholder="Enter Net Salary">
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-check">
@@ -76,7 +70,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row" id="NICSI-case">
                             <div class=" col-md-4">
                                 <label class="form-label">Medical Insurance CTC <span
@@ -93,8 +86,6 @@
                                 <input type="number" class="form-control form-control-sm">
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -109,15 +100,15 @@
                     <div class="card-header">
                         Structure
                     </div>
-                    <div class="col-6 px-2 m-3">
-                        <div class="form-check">
+                    <div class="col-md-7 mt-2 px-1">
+                        <div class="form-check gap-2">
                             <input class="form-check-input" type="checkbox" id="gridCheck">
                             <label class="form-check-label text-danger" for="gridCheck">
-                                (Please Tick For Special ESI Case)
+                                (Please <span><i class="fa-solid fa-check"></i></span> For Special ESI Case)
                             </label>
                             <input class="form-check-input" type="checkbox" id="gridCheck">
                             <label class="form-check-label text-danger" for="gridCheck">
-                                (Please Tick For Special PF Case)
+                                (Please <span><i class="fa-solid fa-check"></i></span> For Special PF Case)
                             </label>
                         </div>
                     </div>
@@ -351,7 +342,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-end mt-3">
                         <div>
-                            <button class="btn btn-sm btn-primary">Add Salary Breakup</button>
+                            <button class="btn btn-sm btn-primary">Modify Salary Breakup</button>
                         </div>
                     </div>
 
@@ -362,9 +353,9 @@
 </div>
 
 @endsection
-
 @section('script')
 
 <script src={{asset('assets/js/checkbox.js')}}></script>
 
 @endsection
+

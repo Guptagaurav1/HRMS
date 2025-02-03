@@ -187,7 +187,7 @@
                         <div class="field-container shadow-lg d-flex flex-column">
                             <label class="fw-bold">Leave Comment:</label>
                             <div class="employee-comment mt-2">
-                                <span class="mt-">I hope this email finds you well. I am writing to formally request a day of Half
+                                <span class="">I hope this email finds you well. I am writing to formally request a day of Half
                                     Day leave today, as I need to accompany my family to Sani Dev for a personal visit.
                                     This trip has been planned for some time, and it is important for me to be with my
                                     .</span>
