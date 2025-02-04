@@ -1,9 +1,4 @@
-
-
-
-
-
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Birthday Wish Log'])
 
 @section('style')
 
@@ -21,10 +16,13 @@
             <div class="col-md-12 d-flex justify-content-start mx-3">
                 <form class="row g-3 py-2 mt-2">
                     <div class="col-auto ">
-                        <input type="text" class="form-control" placeholder="Search" required>
+                        <input type="search" class="form-control" placeholder="Search" name="search" value="{{$search}}" required>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{route('birthday-wish-log')}}" class="btn btn-primary mb-3">Reset</a>
                     </div>
                 </form>
             </div>
@@ -42,19 +40,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                         @forelse($logs as $log)
                         <tr>
-                            <td>REQ-134</td>
-                            <td>PSSPL/2022-23/2951</td>
-                            <td>marital status</td>
-                            <td>Married, Spouse Name: T.Venkata Lakshmi, Children: 2 Name: Rishi Keshav and Thanvitha Nayana</td>
-                            <td>hr@prakharsoftwares.com</td>
-                            <td>10th April, 2024</td>
-                            <td>5-dec-2024</td>
-                        
-                           
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$log->emp_code}}</td>
+                            <td>{{$log->emp_name}}</td>
+                            <td>{{$log->emp_email}}</td>
+                            <td>{{date('jS F, Y', strtotime($log->emp_dob))}}</td>
+                            <td>{{$log->message}}</td>
+                            <td><span class="badge alert-success">{{date('jS F, Y', strtotime($log->created_at))}}</span></td>
                         </tr>
+                        @empty
+                        <tr>
+                            <td class="text-danger text-center" colspan="7">No Record Found</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center my-3">
+                {{$logs->links()}}
             </div>
         </div>
     </div>

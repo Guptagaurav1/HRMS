@@ -37,7 +37,8 @@
                     <div class="col-md-12 text-center py-3 ">
                         <label>Select Month :</label><br>
                         
-                            <input type="month" name="month" value="{{old('month',date('Y-m'))}}" />
+                            <!-- <input type="month" name="month" value="{{old('month',date('Y-m'))}}" /> -->
+                            <input name="month" class="date-picker" placeholder="mm-year" value="{{$month}}" />
                             <select name="work_order" id="" >
                                 <option value="">--Select WorkOrder --</option>
                                 @foreach($workOrders as  $workOrder)
@@ -207,5 +208,5 @@
 <script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
-
+<script src={{asset('assets/vendor/js/calenderOpen.js')}}></script>
 @endsection

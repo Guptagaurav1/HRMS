@@ -54,7 +54,8 @@ class UserController extends Controller
             'email' => 'required|unique:users,email',
             'contact' => 'required|digits:10',
             'company_id' => 'required',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'dob' => 'required'
           ]);
         $dob = $request->dob;
         $password_s =date('d-m-Y',strtotime($dob));

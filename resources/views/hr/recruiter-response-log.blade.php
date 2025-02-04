@@ -1,9 +1,4 @@
-
-
-
-
-
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Recruiter Response Log'])
 
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
@@ -22,10 +17,13 @@
             <div class="col-md-12 d-flex justify-content-start mx-3">
                 <form class="row g-3 py-2 mt-2">
                     <div class="col-auto ">
-                        <input type="text" class="form-control" placeholder="Search" required>
+                        <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" required>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    </div>
+                     <div class="col-auto">
+                        <a href="{{route('recruiter-response-log')}}" class="btn btn-primary mb-3">Reset</a>
                     </div>
                 </form>
             </div>
@@ -45,18 +43,33 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse($logs as $log)
+                        @php
+                        if($log->status == 'open'){
+                            $color = 'primary';
+                        }
+                        elseif($log->status == 'completed'){
+                            $color = 'success';
+                        }
+                        else {
+                            $color = 'danger';
+                        }
+                        @endphp
                         <tr>
-                            <td>REQ-134</td>
-                            <td>PSSPL/2022-23/2951</td>
-                            <td>marital status</td>
-                            <td>Married, Spouse Name: T.Venkata Lakshmi, Children: 2 Name: Rishi Keshav and Thanvitha Nayana</td>
-                            <td>hr@prakharsoftwares.com</td>
-                            <td>10th April, 2024</td>
-                            <td>Completed</td>
-                            <td><span class="badge alert-success">completed</span></td>
-                        
-                           
+                            <td>{{$log->req_id}}</td>
+                            <td>{{$log->user->first_name." ".$log->user->last_name}}</td>
+                            <td>{{$log->query_type}}</td>
+                            <td>{{$log->job_position}}</td>
+                            <td>{{$log->description}}</td>
+                            <td>{{$log->user->email}}</td>
+                            <td>{{date('jS F, Y', strtotime($log->time))}}</td>
+                            <td><span class="badge text-bg-{{$color}}">{{$log->status}}</span></td>
                         </tr>
+                        @empty
+                        <tr>
+                            <td class="text-danger text-center" colspan="8">No Record Found</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

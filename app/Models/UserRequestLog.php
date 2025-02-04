@@ -5,15 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Skill extends Model
+class UserRequestLog extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $table = 'skills';
-    protected $fillable =['skill'];
+    use HasFactory, SoftDeletes;
 
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['req_id', 'user_id', 'query_type', 'description', 'job_position', 'status', 'ref_table_name', 'ref_table_id', 'status_changed_to', 'change_offer_letter'];
 
+    /**
+     * Save User id on CRUD operation.
+     */
     public static function boot()
     {
         parent::boot();
@@ -33,8 +40,11 @@ class Skill extends Model
         }
     }
 
-    public function departments()
+    /**
+     * Get user data.
+     */
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(Department::class, 'department_skills', 'skill_id', 'department_id');
-    }
+        return $this->belongsTo(User::class)->select('first_name', 'last_name', 'email');
+    } 
 }
