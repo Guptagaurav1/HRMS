@@ -466,6 +466,19 @@ Route::middleware('guest')->group(function () {
         return view("hr.preview-job-description");
     })->name("preview-job-description");
 
+    Route::get("marriage-anniversary-list-template", function () {
+        return view("hr.marriage-anniversary-list-template");
+    })->name("marriage-anniversary-list-template");
+
+    Route::get("work-anniversary-list-template", function () {
+        return view("hr.work-anniversary-list-template");
+    })->name("work-anniversary-list-template");
+
+
+    
+
+    
+
    
 
 
@@ -493,46 +506,58 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         return view('employee.dashboard');
     })->name('employee_dashboard');
 
-    Route::get("compose-email", function () {
-        return view("employee.compose-email");
+    Route::get("employee-compose-email", function () {
+        return view("employee.employee-compose-email");
     })->name("employee-compose-email");
 
-    Route::get("holiday-list", function () {
-        return view("employee.holiday-list");
+    Route::get("employee-holiday-list", function () {
+        return view("employee.employee-holiday-list");
     })->name("employee-holiday-list");
 
-    Route::get("applied-request-list", function () {
-        return view("employee.applied-request-list");
-    })->name("employee-applied-request-list");
+    Route::get("employee-apply-leave-request", function () {
+        return view("employee.employee-apply-leave-request");
+    })->name("employee-apply-leave-request");
 
-    Route::get("reimbursement-list", function () {
-        return view("employee.reimbursement-list");
+    Route::get("employee-reimbursement-list", function () {
+        return view("employee.employee-reimbursement-list");
     })->name("employee-reimbursement-list");
 
-    // Route::get("modify-profile-request", function () {
-    //     return view("employee.modify-profile-request");
-    // })->name("modify-profile-request");
+    Route::get("employee-modify-profile-request", function () {
+        return view("employee.employee-modify-profile-request");
+    })->name("employee-modify-profile-request");
    
 
-    // Route::get("profile-detail-request-list", function () {
-    //     return view("employee.profile-detail-request-list");
-    // })->name("profile-detail-request-list");
+    Route::get("employee-profile-detail-request-list", function () {
+        return view("employee.employee-profile-detail-request-list");
+    })->name("employee-profile-detail-request-list");
 
     Route::get("create-reimbursement", function () {
         return view("employee.create-reimbursement");
     })->name("create-reimbursement");
 
-    Route::get("apply-leave-request", function () {
-        return view("employee.apply-leave-request");
-    })->name("apply-leave-request");
+    Route::get("employee-applied-request-list", function () {
+        return view("employee.employee-applied-request-list");
+    })->name("employee-applied-request-list");
 
     Route::get("leave-taken", function () {
         return view("employee.leave-taken");
     })->name("leave-taken");
 
-    // Route::get("employee-month-salary-slip", function () {
-    //     return view("employee.employee-month-salary-slip");
-    // })->name("employee-employee-month-salary-slip");
+    Route::get("employee-users-details", function () {
+        return view("employee.employee-users-details");
+    })->name("employee-users-details");
+
+    
+
+    Route::get("reiembursement-list-employee", function () {
+        return view("employee.reiembursement-list-employee");
+    })->name("reiembursement-list-employee");
+
+    Route::get("employee-salary-slip", function () {
+        return view("employee.employee-salary-slip");
+    })->name("employee-salary-slip");
+
+   
 
     
 });

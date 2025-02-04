@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-xxl-3 col-lg-6 col-sm-6">
                             <label for="inputDate" class="form-label">Approve Leave</label>
-                            <input type="date" class="form-control" id="inputDate">
+                            <input type="text" class="form-control" id="inputDate">
                         </div>
 
                         <div class="col-xxl-3 col-lg-6 col-sm-6">

@@ -13,12 +13,17 @@
             <div class="panel-header">
                 <h2 class="mt-2">Upcoming 40 days Birthday List</h2>
             </div>
-            <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
-                <form class="row g-3">
-                    <div class="col-auto ">
-                        <input type="text" class="form-control" placeholder="Search" required>
-                    </div>
-                </form>
+           
+                <div class="col-md-12 d-flex justify-content-start mx-3">
+                    <form class="row g-3 mt-2">
+                        <div class="col-auto">
+                            <input type="text" class="form-control" placeholder="Search" required>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>
+               
             </div>
             <div class="table-responsive mt-3">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"

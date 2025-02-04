@@ -43,6 +43,10 @@
                                     <option value="2">Others</option>
                                 </select>
                             </div>
+                            <div class="col-md-12">
+                                <input type="text" name="leave_dates"
+                                        class="btn btn-sm btn-primary multiDatePicker text-light" style="color: white; width: 100%;" placeholder="Select Date" autocomplete="off" value="">
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -62,4 +66,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+<script src={{asset('assets/vendor/js/calenderOpen.js')}}></script>
 @endsection
