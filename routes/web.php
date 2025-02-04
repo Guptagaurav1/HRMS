@@ -488,6 +488,18 @@ Route::middleware('guest')->group(function () {
         return view("hr.view-more-attachment");
     })->name("view-more-attachment");
 
+    Route::get("edit-attandence", function () {
+        return view("hr.edit-attandence");
+    })->name("edit-attandence");
+
+    Route::get("birthday-template", function () {
+        return view("hr.birthday-template");
+    })->name("birthday-template");
+
+    Route::get("preview-job-description", function () {
+        return view("hr.preview-job-description");
+    })->name("preview-job-description");
+
    
 
 

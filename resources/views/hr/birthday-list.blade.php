@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
 @endsection
@@ -42,15 +41,13 @@
                             <td class="rid-column">PSSPL/2023-24/3380</td>
                             <td>GEMC-511687718522647</td>
                             <td class="attributes-column">ADVANCE PHP,Oracale Database,Oracle Database,SQL
-                                Database,HTML,CSS,CORE PHP,JAVA,WORDPRESS,NODE JS,ANGULAR JS,GrapesJs,SDK,Android
-                                Studio,Rest Api,MYSQL,Firebase,Indesign,python,Laravel,Mongo
-                                DB,Nodejs,Javascript,Golang,PHP,MongoDB,Interpersonal Skill,Vuejs,ReactJs,Negotiation
+                                
                                 Skill,Communication Skill,Writing Skills,Research Skills,Digital Marketing,dotnet</td>
                             <td>234567890@gmail.com</td>
                             <td>26rd December, 2024</td>
                             <td>No Image</td>
                             <td>
-                                <a href="#"><button class="btn btn-sm btn-primary">View Template Image</button></a>
+                                <a href="{{route('birthday-template')}}"><button class="btn btn-sm btn-primary">View Template Image</button></a>
                                 <a href="#"><button class="btn btn-sm btn-primary">Send Email</button></a>
                             </td>
                         </tr>
@@ -60,10 +57,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
 @endsection

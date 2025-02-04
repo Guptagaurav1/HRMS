@@ -91,8 +91,9 @@
                                     placeholder="Enter A Message"></textarea>
                             </div>
                             <div class="col-xxl-3 col-lg-12 col-sm-6">
-                                <label for="formFile" class="form-label">Police Verification Attachment</label>
+                                <label for="formFile" class="form-label">Upload CSV </label>
                                 <input class="form-control" type="file" id="formFile">
+                               <a href="" class="text-primary"><span>Download CSV File Format</span></a>
                             </div>
                         </div>
                     </div>
