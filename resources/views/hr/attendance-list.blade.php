@@ -6,8 +6,7 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
 @endsection
@@ -57,19 +56,15 @@
                             <td>0</td>
                             <td>Executive Assistant</td>
                             <td>
-                                <a href="{{'view-letter'}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                <a href="{{'edit-attandence'}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            
         </div>
     </div>
 </div>
 @endsection
 
-@section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
-@endsection

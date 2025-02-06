@@ -52,7 +52,8 @@
                                 <td>19-march-2024</td>
                                 <td>
     
-                                    <a href="#"><button class="btn btn-sm btn-primary">View <i
+                                    <a href="#"><button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#leaveDetailsModal">View <i
                                                 class="fa-solid fa-eye"></i></i></button></a>
                                     <a href="#"><button class="btn btn-sm btn-primary">Response  <i class="fa-solid fa-reply"></i></button></a>
                                 </td>
@@ -65,5 +66,66 @@
     </div>
 </div>
 
+
 @endsection
+
+<div class="modal fade" id="leaveDetailsModal" tabindex="1" aria-labelledby="leaveDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="leaveDetailsModalLabel">Posh Complain Details</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Employee Code:</label>
+                                <span class="leave_code">NA</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Employee Name:</label>
+                                <span class="emp_code">NA</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Subject</label>
+                                <span class="emp_name">NA</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Message</label>
+                                <span class="cc text-wrap">NA</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Revert</label>
+                                <span class="reason">NA</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="field-container shadow-sm">
+                                <label class="fw-bold">Complain Date</label>
+                                <span class="absence_dates">NA</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 

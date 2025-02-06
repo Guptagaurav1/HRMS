@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('wo_oraganisation_name')->nullable();
             $table->foreign('wo_oraganisation_name')->references('id')->on('organizations')->onDelete('NO ACTION');
 
-            $table->string('wo_number')->nullable();
+            $table->string('wo_number')->unique();
             $table->string('prev_wo_no')->nullable();
             $table->date('wo_date_of_issue')->nullable();
             $table->string('wo_project_number')->nullable();

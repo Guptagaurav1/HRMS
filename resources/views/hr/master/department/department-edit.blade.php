@@ -10,6 +10,7 @@
         <div class="panel mb-4">
             <div class="panel-header">
                 <h4 class="text-white mt-2">Department</h4>
+                <a href="{{route('departments.index')}}"><button class="btn btn-sm btn-primary">Back</button></a>  
             </div>
             <div class="row px-3 mt-2">
                 @if ($message = Session::get('success'))

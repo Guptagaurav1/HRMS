@@ -17,6 +17,9 @@
                     </div>
                     
                     <div class="panel-body invoice printarea" id="invoiceBody">
+                        <div class="d-none">
+                            <input type="hidden" id="slip-id" value="{{$id}}">
+                        </div>
                         <div class="invoice-header mb-25">
                             <div class="row justify-content-between align-items-end">
                             
@@ -128,7 +131,6 @@
 </div>
 @endsection
 @section('script')
-<script type="text/JavaScript" src="{{asset('assets/js/jQuery.print.js')}}"></script>
 <script src="{{asset('assets/js/previewSalary.js')}}"></script>
 
 @endsection

@@ -22,6 +22,10 @@ use App\Http\Controllers\hr\HelpdeskController;
 
 use App\Http\Controllers\hr\WorkOrderController;
 use App\Http\Controllers\hr\SalarySlipController;
+use App\Http\Controllers\hr\AttendanceController;
+use App\Http\Controllers\hr\MailLogController;
+use App\Http\Controllers\hr\ResponseLogController;
+use App\Http\Controllers\hr\RecruitmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,11 +55,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
     });
-
-    // Route::controller(MasterController::class)->prefix('master')->group(function () {
-    //     Route::get("skill", 'skills')->name("skill");
-    // });
-
 
     // Masters
     // ----------------------------------------
@@ -95,40 +94,31 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/update/{designation}", 'update')->name("designations.update");
         Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
     });
- 
-        
-
   
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
         Route::get("company-master", 'company_details')->name("company-master");
     });
+
     Route::controller(TeamController::class)->prefix('teams')->group(function () {
         Route::get("/", 'index')->name("my-team-list");
     });
 
-
-
-
-
-
-
-
-
-
-    // end masters
-// --------------------------------
-
-  
     Route::controller(HolidayController::class)->prefix('leave')->group(function () {
         Route::get("/", 'index')->name("holiday-list");
         Route::get("request-list", 'leave_requests')->name("applied-request-list");
         Route::get("leave-regularization", 'leave_regularization')->name("leave-regularization");
+        Route::post('request-details', 'leave_details');
+        Route::get("leave-request-reciept/{id}", 'leave_receipt')->name("leave-request-reciept");
+        Route::get("employee-details/{empid}", 'emp_details')->name("employee-details");
+        Route::post("send_regularization", 'send_mail');
     });
 
-    Route::get("position-request", function () {
-        return view(" hr.position-request");
-    })->name("position-request");
+    Route::controller(RecruitmentController::class)->prefix('recruitment')->group(function () {
+        Route::get("position-request", "position_request")->name("position-request");
+        Route::post("cities", "get_cities");
+        Route::post('position-request', 'store_position')->name('save-position-request');
+    });
 
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
         Route::get("/", 'index')->name("functional-role");
@@ -153,36 +143,26 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/deactivate/{id}", 'deactivate');
         Route::post("/activate/{id}", 'activate');
     });
-  
-    Route::controller(MasterController::class)->prefix('master')->group(function () {
-        Route::get("skill", 'skills')->name("skill");
-        Route::get("company-master", 'company_details')->name("company-master");
-    });
- // end masters
-
-// --------------------------------
 
     Route::controller(AuthController::class)->group(function () {
         Route::get('d-logout', 'd_logout')->name('department_logout');
     });
 
-/////////// workorder routes start ///////
-Route::controller(WorkOrderController::class)->group(function (){
+    /////////// workorder routes start ///////
+    Route::controller(WorkOrderController::class)->group(function (){
 
-    
-    Route::get("work-order-list","index")->name("work-order-list");
-    Route::get("add-work-order","create")->name("add-work-order");
-    Route::post("store-work-order","store")->name("store-work-order");
-    Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
-    Route::post("update-work-order/{id}","update")->name("update-work-order");
-    Route::get("view-work-order/{id}","show")->name("view-work-order");
-
-    
-
-});
-/////////// workorder routes end ///////
+        Route::get("work-order-list","index")->name("work-order-list");
+        Route::get("add-work-order","create")->name("add-work-order");
+        Route::post("store-work-order","store")->name("store-work-order");
+        Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
+        Route::post("update-work-order/{id}","update")->name("update-work-order");
+        Route::get("view-work-order/{id}","show")->name("view-work-order");
+        Route::get("wo-project-list","woProject")->name("wo-project-list");
+        Route::get("wo-project-report/{project_no}","woReport")->name("wo-project-report");
+    });
+    /////////// workorder routes end ///////
   
-  Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
+    Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
         Route::get('compose-email', 'compose')->name('compose-email');
         Route::post('send-email', 'send_mail')->name('compose');
         Route::get("mail-logs", 'mail_log')->name("email-list");
@@ -190,12 +170,38 @@ Route::controller(WorkOrderController::class)->group(function (){
 
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
         Route::get('/', 'index')->name("salary-slip");
+        Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
+        Route::post('send-mail/{id}', 'send_mail');
+        Route::get('employee-details/{salaryid}', 'employee_details')->name("employee-details-salary-retainer");
+        Route::post('export', 'export_csv')->name("export-salary");
+        Route::get("edit/{id}", 'edit_slip')->name("salary-slip-edit");
+        Route::post("update-slip", 'update_slip')->name("salary-slip-update");
+        Route::get("print/{id}", 'print_salary_slip')->name("employee-code-retainer");
+    });
 
-    Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
+    Route::controller(AttendanceController::class)->prefix('attendance')->group(function () {
+        Route::get('go-to-attendance/{wo_id}', 'index')->name("go-to-attendance");
+        Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
+        Route::get("wo-sal-attendance", 'wo_sal_attendance')->name("wo-sal-attendance");
+        Route::post("wo-sal-calculate", 'wo_sal_calculate')->name("wo-sal-calculate");
+    });
+
+    Route::controller(MailLogController::class)->prefix('logs')->group(function () {
+        Route::get('anniversary-wish-log', 'anniversary_logs')->name("anniversary-wish-log");
+        Route::get("birthday-wish-log", 'birthday_logs')->name("birthday-wish-log");
+        Route::get("work-anniversary-wish-log", 'work_anniversary_logs')->name("work-anniversary-wish-log");
+    });
+    Route::controller(ResponseLogController::class)->prefix('response-logs')->group(function () {
+        Route::get("employee-profile-response-log", 'profile_change_log')->name("employee-profile-response-log");
+
+        Route::get("recruiter-response-log", 'detail_change_log')->name("recruiter-response-log");
+    });
+
+        
 
 });
 
-});
+
 
   ////////////////////////// user routes //////////////////////////////////////////////////////////
 
@@ -325,26 +331,6 @@ Route::controller(WorkOrderController::class)->group(function (){
         return view("hr.attendance-list");
     })->name("attendance-list");
 
-    Route::get("employee-profile-response-log", function () {
-        return view("hr.employee-profile-response-log");
-    })->name("employee-profile-response-log");
-
-    Route::get("recruiter-response-log", function () {
-        return view("hr.recruiter-response-log");
-    })->name("recruiter-response-log");
-
-    Route::get("anniversary-wish-log", function () {
-        return view("hr.anniversary-wish-log");
-    })->name("anniversary-wish-log");
-
-    Route::get("birthday-wish-log", function () {
-        return view("hr.birthday-wish-log");
-    })->name("birthday-wish-log");
-
-    Route::get("work-anniversary-wish-log", function () {
-        return view("hr.work-anniversary-wish-log");
-    })->name("work-anniversary-wish-log");
-
     Route::get("generate-invoice", function () {
         return view("hr.generate-invoice");
     })->name("generate-invoice");
@@ -385,9 +371,9 @@ Route::controller(WorkOrderController::class)->group(function (){
     //     return view("hr.view-work-order");
     // })->name("view-work-order");
 
-    Route::get("go-to-attendance", function () {
-        return view("hr.go-to-attendance");
-    })->name("go-to-attendance");
+    // Route::get("go-to-attendance", function () {
+    //     return view("hr.go-to-attendance");
+    // })->name("go-to-attendance");
 
     Route::get("work-order-salary-sheet", function () {
         return view("hr.work-order-salary-sheet");
@@ -414,29 +400,9 @@ Route::controller(WorkOrderController::class)->group(function (){
     })->name("add-role");
 
 
-    Route::get("employee-details", function () {
-        return view("hr.employee-details");
-    })->name("employee-details");
-
-    Route::get("employee-details-salary-retainer", function () {
-        return view("hr.employee-details-salary-retainer");
-    })->name("employee-details-salary-retainer");
-
-    Route::get("salary-slip-edit", function () {
-        return view("hr.salary-slip-edit");
-    })->name("salary-slip-edit");
-
-    Route::get("employee-code-retainer", function () {
-        return view("hr.employee-code-retainer");
-    })->name("employee-code-retainer");
-
     Route::get("employee-month-salary-slip", function () {
         return view("hr.employee-month-salary-slip");
     })->name("employee-month-salary-slip");
-
-    Route::get("leave-request-reciept", function () {
-        return view("hr.leave-request-reciept");
-    })->name("leave-request-reciept");
 
     Route::get("preview-executive-description", function () {
         return view("hr.preview-executive-description");
@@ -449,6 +415,82 @@ Route::controller(WorkOrderController::class)->group(function (){
     Route::get("Candidate-Contacted-By-Cal-Log", function () {
         return view("hr.Candidate-Contacted-By-Cal-Log");
     })->name("Candidate-Contacted-By-Cal-Log");
+
+    Route::get("Edit-Candidate-Details-Contacted-By-Call", function () {
+        return view("hr.Edit-Candidate-Details-Contacted-By-Call");
+    })->name("Edit-Candidate-Details-Contacted-By-Call");
+
+    Route::get("recruitment-plan-page-summary", function () {
+        return view("hr.recruitment-plan-page-summary");
+    })->name("recruitment-plan-page-summary");
+
+    Route::get("applicant-recruitment-details-summary", function () {
+        return view("hr.applicant-recruitment-details-summary");
+    })->name("applicant-recruitment-details-summary");
+
+    Route::get("verify-documents", function () {
+        return view("hr.verify-documents");
+    })->name("verify-documents");
+
+    Route::get("edit-salary", function () {
+        return view("hr.edit-salary");
+    })->name("edit-salary");
+
+    Route::get("update-billing-structure", function () {
+        return view("hr.update-billing-structure");
+    })->name("update-billing-structure");
+
+    Route::get("tax-invoice", function () {
+        return view("hr.tax-invoice");
+    })->name("tax-invoice");
+
+    Route::get("invoice-encloser", function () {
+        return view("hr.invoice-encloser");
+    })->name("invoice-encloser");
+
+    Route::get("view-reciept", function () {
+        return view("hr.view-reciept");
+    })->name("view-reciept");
+
+    Route::get("view-more-attachment", function () {
+        return view("hr.view-more-attachment");
+    })->name("view-more-attachment");
+
+    Route::get("edit-attandence", function () {
+        return view("hr.edit-attandence");
+    })->name("edit-attandence");
+
+    Route::get("birthday-template", function () {
+        return view("hr.birthday-template");
+    })->name("birthday-template");
+
+    Route::get("preview-job-description", function () {
+        return view("hr.preview-job-description");
+    })->name("preview-job-description");
+
+    Route::get("marriage-anniversary-list-template", function () {
+        return view("hr.marriage-anniversary-list-template");
+    })->name("marriage-anniversary-list-template");
+
+    Route::get("work-anniversary-list-template", function () {
+        return view("hr.work-anniversary-list-template");
+    })->name("work-anniversary-list-template");
+
+
+    
+
+    
+
+   
+
+
+    
+
+   
+
+   
+
+    
 
     
 
@@ -466,46 +508,58 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         return view('employee.dashboard');
     })->name('employee_dashboard');
 
-    Route::get("compose-email", function () {
-        return view("employee.compose-email");
+    Route::get("employee-compose-email", function () {
+        return view("employee.employee-compose-email");
     })->name("employee-compose-email");
 
-    Route::get("holiday-list", function () {
-        return view("employee.holiday-list");
+    Route::get("employee-holiday-list", function () {
+        return view("employee.employee-holiday-list");
     })->name("employee-holiday-list");
 
-    Route::get("applied-request-list", function () {
-        return view("employee.applied-request-list");
-    })->name("employee-applied-request-list");
+    Route::get("employee-apply-leave-request", function () {
+        return view("employee.employee-apply-leave-request");
+    })->name("employee-apply-leave-request");
 
-    Route::get("reimbursement-list", function () {
-        return view("employee.reimbursement-list");
+    Route::get("employee-reimbursement-list", function () {
+        return view("employee.employee-reimbursement-list");
     })->name("employee-reimbursement-list");
 
-    Route::get("modify-profile-request", function () {
-        return view("employee.modify-profile-request");
-    })->name("modify-profile-request");
+    Route::get("employee-modify-profile-request", function () {
+        return view("employee.employee-modify-profile-request");
+    })->name("employee-modify-profile-request");
    
 
-    Route::get("profile-detail-request-list", function () {
-        return view("employee.profile-detail-request-list");
-    })->name("profile-detail-request-list");
+    Route::get("employee-profile-detail-request-list", function () {
+        return view("employee.employee-profile-detail-request-list");
+    })->name("employee-profile-detail-request-list");
 
     Route::get("create-reimbursement", function () {
         return view("employee.create-reimbursement");
     })->name("create-reimbursement");
 
-    Route::get("apply-leave-request", function () {
-        return view("employee.apply-leave-request");
-    })->name("apply-leave-request");
+    Route::get("employee-applied-request-list", function () {
+        return view("employee.employee-applied-request-list");
+    })->name("employee-applied-request-list");
 
     Route::get("leave-taken", function () {
         return view("employee.leave-taken");
     })->name("leave-taken");
 
-    // Route::get("employee-month-salary-slip", function () {
-    //     return view("employee.employee-month-salary-slip");
-    // })->name("employee-employee-month-salary-slip");
+    Route::get("employee-users-details", function () {
+        return view("employee.employee-users-details");
+    })->name("employee-users-details");
+
+    
+
+    Route::get("reiembursement-list-employee", function () {
+        return view("employee.reiembursement-list-employee");
+    })->name("reiembursement-list-employee");
+
+    Route::get("employee-salary-slip", function () {
+        return view("employee.employee-salary-slip");
+    })->name("employee-salary-slip");
+
+   
 
     
 });

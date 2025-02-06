@@ -80,7 +80,7 @@
                                     <td><span class="badge alert-success">Offer Accepted</span></td>
                                     <td><a href=""><span class="badge text-bg-success">Download <i class="fa-solid fa-download"></i></span></a></td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button>
+                                       <a href="{{route('Edit-Candidate-Details-Contacted-By-Call')}}"> <button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                     </td>
                                 </tr>
                             </tbody>

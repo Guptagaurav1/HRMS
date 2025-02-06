@@ -15,10 +15,15 @@
                 <h2 class="mt-2">Upcoming 40 days Work Anniversary List</h2>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
-                <form class="row g-3">
+                <form class="row g-3 py-2 mt-2">
                     <div class="col-auto ">
-
-                        <input type="text" class="form-control" placeholder="Search" required>
+                        <input type="search" class="form-control" placeholder="Search" name="search" >
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{route('work-anniversary-wish-log')}}" class="btn btn-primary mb-3">Reset</a>
                     </div>
                 </form>
             </div>
@@ -53,7 +58,7 @@
                             <td>2</td>
                             <td>No Image</td>
                             <td>
-                                <a href="#"><button class="btn btn-sm btn-primary">View Template Image</button></a>
+                                <a href="{{route("work-anniversary-list-template")}}"><button class="btn btn-sm btn-primary">View Template Image</button></a>
                                 <a href="#"><button class="btn btn-sm btn-primary">Send Email</button></a>
                             </td>
                         </tr>

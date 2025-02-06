@@ -1,0 +1,3 @@
+function printmydoc(){
+    $(".printarea").print();
+}

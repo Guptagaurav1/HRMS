@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
@@ -23,7 +22,7 @@
                             <input type="text" class="form-control" placeholder="Search" required>
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search</button>
+                            <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
     
                     </form>
@@ -63,7 +62,7 @@
                                     <td>0%</td>
                                     <td>Mr. Awadhesh Pandit (Deputy General Manager -Finance & Accounts)</td>
                                     <td>panditmd@becil.com</td>
-                                    <td><a href=""><button class="btn btn-sm btn-primary">Edit</button></a></td>
+                                    <td><a href="{{route('update-billing-structure')}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -14,7 +14,6 @@ class SkillController extends Controller
 {
     public function index(Request $request){
         $skills = Skill::orderBy('id','desc')->paginate(10);
-
         return view("hr.master.skills.skill", compact('skills'));
     }
 

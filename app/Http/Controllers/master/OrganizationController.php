@@ -28,7 +28,11 @@ class OrganizationController extends Controller
 
     public function store(Request $request){
             $request->validate([
-                'name' => 'required|unique:organizations|max:255',
+                'name' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('organizations')->whereNull('deleted_at'),
+                ],
                 'address' => 'required|max:255',
                 'email' => 'required|max:255',
                 'contact' => 'required|digits:10',

@@ -169,27 +169,27 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Person Name</label>
-                                    <input name="c_person_name][]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{ old('c_person_name') }}">
+                                    <input name="c_person_name[]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{ old('c_person_name') }}">
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Designation</label>
-                                    <input name="c_designation][]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ old('c_designation') }}">
+                                    <input name="c_designation[]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ old('c_designation') }}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Contact</label>
-                                    <input name="c_contact][]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ old('c_contact') }}">
+                                    <input name="c_contact[]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ old('c_contact') }}">
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Email</label>
-                                    <input name="c_email][]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{ old('c_email') }}">
+                                    <input name="c_email[]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{ old('c_email') }}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-12 text-wrap">
                                     <label for="exampleTextarea" class="form-label">Remarks</label>
-                                    <textarea name="c_remarks][]" id="c_remarks" class="form-control" id="exampleTextarea"
+                                    <textarea name="c_remarks[]" id="c_remarks" class="form-control" id="exampleTextarea"
                                         placeholder="Enter Remarks" value="{{ old('c_remarks') }}"></textarea>
                                 </div>
                             </div>
