@@ -19,9 +19,18 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2 class="mt-2">Generate Report</h2>
+                        <div class=" px-2 mt-4">
+                            @if($project_details)
+                            <div class="row col-sm-4 col-md-4"> <h5>Organisation  :- {{$project_details->organizations->name}}</h5>
+                            </div>
+                            <div class=" row col-sm-4 col-md-4"> <h5>Project Name :- {{$project_details->project_name}}</h5>
+                            </div>
+                            <div class=" row col-sm-4 col-md-4"> <h5>Project Number  :- {{$project_details->project_number}}</h5>
+                            </div>
+                            @endif
+                        </div>
                     </div>
-                    <div class="row px-2 mt-2"> <h4>Project Number :- {{$project_no}}</h4>
-                    </div>
+                
                 
                     <div class="row px-3 mt-2">
                         @if ($message = Session::get('success'))
@@ -40,10 +49,7 @@
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                             <thead>
                                 <tr>
-                                    <!-- <th class="srno-column">S.No.</th> -->
                                     <th>Work Order no.</th>
-                                    <!-- <th>Organisation</th> -->
-                                    <th>Project Name</th>
                                     <th>Project Coordinator Name</th>
                                     <th>Start date</th>
                                     <th>End date</th>
@@ -54,14 +60,10 @@
                                 @if(!empty($woReport))
                                     @foreach($woReport as $key => $value)
                                         <tr>
-                                            <!-- <td class="srno-column">{{$key+1}}</td> -->
                                             <td>{{$value->wo_number}}</td>
-                                            <!-- <td>{{$value->organizations->name}}</td> -->
-                                            <td>{{$value->wo_project_name}}</td>
                                             <td>{{$value->wo_project_coordinator}}</td>
                                             <td>{{$value->wo_start_date}}</td>
                                             <td>{{$value->wo_end_date}}</td>
-                                            <!-- <td>{{$value->wo_amount}}</td> -->
                                             <td>INR {{ number_format($value->wo_amount, 2) }}</td>
                                         
                                         </tr>
@@ -74,7 +76,7 @@
                                     @endif
                                     <tr>
                                         <td>Total Amount</td>
-                                        <td colspan="4"></td>
+                                        <td colspan="3"></td>
                                         <td>{{$totalAmount}}</td>
                                     </tr>
                             </tbody>

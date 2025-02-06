@@ -4,19 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Organization extends Model
+class Project extends Model
 {
-    use HasFactory,SoftDeletes;
-
-
-    protected $fillable = ['name','address','contact','email'];
+    use HasFactory;
     
-    public function projects()
+    protected $fillable = ['name'];
+    public function organizations()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsTo(Organization::class,'organisation_id'); // Assuming 'organization_name' is a foreign key
     }
     public static function boot()
     {
@@ -37,12 +33,5 @@ class Organization extends Model
         }
         
     }
-
-    public function workOrders()
-    {
-        return $this->hasMany(WorkOrder::class);
-    }
-
-    
 
 }

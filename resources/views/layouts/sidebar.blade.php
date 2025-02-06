@@ -467,7 +467,8 @@
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('add-work-order')}}" class="sidebar-link">Add Work Order</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('work-order-list')}}" class="sidebar-link">Work Order List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('wo-project-list')}}" class="sidebar-link">Project List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('project-list')}}" class="sidebar-link">Project List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('project-report')}}" class="sidebar-link">WorkOrder Project Report</a></li>
                             
                         </ul>
                     </li>

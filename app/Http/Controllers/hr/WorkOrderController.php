@@ -11,51 +11,52 @@ use Throwable;
 
 class WorkOrderController extends Controller
 {
-    public function index(Request $request){
-     
+   
+    public function index(Request $request)
+    {
         $search = $request->search;
-        $workOrders = WorkOrder::with(['organizations', 'contacts' => function ($query) {
-            $query->orderBy('id', 'desc')->limit(1);  // Get the most recent contact detail
-        }])
         
+        $workOrders = WorkOrder::with(['project.organizations', 'contacts' => function ($query) {
+            $query->orderBy('id', 'desc');
+        }])
         ->when($search, function ($query, $search) {
             $query->where(function ($query) use ($search) {
-                $query->where('wo_internal_ref_no', 'like', '%' . $search . '%') 
-                      ->orWhere('wo_number', 'like', '%' . $search . '%') 
-                      ->orWhere('wo_empanelment_reference', 'like', '%' . $search . '%') 
-                      ->orWhere('wo_date_of_issue', 'like', '%' . $search . '%') 
-                      ->orWhere('wo_project_number', 'like', '%' . $search . '%') 
-                      ->orWhere('wo_project_name', 'like', '%' . $search . '%') 
-                      ->orWhere('wo_project_coordinator', 'like', '%' . $search . '%') 
-                      ->orWhere('prev_wo_no', 'like', '%' . $search . '%') 
-                      ->orWhere('wo_amount', 'like', '%' . $search . '%'); 
+                $query->where('wo_internal_ref_no', 'like', '%' . $search . '%')
+                    ->orWhere('wo_number', 'like', '%' . $search . '%')
+                    ->orWhere('wo_empanelment_reference', 'like', '%' . $search . '%')
+                    ->orWhere('wo_date_of_issue', 'like', '%' . $search . '%')
+                    ->orWhere('wo_project_number', 'like', '%' . $search . '%')
+                    ->orWhere('wo_project_name', 'like', '%' . $search . '%')
+                    ->orWhere('wo_project_coordinator', 'like', '%' . $search . '%')
+                    ->orWhere('prev_wo_no', 'like', '%' . $search . '%')
+                    ->orWhere('wo_amount', 'like', '%' . $search . '%');
             });
         })
-        ->orWhereHas('organizations', function ($query) use ($search) {
-            $query->where('name', 'like', '%' . $search . '%'); // serach for organization
+        ->orWhereHas('project', function ($query) use ($search) {
+            $query->where('project_name', 'like', '%' . $search . '%');
         })
         ->orWhereHas('contacts', function ($query) use ($search) {
-            $query->where('wo_client_contact_person', 'like', '%' . $search . '%'); // serach for organization
-            $query->orwhere('wo_client_email', 'like', '%' . $search . '%'); // serach for organization
+            $query->where('wo_client_contact_person', 'like', '%' . $search . '%') 
+                ->orWhere('wo_client_email', 'like', '%' . $search . '%');
         })
-        
-        ->orderBy('id', 'desc')->paginate(10); 
+        ->orderBy('id', 'desc')
+        ->paginate(10);
 
-        // dd($workOrders);
-        
+        //  work orders contact details
         $workOrdercontacts = [];
         foreach ($workOrders as $workOrder) {
-            if ($workOrder->woContactDetails) {
-                $workOrder->wo_details = $workOrderDetails->wo_client_contact_person . '/' . $workOrderDetails->wo_client_email;
+            if ($workOrder->contacts) {
+                $workOrder->wo_details = $workOrder->contacts[0]->wo_client_contact_person . '/' . $workOrder->contacts[0]->wo_client_email;
             } else {
                 $workOrder->wo_details = "Not Available";
             }
             $workOrdercontacts[] = $workOrder;
         }
-        // dd($workOrdercontacts);
-        return view("hr.workOrder.work-order-list",compact('workOrdercontacts'));
-       
+        
+        // Return the view with data
+        return view("hr.workOrder.work-order-list", compact('workOrdercontacts'));
     }
+
     public function create(){
         $organization = Organization::orderBy('id','desc')->get();
         return view("hr.workOrder.add-work-order",compact('organization'));
@@ -64,6 +65,7 @@ class WorkOrderController extends Controller
             $request->validate([
                 // 'attachment' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', // Validate the file type and size
                 'organisation' => 'required',
+                'project_name' => 'required',
                 'work_order' => 'required'
 
             ]);
@@ -79,17 +81,17 @@ class WorkOrderController extends Controller
         }
         
         try {   
-            // dd($request);
+          
             $workOrder = new WorkOrder();
             $workOrder->wo_internal_ref_no = $request->internal_reference;
-            $workOrder->wo_oraganisation_name = $request->organisation;
+            $workOrder->project_id = $request->project_name;
             $workOrder->wo_number = $request->work_order;
             $workOrder->prev_wo_no = $request->prev_wo_no;
             $workOrder->wo_date_of_issue = $request->issue_date;
-            $workOrder->wo_project_number = $request->project_no;
-            $workOrder->wo_project_name = $request->project_name;
+            // $workOrder->wo_project_number = $request->project_no;
+            // $workOrder->wo_project_name = $request->project_name;
             $workOrder->wo_concern_ministry = $request->concern_ministry;
-            $workOrder->wo_empanelment_reference = $request->empanelment_reference;
+            // $workOrder->wo_empanelment_reference = $request->empanelment_reference;
             $workOrder->wo_no_of_resources = $request->no_of_resource;
             $workOrder->wo_project_duration = $request->project_duration_month;
             $workOrder->wo_project_duration_day = $request->project_duration_days;
@@ -136,8 +138,9 @@ class WorkOrderController extends Controller
     }
     public function edit(string $id){
        
-        $workOrder = WorkOrder::with('contacts')->findOrFail($id);
+        $workOrder = WorkOrder::with('project.organizations','contacts')->findOrFail($id);
         $organization = Organization::orderBy('id','desc')->get();
+        // dd($workOrder);
         return view("hr.workOrder.edit-work-order",compact('workOrder','organization'));
     
     }
@@ -163,14 +166,14 @@ class WorkOrderController extends Controller
             } 
           
             $workOrder->wo_internal_ref_no = $request->internal_reference;
-            $workOrder->wo_oraganisation_name = $request->organisation;
+            $workOrder->project_id = $request->project_name;
             $workOrder->wo_number = $request->work_order;
             $workOrder->prev_wo_no = $request->prev_wo_no;
             $workOrder->wo_date_of_issue = $request->issue_date;
-            $workOrder->wo_project_number = $request->project_no;
-            $workOrder->wo_project_name = $request->project_name;
+            // $workOrder->wo_project_number = $request->project_no;
+            // $workOrder->wo_project_name = $request->project_name;
             $workOrder->wo_concern_ministry = $request->concern_ministry;
-            $workOrder->wo_empanelment_reference = $request->empanelment_reference;
+            // $workOrder->wo_empanelment_reference = $request->empanelment_reference;
             $workOrder->wo_no_of_resources = $request->no_of_resource;
             $workOrder->wo_project_duration = $request->project_duration_month;
             $workOrder->wo_project_duration_day = $request->project_duration_days;
@@ -256,30 +259,7 @@ class WorkOrderController extends Controller
 
     }
 
-    public function woProject(){
-        $workOrder='';
-        $woProjects = WorkOrder::selectRaw('wo_oraganisation_name, wo_project_number, COUNT(wo_number) as total_wo,SUM(wo_amount) as amount')
-        ->groupBy('wo_oraganisation_name', 'wo_project_number')
-        ->with(['organizations']) 
-        ->orderBy('wo_project_number', 'desc')
-        ->paginate(10);
-            // dd($woProjects);
-        return view("hr.workOrder.wo-project-list",compact('woProjects'));
-    }
-
-    public function woReport(Request $request){
-        // dd($request->project_no);
-        $project_no =$request->project_no;
-        $workOrder='';
-        $woReport = WorkOrder::selectRaw('wo_oraganisation_name, wo_number, wo_project_name,wo_project_coordinator, wo_project_number, wo_start_date,wo_end_date,wo_amount')
-        ->with(['organizations'])
-        ->where('wo_project_number','=',$request->project_no) 
-        ->orderBy('id', 'desc')
-        ->get();
-        $totalAmount = $woReport->sum('wo_amount');
-       
-        return view("hr.workOrder.work-order-report",compact('woReport','project_no','totalAmount'));
-    }
+   
 
 
 
