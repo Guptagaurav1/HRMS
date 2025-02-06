@@ -118,6 +118,11 @@ Route::middleware('guest')->group(function () {
         Route::get("position-request", "position_request")->name("position-request");
         Route::post("cities", "get_cities");
         Route::post('position-request', 'store_position')->name('save-position-request');
+        Route::get("recruitment-report", 'recruitment_report')->name("recruitment-report");
+        Route::get("preview_description/{id}", 'prev_descr')->name("preview-executive-description");
+        Route::post("send-jd", 'send_jd_mail');
+        Route::post("send-bulk-jd", 'send_bulk_mail');
+        Route::get("position-report/{id}", 'position_contacts')->name("show-assign-work-log");
     });
 
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
@@ -268,11 +273,6 @@ Route::middleware('guest')->group(function () {
     // })->name("users-list");
 
 
-
-    Route::get("recruitment-report", function () {
-        return view(" hr.recruitment-report");
-    })->name("recruitment-report");
-
     Route::get("recruitment-list", function () {
         return view(" hr.recruitment-list");
     })->name("recruitment-list");
@@ -401,14 +401,6 @@ Route::middleware('guest')->group(function () {
     Route::get("employee-month-salary-slip", function () {
         return view("hr.employee-month-salary-slip");
     })->name("employee-month-salary-slip");
-
-    Route::get("preview-executive-description", function () {
-        return view("hr.preview-executive-description");
-    })->name("preview-executive-description");
-
-    Route::get("show-assign-work-log", function () {
-        return view("hr.show-assign-work-log");
-    })->name("show-assign-work-log");
 
     Route::get("Candidate-Contacted-By-Cal-Log", function () {
         return view("hr.Candidate-Contacted-By-Cal-Log");

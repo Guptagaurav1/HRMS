@@ -12,8 +12,14 @@ use App\Models\Qualification;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\PositionRequest;
+use App\Models\SendMailLog;
+use App\Models\Company;
 use Throwable;
 use Illuminate\Validation\Rules\File;
+use App\Mail\JobDescriptionMail;
+use stdClass;
+use Mail;
+use Illuminate\Support\Facades\DB;
 
 class RecruitmentController extends Controller
 {
@@ -91,6 +97,7 @@ class RecruitmentController extends Controller
         $record->functional_role = implode(",", $record->functional_role);
         $record->experience = $request->exp_from.",".$request->exp_to;
         $record->education = implode(",", $record->education);
+        $record->assigned_executive = implode(",", $record->assigned_executive);
         $record->skill_sets = implode(",", $record->skill_sets);
         $record->attachment = !empty($filename) ? $filename : '';
         $record->save();
@@ -99,4 +106,209 @@ class RecruitmentController extends Controller
 
     } 
 
+    /**
+     * Show the listing of position requested.
+     */
+    public function recruitment_report()
+    {
+        $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh')->orderByDesc('id')->paginate(10);  
+        return view("hr.recruitment-report", compact('positions'));
+    } 
+
+    /**
+     * Show the job description.
+     * @param $jobid 
+     */
+    public function prev_descr($id){
+        try {
+            $request = PositionRequest::findOrFail($id);
+            return view("hr.preview-executive-description", compact('request'));
+        }
+        catch(Throwable $th){
+            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
+        }
+        
+    } 
+
+    /**
+     * Send single mail of JD.
+     */ 
+    public function send_jd_mail(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+            $this->validate($request, [
+                'jobseeker_name' => ['required', 'string'],
+                'jobseeker_email' => ['required', 'email'],
+                'department' => ['required', 'string'],
+                'sender_email' => ['required', 'email'],
+                'message' => ['required', 'string'],
+                'state_name' => ['required', 'string'],
+                'cityname' => ['required', 'string'],
+                'qualification' => ['required', 'string'],
+                'skill_set' => ['required', 'string'],
+                'experience' => ['required', 'string'],
+                'description' => ['required', 'string']
+            ]);
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+            $previous = SendMailLog::orderByDesc('id')->value('id');
+            if (empty($previous)) {
+               $previous = 0;
+            }
+            $uni_id = ($previous + 1).'/'.str_replace(' ','',$request->job_position).'/'.$request->jobseeker_email;
+
+            SendMailLog::create([
+                'uni_id' => $uni_id,
+                'receiver_name' => $request->jobseeker_name,
+                'receiver_email' => $request->jobseeker_email,
+                'job_position' => $request->position_id,
+                'department' => $request->department,
+                'sender_email' => $request->sender_email,
+                'message' => $request->message,
+            ]);
+
+            // Send Mail.
+            $maildata = new stdClass();
+            $maildata->name = $request->jobseeker_name;
+            $maildata->job_position = $request->job_position;
+            $maildata->job_description = $request->description;
+            $maildata->link = '<a>Click Here</a>';
+            $maildata->url = '';
+            $maildata->sender_name = $user->first_name." ".$user->last_name;
+            $maildata->sender_from = $user->email;
+            $maildata->sender_phone = $user->phone;
+            $maildata->email = $company->email;
+            $maildata->phone = $company->mobile;
+            $maildata->website = $company->website;
+            $maildata->address = $company->address;
+            $maildata->department = $request->department;
+            $maildata->city = $request->cityname;
+            $maildata->state = $request->state_name;
+            $maildata->education = $request->qualification;
+            $maildata->skill_sets = $request->skill_set;
+            $maildata->exp = $request->experience;
+            $maildata->remarks = $request->remark;
+            $maildata->subject = $request->job_position." Job Description";
+
+            Mail::to($request->jobseeker_email)->send(new JobDescriptionMail($maildata));
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Mail Sent Successfully.']);
+        }
+        catch(Throwable $th){
+            DB::rollBack();
+            return response()->json(['error' => true, 'message' => 'Server Error']);
+        }
+    }
+
+    /**
+     * Send single mail of JD.
+     */ 
+    public function send_bulk_mail(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+            $fileobj = new File();
+            $this->validate($request, [
+                'department' => ['required', 'string'],
+                'sender_email' => ['required', 'email'],
+                'message' => ['required', 'string'],
+                'state_name' => ['required', 'string'],
+                'cityname' => ['required', 'string'],
+                'qualification' => ['required', 'string'],
+                'skill_set' => ['required', 'string'],
+                'experience' => ['required', 'string'],
+                'description' => ['required', 'string'],
+                'file' => ['required', 'extensions:csv', $fileobj->max('1mb')]
+            ]);
+            $file = $request->file('file');
+            $fileContents = file($file->getPathname());
+            $data = [];
+            foreach ($fileContents as $line) {
+                $data[] = str_getcsv($line);
+            }
+            $headers = $data[0];
+            // Validate whether headers contain all fields or not.
+            if (count($headers) == 2 && in_array("Name", $headers) && in_array("Email", $headers)) {
+                unset($data[0]);
+                // Get Name index and email index.
+                $nameindex = strtolower($headers[0]) == 'name' ? 0 : 1;
+                $emailindex = strtolower($headers[1]) == 'email' ? 1 : 0;
+
+                $user = auth()->user();
+                $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+
+                // Send Mail.
+                $maildata = new stdClass();
+                $maildata->job_position = $request->job_position;
+                $maildata->job_description = $request->description;
+                $maildata->link = '<a>Click Here</a>';
+                $maildata->url = '';
+                $maildata->sender_name = $user->first_name." ".$user->last_name;
+                $maildata->sender_from = $user->email;
+                $maildata->sender_phone = $user->phone;
+                $maildata->email = $company->email;
+                $maildata->phone = $company->mobile;
+                $maildata->website = $company->website;
+                $maildata->address = $company->address;
+                $maildata->department = $request->department;
+                $maildata->city = $request->cityname;
+                $maildata->state = $request->state_name;
+                $maildata->education = $request->qualification;
+                $maildata->skill_sets = $request->skill_set;
+                $maildata->exp = $request->experience;
+                $maildata->remarks = $request->remark;
+                $maildata->subject = $request->job_position." Job Description";
+
+                for ($i=1; $i < count($data); $i++) { 
+                   $name = $data[$i][$nameindex];
+                   $email = $data[$i][$emailindex];
+                   $previous = SendMailLog::orderByDesc('id')->value('id');
+                    if (empty($previous)) {
+                       $previous = 0;
+                    }
+                    $uni_id = ($previous + 1).'/'.str_replace(' ','',$request->job_position).'/'.$request->jobseeker_email;
+
+                
+                    SendMailLog::create([
+                    'uni_id' => $uni_id,
+                    'receiver_name' => $name,
+                    'receiver_email' => $email,
+                    'job_position' => $request->position_id,
+                    'department' => $request->department,
+                    'sender_email' => $request->sender_email,
+                    'message' => $request->message,
+                    ]);
+
+                    $maildata->name = $name;
+                    Mail::to($email)->send(new JobDescriptionMail($maildata));
+                }
+                DB::commit();
+                return response()->json(['success' => true, 'message' => 'Mail Sent Successfully.']);
+            }
+            else {
+              DB::rollBack();
+              return response()->json(['error' => true, 'message' => 'Invalid CSV file']);
+            }
+        }
+        catch(Throwable $th){
+            DB::rollBack();
+            return response()->json(['error' => true, 'message' => 'Server File']);
+        }
+    }
+
+    /**
+     * Show position contacts.
+     */
+    public function position_contacts(Request $request, $id)
+    {
+        try {
+            $request = PositionRequest::select('position_title', 'id')->findOrFail($id);
+            $contacts = SendMailLog::select('receiver_name', 'receiver_email', 'sender_email')->where('job_position', $id)->orderByDesc('id')->paginate(10);
+            return view("hr.show-assign-work-log", compact('request', 'contacts'));
+        }
+        catch(Throwable $th){
+            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
+        }
+    } 
 }
