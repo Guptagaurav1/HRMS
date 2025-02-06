@@ -5,6 +5,7 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Designation;
+use Rule;
 
 class DesignationController extends Controller
 {
@@ -28,7 +29,12 @@ class DesignationController extends Controller
 
     public function store(Request $request){
             $request->validate([
-                'name' => 'required|max:255|unique:designations',
+                'name' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('designations')->whereNull('deleted_at'),
+                ]
+
             ]);
 
             $designation = new Designation();

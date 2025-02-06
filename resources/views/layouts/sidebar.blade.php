@@ -604,16 +604,16 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-user"></i></span> <span class="sidebar-txt">Profile</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">My Account</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('modify-profile-request')}}" class="sidebar-link">Modify Profile Request</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-users-details')}}" class="sidebar-link">My Account</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-modify-profile-request')}}" class="sidebar-link">Modify Profile Request</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
 
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-envelope"></i></span> <span class="sidebar-txt">Helpdesk</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('compose-email')}}" class="sidebar-link">Compose Mail</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-compose-email')}}" class="sidebar-link">Compose Mail</a></li>
 
                         </ul>
                     </li>
@@ -623,18 +623,17 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-business-time"></i></span> <span class="sidebar-txt">Leave</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('holiday-list')}}" class="sidebar-link">Holiday List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('apply-leave-request')}}" class="sidebar-link">Apply Leave</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('applied-request-list')}}" class="sidebar-link">Applied Request List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-holiday-list')}}" class="sidebar-link">Holiday List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-apply-leave-request')}}" class="sidebar-link">Apply Leave</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-applied-request-list')}}" class="sidebar-link">Applied Request List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('leave-taken')}}" class="sidebar-link">Leave Taken</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-clipboard-user"></i></span> <span class="sidebar-txt">Employee Details</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('reimbursement-list')}}" class="sidebar-link">Employee Salary Slip</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('reimbursement-list')}}" class="sidebar-link">My Attendace</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('reimbursement-list')}}" class="sidebar-link">Employee Leaves</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('employee-salary-slip')}}" class="sidebar-link">Employee Salary Slip</a></li>
+                            
                         </ul>
                     </li>
                     
@@ -650,7 +649,7 @@
                             <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
                                 <li class="sidebar-dropdown-item"><a href="{{route('create-reimbursement')}}"
                                         class="sidebar-link">Apply Reimbursement</a></li>
-                                        <li class="sidebar-dropdown-item"><a href="{{route('reimbursement-list')}}"
+                                        <li class="sidebar-dropdown-item"><a href="{{route('reiembursement-list-employee')}}"
                                             class="sidebar-link">Reimbursement List</a></li>
                             </ul>
                         </li>

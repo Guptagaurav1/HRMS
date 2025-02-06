@@ -9,6 +9,7 @@ use App\Models\Skill;
 use App\Models\DepartmentSkill;
 use Illuminate\Support\Facades\DB;
 use Throwable;
+use Illuminate\Validation\Rule;
 
 
 class DepartmentController extends Controller
@@ -27,8 +28,11 @@ class DepartmentController extends Controller
 
     public function save(Request $request){
         $request->validate([
-            'department' => 'required|unique:departments|max:255',
-
+            'department' => [
+                'required',
+                Rule::unique('departments')->whereNull('deleted_at'),
+                'max:255'
+            ],
             'skill' => 'required|max:255'
         ]);
         try {

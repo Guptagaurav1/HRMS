@@ -9,7 +9,6 @@ class WoAttendance extends Model
 {
     use HasFactory;
 
-  
     /**
      * The table associated with the model.
      *
@@ -50,6 +49,5 @@ class WoAttendance extends Model
         }
         
     }
-
 
 }

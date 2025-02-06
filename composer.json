@@ -28,6 +28,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
+            "app/helpers.php"
             "app/Helpers/baseclass.php"
         ]
     },

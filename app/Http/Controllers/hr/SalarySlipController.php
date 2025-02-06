@@ -62,7 +62,10 @@ class SalarySlipController extends Controller
             'file' => $fullPath,
         ];
         $pdf->save($fullPath)->stream('invoice.pdf');
-        Mail::to($data[''])->send(new SalarySlipMail($mailData));
+        Mail::to($data['sal_emp_email'])->send(new SalarySlipMail($mailData));
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+        }
         return response()->json(['success' => true]);
         // return $pdf->download('document.pdf');
     }

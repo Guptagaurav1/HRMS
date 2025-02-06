@@ -43,15 +43,15 @@
                                 <td class="srno-column">1</td>
                                 <td class="rid-column text-center">PSSPL/DEL/2021-22/0174</td>
                                 <td class="text-center">Gaurav Gupta</td>
-                                <td class="attributes-column">Checking</td>
+                                <td class="attributes-column"><a href="{{route("preview-job-description")}}" class="text-primary">Preview JD</a></td>
                                 <td class="text-center">Nothing</td>
                                 <td class="text-center">
                                     NA
                                 </td>
-                                <td class="text-center">19-march-2024</td>
+                                <td class="text-center"><span class="badge rounded-pill text-bg-success">Not Applied</span></td>
                                 <td class="text-center">
     
-                                    NA
+                                 <a href="{{route('applicant-recruitment-details-summary')}}">   <button class="btn btn-sm btn-primary"> View <i class="fa-solid fa-eye"></i></button></a>
                                 </td>
                             </tr>
                         </tbody>
