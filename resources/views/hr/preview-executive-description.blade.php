@@ -56,8 +56,10 @@
             </div>
         </div>
     
-        <div class="col-12 d-flex justify-content-end">
+        <div class="col-12 d-flex justify-content-end gap-3">
+         <a href="{{route('user-request')}}"> <button class="btn btn-sm btn-primary"> Request JD <i class="fa-solid fa-paper-plane"></i></button></a>
             <button class="btn btn-sm btn-primary"> Send <i class="fa-solid fa-paper-plane"></i></button>
+           
         </div>
     </div>
     <div class="row" id="tab-2" style="display: none">

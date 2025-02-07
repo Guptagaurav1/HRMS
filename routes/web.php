@@ -474,6 +474,26 @@ Route::middleware('guest')->group(function () {
         return view("hr.work-anniversary-list-template");
     })->name("work-anniversary-list-template");
 
+    Route::get("user-request", function () {
+        return view("hr.user-request");
+    })->name("user-request");
+
+    Route::get("user-request-list", function () {
+        return view("hr.user-request-list");
+    })->name("user-request-list");
+
+    Route::get("company-master-edit", function () {
+        return view("hr.company-master-edit");
+    })->name("company-master-edit");
+
+    Route::get("add-company-master", function () {
+        return view("hr.add-company-master");
+    })->name("add-company-master");
+
+ 
+
+ 
+
 
     
 
