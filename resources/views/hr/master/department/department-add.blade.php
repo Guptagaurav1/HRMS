@@ -10,7 +10,12 @@
         <div class="panel mb-4">
             <div class="panel-header">
                 <h5 class="text-white">Create Department</h5>
+
+                <a href="{{route('departments.index')}}"><button class="btn btn-sm btn-primary">Back</button></a>  
+
             </div>
+
+
             <div class="row px-3 mt-2">
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

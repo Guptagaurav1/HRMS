@@ -4,20 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Department extends Model
+class Project extends Model
 {
-    use HasFactory,SoftDeletes;
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'departments';
-
-
+    use HasFactory;
+    
+    protected $fillable = ['name'];
+    public function organizations()
+    {
+        return $this->belongsTo(Organization::class,'organisation_id'); // Assuming 'organization_name' is a foreign key
+    }
     public static function boot()
     {
         parent::boot();
@@ -35,13 +31,7 @@ class Department extends Model
                 $model->save();
             });
         }
+        
     }
-    
 
-    public function skills()
-    {
-        return $this->belongsToMany(Skill::class, 'department_skills', 'department_id', 'skill_id')
-    ->wherePivotNull('deleted_at');
-
-    }
 }

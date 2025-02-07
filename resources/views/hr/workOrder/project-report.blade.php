@@ -14,7 +14,7 @@
                 <div class="panel-header">
                     <h2 class="mt-2">Work-Order Project Report</h2>
                 </div>
-               
+        
 
                 <div class="row px-3 mt-2">
                     @if ($message = Session::get('success'))
@@ -56,13 +56,13 @@
                                 @foreach($woProjects as $key => $value)
                                     <tr>
                                         <td class="srno-column">{{$key+1}}</td>
-                                        <td>{{$value->organizations->name}}</td>
-                                        <td>{{$value->wo_project_number}}</td>
+                                        <td>{{$value->project->organizations->name}}</td>
+                                        <td>{{$value->project->project_number}}</td>
                                         <td>{{$value->total_wo}}</td>
                                         <td> INR {{ number_format($value->amount, 2) }}</td>
                                       
                                         <td>
-                                            <a href="{{route('wo-project-report',$value->wo_project_number)}}" target="_balnk"><button type="submit" class="btn btn-primary mb-3">Generate Report</button></a>
+                                            <a href="{{route('wo-project-report',$value->project->id)}}" target="_balnk"><button type="submit" class="btn btn-primary mb-3">Generate Report</button></a>
                                         </td>
 
                                         

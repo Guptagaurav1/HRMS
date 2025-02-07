@@ -23,6 +23,9 @@ use App\Http\Controllers\hr\HelpdeskController;
 use App\Http\Controllers\hr\WorkOrderController;
 use App\Http\Controllers\hr\SalarySlipController;
 use App\Http\Controllers\hr\AttendanceController;
+
+use App\Http\Controllers\hr\ProjectController;
+
 use App\Http\Controllers\hr\MailLogController;
 use App\Http\Controllers\hr\ResponseLogController;
 use App\Http\Controllers\hr\RecruitmentController;
@@ -50,7 +53,7 @@ Route::middleware('guest')->group(function () {
 
 });
 
-  Route::middleware('auth')->prefix('hr')->group(function () {
+Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
@@ -157,8 +160,7 @@ Route::middleware('guest')->group(function () {
         Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
         Route::post("update-work-order/{id}","update")->name("update-work-order");
         Route::get("view-work-order/{id}","show")->name("view-work-order");
-        Route::get("wo-project-list","woProject")->name("wo-project-list");
-        Route::get("wo-project-report/{project_no}","woReport")->name("wo-project-report");
+
     });
     /////////// workorder routes end ///////
   
@@ -185,6 +187,20 @@ Route::middleware('guest')->group(function () {
         Route::get("wo-sal-attendance", 'wo_sal_attendance')->name("wo-sal-attendance");
         Route::post("wo-sal-calculate", 'wo_sal_calculate')->name("wo-sal-calculate");
     });
+     
+    Route::controller(ProjectController::class)->prefix('project')->group(function () {
+        Route::get("/","index")->name("project-list");
+        Route::get("add-project","create")->name("add-project");
+        Route::post("store-project","store")->name("store-project");
+        Route::get("edit-project/{id}","edit")->name("edit-project");
+        Route::post("update-project/{id}","update")->name("update-project");
+
+        Route::get("project-report","project_report")->name("project-report");
+        Route::get("wo-project-report/{project_no}","woReport")->name("wo-project-report");
+        Route::get("organisation-project/{or_id}","organisation_project")->name("organisation-project");
+        Route::get("project-details/{project_id}","project_details")->name("project-details");
+
+    });
 
     Route::controller(MailLogController::class)->prefix('logs')->group(function () {
         Route::get('anniversary-wish-log', 'anniversary_logs')->name("anniversary-wish-log");
@@ -193,13 +209,20 @@ Route::middleware('guest')->group(function () {
     });
     Route::controller(ResponseLogController::class)->prefix('response-logs')->group(function () {
         Route::get("employee-profile-response-log", 'profile_change_log')->name("employee-profile-response-log");
-
         Route::get("recruiter-response-log", 'detail_change_log')->name("recruiter-response-log");
     });
 
         
 
+
+
+
+
+
+
 });
+
+
 
   ////////////////////////// user routes //////////////////////////////////////////////////////////
 

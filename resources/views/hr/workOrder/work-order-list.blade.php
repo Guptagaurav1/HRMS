@@ -67,18 +67,16 @@
                             @if(!empty($workOrdercontacts))
                                 @foreach($workOrdercontacts as $key => $value)
                                     <tr>
-                                        <td class="srno-column">{{$value->organizations->name}}</td>
+                                        <td class="srno-column">{{$value->project->organizations->name}}</td>
                                         <td class="rid-column">{{$value->wo_number}}</td>
-                                        <td>{{$value->wo_empanelment_reference}}</td>
+                                        <td>{{$value->project->empanelment_reference}}</td>
                                         <td class="attributes-column">{{$value->wo_date_of_issue}}</td>
-                                        <td>{{$value->wo_project_number}}</td>
-                                        <td>{{$value->wo_project_name}}</td>
+                                        <td>{{$value->project->project_number}}</td>
+                                        <td>{{$value->project->project_name}}</td>
                                         <td>{{$value->wo_project_coordinator}}</td>
                                         <td>{{$value->wo_amount}}</td>
                                         <td>
-                                        @foreach($value->contacts as $key => $contact)
-                                        {{$contact->wo_client_contact_person }} \ {{$contact->wo_client_email}}
-                                        @endforeach
+                                        {{$value->wo_details}}
                                 
                                         </td>
                                         <td>{{$value->created_at}}</td>
