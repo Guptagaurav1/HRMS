@@ -185,14 +185,14 @@
                                 @endif
                             </tbody>
                         </table>
-                        @if(!empty($wo_emps) && ($wo_emps != ' '))
+                        <!-- @if(!empty($wo_emps) && ($wo_emps != ' ')) -->
                         <div>
                             {{ $wo_emps->links() }}
                         </div>
                         <div class="col-auto m-2 px-3 ">
                             <button class="btn btn-primary">Calculate salary</button>
                         </div>
-                        @endif
+                        <!-- @endif -->
                     </form>
                 </div>
               

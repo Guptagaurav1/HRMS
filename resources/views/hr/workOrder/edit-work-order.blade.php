@@ -21,8 +21,7 @@
         
             <div class="col-12">
                 <div class="panel p-2">
-                    <h6>Work Order : BECIL/ND/DRDO/MAN/2425/1323_Extension Added On : 2024-11-14 11:37:39</h6>
-
+                    <h6><strong>Work Order :</strong> {{ $workOrder->wo_number }} <strong> Added On : </strong> {{ $workOrder->created_at }}</h6>
                     <div class="panel-header">
                         <h5>Project Details</h5>
                     </div>
@@ -31,7 +30,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-4">
                                     <label class="form-label">Organisation <span class="text-danger">*</span></label>
-                                    <select name="organisation" id="organisation"  class="form-select">
+                                    <select name="organisation" id="edit-organisation"  class="form-select">
                                         <option selected>--Select Organisation--</option>
                                         @foreach($organization as $key => $organization_data)
                                             <option value="{{$organization_data->id}}" @if ($organization_data->id == old('organization',$workOrder->project->organizations->id)) selected @endif>
@@ -44,7 +43,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap"> Project Name </label>
-                                    <select name="project_name" id="project_name" class="form-select" value="">
+                                    <select name="project_name" id="edit_project_name" class="form-select" value="">
                                     <option value="">Select a Project</option>
                                     </select>
                                 </div>
@@ -219,7 +218,7 @@
                                         class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
-                        @endif
+                        @else
                         @foreach ($workOrder->contacts as $contact)
                         <div class="addMore">
                             <div class="row">
@@ -255,6 +254,7 @@
                             </div>
                         </div>
                         @endforeach
+                        @endif
                     </div>
                     <div class="panel-header">
                         <h5>Invoice Details</h5>
@@ -342,21 +342,22 @@
 @endsection
 
 @section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
-<script src={{asset('assets/vendor/js/addmore.js')}}></script>
+<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
+<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
+<script src="{{asset('assets/js/select2-init.js')}}"></script>
+<script src="{{asset('assets/vendor/js/addmore.js')}}"></script>
+<script src="{{asset('assets/js/work-order.js')}}"></script>
 
 <script>
     $(document).ready(function() {
-        $('#organisation').on('change', function() {
+        $('#edit-organisation').on('change', function() {
             var selectedValue = $(this).val();
             if (selectedValue) {
                 $.ajax({
                     url: '{{ route("organisation-project", ":id") }}'.replace(':id', selectedValue),
                     type: 'GET',
                     success: function(response) {
-                        let dropdown = $("#project_name");
+                        let dropdown = $("#edit_project_name");
                         dropdown.empty();
                         dropdown.append('<option value="">Select a Project</option>');
                         let projects = response.data;
@@ -378,9 +379,9 @@
         });
         var initialOrgId = "{{ old('organisation', $workOrder->project->organizations->id) }}";
         if (initialOrgId) {
-            $('#organisation').val(initialOrgId).trigger('change');
+            $('#edit-organisation').val(initialOrgId).trigger('change');
         }
-        $('#project_name').on('change', function() {
+        $('#edit_project_name').on('change', function() {
             var selectedValue = $(this).val();
             if (selectedValue) {
                 $.ajax({

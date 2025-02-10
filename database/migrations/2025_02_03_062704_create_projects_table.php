@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organisation_id')->nullable();
             $table->foreign('organisation_id')->references('id')->on('organizations')->onDelete('NO ACTION');
             $table->string('project_number')->unique();
-            $table->string('project_name')->unique();
+            $table->string('project_name');
             $table->string('empanelment_reference')->nullable();
             
             $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');

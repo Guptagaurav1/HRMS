@@ -43,14 +43,14 @@
                             </div>
                         @endif
                     </div>
-                
-                    
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                             <thead>
                                 <tr>
                                     <th>Work Order no.</th>
                                     <th>Project Coordinator Name</th>
+                                    <th>No. of Resource</th>
+                                    <th>Location</th>
                                     <th>Start date</th>
                                     <th>End date</th>
                                     <th>Amount</th>
@@ -62,6 +62,8 @@
                                         <tr>
                                             <td>{{$value->wo_number}}</td>
                                             <td>{{$value->wo_project_coordinator}}</td>
+                                            <td>{{$value->wo_no_of_resources}}</td>
+                                            <td>{{$value->wo_location}}</td>
                                             <td>{{$value->wo_start_date}}</td>
                                             <td>{{$value->wo_end_date}}</td>
                                             <td>INR {{ number_format($value->wo_amount, 2) }}</td>
@@ -76,8 +78,8 @@
                                     @endif
                                     <tr>
                                         <td>Total Amount</td>
-                                        <td colspan="3"></td>
-                                        <td>{{$totalAmount}}</td>
+                                        <td colspan="5"></td>
+                                        <td> INR {{ number_format($totalAmount, 2) }}</td>
                                     </tr>
                             </tbody>
                         </table>

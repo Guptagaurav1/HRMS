@@ -155,6 +155,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(WorkOrderController::class)->group(function (){
 
         Route::get("work-order-list","index")->name("work-order-list");
+        Route::get("get-work-order","getWorkOrder")->name("get-work-order");
         Route::get("add-work-order","create")->name("add-work-order");
         Route::post("store-work-order","store")->name("store-work-order");
         Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
@@ -190,6 +191,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
      
     Route::controller(ProjectController::class)->prefix('project')->group(function () {
         Route::get("/","index")->name("project-list");
+        Route::get("projectlist/","projectlist")->name("projectlist");
         Route::get("add-project","create")->name("add-project");
         Route::post("store-project","store")->name("store-project");
         Route::get("edit-project/{id}","edit")->name("edit-project");

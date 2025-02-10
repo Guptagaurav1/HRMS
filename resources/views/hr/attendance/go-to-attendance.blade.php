@@ -50,7 +50,7 @@
                     <div class="col-md-12 text-center py-3 ">
                         <label>Select Month :</label><br>
                         
-                            <input name="month" class="date-picker" placeholder="mm-year" value="{{$month}}" />
+                            <input name="month" class="date-picker month_year" placeholder="mm-year" value="{{$month}}" />
                             <!-- <input type="date" name="month" value="{{ request('month', $month) }}" /> -->
                             <select name="emp_status" id="emp_status">
                                 <option value="">-- All --</option>
@@ -106,7 +106,7 @@
                                 <tr>
                                     <th>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="markAllEmployee">
+                                            <input class="form-check-input" type="checkbox" id="all" name="all">
                                         </div>
                                     </th>
                                     <th class="rid-column">Emp. Code</th>
@@ -131,36 +131,35 @@
                             <tbody>
                                 
                                 @if(!empty($wo_emps) && ($wo_emps != ' ') )
-                                <input type="hidden" name="attendance_month" id="attendance_month" value="{{ $month }}">
+                                <!-- <input type="hidden" name="attendance_month" id="attendance_month" value="{{ $month }}"> -->
                                     @foreach($wo_emps as $wo_emp)
                                         <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="check[]" value="{{ $wo_emp->emp_id}}">
-                                                </div>
-                                            </td>
+                                            <input type="hidden" name="emp_code" id="emp_code" value="{{ $wo_emp->employ_code }}">
+                                            <td><input  type="checkbox" name="check[]" value="{{ $wo_emp->emp_id}}"></td>
                                             <td>{{$wo_emp->emp_code}}</td>
                                             <td>{{$wo_emp->emp_name}}</td>
-                                            <td><input type="number" name="at_appr_leave[{{$wo_emp->emp_id}}]"></td>
-                                            <td><input type="number" name="leave[{{$wo_emp->emp_id}}]"></td>
-                                            <td><input type="number" name="no_of_work_days[{{$wo_emp->emp_id}}]"></td>
+                                            <td><input type="number" step="0.01" name="at_appr_leave" id="at_appr_leave" min="0" max="31" value=""></td>
+                                            <td><input type="number" step="0.01" name="leave" id="leave" min="0" max="31"></td>
+                                            <td><input type="number" step="0.01" name="no_of_work_days" id="no_of_work_days" value="0" min="0"></td>
                                             <td>{{$wo_emp->emp_gender}}</td>
                                             <td>{{$wo_emp->emp_bank}} \{{$wo_emp->emp_account_no}}</td>
                                             <td>{{$wo_emp->emp_doj}}</td>
                                             <td>{{$wo_emp->emp_status}}</td>
-                                            <td><input type="date" name="dor[{{$wo_emp->emp_id}}]" id="dor" class="form-control" value="{{ $wo_emp->emp_dor }}" 
+                                            <td><input type="date" name="dor" id="dor" class="form-control" value="{{ $wo_emp->emp_dor }}" 
                                             ></td>
+                                            <input type="hidden" name="emp_designation" id="emp_designation" value="{{ $wo_emp->emp_designation }}">
+                                            <input type="hidden" name="emp_vendor_rate" id="emp_vendor_rate" value="{{ $wo_emp->emp_salary }}">
+                                            <input type="hidden" name="emp_ctc" id="emp_ctc" value="{{ $wo_emp->emp_salary }}">
+                                            
                                             <td>{{$wo_emp->emp_place_of_posting}}</td>
                                             <td>{{$wo_emp->emp_designation}}</td>
-                                            <td><input type="text" name="remarks[{{$wo_emp->emp_id}}]" placeholder="Enter Remarks" value=""></td>
-                                            <td><input type="number" name="advance[{{$wo_emp->emp_id}}]"></td>
-                                            <td><input type="number" name="recovery[{{$wo_emp->emp_id}}]"></td>
-                                            <td><input type="number" name="overtime_rate[{{$wo_emp->emp_id}}]"></td>
-                                            <td><input type="number" name="total_working_hrs[{{$wo_emp->emp_id}}]"></td>
-                                            <input type="hidden" name="emp_code[{{$wo_emp->emp_id}}]" id="emp_code" value="{{ $wo_emp->employ_code }}">
-                                            <input type="hidden" name="emp_designation[{{$wo_emp->emp_id}}]" id="emp_designation" value="{{ $wo_emp->emp_designation }}">
-                                            <input type="hidden" name="emp_vendor_rate[{{$wo_emp->emp_id}}]" id="emp_vendor_rate" value="{{ $wo_emp->emp_salary }}">
-                                            <input type="hidden" name="emp_ctc[{{$wo_emp->emp_id}}]" id="emp_ctc" value="{{ $wo_emp->emp_salary }}">
+                                            <td><input type="text" name="remarks" id="remarks" placeholder="Enter Remarks" value=""></td>
+                                            <td><input type="number" name="advance" id="advance"></td>
+                                            <td><input type="number" name="recovery" id="recovery" ></td>
+                                            <td><input type="number" name="overtime_rate" id="overtime_rate"></td>
+                                            <td><input type="number" name="total_working_hrs" id="total_working_hrs"></td>
+                                            
+                                           
                                            
                                         
                                         </tr>
@@ -209,5 +208,99 @@
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
 <script src={{asset('assets/vendor/js/calenderOpen.js')}}></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('[name="at_appr_leave"],[name="leave"]').bind('keyup', function(){
+      // updateWorkingDays();
+      var outer_ele = $(this).parent().parent();
+      var appr_leave = parseInt(outer_ele.children().eq(4).children().val());
+      var lwd = parseInt(outer_ele.children().eq(5).children().val());
+      var no_of_work_days = outer_ele.children().eq(6).children().val();
+      month_date = $('.month_year').val().split(' ');
+      month = new Date(Date.parse(month_date[0].replace(/ .*/,'') +" 1, 2022")).getMonth()+1;
+      year = month_date[1];
+      total_days = new Date(year, month, 0).getDate();
+
+      if(isNaN(appr_leave)){
+        appr_leave = 0;
+      }
+      outer_ele.children().eq(6).children().val(total_days-(lwd)+(appr_leave));
+
+    });
+
+  });
+
+
+
+  $('[name="check[]"]').change(function() {
+      if ($(this).is(':checked')) {
+        var checked = $(this).parent().parent();
+      checked.children().eq(0).attr('name', checked.children().eq(0).attr('name') + '_check[]');
+      checked.children().eq(4).children().attr('name', checked.children().eq(4).children().attr('name') + '_check[]');
+      checked.children().eq(5).children().attr('name', checked.children().eq(5).children().attr('name') + '_check[]');
+      
+      checked.children().eq(11).children().attr('name', checked.children().eq(11).children().attr('name') + '_check[]');
+      checked.children().eq(12).attr('name', checked.children().eq(12).attr('name') + '_check[]');
+      checked.children().eq(13).attr('name', checked.children().eq(13).attr('name') + '_check[]');
+      checked.children().eq(14).attr('name', checked.children().eq(14).attr('name') + '_check[]');
+    //   checked.children().eq(16).children().attr('name', checked.children().eq(16).children().attr('name') + '_check[]');
+      checked.children().eq(17).children().attr('name', checked.children().eq(17).children().attr('name') + '_check[]');
+      checked.children().eq(18).children().attr('name', checked.children().eq(18).children().attr('name') + '_check[]');
+      checked.children().eq(19).children().attr('name', checked.children().eq(19).children().attr('name') + '_check[]');
+      checked.children().eq(20).children().attr('name', checked.children().eq(20).children().attr('name') + '_check[]');
+      checked.children().eq(21).children().attr('name', checked.children().eq(21).children().attr('name') + '_check[]');
+
+    } else {
+      var checked = $(this).parent().parent();
+      checked.children().eq(0).attr('name', 'emp_code');
+      checked.children().eq(4).children().attr('name', 'at_appr_leave');
+      checked.children().eq(5).children().attr('name', 'leave');
+      checked.children().eq(11).children().attr('name', 'dor');
+      checked.children().eq(12).attr('name', 'emp_designation');
+      checked.children().eq(13).attr('name', 'emp_vendor_rate');
+      checked.children().eq(14).attr('name', 'emp_ctc');
+
+      checked.children().eq(17).children().attr('name', 'remarks');
+      checked.children().eq(18).children().attr('name', 'advance');
+      checked.children().eq(19).children().attr('name', 'recovery');
+      checked.children().eq(20).children().attr('name', 'overtime_rate');
+      checked.children().eq(21).children().attr('name', 'total_working_hrs');
+      // console.log(checked.children().eq(0).attr('name'));
+    }
+  });
+
+  $("#all").click(function() {
+    $('input:checkbox').not(this).prop('checked', this.checked);
+    if ($(this).is(':checked')) {
+      $('[id="emp_code"]').attr('name', 'emp_code_check[]');
+      $('[id="at_appr_leave"]').attr('name', 'at_appr_leave_check[]');
+      $('[id="leave"]').attr('name', 'leave_check[]');
+      $('[id="dor"]').attr('name', 'dor_check[]');
+      $('[id="emp_designation"]').attr('name', 'emp_designation_check[]');
+      $('[id="emp_vendor_rate"]').attr('name', 'emp_vendor_rate_check[]');
+      $('[id="emp_ctc"]').attr('name', 'emp_ctc_check[]');
+      $('[id="remarks"]').attr('name', 'remarks_check[]');
+      $('[id="advance"]').attr('name', 'advance_check[]');
+      $('[id="recovery"]').attr('name', 'recovery_check[]');
+      $('[id="overtime_rate"]').attr('name', 'overtime_rate_check[]');
+      $('[id="total_working_hrs"]').attr('name', 'total_working_hrs_check[]');
+    } else {
+      $('[id="emp_code"]').attr('name', 'emp_code');
+      $('[id="at_appr_leave"]').attr('name', 'at_appr_leave');
+      $('[id="leave"]').attr('name', 'leave');
+      $('[id="dor"]').attr('name', 'dor');
+      $('[id="emp_designation"]').attr('name', 'emp_designation');
+      $('[id="emp_vendor_rate"]').attr('name', 'emp_vendor_rate');
+      $('[id="emp_ctc"]').attr('name', 'emp_ctc');
+      $('[id="remarks"]').attr('name', 'remarks');
+      $('[id="advance"]').attr('name', 'advance');
+      $('[id="recovery"]').attr('name', 'recovery');
+      $('[id="overtime_rate"]').attr('name', 'overtime_rate');
+      $('[id="total_working_hrs"]').attr('name', 'total_working_hrs');
+    }
+    // $('input:checkbox').not(this).attr('checked','checked');
+  });
+</script>
 
 @endsection
