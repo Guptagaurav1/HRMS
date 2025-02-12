@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
 @endsection
@@ -14,12 +13,17 @@
             <div class="panel-header">
                 <h2 class="mt-2">Upcoming 40 days Birthday List</h2>
             </div>
-            <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
-                <form class="row g-3">
-                    <div class="col-auto ">
-                        <input type="text" class="form-control" placeholder="Search" required>
-                    </div>
-                </form>
+           
+                <div class="col-md-12 d-flex justify-content-start mx-3">
+                    <form class="row g-3 mt-2">
+                        <div class="col-auto">
+                            <input type="text" class="form-control" placeholder="Search" required>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>
+               
             </div>
             <div class="table-responsive mt-3">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
@@ -42,15 +46,13 @@
                             <td class="rid-column">PSSPL/2023-24/3380</td>
                             <td>GEMC-511687718522647</td>
                             <td class="attributes-column">ADVANCE PHP,Oracale Database,Oracle Database,SQL
-                                Database,HTML,CSS,CORE PHP,JAVA,WORDPRESS,NODE JS,ANGULAR JS,GrapesJs,SDK,Android
-                                Studio,Rest Api,MYSQL,Firebase,Indesign,python,Laravel,Mongo
-                                DB,Nodejs,Javascript,Golang,PHP,MongoDB,Interpersonal Skill,Vuejs,ReactJs,Negotiation
+                                
                                 Skill,Communication Skill,Writing Skills,Research Skills,Digital Marketing,dotnet</td>
                             <td>234567890@gmail.com</td>
                             <td>26rd December, 2024</td>
                             <td>No Image</td>
                             <td>
-                                <a href="#"><button class="btn btn-sm btn-primary">View Template Image</button></a>
+                                <a href="{{route('birthday-template')}}"><button class="btn btn-sm btn-primary">View Template Image</button></a>
                                 <a href="#"><button class="btn btn-sm btn-primary">Send Email</button></a>
                             </td>
                         </tr>
@@ -60,10 +62,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
 @endsection

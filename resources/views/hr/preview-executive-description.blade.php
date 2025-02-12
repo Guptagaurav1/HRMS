@@ -1,6 +1,5 @@
 @extends('layouts.master', ['title' => 'Send Job Description'])
 @section('style')
-
 <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
 @endsection
 
@@ -113,7 +112,6 @@
                     </div>
                     <div class="panel-body">
                         <div class="row g-3">
-                        <div class="row g-3">
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label" class="text-dark">Department </label>
                                 <input type="text" class="form-control form-control-sm" placeholder="Enter Department Name" name="department" value="{{$request->getDepartment->department}}" readonly>
@@ -134,8 +132,8 @@
                             <div class="col-xxl-3 col-lg-12 col-sm-6">
                                 <label for="file" class="form-label">Upload Csv</label>
                                 <input class="form-control" type="file" name="file" accept=".csv" required>
+                               <a href="{{asset('sample/bulk_uploading.csv')}}" class="text-primary" download><span>Download CSV File Format</span></a>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>

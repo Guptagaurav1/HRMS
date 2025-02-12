@@ -105,3 +105,54 @@ if(!function_exists('format_experience')){
         return $year[0]."-".$year[1]." years";
     }
 }
+
+/**
+ * Format status of position's contacts.
+ * @param raw status, $status
+ * @return formatted status
+ */ 
+if(!function_exists('format_contact_status')){
+    function format_contact_status($status)
+    {
+        
+        if ($status == "first-selected") {
+            return "CV Shortlisted";
+        } elseif ($status == "send_interview_details") {
+            return "Interview Details Sent";
+        } elseif ($status == "second-selected") {
+            return "1st Round Cleared";
+        } elseif ($status == "third-selected") {
+            return "2nd Round Cleared";
+        } elseif ($status == "fourth-selected") {
+            return "Confirmation Sent";
+        } elseif ($status == "offer-letter-sent") {
+            return "Offer Letter Sent";
+        } elseif ($status == "backout") {
+            return "Candidate Backout";
+        } elseif ($status == "offer_accepted") {
+            return "Offer Accepted";
+        } elseif ($status == "docs_checked") {
+            return "Document Checked";
+        } elseif ($status == "joining-formalities-completed") {
+            return "Joining Formalities Completed";
+        } elseif ($status == "joined") {
+            return "Joined";
+        } elseif ($status == "first-skipped") {
+            return "Skipped CV";
+        } elseif ($status == "second-skipped") {
+            return "Skipped First Interview Round";
+        } elseif ($status == "third-skipped") {
+            return "Skipped Second Interview Round";
+        } elseif ($status == "finally-skipped") {
+            return "Skipped";
+        } elseif ($status == "first-rejected") {
+            return "CV Rejected";
+        } elseif ($status == "second-rejected") {
+            return "Rejected First Interview Round";
+        } elseif ($status == "third-rejected") {
+            return "Rejected Second Interview Round";
+        } elseif ($status == "finally-rejected") {
+            return "Rejected";
+        }
+    }
+}

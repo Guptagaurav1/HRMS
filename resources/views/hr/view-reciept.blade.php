@@ -111,7 +111,7 @@
                 
                 </div>
                 <div class="dashboard-breadcrumb">
-                   <a href="{{route('view-more-attachment')}}" <button class="btn btn-sm btn-primary"> View More Attachment <i class="fa-solid fa-paperclip"></i></button></a>
+                   <a href="{{route('view-more-attachment')}}"> <button class="btn btn-sm btn-primary"> View More Attachment <i class="fa-solid fa-paperclip"></i></button></a>
                     
                    <a href="{{route('invoice-encloser')}}"> <button class="btn btn-sm btn-primary"> Print <i class="fa-solid fa-print"></i></button></a>
                 

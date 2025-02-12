@@ -23,6 +23,8 @@
                     </div>
                 </form>
             </div>
+            <p class="panel-header">
+                Recently Added Reimbursement List</p>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                     id="allEmployeeTable">
@@ -59,11 +61,7 @@
             <div class="panel-header mt-5">
                 <h6 class="mt-2">Apply Reimbursement</h6>
 
-                <div class="row px-3 mb-3">
-                    <div class="col-md-12 d-flex justify-content-end ml-5 change">
-                        <a href="#"><button class="btn btn-sm btn-primary mt-3 " id="add-more-btn">Add More</button></a>
-                    </div>
-                </div>
+                
             </div>
             
             <div class="table-responsive after-add-more" id="add-field">

@@ -60,7 +60,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="table-bottom-control"></div>
+                
             </div>
         </div>
     </div>

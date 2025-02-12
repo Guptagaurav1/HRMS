@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
 @endsection
@@ -17,7 +16,7 @@
                 <div class="col-12">
                     <div class="panel">
                         <div class="panel-header">
-                            <h5 class="text-dark">Bulk Upload Employee</h5>
+                            <h5 class="text-white">Bulk Upload Employee</h5>
                             <div class="btn-box">
                                 <a href="{{route('employee-list')}}" class="btn btn-sm btn-primary"><i class="fa-solid fa-download"></i> Download CSV Format</a>
                                
