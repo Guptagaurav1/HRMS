@@ -97,24 +97,24 @@ class AttendanceController extends Controller
     }
 
     public function add_attendance(Request $request, string $wo_id){
-        dd($request->all());
+        // dd($request->all());
 
         $workOrder= WorkOrder::find($wo_id);
         $wo_number= $workOrder->wo_number??NULL;
         // dd($wo_number);
         $check_emps = $request->check;
+        // dd($check_emps);
         if(empty($check_emps)){
             return redirect()->route('go-to-attendance',$wo_id)->with('error','Please checked the checkbox before submit attendance.');
         }
         foreach($check_emps as $key => $check_emp){
         
-           
             $userId = auth()->id();
             
             $attendance = $request->attendance_month; 
             $attendance_month = Carbon::parse($attendance)->format('F Y');
             
-            $date_of_resign =$request->dor[$check_emp];
+            $date_of_resign =$request->dor[$key]??NULL;
             $at_emp = $check_emp."". $attendance_month;
             $exit_wo_attendance_id = WoAttendance::where('at_emp', $check_emp)->first();
            
@@ -123,21 +123,22 @@ class AttendanceController extends Controller
                 $wo_attendance->wo_number = $wo_number; 
                 $wo_attendance->at_emp = $at_emp; 
                 $wo_attendance->emp_id = $check_emp; 
-                $wo_attendance->emp_code = $request->emp_code[$check_emp]; 
+                $wo_attendance->emp_code = $request->emp_code_check[$key]; 
                 $wo_attendance->attendance_month = $attendance_month; 
-                $wo_attendance->approve_leave = $request->at_appr_leave[$check_emp]; 
-                $wo_attendance->lwp_leave = $request->leave[$check_emp]; 
+                $wo_attendance->approve_leave = $request->at_appr_leave_check[$key]; 
+                $wo_attendance->lwp_leave = $request->leave_check[$key]; 
             
-                $wo_attendance->recovery = $request->recovery[$check_emp]; 
-                $wo_attendance->advance = $request->advance[$check_emp]; 
-                $wo_attendance->overtime_rate = $request->overtime_rate[$check_emp]; 
-                $wo_attendance->total_working_hrs = $request->total_working_hrs[$check_emp]; 
-                $wo_attendance->designation = $request->emp_designation[$check_emp]; 
-                $wo_attendance->emp_vendor_rate = $request->emp_vendor_rate[$check_emp]; 
-                $wo_attendance->ctc = $request->emp_ctc[$check_emp]; 
-                $wo_attendance->remarks = $request->remarks[$check_emp]; 
+                $wo_attendance->recovery = $request->recovery_check[$key]; 
+                $wo_attendance->advance = $request->advance_check[$key]; 
+                $wo_attendance->overtime_rate = $request->overtime_rate_check[$key]; 
+                $wo_attendance->total_working_hrs = $request->total_working_hrs_check[$key]; 
+                $wo_attendance->designation = $request->emp_designation_check[$key]; 
+                $wo_attendance->emp_vendor_rate = $request->emp_vendor_rate_check[$key]; 
+                $wo_attendance->ctc = $request->emp_ctc_check[$key]; 
+                $wo_attendance->remarks = $request->remarks_check[$key]; 
                 $wo_attendance->attendance_status = "completed"; 
-                $wo_attendance->user_id = $userId; 
+                $wo_attendance->user_id = $userId;
+                
                 $wo_attendance->save();
             }else{
 
@@ -145,19 +146,19 @@ class AttendanceController extends Controller
                     'wo_number' => $wo_number,
                     'at_emp' => $at_emp, 
                     'emp_id' => $check_emp, 
-                    'emp_code' => $request->emp_code[$check_emp], 
+                    'emp_code' => $request->emp_code[$key], 
                     'attendance_month' => $attendance_month, 
-                    'approve_leave' => $request->at_appr_leave[$check_emp], 
-                    'lwp_leave' => $request->leave[$check_emp], 
+                    'approve_leave' => $request->at_appr_leave[$key], 
+                    'lwp_leave' => $request->leave[$key], 
                    
-                    'recovery' => $request->recovery[$check_emp], 
-                    'advance' => $request->advance[$check_emp], 
-                    'overtime_rate' => $request->overtime_rate[$check_emp], 
-                    'total_working_hrs' => $request->total_working_hrs[$check_emp], 
-                    'designation' => $request->emp_designation[$check_emp], 
-                    'emp_vendor_rate' => $request->emp_vendor_rate[$check_emp], 
-                    'ctc' => $request->emp_ctc[$check_emp], 
-                    'remarks' => $request->remarks[$check_emp], 
+                    'recovery' => $request->recovery[$key], 
+                    'advance' => $request->advance[$key], 
+                    'overtime_rate' => $request->overtime_rate[$key], 
+                    'total_working_hrs' => $request->total_working_hrs_check[$key], 
+                    'designation' => $request->emp_designation[$key], 
+                    'emp_vendor_rate' => $request->emp_vendor_rate[$key], 
+                    'ctc' => $request->emp_ctc[$key], 
+                    'remarks' => $request->remarks[$key], 
                     'attendance_status' => "completed", 
                     'user_id' => $userId, 
                 ];      
@@ -166,15 +167,15 @@ class AttendanceController extends Controller
                 
             }
             // update employee working status
-            if(!empty($date_of_resign) || $date_of_resign != ' '){
-                $employee = EmpDetail::where('emp_id', $check_emp)->first();
-                if ($employee) {
+            // if(!empty($date_of_resign) || $date_of_resign != ' '){
+            //     $employee = EmpDetail::where('emp_id', $check_emp)->first();
+            //     if ($employee) {
                   
-                    $employee->emp_current_working_status = 'resign';
-                    $employee->emp_dor = $date_of_resign;
-                    $employee->save();
-                }
-            }
+            //         $employee->emp_current_working_status = 'resign';
+            //         $employee->emp_dor = $date_of_resign;
+            //         $employee->save();
+            //     }
+            // }
             
         }
         return redirect()->route('go-to-attendance',$wo_id)->with('success','Attendance created !');
@@ -372,7 +373,7 @@ class AttendanceController extends Controller
            ///////////////////
             // $at_emp = $check_emp."". $attendance_month;
             $EmpSalarySlip = new EmpSalarySlip();
-            // $date_of_resign = $request->dor[$check_emp]; 
+            $date_of_resign = $request->dor[$check_emp]; 
             $EmpSalarySlip->work_order = $request->work_order; 
             $EmpSalarySlip->sal_emp_code = $request->emp_code[$check_emp]??NULL; 
             

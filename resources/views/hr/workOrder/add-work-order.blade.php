@@ -20,18 +20,18 @@
         @csrf
             <div class="col-12">
                 <div class="panel">
-                    
+
                     <div class="panel-header">
-                        <h5>Work Order Details</h5>
+                        <h5>Project Details</h5>
                     </div>
                     <div class="panel-body">
                         <div class="row g-3">
                             <div class="col-sm-12 col-md-4">
                                 <label class="form-label">Organisation <span class="text-danger">*</span></label>
-                                <select name="organisation" id="organisation"  class="form-select">
-                                    <option selected>--Select Organisation--</option>
+                                <select name="organisation"  id="organisation"  class="form-select">
+                                    <option value="">--Select Organisation--</option>
                                     @foreach($organization as $key => $organization_data)
-                                        <option value="{{$organization_data->id}}"> @if ($organization_data->name == old('organization')) selected @endif
+                                        <option value="{{$organization_data->id}}" @if ($organization_data->name == old('organization')) selected @endif>
                                         {{ $organization_data->name }}</option>
                                     @endforeach
                                 </select>
@@ -39,6 +39,35 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="col-sm-12 col-md-4 text-wrap">
+                                <label class="form-label text-wrap"> Project Name </label>
+                                <select name="project_name" id="project_name" class="form-select" value=""></select>
+                                @error('project_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-sm-12 col-md-4 text-wrap">
+                               
+                                <label class="form-label text-wrap"> Project Numbers </label>
+                                <input  id="project_no" readonly type="text" class="form-control form-control-sm" placeholder="Enter Project Number" value="">
+                            </div>
+                            <div class="row">
+                               <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap">
+                                        Empanelment Reference
+                                    </label>
+                                    <input  readonly id="empanelment_reference" type="text" class="form-control form-control-sm" placeholder="Empanelment Reference" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-header">
+                        <h5>Work Order Details</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row g-3">
+                            <div class="row">
                             <div class="col-sm-12 col-md-4">
                                 <label class="form-label">Work Order Number <span class="text-danger">*</span></label>
                                 <input name="work_order" type="text" class="form-control form-control-sm" placeholder="Enter Work Order No" value="{{ old('work_order') }}">
@@ -50,31 +79,19 @@
                                 <label class="form-label text-wrap">
                                     Previous Work Order Number
                                 </label>
-                                <input name="prev_wo_no" type="text" class="form-control form-control-sm"
-                                    placeholder="Previous Work Order No In case of amendment" value="{{ old('prev_wo_no') }}">
+                                <input name="prev_wo_no" type="text" class="form-control form-control-sm"  placeholder="Previous Work Order No In case of amendment" value="{{ old('prev_wo_no') }}">
                             </div>
-                            <div class="row">
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap">
                                         Internal Reference
                                     </label>
                                     <input name="internal_reference"  id="internal_reference" type="text" class="form-control form-control-sm" placeholder="Internal Reference" value="{{ old('internal_reference') }}">
                                 </div>
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap"> Date of Issue </label>
-                                    <input name="issue_date" id="issue_date" type="date"class="form-control form-control-sm" value="{{ old('issue_date') }}">
-                                </div>
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap"> Project Number </label>
-                                    <input name="project_no" id="project_no" type="text" class="form-control form-control-sm" placeholder="Enter Project Number" value="{{ old('project_no') }}">
-                                </div>
-
+                                
+                               
                             </div>
                             <div class="row">
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap"> Project Name </label>
-                                    <input name="project_name" id="project_name" type="text" class="form-control form-control-sm" placeholder="Project Name" value="{{ old('project_name') }}">
-                                </div>
+                                
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap">
                                         Concern Ministry
@@ -82,65 +99,8 @@
                                     <input name="concern_ministry" id="concern_ministry" type="text" class="form-control form-control-sm" placeholder="Concern Ministry" value="{{ old('concern_ministry') }}">
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">
-                                        Empanelment Reference
-                                    </label>
-                                    <input name="empanelment_reference" id="empanelment_reference" type="text" class="form-control form-control-sm"
-                                        placeholder="Empanelment Reference" value="{{ old('empanelment_reference') }}">
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap"> No.of Resource </label>
                                     <input name="no_of_resource" id="no_of_resource" type="text" class="form-control form-control-sm" placeholder="No.of Resource" value="{{ old('no_of_resource') }}">
-                                </div>
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap"> Amount</label>
-                                    <input name="amount" id="amount" type="number" class="form-control form-control-sm" placeholder="Amount" value="{{ old('amount') }}">
-                                </div>
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">
-                                        Project Duration (In months)
-                                    </label>
-                                    <input name="project_duration_month" id="project_duration_month" type="text" class="form-control form-control-sm" placeholder="Project Duration (In months)" value="{{ old('project_duration_month') }}">
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">
-                                        Project Duration (In Days)
-                                    </label>
-                                    <input name="project_duration_days" id="project_duration_days" type="text" class="form-control form-control-sm"
-                                        placeholder="Project Duration (In Days)" value="{{ old('project_duration_days') }}">
-                                </div>
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">
-                                        Start Date
-                                    </label>
-                                    <input name="start_date" id="start_date" type="date" class="form-control form-control-sm" value="{{ old('start_date') }}">
-                                </div>
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">
-                                        End Date
-                                    </label>
-                                    <input name="end_date" id="end_date" type="date" class="form-control form-control-sm" value="{{ old('end_date') }}">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">
-                                        Location
-                                    </label>
-                                    <input name="location" id="location" type="text" class="form-control form-control-sm" placeholder="Loaction" value="{{ old('location') }}">
-                                </div>
-                                <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">
-                                        City
-                                    </label>
-                                    <input name="city" id="city" type="text" class="form-control form-control-sm" placeholder="City" value="{{ old('city') }}">
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap">
@@ -148,6 +108,53 @@
                                     </label>
                                     <input name="coordinator_name" id="coordinator_name" type="text" class="form-control form-control-sm" placeholder="Project Cordinator Name" value="{{ old('coordinator_name') }}">
                                 </div>
+                              
+
+                            </div>
+                            <div class="row">
+                               
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> Amount</label>
+                                    <input name="amount" id="amount" type="number" class="form-control form-control-sm" placeholder="Amount" value="{{ old('amount') }}">
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> Date of Issue </label>
+                                    <input name="issue_date" id="issue_date" type="date"class="form-control form-control-sm" value="{{ old('issue_date') }}">
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> Project Duration (In months)
+                                    </label>
+                                    <input name="project_duration_month" id="project_duration_month" type="text" class="form-control form-control-sm" placeholder="Project Duration (In months)" value="{{ old('project_duration_month') }}">
+                                </div>
+                               
+                            </div>
+                            <div class="row">
+                               <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> Project Duration (In Days) </label>
+                                    <input name="project_duration_days" id="project_duration_days" type="text" class="form-control form-control-sm"
+                                        placeholder="Project Duration (In Days)" value="{{ old('project_duration_days') }}">
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> Start Date</label>
+                                    <input name="start_date" id="start_date" type="date" class="form-control form-control-sm" value="{{ old('start_date') }}">
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> End Date </label>
+                                    <input name="end_date" id="end_date" type="date" class="form-control form-control-sm" value="{{ old('end_date') }}">
+                                </div>
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> Location </label>
+                                    <input name="location" id="location" type="text" class="form-control form-control-sm" placeholder="Loaction" value="{{ old('location') }}">
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> City</label>
+                                    <input name="city" id="city" type="text" class="form-control form-control-sm" placeholder="City" value="{{ old('city') }}">
+                                </div>
+                                
                             </div>
 
                         </div>
@@ -164,27 +171,30 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Person Name</label>
-                                    <input name="contacts[c_person_name][]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{ old('c_person_name') }}">
+                                    <input name="c_person_name[]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{ old('c_person_name') }}">
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Designation</label>
-                                    <input name="contacts[c_designation][]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ old('c_designation') }}">
+                                    <input name="c_designation[]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ old('c_designation') }}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Contact</label>
-                                    <input name="contacts[c_contact][]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ old('c_contact') }}">
+                                    <input name="c_contact[]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ old('c_contact') }}">
+                                    @error('c_contact')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Email</label>
-                                    <input name="contacts[c_email][]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{ old('c_email') }}">
+                                    <input name="c_email[]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{ old('c_email') }}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-12 text-wrap">
                                     <label for="exampleTextarea" class="form-label">Remarks</label>
-                                    <textarea name="contacts[c_remarks][]" id="c_remarks" class="form-control" id="exampleTextarea"
+                                    <textarea name="c_remarks[]" id="c_remarks" class="form-control" id="exampleTextarea"
                                         placeholder="Enter Remarks" value="{{ old('c_remarks') }}"></textarea>
                                 </div>
                             </div>
@@ -258,6 +268,9 @@
     
                                     artechment('attachment');
                             <input name="attachment" id="attachment" class="form-control form-control-sm" id="formFileSm" type="file">
+                            @error('attachment')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -276,5 +289,5 @@
 <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
 <script src={{asset('assets/js/select2-init.js')}}></script>
 <script src={{asset('assets/vendor/js/addmore.js')}}></script>
-
+<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
 @endsection

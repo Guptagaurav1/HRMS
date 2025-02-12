@@ -97,7 +97,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="table-bottom-control"></div>
                 </div>
             </div>
         </div>
@@ -105,8 +104,6 @@
 @endsection
 
 @section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
+
 <script src="{{asset('assets/js/users/role.js')}}"></script>
 @endsection

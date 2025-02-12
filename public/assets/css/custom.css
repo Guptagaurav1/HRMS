@@ -499,4 +499,26 @@ label{
   font-size: 13px
 }
 
+.position-status-column{
+  display: none;
 
+}
+
+.offer-letter-column{
+  display: none;
+}
+
+.position-status-column{
+  display: none;
+}
+
+#position-coloumn{
+  display: none;
+}
+
+/* .bb
+{
+  background-color: #2A3F54;
+  color: white;
+  width: 150px;
+} */

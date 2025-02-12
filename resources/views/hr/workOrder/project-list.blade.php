@@ -12,13 +12,12 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-2">WorkOrder Report</h2>
+                    <h2 class="mt-2">Project list</h2>
                 </div>
                 <div class="row px-3 mb-3">
                     <div class="col-md-12 d-flex justify-content-end ml-5">
-                        
-                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">CSV</button></a>
-                        <a href="{{'add-work-order'}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Work Order</button></a>
+                       
+                        <a href="{{route('add-project')}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Project</button></a>
                     </div>
                 </div>
 
@@ -33,31 +32,27 @@
                         </div>
                     @endif
                 </div>
-               
+              
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="workOrder_id">
+                    <table id="project-table" class="table table-bordered table-hover display nowrap" style="width: 100%">
                         <thead>
                             <tr>
-                                <th class="srno-column">Organisation Name</th>
-                                <th class="rid-column">Work Order Number</th>
-                                <th>Empanelment No.</th>
-                                <th class="attributes-column">Issue Date</th>
-                                <th>Project Number</th>
+                                <th class="srno-column">S.No.</th>
+                                <th>Organisation Name</th>
                                 <th>Project Name</th>
-                                <th>Project Coordinator Name</th>
-                                <th>Amount</th>
-                                <th>Contact Details</th>
-                                <th>Added On</th>
-                                <th>Attachment</th>
-                                <th>View</th>
+                                <th>Project Number</th>
+                                <th>Empanelment Reference</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                          
-                                
+                           
                         </tbody>
                     </table>
-                    
+                    <div>
+                        
+                    </div>
+                   
                     <div class="table-bottom-control"></div>
                 </div>
             </div>
@@ -66,13 +61,9 @@
 @endsection
 
 @section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
+
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
-<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
-<script>
-    
-</script>
+<script src="{{asset('assets/js/hr/project.js')}}"></script>
 @endsection
 
 

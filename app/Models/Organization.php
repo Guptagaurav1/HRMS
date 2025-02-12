@@ -13,7 +13,11 @@ class Organization extends Model
 
 
     protected $fillable = ['name','address','contact','email'];
-
+    
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
     public static function boot()
     {
         parent::boot();

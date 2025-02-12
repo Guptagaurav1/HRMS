@@ -84,7 +84,13 @@
                   <input type="hidden" name="job_pos" value="{{$request->req_id}}">
                   <input type="submit" class="btn btn-primary" name="req_submit" value="Request Job Description">
                 </form>
-            @endif
+        </div>
+    
+        <div class="col-12 d-flex justify-content-end gap-3">
+         <a href="{{route('user-request')}}"> <button class="btn btn-sm btn-primary"> Request JD <i class="fa-solid fa-paper-plane"></i></button></a>
+            <button class="btn btn-sm btn-primary"> Send <i class="fa-solid fa-paper-plane"></i></button>
+           
+        </div>
     </div>
 
     <!-- Bulk Mail Form -->
@@ -216,8 +222,6 @@
         </table>
       </div> 
 </div>
-  
-  
 
 @endsection
 

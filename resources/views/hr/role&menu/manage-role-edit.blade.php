@@ -33,7 +33,6 @@
                     <div class="col-12 panel_1">
                         <label class="form-label">Select Roles *</label>
                         <div class="table-responsive mt-3 ">
-                            
                                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                                     id="allEmployeeTable">
                                     @foreach ($menus as $section => $menu )
@@ -53,7 +52,6 @@
                                                     {{$sub_menu->name}}
                                                     </label>
                                                 </td>
-                                                
                                             @endforeach
                                         
                                         </tr>

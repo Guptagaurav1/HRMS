@@ -18,7 +18,7 @@
     <div class="row" id="tab-1">
         <div class="col-12">
             <div class="panel p-2">
-                <h6>Work Order : BECIL/ND/DRDO/MAN/2425/1323_Extension Added On : 2024-11-14 11:37:39</h6>
+                <h6><strong>Work Order :</strong> {{ $workOrder->wo_number }} <strong> Added On : </strong> {{ $workOrder->created_at }}</h6>
 
                 <div class="panel-header py-3 px-2 d-flex align-items-center justify-content-between mt-5">
                     <h5 class="mb-0 text-white" >Work Order Details</h5>
@@ -34,7 +34,7 @@
                         <div class="col-sm-12 col-md-4">
                             <label class="form-label">Organisation <span class="text-danger">*</span></label>
                             
-                            <input type="text" class="form-control form-control-sm" readonly placeholder="Enter Work Order No" value="{{ $workOrder->organizations->name }}">
+                            <input type="text" class="form-control form-control-sm" readonly placeholder="Enter Work Order No" value="{{ $workOrder->project->organizations->name }}">
                         </div>
                         <div class="col-sm-12 col-md-4">
                             <label class="form-label">Work Order Number <span class="text-danger">*</span></label>
