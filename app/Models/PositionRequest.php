@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PositionRequest extends Model
 {
@@ -37,5 +38,27 @@ class PositionRequest extends Model
                 $model->save();
             });
         }
+    }
+
+    /**
+     * Get State.
+     */ 
+    public function getState(): BelongsTo{
+        return $this->belongsTo(State::class, 'state', 'id')->select('state');
+    }
+
+    /**
+     * Get City.
+     */ 
+    public function getCity(): BelongsTo{
+        return $this->belongsTo(City::class, 'city', 'id')->select('city_name');
+    }
+
+
+    /**
+     * Get Department.
+     */ 
+    public function getDepartment(): BelongsTo{
+        return $this->belongsTo(Department::class, 'department', 'id')->select('department');
     }
 }

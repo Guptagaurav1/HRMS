@@ -455,6 +455,10 @@ label{
   background: slategray;
 }
 
+#progressbar li.reject:before,
+#progressbar li.reject:after {
+  background: red;
+}
 
 .progress {
   height: 20px;
@@ -518,3 +522,4 @@ label{
   color: white;
   width: 150px;
 } */
+

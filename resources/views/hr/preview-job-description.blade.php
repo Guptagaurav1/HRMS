@@ -1,7 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Job Description'])
 
 @section('style')
-
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
@@ -18,72 +17,76 @@
                             <div class="panel-header">
                                 <h4 class="mt-2 px-2">Preview Summary</h4>
                             </div>
-
+                            <div class="text-end">
+                                <a href="{{route('show-assign-work-log', ['id' => $id])}}" class="btn btn-primary m-2">Back</a>
+                            </div>
                             <div class="card-body table-responsive">
                                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                                     <tbody>
                                         <tr>
                                             <td class="bold">Position title</td>
-                                            <td>Developer</td>
+                                            <td>{{$position->position_title}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Client Name</td>
-                                            <td>IFCI</td>
+                                            <td>{{$position->client_name}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Requirement</td>
-                                            <td>NA</td>
+                                            <td>{{$position->no_of_requirements}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Department</td>
-                                            <td>IT</td>
+                                            <td>{{$position->getDepartment->department}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Functional Role</td>
-                                            <td>NA</td>
+                                            <td>{{get_functional_roles($position->functional_role)}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">State</td>
-                                            <td>NA</td>
+                                            <td>{{$position->getState->state}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">City</td>
-                                            <td>NA</td>
+                                            <td>{{$position->getCity->city_name}}</td>
+                                            
                                         </tr>
                                         <tr>
                                             <td class="bold">Last Date Of Fullfillment</td>
-                                            <td>NA</td>
+                                            <td>{{$position->date_notified}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Education</td>
-                                            <td>0-2 Years</td>
+                                            <td>{{get_education($position->education)}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Skills</td>
-                                            <td class="text-wrap">
-                                              NA
-                                               
-                                            </td>
+                                            <td class="text-wrap">{{get_skills($position->skill_sets)}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Experience</td>
-                                            <td>NA</td>
+                                            <td>{{format_experience($position->experience)}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Description</td>
-                                            <td class="attributes-column">Naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasjjagsasagsasasasjasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                                            <td class="attributes-column">{{$position->job_description}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Attachment</td>
-                                            <td>NA</td>
+                                            <td>
+                                                @if($position->attachment)
+                                                <a href="{{asset('position-request/attachments/'.$position->attachment.'')}}" class="btn btn-primary text-light text-decoration-none" download>Download</a>
+                                                @endif
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Remarks</td>
-                                            <td>NA</td>
+                                            <td>{{$position->remarks}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Assigned To</td>
-                                            <td>NA</td>
+                                            <td>{{get_username($position->assigned_executive)}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
