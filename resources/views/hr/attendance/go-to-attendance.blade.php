@@ -17,10 +17,10 @@
                 </div>
                 <div class="row d-flex  justify-content-between mt-1" id="">
                     <div class="col-md-6 px-3 workcenter ">
-                        <label>Work Order Number :</label>
+                        <label>Work Order Number : {{$wo_number}}</label>
                         <p class="work-order-No">
                             Add/Update Attendance For Work Order<br>
-                            <span>Work order: BECIL/ND/DRDO/MAN/2425/1323_Extension</span>
+                            <span>Work order: {{$wo_number}}</span>
                         </p>
                     </div>
                     <div class="col-md-2 workcenter">
@@ -43,7 +43,7 @@
                 <div class="col-sm-6 col-md-12 py-2 mt-3 text-center">
                     <p class="fw-bold fs-6 work-order-No">
                         View Attendance and Calculate Salary for<br>
-                        <span>Work order: BECIL/ND/DRDO/MAN/2425/1323_Extension</span>
+                        <span>Work order: {{$wo_number}}</span>
                     </p>
                 </div>
                 <form method="get" action="{{ route('go-to-attendance',$wo_id)}}" >
@@ -69,6 +69,7 @@
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3">Search</button>
+                            <a href="{{route('go-to-attendance',$wo_id)}}" class="btn btn-primary mb-3">Reset</a>
                         </div>
                     </div>
                 </form>
@@ -131,7 +132,7 @@
                             <tbody>
                                 
                                 @if(!empty($wo_emps) && ($wo_emps != ' ') )
-                                <!-- <input type="hidden" name="attendance_month" id="attendance_month" value="{{ $month }}"> -->
+                                <input type="hidden" name="attendance_month" id="attendance_month" value="{{ $month }}">
                                     @foreach($wo_emps as $wo_emp)
                                         <tr>
                                             <input type="hidden" name="emp_code" id="emp_code" value="{{ $wo_emp->employ_code }}">

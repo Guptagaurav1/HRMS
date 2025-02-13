@@ -102,15 +102,16 @@ class WorkOrderController extends Controller
         return view("hr.workOrder.add-work-order",compact('organization'));
     }
     public function store(Request $request){
+        // dd($request);
+       
             $request->validate([
-                'attachment' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', // Validate the file type and size
                 'organisation' => 'required',
                 'project_name' => 'required',
                 // 'contacts.*.c_contact' => 'digits:10',
+                'attachment' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', // Validate the file type and size
                 'work_order' => 'required'
 
             ]);
-
         if ($request->hasFile('attachment') && $request->file('attachment')->isValid()) {
 
             $file = $request->file('attachment');
@@ -151,19 +152,21 @@ class WorkOrderController extends Controller
             $workOrder->previous_order_no = $request->prev_order_no;
             $workOrder->wo_remarks = $request->remarks;
             $workOrder->wo_attached_file = $fileName;
-            $c_person_name=$request->c_person_name;
             $workOrder->save();
-            foreach($c_person_name as $key => $value){
-                // dd($value);
-                $woContactDetail = new WoContactDetail();
-                $woContactDetail->wo_client_contact_person = $value;
-                $woContactDetail->wo_client_designation = $request->c_designation[$key];
-                $woContactDetail->wo_client_contact = $request->c_contact[$key];
-                $woContactDetail->wo_client_email = $request->c_email[$key];
-                $woContactDetail->wo_client_remarks = $request->c_remarks[$key];
-                $woContactDetail->work_order_id = $workOrder->id;
-                // dd($woContactDetail);
-                $woContactDetail->save();
+            $c_person_name=$request->input('c_person_name');
+            if(is_array($request->c_person_name)){
+                foreach($request->c_person_name as $key => $value){
+                    // dd($value);
+                    $woContactDetail = new WoContactDetail();
+                    $woContactDetail->wo_client_contact_person = $value;
+                    $woContactDetail->wo_client_designation = $request->c_designation[$key];
+                    $woContactDetail->wo_client_contact = $request->c_contact[$key];
+                    $woContactDetail->wo_client_email = $request->c_email[$key];
+                    $woContactDetail->wo_client_remarks = $request->c_remarks[$key];
+                    $woContactDetail->work_order_id = $workOrder->id;
+                    // dd($woContactDetail);
+                    $woContactDetail->save();
+                }
             }
 
             return redirect()->route('work-order-list')->with('success','WorkOrder created !');
