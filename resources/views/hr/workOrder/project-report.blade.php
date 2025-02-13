@@ -46,6 +46,7 @@
                                 <th class="srno-column">S.No.</th>
                                 <th>Organisation Name</th>
                                 <th>Project Name</th>
+                                <th>Project Number</th>
                                 <th>Work Order count</th>
                                 <th>Work Order Amount</th>
                                 <th>Generate Report</th>
@@ -57,6 +58,7 @@
                                     <tr>
                                         <td class="srno-column">{{$key+1}}</td>
                                         <td>{{$value->project->organizations->name}}</td>
+                                        <td>{{$value->project->project_name}}</td>
                                         <td>{{$value->project->project_number}}</td>
                                         <td>{{$value->total_wo}}</td>
                                         <td> INR {{ number_format($value->amount, 2) }}</td>

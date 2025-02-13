@@ -32,20 +32,9 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-md-12 d-flex justify-content-start mx-3">
-                 
-                    <form class="row g-3" method="get" action="{{route('work-order-list')}}">
-                        <div class="col-auto">
-                            <input type="text" name="search" class="form-control" placeholder="Search" required>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3"> Search</button>
-                        </div>
-                    </form>
-                </div>
-                
+              
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                    <table id="project-table" class="table table-bordered table-hover display nowrap" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="srno-column">S.No.</th>
@@ -57,31 +46,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($projects))
-                                @foreach($projects as $key => $value)
-                                    <tr>
-                                        <td class="srno-column">{{$key+1}}</td>
-                                        <td>{{$value->organizations->name}}</td>
-                                        <td>{{$value->project_name}}</td>
-                                        <td>{{$value->project_number}}</td>
-                                        <td>{{$value->empanelment_reference }}</td>
-                                      
-                                        <td>
-                                        <a href="{{route('edit-project',$value->id)}}"><button type="submit" class="btn btn-primary mb-3"> Edit</button></a>
-                                        </td>
-                                    </tr>
-                                  
-                                @endforeach
-                                @else
-                                <tr>
-                                    <td class="text-danger text-center" colspan="12">No Record Found</td>
-                                </tr>
-                                @endif
-                               
+                           
                         </tbody>
                     </table>
                     <div>
-                        {{ $projects->links() }}
+                        
                     </div>
                    
                     <div class="table-bottom-control"></div>
@@ -92,9 +61,9 @@
 @endsection
 
 @section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
+
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
+<script src="{{asset('assets/js/hr/project.js')}}"></script>
 @endsection
 
 

@@ -227,10 +227,10 @@
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Assign To <span style="color: red">*</span></label>
-                            <select  class="form-select" name="assigned_executive" required>
+                            <select  class="form-select js-example-basic-multiple" multiple="multiple" name="assigned_executive[]" required>
                                 <option value="">Nothing Selected</option>
                                 @foreach($hr_executives as $hr_executive)
-                                    <option value="{{$hr_executive->id}}" {{old('assigned_executive') == $hr_executive->id ? 'selected' : ''}} >{{$hr_executive->first_name." ".$hr_executive->last_name}}</option>
+                                    <option value="{{$hr_executive->id}}" {{old('assigned_executive') && in_array($hr_executive->id, old('assigned_executive')) ? 'selected' : ''}} >{{$hr_executive->first_name." ".$hr_executive->last_name}}</option>
                                 @endforeach
                             </select>
                             @error('assigned_executive')

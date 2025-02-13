@@ -29,7 +29,7 @@
                             <div class="col-sm-12 col-md-4">
                                 <label class="form-label">Organisation <span class="text-danger">*</span></label>
                                 <select name="organisation"  id="organisation"  class="form-select">
-                                    <option selected>--Select Organisation--</option>
+                                    <option value="">--Select Organisation--</option>
                                     @foreach($organization as $key => $organization_data)
                                         <option value="{{$organization_data->id}}" @if ($organization_data->name == old('organization')) selected @endif>
                                         {{ $organization_data->name }}</option>
@@ -42,6 +42,9 @@
                             <div class="col-sm-12 col-md-4 text-wrap">
                                 <label class="form-label text-wrap"> Project Name </label>
                                 <select name="project_name" id="project_name" class="form-select" value=""></select>
+                                @error('project_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-sm-12 col-md-4 text-wrap">
                                
@@ -168,27 +171,30 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Person Name</label>
-                                    <input name="contacts[c_person_name][]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{ old('c_person_name') }}">
+                                    <input name="c_person_name[]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{ old('c_person_name') }}">
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Designation</label>
-                                    <input name="contacts[c_designation][]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ old('c_designation') }}">
+                                    <input name="c_designation[]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ old('c_designation') }}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Contact</label>
-                                    <input name="contacts[c_contact][]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ old('c_contact') }}">
+                                    <input name="c_contact[]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ old('c_contact') }}">
+                                    @error('c_contact')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Email</label>
-                                    <input name="contacts[c_email][]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{ old('c_email') }}">
+                                    <input name="c_email[]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{ old('c_email') }}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-12 text-wrap">
                                     <label for="exampleTextarea" class="form-label">Remarks</label>
-                                    <textarea name="contacts[c_remarks][]" id="c_remarks" class="form-control" id="exampleTextarea"
+                                    <textarea name="c_remarks[]" id="c_remarks" class="form-control" id="exampleTextarea"
                                         placeholder="Enter Remarks" value="{{ old('c_remarks') }}"></textarea>
                                 </div>
                             </div>
@@ -262,6 +268,9 @@
     
                                     artechment('attachment');
                             <input name="attachment" id="attachment" class="form-control form-control-sm" id="formFileSm" type="file">
+                            @error('attachment')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -280,49 +289,5 @@
 <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
 <script src={{asset('assets/js/select2-init.js')}}></script>
 <script src={{asset('assets/vendor/js/addmore.js')}}></script>
-<script>
-    $('#organisation').on('change', function() {
-        var selectedValue = $(this).val();
-        if (selectedValue) {
-            $.ajax({
-                url: 'project/organisation-project/' + selectedValue, // Route URL with parameter
-                type: 'GET',
-                success: function(response) {
-                    let dropdown = $("#project_name");
-                    dropdown.empty();
-                    dropdown.append('<option value="">Select a Project</option>');
-                    let projects = response.data;
-                    // Loop through response and append to dropdown
-                    $.each(projects, function(key, project) {
-                        dropdown.append('<option value="' + project.id + '">' + project.project_name + '</option>');
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error:", error);
-                }
-            });
-        } 
-    });
-    $('#project_name').on('change', function() {
-        var selectedValue = $(this).val();
-        if (selectedValue) {
-            $.ajax({
-                url: 'project/project-details/' + selectedValue, // Route URL with parameter
-                type: 'GET',
-                success: function(response) {
-                  
-                    let project_number =response.data.project_number;
-                    let empanelment_reference =response.data.empanelment_reference;
-                    $('#project_no').val(project_number);
-                    $('#empanelment_reference').val(empanelment_reference);
-                    
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error:", error);
-                }
-            });
-        } 
-    });
-
-</script>
+<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
 @endsection
