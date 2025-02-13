@@ -513,36 +513,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.add-company-master");
     })->name("add-company-master");
 
+   
+
  
-
- 
-
-
-    
-
-    
-
-   
-
-
-    
-
-   
-
-   
-
-    
-
-    
-
-    
-    
-    
-   
-  
-
-
-
 
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){
