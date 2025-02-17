@@ -42,10 +42,13 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap"> Project Name </label>
+                                    <label class="form-label text-wrap"> Project Name <span class="text-danger">*</span></label>
                                     <select name="project_name" id="edit_project_name" class="form-select" value="">
                                     <option value="">Select a Project</option>
                                     </select>
+                                    @error('project_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap"> Project Number </label>
@@ -189,28 +192,28 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Person Name</label>
-                                    <input name="c_person_name[]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{ old('c_person_name') }}">
+                                    <input name="c_person_name[]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="">
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Designation</label>
-                                    <input name="c_designation[]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ old('c_designation') }}">
+                                    <input name="c_designation[]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Contact</label>
-                                    <input name="c_contact[]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ old('c_contact') }}">
+                                    <input name="c_contact[]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="">
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Email</label>
-                                    <input name="c_email[]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{ old('c_email') }}">
+                                    <input name="c_email[]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-12 text-wrap">
                                     <label for="exampleTextarea" class="form-label">Remarks</label>
                                     <textarea name="c_remarks[]" id="c_remarks" class="form-control" id="exampleTextarea"
-                                        placeholder="Enter Remarks" value="{{ old('c_remarks') }}"></textarea>
+                                        placeholder="Enter Remarks" value=""></textarea>
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-end">
@@ -224,28 +227,28 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Person Name</label>
-                                    <input name="c_person_name[{{ $contact->id }}]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{ old('c_person_name',$contact->wo_client_contact_person) }}">
+                                    <input name="c_person_name[{{ $contact->id }}]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="{{$contact->wo_client_contact_person }}">
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Designation</label>
-                                    <input name="c_designation[{{ $contact->id }}]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ old('c_designation',$contact->wo_client_designation) }}">
+                                    <input name="c_designation[{{ $contact->id }}]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="{{ $contact->wo_client_designation }}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Contact</label>
-                                    <input name="c_contact[{{$contact->id}}]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ old('c_contact',$contact->wo_client_contact) }}">
+                                    <input name="c_contact[{{$contact->id}}]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="{{ $contact->wo_client_contact}}">
                                 </div>
                                 <div class="col-sm-12 col-md-6 text-wrap">
                                     <label class="form-label text-wrap">Email</label>
-                                    <input name="c_email[{{$contact->id}}]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{ old('c_email',$contact->wo_client_email) }}">
+                                    <input name="c_email[{{$contact->id}}]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="{{$contact->wo_client_email }}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 col-md-12 text-wrap">
                                     <label for="exampleTextarea" class="form-label">Remarks</label>
                                     <textarea name="c_remarks[{{$contact->id}}]" id="c_remarks" class="form-control" id="exampleTextarea"
-                                        placeholder="Enter Remarks" value="{{ old('c_remarks',$contact->wo_client_remarks) }}"></textarea>
+                                        placeholder="Enter Remarks" value="{{ $contact->wo_client_remarks }}"></textarea>
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-end">

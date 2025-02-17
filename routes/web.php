@@ -214,6 +214,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
         Route::get("wo-sal-attendance", 'wo_sal_attendance')->name("wo-sal-attendance");
         Route::post("wo-sal-calculate", 'wo_sal_calculate')->name("wo-sal-calculate");
+        Route::get("wo-generate-salary", 'wo_generate_salary')->name("wo-generate-salary");
+       
     });
      
     Route::controller(ProjectController::class)->prefix('project')->group(function () {
