@@ -515,11 +515,86 @@ label{
 #position-coloumn{
   display: none;
 }
+#background_image{
+  background-image: url('../images/background_image.jpg');
+  width: 100%;
+  height:100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
-/* .bb
-{
-  background-color: #2A3F54;
-  color: white;
-  width: 150px;
-} */
+#background_image_1{
+  background-image: url('../images/background_image.jpg');
+  width: 100%;
+  height:auto;
+  /* background-repeat: no-repeat;
+  background-position: center; */
 
+}
+
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+#background_image {
+  background-color: #F4F4F9;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#form_design{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  width: 100%; 
+  max-width: 800px;
+}
+@media (max-width: 768px) {
+  form {
+      padding: 1.5rem;
+  }
+  .btn {
+      width: 100%;
+  }
+}
+
+.address_details{
+  display: none;
+}
+.bank_details{
+  display: none;
+}
+
+#twelthe_showing{
+  display: none;
+}
+
+#graduation_showing{
+  display: none;
+}
+#postgraduation_showing{
+  display: none;
+}
+.education_details{
+  display:none;
+}
+
+.company_details{
+  display: none;
+}
+
+.ESI_Input-field{
+  display: none;
+}
+
+.ESI_details{
+  display: none;
+}
+
+.relation_nominee{
+  display: none;
+  height: 100vh;
+}
