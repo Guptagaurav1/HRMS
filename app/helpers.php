@@ -7,6 +7,7 @@ use App\Models\SendMailLog;
 use App\Models\Qualification;
 use App\Models\Skill;
 use App\Models\FunctionalRole;
+use App\Models\PositionRequest;
 
 /**
  * Get role id from role name.
@@ -20,6 +21,22 @@ if(!function_exists('get_role_id')){
     	if ($roleid) {
     		return $roleid;
     	}
+        return false;
+    }
+}
+
+/**
+ * Get role name from role id.
+ * @param $roleid
+ * @return $role_name
+ */ 
+if(!function_exists('get_role_name')){
+    function get_role_name($roleid)
+    {
+        $rolename = Role::where('id', $roleid)->value('role_name');
+        if ($rolename) {
+            return $rolename;
+        }
         return false;
     }
 }
@@ -156,3 +173,17 @@ if(!function_exists('format_contact_status')){
         }
     }
 }
+
+/**
+ * Get position title from position request id.
+ */
+if (!function_exists('get_position_title')) {
+     function get_position_title($req_id)
+     {
+        $title = PositionRequest::where('req_id', $req_id)->value('position_title');
+        if ($title) {
+            return $title;
+        }
+        return 'Na';
+     }
+ } 

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}">
     <link rel="stylesheet" id="rtlStyle" href="#">
-
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body class="light-theme">
     <div class="main-content login-panel">
@@ -61,7 +61,13 @@
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                       
+                         <!-- Google Recaptcha -->
+                         <div class="input-group mb-20">
+                            <div class="g-recaptcha" data-sitekey={{config('services.recaptcha.key')}}></div>
+                            @error('g-recaptcha-response')
+                               <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                 </div>
@@ -86,7 +92,15 @@
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        
+
+                         <!-- Google Recaptcha -->
+                        <div class="input-group mb-20">
+                            <div class="g-recaptcha" data-sitekey={{config('services.recaptcha.key')}}></div>
+                            @if(session()->has('captchError'))
+                               <span class="text-danger">{{session()->get('captchError')}}</span>
+                            @endif
+                        </div>
+                    
                         <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                 </div>

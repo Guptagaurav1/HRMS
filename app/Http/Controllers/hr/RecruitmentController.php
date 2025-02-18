@@ -17,6 +17,8 @@ use App\Models\Company;
 use App\Models\RecruitmentForm;
 use App\Models\Bank;
 use App\Models\AppointmentFormat;
+use App\Models\UserRequestLog;
+use App\Models\Notification;
 use Throwable;
 use Illuminate\Validation\Rules\File;
 use App\Mail\JobDescriptionMail;
@@ -352,7 +354,7 @@ class RecruitmentController extends Controller
      * Show the details of JD.
      * @param recruitment form id, $rec_id
      */
-    public function applicant_detail($rec_id, $position){
+    public function applicant_detail($rec_id, $position = ''){
         try {
             $data = RecruitmentForm::findOrFail($rec_id);
             return view("hr.applicant-recruitment-details-summary", compact('data'));
@@ -1257,4 +1259,385 @@ class RecruitmentController extends Controller
         return view('guest.acceptance-form');
     }
 
+    /**
+     * Show the JD request form.
+     */
+    public function jd_request(Request $request, $id = '')
+    {
+        $user = auth()->user(); // Need to 
+        $requests = PositionRequest::select('id', 'position_title', 'client_name', 'req_id')->whereRaw('FIND_IN_SET(?, position_requests.assigned_executive)', [$user->id])->get();
+        return view("hr.jd-request", compact('requests'));
+    } 
+
+
+    /**
+     * Show the JD request form.
+     */
+    public function send_jd_request(Request $request)
+    {   
+        $this->validate($request, [
+            'query_type' => ['required', 'string'],
+            'short_description' => ['required', 'string'],
+            'job_position' => ['required']
+        ]);
+
+        try{
+            DB::beginTransaction();
+            $user = auth()->user();
+            $previous = UserRequestLog::select('req_id')->orderByDesc('id')->first();
+            $new_req_id = "REQ-POS-1";
+            if ($previous) {
+           $prev_req_id = explode("-", $previous->req_id);
+           $new_req_id = "REQ-POS-".$prev_req_id[2] + 1;
+            }
+
+           $hr_id = User::where('email', 'hr@prakharsoftwares.com')->value('id');
+            
+           // Save Request Log.
+           $data = [
+            'req_id' => $new_req_id,
+            'user_id' => $user->id,
+            'query_type' => $request->query_type,
+            'description' => $request->short_description,
+            'job_position' => $request->job_position,
+           ];
+
+            if (!empty($request->change) || !empty($request->changed_to)) {
+                $data['ref_table_id'] = $request->candidate;
+                $data['ref_table_name'] = 'recruitment_form';
+                if ($request->change) {
+                    $data['change_offer_letter'] = $request->change;
+                }
+                if ($request->changed_to) {
+                    $data['status_changed_to'] = $request->changed_to;
+                }
+            }
+           
+           $submit_id = UserRequestLog::create($data)->id;
+
+           // Save as a notification.
+           Notification::create([
+            'title' => $request->query_type,
+            'description' => $request->short_description,
+            'send_by' => $user->email,
+            'received_to' => '1,'.$hr_id,
+            'user_type' => get_role_name($user->role_id),
+            'notification_type' => 'user_req',
+            'reference_table_name' => 'user_request_log',
+            'reference_table_id' => $submit_id
+            ]);
+
+           $title = PositionRequest::where('id', $request->job_position)->value('position_title');
+            // Send Mail.
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+
+            $mail_html = "<h4>".$user->firstname.", You have requested ". $request->query_type ." for ".$title.".</h4></br>
+                     <h4 style='color:blue;'>User Email Id: &nbsp;" . $user->email . "</h4></br>
+                     <h4 style='color:blue;'>Your Request id is : ".$new_req_id."</h4></br>
+                     <h4 style='color:blue;'>Request Description : ".$request->short_description."</h4></br>
+                     <h4>Your Request will be Approving soon.</h4></br>";
+
+            $maildata = new stdClass();
+            $maildata->subject = "User Request";
+            $maildata->name = $user->first_name;
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $mail_html;
+            $maildata->url = url('/');
+            Mail::to($user->email)->cc($this->cc)->send(new ShortlistMail($maildata));   
+            DB::commit();
+            return redirect()->route('jd-request')->with(['success' => true, 'message' => 'Request and Mail Sent Successfully!']);
+        }
+        catch(Throwable $th){
+            DB::rollBack();
+            return redirect()->route('jd-request')->with(['error' => true, 'message' => $th->getMessage()]);
+        }
+    } 
+
+    /**
+     * Get Position Candidates.
+     */ 
+    public function position_candidates(Request $request)
+    {   
+        try{
+            $this->validate($request, [
+                'position_id' => ['required']
+            ]);
+            $email = auth()->user()->email;
+            $data = RecruitmentForm::select('id', 'firstname', 'email')->where(['reference' => $email, 'pos_req_id' => $request->position_id])->get();
+            return response()->json(['success' => true, 'data' => $data]);
+        }
+        catch(Throwable $th) {
+            DB::rollBack();
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+
+    /**
+     * Show user requested change log list.
+     */
+    public function request_lists(Request $request)
+    {   
+        $userid = auth()->user()->id;
+        $logs = UserRequestLog::select('req_id', 'query_type', 'job_position', 'description', 'created_at', 'status')->where('user_id', $userid);
+        $search = '';
+        if ($request->search) {
+            $search = $request->search;
+            $logs = $logs->whereAny([
+                'req_id',
+                'query_type',
+                'description',
+                'status'
+            ], 'LIKE', '%'.$request->search.'%');
+        }
+        
+        $logs = $logs->orderByDesc('id')->paginate(10)->withQueryString();
+        return view("hr.user-request-list", compact('logs', 'search'));
+    } 
+
+    /**
+     * Add new candidate Form.
+     */
+    public function add_new_candidate()
+    {
+        $departments = Department::select('id', 'department')->whereNull('deleted_at')->get();
+        $skills = Skill::select('id', 'skill')->whereNull('deleted_at')->get();
+        $qualification = Qualification::select('id', 'qualification')->whereNull('deleted_at')->get();
+        return view("hr.recruitment.addnew-candidate", compact('departments', 'skills', 'qualification'));
+    }
+
+    /**
+     * Show recruitment list.
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'firstname' => ['required','string','max:255'],
+            'lastname' => ['required','string','max:255'],
+            'email' => ['required','string', 'email','max:255'],
+            'experience' => ['required'],
+            'phone' => ['required', 'digits:10'],
+            'dob' => ['required', 'date'],
+            'skill' => ['required'],
+            'location' => ['required','string','max:255'],
+            'department' => ['required'],
+            'education' => ['required'],
+            'recruitment_type' => ['required'],
+            'resume' => ['required', File::types(['pdf'])->max('2mb')]
+        ]);
+
+        if ($request->file('resume')) {
+            $file = $request->file('resume');
+            $path = public_path('resume');
+            $full_filename = $file->getClientOriginalName();
+            $filename = explode(".", $full_filename);
+            $filename = $filename[0]."_".time().".".$filename[1];
+            $request->resume->move($path, $filename);
+         }
+
+        $user = auth()->user();
+
+        $obj = new RecruitmentForm();
+        $obj->fill($request->all());
+        $obj->reference = $user->email;
+        $obj->skill = implode(",", $request->skill);
+        $obj->resume = $filename;
+        $obj->save();
+
+        // Send Mail to candidate.
+        $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+
+        $mail_html = "<h4>Your Cv is under the review and assign to " . $user->email . "</h4></br>
+                  <h4>Please wait for confirmation call regarding this.</h4></br>
+                  </br></br>
+                  <h4 style='text-align: left;
+                  margin-left: 30px;'>Thanks & Regards,</h4></br>";
+
+        $maildata = new stdClass();
+        $maildata->subject = "Cv is under review";
+        $maildata->name = $request->firstname;
+        $maildata->comp_email = $company->email;
+        $maildata->comp_phone = $company->mobile;
+        $maildata->comp_website = $company->website;
+        $maildata->comp_address = $company->address;
+        $maildata->content = $mail_html;
+        $maildata->url = url('/');
+        Mail::to($request->email)->send(new ShortlistMail($maildata));  
+        
+        // Send Mail HR Executive.
+        $message = "<h4>This is message regarding Interested candidate.</h4></br>
+                  <h4>Details are mention below.</h4></br>
+                  <table border='2'>
+                              <tbody>
+                                  <tr>
+                                      <th colspan='2'>Candidate Details</th>
+                                  </tr>
+                                  <tr>
+                                  <td>Name:</td>
+                                  <td>" . $request->firstname . "-" . $request->lastname . "</td>
+                                  </tr>
+
+                                  <tr>
+                                  <td>Job Position:</td>
+                                  <td>" . $request->job_position . "</td>
+                                  </tr>
+
+                                  <tr>
+                                  <td>Location:</td>
+                                  <td>" . $request->location . "</td>
+                                  </tr>
+
+                                  <tr>
+                                  <td>Education:</td>
+                                  <td>" . $request->education . "</td>
+                                  </tr>
+                                  
+                                  <tr>
+                                  <td>Email:</td>
+                                  <td>" . $request->email . "</td>
+                                  </tr>
+                                  <tr>
+                                  <td>Phone:</td>
+                                  <td>" . $request->phone . "</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                  </br></br>
+                  <h4 style='text-align: left;
+                  margin-left: 30px;'>Thanks & Regards,</h4></br>";
+        $maildata->name = $user->first_name;
+        $maildata->subject = "Interested Candidate Message";
+        $maildata->content = $message;
+        Mail::to($user->email)->send(new ShortlistMail($maildata));  
+        return redirect()->route('recruitment-list')->with(['success' => true, 'message' => 'Candidate add successful']);
+    }
+
+    /**
+     * Show recruitment list.
+     */
+    public function recruitment_list(Request $request)
+    {
+        $candidates = RecruitmentForm::select('recruitment_forms.id', 'recruitment_forms.firstname', 'recruitment_forms.lastname', 'recruitment_forms.email', 'recruitment_forms.phone', 'recruitment_forms.job_position', 'recruitment_forms.dob', 'recruitment_forms.location', 'recruitment_forms.experience',  'recruitment_forms.skill', 'recruitment_forms.education', 'recruitment_forms.finally', 'recruitment_forms.status', 'emp_details.emp_current_working_status', 'emp_details.emp_id AS empid', 'recruitment_forms.emp_code', 'emp_details.emp_dor')->leftJoin('emp_details', 'recruitment_forms.emp_code', '=', 'emp_details.emp_code');
+        $search = '';
+        if ($request->search) {
+            $search = $request->search;
+            $filter = '%' . $request->search . '%';
+
+            $candidates = $candidates->where(function ($query) use ($filter) {
+                $query->where('recruitment_forms.id', 'LIKE', $filter)
+                      ->orWhere('recruitment_forms.dob', 'LIKE', $filter)
+                      ->orWhere('recruitment_forms.location', 'LIKE', $filter)
+                      ->orWhere('recruitment_forms.experience', 'LIKE', $filter)
+                      ->orWhere('recruitment_forms.skill', 'LIKE', $filter)
+                      ->orWhere('recruitment_forms.education', 'LIKE', $filter)
+                      ->orWhereRaw('CONCAT(recruitment_forms.firstname, " ", recruitment_forms.lastname) LIKE ?', [$filter]);
+            });
+        }
+        
+        $candidates = $candidates->orderByDesc('id')->paginate(10)->withQueryString();
+        return view("hr.recruitment.recruitment-list", compact('candidates', 'search'));
+    }
+
+       /**
+     * Show recruitment list.
+     */
+    public function export_csv(Request $request)
+    {
+      
+        $candidates = RecruitmentForm::select('recruitment_forms.id', 'recruitment_forms.firstname', 'recruitment_forms.lastname', 'recruitment_forms.email', 'recruitment_forms.phone', 'recruitment_forms.job_position', 'recruitment_forms.dob', 'recruitment_forms.location', 'recruitment_forms.experience',  'recruitment_forms.skill', 'recruitment_forms.education', 'recruitment_forms.finally', 'recruitment_forms.status', 'emp_details.emp_current_working_status', 'emp_details.emp_id AS empid', 'recruitment_forms.emp_code', 'emp_details.emp_dor')->leftJoin('emp_details', 'recruitment_forms.emp_code', '=', 'emp_details.emp_code');
+        $search = '';
+        if ($request->filter) {
+            $search = '%' . $request->filter . '%';
+
+            $candidates = $candidates->where(function ($query) use ($search) {
+                $query->where('recruitment_forms.id', 'LIKE', $search)
+                      ->orWhere('recruitment_forms.dob', 'LIKE', $search)
+                      ->orWhere('recruitment_forms.location', 'LIKE', $search)
+                      ->orWhere('recruitment_forms.experience', 'LIKE', $search)
+                      ->orWhere('recruitment_forms.skill', 'LIKE', $search)
+                      ->orWhere('recruitment_forms.education', 'LIKE', $search)
+                      ->orWhereRaw('CONCAT(recruitment_forms.firstname, " ", recruitment_forms.lastname) LIKE ?', [$search]);
+            });
+        }
+        $candidates = $candidates->orderByDesc('id')->get();
+
+        $filename = 'candidates.csv';
+    
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+        
+        return response()->stream(function () use ($candidates) {
+        $handle = fopen('php://output', 'w');
+    
+        // Add CSV headers
+        fputcsv($handle, [
+            'Recruitment Id',
+            'Name',
+            'Contact Details',
+            'Job Position',
+            'Client Name',
+            'DOB',
+            'Location',
+            'Experience',
+            'Skills',
+            'Education',
+            'Status',
+            'Employee Status'
+            ]);
+
+        foreach ($candidates as $candidate){
+                $status = '';
+                if (!empty($candidate->finally)) {
+                    if ($candidate->finally == 'rejected') {
+                        $status = 'Rejected';
+                    }
+                    else {
+                        $status = 'Applied';
+                    }
+                }
+                elseif (!empty($candidate->status)) {
+                    $status = 'Applied';
+                }
+    
+                if(isset($candidate->emp_current_working_status)){
+                    if($candidate->emp_current_working_status == 'active'){
+                        $candidate->emp_current_working_status =  $candidate->emp_code.'(Active)';
+                    }
+                    else{
+                        $candidate->emp_current_working_status = $candidate->emp_code." (".$candidate->emp_dor.")";
+                    }
+                }
+                else{
+                    $candidate->emp_current_working_status = 'Not Deployed';
+                }
+               
+                $data = [
+                    isset($candidate->id)? $candidate->id : '',
+                    isset($candidate->firstname)? $candidate->firstname." ".$candidate->lastname : '',
+                    isset($candidate->email)? $candidate->email." / ".$candidate->phone : '',
+                    isset($candidate->job_position)? $candidate->job_position : '',
+                    isset($candidate->id)? $candidate->id : '',
+                    isset($candidate->dob)? $candidate->dob : '',
+                    isset($candidate->location)? $candidate->location : '',
+                    isset($candidate->experience)? $candidate->experience : '',
+                    isset($candidate->skill)? $candidate->skill : '',
+                    isset($candidate->education)? $candidate->education : '',
+                    !empty($status)? $status : '',
+                    isset($candidate->emp_current_working_status)? $candidate->emp_current_working_status : ''
+                ];
+    
+                fputcsv($handle, $data);
+            }
+            fclose($handle);
+       
+        }, 200, $headers);
+
+    }
 }

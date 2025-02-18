@@ -516,6 +516,10 @@ label{
   display: none;
 }
 
+.both-status-column{
+    display: none;
+}
+
 /* .bb
 {
   background-color: #2A3F54;
