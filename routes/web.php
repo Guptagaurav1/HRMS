@@ -55,8 +55,8 @@ Route::middleware('guest')->group(function () {
         return view("forgot-password");
     })->name("forgot-password");
 
-    Route::get('personal-details/{id?}', [RecruitmentController::class, 'personal_details'])->name('guest.personal_details');
-    Route::get('acceptance-form/{id?}', [RecruitmentController::class, 'show_acceptance_form'])->name('guest.acceptance_form');
+    Route::get('personal-details/{id}', [RecruitmentController::class, 'personal_details'])->name('guest.personal_details');
+    Route::get('acceptance-form/{id}', [RecruitmentController::class, 'show_acceptance_form'])->name('guest.acceptance_form');
 });
 
 Route::middleware('auth')->prefix('hr')->group(function () {
