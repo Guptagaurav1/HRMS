@@ -51,8 +51,8 @@ Route::middleware('guest')->group(function () {
         return view("forgot-password");
     })->name("forgot-password");
 
-    Route::get('personal-details/{id}', [RecruitmentController::class, 'personal_details'])->name('guest.personal_details');
-    Route::get('acceptance-form/{id}', [RecruitmentController::class, 'show_acceptance_form'])->name('guest.acceptance_form');
+    Route::get('personal-details/{id?}', [RecruitmentController::class, 'personal_details'])->name('guest.personal_details');
+    Route::get('acceptance-form/{id?}', [RecruitmentController::class, 'show_acceptance_form'])->name('guest.acceptance_form');
 });
 
 Route::middleware('auth')->prefix('hr')->group(function () {
@@ -222,6 +222,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
         Route::get("wo-sal-attendance", 'wo_sal_attendance')->name("wo-sal-attendance");
         Route::post("wo-sal-calculate", 'wo_sal_calculate')->name("wo-sal-calculate");
+        Route::get("wo-generate-salary", 'wo_generate_salary')->name("wo-generate-salary");
+       
     });
      
     Route::controller(ProjectController::class)->prefix('project')->group(function () {
@@ -508,36 +510,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.add-company-master");
     })->name("add-company-master");
 
+   
+
  
-
- 
-
-
-    
-
-    
-
-   
-
-
-    
-
-   
-
-   
-
-    
-
-    
-
-    
-    
-    
-   
-  
-
-
-
 
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){
