@@ -282,7 +282,34 @@ class WorkOrderController extends Controller
     }
 
    
-
+    public function organisation_workOrder(Request $request){
+       
+        $org_id = $request->or_id;
+        $workOrders = WorkOrder::select('wo_number')->with('project.organizations')
+        ->whereHas('project.organizations', function ($query) use($org_id) {
+            $query->where('organisation_id', $org_id);
+        })
+        ->get();
+        
+        if($workOrders){
+            return response()->json([
+                'message' => 'workOrders retrieved successfully',
+                'data' => $workOrders
+            ], 200);
+        }
+    }
+    public function workOrder_details(Request $request){
+       
+        $workOrder_id = $request->workOrder_id;
+        $workOrder_details =  workOrder::with('project')->where('wo_number',$workOrder_id)->orderBy('id', 'desc')->first();
+        // dd($workOrder_details);
+        if($workOrder_details){
+            return response()->json([
+                'message' => 'workOrder Details retrieved successfully',
+                'data' => $workOrder_details
+            ], 200);
+        }
+    }
 
 
 

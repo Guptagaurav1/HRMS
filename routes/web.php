@@ -30,6 +30,10 @@ use App\Http\Controllers\hr\MailLogController;
 use App\Http\Controllers\hr\ResponseLogController;
 use App\Http\Controllers\hr\RecruitmentController;
 
+use App\Http\Controllers\hr\InvoiceBillingController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -189,6 +193,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("update-work-order/{id}","update")->name("update-work-order");
         Route::get("view-work-order/{id}","show")->name("view-work-order");
 
+        Route::get("organisation-workOrder/{or_id}","organisation_workOrder")->name("organisation-workOrder");
+        Route::get("workOrder-details/{workOrder_id}","workOrder_details")->name("workOrder-details");
+
     });
     /////////// workorder routes end ///////
   
@@ -241,6 +248,24 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(ResponseLogController::class)->prefix('response-logs')->group(function () {
         Route::get("employee-profile-response-log", 'profile_change_log')->name("employee-profile-response-log");
         Route::get("recruiter-response-log", 'detail_change_log')->name("recruiter-response-log");
+    });
+
+
+
+    Route::controller(InvoiceBillingController::class)->prefix('invoice-billling')->group(function () {
+        Route::get("/",'index')->name('generate-invoice');
+        Route::post("invoice-details",'invoice_details')->name('invoice-details');
+        Route::get("invoice-list",'invoice_list')->name('invoice-list');
+        Route::get("biling-structure-list",'biling_structure')->name('biling-structure-list');
+        Route::get("form16-list",'form16')->name('form16');
+        Route::get("add-new-form16",'addForm16')->name('add-new-form16');
+        Route::post("create-new-form16",'createForm16')->name('create-new-form16');
+        Route::get("create-billing-structure",'create_biling_structure')->name('create-billing-structure');
+
+        Route::post("add",'add_invoice_billing')->name('add-invoice-billing');
+        Route::post("create",'create_invoice_billing')->name('create-invoice-billing');
+
+      
     });
 
         
@@ -378,29 +403,29 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.attendance-list");
     })->name("attendance-list");
 
-    Route::get("generate-invoice", function () {
-        return view("hr.generate-invoice");
-    })->name("generate-invoice");
+    // Route::get("generate-invoice", function () {
+    //     return view("hr.generate-invoice");
+    // })->name("generate-invoice");
 
-    Route::get("invoice-list", function () {
-        return view("hr.invoice-list");
-    })->name("invoice-list");
+    // Route::get("invoice-list", function () {
+    //     return view("hr.invoice-list");
+    // })->name("invoice-list");
 
-    Route::get("biling-structure-list", function () {
-        return view("hr.biling-structure-list");
-    })->name("biling-structure-list");
+    // Route::get("biling-structure-list", function () {
+    //     return view("hr.biling-structure-list");
+    // })->name("biling-structure-list");
 
-    Route::get("form16", function () {
-        return view("hr.form16");
-    })->name("form16");
+    // Route::get("form16", function () {
+    //     return view("hr.form16");
+    // })->name("form16");
 
-    Route::get("add-new-form16", function () {
-        return view("hr.add-new-form16");
-    })->name("add-new-form16");
+    // Route::get("add-new-form16", function () {
+    //     return view("hr.add-new-form16");
+    // })->name("add-new-form16");
 
-    Route::get("create-billing-structure", function () {
-        return view("hr.create-billing-structure");
-    })->name("create-billing-structure");
+    // Route::get("create-billing-structure", function () {
+    //     return view("hr.create-billing-structure");
+    // })->name("create-billing-structure");
 
     // Route::get("add-work-order", function () {
     //     return view("hr.add-work-order");

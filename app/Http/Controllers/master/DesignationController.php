@@ -5,7 +5,7 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Designation;
-use Rule;
+use Illuminate\Validation\Rule;
 
 class DesignationController extends Controller
 {
@@ -54,7 +54,12 @@ class DesignationController extends Controller
     public function update(Designation $designation, Request $request){
        
         $request->validate([
-                'name' => 'required|max:255|unique:designations,name,'.$designation->id,
+                'name' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('designations')->whereNull('deleted_at')->ignore($designation->id),
+                ]
+                
         ]);
         $designation->fill($request->all());
         $designation->status = '1';

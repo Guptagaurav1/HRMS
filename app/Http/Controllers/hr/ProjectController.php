@@ -142,7 +142,6 @@ class ProjectController extends Controller
        
         if($projects){
             $organization = Organization::orderBy('id','desc')->get();
-            // return response()->json($project);
             return response()->json([
                 'message' => 'Projects retrieved successfully',
                 'data' => $projects
