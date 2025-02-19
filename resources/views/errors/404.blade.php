@@ -18,7 +18,7 @@
             Oops! The page you're
             looking for is not here.
         </p>
-        <a href="https://www.geeksforgeeks.org/">
+        <a href="{{route('login')}}">
             Go Back to Home
         </a>
     </div>
