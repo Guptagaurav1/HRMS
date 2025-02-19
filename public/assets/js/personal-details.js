@@ -1,17 +1,76 @@
 $(document).ready(function () {
-    $("#user_submit").click(function () {
-        $(".form_handleing").hide();
-        $("#details_form").hide();
-        $(".address_details").show();
+    // $("#user_submit").click(function () {
+    //     $(".form_handleing").hide();
+    //     $("#details_form").hide();
+    //     $(".address_details").show();
+    // });
+
+    function saveDetails(page, btnclass, data) {
+        $("."+btnclass).attr('disabled', 'disabled');
+
+        $.ajax({
+            url: '/guest/'+page,
+            type: 'POST',
+            dataType: "json",
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: "Congratulations!",
+                        text: response.message,
+                        icon: "success",
+                        allowOutsideClick: () => false
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                          window.location.reload();
+                        }
+                      });
+                }
+                else if(response.error){
+                    $("."+btnclass).removeAttr('disabled');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: response.message,
+                        allowOutsideClick: () => false
+                    });
+                }
+            }
+        });
+    }
+    // On Submit Personal Detail Form.
+    $("form.personal_detail").submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        saveDetails('store-personal-details', 'user_submit', formData);
     });
 
-    $("#save_next").click(function () {
-
-        $(".address_details").hide();
-
-        $(".bank_details").show();
-
+    // On Submit Address Detail Form.
+    $("form.address_detail").submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        saveDetails('store-address-details', 'user_submit', formData);
     });
+
+    $("#sameas").click(function () {
+        if($(this).is(":checked")){
+            $("#correspondence").text($("#permanent").val());
+        }
+        else{
+            $("#correspondence").text("");
+        }
+    });
+    // $("#save_next").click(function () {
+
+    //     $(".address_details").hide();
+
+    //     $(".bank_details").show();
+
+    // });
 
     $("#bank_details_save_btn").click(function(){
         $(".bank_details").hide();

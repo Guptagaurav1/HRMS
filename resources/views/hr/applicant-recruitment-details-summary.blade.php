@@ -72,8 +72,8 @@
                                                     <img class="upper_image" src="{{asset('assets/vendor/images/shortlisted.png')}}" alt="img" id="shortlisted" />
                                                     @endif  
                                                     <div class="ratio ratio-1x1 h-auto border">
-                                                        <img  src="{{asset('assets/vendor/images/shortlisted.png')}}" alt="img" />
-                                                        <iframe class="iframe_resume" src="{{ asset('resume/'.$data->resume.'') }}"
+                                                        {{-- <img  src="{{asset('assets/vendor/images/shortlisted.png')}}" alt="img" /> --}}
+                                                        <iframe class="iframe_resume" src="{{ $data->resume ? asset('resume/'.$data->resume.'') : '' }}"
                                                             title="Resume" frameborder="0" allowfullscreen
                                                             style="width:100%" ; height="700px">
                                                         </iframe>
