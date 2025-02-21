@@ -14,17 +14,23 @@ use Illuminate\Validation\Rule;
 
 class DepartmentController extends Controller
 {
+    // display listing of departments
+
     public function index(Request $request){
         $departments = Department::whereHas('skills')->orderBy('id','desc');
         $departments = $departments->paginate(10);
         return view('hr.master.department.department', compact('departments'));
     }
 
+ // display skill list on department-add form
 
     public function create(){
         $skills = Skill::select('id','skill')->get();
         return view('hr.master.department.department-add', compact('skills'));
     }
+
+
+    // Create new record of Departments
 
     public function save(Request $request){
         $request->validate([
@@ -58,6 +64,8 @@ class DepartmentController extends Controller
 
     }
 
+    // display department and skill  in edit-form
+
     public function edit(Department $department){
         $department = $department->load('skills'); 
         $skills=   DepartmentSkill::where('department_id',$department->id)->pluck('skill_id');
@@ -65,6 +73,9 @@ class DepartmentController extends Controller
         $total_skill= Skill::get();
         return view('hr.master.department.department-edit',compact('department','skills','total_skill'));
     }
+
+
+    // Update department
 
     public function update(Department $department, Request $request){
        
@@ -112,6 +123,9 @@ class DepartmentController extends Controller
                 return redirect()->route('departments.index')->with(['error' =>'Something went wrong !']);
             }
         }
+
+
+        // delete department
 
         public function destroy(Department $department){
             DepartmentSkill::where('department_id', $department->id)->delete();
