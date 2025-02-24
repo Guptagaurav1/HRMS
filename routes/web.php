@@ -256,16 +256,19 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/",'index')->name('generate-invoice');
         Route::post("invoice-details",'invoice_details')->name('invoice-details');
         Route::get("invoice-list",'invoice_list')->name('invoice-list');
+        Route::get("tax-invoice/{wo}/{month}", 'tax_slip')->name("tax-invoice");
+        Route::post("save-tax-slip", 'save_slip')->name("save-tax-slip");
+    
         Route::get("biling-structure-list",'biling_structure')->name('biling-structure-list');
+        Route::get("add-billing-structure",'add_biling_structure')->name('add-biling-tructure');
+        Route::post("create-billing-structure",'create_biling_structure')->name('create-billing-structure');
+        Route::get("edit-billing-structure/{id}",'edit_biling_structure')->name('edit-billing-structure');
+        Route::post("update-billing-structure/{id}",'update_biling_structure')->name('update-billing-structure');
+        
         Route::get("form16-list",'form16')->name('form16');
         Route::get("add-new-form16",'addForm16')->name('add-new-form16');
         Route::post("create-new-form16",'createForm16')->name('create-new-form16');
-        Route::get("create-billing-structure",'create_biling_structure')->name('create-billing-structure');
 
-        Route::post("add",'add_invoice_billing')->name('add-invoice-billing');
-        Route::post("create",'create_invoice_billing')->name('create-invoice-billing');
-
-      
     });
 
         
@@ -492,13 +495,13 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.edit-salary");
     })->name("edit-salary");
 
-    Route::get("update-billing-structure", function () {
-        return view("hr.update-billing-structure");
-    })->name("update-billing-structure");
+    // Route::get("update-billing-structure", function () {
+    //     return view("hr.update-billing-structure");
+    // })->name("update-billing-structure");
 
-    Route::get("tax-invoice", function () {
-        return view("hr.tax-invoice");
-    })->name("tax-invoice");
+    // Route::get("tax-invoice", function () {
+    //     return view("hr.tax-invoice");
+    // })->name("tax-invoice");
 
     Route::get("invoice-encloser", function () {
         return view("hr.invoice-encloser");

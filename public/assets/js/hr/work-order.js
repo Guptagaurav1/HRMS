@@ -76,7 +76,7 @@ $(document).ready(function() {
                 success: function(response) {
                     let dropdown = $("#project_name");
                     dropdown.empty();
-                    dropdown.append('<option value="">Select a Project</option>');
+                    dropdown.append('<option value="">Select Project</option>');
                     let projects = response.data;
                     // Loop through response and append to dropdown
                     $.each(projects, function(key, project) {

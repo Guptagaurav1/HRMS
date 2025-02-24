@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Organization extends Model
+class BillingStructure extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
+    protected $fillable = ['billing_to','billing_address','billing_gst_no','billing_state','contact_person','email_id','billing_sac_code','billing_tax_model','billing_tax_rate','show_service_charge','service_charge_rate'
+    ];
+    protected $table = 'wo_billing_structure';
 
-
-    protected $fillable = ['name','address','contact','email'];
-    
-    public function projects()
+    public function organizations()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsTo(Organization::class,'organisation_id'); // Assuming 'organization_name' is a foreign key
     }
+
     public static function boot()
     {
         parent::boot();
@@ -35,19 +34,5 @@ class Organization extends Model
                 $model->save();
             });
         }
-        
     }
-
-    public function workOrders()
-    {
-        return $this->hasMany(WorkOrder::class);
-    }
-
-    public function BillingStructure()
-    {
-        return $this->hasMany(BillingStructure::class);
-    }
-
-    
-
 }
