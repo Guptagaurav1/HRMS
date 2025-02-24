@@ -523,6 +523,16 @@ label{
   background-position: center;
 }
 
+.both-status-column{
+    display: none;
+}
+
+/* .bb
+{
+  background-color: #2A3F54;
+  color: white;
+  width: 150px;
+} */
 #background_image_1{
   background-image: url('../images/background_image.jpg');
   width: 100%;
@@ -559,13 +569,6 @@ label{
   .btn {
       width: 100%;
   }
-}
-
-.address_details{
-  display: none;
-}
-.bank_details{
-  display: none;
 }
 
 #twelthe_showing{

@@ -55,8 +55,12 @@ Route::middleware('guest')->group(function () {
         return view("forgot-password");
     })->name("forgot-password");
 
-    Route::get('personal-details/{id}', [RecruitmentController::class, 'personal_details'])->name('guest.personal_details');
-    Route::get('acceptance-form/{id}', [RecruitmentController::class, 'show_acceptance_form'])->name('guest.acceptance_form');
+    Route::controller(RecruitmentController::class)->prefix('guest')->group(function () {
+        Route::get('personal-details/{id}', 'personal_details')->name('guest.personal_details');
+        Route::get('acceptance-form/{id}', 'show_acceptance_form')->name('guest.acceptance_form');
+        Route::post('store-personal-details', 'save_personal_details');
+        Route::post('store-address-details', 'save_address_details');
+    });
 });
 
 Route::middleware('auth')->prefix('hr')->group(function () {
@@ -133,7 +137,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("send-bulk-jd", 'send_bulk_mail');
         Route::get("position-report/{id}", 'position_contacts')->name("show-assign-work-log");
         Route::get("preview-job-description/{id}", 'preview_jd')->name("preview-job-description");    
-        Route::get("applicant-detail-summary/{rec_id}/{position}", 'applicant_detail')->name("applicant-recruitment-details-summary");
+        Route::get("applicant-detail-summary/{rec_id}/{position?}", 'applicant_detail')->name("applicant-recruitment-details-summary");
         Route::post('update-email', 'update_email');
         Route::post('update-salary', 'update_salary');
         Route::post('update-doj', 'update_doj');
@@ -152,6 +156,14 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("check-documents", 'check_verify');
         Route::post("complete-joining-formalities", 'complete_joining_formalities');
         Route::post("preview-offer-letter", 'preview_offer_letter');
+        Route::get("jd-request/{id?}", 'jd_request')->name("jd-request");
+        Route::post("send-jd-request", 'send_jd_request')->name("send-jd-request");
+        Route::post("get-position-candidates", 'position_candidates');
+        Route::get("request-list", 'request_lists')->name("user-request-list");
+        Route::get("addnew-candidate", 'add_new_candidate')->name("addnew-candidate");
+        Route::get("list", 'recruitment_list')->name("recruitment-list");
+        Route::post("save-candidate", 'store')->name("recruitment.store");
+        Route::post("export-recruitment", 'export_csv')->name("recruitment.export_csv");
     });
 
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
@@ -349,15 +361,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     //     return view(" hr.users-list");
     // })->name("users-list");
 
-
-    Route::get("recruitment-list", function () {
-        return view(" hr.recruitment-list");
-    })->name("recruitment-list");
-
-    Route::get("addnew-candidate", function () {
-        return view(" hr.addnew-candidate");
-    })->name("addnew-candidate");
-
     Route::get("recruitment-plan", function () {
         return view(" hr.recruitment-plan");
     })->name("recruitment-plan");
@@ -530,14 +533,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("work-anniversary-list-template", function () {
         return view("hr.work-anniversary-list-template");
     })->name("work-anniversary-list-template");
-
-    Route::get("user-request", function () {
-        return view("hr.user-request");
-    })->name("user-request");
-
-    Route::get("user-request-list", function () {
-        return view("hr.user-request-list");
-    })->name("user-request-list");
 
     Route::get("company-master-edit", function () {
         return view("hr.company-master-edit");

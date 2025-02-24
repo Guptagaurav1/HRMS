@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $('.tab-links').click(function () {
         let tabId = $(this).attr('data-tab');
+        console.log(tabId);
         $(this).addClass('active').siblings('.tab-links').removeClass('active');
         $('#tab-' + tabId).show().siblings('.row').hide();
     });

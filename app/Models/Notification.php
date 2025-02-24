@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RecPersonalDetail extends Model
+class Notification extends Model
 {
     use HasFactory, SoftDeletes;
 
-    
     /**
      * Save User id on CRUD operation.
      */
@@ -31,6 +30,7 @@ class RecPersonalDetail extends Model
                 $model->save();
             });
         }
+        
     }
 
     /**

@@ -97,4 +97,11 @@ class RecruitmentForm extends Model
         return $this->hasOne(RecEsiDetail::class, 'rec_id', 'id')->select('previous_esi_no');
     }
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+    
 }

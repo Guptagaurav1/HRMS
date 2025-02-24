@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}">
     <link rel="stylesheet" id="rtlStyle" href="#">
-
+    <title>Login</title>
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body class="light-theme">
     <div class="main-content login-panel">
@@ -24,7 +25,7 @@
                 <a href="{{'/'}}"><i class="fa-duotone fa-house-chimney"></i></a>
             </div>
             <div class="bottom">
-                <h3 class="panel-title">Login</h3>
+                <h3 class="panel-title" id="logintext">Department Login</h3>
                 <div class="row mb-3">
                     <div class="col-md-12" style="width: 100%">
                         <ul class="nav nav-tabs" id="tabContent" role="tablist">
@@ -44,7 +45,7 @@
                     <span class="text-danger">{{session()->get('message')}}</span>
                     @endif
                    
-                    <form action="{{route('department_login')}}" method="post">
+                    <form action="{{route('department_login')}}" class="form" method="post">
                         @csrf
                         <div class="input-group mb-25">
                             <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
@@ -55,13 +56,19 @@
                         </div>
                         <div class="input-group mb-20">
                             <span class="input-group-text"><i class="fa-regular fa-lock"></i></span>
-                            <input type="password" name="password" class="form-control rounded-end" placeholder="Password" required>
-                            <a role="button" class="password-show"><i class="fa-duotone fa-eye"></i></a>
+                            <input type="password" name="password" class="form-control rounded-end password" placeholder="Password" required>
+                            <a role="button" class="password-show"><i class="fa-duotone fa-eye-slash eyeicon"></i></a>
                             @error('password')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                       
+                         <!-- Google Recaptcha -->
+                         <div class="input-group mb-20">
+                            <div class="g-recaptcha" data-sitekey={{config('services.recaptcha.key')}}></div>
+                            @error('g-recaptcha-response')
+                               <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                 </div>
@@ -80,19 +87,26 @@
                         </div>
                         <div class="input-group mb-20">
                             <span class="input-group-text"><i class="fa-regular fa-lock"></i></span>
-                            <input type="password" class="form-control rounded-end" name="emp_password" placeholder="Password" required>
-                            <a role="button" class="password-show"><i class="fa-duotone fa-eye"></i></a>
+                            <input type="password" class="form-control rounded-end password" name="emp_password" placeholder="Password" required>
+                            <a role="button" class="password-show"><i class="fa-duotone fa-eye-slash eyeicon"></i></a>
                             @error('emp_password')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        
+
+                         <!-- Google Recaptcha -->
+                        <div class="input-group mb-20">
+                            <div class="g-recaptcha" data-sitekey={{config('services.recaptcha.key')}}></div>
+                            @if(session()->has('captchError'))
+                               <span class="text-danger">{{session()->get('captchError')}}</span>
+                            @endif
+                        </div>
+                    
                         <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                 </div>
             </div>
             <div class="d-flex justify-content-end mb-25 mx-3">
-               
                 <a href="{{'forgot-password'}}" class="text-white fs-14">Forgot Password?</a>
             </div>
             
@@ -104,6 +118,7 @@
     <script src="{{asset('assets/vendor/js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/js/login.js')}}"></script>
+    <script src="{{asset('assets/js/loginform.js')}}"></script>
     
 </body>
 </html>
