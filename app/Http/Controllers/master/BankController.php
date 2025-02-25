@@ -17,7 +17,7 @@ class BankController extends Controller
     public function index()
     {
         $banks = Bank::orderByDesc('id')->paginate(10);
-        return view('hr.bank-details', compact('banks'));
+        return view('hr.bank.bank-details', compact('banks'));
     }
 
     /**
@@ -25,7 +25,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('hr.add_bank');
+        return view('hr.bank.add_bank');
     }
 
     /**

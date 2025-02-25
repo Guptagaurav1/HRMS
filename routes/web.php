@@ -60,6 +60,15 @@ Route::middleware('guest')->group(function () {
         Route::get('acceptance-form/{id}', 'show_acceptance_form')->name('guest.acceptance_form');
         Route::post('store-personal-details', 'save_personal_details');
         Route::post('store-address-details', 'save_address_details');
+        Route::post('store-bank-details', 'save_bank_details');
+        Route::post('store-education-details', 'save_education_details');
+        Route::post('store-company-details', 'save_company_details');
+        Route::post('store-esi-details', 'save_esi_details');
+        Route::post('store-nominee-details', 'save_nominee_details');
+        Route::post('offer-accepted', 'offer_accepted')->name('guest.offer_accepted');
+        Route::get('print-hr-form/{id}', 'print_hr_form')->name('guest.print_hr_form');
+        Route::get('recruitment-form/{id}/{ref}/{send_mail_id}', 'recruitment_form')->name('guest.recruitment_form');
+        Route::post('submit-details', 'submit_details');
     });
 });
 
@@ -152,7 +161,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('send-offer-letter', 'send_offer_letter');
         Route::post('joined', 'store_join_status');
         Route::post('backout', 'backout_candidate');
-        Route::get("verify-documents/{id}/{position}", 'verify_document')->name("verify-documents");
+        Route::get("verify-documents/{id}/{position?}", 'verify_document')->name("verify-documents");
         Route::post("check-documents", 'check_verify');
         Route::post("complete-joining-formalities", 'complete_joining_formalities');
         Route::post("preview-offer-letter", 'preview_offer_letter');
@@ -164,6 +173,17 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("list", 'recruitment_list')->name("recruitment-list");
         Route::post("save-candidate", 'store')->name("recruitment.store");
         Route::post("export-recruitment", 'export_csv')->name("recruitment.export_csv");
+        Route::get("recruitment-plan", 'show_recruitment_list')->name("recruitment-plan");
+        Route::get("position-update/{id}", 'update_position_request')->name("update_position_request");
+        Route::post("update-position", 'update_position')->name("recruitment.update_position");
+        Route::get("addcontact-form", 'contact_form')->name("addcontact-form");
+        Route::post("submit-call-detail", 'store_call_detail')->name("recruitment.store_call_detail");
+        Route::get("call-logs", 'call_logs')->name("recruitment.call_logs");
+        Route::get("edit-call-log/{id}", 'edit_call_log')->name("recruitment.edit-call_log");
+        Route::post("update-call-log", 'update_call_log')->name("recruitment.update-call_log");
+        Route::post("export-call-log", 'export_call_log')->name("recruitment.export_call_log");
+        Route::get("offerlettershared-list", 'offer_letter_shared_list')->name("recruitment.offerlettershared-list");
+      
     });
 
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
@@ -279,15 +299,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
       
     });
-
-        
-
-
-
-
-
-
-
 });
 
 
@@ -357,18 +368,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // Route::get("users-list", function () {
     //     return view(" hr.users-list");
     // })->name("users-list");
-
-    Route::get("recruitment-plan", function () {
-        return view(" hr.recruitment-plan");
-    })->name("recruitment-plan");
-
-    Route::get("addcontact-form", function () {
-        return view(" hr.addcontact-form");
-    })->name("addcontact-form");
-
-    Route::get("offerlettershared-list", function () {
-        return view(" hr.offerlettershared-list");
-    })->name("offerlettershared-list");
 
     Route::get("position-review-dept", function () {
         return view(" hr.position-review-dept");
@@ -478,14 +477,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("employee-month-salary-slip", function () {
         return view("hr.employee-month-salary-slip");
     })->name("employee-month-salary-slip");
-
-    Route::get("Candidate-Contacted-By-Cal-Log", function () {
-        return view("hr.Candidate-Contacted-By-Cal-Log");
-    })->name("Candidate-Contacted-By-Cal-Log");
-
-    Route::get("Edit-Candidate-Details-Contacted-By-Call", function () {
-        return view("hr.Edit-Candidate-Details-Contacted-By-Call");
-    })->name("Edit-Candidate-Details-Contacted-By-Call");
 
     Route::get("recruitment-plan-page-summary", function () {
         return view("hr.recruitment-plan-page-summary");

@@ -173,8 +173,7 @@
                             <br>
                              <h4><b>Job Description</b></h4></br>
                              <pre style='text-align: left; font-weight:600; margin: 0px 15px;'>{{$mailData->job_description}}</pre><br><br>
-                            <h4>Apply! to grab an opportunity </h4><a href=''>Click here</a></br>
-                            <h4>{{$mailData->link}}</h4></br>
+                            <h4>Apply! to grab an opportunity </h4><a href='{{$mailData->link}}'>Click here</a></br>
                             <h4>Best of luck.</h4></br>
                             </br></br>
                             <h4 style='text-align: left;

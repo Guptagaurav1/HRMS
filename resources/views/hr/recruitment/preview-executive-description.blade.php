@@ -24,7 +24,7 @@
                 <div class="d-none">
                     <input type="hidden" name="position_id" value="{{ $request->id }}" />
                     <input type="hidden" name="description" value="{{ $request->job_description }}" />
-                    <input type="hidden" name="state_name" value="{{ $request->getState->state }}" />
+                    <input type="hidden" name="state_name" value="{{ $request->getState ? $request->getState->state : '' }}" />
                     <input type="hidden" name="cityname" value="{{ $request->getCity->city_name }}" />
                     <input type="hidden" name="qualification" value="{{ get_education($request->education) }}" />
                     <input type="hidden" name="skill_set" value="{{ get_skills($request->skill_sets) }}" />
@@ -102,7 +102,7 @@
                 <div class="d-none">
                     <input type="hidden" name="position_id" value="{{ $request->id }}" />
                     <input type="hidden" name="description" value="{{ $request->job_description }}" />
-                    <input type="hidden" name="state_name" value="{{ $request->getState->state }}" />
+                    <input type="hidden" name="state_name" value="{{ $request->getState ? $request->getState->state : '' }}" />
                     <input type="hidden" name="cityname" value="{{ $request->getCity->city_name }}" />
                     <input type="hidden" name="qualification" value="{{ get_education($request->education) }}" />
                     <input type="hidden" name="skill_set" value="{{ get_skills($request->skill_sets) }}" />
@@ -191,7 +191,7 @@
                     </tr>
                     <tr>
                         <td class="bold">State</td>
-                        <td>{{ $request->getState->state }}</td>
+                        <td>{{ $request->getState ? $request->getState->state : '' }}</td>
                     </tr>
                     <tr>
                         <td class="bold">City</td>

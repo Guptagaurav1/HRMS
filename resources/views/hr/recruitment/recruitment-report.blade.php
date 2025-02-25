@@ -71,6 +71,7 @@
                                 <th class="text-center">Completed/Required</th>
                                 <th class="text-center">Action</th>
                                 <th class="text-center">Current Status</th>
+                                <th class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,7 +93,7 @@
                                 </td>
                                 <td class="text-center">{{date('jS F, Y', strtotime($position->created_at))}}</td>
                                 <td class="text-center">{{date('jS F, Y', strtotime($position->date_notified))}}</td>
-                                <td class="text-center">{{$position->getCity->city_name." - ".$position->getState->state}}</td>
+                                <td class="text-center">{{$position->getCity &&  $position->getState ? $position->getCity->city_name." - ".$position->getState->state : '-'}}</td>
                                 <td class="text-center">{{get_username($position->assigned_executive)}}</td>
                                 <td class="text-center">{{$position->no_of_completed_requirements." / ".$position->no_of_requirements}}</td>
                                 <td class="text-center">
@@ -101,6 +102,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
+                                <td><a class="btn btn-primary text-light text-decoration-none" href="{{route('update_position_request', ['id' => $position->id])}}">Edit</a></td>
                             </tr>
                             @empty
                             <tr>
