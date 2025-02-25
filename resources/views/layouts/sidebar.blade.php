@@ -478,7 +478,7 @@
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('generate-invoice')}}" class="sidebar-link">Generate Invoice</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('invoice-list')}}" class="sidebar-link">Invoice List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('create-billing-structure')}}" class="sidebar-link">Create Billing Structure</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('add-biling-tructure')}}" class="sidebar-link">Create Billing Structure</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('biling-structure-list')}}" class="sidebar-link">Billing Structure List</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('form16')}}" class="sidebar-link">Form
                                     16</a>

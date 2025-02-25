@@ -11,19 +11,17 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Saved Invoice</h3>
-
-
             </div>
             <p class="px-3 mt-2">Invoice History</p>
             <div class="col-md-12 d-flex justify-content-start mx-3">
-                <form class="row g-3">
-                    <div class="col-auto mb-3">
-                        <input type="text" class="form-control" placeholder="Search" required>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-
+               <form class="row g-3" method="get">
+                        <div class="col-auto mb-3">
+                            <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                            <a href="{{ route('invoice-list') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                        </div>
                 </form>
             </div>
 
@@ -42,15 +40,22 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($invoices as $value)
                             <tr>
-                                <td>PSSPL/DL/202122/0001</td>
-                                <td>PSSPL Internal Employees</td>
-                                <td>HR</td>
-                                <td>EMPLOYEE</td>
-                                <td class="text-ceter"><a href="{{route('tax-invoice')}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a><span class="text-danger px-2">Not Saved Invoice</span></span></td>
+                                <td>{{$value->ir_invoice_number}}</td>
+                                <td>{{$value->ir_wo}}</td>
+                                <td>{{$value->ir_month}}</td>
+                                <td>{{$value->created_at}}</td>
+                                <td class="text-ceter"><a href="{{route('tax-invoice',[$value->ir_wo,$value->ir_month])}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a><span class="text-danger px-2">Not Saved Invoice</span></span></td>
                             </tr>
-                          
-                           
+                            @empty
+                                <tr >
+                                    <td colspan="5" class="text-center"><span class="text-danger">No Record Found</span></td>
+                                </tr>
+                            @endforelse
+                            <div>
+                            {{ $invoices->links() }}
+                            </div>
                            
                         </tbody>
                     </table>

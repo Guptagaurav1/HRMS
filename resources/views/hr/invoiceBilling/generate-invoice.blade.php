@@ -34,7 +34,7 @@
                                 <label class="form-label">Work Order <span class="text-danger">(Show Only Billing Structure
                                         completed Work Order)</span></label>
                                 <select id="workOrder" name="workOrder" class="form-select">
-                                    <option selected>Select Data</option>
+                                    <option selected>Select Work-Order</option>
                                     
                                 </select>
                             </div>
@@ -113,14 +113,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse($data_qry as $key => $value)
                                     <tr>
-                                        <td>Becil</td>
-                                        <td>BECIL/CG/CMCSL/MAN/2021/511</td>
-                                        <td>Broadcast Engineering Consultant India Limited (BECIL)</td>
+                                        <td>{{$value->project->organizations->name}}</td>
+                                        <td>{{$value->wo_number}}</td>
+                                        <td>{{$month}}</td>
+                                        <td>{{$value->project->project_name}}</td>
                                         <td>09</td>
-                                        <td>09AAACB2575L1ZG	</td>
-                                        <td><a href="{{route('update-billing-structure')}}"><button class="btn btn-sm btn-primary"> <i class="fa fa-download"></i> View Invoice</button></a></td>
+                                        <td><a href="{{route('tax-invoice',[$value->wo_number,$month])}}"><button class="btn btn-sm btn-primary"> <i class="fa fa-download"></i> View Invoice</button></a></td>
                                     </tr>
+                                    @empty
+                                    <tr >
+                                        <td colspan="3" class="text-center"><span class="text-danger">No Record Found</span></td>
+                                    </tr>  
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -139,59 +145,6 @@
 <script src={{asset('assets/js/select2-init.js')}}></script>
 <script src={{asset('assets/js/tab-changes.js')}}></script>
 <script src={{asset('assets/vendor/js/calenderOpen.js')}}></script>
-<script>
-     // project and organisation onchange get datails in add work-order 
-     $('#organisation').on('change', function() {
-        var selectedValue = $(this).val();
-        if (selectedValue) {
-            $.ajax({
-                url: 'organisation-workOrder/' + selectedValue, // Route URL with parameter
-                type: 'GET',
-                success: function(response) {
-                    let dropdown = $("#workOrder");
-                    dropdown.empty();
-                    dropdown.append('<option value="">Select a Project</option>');
-                    let workOrders = response.data;
-                    // Loop through response and append to dropdown
-                    $.each(workOrders, function(key, workOrder) {
-                        dropdown.append('<option value="' + workOrder.wo_number + '">' + workOrder.wo_number + '</option>');
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error:", error);
-                }
-            });
-        } 
-    });
-    $('#workOrder').on('change', function() {
-        var selectedValue = $(this).val();
-        if (selectedValue) {
-            $.ajax({
-                url: 'workOrder-details/' + selectedValue, // Route URL with parameter
-                type: 'GET',
-                success: function(response) {
-                  
-                    let wo_number =response.data.wo_number;
-                    let project_number =response.data.project.project_number;
-                    let wo_resources =response.data.wo_no_of_resources;
-                    let wo_date_of_issue =response.data.wo_date_of_issue;
-                    let wo_start_date =response.data.wo_start_date;
-                    let wo_end_date =response.data.wo_end_date;
-                    $('#work_order').val(wo_number);
-                    $('#project_no').val(project_number);
-                    $('#wo_resources').val(wo_resources);
-                    $('#start_date').val(wo_start_date);
-                    $('#end_date').val(wo_end_date);
-                    $('#date_of_issue').val(wo_date_of_issue);
-                    
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error:", error);
-                }
-            });
-        } 
-    });
-    // project and organisation onchange get datails in add work-order end here
+<script src="{{asset('assets/js/hr/project.js')}}"></script>
 
-</script>
  @endsection
