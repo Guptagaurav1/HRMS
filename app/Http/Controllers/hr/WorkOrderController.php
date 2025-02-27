@@ -312,5 +312,15 @@ class WorkOrderController extends Controller
     }
 
 
+    public function tabs(Request $request){
+        $organization = Organization::orderBy('id','desc')->get();
+        return view("hr.tabs",compact('organization'));
+
+    }
+
+
+
+
+
 
 }

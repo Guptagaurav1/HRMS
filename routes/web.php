@@ -199,7 +199,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
         Route::get("work-order-list","index")->name("work-order-list");
         Route::get("get-work-order","getWorkOrder")->name("get-work-order");
-        Route::get("add-work-order","create")->name("add-work-order");
+        // Route::get("add-work-order","create")->name("add-work-order");
+          Route::get("tabs","tabs")->name("add-work-order");
         Route::post("store-work-order","store")->name("store-work-order");
         Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
         Route::post("update-work-order/{id}","update")->name("update-work-order");
@@ -538,6 +539,21 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("add-company-master", function () {
         return view("hr.add-company-master");
     })->name("add-company-master");
+
+    Route::get("acceptance", function () {
+        return view("hr.acceptance");
+    })->name("acceptance");
+
+    Route::get("user-details-multistep", function () {
+        return view("hr.user-details-multistep");
+    })->name("user-details-multistep");
+
+    Route::get("tab2", function () {
+        return view("hr.tab2");
+    })->name("tab2");
+
+
+  
 
    
 

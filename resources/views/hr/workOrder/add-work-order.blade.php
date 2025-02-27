@@ -1,16 +1,19 @@
 @extends('layouts.master')
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
 
 @endsection
 
 @section('contents')
 
-<div class="fluid-container">
-    <div class="">
-        <h2>Work Order Form</h2>
 
+<div class="fluid-container">
+    
+      
+    </div>
+    <div class="panel-header">
+        <h2>Work Order Form</h2>
     </div>
     <div class="row" id="tab-1">
         <div class="col-12 d-flex justify-content-end">

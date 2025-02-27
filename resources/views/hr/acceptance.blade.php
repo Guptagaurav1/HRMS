@@ -15,7 +15,7 @@
 </head>
 
 <body class="light-theme">
-    <div class="row"  style="background-color:#5D8AA8; height: 100vh;">
+    <div class="row"  style="background-color:#83C0C1; height: 100vh;">
         <div class="col-12 d-flex align-items-center justify-content-center">
             <form class="h-auto px-3 px-md-5 shadow-lg rounded-3 bg-white p-4 mt-1"  id="form_design">
                 <div class="row d-flex gap-3 gap-md-5">
@@ -72,14 +72,14 @@
     </div>
     {{-- Script --}}
 
-    <!-- <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/jquery.overlayScrollbars.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/master.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
-    <script src={{ asset('assets/js/personal-details.js') }}></script> -->
+    <script src={{ asset('assets/js/personal-details.js') }}></script>
 
 </body>
 
