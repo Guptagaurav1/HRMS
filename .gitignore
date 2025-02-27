@@ -20,3 +20,4 @@ yarn-error.log
 /public/attachments/*
 /public/salary-slips/*
 /public/resume/*
+/public/recruitment/candidate_documents/*

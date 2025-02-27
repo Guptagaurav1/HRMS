@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\hr;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use App\Models\State;
 use App\Models\Department;
@@ -21,6 +22,12 @@ use App\Models\UserRequestLog;
 use App\Models\Notification;
 use App\Models\RecPersonalDetail;
 use App\Models\RecAddressDetail;
+use App\Models\RecBankDetail;
+use App\Models\RecEducationalDetail;
+use App\Models\RecPreviousCompany;
+use App\Models\RecEsiDetail;
+use App\Models\RecNomineeDetail;
+use App\Models\ContactedByCallLog;
 use Throwable;
 use Illuminate\Validation\Rules\File;
 use App\Mail\JobDescriptionMail;
@@ -51,7 +58,7 @@ class RecruitmentController extends Controller
         $skills = Skill::select('id', 'skill')->whereNull('deleted_at')->get();
         $roleid = get_role_id('hr_executive');
         $hr_executives = User::select('id', 'first_name', 'last_name')->where('role_id', $roleid)->get();
-        return view(" hr.position-request", compact('departments', 'states', 'functional_role', 'qualification', 'skills', 'hr_executives'));
+        return view("hr.recruitment.position-request", compact('departments', 'states', 'functional_role', 'qualification', 'skills', 'hr_executives'));
     }
 
     /**
@@ -129,7 +136,7 @@ class RecruitmentController extends Controller
     public function recruitment_report()
     {
         $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh')->orderByDesc('id')->paginate(10);
-        return view("hr.recruitment-report", compact('positions'));
+        return view("hr.recruitment.recruitment-report", compact('positions'));
     }
 
     /**
@@ -140,7 +147,7 @@ class RecruitmentController extends Controller
     {
         try {
             $request = PositionRequest::findOrFail($id);
-            return view("hr.preview-executive-description", compact('request'));
+            return view("hr.recruitment.preview-executive-description", compact('request'));
         } catch (Throwable $th) {
             return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
         }
@@ -183,13 +190,14 @@ class RecruitmentController extends Controller
                 'sender_email' => $request->sender_email,
                 'message' => $request->message,
             ]);
-
+           
+            $link = route('guest.recruitment_form', ['id' => encrypt($request->position_id), 'ref' => encrypt($user->email), 'send_mail_id' => encrypt($uni_id)]);
             // Send Mail.
             $maildata = new stdClass();
             $maildata->name = $request->jobseeker_name;
             $maildata->job_position = $request->job_position;
             $maildata->job_description = $request->description;
-            $maildata->link = '<a>Click Here</a>';
+            $maildata->link = $link;
             $maildata->url = '';
             $maildata->sender_name = $user->first_name . " " . $user->last_name;
             $maildata->sender_from = $user->email;
@@ -212,7 +220,7 @@ class RecruitmentController extends Controller
             return response()->json(['success' => true, 'message' => 'Mail Sent Successfully.']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]); 
         }
     }
 
@@ -243,6 +251,7 @@ class RecruitmentController extends Controller
                 $data[] = str_getcsv($line);
             }
             $headers = $data[0];
+            
             // Validate whether headers contain all fields or not.
             if (count($headers) == 2 && in_array("Name", $headers) && in_array("Email", $headers)) {
                 unset($data[0]);
@@ -252,12 +261,12 @@ class RecruitmentController extends Controller
 
                 $user = auth()->user();
                 $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
-
+                $link = route('guest.recruitment_form', ['id' => encrypt($request->position_id), 'ref' => encrypt($user->email)]);
                 // Send Mail.
                 $maildata = new stdClass();
                 $maildata->job_position = $request->job_position;
                 $maildata->job_description = $request->description;
-                $maildata->link = '<a>Click Here</a>';
+                $maildata->link = $link;
                 $maildata->url = '';
                 $maildata->sender_name = $user->first_name . " " . $user->last_name;
                 $maildata->sender_from = $user->email;
@@ -330,7 +339,7 @@ class RecruitmentController extends Controller
 
             $contacts = $contacts->orderByDesc('send_mail_log.id')->paginate(10)->withQueryString();
 
-            return view("hr.show-assign-work-log", compact('position', 'contacts', 'search', 'id'));
+            return view("hr.recruitment.show-assign-work-log", compact('position', 'contacts', 'search', 'id'));
         } catch (Throwable $th) {
             return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
         }
@@ -343,7 +352,7 @@ class RecruitmentController extends Controller
     {
         try {
             $position = PositionRequest::findOrFail($id);
-            return view("hr.preview-job-description", compact('position', 'id'));
+            return view("hr.recruitment.preview-job-description", compact('position', 'id'));
         } catch (Throwable $th) {
             return redirect()->route('show-assign-work-log', ['id' => $id])->with(['error' => true, 'message' => 'Server Error']);
         }
@@ -357,7 +366,7 @@ class RecruitmentController extends Controller
     {
         try {
             $data = RecruitmentForm::findOrFail($rec_id);
-            return view("hr.applicant-recruitment-details-summary", compact('data'));
+            return view("hr.recruitment.applicant-recruitment-details-summary", compact('data'));
         } catch (Throwable $th) {
             return redirect()->route('show-assign-work-log', ['id' => $position])->with(['error' => true, 'message' => 'Server Error']);
         }
@@ -991,7 +1000,7 @@ class RecruitmentController extends Controller
             $user = auth()->user();
             $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
             $sender_name = $user->first_name . " " . $user->last_name;
-            $acceptance_form = route('guest.acceptance_form', ['id' => $request->recruitment]);
+            $acceptance_form = route('guest.acceptance_form', ['id' => encrypt($request->recruitment)]);
             // Content.
             $mail_html = "<div style='text-align: left;margin-left: 10px;'><h4>Congratulation from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
   
@@ -1017,7 +1026,7 @@ class RecruitmentController extends Controller
 
             // Send Mail.
             $maildata = new stdClass();
-            $maildata->subject = $details->job_position . " Interview Stage 2";
+            $maildata->subject = $details->job_position . " Offer Letter";
             $maildata->name = $details->firstname . " " . $details->lastname;
             $maildata->comp_email = $company->email;
             $maildata->comp_phone = $company->mobile;
@@ -1067,7 +1076,8 @@ class RecruitmentController extends Controller
         try {
             $recruitmentId = decrypt($id);
             $details = RecruitmentForm::select('id', 'rec_form_status')->findOrFail($recruitmentId);
-            return view('guest.user_details', compact('id', 'details'));
+            $banks = Bank::select('id', 'name_of_bank')->whereNull('deleted_at')->get();
+            return view('guest.user_details', compact('id', 'details', 'banks'));
         } catch (Throwable $th) {
             return abort(404);
         }
@@ -1097,7 +1107,7 @@ class RecruitmentController extends Controller
     /**
      * Show the Verify Document Form.
      */
-    public function verify_document(Request $request, $id, $position)
+    public function verify_document(Request $request, $id, $position = '')
     {
         try {
             $details = RecruitmentForm::findOrFail($id);
@@ -1244,9 +1254,17 @@ class RecruitmentController extends Controller
     /**
      * Show Acceptance Form.
      */
-    public function show_acceptance_form(Request $request)
+    public function show_acceptance_form($id)
     {
-        return view('guest.acceptance-form');
+        try {
+            $recruitmentId = decrypt($id);
+            $details = RecruitmentForm::select('id', 'firstname', 'lastname', 'email', 'phone', 'job_position', 'doj', 'salary', 'pos_req_id', 'finally')->findOrFail($recruitmentId);
+            // $banks = Bank::select('id', 'name_of_bank')->whereNull('deleted_at')->get();
+            return view('guest.acceptance-form', compact('details', 'id'));
+        } catch (Throwable $th) {
+            return abort(404);
+        }
+
     }
 
     /**
@@ -1256,7 +1274,7 @@ class RecruitmentController extends Controller
     {
         $user = auth()->user(); // Need to 
         $requests = PositionRequest::select('id', 'position_title', 'client_name', 'req_id')->whereRaw('FIND_IN_SET(?, position_requests.assigned_executive)', [$user->id])->get();
-        return view("hr.jd-request", compact('requests'));
+        return view("hr.recruitment.jd-request", compact('requests'));
     }
 
 
@@ -1382,7 +1400,7 @@ class RecruitmentController extends Controller
         }
 
         $logs = $logs->orderByDesc('id')->paginate(10)->withQueryString();
-        return view("hr.user-request-list", compact('logs', 'search'));
+        return view("hr.recruitment.user-request-list", compact('logs', 'search'));
     }
 
     /**
@@ -1628,87 +1646,90 @@ class RecruitmentController extends Controller
      */
     public function save_personal_details(Request $request)
     {
-        $request->validate([
-            'gender' => ['required'],
-            'category' => ['required'],
-            'preferred_location' => ['required'],
-            'father_name' => ['required'],
-            'father_mobile' => ['required'],
-            'nearest_police_station' => ['required'],
-            'marital_status' => ['required'],
-            'aadhar_card_no' => ['required'],
-            'signature' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
-            'photograph' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
-            'language_known' => ['required'],
-            'police_verification_doc' => [File::types(['pdf'])->max('1mb')],
-            'passport_doc' => [File::types(['pdf'])->max('1mb')],
-            'aadhar_card_doc' => ['required', File::types(['pdf'])->max('1mb')],
-            'nearest_police_station' => ['required'],
-        ]);
+        try {
+            $request->validate([
+                'gender' => ['required'],
+                'category' => ['required'],
+                'preferred_location' => ['required'],
+                'father_name' => ['required'],
+                'father_mobile' => ['required'],
+                'nearest_police_station' => ['required'],
+                'marital_status' => ['required'],
+                'aadhar_card_no' => ['required'],
+                'signature' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
+                'photograph' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
+                'language_known' => ['required'],
+                'police_verification_doc' => [File::types(['pdf'])->max('1mb')],
+                'passport_doc' => [File::types(['pdf'])->max('1mb')],
+                'aadhar_card_doc' => ['required', File::types(['pdf'])->max('1mb')],
+                'nearest_police_station' => ['required'],
+            ]);
 
-        $recruitment_id = decrypt($request->rec_id);
-        $obj = new RecPersonalDetail();
-        $obj->fill($request->all());
+            $recruitment_id = decrypt($request->rec_id);
+            $obj = new RecPersonalDetail();
+            $obj->fill($request->all());
 
-        // Store aadhar card.
-        if ($request->hasFile('aadhar_card_doc')) {
-            $file = $request->file('aadhar_card_doc');
-            $aadhar_card_doc = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('recruitment/candidate_documents/aadhar_card'), $aadhar_card_doc);
-            $obj->aadhar_card_doc = $aadhar_card_doc;
+            // Store aadhar card.
+            if ($request->hasFile('aadhar_card_doc')) {
+                $file = $request->file('aadhar_card_doc');
+                $aadhar_card_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/aadhar_card'), $aadhar_card_doc);
+                $obj->aadhar_card_doc = $aadhar_card_doc;
+            }
+
+            // Store Signature.
+            if ($request->hasFile('signature')) {
+                $file = $request->file('signature');
+                $signature = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/sign'), $signature);
+                $obj->signature = $signature;
+            }
+
+            // Store Photograph.
+            if ($request->hasFile('photograph')) {
+                $file = $request->file('photograph');
+                $photograph = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/passport_size_photo'), $photograph);
+                $obj->photograph = $photograph;
+            }
+
+            // Store Police verification document.
+            if ($request->hasFile('police_verification_doc')) {
+                $file = $request->file('police_verification_doc');
+                $police_verification_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/police_verification'), $police_verification_doc);
+                $obj->police_verification_doc = $police_verification_doc;
+            }
+
+            // Store Category Document document.
+            if ($request->hasFile('category_doc')) {
+                $file = $request->file('category_doc');
+                $category_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/category'), $category_doc);
+                $obj->category_doc = $category_doc;
+            }
+
+
+            // Store Passport document.
+            if ($request->hasFile('passport_doc')) {
+                $file = $request->file('passport_doc');
+                $passport_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/category'), $passport_doc);
+                $obj->passport_doc = $passport_doc;
+            }
+
+            $obj->rec_id = $recruitment_id;
+            $obj->status = 'active';
+            $obj->save();
+
+            // Update recuruitment form also.
+            RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'personal_stage']);
+
+            return response()->json(['success' => true, 'message' => 'Personal Form Details Submitted Successfully..']);
         }
-
-        // Store Signature.
-        if ($request->hasFile('signature')) {
-            $file = $request->file('signature');
-            $signature = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('recruitment/candidate_documents/sign'), $signature);
-            $obj->signature = $signature;
+        catch (Throwable $th) {
+            return response()->json(['error' => true,'message' => 'Server Error']);
         }
-
-        // Store Photograph.
-        if ($request->hasFile('photograph')) {
-            $file = $request->file('photograph');
-            $photograph = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('recruitment/candidate_documents/passport_size_photo'), $photograph);
-            $obj->photograph = $photograph;
-        }
-
-        // Store Police verification document.
-        if ($request->hasFile('police_verification_doc')) {
-            $file = $request->file('police_verification_doc');
-            $police_verification_doc = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('recruitment/candidate_documents/police_verification'), $police_verification_doc);
-            $obj->police_verification_doc = $police_verification_doc;
-        }
-
-        // Store Category Document document.
-        if ($request->hasFile('category_doc')) {
-            $file = $request->file('category_doc');
-            $category_doc = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('recruitment/candidate_documents/category'), $category_doc);
-            $obj->category_doc = $category_doc;
-        }
-
-
-        // Store Passport document.
-        if ($request->hasFile('passport_doc')) {
-            $file = $request->file('passport_doc');
-            $passport_doc = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('recruitment/candidate_documents/category'), $passport_doc);
-            $obj->passport_doc = $passport_doc;
-        }
-
-        $obj->rec_id = $recruitment_id;
-        $obj->status = 'active';
-        $obj->save();
-
-        // Update recuruitment form also.
-        RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'personal_stage']);
-
-        return response()->json(['success' => true, 'message' => 'Personal Form Details Submitted Successfully..']);
-
-        // $emp_details = EmployeeDetail::where('emp_code', $request->emp_code)->first();
     }
 
     /**
@@ -1759,4 +1780,859 @@ class RecruitmentController extends Controller
     }
 
     
+    /**
+     * Store bank details of candidate.
+     */
+    public function save_bank_details(Request $request)
+    {
+        try {
+            $request->validate([
+                'bank_name_id' => ['required'],
+                'account_no' => ['required'],
+                'ifsc_code' => ['required'],
+                'bank_doc' => ['required', File::types(['pdf'])->max('1mb')],
+                'pan_card_no' => ['required'],
+                'pan_card_doc' => ['required', File::types(['pdf'])->max('1mb')],
+            ]);
+
+            $recruitment_id = decrypt($request->rec_id);
+            $obj = new RecBankDetail();
+            $obj->fill($request->all());
+
+            // Store bank document.
+            if ($request->hasFile('bank_doc')) {
+                $file = $request->file('bank_doc');
+                $bank_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/bank_account'), $bank_doc);
+                $obj->bank_doc = $bank_doc;
+            }
+
+            // Store pan card document.
+            if ($request->hasFile('pan_card_doc')) {
+                $file = $request->file('pan_card_doc');
+                $pan_card_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/pancard'), $pan_card_doc);
+                $obj->pan_card_doc = $pan_card_doc;
+            }
+
+            $obj->rec_id = $recruitment_id;
+            $obj->save();
+
+            // Update recuruitment form also.
+            RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'bank_stage']);
+
+            return response()->json(['success' => true, 'message' => 'Bank Form Details Submitted Successfully..']);
+        } catch (Throwable $th) {
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+
+    /**
+     * Store education details of candidate.
+     */
+    public function save_education_details(Request $request)
+    {
+        try {
+            $request->validate([
+                'rec_id' => ['required'],
+                '10th_percentage' => ['required'],
+                '10th_year' => ['required'],
+                '10th_board' => ['required'],
+                '10th_doc' => ['required', File::types(['pdf'])->max('1mb')],
+                '12th_doc' => [File::types(['pdf'])->max('1mb')],
+                'grad_doc' => [File::types(['pdf'])->max('1mb')],
+                'post_grad_doc' => [File::types(['pdf'])->max('1mb')]
+            ]);
+
+            $recruitment_id = decrypt($request->rec_id);
+            $obj = new RecEducationalDetail();
+            $obj->fill($request->all());
+
+            // Store 10th class document.
+            if ($request->hasFile('10th_doc')) {
+                $file = $request->file('10th_doc');
+                $tenth_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/10th'), $tenth_doc);
+                $obj->{'10th_doc'} = $tenth_doc;
+            }
+
+            // Store 12th class document.
+            if ($request->hasFile('12th_doc')) {
+                $file = $request->file('12th_doc');
+                $twelth_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/12th'), $twelth_doc);
+                $obj->{'12th_doc'} = $twelth_doc;
+            }
+
+            // Store graduation document.
+            if ($request->hasFile('grad_doc')) {
+                $file = $request->file('grad_doc');
+                $grad_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/graduation'), $grad_doc);
+                $obj->{'grad_doc'} = $grad_doc;
+            }
+
+            // Store post graduation document.
+            if ($request->hasFile('post_grad_doc')) {
+                $file = $request->file('post_grad_doc');
+                $post_grad_doc = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/post_graduation'), $post_grad_doc);
+                $obj->{'post_grad_doc'} = $post_grad_doc;
+            }
+
+            $obj->rec_id = $recruitment_id;
+            $obj->save();
+
+            // Update recuruitment form also.
+            RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'education_stage']);
+
+            return response()->json(['success' => true, 'message' => 'Education Form Details Submitted Successfully.. ']);
+        } catch (Throwable $th) {
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+    /**
+     * Store company details of candidate.
+     */
+    public function save_company_details(Request $request)
+    {
+        try {
+            $request->validate([
+                'rec_id' => ['required'],
+                'company_name' => ['required'],
+                'technologies_worked_in' => ['required'],
+                'projects_worked_in' => ['required'],
+                'designation' => ['required'],
+                'salary_ctc' => ['required'],
+                'take_home_salary' => ['required'],
+                'last_3months_sal_slip_doc' => [File::types(['pdf'])->max('1mb')],
+                '3months_bank_stat_doc' => [File::types(['pdf'])->max('1mb')],
+                'doc_file' => [File::types(['pdf'])->max('1mb')],
+                'start_date' => ['required'],
+                'end_date' => ['required'],
+            ]);
+
+            $recruitment_id = decrypt($request->rec_id);
+            $obj = new RecPreviousCompany();
+            $obj->fill($request->all());
+
+            // Store 10th class document.
+            if ($request->hasFile('last_3months_sal_slip_doc')) {
+                $file = $request->file('last_3months_sal_slip_doc');
+                $three_month_salary = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/sal_slip'), $three_month_salary);
+                $obj->last_3months_sal_slip_doc = $three_month_salary;
+            }
+
+            // Store 12th class document.
+            if ($request->hasFile('3months_bank_stat_doc')) {
+                $file = $request->file('3months_bank_stat_doc');
+                $three_month_stmnt = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/bank_statment'), $three_month_stmnt);
+                $obj->{'3months_bank_stat_doc'} = $three_month_stmnt;
+            }
+
+            // Store graduation document.
+            if ($request->hasFile('doc_file')) {
+                $file = $request->file('doc_file');
+                $doc_file = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/experience_letter'), $doc_file);
+                $obj->doc_file = $doc_file;
+            }
+
+            $obj->rec_id = $recruitment_id;
+            $obj->save();
+
+            // Update recuruitment form also.
+            RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'company_stage']);
+
+            return response()->json(['success' => true, 'message' => 'Company Form Details Submitted Successfully..']);
+        } catch (Throwable $th) {
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+    /**
+     * Store esi details of candidate.
+     */
+    public function save_esi_details(Request $request)
+    {
+        try {
+            $request->validate([
+                'rec_id' => ['required'],
+                'previous_esi_no' => ['required_with:has_esi'],
+            ]);
+
+            $recruitment_id = decrypt($request->rec_id);
+            $obj = new RecEsiDetail();
+            $obj->previous_esi_no = $request->previous_esi_no;
+            $obj->rec_id = $recruitment_id;
+            $obj->save();
+
+            // Update recuruitment form also.
+            RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'esi_stage']);
+            return response()->json(['success' => true, 'message' => 'ESI Form Details Submitted Successfully..']);
+        } catch (Throwable $th) {
+            return response()->json(['error' => true, 'message' => 'Server Error']);
+        }
+    }
+    /**
+     * Store nominee details of candidate.
+     */
+    public function save_nominee_details(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $request->validate([
+                'rec_id' => ['required'],
+                'family_member_name' => ['required'],
+                'relation_with_mem' => ['required'],
+                'aadhar_card_no' => ['required'],
+                'dob' => ['required'],
+                'stay_with_mem' => ['required'],
+                'nominee' => ['required'],
+                'dispensary_near_you' => ['required'],
+                'aadhar_card_doc' => ['required']
+            ]);
+
+            $recruitment_id = decrypt($request->rec_id);
+            $recruitment_data = RecruitmentForm::select('firstname', 'email', 'reference')->findOrFail($recruitment_id);
+            $reference = User::select('id', 'company_id')->where('email', $recruitment_data->reference)->first();
+            
+            for($i = 0; $i < count($request->family_member_name); $i++) {
+                $obj = new RecNomineeDetail();
+                $obj->dispensary_near_you = $request->dispensary_near_you;
+                $obj->nominee = $request->nominee;
+                $obj->rec_id = $recruitment_id;
+                // Store Aadhar Card document.
+                if ($request->hasFile('aadhar_card_doc.'.$i)) {
+                    $file = $request->file('aadhar_card_doc.'.$i);
+                    // $aadharcard = time() . '.' . $file->getClientOriginalExtension();
+                    $aadharcard = $file->hashName();
+                    $file->move(public_path('recruitment/candidate_documents/family_relation_doc'), $aadharcard);
+                    $obj->aadhar_card_doc = $aadharcard;
+                }
+                $obj->family_member_name = $request->family_member_name[$i];
+                $obj->relation_with_mem = $request->relation_with_mem[$i];
+                $obj->aadhar_card_no = $request->aadhar_card_no[$i];
+                $obj->dob = $request->dob[$i];
+                $obj->stay_with_mem = $request->stay_with_mem[$i];
+                $obj->save();
+            }
+            // Save Notification.
+            $description = "$recruitment_data->firstname submitted recruitment mandatory form successfully.";
+            Notification::create([
+                'title' => 'Recruitment Mandatory Form',
+                'description' => $description,
+                'send_by' => $recruitment_data->email,
+                'received_to' => $reference->id,
+                'user_type' => 'hr_executive',
+                'notification_type' => 'candidate_form2',
+            ]);
+          
+            // Send Mail to candidate.
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($reference->company_id);
+
+            $mail_html = "<h4>Your Documents submitted successfully.</h4></br>
+                     <h4>We will verify your documents then proceed to further stages.</h4></br>
+                     </br></br>
+                     <h4 style='text-align: left;
+                     margin-left: 30px;'>Thanks & Regards,</h4></br>";
+
+            $maildata = new stdClass();
+            $maildata->subject = "Mandatory Forms Submission";
+            $maildata->name = $recruitment_data->firstname;
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $mail_html;
+            $maildata->url = url('/');
+            Mail::to($recruitment_data->email)->send(new ShortlistMail($maildata));
+
+            // Send mail to recruiter for further process.
+            $mail_html = "<h4>".$recruitment_data->firstname." Submitted Documents successfully.</h4></br>
+                     <h4>Check the documents and then proceed to next stage.</h4></br>
+                     </br></br>
+                     <h4 style='text-align: left;
+                     margin-left: 30px;'>Thanks & Regards,</h4></br>";
+
+            $maildata = new stdClass();
+            $maildata->subject = "Mandatory Forms Submission";
+            $maildata->name = '';
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $mail_html;
+            $maildata->url = url('/');
+            Mail::to($recruitment_data->reference)->send(new ShortlistMail($maildata));
+
+            // Update recuruitment form also.
+            RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'relationship_stage']);
+
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Thank You for submitting all forms patiently. We will notify you shortly regarding this..']);
+        } catch (Throwable $th) {
+            DB::rollBack();
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+    
+    /**
+     * Offer Letter Accepted candidate.
+     */
+    public function offer_accepted(Request $request)
+    {
+        $this->validate($request, [
+            'terms_and_condition' => ['required'],
+            'rec_id' => ['required'],
+        ]);
+
+        try{
+            $recruitment_id = decrypt($request->rec_id);
+            $details = RecruitmentForm::select('id', 'job_position', 'firstname', 'lastname', 'email', 'reference')->findOrFail($recruitment_id);
+            // Update recuruitment form.
+            RecruitmentForm::where('id', $recruitment_id)->update(['finally' => 'offer_accepted']);   
+            
+            // Save notification.
+            $description = "$details->firstname  $details->lastname accepted offer letter of $details->job_position";
+            $reference = User::select('id', 'company_id')->where('email', $details->reference)->first();
+            Notification::create([
+                  'title' => 'Offer Accepted',
+                  'description' => $description,
+                  'send_by' => $details->email,
+                  'received_to' => $reference->id,
+                  'user_type' => 'hr_executive',
+                  'notification_type' => 'candidate_offer_accepted',
+            ]);
+
+            // Send Mail.
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($reference->company_id);
+
+            $mail_html = "<h4>Offer Letter Accepted Successfully for $details->job_position </h4></br>
+                  <h4>Please wait for further process.</h4></br>
+                  </br></br>
+                  <h4 style='text-align: left;
+                  margin-left: 30px;'>Thanks & Regards,</h4></br>";
+
+            $maildata = new stdClass();
+            $maildata->subject = "$details->job_position Offer Accepted";
+            $maildata->name = $details->firstname." ".$details->lastname;
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $mail_html;
+            $maildata->url = url('/');
+            Mail::to($details->email)->send(new ShortlistMail($maildata));
+
+            return redirect()->route('guest.acceptance_form', ['id' => $request->rec_id])->with(['success' => true,'message' => 'Offer Letter Accepted Successfully..']);
+       }
+       catch (Throwable $th) {
+            return redirect()->route('guest.acceptance_form', ['id' => $request->rec_id])->with(['error' => true,'message' => 'Server Error']);
+       }
+    }
+
+    /**
+     * Print HR Form.
+     */
+    public function print_hr_form($id)
+    {
+        $recruitment_id = decrypt($id);
+        $details = RecruitmentForm::findOrFail($recruitment_id);
+        return view('guest.template.hr-form', compact('details'));
+    }
+
+    /**
+     * Show recruitment Plan list.
+     */
+    public function show_recruitment_list()
+    {
+        return view("hr.recruitment.recruitment-plan");
+    }
+
+    /**
+     * Show recruitment form for candidate.
+     */
+    public function recruitment_form($id, $ref, $send_mail_id)
+    {
+        try {
+            $requestid = decrypt($id);
+            $previous_requests = PositionRequest::select('id')->findOrFail($requestid);
+            $skills = Skill::select('id', 'skill')->whereNull('deleted_at')->get();
+            $already_submit = false;
+            $uniqueid = decrypt($send_mail_id);
+            if(RecruitmentForm::where('send_mail_id', $uniqueid)->exists()){
+                $already_submit = true;
+            }
+            return view("guest.recruitment-form", compact('id', 'ref', 'send_mail_id', 'skills', 'already_submit'));
+        }
+        catch (Throwable $th) {
+            abort(404);
+        }
+    }
+
+    /**
+     * Store recruitment form for candidate.
+     */
+    public function submit_details(Request $request)
+    {
+        try{
+            $this->validate($request, [
+                'req_id' => ['required'],
+                'reference' => ['required'],
+                'send_mail_id' => ['required'],
+                'firstname' => ['required','string','max:255'],
+                'lastname' => ['required','string','max:255'],
+                'email' => ['required','email'],
+                'location' => ['required','string','max:255'],
+                'experience' => ['required'],
+                'dob' => ['required', 'date'],
+                'resume' => ['required', File::types(['pdf'])->max('1mb')],
+                'education' => ['required'],
+                'skill' => ['required'],
+                'phone' => ['required', 'digits:10']
+            ]);
+
+            // Post data.
+            $post_req_id = decrypt($request->req_id);
+            $reference = decrypt($request->reference);
+            $send_mail_id = decrypt($request->send_mail_id);
+            $position = PositionRequest::select('position_title', 'recruitment_type', 'id', 'department')->findOrFail($post_req_id);
+            $user = User::select('id', 'first_name','last_name','phone', 'company_id')->where('email', $reference)->first();
+            $formdata = $request->all();
+            $data = new RecruitmentForm();
+            unset($formdata['req_id']);
+            $data->fill($formdata);
+            // Get Resume.
+            if($request->hasFile('resume')){
+                $resume = $request->file('resume');
+                $ext = $resume->getClientOriginalExtension();
+                $resume_name = time().'_'.rand(1000,9999).'.'.$ext;
+                $resume->move(public_path('recruitment/candidate_documents/employee_resume'), $resume_name);
+                $data->resume = $resume_name;
+            }
+
+            $data->reference = $reference;
+            $data->send_mail_id = $send_mail_id;
+            $data->reference_name = $user->first_name." ".$user->last_name;
+            $data->job_position = $position->position_title;
+            $data->pos_req_id = $post_req_id;
+            $data->department = $position->getDepartment->department;
+            $data->recruitment_type = $position->recruitment_type;
+            $data->skill = implode(",", $data->skill);
+            $data->save();
+
+            // Save as a notification.
+            $description = "$request->firstname $request->lastname submitted recruitment form successfully.";
+            Notification::create([
+                'title' => 'Recruitment Form',
+                'description' => $description,
+                'send_by' => $request->email,
+                'received_to' => $user->id,
+                'user_type' => 'hr',
+                'notification_type' => 'candidate_form1'
+            ]);
+
+            // Send mail to candidate.
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+            $html="<h4>Mr/Mrs ".$request->firstname." ".$request->lastname." will get back to you soon after review of your profile.</h4></br>
+               <h4>We appreciate your patience.</h4></br>
+               </br></br>
+               <h4 style='text-align: left;
+               margin-left: 30px;'>Thanks & Regards,</h4></br></br>
+               <h4 style='text-align: left;
+               margin-left: 30px;'>" . $user->first_name ." ". $user->last_name."</h4></br>
+               <h4 style='text-align: left;
+               margin-left: 30px;'>Email:- " . $user->email . "</h4></br>
+               <h4 style='text-align: left;
+               margin-left: 30px;'>Mobile:- " . $user->phone . "</h4></br>
+               <h4>Note: If you have any query just reply to this email or contact no. which is listed above. </h4>";
+            $maildata = new stdClass();
+            $maildata->subject = $position->position_title." Cv is under review";
+            $maildata->name = $request->firstname . " " . $request->lastname;
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $html;
+            $maildata->url = url('/');
+            Mail::to($request->email)->send(new ShortlistMail($maildata));
+
+            // Send Mail to HR Executive.
+            $html = "<h4>This is message regarding Interested candidate.</h4></br>
+            <h4>Details are mention below.</h4></br>
+            <table border='2'>
+                        <tbody>
+                            <tr>
+                                <th colspan='2'>Candidate Details</th>
+                            </tr>
+                            <tr>
+                            <td>Name:</td>
+                            <td>" . $request->firstname . " " . $request->lastname . "</td>
+                            </tr>
+
+                            <tr>
+                            <td>Job Position:</td>
+                            <td>" . $position->position_title . "</td>
+                            </tr>
+
+                            <tr>
+                            <td>Location:</td>
+                            <td>" . $request->location . "</td>
+                            </tr>
+
+                            <tr>
+                            <td>Education:</td>
+                            <td>" . $request->education . "</td>
+                            </tr>
+                            
+                            <tr>
+                            <td>Email:</td>
+                            <td>" . $request->email . "</td>
+                            </tr>
+                            <tr>
+                            <td>Phone:</td>
+                            <td>" . $request->phone . "</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </br></br>
+            <h4 style='text-align: left;
+            margin-left: 30px;'>Thanks & Regards,</h4></br></br>
+            <h4 style='text-align: left;
+            margin-left: 30px;'>" . $user->first_name." ". $user->last_name."</h4></br>
+            <h4 style='text-align: left;
+            margin-left: 30px;'>Email:- " . $user->email . "</h4></br>
+            <h4 style='text-align: left;
+            margin-left: 30px;'>Mobile:- " . $user->phone . "</h4></br>
+            <h4>Note: If you have any query just reply to this email or contact no. which is listed above. </h4>";
+            
+            $maildata->subject = $position->position_title." Interested Candidate Message";
+            $maildata->name = $user->first_name . " " . $user->last_name;
+            $maildata->content = $html;
+            Mail::to($reference)->send(new ShortlistMail($maildata));
+
+            return response()->json(['success' => true, 'message' => 'Form Submitted Successfully. Check your mail.. ']);
+        }
+        catch (Throwable $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+
+        }
+       
+    }
+
+    /**
+     * Show update request form.
+     * @param $requestid
+     */
+    public function update_position_request($requestid)
+    {
+        try{
+            $record = PositionRequest::findOrFail($requestid);
+            $departments = Department::select('id', 'department')->whereNull('deleted_at')->get();
+            $states = State::select('id', 'state')->whereNull('deleted_at')->get();
+            $functional_role = FunctionalRole::select('id', 'role')->whereNull('deleted_at')->get();
+            $qualification = Qualification::select('id', 'qualification')->whereNull('deleted_at')->get();
+            $skills = Skill::select('id', 'skill')->whereNull('deleted_at')->get();
+            $roleid = get_role_id('hr_executive');
+            $hr_executives = User::select('id', 'first_name', 'last_name')->where('role_id', $roleid)->get();
+            return view("hr.recruitment.update-position", compact('record', 'departments', 'states', 'functional_role', 'qualification', 'skills', 'hr_executives'));
+        }
+        catch (Throwable $th) {
+            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
+        }
+    }
+
+    /**
+     * Update position request.
+     * @param Request $request
+     */
+    public function update_position(Request $request)
+    {
+        $this->validate($request, [
+            'id' => ['required'],
+            'position_title' => ['required'],
+            'client_name' => ['required'],
+            'department' => ['required'],
+            'employment_type' => ['required'],
+            'no_of_requirements' => ['required'],
+            'state' => ['required'],
+            'city' => ['required'],
+            'salary_from' => ['required'],
+            'salary_to' => ['required'],
+            'functional_role' => ['required'],
+            'job_description' => ['required'],
+            'remarks' => ['required'],
+            'education' => ['required'],
+            'exp_from' => ['required'],
+            'exp_to' => ['required'],
+            'skill_sets' => ['required'],
+            'assigned_executive' => ['required'],
+            'attachment' => [File::types(['pdf'])->max('2mb')]
+        ]);
+
+        try {
+            if ($request->file('attachment')) {
+                $file = $request->file('attachment');
+                $path = public_path('position-request/attachments');
+                $full_filename = $file->getClientOriginalName();
+                $filename = explode(".", $full_filename);
+                $filename = $filename[0] . "_" . time() . "." . $filename[1];
+                $request->attachment->move($path, $filename);
+            }
+            $record = PositionRequest::findOrFail($request->id);
+            $record->fill($request->all());
+            $record->salary_range = $request->salary_from . "," . $request->salary_to;
+            $record->functional_role = implode(",", $record->functional_role);
+            $record->experience = $request->exp_from . "," . $request->exp_to;
+            $record->education = implode(",", $record->education);
+            $record->assigned_executive = implode(",", $record->assigned_executive);
+            $record->skill_sets = implode(",", $record->skill_sets);
+            $record->attachment = !empty($filename) ? $filename : '';
+            $record->save();
+
+            return redirect()->route('recruitment-report')->with(['success' => true, 'message' => 'Position Updated Successfully.']);
+        }
+        catch (Throwable $e) {
+            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
+        }
+    
+    } 
+
+    /**
+     * Show Add Contact Form.
+     */
+    public function contact_form()
+    {   
+        $positions = PositionRequest::select('position_title', 'client_name')->get();
+        $qualification = Qualification::select('id', 'qualification')->whereNull('deleted_at')->get();
+        return view("hr.recruitment.addcontact-form", compact('positions', 'qualification'));
+    }
+
+    /**
+     * Store call detail by recruiter.
+     */
+    public function store_call_detail(Request $request)
+    {   
+        $this->validate($request, [
+            'job_position' => ['required'],
+            'remarks' => ['required'],
+            'resume' => ['required', File::types(['pdf'])->max('2mb')],
+            'location' => ['required'],
+            'qualification' => ['required'],
+            'notice_period' => ['required'],
+            'exp_ctc' => ['required'],
+            'curr_ctc' => ['required'],
+            'experience' => ['required'],
+            'phone_no' => ['required', 'digits:10'],
+            'name' => ['required'],
+            'email' => ['required', 'email']
+        ]);
+        try{
+            $user = auth()->user();
+            $job_position = explode(',', $request->job_position);
+            $job_pos_title = $job_position[0];
+            $client_name = $job_position[1];
+            
+            $obj = new ContactedByCallLog();
+            $obj->fill($request->all());
+            $obj->job_position = $job_pos_title;
+            $obj->client_name = $client_name;
+            $obj->qualification = implode(",", $request->qualification);
+
+            if ($request->hasFile('resume')) {
+                $file = $request->file('resume');
+                $path = public_path('resume');
+                $full_filename = $file->getClientOriginalName();
+                $filename = explode(".", $full_filename);
+                $filename = $filename[0] . "_" . time() . "." . $filename[1];
+                $request->resume->move($path, $filename);
+                $obj->resume = !empty($filename) ? $filename : '';
+            }
+            $obj->rec_email = $user->email;
+            $obj->rec_type = get_role_name($user->role_id);
+            $obj->save();
+            return redirect()->route("recruitment.call_logs")->with(['success' => true, 'message' => 'Details Saved Successfully.']);
+        }
+        catch (Throwable $e) {
+            return redirect()->route("recruitment.call_logs")->with(['error' => true, 'message' => 'Server Error']);
+        }
+    }
+
+    /**
+     * Show the list of call logs of recruiter.
+     */
+    public function call_logs(Request $request)
+    {   
+        $logs = ContactedByCallLog::select('contacted_by_call_logs.name', 'contacted_by_call_logs.email AS candidate_email', 'contacted_by_call_logs.resume', 'contacted_by_call_logs.client_name', 'contacted_by_call_logs.job_position', 'contacted_by_call_logs.remarks', 'contacted_by_call_logs.phone_no', 'contacted_by_call_logs.created_at','contacted_by_call_logs.id', 'users.first_name', 'users.last_name', 'users.email')->leftJoin('users', 'contacted_by_call_logs.rec_email', '=', 'users.email');
+        $searchvalue = '';
+        if ($request->search) {
+            $searchvalue = $request->search;
+            $search = '%' . $request->search . '%';
+            $logs = $logs->where(function ($query) use ($search) {
+                $query->where('contacted_by_call_logs.name', 'LIKE', $search)
+                    ->orWhere('contacted_by_call_logs.email', 'LIKE', $search)
+                    ->orWhere('contacted_by_call_logs.client_name', 'LIKE', $search)
+                    ->orWhere('contacted_by_call_logs.remarks', 'LIKE', $search)
+                    ->orWhere('contacted_by_call_logs.phone_no', 'LIKE', $search)
+                    ->orWhere('users.email', 'LIKE', $search)
+                    ->orWhereRaw('CONCAT(users.first_name, " ", users.last_name) LIKE ?', [$search]);
+            });
+        }
+        $logs = $logs->orderByDesc('contacted_by_call_logs.id')->paginate(10)->withQueryString();
+        return view("hr.recruitment.Candidate-Contacted-By-Cal-Log", compact('logs', 'searchvalue'));
+    }
+
+    /**
+     * Delete call log by recruiter.
+     * @param $id
+     */
+    public function edit_call_log($id)
+    {
+        try {
+            $log = ContactedByCallLog::findOrFail($id);
+            $positions = PositionRequest::select('position_title', 'client_name')->get();
+            $qualification = Qualification::select('id', 'qualification')->whereNull('deleted_at')->get();
+            return view("hr.recruitment.editcontact-form", compact('positions', 'qualification', 'id', 'log'));
+        }
+        catch (Throwable $e) {
+            return redirect()->route("recruitment.call_logs")->with(['error' => true,'message' => 'Server Error']);
+        }
+    }
+
+    /**
+     * Update call detail by recruiter.
+     */
+    public function update_call_log(Request $request)
+    {   
+        $this->validate($request, [
+            'id' => ['required', 'integer'],
+            'job_position' => ['required'],
+            'remarks' => ['required'],
+            'resume' => [File::types(['pdf'])->max('2mb')],
+            'location' => ['required'],
+            'qualification' => ['required'],
+            'notice_period' => ['required'],
+            'exp_ctc' => ['required'],
+            'curr_ctc' => ['required'],
+            'experience' => ['required'],
+            'phone_no' => ['required', 'digits:10'],
+            'name' => ['required'],
+            'email' => ['required', 'email']
+        ]);
+        try{
+            $job_position = explode(',', $request->job_position);
+            $job_pos_title = $job_position[0];
+            $client_name = $job_position[1];
+            
+            $obj = ContactedByCallLog::findOrFail($request->id);
+            $obj->fill($request->all());
+            $obj->job_position = $job_pos_title;
+            $obj->client_name = $client_name;
+            $obj->qualification = implode(",", $request->qualification);
+
+            if ($request->hasFile('resume')) {
+                $file = $request->file('resume');
+                $path = public_path('resume');
+                $full_filename = $file->getClientOriginalName();
+                $filename = explode(".", $full_filename);
+                $filename = $filename[0] . "_" . time() . "." . $filename[1];
+                $request->resume->move($path, $filename);
+                $obj->resume = !empty($filename) ? $filename : '';
+            }
+            $obj->save();
+            return redirect()->route("recruitment.call_logs")->with(['success' => true, 'message' => 'Details Updated Successfully.']);
+        }
+        catch (Throwable $e) {
+            return redirect()->route("recruitment.call_logs")->with(['error' => true, 'message' => 'Server Error']);
+        }
+    }
+
+    /**
+     * Export excel of call log.
+     */
+    public function export_call_log(Request $request)
+    {
+        $logs = ContactedByCallLog::select('contacted_by_call_logs.name', 'contacted_by_call_logs.email AS candidate_email', 'contacted_by_call_logs.resume', 'contacted_by_call_logs.client_name', 'contacted_by_call_logs.job_position', 'contacted_by_call_logs.experience', 'contacted_by_call_logs.curr_ctc', 'contacted_by_call_logs.exp_ctc', 'contacted_by_call_logs.notice_period', 'contacted_by_call_logs.qualification','contacted_by_call_logs.remarks', 'contacted_by_call_logs.location', 'contacted_by_call_logs.phone_no')->leftJoin('users', 'contacted_by_call_logs.rec_email', '=', 'users.email');
+        if ($request->searchvalue) {
+            $search = '%' . $request->searchvalue . '%';
+            $logs = $logs->where(function ($query) use ($search) {
+                $query->where('contacted_by_call_logs.name', 'LIKE', $search)
+                    ->orWhere('contacted_by_call_logs.email', 'LIKE', $search)
+                    ->orWhere('contacted_by_call_logs.client_name', 'LIKE', $search)
+                    ->orWhere('contacted_by_call_logs.remarks', 'LIKE', $search)
+                    ->orWhere('contacted_by_call_logs.phone_no', 'LIKE', $search);
+                });
+        };
+        $logs = $logs->orderByDesc('contacted_by_call_logs.id');
+        $filename = 'call_logs.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        return response()->stream(function () use ($logs) {
+            $handle = fopen('php://output', 'w');
+
+            // Add CSV headers
+            fputcsv($handle, [
+                'S No.',
+                'Job Position',
+                'Client Name',
+                'Candidate Name',
+                'Candidate Email',
+                'Phone No.',
+                'Experience',
+                'Current CTC',
+                'Expected CTC',
+                'Notice Period',
+                'Education',
+                'Location',
+                'Remarks'
+            ]);
+            $i = 1;
+            $logs->chunk(100, function (Collection $logvalues) use ($i, $handle) {
+                foreach ($logvalues as $log) {
+                    $data = [
+                        $i,
+                        isset($log->job_position) ? $log->job_position : '',
+                        isset($log->client_name) ? $log->client_name : '',
+                        isset($log->name) ? $log->name : '',
+                        isset($log->candidate_email) ? $log->candidate_email : '',
+                        isset($log->phone_no) ? $log->phone_no : '',
+                        isset($log->experience) ? $log->experience : '',
+                        isset($log->curr_ctc) ? $log->curr_ctc : '',
+                        isset($log->exp_ctc) ? $log->exp_ctc : '',
+                        isset($log->notice_period) ? $log->notice_period : '',
+                        isset($log->qualification) ? $log->qualification : '',
+                        isset($log->location) ? $log->location : '',
+                        isset($log->remarks) ? $log->remarks : '',
+                    ];
+    
+                    fputcsv($handle, $data);
+                    $i++;
+                }
+            });
+            fclose($handle);
+        }, 200, $headers);
+    }
+
+    /**
+     * Show the list of candidate to whom offer letter shared.
+     */
+    public function offer_letter_shared_list()
+    {
+       $data = RecruitmentForm::select('id', 'firstname', 'lastname', 'email', 'phone', 'job_position', 'location', 'experience', 'recruitment_status', 'pos_req_id')->where('recruitment_type', 'fresh')
+            ->where(function ($query) {
+                $query->where('finally', 'offer-letter-sent')
+                    ->orWhere('finally', 'offer_accepted')
+                    ->orWhere('finally', 'docs_checked');
+            })->orderByDesc('id')->paginate(10);
+        return view("hr.recruitment.offerlettershared-list", compact('data'));
+    }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Offer Letter Shared List'])
 
 @section('style')
 
@@ -44,7 +44,7 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="srno-column">Recruitment Id</th>
+                                <th class="srno-column">S No.</th>
                                 <th class="rid-column">Name</th>
                                 <th>Contact Details</th>
                                 <th class="attributes-column">Job Position</th>
@@ -56,21 +56,37 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($data as $record)
                             <tr>
-                                <td class="srno-column">1</td>
-                                <td class="rid-column">Gaurav</td>
-                                <td>g.kashyap@iitg.ac.in / 9636252935</td>
-                                <td> Sales and Marketing Specialist</td>
-                                <td>Prakhar Software Solutions Pvt. Ltd.</td>
+                                <td class="srno-column">{{$loop->iteration}}</td>
+                                <td class="rid-column">{{$record->firstname." ".$record->lastname}}</td>
+                                <td>{{$record->email." / ".$record->phone}}</td>
+                                <td>{{$record->job_position}}</td>
+                                <td>{{$record->getPositionDetail ? $record->getPositionDetail->client_name : ''}}</td>
                                 <td> 
-                                    Prakhar Software Solutions Pvt. Ltd, Malviya Nagar, New Delhi
+                                    {{$record->location}}
                                 </td>
-                                <td>1</td>
-                                <td><span class="badge alert-success">Recruitment Process</span></td>
-                                <td><a href="{{route('applicant-recruitment-details-summary')}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a></td>
+                                <td>{{$record->experience}}</td>
+                                <td>
+                                    @if($record->recruitment_status == 0)
+                                    <span class="badge alert-success">Recruitment Process</span>
+                                    @else
+                                    <span class="badge alert-info">Direct Process</span>
+                                    @endif
+                                </td>
+                                <td><a href="{{route('applicant-recruitment-details-summary', ['rec_id' => $record->id, 'position' => $record->pos_req_id])}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a></td>
                             </tr>
+                            @empty
+                                <tr>
+                                    <td class="td text-danger text-center" colspan="9">No Record Found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                </div>
+
+                <div class="col-md-12 d-flex justify-content-center my-2">
+                    {{$data->links()}}
                 </div>
             </div>
         </div>

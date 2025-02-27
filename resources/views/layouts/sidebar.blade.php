@@ -432,10 +432,10 @@
                             <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">Position Request</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('recruitment-report')}}" class="sidebar-link">Recruitment Report</a></li>
                             <li class="sidebar-dropdown-item"><a href="{{route('recruitment-list')}}" class="sidebar-link">Recruitment List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('recruitment-plan')}}" class="sidebar-link">Recruitment Plan</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('position-review-dept')}}" class="sidebar-link">Position Review Dept</a></li>
+                            {{-- <li class="sidebar-dropdown-item"><a href="{{route('recruitment-plan')}}" class="sidebar-link">Recruitment Plan</a></li> --}}
+                            {{-- <li class="sidebar-dropdown-item"><a href="{{route('position-review-dept')}}" class="sidebar-link">Position Review Dept</a></li> --}}
                             <li class="sidebar-dropdown-item"><a href="{{route('addcontact-form')}}" class="sidebar-link">Add Contact Form</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('offerlettershared-list')}}" class="sidebar-link">Offer Letter Shared List</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('recruitment.offerlettershared-list')}}" class="sidebar-link">Offer Letter Shared List</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-dropdown-item">
