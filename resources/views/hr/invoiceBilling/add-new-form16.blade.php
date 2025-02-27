@@ -33,11 +33,12 @@
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Employee PAN No</label>
-                        <select id="inputState" class="form-select">
+                        <select id="inputState" class=" selectpicker form-select">
                             <option value="">Select Employee</option>
-                            <option value="0">Shift 1</option>
-                            <option value="1">Shift 2</option>
-                            <option value="2">Shift 3</option>
+                            @foreach($empDetail as $key => $value)
+                            <option value="{{$value->id}}">{{$value->emp_pan}}</option>
+                            @endforeach
+                            
                         </select>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">

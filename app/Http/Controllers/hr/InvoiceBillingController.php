@@ -11,6 +11,7 @@ use App\Models\WorkOrder;
 use App\Models\InvoiceRecord;
 use App\Models\CompanyMaster;
 use App\Models\BillingStructure;
+use App\Models\EmpDetail;
 use DB;
 use Illuminate\Validation\Rule;
 
@@ -351,12 +352,7 @@ class InvoiceBillingController extends Controller
         // dd($billing_strut);
         return view("hr.invoiceBilling.biling-structure-list",compact('billing_strut','search'));
     }
-    public function form16(){
-        return view("hr.invoiceBilling.form16");
-    }
-    public function addForm16(){
-        return view("hr.invoiceBilling.add-new-form16");
-    }
+   
     public function add_biling_structure(Request $request){
         $organizations = Organization::select('id','name')->orderBy('id','desc')->get();
         
@@ -438,5 +434,18 @@ class InvoiceBillingController extends Controller
         return redirect()->route('biling-structure-list')->with('success','Billing Structure updated !');
     }
     
+    // form16 function strat here
+    public function form16(){
+       
+        return view("hr.invoiceBilling.form16");
+    }
+    public function addForm16(){
+        $empDetail = EmpDetail::select('emp_id','emp_pan')->where('emp_status','Active')->where('emp_current_working_status','active')->get();
+        // dd($empDetail);
+        return view("hr.invoiceBilling.add-new-form16",compact('empDetail'));
+    }
+    
+
+    // form16 function end here
     
 }

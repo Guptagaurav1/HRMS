@@ -18,8 +18,17 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h2 class="mt-2">Generate Work-order Report</h2>
-                        
+                        <h2 class="mt-2">Generate Report</h2>
+                        <div class=" px-2 mt-4">
+                            @if($project_details)
+                            <div class="row col-sm-4 col-md-4"> <h5>Organisation  :- {{$project_details->organizations->name}}</h5>
+                            </div>
+                            <div class=" row col-sm-4 col-md-4"> <h5>Project Name :- {{$project_details->project_name}}</h5>
+                            </div>
+                            <div class=" row col-sm-4 col-md-4"> <h5>Project Number  :- {{$project_details->project_number}}</h5>
+                            </div>
+                            @endif
+                        </div>
                     </div>
                 
                 
@@ -35,27 +44,6 @@
                         @endif
                     </div>
                     <div class="table-responsive">
-                    @if(!empty($wo_details))
-                        <div class="col-sm-10 col-md-10 text-end">
-                        @if($zipFilePath)
-                            <a href="{{ asset('storage/' . basename($zipFilePath)) }}" class="btn btn-success mb-3" target="_blank">Download ZIP</a>
-                        @else
-                            <p>No files to download.</p>
-                        @endif
-                    </div>
-                 
-                    @foreach($wo_details as $project_id => $wo_detail)
-                    <div class=" col-sm-12 col-md-12">
-                           
-                            <div class="row col-sm-12 col-md-4"> <h5>Organisation  :- {{$wo_detail[0]->project->organizations->name}}</h5>
-                            </div>
-                            <div class=" row col-sm-12 col-md-4"> <h5>Project Name :- {{$wo_detail[0]->project->project_name}}</h5>
-                            </div>
-                            <div class=" row col-sm-4 col-md-4"> <h5>Project Number  :- {{$wo_detail[0]->project->project_number}}</h5>
-                            </div>
-                           
-                    </div>
-                    
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                             <thead>
                                 <tr>
@@ -69,8 +57,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               
-                                    @foreach($wo_detail as $key => $value)
+                                @if(!empty($woReport))
+                                    @foreach($woReport as $key => $value)
                                         <tr>
                                             <td>{{$value->wo_number}}</td>
                                             <td>{{$value->wo_project_coordinator}}</td>
@@ -83,32 +71,18 @@
                                         </tr>
                                          
                                     @endforeach
-                                    
+                                    @else
+                                    <tr>
+                                        <td class="text-danger text-center" colspan="12">No Record Found</td>
+                                    </tr>
+                                    @endif
                                     <tr>
                                         <td>Total Amount</td>
                                         <td colspan="5"></td>
-                                    
-                                        <td> INR {{ number_format($wo_detail->wo_pro_sum, 2) }}</td>
+                                        <td> INR {{ number_format($totalAmount, 2) }}</td>
                                     </tr>
                             </tbody>
                         </table>
-                    @endforeach
-
-                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped">
-                        <thead>
-                            <tr>
-                                <th colspan="7" class="center"> Total Work Orders Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Total Amount</td>
-                                <td colspan="5"></td>
-                                <td> INR {{ number_format($overallSum, 2) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    @endif
                         <div class="col-12 d-flex justify-content-center mt-2">
                             <button id="printButton" class="btn btn-sm btn-primary button" onclick="window.print()">Print List</button>
                         </div>

@@ -80,7 +80,7 @@ class ProjectController extends Controller
         ->get();
         $totalAmount = $woReport->sum('wo_amount');
        
-        return view("hr.workOrder.work-order-report",compact('woReport','project_details','totalAmount'));
+        return view("hr.workOrder.project-wo-report",compact('woReport','project_details','totalAmount'));
     }
 
     public function create(){

@@ -207,6 +207,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
         Route::get("organisation-workOrder/{or_id}","organisation_workOrder")->name("organisation-workOrder");
         Route::get("workOrder-details/{workOrder_id}","workOrder_details")->name("workOrder-details");
+        Route::post("work-order-report","work_order_report")->name("work-order-report");
 
     });
     /////////// workorder routes end ///////
