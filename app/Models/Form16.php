@@ -5,29 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WorkOrder extends Model
+class Form16 extends Model
 {
     use HasFactory;
-    
+    protected $table = 'form16';
 
-    
-
-    public function contacts()
+    public function empDetail()
     {
-        return $this->hasMany(WoContactDetail::class);
+        return $this->belongsTo(EmpDetail::class, 'emp_id', 'emp_id');
     }
 
-    public function project()
-    {
-        return $this->belongsTo(Project::class); // Assuming 'project_id' is a foreign key
-    }
-
-    public function State()
-    {
-        return $this->belongsTo(State::class); // Assuming 'state_id' is a foreign key
-    }
-
-    
     public static function boot()
     {
         parent::boot();
@@ -45,8 +32,5 @@ class WorkOrder extends Model
                 $model->save();
             });
         }
-        
     }
-
-    
 }

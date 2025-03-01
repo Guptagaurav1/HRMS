@@ -12,8 +12,10 @@ use App\Models\InvoiceRecord;
 use App\Models\CompanyMaster;
 use App\Models\BillingStructure;
 use App\Models\EmpDetail;
+use App\Models\Form16;
 use DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceBillingController extends Controller
 {
@@ -34,12 +36,12 @@ class InvoiceBillingController extends Controller
             ->count();
            
             // Check salary calculation
-            // $sal_rows = EmpSalarySlip::join('emp_details', 'emp_details.emp_code', '=', 'emp_salary_slip.sal_emp_code')
-            //     ->where('emp_salary_slip.sal_month', $month)
-            //     ->where('emp_details.emp_work_order', $wo_number)
-            //     ->count();
+            $sal_rows = EmpSalarySlip::join('emp_details', 'emp_details.emp_code', '=', 'emp_salary_slip.sal_emp_code')
+                ->where('emp_salary_slip.sal_month', $month)
+                ->where('emp_details.emp_work_order', $wo_number)
+                ->count();
                
-            $sal_rows='122';
+            // $sal_rows='122';
 
             // Check if attendance and salary rows match
             if ($attend_rows > 0 && $sal_rows > 0 && $attend_rows == $sal_rows) {
@@ -400,9 +402,7 @@ class InvoiceBillingController extends Controller
         return view("hr.invoiceBilling.update-billing-structure",compact('billingStructure'));
     }
     public function update_biling_structure(Request $request, String $id){
-        // dd($id);
-        // dd($request->billing_to);
-        // $id=$request->id;
+       
         $request->validate([
             'billing_to' => 'required',
             'billing_address' => 'required',
@@ -435,14 +435,181 @@ class InvoiceBillingController extends Controller
     }
     
     // form16 function strat here
-    public function form16(){
-       
-        return view("hr.invoiceBilling.form16");
+    public function form16(Request $request){
+        $search =$request->search;
+        $form16 = Form16::select('form16.*')
+        ->with(['empDetail' => function ($query) use ($search) {
+            $query->select('emp_id', 'emp_code', 'emp_name', 'emp_work_order'); 
+            if ($search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('emp_code', 'like', '%' . $search . '%')
+                          ->orWhere('emp_name', 'like', '%' . $search . '%')
+                          ->orWhere('emp_work_order', 'like', '%' . $search . '%');
+                });
+            }
+        }])
+        ->when($search, function ($query) use ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('financial_year', 'like', '%' . $search . '%')
+                      ->orWhere('pan_no', 'like', '%' . $search . '%');
+            });
+        })
+        ->orderByDesc('id') 
+        ->get();
+        // dd($form16);    
+        return view("hr.invoiceBilling.form16",compact('form16','search'));
     }
     public function addForm16(){
+
         $empDetail = EmpDetail::select('emp_id','emp_pan')->where('emp_status','Active')->where('emp_current_working_status','active')->get();
-        // dd($empDetail);
+       
         return view("hr.invoiceBilling.add-new-form16",compact('empDetail'));
+    }
+    public function create(Request $request){
+        $request->validate([
+              'emp_pan'=>'required',
+              'financial_year'=>'required'
+        ]);
+       
+       if ($request->hasFile('file') && $request->file('file')->isValid()) {
+       
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('Form16', $fileName, 'public');
+        }else{
+          
+            $fileName="";
+        }
+      
+        $form = new Form16();
+        $form->pan_no =$request->pan_no;
+        $form->emp_id =$request->emp_pan;
+        $form->attachment =$fileName;
+        $form->financial_year =$request->financial_year;
+        $form->save();
+
+        return redirect()->route('form16')->with('success','Form16 created !');
+        
+    }
+    
+
+
+    public function emp_data(Request $request,string $id){
+        $id =$request->id;
+        $empDetail = EmpDetail::select('emp_id','emp_pan','emp_code','emp_work_order','emp_name')->where('emp_id',$id)->first();
+        // dd($empDetail);
+        if($empDetail){
+            return response()->json([
+                'message' => 'Employee Details retrieved successfully',
+                'data' => $empDetail
+            ], 200);
+        }
+
+    }
+
+    public function uploadForm16(Request $request)
+    {
+        $total = 0;
+        $failedCount = 0;
+
+        // Check if the 'zip_data' file is present in the request
+        if ($request->hasFile('zip_data')) {
+            $file = $request->file('zip_data');
+            $attachment = $file->getClientOriginalName();
+            $attachmentTemp = $file->getRealPath();
+            $attachmentStore = public_path('Documents/Form16/Zip/') . $attachment;
+
+            // Move the uploaded file to the desired location
+            $file->move(public_path('Documents/Form16/Zip/'), $attachment);
+
+            $folderName = pathinfo($attachment, PATHINFO_FILENAME);
+
+            $zip = new ZipArchive;
+            $resZip = $zip->open(public_path('Documents/Form16/Zip/' . $attachment));
+
+            if ($resZip === TRUE) {
+                // Extract the ZIP contents to a specified directory
+                $zip->extractTo(public_path('Documents/Form16/'));
+                $zip->close();
+            } else {
+                return back()->with('error', 'Failed to open the ZIP file');
+            }
+
+            $currentDir = public_path('Documents/Form16/' . $folderName);
+            $parentDir = public_path('Documents/Form16');
+            $failedDir = public_path('Documents/Form16/failed');
+
+            $files = scandir($currentDir);
+
+            foreach ($files as $file) {
+                if ($file == '.' || $file == '..') {
+                    continue;
+                }
+
+                $sourceFile = $currentDir . DIRECTORY_SEPARATOR . $file;
+                $destFile = $parentDir . DIRECTORY_SEPARATOR . $file;
+                $failedFile = $failedDir . DIRECTORY_SEPARATOR . $file;
+
+                // Check if it's a file and does not already exist in the parent directory
+                if (is_file($sourceFile) && !file_exists($destFile)) {
+
+                    $document = basename($sourceFile, ".docx");
+                    $fileData = explode("_", $document);
+                    $panNo = $fileData[0];
+                    $financialYear = $fileData[1];
+
+                    // Use Eloquent to check if the record exists in the form16 table
+                    $form16Count = Form16::where('pan_no', $panNo)
+                                        ->where('financial_year', $financialYear)
+                                        ->count();
+
+                    if ($form16Count < 2) {
+                        // Fetch emp_id based on the pan_no
+                        $emp = EmpDetail::where('emp_pan', $panNo)->first();
+
+                        if ($emp) {
+                           
+                            rename($sourceFile, $destFile);
+                            $empId = $emp->emp_id;
+
+                            Form16::create([
+                                'emp_id' => $empId,
+                                'pan_no' => $panNo,
+                                'financial_year' => $financialYear,
+                                'attachment' => $document,
+                                'source' => 'bulk_upload',
+                               
+                            ]);
+
+                            $total++;
+                        } else {
+                            // Move the file to the failed directory if no emp_id found
+                            rename($sourceFile, $failedFile);
+
+                            // Insert into form16_failed table using Eloquent
+                            Form16Failed::create([
+                                'pan_no' => $panNo,
+                                'financial_year' => $financialYear,
+                                'attachment' => $document,
+                                'source' => 'bulk_upload',
+                                'added_by' => auth()->user()->id // Assuming you have a logged-in user
+                            ]);
+
+                            $failedCount++;
+                        }
+                    } else {
+                        // Move the file to the failed directory if more than 1 record exists
+                        rename($sourceFile, $failedFile);
+                        $failedCount++;
+                    }
+                }
+            }
+
+            return redirect()->route('form16')
+                            ->with('success', "Total: $total & Failed Count: $failedCount Form16 Added");
+        } else {
+            return back()->with('error', 'No file uploaded or invalid ZIP file');
+        }
     }
     
 

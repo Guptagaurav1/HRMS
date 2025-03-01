@@ -192,7 +192,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-4 text-wrap">
                                                 <label class="form-label text-wrap">Amendment date</label>
-                                                <input name= "amendment_date" id="amendment_date"type="date" class="form-control form-control-sm" placeholder="State" value="{{ old('amendment_date') }}">
+                                                <input name= "amendment_date" id="amendment_date"type="date" class="form-control form-control-sm" placeholder="Amendment date" value="{{ old('amendment_date') }}">
                                             </div>
                                             <div class="col-sm-12 col-md-4 text-wrap">
                                                 <label class="form-label text-wrap">Previous Order No</label>
@@ -284,11 +284,12 @@
                                     </div>
                                     <div class="col-sm-12 col-md-4 text-wrap">
                                         <label class="form-label text-wrap">State</label>
-                                        <select  class="form-select form-control">
-                                            <option value=""> Select Gender</option>
-                                            <option value="0">Male</option>
-                                            <option value="1">Female</option>
-                                            <option value="2">Others</option>
+                                        <select  class="form-select form-control" name="invoice_state">
+                                            <option value=""> Select State</option>
+                                            @foreach($state as $key => $value)
+                                                <option value="{{$value->id}}">{{ $value->state }}</option>
+                                            @endforeach
+                                           
                                         </select>
                                     </div>
                                     <div class="col-sm-12 col-md-4 text-wrap">
