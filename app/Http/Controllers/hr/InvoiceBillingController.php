@@ -13,9 +13,12 @@ use App\Models\CompanyMaster;
 use App\Models\BillingStructure;
 use App\Models\EmpDetail;
 use App\Models\Form16;
+use App\Models\Form16Failed;
 use DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
+use Illuminate\Support\Facades\File;
 
 class InvoiceBillingController extends Controller
 {
@@ -509,107 +512,116 @@ class InvoiceBillingController extends Controller
 
     public function uploadForm16(Request $request)
     {
-        $total = 0;
-        $failedCount = 0;
-
-        // Check if the 'zip_data' file is present in the request
-        if ($request->hasFile('zip_data')) {
-            $file = $request->file('zip_data');
-            $attachment = $file->getClientOriginalName();
-            $attachmentTemp = $file->getRealPath();
-            $attachmentStore = public_path('Documents/Form16/Zip/') . $attachment;
-
-            // Move the uploaded file to the desired location
-            $file->move(public_path('Documents/Form16/Zip/'), $attachment);
-
-            $folderName = pathinfo($attachment, PATHINFO_FILENAME);
-
+       
+            $total = 0;
+            $failedCount = 0;
+    
+            // Validate the uploaded zip file
+            $request->validate([
+                'zip_data' => 'required|file|mimes:zip|max:10240',
+            ]);
+    
+            // Handle the uploaded zip file
+            $zipFile = $request->file('zip_data');
+            $zipFileName = $zipFile->getClientOriginalName();
+            $zipFilePath = $zipFile->storeAs('Form16/Zip', $zipFileName, 'public');
+            $zipFilePath = public_path('Form16/Zip') . '/' . $zipFileName;
+            $zipFile->move(public_path('Form16/Zip'), $zipFileName);
+    
+            // Initialize the ZipArchive object
             $zip = new ZipArchive;
-            $resZip = $zip->open(public_path('Documents/Form16/Zip/' . $attachment));
-
+            $resZip = $zip->open($zipFilePath);
+    
             if ($resZip === TRUE) {
-                // Extract the ZIP contents to a specified directory
-                $zip->extractTo(public_path('Documents/Form16/'));
+                // Extract files from the ZIP to the target directory
+                $zip->extractTo(public_path('Form16'));
                 $zip->close();
             } else {
-                return back()->with('error', 'Failed to open the ZIP file');
+                return redirect()->route('form16')->with('error', 'Failed to open ZIP file.');
             }
-
-            $currentDir = public_path('Documents/Form16/' . $folderName);
-            $parentDir = public_path('Documents/Form16');
-            $failedDir = public_path('Documents/Form16/failed');
-
-            $files = scandir($currentDir);
-
+    
+            // Define directories for processed and failed files
+            $folderName = pathinfo($zipFileName, PATHINFO_FILENAME);
+            $currentDir = public_path('Form16') . '/' . $folderName;
+            $failedDir = public_path('Form16/failed');
+    
+            if (!File::exists($failedDir)) {
+                File::makeDirectory($failedDir, 0777, true);
+            }
+    
+            // Get all files from the extracted folder
+            $files = File::allFiles($currentDir);
+    
             foreach ($files as $file) {
-                if ($file == '.' || $file == '..') {
+                $fileName = $file->getFilename();
+                $filePath = $file->getRealPath();
+                $destinationPath = public_path('Form16') . '/' . $fileName;
+                
+                $failedPath = $failedDir . '/' . $fileName;
+    
+                // Process the file only if it is a PDF, DOC, or DOCX
+                $extension = strtolower($file->getExtension());
+                if (!in_array($extension, ['pdf', 'doc', 'docx'])) {
+                    File::move($filePath, $failedPath);
+                    $failedCount++;
                     continue;
                 }
-
-                $sourceFile = $currentDir . DIRECTORY_SEPARATOR . $file;
-                $destFile = $parentDir . DIRECTORY_SEPARATOR . $file;
-                $failedFile = $failedDir . DIRECTORY_SEPARATOR . $file;
-
-                // Check if it's a file and does not already exist in the parent directory
-                if (is_file($sourceFile) && !file_exists($destFile)) {
-
-                    $document = basename($sourceFile, ".docx");
-                    $fileData = explode("_", $document);
+    
+                // Extract PAN and financial year from the filename
+                $fileData = explode('_', pathinfo($fileName, PATHINFO_FILENAME));
+    
+                if (count($fileData) >= 2) {
                     $panNo = $fileData[0];
                     $financialYear = $fileData[1];
-
-                    // Use Eloquent to check if the record exists in the form16 table
-                    $form16Count = Form16::where('pan_no', $panNo)
-                                        ->where('financial_year', $financialYear)
-                                        ->count();
-
-                    if ($form16Count < 2) {
-                        // Fetch emp_id based on the pan_no
-                        $emp = EmpDetail::where('emp_pan', $panNo)->first();
-
-                        if ($emp) {
-                           
-                            rename($sourceFile, $destFile);
-                            $empId = $emp->emp_id;
-
+    
+                    $form16 = Form16::where('pan_no', $panNo)->where('financial_year', $financialYear)->first();
+    
+                    if (!$form16) {
+                        // check for employee ID
+                        $employee = EmpDetail::where('emp_pan', $panNo)->first();
+                       
+                        if ($employee) {
+                            // Move file to the correct directory and insert data into the database
+                            File::move($filePath, $destinationPath);
+    
                             Form16::create([
-                                'emp_id' => $empId,
+                                'emp_id' => $employee->emp_id,
                                 'pan_no' => $panNo,
                                 'financial_year' => $financialYear,
-                                'attachment' => $document,
+                                'attachment' => $fileName,
                                 'source' => 'bulk_upload',
-                               
+                              
                             ]);
-
                             $total++;
-                        } else {
-                            // Move the file to the failed directory if no emp_id found
-                            rename($sourceFile, $failedFile);
-
-                            // Insert into form16_failed table using Eloquent
+                        } 
+                        else {
+                            // Move to failed directory if no employee found
+                            File::move($filePath, $failedPath);
+    
                             Form16Failed::create([
                                 'pan_no' => $panNo,
                                 'financial_year' => $financialYear,
-                                'attachment' => $document,
+                                'attachment' => $fileName,
                                 'source' => 'bulk_upload',
-                                'added_by' => auth()->user()->id // Assuming you have a logged-in user
+                                'added_by' => auth()->id(),
                             ]);
-
                             $failedCount++;
                         }
                     } else {
-                        // Move the file to the failed directory if more than 1 record exists
-                        rename($sourceFile, $failedFile);
+                        // If duplicate entry found, move to the failed directory
+                        File::move($filePath, $failedPath);
                         $failedCount++;
                     }
+                } else {
+                    // If filename format is incorrect, move to failed directory
+                    File::move($filePath, $failedPath);
+                    $failedCount++;
                 }
             }
-
-            return redirect()->route('form16')
-                            ->with('success', "Total: $total & Failed Count: $failedCount Form16 Added");
-        } else {
-            return back()->with('error', 'No file uploaded or invalid ZIP file');
-        }
+    
+            // Return response with result
+            return redirect()->route('form16')->with('success', "Total: $total & Failed Count: $failedCount Form16 Added");
+        
     }
     
 

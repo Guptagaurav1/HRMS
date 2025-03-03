@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Form16 extends Model
+class Form16Failed extends Model
 {
     use HasFactory;
-    protected $table = 'form16';
+    protected $table = 'form16_failed';
 
     public function empDetail()
     {
