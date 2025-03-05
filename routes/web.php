@@ -300,7 +300,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         
         Route::get("form16-list",'form16')->name('form16');
         Route::get("add-new-form16",'addForm16')->name('add-new-form16');
-        Route::post("create-new-form16",'createForm16')->name('create-new-form16');
+        Route::post("create-form16",'create')->name('create-form16');
+        Route::get("emp-data/{id}",'emp_data')->name('emp-data');
+        Route::post("upload-form16",'uploadForm16')->name('upload-form16');
 
     });
 });

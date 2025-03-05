@@ -39,4 +39,6 @@ class EmpDetail extends Authenticatable
         return $this->hasMany(WoAttendance::class, 'emp_id', 'emp_id');
     }
 
+    
+
 }

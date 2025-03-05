@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\WorkOrder;
 use App\Models\WoContactDetail;
 use App\Models\Organization;
+use App\Models\State;
 use Throwable;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
@@ -111,94 +112,13 @@ class WorkOrderController extends Controller
     }
     
 
-    // public function getWorkOrder(Request $request){
-    //     $arrData = [];
-    //     $draw              =     $request->get('draw')??1; // Internal use
-    //     $start             =     $request->get("start")??0; // where to start next records for pagination
-    //     $rowPerPage        =     $request->get("length")??10; // How many recods needed per page for pagination
-    //     $orderArray        =     $request->get('order');
-    //     $columnNameArray   =     $request->get('columns'); // It will give us columns array
-    //     $searchArray       =     $request->get('search');
-    //     $columnIndex       =     $orderArray[0]['column']??NULL;  
-    //     $columnName        =     'id'; 
-    //     $columnSortOrder   =     $orderArray[0]['dir']??'desc'; // This will get us order direction(ASC/DESC)
-    //     $searchValue       =     $searchArray['value']??NULL; // This is search value
-        
-        
-    //     $totalWorkOrders = WorkOrder::with(['project.organizations', 'contacts' => function ($query) {
-    //         $query->orderBy('id', 'desc');
-    //     }]);
-       
-    //     if (!empty($searchValue)) {
-    //         $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($searchValue) {
-    //             $query->where('wo_internal_ref_no', 'like', '%' . $searchValue . '%')
-    //             ->orWhere('wo_number', 'like', '%' . $searchValue . '%')
-    //             ->orWhere('wo_date_of_issue', 'like', '%' . $searchValue . '%')
-    //             ->orWhere('wo_project_coordinator', 'like', '%' . $searchValue . '%')
-    //             ->orWhere('prev_wo_no', 'like', '%' . $searchValue . '%')
-    //             ->orWhere('wo_amount', 'like', '%' . $searchValue . '%')
-
-    //             ->orWhereHas('project', function ($query) use ($searchValue) {
-    //                 $query->where('project_name', 'like', "%$searchValue%")
-    //                 ->orWhere('empanelment_reference', 'like', '%' . $searchValue . '%')
-    //                 ->orWhere('project_number', 'like', '%' . $searchValue . '%');
-    //             })
-    //             ->orWhereHas('contacts', function ($query) use ($searchValue) {
-    //                 $query->where('wo_client_contact_person', 'like', '%' . $searchValue . '%') 
-    //                     ->orWhere('wo_client_email', 'like', '%' . $searchValue . '%');
-    //             })
-    //             ->orWhereHas('project.organizations', function ($query) use ($searchValue) {
-    //                 $query->where('name', 'like', "%$searchValue%");
-    //             });
-    //         });
-    //     }
-       
-    //     $for_arrData = $totalWorkOrders;
-    //     $total_filtered_data = $totalWorkOrders->count();
-        
-    //     $arrData = $for_arrData->skip($start)->take($rowPerPage);
-    //     $arrData= $for_arrData->orderBy($columnName,$columnSortOrder)->get()->toArray();
-    //     $total = count($arrData);
-    //     // dd($arrData);
-    //     $org_name =[];
-    //     foreach($arrData as $key => $value){
-           
-    //         $action='<a href="'.route('edit-work-order',$value['id']).'"><button type="submit" class="btn btn-primary mb-3">Edit</button></a> <a href="'.route('view-work-order',$value['id']).'"><button type="submit" class="btn btn-primary mb-3">View</button></a> <a href="'.route('go-to-attendance',$value['id']).'" title="Go To Attandence"><button type="submit" class="btn btn-primary mb-3">Attandence</button></a> <a href="'.route('work-order-salary-sheet').'" title="Go To Salary Sheet"><button type="submit" class="btn btn-primary mb-3">Salary Sheet</button></a>';
-            
-    //         if(!empty($value['wo_attached_file'])){
-    //             $wo_attached_file='<a href="'.asset('storage/uploadWorkOrder/' . $value['wo_attached_file']).'" ><button type="submit" class="btn btn-primary mb-3" target="_blank"> Download</button></a>';
-    //         }else{
-    //             $wo_attached_file='Not Uploaded'; 
-    //         }
-    //         // dd($value['contacts']);
-    //             if (!empty($value['contacts'][0])) {
-    //                 $wo_details = $value['contacts'][0]['wo_client_contact_person'] . '/' . $value['contacts'][0]['wo_client_email'];
-    //             } else {
-    //                 $wo_details = "Not Available";
-    //             }
-              
-    //             $date = $value['created_at'];
-    //             $added_at = date('Y-m-d', strtotime($date));;
-    //             $arrData[$key] +=[ 
-    //                 'wo_details' =>$wo_details,
-    //                 'attached_file' =>$wo_attached_file,
-    //                 'added_at' =>$added_at,
-    //                 'action' => $action
-    //             ];
-    //             //    dd($arrData);         
-    //     }
-        
-    //     return Response()->json(['draw'=>$draw,'recordsTotal'=>$total,'recordsFiltered'=>$total_filtered_data,'data'=>$arrData]);
     
-    // }
-
     public function create(){
-        $organization = Organization::orderBy('id','desc')->get();
-        return view("hr.workOrder.add-work-order",compact('organization'));
+        $organization = Organization::select('id','name')->orderBy('id','desc')->get();
+        $state = State::select('id','state')->orderBy('id','asc')->get();
+        return view("hr.workOrder.add-work-order",compact('organization','state'));
     }
     public function store(Request $request){
-        // dd($request);
-       
             $request->validate([
                 'organisation' => 'required',
                 'project_name' => 'required',
@@ -276,8 +196,8 @@ class WorkOrderController extends Controller
        
         $workOrder = WorkOrder::with('project.organizations','contacts')->findOrFail($id);
         $organization = Organization::orderBy('id','desc')->get();
-        // dd($workOrder);
-        return view("hr.workOrder.edit-work-order",compact('workOrder','organization'));
+        $state = State::select('id','state')->orderBy('id','asc')->get();
+        return view("hr.workOrder.edit-work-order",compact('workOrder','organization','state'));
     
     }
     public function update(Request $request,string $id){
@@ -406,14 +326,13 @@ class WorkOrderController extends Controller
         }
     }
      
-    
-
     public function work_order_report(Request $request){
         if(empty($request->checkbox)){
             return redirect()->route('work-order-list')->with('success','Please check atleast one checkbox !');
         }
         $wo_details =  workOrder::with('project.organizations')->whereIn('id',$request->checkbox)->orderBy('id', 'desc')->get();
         $wo_details =$wo_details->groupby('project_id');
+        
         $overallSum = 0;
         // Array to store the project workorder sums
         $projectSums = [];
@@ -427,26 +346,24 @@ class WorkOrderController extends Controller
             // $wo_doc =[];
             foreach($workOrders as $value){
                 if(!empty( $value->wo_attached_file)){
-                    $wo_doc[] = $value->wo_attached_file;
+
+                    $wo_doc[] = $value->wo_attached_file;  
                 }else{
                     $wo_doc =[];
                 }
             }
         }
         $zipFilePath = null;
-        // if (count($wo_doc) > 0) {
-        //     // Call the helper function to create a zip of the work order documents
-        //     $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
-        // }
+        if (count($wo_doc) > 0) {
+            // Call the helper function to create a zip of the work order documents
+            $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
+        }
         // dd($wo_doc);
+       
         return view("hr.workOrder.work-order-report",compact('wo_details','overallSum','zipFilePath'));
     }
 
     
-
-
-
-
 
 
 }

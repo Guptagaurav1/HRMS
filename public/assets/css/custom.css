@@ -592,6 +592,7 @@ label{
   height: 100vh;
 }
 
+/* work-order css start here */
 .tabset > input[type="radio"] {
   position: absolute;
   left: -200vw;
@@ -661,8 +662,6 @@ input:focus-visible + label {
 *:after {
   box-sizing: border-box;
 }
-
-
 
 .tabset {
   max-width: 65em;
@@ -804,12 +803,73 @@ button:focus {
   }
 }
 
+  
+.employee-tab {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
 
+.employee-tab ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border-bottom: 2px solid #ddd;
+}
 
+.employee-tab li {
+  flex: 1;
+  text-align: center;
+}
 
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
+.tab-btn:hover {
+  color: slategrey;
+}
 
+.tab-btn.active {
+  color: #fff;
+  background-color: slategray;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px slategrey;
+}
 
+.tab-content {
+  padding: 20px;
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.tab-btn {
+  position: relative;
+}
+           
+.tab-btn:hover:after {
+  width: 100%;
+}
+
+.tab-btn.active:after {
+  width: 100%;
+  left: 0;
+}
 
 
 

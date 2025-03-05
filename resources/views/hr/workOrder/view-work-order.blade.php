@@ -63,7 +63,7 @@
                                 <label class="form-label text-wrap">
                                     Project Number
                                 </label>
-                                <input type="text" class="form-control form-control-sm" readonly value="{{$workOrder->wo_project_number}}"
+                                <input type="text" class="form-control form-control-sm" readonly value="{{$workOrder->project->project_number}}"
                                     placeholder="Enter Project Number">
                             </div>
 
@@ -73,7 +73,7 @@
                                 <label class="form-label text-wrap">
                                     Project Name
                                 </label>
-                                <input type="text" class="form-control form-control-sm" readonly value="{{$workOrder->wo_project_name}}" placeholder="Project Name">
+                                <input type="text" class="form-control form-control-sm" readonly value="{{$workOrder->project->project_name}}" placeholder="Project Name">
                             </div>
                             <div class="col-sm-12 col-md-4 text-wrap">
                                 <label class="form-label text-wrap">
@@ -85,7 +85,7 @@
                                 <label class="form-label text-wrap">
                                     Empanelment Reference
                                 </label>
-                                <input type="text" class="form-control form-control-sm" readonly value="{{$workOrder->wo_empanelment_reference}}" placeholder="Empanelment Reference">
+                                <input type="text" class="form-control form-control-sm" readonly value="{{$workOrder->empanelment_reference}}" placeholder="Empanelment Reference">
                             </div>
 
                         </div>

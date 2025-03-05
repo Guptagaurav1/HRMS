@@ -348,8 +348,7 @@ class AttendanceController extends Controller
           
             $sal_total_deduction =  $sal_pf_employee + $sal_esi_employee +$sal_medical_insurance + $sal_accidental_insurance+ $sal_tax + $tds_deduction;
             $sal_net = $sal_gross - $sal_total_deduction - $sal_recovery - $sal_advance;
-           ///////////////////
-          
+           
             $at_emp = $check_emp."". $attendance_month;
             $workOrder_id =$request->work_order;
             $workOrder= WorkOrder::find($workOrder_id);
@@ -412,17 +411,17 @@ class AttendanceController extends Controller
         $workOrder= WorkOrder::find($wo_id);
         $wo_number= $workOrder->wo_number??NULL;
         $m_y = $request->attendance_month;
-        $wo_emps = WoAttendance::select('*', 'work.wo_start_date')
+        // dd($m_y);
+        $wo_emps = WoAttendance::select('*')
                 ->join('emp_details', 'wo_attendances.emp_id', '=', 'emp_details.emp_id')
                 ->join('salary', 'salary.sl_emp_code', '=', 'wo_attendances.emp_code')
-                ->leftJoin('work_orders as work', 'work.wo_number', '=', 'emp_details.emp_work_order')
+                // ->leftJoin('work_orders as work', 'work.wo_number', '=', 'emp_details.emp_work_order')
                 ->where('wo_attendances.attendance_month', $m_y)
                 ->where('emp_details.emp_status', 'Active')
                 ->where('emp_details.emp_sal_structure_status', 'completed')
-                
-                ->where('wo_attendances.wo_number', $wo_number)
+                ->where('emp_details.emp_work_order', $wo_number)
                 ->paginate(10)->appends(request()->query());
-                // dd($m_y);
+                // dd($wo_emps);
         return view("hr.attendance.wo-generate-salary-list",compact('wo_emps','wo_number','m_y'));
     }
 }
