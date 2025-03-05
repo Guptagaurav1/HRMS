@@ -43,7 +43,9 @@
         @yield('contents')
         @include('layouts.footer')
     </div>
-
+    <div>
+        @yield('modal')
+    </div>
     <script src="{{asset('assets/vendor/js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('assets/vendor/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{asset('assets/vendor/js/apexcharts.js')}}"></script>
