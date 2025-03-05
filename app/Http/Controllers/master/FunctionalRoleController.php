@@ -18,7 +18,7 @@ class FunctionalRoleController extends Controller
     public function index()
     {
         $roles = FunctionalRole::orderByDesc('id')->paginate(10);
-        return view('hr.functional-role', compact('roles'));
+        return view('hr.functionalRole.functional-role', compact('roles'));
     }
 
     /**
@@ -26,7 +26,7 @@ class FunctionalRoleController extends Controller
      */
     public function create()
     {
-        return view('hr.add_functional_role');
+        return view('hr.functionalRole.add_functional_role');
     }
 
     /**
@@ -75,7 +75,7 @@ class FunctionalRoleController extends Controller
     {
         try{
             $data = FunctionalRole::findOrFail($id);
-            return view('hr.edit-functional_role', compact('data')); 
+            return view('hr.functionalRole.edit-functional_role', compact('data')); 
         }
         catch(Throwable $th){
             return redirect()->route('functional-role')->with(['error' => true, 'message' => 'Server Error.']); 

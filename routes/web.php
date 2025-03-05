@@ -60,6 +60,15 @@ Route::middleware('guest')->group(function () {
         Route::get('acceptance-form/{id}', 'show_acceptance_form')->name('guest.acceptance_form');
         Route::post('store-personal-details', 'save_personal_details');
         Route::post('store-address-details', 'save_address_details');
+        Route::post('store-bank-details', 'save_bank_details');
+        Route::post('store-education-details', 'save_education_details');
+        Route::post('store-company-details', 'save_company_details');
+        Route::post('store-esi-details', 'save_esi_details');
+        Route::post('store-nominee-details', 'save_nominee_details');
+        Route::post('offer-accepted', 'offer_accepted')->name('guest.offer_accepted');
+        Route::get('print-hr-form/{id}', 'print_hr_form')->name('guest.print_hr_form');
+        Route::get('recruitment-form/{id}/{ref}/{send_mail_id}', 'recruitment_form')->name('guest.recruitment_form');
+        Route::post('submit-details', 'submit_details');
     });
 });
 
@@ -152,7 +161,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('send-offer-letter', 'send_offer_letter');
         Route::post('joined', 'store_join_status');
         Route::post('backout', 'backout_candidate');
-        Route::get("verify-documents/{id}/{position}", 'verify_document')->name("verify-documents");
+        Route::get("verify-documents/{id}/{position?}", 'verify_document')->name("verify-documents");
         Route::post("check-documents", 'check_verify');
         Route::post("complete-joining-formalities", 'complete_joining_formalities');
         Route::post("preview-offer-letter", 'preview_offer_letter');
@@ -164,6 +173,17 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("list", 'recruitment_list')->name("recruitment-list");
         Route::post("save-candidate", 'store')->name("recruitment.store");
         Route::post("export-recruitment", 'export_csv')->name("recruitment.export_csv");
+        Route::get("recruitment-plan", 'show_recruitment_list')->name("recruitment-plan");
+        Route::get("position-update/{id}", 'update_position_request')->name("update_position_request");
+        Route::post("update-position", 'update_position')->name("recruitment.update_position");
+        Route::get("addcontact-form", 'contact_form')->name("addcontact-form");
+        Route::post("submit-call-detail", 'store_call_detail')->name("recruitment.store_call_detail");
+        Route::get("call-logs", 'call_logs')->name("recruitment.call_logs");
+        Route::get("edit-call-log/{id}", 'edit_call_log')->name("recruitment.edit-call_log");
+        Route::post("update-call-log", 'update_call_log')->name("recruitment.update-call_log");
+        Route::post("export-call-log", 'export_call_log')->name("recruitment.export_call_log");
+        Route::get("offerlettershared-list", 'offer_letter_shared_list')->name("recruitment.offerlettershared-list");
+      
     });
 
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
@@ -199,8 +219,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
         Route::get("work-order-list","index")->name("work-order-list");
         Route::get("get-work-order","getWorkOrder")->name("get-work-order");
-        // Route::get("add-work-order","create")->name("add-work-order");
-          Route::get("tabs","tabs")->name("add-work-order");
+        Route::get("add-work-order","create")->name("add-work-order");
         Route::post("store-work-order","store")->name("store-work-order");
         Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
         Route::post("update-work-order/{id}","update")->name("update-work-order");
@@ -208,6 +227,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
         Route::get("organisation-workOrder/{or_id}","organisation_workOrder")->name("organisation-workOrder");
         Route::get("workOrder-details/{workOrder_id}","workOrder_details")->name("workOrder-details");
+        Route::post("work-order-report","work_order_report")->name("work-order-report");
 
     });
     /////////// workorder routes end ///////
@@ -269,26 +289,20 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/",'index')->name('generate-invoice');
         Route::post("invoice-details",'invoice_details')->name('invoice-details');
         Route::get("invoice-list",'invoice_list')->name('invoice-list');
+        Route::get("tax-invoice/{wo}/{month}", 'tax_slip')->name("tax-invoice");
+        Route::post("save-tax-slip", 'save_slip')->name("save-tax-slip");
+    
         Route::get("biling-structure-list",'biling_structure')->name('biling-structure-list');
+        Route::get("add-billing-structure",'add_biling_structure')->name('add-biling-tructure');
+        Route::post("create-billing-structure",'create_biling_structure')->name('create-billing-structure');
+        Route::get("edit-billing-structure/{id}",'edit_biling_structure')->name('edit-billing-structure');
+        Route::post("update-billing-structure/{id}",'update_biling_structure')->name('update-billing-structure');
+        
         Route::get("form16-list",'form16')->name('form16');
         Route::get("add-new-form16",'addForm16')->name('add-new-form16');
         Route::post("create-new-form16",'createForm16')->name('create-new-form16');
-        Route::get("create-billing-structure",'create_biling_structure')->name('create-billing-structure');
 
-        Route::post("add",'add_invoice_billing')->name('add-invoice-billing');
-        Route::post("create",'create_invoice_billing')->name('create-invoice-billing');
-
-      
     });
-
-        
-
-
-
-
-
-
-
 });
 
 
@@ -358,18 +372,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // Route::get("users-list", function () {
     //     return view(" hr.users-list");
     // })->name("users-list");
-
-    Route::get("recruitment-plan", function () {
-        return view(" hr.recruitment-plan");
-    })->name("recruitment-plan");
-
-    Route::get("addcontact-form", function () {
-        return view(" hr.addcontact-form");
-    })->name("addcontact-form");
-
-    Route::get("offerlettershared-list", function () {
-        return view(" hr.offerlettershared-list");
-    })->name("offerlettershared-list");
 
     Route::get("position-review-dept", function () {
         return view(" hr.position-review-dept");
@@ -480,14 +482,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.employee-month-salary-slip");
     })->name("employee-month-salary-slip");
 
-    Route::get("Candidate-Contacted-By-Cal-Log", function () {
-        return view("hr.Candidate-Contacted-By-Cal-Log");
-    })->name("Candidate-Contacted-By-Cal-Log");
-
-    Route::get("Edit-Candidate-Details-Contacted-By-Call", function () {
-        return view("hr.Edit-Candidate-Details-Contacted-By-Call");
-    })->name("Edit-Candidate-Details-Contacted-By-Call");
-
     Route::get("recruitment-plan-page-summary", function () {
         return view("hr.recruitment-plan-page-summary");
     })->name("recruitment-plan-page-summary");
@@ -496,13 +490,13 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.edit-salary");
     })->name("edit-salary");
 
-    Route::get("update-billing-structure", function () {
-        return view("hr.update-billing-structure");
-    })->name("update-billing-structure");
+    // Route::get("update-billing-structure", function () {
+    //     return view("hr.update-billing-structure");
+    // })->name("update-billing-structure");
 
-    Route::get("tax-invoice", function () {
-        return view("hr.tax-invoice");
-    })->name("tax-invoice");
+    // Route::get("tax-invoice", function () {
+    //     return view("hr.tax-invoice");
+    // })->name("tax-invoice");
 
     Route::get("invoice-encloser", function () {
         return view("hr.invoice-encloser");
@@ -540,17 +534,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.add-company-master");
     })->name("add-company-master");
 
-    Route::get("acceptance", function () {
-        return view("hr.acceptance");
-    })->name("acceptance");
-
-    Route::get("user-details-multistep", function () {
-        return view("hr.user-details-multistep");
-    })->name("user-details-multistep");
-
-    Route::get("tab2", function () {
-        return view("hr.tab2");
-    })->name("tab2");
+    
 
 
   

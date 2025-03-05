@@ -22,4 +22,20 @@
 		$newdate = $date1 . "-" . $month1 . "-" . $year1;
 		return $newdate;
 	}
+	function numberToCurrency($num)
+	{
+		$number = sprintf('%.2f', $num);
+		$num = preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $number);
+
+		return '₹ ' . $num;
+	}
+
+	function humanReadableFormat($num)
+	{
+		if ($num == NULL || $num == '') {
+			return "N/A";
+		} else {
+			return date("jS F, Y", strtotime($num));
+		}
+	}
 ?>

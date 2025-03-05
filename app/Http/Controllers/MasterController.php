@@ -30,7 +30,7 @@ class MasterController extends Controller
     public function company_details(Request $request)
     {
         $details = CompanyMaster::get();
-        return view("hr.company-master", compact('details'));
+        return view("hr.company.company-master", compact('details'));
     }
 
 

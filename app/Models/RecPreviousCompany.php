@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class RecPreviousCompany extends Model
 {
     use HasFactory, SoftDeletes;
+    
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 }

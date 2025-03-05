@@ -1,11 +1,7 @@
 @extends('layouts.master')
-
 @section('style')
-
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
 @endsection
-
 @section('contents')
 <div class="fluid-container">
     <form method="post" action="{{ route('store-manage-role') }}">
@@ -28,19 +24,11 @@
                                         <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            
                         </div>
                     </div>
                     <div class="col-md-12 panel_1 ">
                         <label class="form-label">Select Roles *</label>
-                     
-                            
-                               
-                        
-                                
-                                 
                                     <div class="col-12">
-                                        
                                         <div class="row h-auto">
                                             @foreach ($menus as $section => $menu )
                                                 <div class="col-12">
@@ -64,21 +52,23 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                    </div>
-                
-                                   
-                             
-                            
+                                    </div>  
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12 d-flex justify-content-end ">
-                
             <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </form>
 </div>
-
 @endsection
+
+
+
+
+
+
+
+
 
