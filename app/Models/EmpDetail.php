@@ -34,5 +34,11 @@ class EmpDetail extends Authenticatable
      * @var string
      */
     protected $primaryKey = 'emp_id';
+    public function woAttendances()
+    {
+        return $this->hasMany(WoAttendance::class, 'emp_id', 'emp_id');
+    }
+
+    
 
 }

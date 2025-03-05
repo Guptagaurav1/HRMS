@@ -187,3 +187,38 @@ if (!function_exists('get_position_title')) {
         return 'Na';
      }
  } 
+ 
+
+ if (! function_exists('downloadWorkOrderDocumentsAsZip')) {
+     function downloadWorkOrderDocumentsAsZip($workOrderFiles)
+     {
+         // Path where the files are stored
+         $storagePath = storage_path('app/public/uploadWorkOrder/');  // Example path to your uploaded files
+ 
+         // Create a new Zip file
+         $zip = new ZipArchive;
+         $zipFileName = 'work_order_documents_' . time() . '.zip';
+         $zipFilePath = storage_path('app/public/' . $zipFileName);
+ 
+         if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
+             foreach ($workOrderFiles as $file) {
+                 // Get the full file path
+                 $filePath = $storagePath . $file;
+ 
+                 // Check if the file exists before adding to zip
+                 if (file_exists($filePath)) {
+                     // Add the file to the zip archive
+                     $zip->addFile($filePath, basename($filePath));
+                 }
+             }
+             $zip->close(); // Close the zip file
+ 
+             // Return the path of the generated ZIP file
+             return $zipFilePath;
+         }
+ 
+         // Return null if the zip couldn't be created
+         return null;
+     }
+ }
+ 

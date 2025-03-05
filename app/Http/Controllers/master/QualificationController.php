@@ -17,7 +17,7 @@ class QualificationController extends Controller
     public function index()
     {
         $qualifications = Qualification::orderByDesc('id')->paginate(10);
-        return view('hr.qualification', compact('qualifications'));
+        return view('hr.qualification.qualification', compact('qualifications'));
     }
 
     /**
@@ -25,7 +25,7 @@ class QualificationController extends Controller
      */
     public function create()
     {
-        return view('hr.add_qualification');
+        return view('hr.qualification.add_qualification');
     }
 
     /**
@@ -73,7 +73,7 @@ class QualificationController extends Controller
     {
         try{
             $data = Qualification::findOrFail($id);
-            return view('hr.edit-qualification', compact('data')); 
+            return view('hr.qualification.edit-qualification', compact('data')); 
         }
         catch(Throwable $th){
             return redirect()->route('qualification')->with(['error' => true, 'message' => 'Server Error.']); 

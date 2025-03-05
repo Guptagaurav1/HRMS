@@ -76,7 +76,7 @@ $(document).ready(function() {
                 success: function(response) {
                     let dropdown = $("#project_name");
                     dropdown.empty();
-                    dropdown.append('<option value="">Select a Project</option>');
+                    dropdown.append('<option value="">Select Project</option>');
                     let projects = response.data;
                     // Loop through response and append to dropdown
                     $.each(projects, function(key, project) {
@@ -127,7 +127,7 @@ $(document).ready(function() {
                             [ 10,50,100,150,200,250,500,1000],
                             [ '10 rows', '50 rows','100 rows','150 rows','200 rows', '250 rows','500 rows','1000 rows']
                             ],
-                buttons: ['copy', 'csv', 'excel', 'pdf', 'print','colvis'],
+                // buttons: ['copy', 'csv', 'excel', 'pdf', 'print','colvis'],
                 scrollY: true,
                 scrollX: true,
                 scrollCollapse: true,

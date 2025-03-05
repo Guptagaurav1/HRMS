@@ -43,6 +43,11 @@ class Organization extends Model
         return $this->hasMany(WorkOrder::class);
     }
 
+    public function BillingStructure()
+    {
+        return $this->hasMany(BillingStructure::class);
+    }
+
     
 
 }

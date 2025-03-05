@@ -48,7 +48,7 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">Designation:</td>
-                                    <td>{{$empdetails->emp_designation}}</td>
+                                    <td class="attributes-column">{{$empdetails->emp_designation}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Department:</td>
@@ -85,7 +85,7 @@
                                 <tr>
                                     <td class="bold">Permanent Address:</td>
                                     <td class="attributes-column">PSSPL/DEL/2021-22/0172,PSSPL/DEL/2021-22/0172,PSSPL/DEL/2021-22/0172</td>
-                                    <td>{{$empdetails->emp_permanent_address}}</td>
+                                   
                                 </tr>
                                 <tr>
                                     <td class="bold">Correspondence Address:</td>

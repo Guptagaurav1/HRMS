@@ -20,5 +20,4 @@ yarn-error.log
 /public/attachments/*
 /public/salary-slips/*
 /public/resume/*
-composer.json
-composer.lock
+/public/recruitment/candidate_documents/*

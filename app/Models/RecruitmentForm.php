@@ -66,7 +66,7 @@ class RecruitmentForm extends Model
      * Get Bank Details.
      */ 
     public function getBankDetail(): HasOne{
-        return $this->hasOne(RecBankDetail::class, 'rec_id', 'id')->select('bank_name_id', 'account_no', 'branch', 'ifsc_code', 'pan_card_no');
+        return $this->hasOne(RecBankDetail::class, 'rec_id', 'id')->select('bank_name_id', 'account_no', 'branch', 'ifsc_code', 'pan_card_no')->with('getBankData');
     }
 
     /**
@@ -95,6 +95,13 @@ class RecruitmentForm extends Model
      */ 
     public function getEsiDetail(): hasOne{
         return $this->hasOne(RecEsiDetail::class, 'rec_id', 'id')->select('previous_esi_no');
+    }
+
+    /**
+     * Get Position Request Details.
+     */ 
+    public function getPositionDetail(): BelongsTo{
+        return $this->belongsTo(PositionRequest::class, 'pos_req_id', 'req_id')->select('position_title', 'client_name');
     }
 
     /**

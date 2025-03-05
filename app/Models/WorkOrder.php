@@ -21,6 +21,13 @@ class WorkOrder extends Model
     {
         return $this->belongsTo(Project::class); // Assuming 'project_id' is a foreign key
     }
+
+    public function State()
+    {
+        return $this->belongsTo(State::class); // Assuming 'state_id' is a foreign key
+    }
+
+    
     public static function boot()
     {
         parent::boot();

@@ -29,6 +29,10 @@ class WoAttendance extends Model
      * @var bool
      */
     
+    public function empDetail()
+    {
+        return $this->belongsTo(EmpDetail::class, 'emp_id', 'emp_id');
+    }
 
     public static function boot()
     {
