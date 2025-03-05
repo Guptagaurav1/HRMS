@@ -34,6 +34,10 @@ use App\Http\Controllers\hr\InvoiceBillingController;
 
 use App\Http\Controllers\hr\EventController;
 use App\Http\Controllers\hr\ReimbursementController;
+// Tenant Controller
+
+use App\Http\Controllers\TenantController;
+
 
 
 /*
@@ -77,12 +81,13 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-Route::middleware('auth')->prefix('hr')->group(function () {
 
+
+Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
     });
-
+  
     // Masters
     // ----------------------------------------
 
@@ -232,6 +237,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
         Route::get("organisation-workOrder/{or_id}","organisation_workOrder")->name("organisation-workOrder");
         Route::get("workOrder-details/{workOrder_id}","workOrder_details")->name("workOrder-details");
+        Route::post("work-order-report","work_order_report")->name("work-order-report");
 
     });
     /////////// workorder routes end ///////
@@ -304,7 +310,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         
         Route::get("form16-list",'form16')->name('form16');
         Route::get("add-new-form16",'addForm16')->name('add-new-form16');
-        Route::post("create-new-form16",'createForm16')->name('create-new-form16');
+        Route::post("create-form16",'create')->name('create-form16');
+        Route::get("emp-data/{id}",'emp_data')->name('emp-data');
+        Route::post("upload-form16",'uploadForm16')->name('upload-form16');
 
     });
 
@@ -325,6 +333,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("view-more-attachment/{id}", 'view_attachment')->name("reimbursement.view-more-attachment");
         Route::post("save-response", 'store_response');
     });
+        
+    //tenants
+    Route::resource('tenants',TenantController::class);
 });
 
 
@@ -525,6 +536,11 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.add-company-master");
     })->name("add-company-master");
 
+    
+
+
+  
+
    
 
  
@@ -584,10 +600,6 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get("employee-salary-slip", function () {
         return view("employee.employee-salary-slip");
     })->name("employee-salary-slip");
-
-   
-
-    
 });
 
 

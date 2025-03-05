@@ -12,14 +12,20 @@ use DB;
 
 class SkillController extends Controller
 {
+    // display latest skill lists
+
     public function index(Request $request){
         $skills = Skill::orderBy('id','desc')->paginate(10);
         return view("hr.master.skills.skill", compact('skills'));
     }
 
+    // create form of skills
+
     public function create(){
         return view("hr.master.skills.skill-add");
     }
+
+    // create new skills
 
     public function save(Request $request){
             $request->validate([
@@ -35,10 +41,16 @@ class SkillController extends Controller
             }
     }
 
+
+    // edit skill
+
+
     public function edit(Skill $skill){
 
         return view("hr.master.skills.skill-edit", compact('skill'));
     }
+
+// update skill
 
     public function update(Skill $skill, Request $request){
        
@@ -53,6 +65,9 @@ class SkillController extends Controller
             return redirect()->route('skills.index')->with('success','Skill updated Successfully !');
         }
     }
+
+    // delete Skill
+
 
     public function destroy($id){
         $departments = DepartmentSkill::where('department_id', $id)->get();

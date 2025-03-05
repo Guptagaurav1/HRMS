@@ -20,6 +20,16 @@
                 <div class="table-filter-option">
                     <div class="row g-3">
                         <div class="col-xl-10 col-9 col-xs-12">
+                        <div class="col-md-12 d-flex justify-content-start">
+                    <form class="row g-3">
+                        <div class="col-auto">
+                            <input type="text" class="form-control" placeholder="Search" required>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>
+                </div>
                             <div class="row g-3">
                                 <div class="col-auto flex-1">
                                     <button class="btn btn-sm btn-primary">CSV</button>
@@ -29,16 +39,7 @@
                                         <i class="fa-solid fa-key"></i> Send Credential
                                     </button>
                                 </div>
-                                <div class="col ms-auto">
-                                    <form class="row  d-flex justify-content-end">
-                                        <div class="col-auto">
-                                            <input type="text" class="form-control" placeholder="Enter Skill" required>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button type="submit" class="btn btn-primary">Search</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -77,7 +78,7 @@
                                 </td>
                                 
                                     <td>
-                                        <a href="{{route('employee-details')}}" class="text-primary"> ID-1002</a>
+                                        <a href="#" class="text-primary"> ID-1002</a>
                                     </td>
                                 
                                

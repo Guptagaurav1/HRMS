@@ -8,6 +8,8 @@ use App\Models\Organization;
 
 class OrganizationController extends Controller
 {
+     // display listing of organization 
+
     public function index(Request $request){
         $organizations = Organization::orderBy('id','desc');
         $search = $request->search;
@@ -22,9 +24,13 @@ class OrganizationController extends Controller
         return view("hr.master.organization.organization", compact('organizations','search'));
     }
 
+    // create organization form
+
     public function create(){
         return view("hr.master.organization.organization-add");
     }
+
+    // create new  organization
 
     public function store(Request $request){
             $request->validate([
@@ -47,10 +53,16 @@ class OrganizationController extends Controller
             }
     }
 
+
+    // edit organization
+
+
     public function edit(Organization $organization){
 
         return view("hr.master.organization.organization-edit", compact('organization'));
     }
+
+    // update organization
 
     public function update(Organization $organization, Request $request){
        
@@ -68,6 +80,8 @@ class OrganizationController extends Controller
             return redirect()->route('organizations.index')->with('success','Updated Successfully !');
         }
     }
+
+    // delete organization
 
     public function destroy(Organization $organization){
         $data = $organization->delete();

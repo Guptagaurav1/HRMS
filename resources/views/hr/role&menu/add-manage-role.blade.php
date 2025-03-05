@@ -1,16 +1,12 @@
 @extends('layouts.master')
-
 @section('style')
-
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
 @endsection
-
 @section('contents')
 <div class="fluid-container">
     <form method="post" action="{{ route('store-manage-role') }}">
     @csrf
-        <div class="row">
+        <div class="row" style="background-color:white; height: 100vh;">
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
@@ -28,49 +24,51 @@
                                         <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            
                         </div>
                     </div>
-                    <div class="col-12 panel_1">
+                    <div class="col-md-12 panel_1 ">
                         <label class="form-label">Select Roles *</label>
-                        <div class="table-responsive mt-3 ">
-                            
-                                <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
-                                    id="allEmployeeTable">
-                                    @foreach ($menus as $section => $menu )
-                                        <tr>
-                                            <td>
-                                            <label class="form-check-label" for="gridCheck">
-                                            {{ $section }} </label>
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            @foreach ($menu as $sub_menu)
-                                                <td class="srno-column">
-                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id}}" type="checkbox" id="gridCheck">
-                                                    <label class="form-check-label" for="gridCheck">
-                                                    {{$sub_menu->name}}
-                                                    </label>
-                                                </td>
-                                                
+                                    <div class="col-12">
+                                        <div class="row h-auto">
+                                            @foreach ($menus as $section => $menu )
+                                                <div class="col-12">
+                                                    <div class="section-header">
+                                                        <label class="form-check-label">{{ $section }}</label>
+                                                    </div>
+                                                </div>
+                
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        @foreach ($menu as $sub_menu)
+                                                            <div class="col-md-4 mb-2">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id}}" type="checkbox" id="gridCheck">                                                                    <label class="form-check-label" for="gridCheck{{ $sub_menu->id }}">
+                                                                        {{$sub_menu->name}}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
                                             @endforeach
-                                        
-                                        </tr>
-                                    @endforeach
-                                </table>
-                        
-                        </div>
+                                        </div>
+                                    </div>  
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12 d-flex justify-content-end ">
-                
             <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </form>
 </div>
-
 @endsection
+
+
+
+
+
+
+
+
 

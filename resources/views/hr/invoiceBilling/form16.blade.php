@@ -19,15 +19,26 @@
                 <div class="col-md-12 d-flex justify-content-end ">
                    <a href="{{route('add-new-form16')}}"><button type="button" class="btn btn-primary m-1">Add New Form 16 <i class="fa-solid fa-plus"></i></button></a> 
                 </div>
-                <div class="col-md-12 d-flex justify-content-start mx-3">
-                    <form class="row g-3">
+                <div class="row px-3 mt-2">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @else
+                        <div class="alert alert-error alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
+                </div>
+                <div class="col-md-12 d-flex justify-content-start px-2">
+                    <form class="row g-3" method="get">
                         <div class="col-auto mb-3">
-                            <input type="text" class="form-control" placeholder="Search" required>
+                            <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                            <a href="{{ route('form16') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
                         </div>
-    
                     </form>
                 </div>
     
@@ -49,17 +60,27 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($form16 as $key => $value)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Shefali Tiwari</td>
-                                    <td>PSSPL/2023-24/s</td>
-                                    <td>BECIL/ND/ECI/MAN/2425/1339_Extension</td>
-                                    <td>AUBPT4061F</td>
-                                    <td>2023-2024</td>
-                                    <td>8th November, 2024</td>
-                                    
-                                    <td><a href=""><button class="btn btn-sm btn-primary">View Document <i class="fa-solid fa-eye"></i></button></a></td>
+                                    <td>{{ $key+1}}</td>
+                                    <td>{{ $value->empDetail->emp_code}}</td>
+                                    <td>{{ $value->empDetail->emp_name}}</td>
+                                    <td>{{ $value->empDetail->emp_work_order}}</td>
+                                    <td>{{$value->pan_no}}</td>
+                                    <td>{{$value->financial_year}}</td>
+                                    <td>{{$value->created_at}}</td>
+                                    <td>@if(!empty($value->attachment))
+                                              
+                                                <a href="{{ asset('storage/Form16/' . $value->attachment) }}" target="_blank" ><button class="btn btn-primary mb-3">view Doc </button></a>
+                                            @else
+                                                {{ 'Not Uploaded' }}
+                                            @endif</td>
                                 </tr>
+                                @empty
+                                <tr>
+                                <td colspan="15" class="text-center"><span class="text-danger">No Record Found</span></td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
