@@ -32,6 +32,10 @@ use App\Http\Controllers\hr\RecruitmentController;
 
 use App\Http\Controllers\hr\InvoiceBillingController;
 
+// Tenant Controller
+
+use App\Http\Controllers\TenantController;
+
 
 
 /*
@@ -72,12 +76,13 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-Route::middleware('auth')->prefix('hr')->group(function () {
 
+
+Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
     });
-
+  
     // Masters
     // ----------------------------------------
 
@@ -305,6 +310,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("upload-form16",'uploadForm16')->name('upload-form16');
 
     });
+        
+    //tenants
+    Route::resource('tenants',TenantController::class);
 });
 
 
@@ -600,10 +608,6 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get("employee-salary-slip", function () {
         return view("employee.employee-salary-slip");
     })->name("employee-salary-slip");
-
-   
-
-    
 });
 
 

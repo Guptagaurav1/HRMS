@@ -9,6 +9,8 @@ use Illuminate\Validation\Rule;
 
 class DesignationController extends Controller
 {
+    // display listing of designation
+
     public function index(Request $request){
         $designations = Designation::orderBy('id','desc');
         $search = $request->search;
@@ -23,9 +25,15 @@ class DesignationController extends Controller
         return view("hr.master.designation.designation", compact('designations','search'));
     }
 
+    // create form for add designation
+
     public function create(){
         return view("hr.master.designation.designation-add");
     }
+
+
+    // create new designation 
+
 
     public function store(Request $request){
             $request->validate([
@@ -46,10 +54,14 @@ class DesignationController extends Controller
             }
     }
 
+// edit designation 
+
     public function edit(Designation $designation){
 
         return view("hr.master.designation.designation-edit", compact('designation'));
     }
+
+// update designation 
 
     public function update(Designation $designation, Request $request){
        
@@ -69,6 +81,8 @@ class DesignationController extends Controller
             return redirect()->route('designations.index')->with('success','Updated Successfully !');
         }
     }
+
+    // delete designation 
 
     public function destroy(Designation $designation){
         $data = $designation->delete();
