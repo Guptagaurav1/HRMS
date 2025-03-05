@@ -19,3 +19,6 @@ yarn-error.log
 /.vscode
 /public/attachments/*
 /public/salary-slips/*
+/public/resume/*
+composer.json
+composer.lock

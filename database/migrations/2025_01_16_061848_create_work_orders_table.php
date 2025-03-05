@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('work_orders', function (Blueprint $table) {
             $table->id();
             $table->string('wo_internal_ref_no')->nullable();
-            $table->unsignedBigInteger('wo_oraganisation_name')->nullable();
-            $table->foreign('wo_oraganisation_name')->references('id')->on('organizations')->onDelete('NO ACTION');
+            $table->unsignedBigInteger('project_id')->nullable();
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('NO ACTION');
 
             $table->string('wo_number')->unique();
             $table->string('prev_wo_no')->nullable();
             $table->date('wo_date_of_issue')->nullable();
-            $table->string('wo_project_number')->nullable();
-            $table->string('wo_project_name')->nullable();
+            // $table->string('wo_project_number')->nullable();
+            // $table->string('wo_project_name')->nullable();
             $table->string('wo_concern_ministry')->nullable();
-            $table->string('wo_empanelment_reference')->nullable();
+            // $table->string('wo_empanelment_reference')->nullable();
             $table->string('wo_no_of_resources')->nullable();
             $table->string('wo_project_duration')->nullable();
             $table->string('wo_project_duration_day')->nullable();

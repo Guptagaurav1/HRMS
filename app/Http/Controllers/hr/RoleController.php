@@ -11,21 +11,32 @@ use Throwable;
 
 class RoleController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
      
-        $roles = Role::with('menu')->paginate(10);
-            $rolesWithMenus = [];
-            foreach ($roles as $role) {
-                $menu_ids = explode(',', $role->menu_id);  // Get the menu IDs as an array
-                $menus = Menu::whereIn('id', $menu_ids) 
-                ->pluck('name')              // Get the names of the menus
-                ->toArray(); 
-    
-                $role->menu_names = implode(', ', $menus);
-                $rolesWithMenus[] = $role;
-            }
-        
-        return view('hr.role&menu.manage-roles', compact('rolesWithMenus'));
+        $roles = Role::with('menu')->orderBy('id','desc');
+        $search = $request->search;
+
+        if($search){
+            $roles->where(function($q) use($search){
+                $q->where('role_name', 'like','%'.$search.'%')
+                ->orWhereHas('menu', function ($query) use ($search) {
+                    $query->where('name', 'like', "%$search%");
+                });
+            });
+        }
+        $roles = $roles->paginate(10);
+        $rolesWithMenus = [];
+        foreach ($roles as $role) {
+            $menu_ids = explode(',', $role->menu_id);  // Get the menu IDs as an array
+            $menus = Menu::whereIn('id', $menu_ids) 
+            ->pluck('name')              // Get the names of the menus
+            ->toArray(); 
+
+            $role->menu_names = implode(', ', $menus);
+            $rolesWithMenus[] = $role;
+        }
+       
+        return view('hr.role&menu.manage-roles', compact('rolesWithMenus','search'));
     }
 
     public function create(){
@@ -66,8 +77,10 @@ class RoleController extends Controller
     public function edit(Request $request, $id){
 
         // $role = Role::where('id',$id)->get();
+        
         $role = Role::find($id);
-        // dd($role);
+        $roles_assigned_arr = explode(",", $role['menu_id']);
+        // dd($roles_assigned_arr);
         $distinctSections = Menu::where('status', '1')
             ->select('section')
             ->distinct()
@@ -79,7 +92,9 @@ class RoleController extends Controller
                 ->where('status', '1')
                 ->get();
         }
-        return view('hr.role&menu.manage-role-edit',compact('menus','role'));
+        // dd($roles_assigned_arr);
+        // dd($menus);
+        return view('hr.role&menu.manage-role-edit',compact('menus','roles_assigned_arr','role'));
     }
     public function update(Request $request,$id){
    

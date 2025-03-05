@@ -10,7 +10,7 @@
     <h5>Company Master Data</h5>
 </div>
 <div class="col-md-12 col-xs-12 col-sm-12">
-    <!-- Table wrapper for responsiveness -->
+    
     <div class="table-responsive">
         <table class="table table-striped table-hover table-responsive dataTable" id="datatable">
             <tbody>

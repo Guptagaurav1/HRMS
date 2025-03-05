@@ -11,6 +11,7 @@ use App\Models\Role;
 use App\Mail\AddUser;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
+use Illuminate\Validation\Rule;
 
 
 
@@ -19,14 +20,29 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
       
         // $users = user::with('department') // Eager load the related department data
         $users = user::with('role') 
-        ->orderBy('id', 'desc') 
-        ->paginate(10);
-        return view(" hr.user.users-list",compact('users'));
+        ->orderBy('id', 'desc');
+        $search = $request->search;
+        if($search){
+            $users->where(function($q) use($search){
+                $q->where('first_name', 'like','%'.$search.'%')
+                ->orwhere('last_name', 'like','%'.$search.'%')
+                ->orwhere('email', 'like','%'.$search.'%')
+                ->orwhere('phone', 'like','%'.$search.'%')
+                ->orwhere('status', 'like','%'.$search.'%')
+                ->orWhereHas('role', function ($query) use ($search) {
+                    $query->where('role_name', 'like', "%$search%");
+                });
+            });
+        }
+        
+        $users = $users->paginate(10); 
+      
+        return view(" hr.user.users-list",compact('users','search'));
     }
 
     /**
@@ -47,15 +63,15 @@ class UserController extends Controller
     {
         
         $request->validate([
-            
             'first_name' => 'required',
             'last_name' => 'required',
             'department' => 'required',
-            'email' => 'required|unique:users,email',
+            'email' => ['required',Rule::unique('users')->whereNull('deleted_at')],
             'contact' => 'required|digits:10',
             'company_id' => 'required',
             'role_id' => 'required',
-            'dob' => 'required'
+            'dob' => 'required',
+           
           ]);
         $dob = $request->dob;
         $password_s =date('d-m-Y',strtotime($dob));
@@ -127,7 +143,7 @@ class UserController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'department' => 'required',
-            'email' => 'required',
+            'email' => ['required','max:255',Rule::unique('users')->whereNull('deleted_at')->ignore($id)],
             'contact' => 'required|digits:10',
             'company_id' => 'required',
             'role_id' => 'required'

@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+class RecruitmentForm extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    /**
+     * Save User id on CRUD operation.
+     */
+    public static function boot()
+    {
+        parent::boot();
+        if (auth()->check()) {
+            static::creating(function ($model) {
+                $model->created_by = auth()->user()->id;
+            });
+
+            static::updating(function ($model) {
+                $model->updated_by = auth()->user()->id;
+            });
+
+            static::deleting(function ($model) {
+                $model->deleted_by = auth()->user()->id;
+                $model->save();
+            });
+        }
+    }
+
+    /**
+     * Get State.
+     */ 
+    public function getState(): BelongsTo{
+        return $this->belongsTo(State::class, 'state', 'id')->select('state');
+    }
+
+    /**
+     * Get District Name.
+     */ 
+    public function getDistrict(): BelongsTo{
+        return $this->belongsTo(District::class, 'district', 'id')->select('district_name');
+    }
+
+    /**
+     * Get Personal Details.
+     */ 
+    public function getPersonalDetail(): HasOne{
+        return $this->hasOne(RecPersonalDetail::class, 'rec_id', 'id');
+    }
+
+    /**
+     * Get Address Details.
+     */ 
+    public function getAddressDetail(): HasOne{
+        return $this->hasOne(RecAddressDetail::class, 'rec_id', 'id')->select('permanent_add', 'correspondence_add');
+    }
+
+    /**
+     * Get Bank Details.
+     */ 
+    public function getBankDetail(): HasOne{
+        return $this->hasOne(RecBankDetail::class, 'rec_id', 'id')->select('bank_name_id', 'account_no', 'branch', 'ifsc_code', 'pan_card_no');
+    }
+
+    /**
+     * Get Educational Details.
+     */ 
+    public function getEducationDetail(): HasOne{
+        return $this->hasOne(RecEducationalDetail::class, 'rec_id', 'id');
+    }
+
+    /**
+     * Get Previous Company Details.
+     */ 
+    public function getCompanyDetail(): HasOne{
+        return $this->hasOne(RecPreviousCompany::class, 'rec_id', 'id');
+    }
+
+    /**
+     * Get Nominee Details.
+     */ 
+    public function getNomineeDetail(): HasMany{
+        return $this->hasMany(RecNomineeDetail::class, 'rec_id', 'id');
+    }
+
+    /**
+     * Get ESI Details.
+     */ 
+    public function getEsiDetail(): hasOne{
+        return $this->hasOne(RecEsiDetail::class, 'rec_id', 'id')->select('previous_esi_no');
+    }
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+    
+}

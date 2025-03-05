@@ -13,27 +13,17 @@
                 <div class="panel-header">
                     <h3 class="mt-2">Update Role</h3>
                 </div>
-                <div class="col-md-12 d-flex justify-content-start mx-3">
-                    <form class="row g-3 mt-2">
-                        <div class="col-auto">
-                            <input type="text" class="form-control" placeholder="Search" required>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3"> Search <i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-sm-12 col-md-4 px-3">
-                    <label class="form-label">Role Name <span class="text-danger">*</span></label>
+               
+                <div class="col-sm-12 col-md-4 mx-3 mt-3">
+                    <label class="form-label">Role Name </label>
                     <input type="text" class="form-control" value="{{$role->role_name}}" disabled>
                 </div>
+                
                 <form action=" {{route('update-manage-role',$role->id)}}" method="post">
                 @csrf
                     <div class="col-12 panel_1">
                         <label class="form-label">Select Roles *</label>
                         <div class="table-responsive mt-3 ">
-                            
                                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                                     id="allEmployeeTable">
                                     @foreach ($menus as $section => $menu )
@@ -47,13 +37,13 @@
                                         <tr>
                                             @foreach ($menu as $sub_menu)
                                                 <td class="srno-column">
-                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id}}" type="checkbox" id="gridCheck"  {{ old('checkbox', $sub_menu->id ?? false) ? 'checked' : '' }}>
+                                                  
+                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id}}" {{ in_array($sub_menu->id, $roles_assigned_arr) ? 'checked' : '' }} type="checkbox" id="gridCheck" >
                                                     
                                                     <label class="form-check-label" for="gridCheck">
                                                     {{$sub_menu->name}}
                                                     </label>
                                                 </td>
-                                                
                                             @endforeach
                                         
                                         </tr>

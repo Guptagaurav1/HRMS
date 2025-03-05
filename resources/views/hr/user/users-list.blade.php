@@ -12,11 +12,23 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="text-white mt-2">Users List</h3>
-                    <div class="btn-box">
-                        <a href="{{route('add-user')}}" class="btn btn-sm btn-primary">Add User</a>
-                    </div>
+                    
                 </div>
-                <div class="row px-3 mt-2">
+                <div class="text-end px-2 mt-3">
+                    <a href="{{route('add-user')}}"><button type="button" class="btn btn-primary mb-3">Add User <i class="fa-solid fa-plus"></i></button></a>
+                </div>
+                <div class="col-md-12 d-flex justify-content-start px-2">
+                    <form class="row g-3" method="get">
+                        <div class="col-auto mb-3">
+                            <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                            <a href="{{ route('users') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>{{ $message }}</strong>
@@ -32,16 +44,16 @@
                         <thead>
                             <tr>
                                 <th class="srno-column">Sr No.</th>
-                                <th class="rid-column">Role</th>
-                                <th>Name/Email/Contact</th>
-                                <th>Created Date</th>
-                                <th>Recently Updated Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th class="text-center">Role</th>
+                                <th class="text-center">Name/Email/Contact</th>
+                                <th class="text-center">Created Date</th>
+                                <th class="text-center">Recently Updated Date</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $key => $user)
+                            @forelse ($users as $key => $user)
                                 <tr>
                                     <td class="srno-column">{{$key+1}}</td>
                                     <td class="rid-column">{{$user->role->role_name??NULL}}</td>
@@ -56,8 +68,8 @@
                                         @endif
                                     </td>
                                     <td> 
-                                        <a href="{{ route('edit-user', $user->id) }}"><button class="btn btn-sm btn-primary" title="Edit"> <i class="fa-solid fa-pen-to-square"></i></button></a>
-                                        <a data-id="{{ $user->id }}"  class="delete-user"><button class="btn btn-sm btn-danger"  title="Delete"> <i class="fa-solid fa-trash"></i></button></a>
+                                        <a href="{{ route('edit-user', $user->id) }}"><button class="btn btn-sm btn-primary" title="Edit">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        <a data-id="{{ $user->id }}"  class="delete-user"><button class="btn btn-sm btn-danger"  title="Delete">Delete <i class="fa-solid fa-trash"></i></button></a>
                                         
                                         <button 
                                             class="status-toggle btn btn-{{ $user->status == 1 ? 'success' : 'danger' }}" 
@@ -67,7 +79,11 @@
                                         </button> 
                                     </td>
                                 </tr>
-                            @endforeach
+                                @empty
+                                <tr >
+                                    <td colspan="5" class="text-center"><span class="text-danger">No Record Found</span></td>
+                                </tr> 
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

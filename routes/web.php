@@ -23,9 +23,20 @@ use App\Http\Controllers\hr\HelpdeskController;
 use App\Http\Controllers\hr\WorkOrderController;
 use App\Http\Controllers\hr\SalarySlipController;
 use App\Http\Controllers\hr\AttendanceController;
+
+use App\Http\Controllers\hr\ProjectController;
+
 use App\Http\Controllers\hr\MailLogController;
 use App\Http\Controllers\hr\ResponseLogController;
 use App\Http\Controllers\hr\RecruitmentController;
+
+use App\Http\Controllers\hr\InvoiceBillingController;
+
+// Tenant Controller
+
+use App\Http\Controllers\TenantController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -48,14 +59,21 @@ Route::middleware('guest')->group(function () {
         return view("forgot-password");
     })->name("forgot-password");
 
+    Route::controller(RecruitmentController::class)->prefix('guest')->group(function () {
+        Route::get('personal-details/{id}', 'personal_details')->name('guest.personal_details');
+        Route::get('acceptance-form/{id}', 'show_acceptance_form')->name('guest.acceptance_form');
+        Route::post('store-personal-details', 'save_personal_details');
+        Route::post('store-address-details', 'save_address_details');
+    });
 });
 
-Route::middleware('auth')->prefix('hr')->group(function () {
 
+
+Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
     });
-
+  
     // Masters
     // ----------------------------------------
 
@@ -118,6 +136,39 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("position-request", "position_request")->name("position-request");
         Route::post("cities", "get_cities");
         Route::post('position-request', 'store_position')->name('save-position-request');
+        Route::get("recruitment-report", 'recruitment_report')->name("recruitment-report");
+        Route::get("preview_description/{id}", 'prev_descr')->name("preview-executive-description");
+        Route::post("send-jd", 'send_jd_mail');
+        Route::post("send-bulk-jd", 'send_bulk_mail');
+        Route::get("position-report/{id}", 'position_contacts')->name("show-assign-work-log");
+        Route::get("preview-job-description/{id}", 'preview_jd')->name("preview-job-description");    
+        Route::get("applicant-detail-summary/{rec_id}/{position?}", 'applicant_detail')->name("applicant-recruitment-details-summary");
+        Route::post('update-email', 'update_email');
+        Route::post('update-salary', 'update_salary');
+        Route::post('update-doj', 'update_doj');
+        Route::post('update-location', 'update_location');
+        Route::post('update-work-scope', 'update_work_scope');
+        Route::post('shortlist-first', 'shortlist_first_stage');
+        // Route::post('reject-first', 'reject_first_stage');
+        Route::post('send-interview-details', 'send_interview_details');
+        Route::post('remark-first', 'remark_first');
+        Route::post('remark-second', 'remark_second');
+        Route::post('store-third', 'save_third_stage');
+        Route::post('send-offer-letter', 'send_offer_letter');
+        Route::post('joined', 'store_join_status');
+        Route::post('backout', 'backout_candidate');
+        Route::get("verify-documents/{id}/{position}", 'verify_document')->name("verify-documents");
+        Route::post("check-documents", 'check_verify');
+        Route::post("complete-joining-formalities", 'complete_joining_formalities');
+        Route::post("preview-offer-letter", 'preview_offer_letter');
+        Route::get("jd-request/{id?}", 'jd_request')->name("jd-request");
+        Route::post("send-jd-request", 'send_jd_request')->name("send-jd-request");
+        Route::post("get-position-candidates", 'position_candidates');
+        Route::get("request-list", 'request_lists')->name("user-request-list");
+        Route::get("addnew-candidate", 'add_new_candidate')->name("addnew-candidate");
+        Route::get("list", 'recruitment_list')->name("recruitment-list");
+        Route::post("save-candidate", 'store')->name("recruitment.store");
+        Route::post("export-recruitment", 'export_csv')->name("recruitment.export_csv");
     });
 
     Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
@@ -152,13 +203,16 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(WorkOrderController::class)->group(function (){
 
         Route::get("work-order-list","index")->name("work-order-list");
+        Route::get("get-work-order","getWorkOrder")->name("get-work-order");
         Route::get("add-work-order","create")->name("add-work-order");
         Route::post("store-work-order","store")->name("store-work-order");
         Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
         Route::post("update-work-order/{id}","update")->name("update-work-order");
         Route::get("view-work-order/{id}","show")->name("view-work-order");
-        Route::get("wo-project-list","woProject")->name("wo-project-list");
-        Route::get("wo-project-report/{project_no}","woReport")->name("wo-project-report");
+
+        Route::get("organisation-workOrder/{or_id}","organisation_workOrder")->name("organisation-workOrder");
+        Route::get("workOrder-details/{workOrder_id}","workOrder_details")->name("workOrder-details");
+
     });
     /////////// workorder routes end ///////
   
@@ -184,6 +238,23 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
         Route::get("wo-sal-attendance", 'wo_sal_attendance')->name("wo-sal-attendance");
         Route::post("wo-sal-calculate", 'wo_sal_calculate')->name("wo-sal-calculate");
+        Route::get("wo-generate-salary", 'wo_generate_salary')->name("wo-generate-salary");
+       
+    });
+     
+    Route::controller(ProjectController::class)->prefix('project')->group(function () {
+        Route::get("/","index")->name("project-list");
+        Route::get("projectlist/","projectlist")->name("projectlist");
+        Route::get("add-project","create")->name("add-project");
+        Route::post("store-project","store")->name("store-project");
+        Route::get("edit-project/{id}","edit")->name("edit-project");
+        Route::post("update-project/{id}","update")->name("update-project");
+
+        Route::get("project-report","project_report")->name("project-report");
+        Route::get("wo-project-report/{project_no}","woReport")->name("wo-project-report");
+        Route::get("organisation-project/{or_id}","organisation_project")->name("organisation-project");
+        Route::get("project-details/{project_id}","project_details")->name("project-details");
+
     });
 
     Route::controller(MailLogController::class)->prefix('logs')->group(function () {
@@ -193,12 +264,29 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     });
     Route::controller(ResponseLogController::class)->prefix('response-logs')->group(function () {
         Route::get("employee-profile-response-log", 'profile_change_log')->name("employee-profile-response-log");
-
         Route::get("recruiter-response-log", 'detail_change_log')->name("recruiter-response-log");
     });
 
-        
 
+
+    Route::controller(InvoiceBillingController::class)->prefix('invoice-billling')->group(function () {
+        Route::get("/",'index')->name('generate-invoice');
+        Route::post("invoice-details",'invoice_details')->name('invoice-details');
+        Route::get("invoice-list",'invoice_list')->name('invoice-list');
+        Route::get("biling-structure-list",'biling_structure')->name('biling-structure-list');
+        Route::get("form16-list",'form16')->name('form16');
+        Route::get("add-new-form16",'addForm16')->name('add-new-form16');
+        Route::post("create-new-form16",'createForm16')->name('create-new-form16');
+        Route::get("create-billing-structure",'create_biling_structure')->name('create-billing-structure');
+
+        Route::post("add",'add_invoice_billing')->name('add-invoice-billing');
+        Route::post("create",'create_invoice_billing')->name('create-invoice-billing');
+
+      
+    });
+        
+    //tenants
+    Route::resource('tenants',TenantController::class);
 });
 
 
@@ -269,20 +357,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     //     return view(" hr.users-list");
     // })->name("users-list");
 
-
-
-    Route::get("recruitment-report", function () {
-        return view(" hr.recruitment-report");
-    })->name("recruitment-report");
-
-    Route::get("recruitment-list", function () {
-        return view(" hr.recruitment-list");
-    })->name("recruitment-list");
-
-    Route::get("addnew-candidate", function () {
-        return view(" hr.addnew-candidate");
-    })->name("addnew-candidate");
-
     Route::get("recruitment-plan", function () {
         return view(" hr.recruitment-plan");
     })->name("recruitment-plan");
@@ -331,29 +405,29 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.attendance-list");
     })->name("attendance-list");
 
-    Route::get("generate-invoice", function () {
-        return view("hr.generate-invoice");
-    })->name("generate-invoice");
+    // Route::get("generate-invoice", function () {
+    //     return view("hr.generate-invoice");
+    // })->name("generate-invoice");
 
-    Route::get("invoice-list", function () {
-        return view("hr.invoice-list");
-    })->name("invoice-list");
+    // Route::get("invoice-list", function () {
+    //     return view("hr.invoice-list");
+    // })->name("invoice-list");
 
-    Route::get("biling-structure-list", function () {
-        return view("hr.biling-structure-list");
-    })->name("biling-structure-list");
+    // Route::get("biling-structure-list", function () {
+    //     return view("hr.biling-structure-list");
+    // })->name("biling-structure-list");
 
-    Route::get("form16", function () {
-        return view("hr.form16");
-    })->name("form16");
+    // Route::get("form16", function () {
+    //     return view("hr.form16");
+    // })->name("form16");
 
-    Route::get("add-new-form16", function () {
-        return view("hr.add-new-form16");
-    })->name("add-new-form16");
+    // Route::get("add-new-form16", function () {
+    //     return view("hr.add-new-form16");
+    // })->name("add-new-form16");
 
-    Route::get("create-billing-structure", function () {
-        return view("hr.create-billing-structure");
-    })->name("create-billing-structure");
+    // Route::get("create-billing-structure", function () {
+    //     return view("hr.create-billing-structure");
+    // })->name("create-billing-structure");
 
     // Route::get("add-work-order", function () {
     //     return view("hr.add-work-order");
@@ -404,14 +478,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.employee-month-salary-slip");
     })->name("employee-month-salary-slip");
 
-    Route::get("preview-executive-description", function () {
-        return view("hr.preview-executive-description");
-    })->name("preview-executive-description");
-
-    Route::get("show-assign-work-log", function () {
-        return view("hr.show-assign-work-log");
-    })->name("show-assign-work-log");
-
     Route::get("Candidate-Contacted-By-Cal-Log", function () {
         return view("hr.Candidate-Contacted-By-Cal-Log");
     })->name("Candidate-Contacted-By-Cal-Log");
@@ -423,14 +489,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("recruitment-plan-page-summary", function () {
         return view("hr.recruitment-plan-page-summary");
     })->name("recruitment-plan-page-summary");
-
-    Route::get("applicant-recruitment-details-summary", function () {
-        return view("hr.applicant-recruitment-details-summary");
-    })->name("applicant-recruitment-details-summary");
-
-    Route::get("verify-documents", function () {
-        return view("hr.verify-documents");
-    })->name("verify-documents");
 
     Route::get("edit-salary", function () {
         return view("hr.edit-salary");
@@ -464,10 +522,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.birthday-template");
     })->name("birthday-template");
 
-    Route::get("preview-job-description", function () {
-        return view("hr.preview-job-description");
-    })->name("preview-job-description");
-
     Route::get("marriage-anniversary-list-template", function () {
         return view("hr.marriage-anniversary-list-template");
     })->name("marriage-anniversary-list-template");
@@ -476,32 +530,17 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.work-anniversary-list-template");
     })->name("work-anniversary-list-template");
 
+    Route::get("company-master-edit", function () {
+        return view("hr.company-master-edit");
+    })->name("company-master-edit");
 
-    
-
-    
-
-   
-
-
-    
+    Route::get("add-company-master", function () {
+        return view("hr.add-company-master");
+    })->name("add-company-master");
 
    
 
-   
-
-    
-
-    
-
-    
-    
-    
-   
-  
-
-
-
+ 
 
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', function(){

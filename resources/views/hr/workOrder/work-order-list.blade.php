@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-2">Recruitment Report</h2>
+                    <h2 class="mt-2">WorkOrder Report</h2>
                 </div>
                 <div class="row px-3 mb-3">
                     <div class="col-md-12 d-flex justify-content-end ml-5">
@@ -33,20 +33,9 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-md-12 d-flex justify-content-start mx-3">
-                 
-                    <form class="row g-3" method="get" action="{{route('work-order-list')}}">
-                        <div class="col-auto">
-                            <input type="text" name="search" class="form-control" placeholder="Search" required>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3"> Search</button>
-                        </div>
-                    </form>
-                </div>
-                
+               
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="workOrder_id">
                         <thead>
                             <tr>
                                 <th class="srno-column">Organisation Name</th>
@@ -64,50 +53,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!empty($workOrdercontacts))
-                                @foreach($workOrdercontacts as $key => $value)
-                                    <tr>
-                                        <td class="srno-column">{{$value->organizations->name}}</td>
-                                        <td class="rid-column">{{$value->wo_number}}</td>
-                                        <td>{{$value->wo_empanelment_reference}}</td>
-                                        <td class="attributes-column">{{$value->wo_date_of_issue}}</td>
-                                        <td>{{$value->wo_project_number}}</td>
-                                        <td>{{$value->wo_project_name}}</td>
-                                        <td>{{$value->wo_project_coordinator}}</td>
-                                        <td>{{$value->wo_amount}}</td>
-                                        <td>
-                                        @foreach($value->contacts as $key => $contact)
-                                        {{$contact->wo_client_contact_person }} \ {{$contact->wo_client_email}}
-                                        @endforeach
+                          
                                 
-                                        </td>
-                                        <td>{{$value->created_at}}</td>
-                                        <td>
-                                            @if(!empty($value->wo_attached_file))
-                                                <a href="{{ asset('storage/uploadWorkOrder/' . $value->wo_attached_file) }}"><button type="submit" class="btn btn-primary mb-3" target="_blank"> Download</button></a>
-                                            @else
-                                                {{ 'Not Uploaded' }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{route('edit-work-order',$value->id)}}"><button type="submit" class="btn btn-primary mb-3"> Edit</button></a>
-                                            <a href="{{route('view-work-order',$value->id)}}"><button type="submit" class="btn btn-primary mb-3"> View</button></a><br>
-                                            <a href="{{route('go-to-attendance',$value->id)}}"><button type="submit" class="btn btn-primary mb-3">Go To Attandence</button></a><br>
-                                            <a href="{{route('work-order-salary-sheet')}}"><button type="submit" class="btn btn-primary mb-3">Go To Salary Sheet</button></a>
-                                            
-                                        </td>
-
-                                        
-                                    </tr>
-                                @endforeach
-                                @else
-                                <tr>
-                                    <td class="text-danger text-center" colspan="12">No Record Found</td>
-                                </tr>
-                                @endif
                         </tbody>
                     </table>
-                   
+                    
                     <div class="table-bottom-control"></div>
                 </div>
             </div>
@@ -119,6 +69,10 @@
 <script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
+<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
+<script>
+    
+</script>
 @endsection
 
 
