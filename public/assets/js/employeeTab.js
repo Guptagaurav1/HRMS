@@ -23,14 +23,5 @@ $(document).ready(function() {
       $("#tab-1").hide();
   
     })
-  
-  
-  
-  
-  
-  
-  
-  
-  
     
   });

@@ -12,8 +12,6 @@
 
         </div>
       
-            
-
     </div>
 
     <div class="dashboard-breadcrumb mb-25">
@@ -464,7 +462,8 @@
 @endsection
 
 @section('script')
-<script src="{{asset('assets/js/tab-changes.js')}}"></script>
+<script src="{{asset('assets/js/employeeTab.js')}}"></script>
+
 @endsection
 
  
