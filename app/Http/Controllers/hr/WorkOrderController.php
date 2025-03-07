@@ -354,10 +354,10 @@ class WorkOrderController extends Controller
             }
         }
         $zipFilePath = null;
-        if (count($wo_doc) > 0) {
-            // Call the helper function to create a zip of the work order documents
-            $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
-        }
+        // if (count($wo_doc) > 0) {
+        //     // Call the helper function to create a zip of the work order documents
+        //     $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
+        // }
         // dd($wo_doc);
        
         return view("hr.workOrder.work-order-report",compact('wo_details','overallSum','zipFilePath'));
