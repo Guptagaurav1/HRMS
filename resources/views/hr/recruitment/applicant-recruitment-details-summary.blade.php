@@ -564,6 +564,7 @@
                                             <tr>
                                                 <td class="bold">Document Verification</td>
                                                 <td>
+                                                    @if($data->rec_form_status == 'relationship_stage')
                                                     <div class="d-flex">
                                                     <a href="{{route('verify-documents', ['id' => $data->id, 'position' => $data->pos_req_id])}}">
                                                     <button class="btn btn-sm btn-primary mt-2">Check <i
@@ -580,6 +581,9 @@
                                                     </form>
                                                     @endif
                                                 </div>
+                                                @else
+                                                    <span class="text-danger">Recruitment Form not submitted yet.</span>
+                                                @endif
                                                 </td>
 
                                             </tr>
@@ -596,13 +600,17 @@
                                                       <input type="hidden" name="recruitment" value="{{$data->id}}">
                                                     </div>
                                                     <textarea class="form-control" name="backout_reason"
-                                                        placeholder="Reason For Backout" required>{{$data->remarks_for_backout}}</textarea>
-                                                    <button type="submit" class="btn btn-sm btn-primary mt-2 backout-btn">Reason For Backout <i class="fa-solid fa-backward-step"></i>
+                                                        placeholder="Reason For Backout" {{$data->finally == 'backout' ? 'disabled' : ''}} required>{{$data->remarks_for_backout}}</textarea>
+
+                                                    @if($data->finally != 'backout')
+                                                        <button type="submit" class="btn btn-sm btn-primary mt-2 backout-btn">Reason For Backout <i class="fa-solid fa-backward-step"></i>
                                                     </button>
+                                                    @endif
                                                     </form>
                                                 </td>
                                             </tr>
 
+                                            @if($data->finally != 'backout')
                                             <!-- Employee Code Section -->
                                             <form class="form candidate_join">
                                                 @csrf
@@ -631,6 +639,7 @@
                                                 </td>
                                             </tr>
                                             <!-- End Employee Code Section -->
+                                            @endif
                                             @endif
                                             @endif
 

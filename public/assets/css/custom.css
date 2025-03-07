@@ -52,6 +52,16 @@
     background-color: rgba(38, 185, 154, .88);
     border-color: rgba(38, 185, 154, .88);
 }
+
+.alert-warning {
+  background-color: #997404;
+  color: #fff;
+}
+
+span.alert-danger {
+  background-color: #f1aeb5;
+  color: #b02a37;
+}
 /* Additional styling for the table */
 .table th, .table td {
     text-align: center;

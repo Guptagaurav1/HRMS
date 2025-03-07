@@ -10,7 +10,7 @@ $(document).ready(function () {
         Swal.fire({
             title: "Wait..!",
             didOpen: () => {
-              Swal.showLoading();
+                Swal.showLoading();
             },
             allowOutsideClick: () => !Swal.isLoading()
         });
@@ -119,6 +119,16 @@ $(document).ready(function () {
         saveDetails('store-nominee-details', 'user_submit', formData);
     });
 
+    // Show category file on change of category.
+    $("select.category").change(function (e) {
+        var category = $(this).val();
+        if (category == 'general') {
+            $("input[name=category_doc]").addClass('d-none');
+        }
+        else {
+            $("input[name=category_doc]").removeClass('d-none');
+        }
+    });
     // $("#save_next").click(function () {
 
     //     $(".address_details").hide();
@@ -198,45 +208,96 @@ $(document).ready(function () {
 
     // Add More items
 
-    let itemCount = 1;
-    $('#add_more-items').click(function () {
-        itemCount++;
-        $('#table_body-row:last').after
-            (`
-         <tr>
-                    <td class="srno-column">${itemCount}</td>
-                    <td class="rid-column"> <input type="text" name="family_member_name[]" class="form-control" required>
-                    </td>
-                    <td> <select name="relation_with_mem[]" class="form-control" required>
+
+    $("#add-more-btn-recr").click(function () {
+        let newFamilyMember = `
+            <div class="row px-3 family-member-section border-top p-3 mt-3">
+                <div class="col-md-6">
+                    <label class="form-label">Family Member Name <span class="text-danger fw-bold">*</span></label>
+                    <input type="text" name="family_member_name[]" class="form-control bg-white" placeholder="Enter Name" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Relationship with Member <span class="text-danger fw-bold">*</span></label>
+                    <select name="relation_with_mem[]" class="form-control bg-white" required>
                         <option value="" selected="" disabled="">Select</option>
                         <option value="father">Father</option>
                         <option value="mother">Mother</option>
                         <option value="brother">Brother</option>
                         <option value="sister">Sister</option>
-                    </select></td>
-                    <td class="attributes-column"><input type="text" name="aadhar_card_no[]" class="form-control" maxlength="12" required></td>
-                    <td><input type="date" name="dob[]" class="form-control" required></td>
-                    <td>
-                        <input type="file"  class="form-control" name="aadhar_card_doc[]" accept=".pdf" required>
-                    </td>
-                    <td> <select name="stay_with_mem[]" class="form-control" required>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Aadhar Card Number <span class="text-danger fw-bold">*</span></label>
+                    <input type="text" name="aadhar_card_no[]" class="form-control bg-white" maxlength="12"  placeholder="Enter Aadhar Number" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Date of Birth <span class="text-danger fw-bold">*</span></label>
+                    <input type="date" name="dob[]" class="form-control bg-white" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Upload Aadhar Document <span class="text-danger fw-bold">*</span></label>
+                    <input type="file"  class="form-control bg-white" name="aadhar_card_doc[]"  accept=".pdf" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Stay with Member? <span class="text-danger fw-bold">*</span></label>
+                    <select name="stay_with_mem[]" class="form-control bg-white" required>
                         <option value="" selected="" disabled="">Select</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
-                    </select></td>
-                    <td>
-                        <button type="button" class="btn btn-primary remove-btn" >Remove <i class="fa-solid fa-trash"></i></i></button>
-                        <button type="button" class="btn btn-primary">Reset <i class="fa-solid fa-rotate"></i></button>
-                    </td>
-                </tr>`
-            );
+                    </select>
+                </div>
+                <div class="col-md-12 text-end">
+                    <button type="button" class="btn btn-danger mt-3 remove-family-member">Remove <i class="fa-solid fa-user-minus"></i></button>
+                </div>
+            </div>
+        `;
+        $("#family-member-container").append(newFamilyMember);
     });
 
 
-
-    $(document).on('click', '.remove-btn', function () {
-        $(this).closest('tr').remove();
+    $(document).on("click", ".remove-family-member", function () {
+        $(this).closest(".family-member-section").remove();
     });
+
+    // let itemCount = 1;
+    // $('#add_more-items').click(function () {
+    //     itemCount++;
+    //     $('#table_body-row:last').after
+    //         (`
+    //      <tr>
+    //                 <td class="srno-column">${itemCount}</td>
+    //                 <td class="rid-column"> <input type="text" name="family_member_name[]" class="form-control" required>
+    //                 </td>
+    //                 <td> <select name="relation_with_mem[]" class="form-control" required>
+    //                     <option value="" selected="" disabled="">Select</option>
+    //                     <option value="father">Father</option>
+    //                     <option value="mother">Mother</option>
+    //                     <option value="brother">Brother</option>
+    //                     <option value="sister">Sister</option>
+    //                 </select></td>
+    //                 <td class="attributes-column"><input type="text" name="aadhar_card_no[]" class="form-control" maxlength="12" required></td>
+    //                 <td><input type="date" name="dob[]" class="form-control" required></td>
+    //                 <td>
+    //                     <input type="file"  class="form-control" name="aadhar_card_doc[]" accept=".pdf" required>
+    //                 </td>
+    //                 <td> <select name="stay_with_mem[]" class="form-control" required>
+    //                     <option value="" selected="" disabled="">Select</option>
+    //                     <option value="yes">Yes</option>
+    //                     <option value="no">No</option>
+    //                 </select></td>
+    //                 <td>
+    //                     <button type="button" class="btn btn-primary remove-btn" >Remove <i class="fa-solid fa-trash"></i></i></button>
+    //                     <button type="button" class="btn btn-primary">Reset <i class="fa-solid fa-rotate"></i></button>
+    //                 </td>
+    //             </tr>`
+    //         );
+    // });
+
+
+
+    // $(document).on('click', '.remove-btn', function () {
+    //     $(this).closest('tr').remove();
+    // });
 
 });
 

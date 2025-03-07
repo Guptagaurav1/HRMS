@@ -532,7 +532,7 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-business-time"></i></span> <span class="sidebar-txt">Reimbursement</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('reimbursement-list')}}"
+                            <li class="sidebar-dropdown-item"><a href="{{route('reimbursement.list')}}"
                                     class="sidebar-link">Reimbursement List</a></li>
                         </ul>
                     </li>
@@ -553,11 +553,11 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-calendar-days"></i></span> <span class="sidebar-txt">Upcoming Event</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('birthday-list')}}"
+                            <li class="sidebar-dropdown-item"><a href="{{route('events.birthday-list')}}"
                                     class="sidebar-link">Birthday List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('marriage-anniversary-list')}}"
+                            <li class="sidebar-dropdown-item"><a href="{{route('events.marriage-anniversary-list')}}"
                                     class="sidebar-link">Marriage Anniversary List</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('work-anniversary-list')}}"
+                            <li class="sidebar-dropdown-item"><a href="{{route('events.work-anniversary-list')}}"
                                     class="sidebar-link">Work Anniversary List</a></li>
                         </ul>
                     </li>

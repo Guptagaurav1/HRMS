@@ -25,7 +25,7 @@ class MailLogController extends Controller
             ], 'LIKE', '%'.$request->search.'%');
         }
         $logs = $logs->orderByDesc('id')->paginate(10)->withQueryString();
-       return view("hr.anniversary-wish-log", compact('logs', 'search'));
+       return view("hr.events.logs.anniversary-wish-log", compact('logs', 'search'));
     }   
 
     /**
@@ -45,7 +45,7 @@ class MailLogController extends Controller
             ], 'LIKE', '%'.$request->search.'%');
         }
         $logs = $logs->orderByDesc('id')->paginate(10)->withQueryString();
-       return view("hr.birthday-wish-log", compact('logs', 'search'));
+       return view("hr.events.logs.birthday-wish-log", compact('logs', 'search'));
     }   
 
     /**
@@ -65,6 +65,6 @@ class MailLogController extends Controller
             ], 'LIKE', '%'.$request->search.'%');
         }
         $logs = $logs->orderByDesc('id')->paginate(10)->withQueryString();
-       return view("hr.work-anniversary-wish-log", compact('logs', 'search'));
+       return view("hr.events.logs.work-anniversary-wish-log", compact('logs', 'search'));
     } 
 }
