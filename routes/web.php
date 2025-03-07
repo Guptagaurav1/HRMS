@@ -34,6 +34,7 @@ use App\Http\Controllers\hr\InvoiceBillingController;
 
 use App\Http\Controllers\hr\EventController;
 use App\Http\Controllers\hr\ReimbursementController;
+use App\Http\Controllers\hr\PoshController;
 // Tenant Controller
 
 use App\Http\Controllers\TenantController;
@@ -51,9 +52,7 @@ use App\Http\Controllers\TenantController;
 |
 */
 
-Route::get('/testuser', function (){
-    return view('user-details-multistep');
-});
+
 Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
@@ -333,6 +332,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("view-more-attachment/{id}", 'view_attachment')->name("reimbursement.view-more-attachment");
         Route::post("save-response", 'store_response');
     });
+
+    
         
     //tenants
     Route::resource('tenants',TenantController::class);
