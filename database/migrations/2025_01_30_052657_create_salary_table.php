@@ -59,7 +59,7 @@ return new class extends Migration
             $table->integer('tds_deduction')->nullable();
             $table->integer('pf_wages')->nullable();
             $table->integer('sal_tax')->nullable();
-            $table->integer('sal_remark')->nullable();
+            $table->string('sal_remark')->nullable();
             $table->integer('sal_add_date')->nullable();
             $table->integer('sal_entry_by')->nullable();
            

@@ -239,9 +239,7 @@ class AttendanceController extends Controller
     }
 
     public function wo_sal_calculate(Request $request){
-        // dd($request);
-       
-       
+        
         $check_emps = $request->check;
         if(empty($check_emps)){
             return redirect()->route('wo-sal-attendance')->with('error','Please checked the checkbox before submit attendance.');
@@ -322,9 +320,7 @@ class AttendanceController extends Controller
             $sal_esi_employee = round(($sal_esi_employee * $working_days) / $days_in_month);
             // $sal_esi_employee = round($sal_esi_employee);
             
-            
             $sal_pf_wages = round($sal_pf_wages * $working_days / $days_in_month);
-            
             $sal_conveyance = round($sal_conveyance * $working_days / $days_in_month);
             $medical_allowance = round($medical_allowance * $working_days / $days_in_month);
             $sal_special_allowance = round($sal_special_allowance * $working_days / $days_in_month);
@@ -424,4 +420,182 @@ class AttendanceController extends Controller
                 // dd($wo_emps);
         return view("hr.attendance.wo-generate-salary-list",compact('wo_emps','wo_number','m_y'));
     }
+
+    // upload bulk attendancen start here
+    public function upload_bulk_attendance(){
+        return view("hr.attendance.upload-attendance");
+    }
+    // upload bulk attendancen end here
+
+
+    // create bulk attendance start here
+    public function create_bulk_attendance(Request $request){
+        // dd($request);
+        $request->validate([
+            'csv_data' => 'required|file|mimes:csv,txt|max:2048', // Ensure it's a CSV file
+        ]);
+        // dd($request);
+        // Handle the file upload
+        if ($request->hasFile('csv_data')) {
+            $file = $request->file('csv_data');
+            $handle = fopen($file->getRealPath(), "r");
+
+            $counter = 0;
+            DB::beginTransaction(); // Start a database transaction
+
+            try {
+                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    // dd($data);
+                    if ($counter > 0) { // Skip the header row
+                        $emp_code = $data[0]??NULL;
+                        $emp_wo = $data[1]??NULL;
+                        $emp_at_month = $data[2]??NULL;
+                        $emp_at_year = $data[3]??NULL;
+                        $emp_working_days = $data[4]??NULL;
+                        $emp_dor = $data[5]??NULL;
+                        $emp_recovery = $data[6]??NULL;
+                        $emp_advance = $data[7]??NULL;
+                        $emp_remarks = $data[8]??NULL;
+
+                        // Find employee details
+                        $emp = EmpDetail::where('emp_code', $emp_code)->first();
+
+                        if ($emp) {
+                            $empID = $emp->emp_id;
+                            $emp_designation = $emp->emp_designation;
+                            $emp_unit = $emp->emp_unit;
+                            $emp_salary = $emp->emp_salary;
+
+                            // Build the attendance month
+                            $attendance_month = $emp_at_month . " " . $emp_at_year;
+                            $at_emp = $empID . $attendance_month;
+
+                            // Calculate number of days in the month
+                            $days_in_month = Carbon::createFromFormat('F Y', $attendance_month)->daysInMonth;
+                            $approve_leave = 0; // Always 0
+                            $actual_leave = $days_in_month - $emp_working_days;
+
+                            // Prepare data for insertion
+                            $attendanceData = [
+                                'wo_number' => $emp_wo,
+                                'emp_id' => $empID,
+                                'at_emp' => $at_emp,
+                                'emp_code' => $emp_code,
+                                'attendance_month' => $attendance_month,
+                                'approve_leave' => $approve_leave,
+                                'lwp_leave' => $actual_leave,
+                                'recovery' => $emp_recovery,
+                                'advance' => $emp_advance,
+                                'remarks' => $emp_remarks,
+                                'emp_vendor_rate' => $emp_unit,
+                                'designation' => $emp_designation,
+                                'ctc' => $emp_salary,
+                                'attendance_status' => 'completed',
+                                'user_id' => auth()->id(),
+                                'source' => 'bulk upload',
+                            ];
+                          
+                            // Check if the attendance record already exists
+                            $existingAttendance = WoAttendance::where('at_emp', $at_emp)->first();
+
+                            if (!$existingAttendance) {
+                                // Insert new record if it doesn't exist
+                                WoAttendance::create($attendanceData);
+                            } else {
+                                // Update the existing record
+                                $existingAttendance->update($attendanceData);
+                            }
+
+                            // If date of resignation is present, update the employee record
+                            // if (!empty($emp_dor)) {
+                            //     $emp_dor = Carbon::parse($emp_dor)->format('Y-m-d');
+                            //     $emp->update(['emp_dor' => $emp_dor]);
+                            // }
+                        }
+                    }
+                    $counter++;
+                }
+
+                DB::commit(); 
+                return redirect()->route('upload-attendance')->with('success','Total ' . ($counter - 1) . ' Attendance Added');
+
+            } catch (Exception $e) {
+                DB::rollBack(); 
+                return redirect()->route('upload-attendance')->with('error', 'somthing wrong !');
+                
+            } finally {
+                fclose($handle);
+            }
+        } else {
+          
+            return redirect()->route('upload-attendance')->with('error', 'No file uploaded.');
+        }
+
+    }
+    // create bulk attendance end here
+     
+
+    // attendance list start here
+    public function attendance_list(Request $request){
+        $search = $request->search;
+        $wo_attendances = WoAttendance::with('empDetail')->orderby('status','desc');
+        if(!empty($search)){
+            $wo_attendances->where(function($q) use($search){
+                $q->where('wo_number', 'like','%'.$search.'%')
+                ->orwhere('attendance_month', 'like','%'.$search.'%')
+                ->orwhere('designation', 'like','%'.$search.'%')
+                ->orWhereHas('empDetail', function ($query) use ($search) {
+                    $query->where('emp_code', 'like', "%$search%");
+                    $query->orwhere('emp_name', 'like', "%$search%");
+                });
+            });
+        }
+        $wo_attendances = $wo_attendances->paginate(10);
+        foreach ($wo_attendances as $key => $attendance) {
+            $year_day = date('Y', strtotime($attendance->attendance_month));
+            $month_day = date('m', strtotime($attendance->attendance_month));
+            $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month_day, $year_day);
+
+            // Calculate the gap in service and working days
+            $approve_leave = $attendance->approve_leave??0;  // Ensure this field exists in the model
+            $lwp_leave = $attendance->lwp_leave??0;  // Ensure this field exists in the model
+            $attendance_m_y = $attendance->attendance_month ."(".$days_in_month.")";
+           
+            if ($approve_leave > $lwp_leave) {
+                $gap_in_service = 0;
+                $working_days = $days_in_month - $gap_in_service;  // Calculate working days
+            } else {
+                $gap_in_service = $lwp_leave - $approve_leave;  // Get actual leave without wallet leave
+                $working_days = $days_in_month - $gap_in_service;  // Calculate working days
+            }
+
+            $wo_attendances[$key]->gap_in_service = $gap_in_service;
+            $wo_attendances[$key]->working_days = $working_days;
+            $wo_attendances[$key]->attendance_m_y = $attendance_m_y;
+        }
+        return view("hr.attendance.attendance-list",compact('wo_attendances','search'));
+    }
+    // attendance list end here
+
+    // edit attendance code start here
+    public function edit_attendance(Request $request){
+        $id = $request->id;
+        $wo_attendance = WoAttendance::select('designation','approve_leave','lwp_leave','ctc')->where('id',$id)->first();
+        return view("hr.attendance.edit-attandence",compact('wo_attendance','id'));
+    }
+    // edit attendance code end here
+
+    // update attendance start here
+    public function update_attendance(Request $request){
+        $id= $request->id;
+        $attendance= WoAttendance::find($id);
+        $attendance->update([
+            'designation' => $request->designation,
+            'approve_leave' => $request->approve_leave,
+            'lwp_leave' => $request->lwp_leave,
+            'ctc' => $request->ctc,
+        ]);
+       return redirect()->route('attendance-list')->with('success','Attendance Updated Successfully !');
+    }
+    // update attendance end here
 }

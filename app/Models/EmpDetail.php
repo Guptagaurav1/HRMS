@@ -38,7 +38,10 @@ class EmpDetail extends Authenticatable
     {
         return $this->hasMany(WoAttendance::class, 'emp_id', 'emp_id');
     }
-
+    public function salary()
+    {
+        return $this->hasMany(Salary::class, 'sl_emp_id', 'emp_id'); // Adjust the foreign keys as needed
+    }
     
 
 }

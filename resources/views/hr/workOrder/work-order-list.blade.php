@@ -57,10 +57,6 @@
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>{{ $message }}</strong>
                 </div>
-                @else
-                <div class="alert alert-error alert-dismissible fade show" role="alert">
-                    <strong>{{ $message }}</strong>
-                </div>
                 @endif
             </div>
             <div class="col-md-12 d-flex justify-content-start px-2">

@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Salary extends Model
+class EmpSendDoc extends Model
 {
     use HasFactory;
+    protected $table = 'emp_send_doc';
 
-    protected $table = 'salary';
-
-    public function empDetail()
-    {
-        return $this->belongsTo(EmpDetail::class, 'sl_emp_id', 'emp_id');
-    }
-    
+    protected $fillable = ['emp_code', 'doc_type', 'document', 'status'];
 
     public static function boot()
     {
@@ -34,7 +29,5 @@ class Salary extends Model
                 $model->save();
             });
         }
-        
     }
-
 }

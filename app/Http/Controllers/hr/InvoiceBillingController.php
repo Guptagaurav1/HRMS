@@ -499,7 +499,7 @@ class InvoiceBillingController extends Controller
 
     public function emp_data(Request $request,string $id){
         $id =$request->id;
-        $empDetail = EmpDetail::select('emp_id','emp_pan','emp_code','emp_work_order','emp_name')->where('emp_id',$id)->first();
+        $empDetail = EmpDetail::select('emp_id','emp_pan','emp_code','emp_work_order','emp_name','emp_doj','emp_designation','emp_salary')->where('emp_id',$id)->first();
         // dd($empDetail);
         if($empDetail){
             return response()->json([

@@ -1257,8 +1257,7 @@ class RecruitmentController extends Controller
                         </div>
                         ' . $message_new . '
                     </div>';
-            // print_r($message_new);
-            // die;
+            
             $pdf = App::make('dompdf.wrapper');
             $pdf->loadHTML($html);
             $path = public_path('recruitment/offer-letter');
@@ -1267,7 +1266,8 @@ class RecruitmentController extends Controller
 
             $pdf->save($fullPath)->stream('invoice.pdf');
             $fileurl = asset('recruitment/offer-letter/' . $fileName);
-
+             print_r($message_new);
+            die;
             DB::commit();
             return response()->json(['success' => true, 'path' => $fileurl]);
         } catch (Throwable $th) {
