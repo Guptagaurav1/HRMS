@@ -618,8 +618,11 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-business-time"></i></span> <span class="sidebar-txt">Reimbursement</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            <li class="sidebar-dropdown-item"><a href="{{route('reimbursement-list')}}"
+                            @if(auth()->user()->hasPermission('reimbursement.list'))
+                                <li class="sidebar-dropdown-item"><a href="{{route('reimbursement.list')}}"
                                     class="sidebar-link">Reimbursement List</a></li>
+                            @endif
+                            
                         </ul>
                     </li>
                     @endif
@@ -646,29 +649,27 @@
                         </ul>
                     </li>
                     @endif
-                        <li class="sidebar-dropdown-item">
-                            <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-calendar-days"></i></span> <span class="sidebar-txt">Upcoming Event</span></a>
-                            <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                {{-- @if(auth()->user()->hasPermission('birthday-list')) --}}
-                                    <li class="sidebar-dropdown-item"><a href="{{route('birthday-list')}}"
-                                            class="sidebar-link">Birthday List</a>
-                                    </li>
-                                {{-- @endif --}}
-                                {{-- @if(auth()->user()->hasPermission('marriage-anniversary-list')) --}}
-                                    <li class="sidebar-dropdown-item">
-                                        <a href="{{route('marriage-anniversary-list')}}"
-                                            class="sidebar-link">Marriage Anniversary List</a>
-                                    </li>
-                                {{-- @endif --}}
-                                {{-- @if(auth()->user()->hasPermission('work-anniversary-list')) --}}
-                                    <li class="sidebar-dropdown-item">
-                                        <a href="{{route('work-anniversary-list')}}"
-                                            class="sidebar-link">Work Anniversary List</a>
-                                    </li>
-                                {{-- @endif --}}
-                            </ul>
-                        </li>
                    
+                    <li class="sidebar-dropdown-item">
+                        <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-calendar-days"></i></span> <span class="sidebar-txt">Upcoming Event</span></a>
+                        <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+                            @if(auth()->user()->hasPermission('events.birthday-list'))
+                                <li class="sidebar-dropdown-item"><a href="{{route('events.birthday-list')}}"
+                                    class="sidebar-link">Birthday List</a></li>
+                            @endif
+                            @if(auth()->user()->hasPermission('events.marriage-anniversary-list'))
+                                <li class="sidebar-dropdown-item"><a href="{{route('events.marriage-anniversary-list')}}"
+                                    class="sidebar-link">Marriage Anniversary List</a></li>
+                            @endif
+                            @if(auth()->user()->hasPermission('events.marriage-anniversary-list'))
+                                <li class="sidebar-dropdown-item">
+                                    <a href="{{route('events.work-anniversary-list')}}"
+                                    class="sidebar-link">Work Anniversary List</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                  
                     <ul class="sidebar-link-group">
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span> <span class="sidebar-txt">Logs</span></a>

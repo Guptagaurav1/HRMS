@@ -15,6 +15,7 @@
                     <h3 class="mt-2 text-center">Update Work Order Form</h3>
                 </div>
                 <h6><strong>Work Order :</strong> {{ $workOrder->wo_number }} <strong> Added On : </strong> {{ $workOrder->created_at }}</h6>
+                @if(auth()->user()->hasPermission('work-order-list'))
                 <div class="col-12 d-flex justify-content-end">
                     <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Work Order
                             List</button></a>

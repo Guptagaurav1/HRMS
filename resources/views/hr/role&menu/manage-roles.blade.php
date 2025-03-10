@@ -76,8 +76,12 @@
                               
                                 <td>{{ $role->created_at}}</td>
                                 <td> 
-                                    <a href="{{route('edit-manage-role',$role->id)}}" title="Edit"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
-                                    <a class="delete-role" data-id="{{ $role->id }}" ><button title="Delete" class="btn btn-sm btn-danger">Delete <i class="fa-solid fa-trash"></i></button></a>
+                                    @if(auth()->user()->hasPermission('edit-manage-role'))
+                                        <a href="{{route('edit-manage-role',$role->id)}}" title="Edit"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    @endif
+                                    @if(auth()->user()->hasPermission('delete-manage-role'))
+                                        <a class="delete-role" data-id="{{ $role->id }}" ><button title="Delete" class="btn btn-sm btn-danger">Delete <i class="fa-solid fa-trash"></i></button></a>
+                                    @endif
                                 </td>
                             </tr>
                             @empty
@@ -88,7 +92,7 @@
                         </tbody>
                     </table>
 
-                    {{-- {{$rolesWithMenus->link()}} --}}
+                    {{ $rolesWithMenus->links() }}
                 </div>
             </div>
         </div>

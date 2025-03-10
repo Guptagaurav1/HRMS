@@ -136,9 +136,9 @@ class MenuSeeder extends Seeder
 
                 //Logs
                
-                ['mid' =>'M-75', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Anniversary Wish Logs','page' => 'anniversary-wish-log','status'=> '1','parent_id'=> '17'],
-                ['mid' =>'M-76', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Birthday Wish Log','page' => 'birthday-wish-log','status'=> '1','parent_id'=> '17'],
-                ['mid' =>'M-77', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Work Anniversary Wish Log','page' => 'work-anniversary-wish-log','status'=> '1','parent_id'=> '17'],
+                ['mid' =>'M-75', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Anniversary Wish Logs','page' => 'events.marriage-anniversary-list','status'=> '1','parent_id'=> '17'],
+                ['mid' =>'M-76', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Birthday Wish Log','page' => 'events.birthday-list','status'=> '1','parent_id'=> '17'],
+                ['mid' =>'M-77', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Work Anniversary Wish Log','page' => 'events.work-anniversary-list','status'=> '1','parent_id'=> '17'],
 
                 //Logs
                
@@ -170,12 +170,25 @@ class MenuSeeder extends Seeder
                 ['mid' =>'M-93', 'section' => 'User & Role', 'section_icon' => '', 'name' => 'Edit Role','page' => 'edit-manage-role','status'=> '1','parent_id'=> '21'],
                 ['mid' =>'M-94', 'section' => 'User & Role', 'section_icon' => '', 'name' => 'Delete Role','page' => 'delete-manage-role','status'=> '1','parent_id'=> '21'],
 
+                // Reimbursement
+
+                ['mid' =>'M-95', 'section' => 'Reimbursement', 'section_icon' => '', 'name' => 'Reimbursement List','page' => 'reimbursement.list','status'=> '1','parent_id'=> '22'],
+                ['mid' =>'M-96', 'section' => 'Reimbursement', 'section_icon' => '', 'name' => 'Reimbursement View','page' => 'reimbursement.view-reciept','status'=> '1','parent_id'=> '22'],
+                ['mid' =>'M-97', 'section' => 'Reimbursement', 'section_icon' => '', 'name' => 'Reimbursement View Attachment','page' => 'reimbursement.view-more-attachment','status'=> '1','parent_id'=> '22'],
+
+                   // Recruitment
+
+                ['mid' =>'M-98', 'section' => 'Recruitment', 'section_icon' => '', 'name' => 'Recruitment Plan Summary','page' => 'recruitment-plan-page-summary','status'=> '1','parent_id'=> '8'],
+
+
+               
+
 
         ];
 
         foreach ($data as $routeData) {
             $menu = new Menu;
-            $exist = $menu->where('name', '=', $routeData['name'])->exists();
+            $exist = $menu->where('page', '=', $routeData['page'])->exists();
             if($exist){
                 continue;
             }else{

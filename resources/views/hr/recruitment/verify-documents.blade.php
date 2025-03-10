@@ -50,10 +50,10 @@
                         <label class="form-label">Category <span class="text-danger">*</span></label>
                         <select class="form-control form-control-sm" name="category" required="" fdprocessedid="fbbzqq">
                           <option value="Not Specified">Not Specified</option>
-                          <option value="general" {{$details->getPersonalDetail->category == 'general' ? 'selected' : ''}}>General</option>
-                          <option value="obc" {{$details->getPersonalDetail->category == 'obc' ? 'selected' : ''}}>OBC</option>
-                          <option value="sc" {{$details->getPersonalDetail->category == 'sc' ? 'selected' : ''}}>SC/ST</option>
-                          <option value="st" {{$details->getPersonalDetail->category == 'st' ? 'selected' : ''}}>PH</option>
+                          <option value="general" {{$details->getPersonalDetail && $details->getPersonalDetail->category == 'general' ? 'selected' : ''}}>General</option>
+                          <option value="obc" {{$details->getPersonalDetail && $details->getPersonalDetail->category == 'obc' ? 'selected' : ''}}>OBC</option>
+                          <option value="sc" {{$details->getPersonalDetail && $details->getPersonalDetail->category == 'sc' ? 'selected' : ''}}>SC/ST</option>
+                          <option value="st" {{$details->getPersonalDetail && $details->getPersonalDetail->category == 'st' ? 'selected' : ''}}>PH</option>
                         </select>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Preferred Job Location <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Preferred Loaction" value="{{$details->getPersonalDetail->preferred_location}}" name="preferred_location" required>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Preferred Loaction" value="{{$details->getPersonalDetail ?$details->getPersonalDetail->preferred_location : ''}}" name="preferred_location" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Highest Qualification <span class="text-danger">*</span></label>
@@ -77,7 +77,7 @@
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Salary / CTC(Per Month)</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter CTC" value="{{$details->salary}}" name="ctc" required >
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter CTC" value="{{$details->salary}}" name="ctc">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Total Experience <span class="fw-light"> (In Years) </span><span class="text-danger">*</span></label>
@@ -94,36 +94,36 @@
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Guardian Name(Parents/Others) <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Guardian Name" value="{{$details->getPersonalDetail->father_name}}" name="guardian_name" required>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Guardian Name" value="{{$details->getPersonalDetail ? $details->getPersonalDetail->father_name : ''}}" name="guardian_name" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label text-wrap">Guardian(Parents/Others) Contact No.<span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm"
-                            placeholder="Enter Guardian Contact Number" value="{{$details->getPersonalDetail->father_mobile}}" name="guardian_contact" required>
+                            placeholder="Enter Guardian Contact Number" value="{{$details->getPersonalDetail ? $details->getPersonalDetail->father_mobile : ''}}" name="guardian_contact" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Blood Group <span class="text-danger">*</span></label>
                         <select name="blood_group" class="form-control form-control-sm" required>
                             <option value="Not Specified" selected="" disabled="">Not Specified</option>
-                            <option value="a+" {{$details->getPersonalDetail->blood_group == 'a+' ? 'selected' : ''}}>A+</option>
-                            <option value="a-" {{$details->getPersonalDetail->blood_group == 'a-' ? 'selected' : ''}}>A-</option>
-                            <option value="b+" {{$details->getPersonalDetail->blood_group == 'b+' ? 'selected' : ''}}>B+</option>
-                            <option value="b-" {{$details->getPersonalDetail->blood_group == 'b-' ? 'selected' : ''}}>B-</option>
-                            <option value="o+" {{$details->getPersonalDetail->blood_group == 'o+' ? 'selected' : ''}}>O+</option>
-                            <option value="o-" {{$details->getPersonalDetail->blood_group == 'o-' ? 'selected' : ''}}>O-</option>
-                            <option value="ab+" {{$details->getPersonalDetail->blood_group == 'ab+' ? 'selected' : ''}}>AB+</option>
-                            <option value="ab-" {{$details->getPersonalDetail->blood_group == 'ab-' ? 'selected' : ''}}>AB-</option>
+                            <option value="a+" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'a+' ? 'selected' : ''}}>A+</option>
+                            <option value="a-" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'a-' ? 'selected' : ''}}>A-</option>
+                            <option value="b+" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'b+' ? 'selected' : ''}}>B+</option>
+                            <option value="b-" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'b-' ? 'selected' : ''}}>B-</option>
+                            <option value="o+" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'o+' ? 'selected' : ''}}>O+</option>
+                            <option value="o-" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'o-' ? 'selected' : ''}}>O-</option>
+                            <option value="ab+" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'ab+' ? 'selected' : ''}}>AB+</option>
+                            <option value="ab-" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'ab-' ? 'selected' : ''}}>AB-</option>
                         </select>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Martial Status<span class="text-danger">*</span></label>
                         <select name="martial_status" class="form-control form-select" required="">
                           <option value="Not Specified" selected="" disabled="">Not Specified</option>
-                          <option value="single" {{$details->getPersonalDetail->marital_status == 'single' ? 'selected' : ''}}>Single</option>
-                          <option value="married" {{$details->getPersonalDetail->marital_status == 'married' ? 'selected' : ''}}>Married</option>
-                          <option value="widowed" {{$details->getPersonalDetail->marital_status == 'widowed' ? 'selected' : ''}}>Widowed</option>
-                          <option value="divorced" {{$details->getPersonalDetail->marital_status == 'divorced' ? 'selected' : ''}}>Divorced / Seperated</option>
+                          <option value="single" {{$details->getPersonalDetail && $details->getPersonalDetail->marital_status == 'single' ? 'selected' : ''}}>Single</option>
+                          <option value="married" {{$details->getPersonalDetail && $details->getPersonalDetail->marital_status == 'married' ? 'selected' : ''}}>Married</option>
+                          <option value="widowed" {{$details->getPersonalDetail && $details->getPersonalDetail->marital_status == 'widowed' ? 'selected' : ''}}>Widowed</option>
+                          <option value="divorced" {{$details->getPersonalDetail && $details->getPersonalDetail->marital_status == 'divorced' ? 'selected' : ''}}>Divorced / Seperated</option>
                         </select>
                     </div>
 

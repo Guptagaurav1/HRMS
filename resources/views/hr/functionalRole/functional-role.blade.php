@@ -16,9 +16,11 @@
             
                 <div class="panel-body">
                     <div class="row ">
-                        <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{route('add-functional-role')}}"><button class="btn btn-sm btn-primary">Add Functional Role <i class="fa-solid fa-plus"></i></button></a>  
-                        </div> 
+                        @if(auth()->user()->hasPermission('add-functional-role'))
+                            <div class="col-md-12 d-flex justify-content-end">
+                            <a href="{{route('add-functional-role')}}"><button class="btn btn-sm btn-primary">Add Functional Role <i class="fa-solid fa-plus"></i></button></a>  
+                            </div> 
+                        @endif
 
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -70,8 +72,12 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $role->role }}</td>
                                  <td> 
-                                    <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button class="btn btn-sm btn-primary">Edit</button></a>
-                                    <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete</button>
+                                    @if(auth()->user()->hasPermission('edit-functional-role'))
+                                        <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button class="btn btn-sm btn-primary">Edit</button></a>
+                                    @endif
+                                    @if(auth()->user()->hasPermission('edit-functional-role'))
+                                        <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete</button>
+                                    @endif
                                 </td>
                             </tr>
                                 @empty 

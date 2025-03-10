@@ -16,9 +16,11 @@
             
                 <div class="panel-body">
                     <div class="row ">
-                        <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{route('add-bank')}}"><button class="btn btn-sm btn-primary">Add Bank <i class="fa-solid fa-plus"></i></button></a>  
-                        </div> 
+                        @if(auth()->user()->hasPermission('add-bank'))
+                            <div class="col-md-12 d-flex justify-content-end">
+                            <a href="{{route('add-bank')}}"><button class="btn btn-sm btn-primary">Add Bank <i class="fa-solid fa-plus"></i></button></a>  
+                            </div> 
+                        @endif
 
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -30,15 +32,15 @@
                         </svg>
 
                         @if(session()->has('success'))
-                        <div class="col-md-12">
-                            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                                <div>
-                                  {{session()->get('message')}}
+                            <div class="col-md-12">
+                                <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                    <div>
+                                    {{session()->get('message')}}
+                                    </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
-                        </div>
                         @endif
 
                         @if(session()->has('error'))

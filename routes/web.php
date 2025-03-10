@@ -32,6 +32,8 @@ use App\Http\Controllers\hr\RecruitmentController;
 
 use App\Http\Controllers\hr\InvoiceBillingController;
 
+use App\Http\Controllers\hr\EventController;
+use App\Http\Controllers\hr\ReimbursementController;
 // Tenant Controller
 
 use App\Http\Controllers\TenantController;
@@ -49,8 +51,9 @@ use App\Http\Controllers\TenantController;
 |
 */
 
-
-
+Route::get('/testuser', function (){
+    return view('user-details-multistep');
+});
 Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
@@ -313,6 +316,24 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("upload-form16",'uploadForm16')->name('upload-form16');
 
     });
+
+    Route::controller(EventController::class)->prefix('events')->group(function () {
+        Route::get("birthday-list", 'birthday_list')->name("events.birthday-list");
+        Route::get("marriage-anniversary-list", "anniversary_list")->name("events.marriage-anniversary-list"); 
+        Route::get("work-anniversary-list", "work_anniversary_list")->name("events.work-anniversary-list");
+        Route::get("birthday-template", 'birthday_template')->name("events.birthday-template");
+        Route::post("send-birthday-mail", 'send_birthday_mail');
+        Route::get("marriage-anniversary-template", 'marriage_template')->name("events.marriage-anniversary-template");
+        Route::get("work-anniversary-template", 'work_anniversary_template')->name("events.work-anniversary-template");
+        Route::post("send-anniversary-mail", 'send_anniversary_mail');
+    });
+
+    Route::controller(ReimbursementController::class)->prefix('reimbursement')->group(function () {
+        Route::get("/", 'index')->name("reimbursement.list");
+        Route::get('view-reciept/{id}', 'view_receipt')->name("reimbursement.view-reciept");
+        Route::get("view-more-attachment/{id}", 'view_attachment')->name("reimbursement.view-more-attachment");
+        Route::post("save-response", 'store_response');
+    });
         
     //tenants
     Route::resource('tenants',TenantController::class);
@@ -331,7 +352,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/store", 'store')->name("store-user");
         Route::get("/edit/{id}", 'edit')->name("edit-user");
         Route::post("/update/{id}", 'update')->name("update-user");
-        Route::get("/delete/{id}", 'destroy')->name("delete");
+        Route::get("/delete/{id}", 'destroy')->name("delete-user");
     });
     // Route::resource('users',UserController::class);
 
@@ -379,22 +400,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("posh-complaint-list", function () {
         return view(" hr.posh-complaint-list");
     })->name("posh-complaint-list");
-
-    Route::get("reimbursement-list", function () {
-        return view(" hr.reimbursement-list");
-    })->name("reimbursement-list");
-
-    Route::get("birthday-list", function () {
-        return view("hr.birthday-list");
-    })->name("birthday-list");
-
-    Route::get("marriage-anniversary-list", function () {
-        return view("hr.marriage-anniversary-list");
-    })->name("marriage-anniversary-list");
-
-    Route::get("work-anniversary-list", function () {
-        return view("hr.work-anniversary-list");
-    })->name("work-anniversary-list");
 
     Route::get("upload-attendance", function () {
         return view("hr.upload-attendance");
@@ -497,29 +502,14 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.invoice-encloser");
     })->name("invoice-encloser");
 
-    Route::get("view-reciept", function () {
-        return view("hr.view-reciept");
-    })->name("view-reciept");
-
-    Route::get("view-more-attachment", function () {
-        return view("hr.view-more-attachment");
-    })->name("view-more-attachment");
+    // Route::get("view-more-attachment", function () {
+    //     return view("hr.view-more-attachment");
+    // })->name("view-more-attachment");
 
     Route::get("edit-attandence", function () {
         return view("hr.edit-attandence");
     })->name("edit-attandence");
 
-    Route::get("birthday-template", function () {
-        return view("hr.birthday-template");
-    })->name("birthday-template");
-
-    Route::get("marriage-anniversary-list-template", function () {
-        return view("hr.marriage-anniversary-list-template");
-    })->name("marriage-anniversary-list-template");
-
-    Route::get("work-anniversary-list-template", function () {
-        return view("hr.work-anniversary-list-template");
-    })->name("work-anniversary-list-template");
 
     Route::get("company-master-edit", function () {
         return view("hr.company-master-edit");

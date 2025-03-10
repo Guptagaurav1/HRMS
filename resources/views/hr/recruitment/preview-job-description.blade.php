@@ -17,9 +17,11 @@
                             <div class="panel-header">
                                 <h4 class="mt-2 px-2">Preview Summary</h4>
                             </div>
-                            <div class="text-end">
-                                <a href="{{route('show-assign-work-log', ['id' => $id])}}" class="btn btn-primary m-2">Back</a>
-                            </div>
+                            @if(auth()->user()->hasPermission('show-assign-work-log'))
+                                <div class="text-end">
+                                    <a href="{{route('show-assign-work-log', ['id' => $id])}}" class="btn btn-primary m-2">Back</a>
+                                </div>
+                            @endif
                             <div class="card-body table-responsive">
                                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                                     <tbody>

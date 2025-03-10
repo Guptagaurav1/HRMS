@@ -31,16 +31,22 @@
                             <div class="col-auto d-flex gap-4">
                                 <button type="submit" class="btn btn-primary mb-3">Search <i
                                         class="fa-solid fa-magnifying-glass"></i></button>
+                            @if(auth()->user()->hasPermission('work-order-list'))
                                 <a href="{{ route('work-order-list') }}">
                                     <button type="button" class="btn btn-secondary mb-3">Clear <i
                                             class="fa-solid fa-eraser"></i></button>
                                 </a>
+                            @endif
     
                             </div>
                             <div class="col-md-12 d-flex justify-content-end gap-5">
-                                <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">CSV</button></a>
-                                <a href="{{'add-work-order'}}"><button class="btn btn-sm btn-primary">Add Work
+                                @if(auth()->user()->hasPermission('addnew-candidate'))
+                                    <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">CSV</button></a>
+                                @endif
+                                @if(auth()->user()->hasPermission('add-work-order'))
+                                    <a href="{{'add-work-order'}}"><button class="btn btn-sm btn-primary">Add Work
                                         Order</button></a>
+                                @endif
                             </div>
                         </div>
     
@@ -155,22 +161,31 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{route('edit-work-order',$value->id)}}" class="btn btn-primary mb-3">
-                                            <span class="badge badge-primary">Edit <i
-                                                    class="fa-solid fa-pen-to-square"></i></span>
-                                        </a>
+                                        @if(auth()->user()->hasPermission('edit-work-order'))
+                                            <a href="{{route('edit-work-order',$value->id)}}" class="btn btn-primary mb-3">
+                                                <span class="badge badge-primary">Edit <i
+                                                        class="fa-solid fa-pen-to-square"></i></span>
+                                            </a>
+                                        @endif
+                                        @if(auth()->user()->hasPermission('view-work-order'))
                                         <a href="{{route('view-work-order',$value->id)}}" class="btn btn-primary mb-3">
                                             <span class="badge badge-primary">View <i
                                                     class="fa-solid fa-eye"></i></span>
                                         </a><br>
-                                        <a href="{{route('go-to-attendance',$value->id)}}" class="btn btn-primary mb-3">
-                                            <span class="badge badge-primary">Go To Attendance <i
-                                                    class="fa-solid fa-clipboard-user"></i></span>
-                                        </a><br>
-                                        <a href="{{route('work-order-salary-sheet')}}" class="btn btn-primary mb-3">
-                                            <span class="badge badge-primary">Go To Salary Sheet <i
-                                                    class="fa-solid fa-file-contract"></i></span>
-                                        </a>
+                                        @endif
+                                        @if(auth()->user()->hasPermission('go-to-attendance'))
+                                            <a href="{{route('go-to-attendance',$value->id)}}" class="btn btn-primary mb-3">
+                                                <span class="badge badge-primary">Go To Attendance <i
+                                                        class="fa-solid fa-clipboard-user"></i></span>
+                                            </a>
+                                        @endif
+                                            <br>
+                                        @if(auth()->user()->hasPermission('work-order-salary-sheet'))
+                                            <a href="{{route('work-order-salary-sheet')}}" class="btn btn-primary mb-3">
+                                                <span class="badge badge-primary">Go To Salary Sheet <i
+                                                        class="fa-solid fa-file-contract"></i></span>
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty
