@@ -49,6 +49,8 @@ use App\Http\Controllers\TenantController;
 |
 */
 
+
+
 Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
@@ -197,7 +199,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/store", 'store')->name("store-functional-role");
         Route::get("/edit/{id}", 'edit')->name("edit-functional-role");
         Route::post("/update/{id}", 'update')->name("update-functional-role");
-        Route::get("/delete/{id}", 'destroy');
+        Route::get("/delete/{id}", 'destroy')->name("destroy-functional-role");;
     });  
     Route::controller(QualificationController::class)->prefix('qualification')->group(function (){
         Route::get("/", 'index')->name("qualification");
@@ -205,14 +207,14 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/store", 'store')->name("store-qualification");
         Route::get("/edit/{id}", 'edit')->name("edit-qualification");
         Route::post("/update/{id}", 'update')->name("update-qualification");
-        Route::post("/delete/{id}", 'destroy');
+        Route::post("/delete/{id}", 'destroy')->name("destroy-qualification");
     });    
     Route::controller(BankController::class)->prefix('bank')->group(function (){
         Route::get("/", 'index')->name("bank-details");
         Route::get("/add", 'create')->name("add-bank");
         Route::post("/store", 'store')->name("store-bank");
-        Route::post("/deactivate/{id}", 'deactivate');
-        Route::post("/activate/{id}", 'activate');
+        Route::post("/deactivate/{id}", 'deactivate')->name('deactivate');
+        Route::post("/activate/{id}", 'activate')->name('activate');
     });
 
     Route::controller(AuthController::class)->group(function () {
@@ -221,7 +223,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
     /////////// workorder routes start ///////
     Route::controller(WorkOrderController::class)->group(function (){
-
         Route::get("work-order-list","index")->name("work-order-list");
         Route::get("get-work-order","getWorkOrder")->name("get-work-order");
         Route::get("add-work-order","create")->name("add-work-order");
@@ -235,6 +236,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("work-order-report","work_order_report")->name("work-order-report");
 
     });
+
     /////////// workorder routes end ///////
   
     Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
@@ -246,7 +248,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
         Route::get('/', 'index')->name("salary-slip");
         Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
-        Route::post('send-mail/{id}', 'send_mail');
+        Route::post('send-mail/{id}', 'send_mail')->name('salary-slip.sendmail');
         Route::get('employee-details/{salaryid}', 'employee_details')->name("employee-details-salary-retainer");
         Route::post('export', 'export_csv')->name("export-salary");
         Route::get("edit/{id}", 'edit_slip')->name("salary-slip-edit");
@@ -262,6 +264,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("wo-generate-salary", 'wo_generate_salary')->name("wo-generate-salary");
        
     });
+    
      
     Route::controller(ProjectController::class)->prefix('project')->group(function () {
         Route::get("/","index")->name("project-list");
@@ -323,7 +326,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     // Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
     Route::controller(UserController::class)->prefix('users')->group(function(){
         Route::post('/{user}/update-status', 'updateStatus')->name('users.update-status');
-
         Route::get("/", 'index')->name("users");
         Route::get("/create", 'create')->name("add-user");
         Route::post("/store", 'store')->name("store-user");
@@ -365,23 +367,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("send-letter", function () {
         return view(" hr.send-letter");
     })->name("send-letter");
-
-    // Route::get("department", function () {
-    //     return view(" hr.department");
-    // })->name("department");
-
-    // Route::get("add-user", function () {
-    //     return view(" hr.add-user");
-    // })->name("add-user");
-
-    // Route::get("manage-roles", function () {
-    //     return view(" hr.manage-roles");
-    // })->name("manage-roles");
-   
-
-    // Route::get("users-list", function () {
-    //     return view(" hr.users-list");
-    // })->name("users-list");
 
     Route::get("position-review-dept", function () {
         return view(" hr.position-review-dept");
@@ -545,12 +530,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     })->name("add-company-master");
 
     
-
-
-  
-
-   
-
  
 
 Route::middleware('employee')->prefix('employee')->group(function () {
@@ -599,8 +578,6 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         return view("employee.employee-users-details");
     })->name("employee-users-details");
 
-    
-
     Route::get("reiembursement-list-employee", function () {
         return view("employee.reiembursement-list-employee");
     })->name("reiembursement-list-employee");
@@ -610,5 +587,11 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     })->name("employee-salary-slip");
 });
 
+// $namedRoutes = collect(Route::getRoutes())->filter(function ($route) {
+//     return $route->getName() !== null;
+// })->map(function ($route) {
+//     return $route->getName();
+// });
 
+// dd($namedRoutes);
 

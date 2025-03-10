@@ -64,9 +64,11 @@ class RoleController extends Controller
         if(is_array($checkMenuArray)){
             $checkString = implode(',', $checkMenuArray);
         }
-       
 
+        $countRID = Role::select('rid')->count();
+        $currentCount = $countRID + 1;
         $roles = new Role();
+        $roles->rid = "R"."-".$currentCount;
         $roles->role_name = $request->role_name;
         $roles->menu_id =$checkString;
 
