@@ -40,16 +40,7 @@
                         <label for="tab4">Invoice Details</label>
     
                        
-                        <!-- <input type="radio" name="tabset" id="tab5" aria-controls="amendment-info">
-                        <label for="tab5">Amendment Info</label>
-    
                        
-                        <input type="radio" name="tabset" id="tab6" aria-controls="remarks">
-                        <label for="tab6">Remarks</label>
-    
-                        
-                        <input type="radio" name="tabset" id="tab7" aria-controls="attachment">
-                        <label for="tab7">Attachment</label> -->
                         
                         <div class="tab-panels px-2">
                           <section id="project-details" class="tab-panel">
@@ -307,38 +298,7 @@
                             </div>
                           </section>
     
-                          <!-- <section id="amendment-info" class="tab-panel">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-4 text-wrap">
-                                        <label class="form-label text-wrap">Amendment Number</label>
-                                        <input name="amendment_number" id="amendment_number" type="text" class="form-control form-control-sm" placeholder="Invoice Client Name" value="{{ old('amendment_number') }}">
-                                    </div>
-                                    <div class="col-sm-12 col-md-4 text-wrap">
-                                        <label class="form-label text-wrap">Amendment date</label>
-                                        <input name= "amendment_date" id="amendment_date"type="date" class="form-control form-control-sm" placeholder="State" value="{{ old('amendment_date') }}">
-                                    </div>
-                                    <div class="col-sm-12 col-md-4 text-wrap">
-                                        <label class="form-label text-wrap">Previous Order No</label>
-                                        <input name="prev_order_no" id="prev_order_no" type="text" class="form-control form-control-sm" placeholder="PIN Number" value="{{ old('prev_order_no') }}">
-                                    </div>
-        
-                                </div>
-                            </div>
-                          </section> -->
-    
-                          <!-- <section id="remarks" class="tab-panel">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 text-wrap">
-                                        <label for="exampleTextarea" class="form-label">Address</label>
-                                        <textarea name="remarks" class="form-control" id="remarks" placeholder="Enter Address" value="{{ old('remarks') }}"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                          </section> -->
-    
-                          <!-- Attachment Section -->
+                          
                         
                         </div>
                     </div>

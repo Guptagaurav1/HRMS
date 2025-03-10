@@ -32,7 +32,7 @@ class SalarySlipController extends Controller
             ], 'LIKE', '%'.$request->search.'%');
         }
         $slips = $slips->orderByDesc('emp_salary_id')->paginate(10)->withQueryString();
-        return view('hr.salary-slip', compact('slips', 'search'));
+        return view('hr.salary.salary-slip', compact('slips', 'search'));
     }
 
     /**
@@ -41,7 +41,7 @@ class SalarySlipController extends Controller
     public function show_preview(Request $request, $id){
         try {
                $salary_slip_record = EmpSalarySlip::findOrFail($id);
-                return view("hr.preview-salary-slip", compact('salary_slip_record', 'id'));
+                return view("hr.salary.preview-salary-slip", compact('salary_slip_record', 'id'));
         }
         catch(Throwable $th){
             return redirect()->route('salary-slip')->with(['error' => true, 'message' => 'Server Error']);
@@ -77,7 +77,7 @@ class SalarySlipController extends Controller
         $emp_code = EmpSalarySlip::where('emp_salary_id', $salaryid)->value('sal_emp_code');
         $empdetails = EmpDetail::where('emp_code', $emp_code)->first();
         if ($empdetails) {
-            return view("hr.employee-details-salary-retainer", compact('empdetails', 'salaryid'));
+            return view("hr.salary.employee-details-salary-retainer", compact('empdetails', 'salaryid'));
         }
         else {
              return redirect()->route('salary-slip')->with(['error' => true, 'message' => 'Server Error']);
@@ -143,7 +143,7 @@ class SalarySlipController extends Controller
      */
     public function edit_slip(Request $request, $id){
         $slip = EmpSalarySlip::select('emp_salary_slip.*', 'wo_attendance.overtime_rate', 'wo_attendance.total_working_hrs')->join('wo_attendance', 'wo_attendance.at_emp', '=', 'emp_salary_slip.wo_attendance_at_emp')->where('emp_salary_id', $id)->first();
-        return view("hr.salary-slip-edit", compact('slip', 'id'));
+        return view("hr.salary.salary-slip-edit", compact('slip', 'id'));
     }
 
 
@@ -188,7 +188,7 @@ class SalarySlipController extends Controller
                 $slip_get = true;
             }
         }
-            return view("hr.employee-code-retainer", compact('salary_slip_record', 'salaryid', 'slip_get', 'month', 'filter_record'));
+            return view("hr.salary.employee-code-retainer", compact('salary_slip_record', 'salaryid', 'slip_get', 'month', 'filter_record'));
     }
 
 }

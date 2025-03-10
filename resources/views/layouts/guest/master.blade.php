@@ -17,6 +17,10 @@
 <body class="light-theme">
     <div class="main-content">
         @yield('content')
+
+    </div>
+    <div>
+        @yield('modal')
     </div>
 <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/js/jquery.overlayScrollbars.min.js') }}"></script>

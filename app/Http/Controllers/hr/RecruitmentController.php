@@ -215,7 +215,7 @@ class RecruitmentController extends Controller
             $maildata->remarks = $request->remark;
             $maildata->subject = $request->job_position . " Job Description";
 
-            Mail::to($request->jobseeker_email)->send(new JobDescriptionMail($maildata));
+            Mail::to($request->jobseeker_email)->cc(auth()->user()->email)->send(new JobDescriptionMail($maildata));
             DB::commit();
             return response()->json(['success' => true, 'message' => 'Mail Sent Successfully.']);
         } catch (Throwable $th) {
@@ -251,7 +251,7 @@ class RecruitmentController extends Controller
                 $data[] = str_getcsv($line);
             }
             $headers = $data[0];
-            
+
             // Validate whether headers contain all fields or not.
             if (count($headers) == 2 && in_array("Name", $headers) && in_array("Email", $headers)) {
                 unset($data[0]);
@@ -261,12 +261,10 @@ class RecruitmentController extends Controller
 
                 $user = auth()->user();
                 $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
-                $link = route('guest.recruitment_form', ['id' => encrypt($request->position_id), 'ref' => encrypt($user->email)]);
                 // Send Mail.
                 $maildata = new stdClass();
                 $maildata->job_position = $request->job_position;
                 $maildata->job_description = $request->description;
-                $maildata->link = $link;
                 $maildata->url = '';
                 $maildata->sender_name = $user->first_name . " " . $user->last_name;
                 $maildata->sender_from = $user->email;
@@ -292,7 +290,8 @@ class RecruitmentController extends Controller
                         $previous = 0;
                     }
                     $uni_id = ($previous + 1) . '/' . str_replace(' ', '', $request->job_position) . '/' . $request->jobseeker_email;
-
+                    $link = route('guest.recruitment_form', ['id' => encrypt($request->position_id), 'ref' => encrypt($user->email), 'send_mail_id' => encrypt($uni_id)]);
+                    $maildata->link = $link;
 
                     SendMailLog::create([
                         'uni_id' => $uni_id,
@@ -305,7 +304,7 @@ class RecruitmentController extends Controller
                     ]);
 
                     $maildata->name = $name;
-                    Mail::to($email)->send(new JobDescriptionMail($maildata));
+                    Mail::to($email)->cc($user->email)->send(new JobDescriptionMail($maildata));
                 }
                 DB::commit();
                 return response()->json(['success' => true, 'message' => 'Mail Sent Successfully.']);
@@ -933,8 +932,8 @@ class RecruitmentController extends Controller
             $message_new = str_replace('{{img_sign}}', $details->img_sign, $message_new);
 
             $message_new = str_replace('{{id}}', $details->app_id, $message_new);
-            $message_new = str_replace('{{district}}', $details->getDistrict->district_name, $message_new);
-            $message_new = str_replace('{{state}}', $details->getState->state, $message_new);
+            $message_new = str_replace('{{district}}',  $details->getDistrict ? $details->getDistrict->district_name : '', $message_new);
+            $message_new = str_replace('{{state}}', $details->getState ? $details->getState->state : '', $message_new);
             $message_new = str_replace('{{pincode}}', $details->pincode, $message_new);
             $message_new = str_replace('{{address}}', $details->candidate_address, $message_new);
             $message_new = str_replace('{{title}}', $title, $message_new);
@@ -1060,6 +1059,12 @@ class RecruitmentController extends Controller
             $details->stage6 = 'yes';
             $details->emp_code = $request->emp_code;
             $details->save();
+
+            $personal_details = RecPersonalDetail::where('rec_id', $request->recruitment)->first();
+            if($personal_details){
+                $personal_details->emp_code = $request->emp_code;
+                $personal_details->save();
+            }
             // Send Mail.
             return response()->json(['success' => true, 'message' => 'Submitted Candidate has been joined!']);
         } catch (Throwable $th) {
@@ -1098,6 +1103,26 @@ class RecruitmentController extends Controller
             $details->remarks_for_backout = $request->backout_reason;
             $details->save();
             // Send Mail.
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+
+            $mail_html = "<p>I hope this email finds you well.</p>
+                <p style='text-align: start;'>We regret to inform you that as you have not joined <b>$company->name</b> on the agreed-upon date and have not provided any update regarding the delay, we are left with no choice but to revoke the offer extended to you for the position of <b>$details->job_position</b>.</p>
+                <p style='text-align: start;'>We appreciate your interest in <b>$company->name</b> and the time you invested in the selection process. Should you wish to explore opportunities with us in the future, we would be happy to consider your profile based on the available openings at that time.</p>
+                <p style='text-align: start;'>Wishing you all the best in your future endeavors.</p><br>
+                ";
+
+            $maildata = new stdClass();
+            $maildata->subject = "Revocation of Offer - $details->firstname $details->lastname";
+            $maildata->name = $details->firstname." ".$details->lastname;
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $mail_html;
+            $maildata->url = url('/');
+            Mail::to($details->email)->cc($this->cc)->send(new ShortlistMail($maildata));
+
             return response()->json(['success' => true, 'message' => 'Submitted Candidate Backout with Reasons!']);
         } catch (Throwable $th) {
             return response()->json(['error' => true, 'message' => $th->getMessage()]);
@@ -1190,8 +1215,8 @@ class RecruitmentController extends Controller
             $message_new = str_replace('{{img_sign}}', $details->img_sign, $message_new);
 
             $message_new = str_replace('{{id}}', $details->app_id, $message_new);
-            $message_new = str_replace('{{district}}', $details->getDistrict->district_name, $message_new);
-            $message_new = str_replace('{{state}}', $details->getState->state, $message_new);
+            $message_new = str_replace('{{district}}', $details->getDistrict ? $details->getDistrict->district_name : '', $message_new);
+            $message_new = str_replace('{{state}}', $details->getState ? $details->getState->state : '', $message_new);
             $message_new = str_replace('{{pincode}}', $details->pincode, $message_new);
             $message_new = str_replace('{{address}}', $details->candidate_address, $message_new);
             $message_new = str_replace('{{title}}', $title, $message_new);
@@ -1790,6 +1815,7 @@ class RecruitmentController extends Controller
                 'bank_name_id' => ['required'],
                 'account_no' => ['required'],
                 'ifsc_code' => ['required'],
+                'branch' => ['required'],
                 'bank_doc' => ['required', File::types(['pdf'])->max('1mb')],
                 'pan_card_no' => ['required'],
                 'pan_card_doc' => ['required', File::types(['pdf'])->max('1mb')],

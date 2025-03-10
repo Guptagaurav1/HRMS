@@ -46,7 +46,7 @@ class AuthController extends Controller
             $remember = $request->remember ? $request->remember : false;
             $user = User::where('email', $request->email)->first();
             if($user && $user->password === md5($request->password)){
-            Auth::login($user);
+            Auth::login($user);            
             return redirect()->route('hr_dashboard');
             }
             else {

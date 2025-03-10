@@ -163,36 +163,6 @@
                 </div>
                 <div class="panel-body">
                     
-                    <!-- <div class="addMore">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6 text-wrap">
-                                <label class="form-label text-wrap">Person Name</label>
-                                <input type="text" class="form-control form-control-sm" readonly value="{{$workOrder->wo_client_contact_person}}" placeholder="Person Name">
-                            </div>
-                            <div class="col-sm-12 col-md-6 text-wrap">
-                                <label class="form-label text-wrap">Designation</label>
-                                <input type="text" class="form-control form-control-sm" readonly value="{{$workOrder->wo_client_designation}}" placeholder="Designation">
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-12 col-md-6 text-wrap">
-                                <label class="form-label text-wrap">Contact</label>
-                                <input type="number" class="form-control form-control-sm" readonly value="{{ $workOrder->wo_client_contact }}" placeholder="Contact">
-                            </div>
-                            <div class="col-sm-12 col-md-6 text-wrap">
-                                <label class="form-label text-wrap">Email</label>
-                                <input type="email" class="form-control form-control-sm" readonly placeholder="Email" value="{{ $workOrder->wo_client_email }}">
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-12 col-md-12 text-wrap">
-                                <label for="exampleTextarea" class="form-label">Remarks</label>
-                                <textarea class="form-control" id="exampleTextarea"
-                                    placeholder="Enter Remarks" readonly value="{{ $workOrder->wo_client_remarks }}"></textarea>
-                            </div>
-                        </div>
-                    
-                    </div> -->
                     @foreach ($workOrder->contacts as $contact)
                         <div class="addMore">
                             <div class="row">

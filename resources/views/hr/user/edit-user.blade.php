@@ -1,8 +1,8 @@
 
 @extends('layouts.master')
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
+
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
 @endsection
 
 @section('contents')

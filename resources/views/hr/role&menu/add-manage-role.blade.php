@@ -36,6 +36,7 @@
                                                         <label class="form-check-label">{{ $section }}</label>
                                                     </div>
                                                 </div>
+                
                                                 <div class="col-12">
                                                     <div class="row">
                                                         @foreach ($menu as $sub_menu)
@@ -51,7 +52,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                    </div>
+                                    </div>  
                     </div>
                 </div>
             </div>
