@@ -23,13 +23,25 @@
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3">
                         <div class="col-auto mb-3">
-                            <input type="text" class="form-control" placeholder="Search" required>
+                            <input type="text" name="search" class="form-control" placeholder="Search" value="{{$search}}" required>
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3">Search</button>
+                            <a href="{{ route('salary-list') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
                         </div>
     
                     </form>
+                </div>
+                <div class="row">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @else
+                        <div class="alert alert-error alert-dismissible fade show" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @endif
                 </div>
     
                 <div class="table-responsive">
@@ -70,40 +82,48 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Becil</td>
-                                    <td>BECIL/CG/CMCSL/MAN/2021/511</td>
-                                    <td>Broadcast Engineering Consultant India Limited (BECIL)</td>
-                                    <td>09</td>
-                                    <td>09AAACB2575L1ZG	</td>
-                                    <td>IGST</td>
-                                    <td>18</td>
-                                    <td>No</td>
-                                    <td>0%</td>
-                                    <td>Mr. Awadhesh Pandit (Deputy General Manager -Finance & Accounts)</td>
-                                    <td>panditmd@becil.com</td>
-                                    <td><a href=""><button class="btn btn-sm btn-primary">Edit  <i class="fa-solid fa-pen-to-square"></i></button></a></td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                @forelse($salary as $key => $value)
+                                    <tr>
+                                        <td>{{$value->sl_emp_code}}</td>
+                                        <td>{{$value->emp_work_order}}</td>
+                                        <td>{{$value->sa_emp_doj}}</td>
+                                        <td>{{$value->sal_emp_name}}</td>
+                                        <td>{{$value->sal_emp_designation}}	</td>
+                                        <td>{{$value->sal_ctc}}</td>
+                                        <td>{{$value->sal_gross}}</td>
+                                        <td>{{$value->sal_net}}</td>
+                                        <td>{{$value->sal_basic}}</td>
+                                        <td>{{$value->sal_hra}}</td>
+                                        <td>{{$value->sal_da}}</td>
+                                        <td>{{$value->sal_conveyance}}</td>
+                                        <td>{{$value->sal_special_allowance}}</td>
+                                        <td>{{$value->medical_allowance}}</td>
+                                        <td>{{$value->sal_pf_employer}}</td>
+                                        <td>{{$value->sal_esi_employer}}</td>
+                                        <td>{{$value->tds_tax_amount}}</td>
 
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td><a href="{{route('edit-salary')}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
-                                        <a href=""><button class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
-                                    </td>
-                                </tr>
+                                        <td>{{$value->tds_deduction}}</td>
+                                        <td>{{$value->emp_pf_no}}</td>
+                                        <td>{{$value->emp_esi_no}}</td>
+                                        <td>{{$value->emp_bank}}</td>
+                                        <td>{{$value->emp_account_no}}</td>
+                                        <td>{{$value->emp_ifsc}}</td>
+                                        <td>{{$value->emp_phone_first}}</td>
+                                        <td>{{$value->emp_email_first}}</td>
+                                        <td>{{$value->emp_remark}}</td>
+                                        <td><a href="{{route('edit-salary')}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                            <a href=""><button class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center"><span class="text-danger">No Record Found</span></td>
+                                    </tr>
+                                @endforelse
                             </tbody>
+                           
                         </table>
+                        {{$salary->links()}}
                     </div>
                     
                 </div>

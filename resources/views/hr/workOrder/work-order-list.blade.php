@@ -137,7 +137,7 @@
                                         <td><a href="{{route('edit-work-order',$value->id)}}" class="btn btn-primary mb-3">Edit</a>
                                         <a href="{{route('view-work-order',$value->id)}}" class="btn btn-primary mb-3"> View</a><br> 
                                         <a href="{{route('go-to-attendance',$value->id)}}" class="btn btn-primary mb-3">Go To Attandence</a><br> 
-                                        <a href="{{route('work-order-salary-sheet')}}" class="btn btn-primary mb-3">Go To Salary Sheet</a></td>
+                                        <!-- <a href="{{route('work-order-salary-sheet')}}" class="btn btn-primary mb-3">Go To Salary Sheet</a></td> -->
                                     </tr>
                                     @empty
                                     <tr >
