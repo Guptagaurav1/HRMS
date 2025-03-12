@@ -90,7 +90,7 @@
                                         <option value="" selected disabled>Not
                                             Specified
                                         </option>
-                                        <option value="unmarried">Single</option>
+                                        <option value="single">Single</option>
                                         <option value="married">Married</option>
                                     </select>
 
@@ -427,7 +427,7 @@
                                         Name</label>
 
                                     <input type="text" class="form-control" placeholder="Enter Graduation Degree Name"
-                                        name="emp_graduation_in">
+                                        name="emp_gradqualification">
                                 </div>
 
                                 <div class="col-md-6">
@@ -508,7 +508,7 @@
                                         Name</label>
 
                                     <input type="text" class="form-control"
-                                        placeholder="Enter Post Graduation Degree Name" name="emp_postgraduation_in">
+                                        placeholder="Enter Post Graduation Degree Name" name="emp_postgradqualification">
                                 </div>
 
                                 <div class="col-md-6">

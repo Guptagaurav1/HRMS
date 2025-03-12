@@ -20,9 +20,9 @@ return new class extends Migration
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('emp_name');
             $table->string('emp_phone_first');
-            $table->string('emp_phone_second');
+            $table->string('emp_phone_second')->nullable();
             $table->string('emp_email_first');
-            $table->string('emp_email_second');
+            $table->string('emp_email_second')->nullable();
             $table->string('department')->nullable();
             $table->date('emp_doj')->nullable();
             $table->string('emp_designation')->nullable();

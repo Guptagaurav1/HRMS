@@ -1046,7 +1046,7 @@ class RecruitmentController extends Controller
             return response()->json(['success' => true, 'message' => 'Mail Send Successfully!']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+            return response()->json(['error' => true, 'message' => 'Server Error']);
         }
     }
 
@@ -1056,6 +1056,7 @@ class RecruitmentController extends Controller
     public function store_join_status(Request $request)
     {
         try {
+            DB::beginTransaction();
             $this->validate($request, [
                 'recruitment' => ['required', 'integer'],
                 'emp_code' => ['required']
@@ -1071,9 +1072,17 @@ class RecruitmentController extends Controller
                 $personal_details->emp_code = $request->emp_code;
                 $personal_details->save();
             }
-            // Send Mail.
+            // Update all employee table records.
+            if(!update_employee_code($request->recruitment, $request->emp_code))
+            {
+                DB::rollBack();
+                return response()->json(['error' => true, 'message' => 'Server Error']);   
+            }
+            
+            DB::commit();
             return response()->json(['success' => true, 'message' => 'Submitted Candidate has been joined!']);
         } catch (Throwable $th) {
+            DB::rollBack();
             return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }

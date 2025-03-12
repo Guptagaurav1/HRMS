@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EmpDetail extends Authenticatable
 {
@@ -33,12 +34,79 @@ class EmpDetail extends Authenticatable
      *
      * @var string
      */
-    protected $primaryKey = 'emp_id';
+    // protected $primaryKey = 'emp_id';
     public function woAttendances()
     {
-        return $this->hasMany(WoAttendance::class, 'emp_id', 'emp_id');
+        return $this->hasMany(WoAttendance::class, 'emp_id', 'id');
     }
 
-    
+    public static function boot()
+    {
+        parent::boot();
+        if (auth()->check()) {
+            static::creating(function ($model) {
+                $model->created_by = auth()->user()->id;
+            });
 
+            static::updating(function ($model) {
+                $model->updated_by = auth()->user()->id;
+            });
+
+            static::deleting(function ($model) {
+                $model->deleted_by = auth()->user()->id;
+                $model->save();
+            });
+        }
+    }
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * Get the experience associated with the user.
+     */
+    public function experience(): HasOne
+    {
+        return $this->hasOne(EmpExperienceDetail::class, 'emp_code', 'emp_code')->select('emp_experience', 'emp_skills');
+    }
+
+    /**
+     * Get the education details associated with the user.
+     */
+    public function education(): HasOne
+    {
+        return $this->hasOne(EmpEducationDetail::class, 'emp_code', 'emp_code');
+    }
+
+    /**
+     * Get ID Proofs Details.
+     */ 
+    public function getIdProofDetail(): HasOne{
+        return $this->hasOne(EmpIdProof::class, 'emp_code', 'emp_code')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station');
+    }
+
+    /**
+     * Get Personal Details.
+     */ 
+    public function getPersonalDetail(): HasOne{
+        return $this->hasOne(EmpPersonalDetail::class, 'emp_code', 'emp_code');
+    }
+
+    /**
+     * Get Address Details.
+     */ 
+    public function getAddressDetail(): HasOne{
+        return $this->hasOne(EmpAddressDetail::class, 'emp_code', 'emp_code')->select('emp_permanent_address', 'emp_local_address');
+    }
+
+    /**
+     * Get Bank Details.
+     */ 
+    public function getBankDetail(): HasOne{
+        return $this->hasOne(EmpAccountDetail::class, 'emp_code', 'emp_code')->select('bank_id', 'emp_account_no', 'emp_branch', 'emp_ifsc', 'emp_pan', 'emp_esi_no', 'emp_pf_no', 'emp_salary')->with('getBankData');
+    }
 }

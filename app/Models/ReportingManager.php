@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class EmpAccountDetail extends Model
+class ReportingManager extends Model
 {
     use HasFactory, SoftDeletes;
 
-    
     /**
      * Save User id on CRUD operation.
      */
@@ -40,11 +38,4 @@ class EmpAccountDetail extends Model
      * @var array
      */
     protected $guarded = [];
-
-    /**
-     * Get Bank Details.
-     */ 
-    public function getBankData(): BelongsTo{
-        return $this->belongsTo(Bank::class, 'bank_id', 'id');
-    }
 }

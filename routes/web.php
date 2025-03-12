@@ -35,6 +35,7 @@ use App\Http\Controllers\hr\InvoiceBillingController;
 use App\Http\Controllers\hr\EventController;
 use App\Http\Controllers\hr\ReimbursementController;
 use App\Http\Controllers\hr\PoshController;
+use App\Http\Controllers\hr\EmployeeController;
 // Tenant Controller
 
 use App\Http\Controllers\TenantController;
@@ -333,6 +334,21 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("save-response", 'store_response');
     });
 
+    Route::controller(EmployeeController::class)->prefix('employee')->group(function () {
+        Route::get('/create/{recruitment_id?}', 'create')->name('employee.add-employee');
+        Route::post('add_emp_details', 'save_emp_details');
+        Route::post('add_personal_details', 'save_personal_details');
+        Route::post('add_address_details', 'save_address_details');
+        Route::post('add_bank_details', 'save_bank_details');
+        Route::post('add_education_details', 'save_education_details');
+        Route::post('add_id_details', 'save_id_details');
+        Route::post('add_experience_details', 'save_experience_details');
+        Route::post('bulk-upload', 'bulk_upload')->name('employee.bulk_upload');
+        Route::get("list", 'show_employees')->name("employee.employee-list");
+        Route::get("edit/{id}", 'edit')->name('employee.edit-employee');
+        Route::post('update-emp-details', 'update_emp_details')->name('employee.update-emp-details');
+        
+    });
     
         
     //tenants
@@ -369,19 +385,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 });
 
-  
-    Route::get("add-employee", function () {
-        return view("hr.add-employee");
-    })->name('add-employee');
-
-    Route::get("edit-employee", function () {
-        return view("hr.edit-employee");
-    })->name('edit-employee');
-    
-    Route::get("employee-list", function () {
-        return view(" hr.employee-list");
-    })->name("employee-list");
-
     Route::get("view-letter", function () {
      return view(" hr.view-letter");
     })->name("view-letter");
@@ -389,6 +392,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("send-letter", function () {
         return view(" hr.send-letter");
     })->name("send-letter");
+
+
 
     // Route::get("department", function () {
     //     return view(" hr.department");

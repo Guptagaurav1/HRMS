@@ -110,22 +110,22 @@
 
                                 <tr>
                                     <th>Address Of Correspondence(With PO,Pin code)</th>
-                                    <td>{{ $details->getAddressDetail ? $details->getAddressDetail->correspondence_add : '' }}</td>
+                                    <td>{{ $details->getAddressDetail ? $details->getAddressDetail->emp_local_address : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Permanent Address(With PO,Pin code)</th>
-                                    <td>{{ $details->getAddressDetail ? $details->getAddressDetail->permanent_add : '' }}</td>
+                                    <td>{{ $details->getAddressDetail ? $details->getAddressDetail->emp_permanent_address : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Father's Name </th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->father_name : '' }}</td>
+                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->emp_father_name : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Father's Mobile</th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->father_mobile : '' }}</td>
+                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->emp_father_mobile : '' }}</td>
                                 </tr>
 
                                 <tr>
@@ -139,12 +139,12 @@
                                 </tr>
                                 <tr>
                                     <th>Date Of Marriage (DD.MM.YYYY)</th>
-                                    <td>{{ !empty($details->getPersonalDetail) ? $details->getPersonalDetail->date_of_marriage : ''}}
+                                    <td>{{ !empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_dom : ''}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Spouse Name(Wife / Husband)</th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->spouse_name : '' }}</td>
+                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->emp_husband_wife_name : '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Location / Bhawan (of deployment)</th>
@@ -168,11 +168,11 @@
                                 </tr>
                                 <tr>
                                     <th>Gender (Male/Female)</th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->gender : '' }}</td>
+                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->emp_gender : '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Marital Status(Single / Married)</th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->marital_status : '' }}</td>
+                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->emp_marital_status : '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Preffered Location</th>
@@ -209,32 +209,32 @@
 
                                 <tr>
                                     <th>Educational Qualification -10th(Year & Marks in %)</th>
-                                    <td>{{ !empty($details->getEducationDetail->{'10th_percentage'}) ? $details->getEducationDetail->{'10th_year'} . ' & ' . $details->getEducationDetail->{'10th_percentage'} . '%' : '' }}
+                                    <td>{{ !empty($details->getEducationDetail->{'emp_tenth_percentage'}) ? $details->getEducationDetail->{'emp_tenth_year'} . ' & ' . $details->getEducationDetail->{'emp_tenth_percentage'} . '%' : '' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Educational Qualification -12th(Year & Marks in %)</th>
-                                    <td>{{ !empty($details->getEducationDetail->{'12th_percentage'}) ? $details->getEducationDetail->{'12th_year'} . ' & ' . $details->getEducationDetail->{'12th_percentage'} . '%' : '' }}
+                                    <td>{{ !empty($details->getEducationDetail->{'emp_twelve_percentage'}) ? $details->getEducationDetail->{'emp_twelve_year'} . ' & ' . $details->getEducationDetail->{'emp_twelve_percentage'} . '%' : '' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Qualification -Graduation (Year & Marks in %)</th>
-                                    <td>{{ !empty($details->getEducationDetail->grad_percentage) ? $details->getEducationDetail->grad_year . ' & ' . $details->getEducationDetail->grad_percentage . '%' : '' }}
+                                    <td>{{ !empty($details->getEducationDetail->emp_graduation_percentage) ? $details->getEducationDetail->emp_graduation_year . ' & ' . $details->getEducationDetail->emp_graduation_percentage . '%' : '' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Full Time / Part Time / Distance & Year of Passing</th>
-                                    <td>{{ $details->getEducationDetail ? $details->getEducationDetail->grad_mode : '' }}</td>
+                                    <td>{{ $details->getEducationDetail ? $details->getEducationDetail->emp_graduation_mode : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Qualification -Post Graduation (Year & Marks in %)</th>
-                                    <td>{{ !empty($details->getEducationDetail->post_grad_percentage) ? $details->getEducationDetail->post_grad_year . ' & ' . $details->getEducationDetail->post_grad_percentage . '%' : '' }}
+                                    <td>{{ !empty($details->getEducationDetail->emp_postgraduation_percentage) ? $details->getEducationDetail->emp_postgraduation_year . ' & ' . $details->getEducationDetail->emp_postgraduation_percentage . '%' : '' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Full Time / Part Time / Distance & Year of Passing</th>
-                                    <td>{{ $details->getEducationDetail ? $details->getEducationDetail->post_grad_mode : '' }}</td>
+                                    <td>{{ $details->getEducationDetail ? $details->getEducationDetail->emp_postgraduation_mode : '' }}</td>
                                 </tr>
 
                                 <tr>
@@ -285,27 +285,27 @@
 
                                 <tr>
                                     <th>Passport No.</th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->passport_no : '' }}</td>
+                                    <td>{{ $details->getIdProofDetail ? $details->getIdProofDetail->emp_passport_no : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Pan No.</th>
-                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->pan_card_no : '' }}</td>
+                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->emp_pan : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Bank Account No.</th>
-                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->account_no : '' }}</td>
+                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->emp_account_no : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Bank Name</th>
-                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->bank_name_id : '' }}</td>
+                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->bank_id : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Branch Name</th>
-                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->branch : '' }}</td>
+                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->emp_branch : '' }}</td>
                                 </tr>
 
                                 <tr>
@@ -314,20 +314,20 @@
                                 </tr>
                                 <tr>
                                     <th>IFSC Code</th>
-                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->ifsc_code : '' }}</td>
+                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->emp_ifsc : '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Photograph</th>
-                                    <td>{{ !empty($details->getPersonalDetail) ? ($details->getPersonalDetail->photograph ? 'Attached' : 'Not Attached') : '' }}</td>
+                                    <td>{{ !empty($details->getPersonalDetail) ? ($details->getPersonalDetail->emp_photo ? 'Attached' : 'Not Attached') : '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Copy of Cancelled Check or Passbook </th>
-                                    <td>{{ !empty($details->getBankDetail->bank_doc) ? 'Attached' : 'Not Attached' }}</td>
+                                    <td>{{ !empty($details->getIdProofDetail->bank_doc) ? 'Attached' : 'Not Attached' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Blood Group</th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->blood_group : '' }}</td>
+                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->emp_blood_group : '' }}</td>
                                 </tr>
 
                                 <tr>
@@ -350,10 +350,10 @@
 
                                 <tr>
                                     <td class="text-center" style="vertical-align: middle;"><img
-                                            src="{{asset('recruitment/candidate_documents/sign/'. $details->getPersonalDetail->signature.'') }}" alt=""
+                                            src="{{asset('recruitment/candidate_documents/sign/'. $details->getPersonalDetail->emp_signature.'') }}" alt=""
                                             height="50" width="100"></td>
                                     <td class="text-center"><img
-                                            src="{{asset('recruitment/candidate_documents/passport_size_photo/'.$details->getPersonalDetail->photograph.'') }}"
+                                            src="{{asset('recruitment/candidate_documents/passport_size_photo/'.$details->getPersonalDetail->emp_photo.'') }}"
                                             alt="" height="100" width="100"></td>
                                 </tr>
                             </table>
@@ -371,11 +371,11 @@
                                 </tr>
                                 <tr>
                                     <th>Father's Name</th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->father_name : '' }}</td>
+                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->emp_father_name : '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Aadhar No.</th>
-                                    <td>{{ $details->getPersonalDetail ? $details->getPersonalDetail->aadhar_card_no : '' }}</td>
+                                    <td>{{ $details->getIdProofDetail ? $details->getIdProofDetail->emp_aadhaar_no : '' }}</td>
                                 </tr>
 
                                 <tr>
@@ -395,17 +395,17 @@
 
                                 <tr>
                                     <th>Permanent Address</th>
-                                    <td>{{ $details->getAddressDetail ? $details->getAddressDetail->permanent_add : '' }}</td>
+                                    <td>{{ $details->getAddressDetail ? $details->getAddressDetail->emp_permanent_address : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Present Address</th>
-                                    <td>{{ $details->getAddressDetail ? $details->getAddressDetail->correspondence_add : '' }}</td>
+                                    <td>{{ $details->getAddressDetail ? $details->getAddressDetail->emp_local_address : '' }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>Previous ESI No.(If Any)</th>
-                                    <td>{{ $details->getEsiDetail ? $details->getEsiDetail->previous_esi_no : '' }}</td>
+                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->emp_esi_no : '' }}</td>
                                 </tr>
                             </table>
 
@@ -423,8 +423,8 @@
 
                                 <tr>
                                     <td>{{ $details->getBankDetail ? $details->getBankDetail->getBankData->name_of_bank : '' }}</td>
-                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->ifsc_code : '' }}</td>
-                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->account_no : '' }}</td>
+                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->emp_ifsc : '' }}</td>
+                                    <td>{{ $details->getBankDetail ? $details->getBankDetail->emp_account_no : '' }}</td>
                                 </tr>
 
                             </table>
