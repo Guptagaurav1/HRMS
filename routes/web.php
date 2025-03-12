@@ -239,6 +239,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("organisation-workOrder/{or_id}","organisation_workOrder")->name("organisation-workOrder");
         Route::get("workOrder-details/{workOrder_id}","workOrder_details")->name("workOrder-details");
         Route::post("work-order-report","work_order_report")->name("work-order-report");
+        Route::post('export', 'export_csv')->name("export-work-order");
 
     });
     /////////// workorder routes end ///////
@@ -254,7 +255,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
         Route::post('send-mail/{id}', 'send_mail');
         Route::get('employee-details/{salaryid}', 'employee_details')->name("employee-details-salary-retainer");
-        Route::post('export', 'export_csv')->name("export-salary");
+        Route::post('export', 'export_csv')->name("export_csv");
         Route::get("edit/{id}", 'edit_slip')->name("salary-slip-edit");
         Route::post("update-slip", 'update_slip')->name("salary-slip-update");
         Route::get("print/{id}", 'print_salary_slip')->name("employee-code-retainer");
@@ -328,6 +329,11 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("salary-list",'index')->name('salary-list');
         Route::get("create-salary",'create')->name('create-salary');
         Route::post("save-salary",'save_salary')->name('save-salary');
+        Route::get("edit-salary/{id}",'edit_salary')->name('edit-salary');
+        Route::post("update-salary/{id}",'update_salary')->name('update-salary');
+        Route::get("/delete/{id}", 'destroy')->name("delete-salary");
+    
+
     });
 
 
@@ -368,7 +374,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/store", 'store')->name("store-user");
         Route::get("/edit/{id}", 'edit')->name("edit-user");
         Route::post("/update/{id}", 'update')->name("update-user");
-        Route::get("/delete/{id}", 'destroy')->name("delete");
+        Route::get("/delete/{id}", 'destroy')->name("delete-user");
     });
     // Route::resource('users',UserController::class);
 
@@ -452,10 +458,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.recruitment-plan-page-summary");
     })->name("recruitment-plan-page-summary");
 
-    Route::get("edit-salary", function () {
-        return view("hr.edit-salary");
-    })->name("edit-salary");
-
+    
  
     Route::get("invoice-encloser", function () {
         return view("hr.invoice-encloser");

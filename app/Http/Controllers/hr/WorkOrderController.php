@@ -8,6 +8,7 @@ use App\Models\WorkOrder;
 use App\Models\WoContactDetail;
 use App\Models\Organization;
 use App\Models\State;
+use App\Models\Project;
 use Throwable;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
@@ -21,9 +22,22 @@ class WorkOrderController extends Controller
     public function index(Request $request)
     {
         // Initialize WorkOrder query with eager loading for project and contacts
-        $totalWorkOrders = WorkOrder::with(['project.organizations', 'contacts' => function ($query) {
-            $query->orderBy('id', 'desc');
-        }]);
+        // $totalWorkOrders = WorkOrder::with(['project.organizations', 'contacts' => function ($query) {
+        //     $query->orderBy('id', 'desc');
+        // }]);
+        $totalWorkOrders = WorkOrder::select('id','wo_number', 'wo_start_date', 'wo_end_date','wo_date_of_issue','wo_location','wo_city','wo_amount','wo_project_coordinator','wo_no_of_resources','project_id','created_at','wo_attached_file') 
+        ->with([
+            'project' => function ($query) {
+                $query->select('id', 'project_name','organisation_id','project_number','empanelment_reference'); 
+            },
+            'project.organizations' => function ($query) {
+                $query->select('id', 'name'); 
+            },
+            'contacts' => function ($query) {
+                $query->orderBy('id', 'desc');
+            }
+        ]);
+    
     
         // Get search term from request
         $searchValue = $request->search;
@@ -91,8 +105,6 @@ class WorkOrderController extends Controller
                     });
             });
         }
-    
-        // Paginate 
         $totalWorkOrders = $totalWorkOrders->paginate(10);
     
         // Add contact details for each work order
@@ -107,8 +119,9 @@ class WorkOrderController extends Controller
             // Add the contact details to the work order
             $totalWorkOrders[$key]->contacts_details = $wo_details;
         }
-        $organization = Organization::orderBy('id','desc')->get();
-        return view("hr.workOrder.work-order-list", compact('totalWorkOrders','searchValue','woStart','woEnd','organization','project_name'));
+        $organization_data = Organization::orderBy('id','desc')->get();
+        $projects = Project::where('organisation_id', $organisation)->get();
+        return view("hr.workOrder.work-order-list", compact('totalWorkOrders','searchValue','woStart','woEnd','organization_data','organisation','project_name','projects'));
     }
     
 
@@ -364,6 +377,128 @@ class WorkOrderController extends Controller
     }
 
     
+     /**
+     * Export Salary Slip.
+     */
+    public function export_csv(Request $request)
+    {
+        $filename = 'work-order.csv';
+    
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+       
+        $totalWorkOrders = WorkOrder::select('wo_number', 'wo_start_date', 'wo_end_date','wo_date_of_issue','wo_location','wo_city','wo_amount','wo_project_coordinator','wo_no_of_resources','project_id') 
+        ->with([
+            'project' => function ($query) {
+                $query->select('id', 'project_name','organisation_id','project_number','empanelment_reference'); 
+            },
+            'project.organizations' => function ($query) {
+                $query->select('id', 'name'); 
+            }
+        ]);
+    
+        // Get search term from request
+        $searchValue = $request->search;
+        $woStart = $request->start_date;
+        $woEnd = $request->end_date;
+        $organisation = $request->organisation;
+        $project_name = $request->project_name;
+        // filter for workorder start and end date
+        if(!empty($woStart) && !empty($woStart) && empty($project_name) && empty($organisation)){
+            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($woStart,$woEnd) {
+                $query->whereDate('wo_start_date', '>=',$woStart)
+                ->whereDate('wo_end_date', '<=', $woEnd);
+            });
+        } 
+        elseif(empty($project_name) && (!empty($organisation) && empty($woStart) && empty($woStart))){
+            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation) {
+                $query->WhereHas('project.organizations', function ($query) use ($organisation) {
+                    $query->where('id', 'like', "%$organisation%");
+                });
+            });
+        }elseif(!empty($project_name) && (!empty($organisation)) && empty($woStart) && empty($woStart)){
+            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation,$project_name) {
+                $query->WhereHas('project.organizations', function ($query) use ($organisation,$project_name) {
+                    $query->where('id', 'like', "%$organisation%");
+                })
+                ->WhereHas('project', function ($query) use ($project_name) {
+                    $query->where('id', 'like', "%$project_name%");
+                    
+                });
+            });
+            
+        }elseif(!empty($project_name) && (!empty($organisation)) && !empty($woStart) && !empty($woStart)){
+            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation,$project_name,$woStart,$woEnd) {
+                $query->whereDate('wo_start_date', '>=',$woStart)
+                ->whereDate('wo_end_date', '<=', $woEnd);
+                $query->WhereHas('project.organizations', function ($query) use ($organisation) {
+                    $query->where('id', 'like', "%$organisation%");
+                })
+                ->WhereHas('project', function ($query) use ($project_name) {
+                    $query->where('id', 'like', "%$project_name%");
+                    
+                });
+            });
+        }
+        // Apply filters if search value is provided
+        if (!empty($searchValue)) {
+            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($searchValue) {
+                $query->where('wo_internal_ref_no', 'like', '%' . $searchValue . '%')
+                    ->orWhere('wo_number', 'like', '%' . $searchValue . '%')
+                    ->orWhere('wo_date_of_issue', 'like', '%' . $searchValue . '%')
+                    ->orWhere('wo_project_coordinator', 'like', '%' . $searchValue . '%')
+                    ->orWhere('prev_wo_no', 'like', '%' . $searchValue . '%')
+                    ->orWhere('wo_amount', 'like', '%' . $searchValue . '%')
+                    ->orWhereHas('project', function ($query) use ($searchValue) {
+                        $query->where('project_name', 'like', "%$searchValue%")
+                            ->orWhere('empanelment_reference', 'like', '%' . $searchValue . '%')
+                            ->orWhere('project_number', 'like', '%' . $searchValue . '%');
+                    })
+                    ->orWhereHas('contacts', function ($query) use ($searchValue) {
+                        $query->where('wo_client_contact_person', 'like', '%' . $searchValue . '%')
+                            ->orWhere('wo_client_email', 'like', '%' . $searchValue . '%');
+                    })
+                    ->orWhereHas('project.organizations', function ($query) use ($searchValue) {
+                        $query->where('name', 'like', "%$searchValue%");
+                    });
+            });
+        }
+        $totalWorkOrders = $totalWorkOrders->get();
+        
+        return response()->stream(function () use ($totalWorkOrders){
+            $handle = fopen('php://output', 'w');
+            $headers = array( 'Organisation Name', 'Work Order No.', ' Empanelment No.' , 'Location','City','Issue Date','Start Date','End Date','Project Number','Project Name','Project Coordinator Name','Amount','No.of Resource');
+            fputcsv($handle, $headers);
+
+            foreach($totalWorkOrders as $totalWorkOrder){
+                 $data = [
+                        $totalWorkOrder->project->organizations->name,
+                        $totalWorkOrder->wo_number,
+                        $totalWorkOrder->project->empanelment_reference,
+                        $totalWorkOrder->wo_location,
+                        $totalWorkOrder->wo_city,
+                        $totalWorkOrder->wo_date_of_issue,
+                        $totalWorkOrder->wo_start_date,
+                        $totalWorkOrder->wo_end_date,
+                        $totalWorkOrder->project->project_number,
+                        $totalWorkOrder->project->project_name,
+                        $totalWorkOrder->wo_project_coordinator,
+                        $totalWorkOrder->wo_amount,
+                        $totalWorkOrder->wo_no_of_resources
+                       
+                    ];
+                fputcsv($handle, $data);
+            }
+    
+            // Close CSV file handle
+            fclose($handle);
+        }, 200, $headers);
+    }
 
 
 }

@@ -23,7 +23,7 @@
 
                 <div class="col-md-12 d-flex justify-content-start px-2 mt-3">
                     <form class="" method="get">
-                        <div class="d-flex gap-3">
+                        <div class="d-flex gap-3 col-md-6">
                             <div class="col-auto mb-3">
                                 <input type="text" name="search" value="{{ $searchValue }}" class="form-control"
                                     placeholder="Search" required>
@@ -37,19 +37,30 @@
                                 </a>
     
                             </div>
+                        </div>
+                    </form>
+                        <div class="d-flex gap-3 col-md-6">
                             <div class="col-md-12 d-flex justify-content-end gap-5">
-                                <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">CSV</button></a>
+                                <!-- <a href="{{route('export-work-order')}}"><button class="btn btn-sm btn-primary">CSV</button></a> -->
+                                <form action="{{route('export-work-order')}}" class="row g-3 mt-2 mx-1" method="post">
+                                    @csrf
+                                    <div class="col-auto">
+                                    <input type="hidden" name="search" value="{{$searchValue}}">
+                                    <button type="submit" class="btn btn-primary mb-3"> CSV</button>
+                                    </div>
+                                </form>
                                 <a href="{{'add-work-order'}}"><button class="btn btn-sm btn-primary">Add Work
                                         Order</button></a>
                             </div>
+                        
                         </div>
     
-                    </form>
                 </div>
             <div class="row px-3 mt-2">
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>{{ $message }}</strong>
+                </div>
                 </div>
                 @endif
             </div>
@@ -57,11 +68,11 @@
                 <form class="row g-3" method="get">
                     <div class="col-sm-12 col-md-2">
                         <label class="form-label">Organisation <span class="text-danger">*</span></label>
-                        <select id="inputState" class="form-select">
+                        <select id="organisation" class="form-select" name="organisation">
                             <option value="">--Select Organisation--</option>
-                            @foreach($organization as $key => $organization_data)
+                            @foreach($organization_data as $key => $organization_data)
                             <option value="{{$organization_data->id}}" @if ($organization_data->id ==
-                                old('organisation')) selected @endif>
+                                $organisation) selected @endif>
                                 {{ $organization_data->name }}
                             </option>
                             @endforeach
@@ -73,7 +84,15 @@
                     <div class="col-sm-12 col-md-3">
                         <label class="form-label text-wrap"> Project Name <span class="text-danger">*</span></label>
                         <select name="project_name" id="project_name" class="form-select" value="{{$project_name}}"
-                            style="min-width: 150px;"></select>
+                            style="min-width: 150px;">
+                            <option value="">Select Project</option>
+                            @foreach ($projects as $project)
+                                <option value="{{ $project->id }}" @if ($project->id == $project_name) selected @endif>
+                                    {{ $project->project_name }}
+                                </option>
+                            @endforeach
+                        
+                        </select>
                         @error('project_name')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror

@@ -32,6 +32,21 @@
                         </div>
                     @endif
                 </div>
+
+                <div class="col-md-12 d-flex justify-content-start mx-3">
+                  
+                     <form class="row g-3" method="get" action="{{route('project-list')}}">
+                         <div class="col-auto">
+                             <input type="text" name="search" class="form-control" value="{{$search}}" placeholder="Search" required>
+                         </div>
+                         <div class="col-auto">
+                             <button type="submit" class="btn btn-primary mb-3"> Search</button>
+                             <a href="{{ route('project-list') }}">
+                             <button type="button" class="btn btn-secondary mb-3">Clear <i
+                             class="fa-solid fa-eraser"></i></button></a>
+                         </div>
+                     </form>
+                 </div>
               
                 <div class="table-responsive">
                     <table id="project-table" class="table table-bordered table-hover display nowrap" style="width: 100%">
@@ -46,11 +61,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
+                        @if(!empty($projects))
+                                 @foreach($projects as $key => $value)
+                                     <tr>
+                                         <td class="srno-column">{{$key+1}}</td>
+                                         <td>{{$value->organizations->name}}</td>
+                                         <td>{{$value->project_name}}</td>
+                                         <td>{{$value->project_number}}</td>
+                                         <td>{{$value->empanelment_reference }}</td>
+                                       
+                                         <td>
+                                         <a href="{{route('edit-project',$value->id)}}"><button type="submit" class="btn btn-primary mb-3"> Edit</button></a>
+                                         </td>
+                                     </tr>
+                                   
+                                 @endforeach
+                                 @else
+                                 <tr>
+                                     <td class="text-danger text-center" colspan="12">No Record Found</td>
+                                 </tr>
+                                 @endif
                         </tbody>
                     </table>
                     <div>
-                        
+                         {{ $projects->links() }}
                     </div>
                    
                     <div class="table-bottom-control"></div>

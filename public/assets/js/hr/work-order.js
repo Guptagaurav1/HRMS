@@ -111,51 +111,6 @@ $(document).ready(function() {
     });
     // project and organisation onchange get datails in add work-order end here
 
-    function dtable(){
-        
-        $('#workOrder_id').DataTable({ 
-        
-                "bDestroy":true,   
-                dom: 'Bfrtip',
-                dom: 'lBfrtip',
-            
-                processing: true,
-                serverSide: true,
-                searching: true,
-                
-                lengthMenu: [
-                            [ 10,50,100,150,200,250,500,1000],
-                            [ '10 rows', '50 rows','100 rows','150 rows','200 rows', '250 rows','500 rows','1000 rows']
-                            ],
-                // buttons: ['copy', 'csv', 'excel', 'pdf', 'print','colvis'],
-                scrollY: true,
-                scrollX: true,
-                scrollCollapse: true,
-                paging: true,
-                "order": [],
-                // ajax:'{{route('get-work-order')}}',
-                ajax: SITE_URL+'/hr/get-work-order',
-                    columns: [  
-                    { data: 'project.organizations.name',orderable:true,visible:true, searchable:true },
-                    
-                    { data: 'wo_number',orderable:true,visible:true },
-                    { data: 'project.empanelment_reference',orderable:true,visible:true },
-                    { data: 'wo_date_of_issue',orderable:true,visible:true },
-                    { data: 'project.project_number',orderable:true,visible:true },
-                    { data: 'project.project_name',orderable:true,visible:true },
-                    { data: 'wo_project_coordinator',orderable:true,visible:true },
-                    { data: 'wo_amount',orderable:true,visible:true },
-                    { data: 'wo_details',orderable:true,visible:true },
-                    { data: 'added_at',orderable:true,visible:true },
-                    { data: 'attached_file',orderable:true,visible:true },
-                    { data: 'action',orderable:true,visible:true },
-                        
-                
-                    ]  
-        });
-                
-    }
-    dtable();
 
 });
    

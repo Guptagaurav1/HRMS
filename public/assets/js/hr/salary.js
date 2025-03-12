@@ -1,4 +1,4 @@
-$('.delete-role').click(function(){
+$('.delete-salary').click(function(){
     var id = $(this).data('id');
  
      Swal.fire({
@@ -11,7 +11,7 @@ $('.delete-role').click(function(){
          confirmButtonText: "Confirm"
      }).then((result) => {
          if (result.isConfirmed) {
-         window.location.href = SITE_URL+'/admin/manage-roles/delete/'+ id;
+         window.location.href = SITE_URL+'/hr/salary/delete/'+ id;
          }
      });
  })

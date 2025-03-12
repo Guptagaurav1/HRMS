@@ -11,7 +11,7 @@ $('.delete-user').click(function(){
          confirmButtonText: "Confirm"
      }).then((result) => {
          if (result.isConfirmed) {
-         window.location.href = SITE_URL+'/users/delete/'+ id;
+         window.location.href = SITE_URL+'/admin/users/delete/'+ id;
          }
      });
  })
