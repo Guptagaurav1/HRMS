@@ -84,6 +84,8 @@
                                         <a
                                             href="{{ route('events.birthday-template', ['emp_code' => $employee->emp_code]) }}"><button
                                                 class="btn btn-sm btn-primary">View Template Image</button></a>
+
+                                                
                                         <a href="#"><button type="button" data-bs-toggle="modal"
                                                 data-bs-target="#birthdayMailModal"
                                                 data-bs-whatever="{{ $employee->emp_email_first }}"

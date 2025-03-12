@@ -20,9 +20,11 @@
             <div class="panel-header">
                 <h5 class="text-white">Edit Details</h5>
             </div>
-            <div class="text-end mt-2 px-2">
-                <a href="{{ route('recruitment.call_logs')}}"><button type="button" class="btn btn-sm btn-primary">Contacted Candidate List <i class="fa-solid fa-list"></i></button></a>
-            </div>
+            @if(auth()->user()->hasPermission('recruitment.call_logs'))
+                <div class="text-end mt-2 px-2">
+                    <a href="{{ route('recruitment.call_logs')}}"><button type="button" class="btn btn-sm btn-primary">Contacted Candidate List <i class="fa-solid fa-list"></i></button></a>
+                </div>
+            @endif
             <div class="panel-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">

@@ -89,7 +89,9 @@
 
             <!-- Only for Hr Executive -->
             @if ($request->no_of_requirements < $request->no_of_completed_requirements) 
+            @if(auth()->user()->hasPermission('jd-request'))
                 <a href="{{ route('jd-request', ['id' => $request->req_id]) }}"><button class="btn btn-sm btn-primary"> Request Job Description <i class="fa-solid fa-paper-plane"></i></button></a>   
+            @endif
             @endif
 
         </div>

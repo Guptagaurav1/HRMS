@@ -647,8 +647,11 @@
                                                 <tr>
                                                     <td class="bold">Employee Code</td>
                                                     <td>
-                                                    <a href="{{route('employee.add-employee', ['recruitment_id' => $data->id])}}" class="btn btn-sm btn-primary mt-2 text-light text-decoration-none">Generate
-                                                    </a>
+                                                    @if(auth()->user()->hasPermission('add-employee'))
+                                                        <a href="{{route('employee.add-employee', ['recruitment_id' => $data->id])}}" class="btn btn-sm btn-primary mt-2 text-light text-decoration-none">Generate
+                                                        </a>
+                                                    @endif
+                                                    
                                                     </td>
                                                 </tr>
                                             @endif

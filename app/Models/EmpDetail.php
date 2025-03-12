@@ -47,7 +47,6 @@ class EmpDetail extends Authenticatable
             static::creating(function ($model) {
                 $model->created_by = auth()->user()->id;
             });
-
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
             });
@@ -57,6 +56,11 @@ class EmpDetail extends Authenticatable
                 $model->save();
             });
         }
+    }
+
+    public function salary()
+    {
+        return $this->hasMany(Salary::class, 'sl_emp_id', 'id'); // Adjust the foreign keys as needed
     }
 
     /**

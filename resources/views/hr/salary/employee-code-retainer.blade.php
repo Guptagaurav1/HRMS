@@ -43,7 +43,9 @@
                     @if($slip_get)
                     <label class="mb-3"><strong>Status : </strong><span class="text-success">Salary Generated</span></label><br>
                     <div class="col-md-12 d-flex justify-content-end my-2">
-                    <a href="{{route('preview-salary-slip', ['id' => $filter_record->emp_salary_id])}}" class="btn btn-primary float-right">Print Salary Slip <i class="fa-solid fa-print"></i></a>
+                    @if(auth()->user()->hasPermission('preview-salary-slip'))
+                        <a href="{{route('preview-salary-slip', ['id' => $filter_record->emp_salary_id])}}" class="btn btn-primary float-right">Print Salary Slip <i class="fa-solid fa-print"></i></a>
+                    @endif
                     </div>
                     @endif
                 </div>

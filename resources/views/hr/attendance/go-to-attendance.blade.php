@@ -74,29 +74,29 @@
                     </div>
                 </form>
                 <div class="row px-3 mt-2">
-                @if($message = Session::get('success'))
-                <div class="col-md-12">
-                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                         <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                        <div>
-                         {{ $message }}
+                    @if($message = Session::get('success'))
+                    <div class="col-md-12">
+                        <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                            <div>
+                            {{ $message }}
+                            </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                </div>
-                @endif
-                @if($message = Session::get('error'))
-                <div class="col-md-12">
-                    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                        <div>
-                            {{$message}}
+                    @endif
+                    @if($message = Session::get('error'))
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                {{$message}}
+                            </div>
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                     
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                </div>
-                @endif
+                    @endif
                 </div>
                 <div class="table-responsive">
                     <form action="{{ route('add-attendance', $wo_id) }}" method="POST">

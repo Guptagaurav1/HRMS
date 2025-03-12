@@ -10,11 +10,12 @@
 <div class="fluid-container">
     <div class="">
         <h2>Project Form</h2>
-
     </div>
     <div class="row" id="tab-1">
         <div class="col-12 d-flex justify-content-end">
-            <a href="{{route('project-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Project List</button></a>  
+            @if(auth()->user()->hasPermission('project-list'))
+                <a href="{{route('project-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Project List</button></a>  
+            @endif
         </div>
         <form action="{{ route('store-project') }}" method="post" >
             @csrf

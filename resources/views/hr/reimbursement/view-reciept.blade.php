@@ -170,20 +170,18 @@
                 
             </div>
             <div class="dashboard-breadcrumb">
-                <a href="{{ route('reimbursement.view-more-attachment', ['id' => $reimbursement->id]) }}"> <button class="btn btn-sm btn-primary"> View More
-                        Attachment <i class="fa-solid fa-paperclip"></i></button></a>
-
+                @if(auth()->user()->hasPermission('reimbursement.view-more-attachment'))
+                    <a href="{{ route('reimbursement.view-more-attachment', ['id' => $reimbursement->id]) }}"> <button class="btn btn-sm btn-primary"> View More
+                        Attachment <i class="fa-solid fa-paperclip"></i></button>
+                    </a>
+                @endif
                 {{-- <a href="{{ route('invoice-encloser') }}"> <button class="btn btn-sm btn-primary"> Print <i
                             class="fa-solid fa-print"></i></button></a> --}}
                 <button class="btn btn-sm btn-primary" onclick="printmydoc()"> Print <i
                         class="fa-solid fa-print"></i></button>
-
-
             </div>
-
         </div>
     </div>
-
 @endsection
 @section('script')
     <script src="{{ asset('assets/js/hr/request-recept.js') }}"></script>

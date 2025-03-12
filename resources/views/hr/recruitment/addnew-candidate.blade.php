@@ -17,10 +17,11 @@
                 <h5 class="text-white">Add Jobseeker</h5>
             </div>
             <div class="row px-3">
-                <div class="col-md-12 d-flex justify-content-end ml-5">
-                    <a href="{{route('recruitment-list')}}"><button type="button" class="btn btn-sm btn-primary mt-3">Jobseeker List <i class="fa-solid fa-list"></i></button></a>
-                            
-                </div>
+                @if(auth()->user()->hasPermission('recruitment-list'))
+                    <div class="col-md-12 d-flex justify-content-end ml-5">
+                        <a href="{{route('recruitment-list')}}"><button type="button" class="btn btn-sm btn-primary mt-3">Jobseeker List <i class="fa-solid fa-list"></i></button></a> 
+                    </div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="row g-3">
