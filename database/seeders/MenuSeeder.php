@@ -178,6 +178,7 @@ class MenuSeeder extends Seeder
 
                    // Recruitment
 
+                   
                 ['mid' =>'M-98', 'section' => 'Recruitment', 'section_icon' => '', 'name' => 'Recruitment Plan Summary','page' => 'recruitment-plan-page-summary','status'=> '1','parent_id'=> '8'],
 
 

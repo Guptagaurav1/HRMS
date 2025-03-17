@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('emp_pf_no')->nullable();
             $table->string('emp_unit')->nullable();
             $table->string('emp_salary')->nullable();
-            $table->string('emp_sal_structure_status')->nullable();
+            $table->enum('emp_sal_structure_status', ['pending','completed'])->nullable()->default('pending');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();

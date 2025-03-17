@@ -468,7 +468,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if(auth()->user()->hasPermission('salary-list'))
+                    {{-- @if(auth()->user()->hasPermission('salary-list')) --}}
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-indian-rupee-sign"></i></span> <span class="sidebar-txt">Salary Structure</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
@@ -477,7 +477,7 @@
 
                         </ul>
                     </li>
-                    @endif
+                    {{-- @endif --}}
                     @if(auth()->user()->hasPermission('position-request'))
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-user"></i></span> <span class="sidebar-txt">Profile</span></a>

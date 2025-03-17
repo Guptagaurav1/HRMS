@@ -364,6 +364,10 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("edit/{id}", 'edit')->name('employee.edit-employee');
         Route::post('update-emp-details', 'update_emp_details')->name('employee.update-emp-details');
         
+        Route::get("view-letter", 'view_letter')->name("employee.view-letter");
+        Route::get("send-letter/{id}", 'send_letter')->name("employee.send-letter");
+       
+        
     });
     
         
@@ -401,13 +405,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 });
 
-    Route::get("view-letter", function () {
-     return view(" hr.view-letter");
-    })->name("view-letter");
-
-    Route::get("send-letter", function () {
-        return view(" hr.send-letter");
-    })->name("send-letter");
     Route::get("position-review-dept", function () {
         return view(" hr.position-review-dept");
     })->name("position-review-dept");

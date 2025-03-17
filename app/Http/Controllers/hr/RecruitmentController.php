@@ -1281,8 +1281,7 @@ class RecruitmentController extends Controller
 
             $pdf->save($fullPath)->stream('invoice.pdf');
             $fileurl = asset('recruitment/offer-letter/' . $fileName);
-             print_r($message_new);
-            die;
+           
             DB::commit();
             return response()->json(['success' => true, 'path' => $fileurl]);
         } catch (Throwable $th) {
