@@ -90,7 +90,7 @@ class EmpDetail extends Authenticatable
      * Get ID Proofs Details.
      */ 
     public function getIdProofDetail(): HasOne{
-        return $this->hasOne(EmpIdProof::class, 'emp_code', 'emp_code')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station');
+        return $this->hasOne(EmpIdProof::class, 'emp_code', 'emp_code')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station', 'police_verification_id');
     }
 
     /**
@@ -111,6 +111,6 @@ class EmpDetail extends Authenticatable
      * Get Bank Details.
      */ 
     public function getBankDetail(): HasOne{
-        return $this->hasOne(EmpAccountDetail::class, 'emp_code', 'emp_code')->select('bank_id', 'emp_account_no', 'emp_branch', 'emp_ifsc', 'emp_pan', 'emp_esi_no', 'emp_pf_no', 'emp_salary')->with('getBankData');
+        return $this->hasOne(EmpAccountDetail::class, 'emp_code', 'emp_code')->select('bank_id', 'emp_account_no', 'emp_branch', 'emp_ifsc', 'emp_pan', 'emp_esi_no', 'emp_pf_no', 'emp_salary', 'emp_sal_structure_status')->with('getBankData');
     }
 }

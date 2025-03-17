@@ -4,27 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class WorkOrder extends Model
+class EmpChangeLog extends Model
 {
-    use HasFactory;
-    
-    public function contacts()
-    {
-        return $this->hasMany(WoContactDetail::class);
-    }
+    use HasFactory, SoftDeletes;
 
-    public function project()
-    {
-        return $this->belongsTo(Project::class); // Assuming 'project_id' is a foreign key
-    }
-
-    public function State()
-    {
-        return $this->belongsTo(State::class); // Assuming 'state_id' is a foreign key
-    }
-
-    
+    /**
+     * Save User id on CRUD operation.
+     */
     public static function boot()
     {
         parent::boot();
@@ -42,8 +30,12 @@ class WorkOrder extends Model
                 $model->save();
             });
         }
-        
     }
 
-    
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 }

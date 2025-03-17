@@ -67,8 +67,12 @@
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Work Order Number <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" name="emp_work_order"
-                            placeholder="Enter Work Order Number" required>
+                        <select class="form-select js-example-basic-multiple" name="emp_work_order" required>
+                            <option value="">Select Work Order</option>
+                            @foreach ($workorders as $workorder)
+                                <option value="{{ $workorder->wo_number }}">{{ $workorder->wo_number }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Employee Code <span class="text-danger">*</span></label>
@@ -547,7 +551,7 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Total Experience</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Experience">
+                        <input type="text" class="form-control form-control-sm" name="emp_experience" placeholder="Enter Experience">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label for="resume_file" class="form-label">Upload Resume <span>(Max Size : 1mb)</span></label>

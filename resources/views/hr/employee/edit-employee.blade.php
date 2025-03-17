@@ -19,6 +19,42 @@
         <p>Employee Name <strong>: {{$employee_details->emp_name}} </strong></p>
     </div>
     
+    {{-- SVG images and notifications --}}
+    <div class="row ">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+          <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </symbol>
+            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </symbol>
+        </svg>
+
+        @if(session()->has('success'))
+        <div class="col-md-12">
+            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                <div>
+                  {{session()->get('message')}}
+                </div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        @endif
+
+        @if(session()->has('error'))
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <div>
+                  {{session()->get('message')}}
+                </div>
+    
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        @endif
+    </div>
 
     <div class="panel" id="tab-1">
 
@@ -54,23 +90,33 @@
             <form class="emp_details">
                 @csrf
               <div class="d-none">
-                <input type="hidden" name="rec_id" value="{{$recruitment_id}}">
+                <input type="hidden" name="emp_id" value="{{$id}}">
               </div>
             <div class="row g-3">
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Work Order Number <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" name="emp_work_order"
-                        placeholder="Enter Work Order Number" value="{{$employee_details->emp_work_order}}" required>
+                    <select class="form-select js-example-basic-multiple" name="emp_work_order" required>
+                        <option value="">Select Work Order</option>
+                        @foreach ($workorders as $workorder)
+                            <option value="{{ $workorder->wo_number }}" {{$employee_details->emp_work_order == $workorder->wo_number ? 'selected' : ''}}>{{ $workorder->wo_number }}</option>
+                        @endforeach
+                    </select>
+                    @error('emp_work_order')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Employee Code <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" name="emp_code"
-                        placeholder="Enter Employee Code" value="{{$employee_details->emp_code}}" required>
+                    <input type="text" class="form-control form-control-sm"
+                        placeholder="Enter Employee Code" value="{{$employee_details->emp_code}}" disabled>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label" class="text-dark">Employee Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control form-control-sm" name="emp_name"
                         placeholder="Enter Employee Name" value="{{!empty($employee_details->emp_name) ? $employee_details->emp_name : ''}}" required>
+                    @error('emp_name')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Reporting Email <span class="text-danger">*</span></label>
@@ -80,11 +126,17 @@
                             <option value="{{ $manager->email }}" {{$employee_details->reporting_email == $manager->email ? 'selected' : ''}}>{{ $manager->email }}</option>
                         @endforeach
                     </select>
+                    @error('reporting_email')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
 
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Date Of Joining <span class="text-danger">*</span></label>
                     <input type="date" class="form-control" name="emp_doj" value="{{!empty($employee_details->emp_doj) ? $employee_details->emp_doj : ''}}" required>
+                    @error('emp_doj')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
 
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -101,6 +153,9 @@
                             <option value="{{ $designation->name }}" {{$employee_details->emp_designation == $designation->name ? 'selected' : ''}}>{{ $designation->name }}</option>
                         @endforeach
                     </select>
+                    @error('emp_designation')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Department <span class="text-danger">*</span></label>
@@ -110,6 +165,9 @@
                             <option value="{{ $department->department }}" {{$employee_details->department == $department->department ? 'selected' : ''}}>{{ $department->department }}</option>
                         @endforeach
                     </select>
+                    @error('department')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
 
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -117,22 +175,34 @@
                     <input type="text" class="form-control form-control-sm" name="emp_phone_first"
                         placeholder="Enter Contact Number" value="{{!empty($employee_details->emp_phone_first) ? $employee_details->emp_phone_first : ''}}" minlength="10" maxlength="10"
                         onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
+                    @error('emp_phone_first')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Email(Personal)<span class="text-danger">*</span></label>
                     <input type="email" class="form-control form-control-sm" name="emp_email_first"
                         placeholder="Enter Email" value="{{!empty($employee_details->emp_email_first) ? $employee_details->emp_email_first : ''}}" required>
+                    @error('emp_email_first')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Contact (Office)</label>
                     <input type="text" class="form-control form-control-sm" name="emp_phone_second"
                         placeholder="Enter Office Contact Number" minlength="10" maxlength="10"
                         onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" value="{{$employee_details->emp_phone_second}}">
+                    @error('emp_phone_second')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Email (Office)</label>
                     <input type="email" class="form-control form-control-sm" name="emp_email_second"
                         placeholder="Enter Office Email" value="{{$employee_details->emp_email_second}}">
+                    @error('emp_email_second')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
 
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -148,21 +218,42 @@
                     <label class="form-label">Current Working Status <span class="text-danger">*</span></label>
                     <select class="form-select" name="emp_current_working_status" required>
                         <option value="">Select Status</option>
-                        <option value="active" {{$employee_details->emp_current_working_status == 'active' ? 'selected' : ''}}>Active</option>
-                        <option value="resign" {{$employee_details->emp_current_working_status == 'resign' ? 'selected' : ''}}>Resign</option>
+                        <option value="active" {{($employee_details->emp_current_working_status == 'active' && empty(old('emp_current_working_status'))) || (!empty(old('emp_current_working_status')) && old('emp_current_working_status') == 'active') ? 'selected' : ''}}>Active</option>
+                        <option value="resign" {{$employee_details->emp_current_working_status == 'resign' || old('emp_current_working_status') == 'resign' ? 'selected' : ''}}>Resign</option>
                     </select>
+                    @error('emp_current_working_status')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
+                
+                @php
+                    $display_resign_fields = '';
+                    if($employee_details->emp_current_working_status == 'active' && empty(old('emp_current_working_status'))){
+                        $display_resign_fields = 'd-none';
+                    }
+
+                @endphp
+                <div class="col-xxl-3 col-lg-4 col-sm-6 {{$display_resign_fields}} resign">
+                    <label class="form-label">Date of Resigning <span class="text-danger">*</span> </label>
+                    <input type="date" class="form-control form-control-sm" name="emp_dor"
+                        placeholder="Enter Office Email" value="{{$employee_details->emp_dor}}">
+                    @error('emp_dor')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+
 
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label for="emp_remark" class="form-label">Remarks</label>
                     <textarea class="form-control" name="emp_remark" placeholder="Enter Remarks">{{$employee_details->emp_remark}}</textarea>
                 </div>
 
-
+                @if ($employee_details->emp_current_working_status == 'active')
                 <div class="col-12 d-flex justify-content-end">
                     <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
-                    <button type="submit" class="btn btn-sm btn-primary" >Save </button>
+                    <button type="submit" class="btn btn-sm btn-primary" >Update </button>
                 </div>
+                @endif
             </div>
             </form>
         </div>
@@ -240,18 +331,20 @@
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">No Of Children</label>
-                    <input type="number" class="form-control form-control-sm" name="emp_children" placeholder="Enter No. Of Children">
+                    <input type="number" class="form-control form-control-sm" name="emp_children" placeholder="Enter No. Of Children" value="{{!empty($employee_details->getPersonalDetail) ? $employee_details->getPersonalDetail->emp_children : ''}}">
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Spouse Name</label>
                     <input type="text" class="form-control form-control-sm" name="emp_husband_wife_name" placeholder="Enter Spouse Name" value="{{!empty($employee_details->getPersonalDetail) ? $employee_details->getPersonalDetail->emp_husband_wife_name : ''}}">
                 </div>
 
+                @if ($employee_details->emp_current_working_status == 'active')
                 <div class="col-12 d-flex justify-content-end">
                     
                     <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn">Save</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn">Update</button>
                 </div>
+                @endif
             </div>
             </form>
         </div>
@@ -262,26 +355,27 @@
                 @csrf
                 <div class="d-none">
                     <input type="hidden" name="emp_code" value="{{$employee_details->emp_code}}">
-                    <input type="hidden" name="rec_id" value="{{$recruitment_id}}">
                 </div>
             <div class="row g-3">
                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                     <label for="exampleTextarea" class="form-label">Permanent Address <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="permanent_address" name="emp_permanent_address" placeholder="Enter Permanent Address With State And City" required>{{!empty($employee_details->getAddressDetail) ?  $employee_details->getAddressDetail->emp_permanent_address : ''}}
-                    </textarea>
+                    <textarea class="form-control" id="permanent_address" name="emp_permanent_address" placeholder="Enter Permanent Address With State And City" required>{{!empty($employee_details->getAddressDetail) ?  $employee_details->getAddressDetail->emp_permanent_address : ''}}</textarea>
+                    
                 </div>
                 <div class="col-xxl-3 col-lg-6 col-sm-6">
                     <label for="exampleTextarea" class="form-label">Correspondence Address <span class="text-danger">*</span> <span><input
                                 class="form-check-input" type="checkbox" id="same-as"></span>Same as
                         permanent</label>
-                    <textarea class="form-control" id="local_address" name="emp_local_address" placeholder="Enter Correspondence Address With State And City" >{{!empty($employee_details->getAddressDetail) ? $employee_details->getAddressDetail->emp_local_address : ''}}
-                    </textarea>
+                    <textarea class="form-control" id="local_address" name="emp_local_address" placeholder="Enter Correspondence Address With State And City" >{{!empty($employee_details->getAddressDetail) ? $employee_details->getAddressDetail->emp_local_address : ''}}</textarea>
+                    
                 </div>
              
+                @if ($employee_details->emp_current_working_status == 'active')
                 <div class="col-12 d-flex justify-content-end">
                     
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn2">Save</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn2">Update</button>
                 </div>
+                @endif
             </div>
             </form>
         </div>
@@ -292,7 +386,6 @@
                 @csrf
                 <div class="d-none">
                     <input type="hidden" name="emp_code" value="{{$employee_details->emp_code}}">
-                    <input type="hidden" name="rec_id" value="{{$recruitment_id}}">
                 </div>
             <div class="row g-3">
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -317,12 +410,12 @@
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Vendor Rate (Rs)</label>
                     <input type="text" class="form-control form-control-sm" name="emp_unit"
-                        placeholder="Enter Vendor Rate" value="{{$employee_details->getBankDetail->emp_unit}}">
+                        placeholder="Enter Vendor Rate" value="{{!empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_unit : ''}}">
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Salary / CTC(Per Month)</label>
                     <input type="text" class="form-control form-control-sm" name="emp_salary"
-                        placeholder="Enter CTC" value="{{$employee_details->getBankDetail->emp_salary}}">
+                        placeholder="Enter CTC" value="{{!empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_salary : ''}}">
                 </div>
 
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -333,12 +426,12 @@
 
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">PAN Number <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" name="emp_pan"
+                    <input type="text" class="form-control form-control-sm" name="emp_pan" maxlength="10" minlength="10"
                         placeholder="Enter PAN Number" value="{{!empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_pan : ''}}" required>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">PF UAN No</label>
-                    <input type="text" class="form-control form-control-sm" name="emp_pf_no" maxlength="12"
+                    <input type="text" class="form-control form-control-sm" name="emp_pf_no" minlength="12" maxlength="12"
                         placeholder="Enter PF UAN Number" value="{{!empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_pf_no : ''}}">
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -347,11 +440,12 @@
                         placeholder="Enter ESI Number" value="{{!empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_esi_no : ''}}">
                 </div>
 
-
+                @if ($employee_details->emp_current_working_status == 'active')
                 <div class="col-12 d-flex justify-content-end">
                     
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Save</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Update</button>
                 </div>
+                @endif
             </div>
             </form>
         </div>
@@ -369,7 +463,7 @@
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Highest Qualification <span class="text-danger">*</span></label>
                             <input type="text" class="form-control form-control-sm"
-                                name="emp_highest_qualification" placeholder="Enter Highest Qualification" value="{{$employee_details->education->emp_highest_qualification}}" required>
+                                name="emp_highest_qualification" placeholder="Enter Highest Qualification" value="{{!empty($employee_details->education) ? $employee_details->education->emp_highest_qualification : ''}}" required>
                         </div>
                     </div>
                     <div class="card-header">
@@ -499,11 +593,12 @@
 
 
                 </div>
-
+                @if ($employee_details->emp_current_working_status == 'active')
                 <div class="col-12 d-flex justify-content-end">
                   
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Save</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Update</button>
                 </div>
+                @endif
             </div>
             </form>
         </div>
@@ -514,7 +609,6 @@
                 @csrf
                 <div class="d-none">
                     <input type="hidden" name="emp_code" value="{{$employee_details->emp_code}}">
-                    <input type="hidden" name="rec_id" value="{{$recruitment_id}}">
                 </div>
             <div class="row g-3">
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -522,23 +616,25 @@
                     <select name="emp_skills[]" class="form-select js-example-basic-multiple" multiple required>
                         <option value="">Select Some Skills</option>
                         @foreach($skills as $skill)
-                        <option value="{{$skill->skill}}" {{in_array($skill->skill, explode(",", $employee_details->experience->emp_skills)) ? 'selected' : ''}}>{{$skill->skill}}</option>
+                        <option value="{{$skill->skill}}" {{!empty($employee_details->experience) && in_array($skill->skill, explode(",", $employee_details->experience->emp_skills)) ? 'selected' : ''}}>{{$skill->skill}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Total Experience</label>
-                    <input type="text" class="form-control form-control-sm" placeholder="Enter Experience">
+                    <input type="text" class="form-control form-control-sm" name="emp_experience" placeholder="Enter Experience" value="{{!empty($employee_details->experience) ? $employee_details->experience->emp_experience : ''}}">
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label for="resume_file" class="form-label">Upload Resume <span>(Max Size : 1mb)</span></label>
                     <input class="form-control form-control-sm"  name="resume_file" type="file" accept=".pdf">
                 </div>
 
+                @if ($employee_details->emp_current_working_status == 'active')
                 <div class="col-12 d-flex justify-content-end">
                     
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Save</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Update</button>
                 </div>
+                @endif
             </div>
             </form>
         </div>
@@ -582,11 +678,13 @@
                     <input type="text" class="form-control form-control-sm" name="nearest_police_station"
                         placeholder="Enter Neareset Police Station" value="{{!empty($employee_details->getIdProofDetail) ? $employee_details->getIdProofDetail->nearest_police_station : ''}}">
                 </div>
+                @if ($employee_details->emp_current_working_status == 'active')
                 <div class="row">
                     <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Save</button>
+                        <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Update</button>
                     </div>
                 </div>
+                @endif
             </div>
             </form>
         </div>

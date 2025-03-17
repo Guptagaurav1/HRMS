@@ -228,7 +228,7 @@ if (!function_exists('get_position_title')) {
      }
  }
 
- /**
+/**
  * Add employee code in all employee tables
  *  on direct join in recruitment form.
  * @param string $employeeCode
@@ -255,4 +255,27 @@ if (!function_exists('update_employee_code')) {
        
     }
 } 
+
+/**
+ * Check department role assignment
+ * @param string $role_short_name
+ * @param integer $userid
+ * @return boolean true if role assignment is granted, false otherwise
+ */
+if (!function_exists('check_department_role_assignment')) {
+    function check_department_role_assignment($role_short_name, $userid)
+    {
+        try {
+            $user = User::select('role_id')->findOrFail($userid);
+            $role_id = Role::where('role_name', $role_short_name)->value('id');
+            if ($role_id == $user->role_id) {
+                return true;
+            }
+            return false;
+        }
+        catch (Throwable $e) {
+            return false;
+        }
+    }
+}
  

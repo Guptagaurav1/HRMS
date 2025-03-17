@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Send Letter'])
 
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
@@ -16,11 +16,11 @@
         <div class="panel">
             <div class="row px-3">
                 <div class="col-md-6">
-                    <label class="form-label">Employee Salary : <span>Aniket</span></label>
+                    <label class="form-label">Employee Name : <span>{{$empdetails->emp_name}}</span></label>
 
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Employee Code : <span>PSSPL/2024-25/3965</span></label>
+                    <label class="form-label">Employee Code : <span>{{$empdetails->emp_code}}</span></label>
                 </div>
             </div>
             <div class="panel-header">
@@ -32,15 +32,15 @@
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Employee Salary<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Salary">
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Salary" value="{{$empdetails->getBankDetail->emp_salary}}">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Employee Designation<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Designation">
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Designation" value="{{$empdetails->emp_designation}}">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label for="inputDate" class="form-label">End date</label>
-                        <input type="date" class="form-control" id="inputDate">
+                        <input type="date" class="form-control" >
                     </div>
                 </div>
             </div>
@@ -61,16 +61,16 @@
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Employee Designation <span class="text-danger">*</span></label>
-                    <select id="inputState" class="form-select">
-                        <option selected>Office Assistant(Stage-2)</option>
-                        <option>Select 1</option>
-                        <option>Select 1</option>
-                        <option>Select 1</option>
+                    <select class="form-select">
+                        <option value="">Select Designation</option>
+                        @foreach($designations as $designation)
+                        <option value="{{$designation->name}}">{{$designation->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label for="inputDate" class="form-label">Start date</label>
-                    <input type="date" class="form-control" id="inputDate">
+                    <input type="date" class="form-control" >
                 </div>
 
             </div>
@@ -96,32 +96,32 @@
             <div class="row g-3">
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Employee Code <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm">
+                    <input type="text" class="form-control form-control-sm" readonly>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Employee Name <span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control form-control-sm">
+                    <input type="tel" class="form-control form-control-sm" readonly>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label for="inputDate" class="form-label">Date Of Joining</label>
-                    <input type="date" class="form-control" id="inputDate">
+                    <input type="date" class="form-control"  readonly>
                 </div>
 
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Designation <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm">
+                    <input type="text" class="form-control form-control-sm" readonly>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">CTC <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm">
+                    <input type="text" class="form-control form-control-sm" readonly>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Gross <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm">
+                    <input type="text" class="form-control form-control-sm" readonly>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Net Salary <span class="text-danger"span></label>
-                    <input type="text" class="form-control form-control-sm">
+                    <input type="text" class="form-control form-control-sm" readonly>
                 </div>
                 
             </div>
@@ -131,7 +131,7 @@
 <div class="col-12">
     <div class="panel">
         <div class="panel-header">
-            <h5 class="text-white">Educational Qualification</h5>
+            <h5 class="text-white">Gross Salary</h5>
         </div>
 
         <div class="card mb-20">
@@ -150,7 +150,7 @@
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Basic <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm">
+                        <input type="number" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">DA</label>
@@ -182,15 +182,15 @@
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">PF Employer <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm">
+                        <input type="number" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">ESIC Employer</label>
-                        <input type="text" class="form-control form-control-sm">
+                        <input type="number" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">LWF Employer(Labour Welfare Fund)</label>
-                        <input type="text" class="form-control form-control-sm">
+                        <input type="number" class="form-control form-control-sm">
 
                     </div>
 
@@ -205,7 +205,7 @@
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Telephone <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm">
+                        <input type="number" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Uniform</label>
@@ -243,7 +243,7 @@
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">PF Employee<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm">
+                        <input type="number" class="form-control form-control-sm">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">ESI</label>
