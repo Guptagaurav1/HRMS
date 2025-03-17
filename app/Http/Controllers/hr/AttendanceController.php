@@ -551,6 +551,7 @@ class AttendanceController extends Controller
             });
         }
         $wo_attendances = $wo_attendances->paginate(10);
+       
         foreach ($wo_attendances as $key => $attendance) {
             $year_day = date('Y', strtotime($attendance->attendance_month));
             $month_day = date('m', strtotime($attendance->attendance_month));
@@ -565,13 +566,14 @@ class AttendanceController extends Controller
                 $gap_in_service = 0;
                 $working_days = $days_in_month - $gap_in_service;  // Calculate working days
             } else {
-                $gap_in_service = $lwp_leave - $approve_leave;  // Get actual leave without wallet leave
+                $gap_in_service = intval($lwp_leave) - intval($approve_leave);  // Get actual leave without wallet leave
                 $working_days = $days_in_month - $gap_in_service;  // Calculate working days
             }
 
             $wo_attendances[$key]->gap_in_service = $gap_in_service;
             $wo_attendances[$key]->working_days = $working_days;
             $wo_attendances[$key]->attendance_m_y = $attendance_m_y;
+            // dd($wo_attendances);
         }
         return view("hr.attendance.attendance-list",compact('wo_attendances','search'));
     }

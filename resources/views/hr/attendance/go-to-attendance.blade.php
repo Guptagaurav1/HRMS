@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-md-3 workcenter">
 
-                        <a href="{{route('addnew-candidate')}}">
+                        <a href="{{route('upload-attendance')}}">
                             <button class="btn btn-sm btn-primary">Bulk Upload <i class="fa-solid fa-upload"></i></button>
                         </a><br>
                         <span class="text-danger mt-5 ">Note: Overtime Rate/Hr and</span>

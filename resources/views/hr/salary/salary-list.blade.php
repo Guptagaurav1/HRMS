@@ -84,35 +84,35 @@
                             <tbody>
                                 @forelse($salary as $key => $value)
                                     <tr>
-                                        <td>{{$value->sl_emp_code}}</td>
-                                        <td>{{$value->emp_work_order}}</td>
-                                        <td>{{$value->sa_emp_doj}}</td>
-                                        <td>{{$value->sal_emp_name}}</td>
-                                        <td>{{$value->sal_emp_designation}}	</td>
-                                        <td>{{$value->sal_ctc}}</td>
-                                        <td>{{$value->sal_gross}}</td>
-                                        <td>{{$value->sal_net}}</td>
-                                        <td>{{$value->sal_basic}}</td>
-                                        <td>{{$value->sal_hra}}</td>
-                                        <td>{{$value->sal_da}}</td>
-                                        <td>{{$value->sal_conveyance}}</td>
-                                        <td>{{$value->sal_special_allowance}}</td>
-                                        <td>{{$value->medical_allowance}}</td>
-                                        <td>{{$value->sal_pf_employer}}</td>
-                                        <td>{{$value->sal_esi_employer}}</td>
-                                        <td>{{$value->tds_tax_amount}}</td>
+                                        <td title="Emp. Code">{{$value->sl_emp_code}}</td>
+                                        <td title="Work Order">{{$value->emp_work_order}}</td>
+                                        <td title="D.O.J">{{$value->sa_emp_doj}}</td>
+                                        <td title="EMp. Name">{{$value->sal_emp_name}}</td>
+                                        <td title="Dessination">{{$value->sal_emp_designation}}	</td>
+                                        <td title="CTC">{{$value->sal_ctc}}</td>
+                                        <td title="Gross">{{$value->sal_gross}}</td>
+                                        <td title="Net Salary">{{$value->sal_net}}</td>
+                                        <td title="Basic Salary">{{$value->sal_basic}}</td>
+                                        <td title="HRA">{{$value->sal_hra}}</td>
+                                        <td title="Salary DA">{{$value->sal_da}}</td>
+                                        <td title="Salary Conveyance">{{$value->sal_conveyance}}</td>
+                                        <td title="Salary Special allowance">{{$value->sal_special_allowance}}</td>
+                                        <td title="Medical Allowance">{{$value->medical_allowance}}</td>
+                                        <td title="Salary PF Employer">{{$value->sal_pf_employer}}</td>
+                                        <td title="ESI Employer">{{$value->sal_esi_employer}}</td>
+                                        <td title="TDS Tax Amount">{{$value->tds_tax_amount}}</td>
 
-                                        <td>{{$value->tds_deduction}}</td>
-                                        <td>{{$value->emp_pf_no}}</td>
-                                        <td>{{$value->emp_esi_no}}</td>
-                                        <td>{{$value->emp_bank}}</td>
-                                        <td>{{$value->emp_account_no}}</td>
+                                        <td title="TDS Deduction">{{$value->tds_deduction}}</td>
+                                        <td title="PF No.">{{$value->emp_pf_no}}</td>
+                                        <td title="ESI No.">{{$value->emp_esi_no}}</td>
+                                        <td title="Bank No.">{{$value->emp_bank}}</td>
+                                        <td title="Account No.">{{$value->emp_account_no}}</td>
                                         <td>{{$value->emp_ifsc}}</td>
-                                        <td>{{$value->emp_phone_first}}</td>
-                                        <td>{{$value->emp_email_first}}</td>
-                                        <td>{{$value->emp_remark}}</td>
-                                        <td><a href="{{route('edit-salary')}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
-                                            <a href=""><button class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
+                                        <td title="Phone">{{$value->emp_phone_first}}</td>
+                                        <td title="Email">{{$value->emp_email_first}}</td>
+                                        <td title="Remark" >{{$value->sal_remark}}</td>
+                                        <td><a href="{{route('edit-salary',$value->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        <a data-id="{{ $value->id }}"  class="delete-salary"><button class="btn btn-sm btn-danger"  title="Delete">Delete <i class="fa-solid fa-trash"></i></button></a>
                                         </td>
                                     </tr>
                                 @empty
@@ -140,4 +140,5 @@
 <script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
+<script src="{{asset('assets/js/hr/salary.js')}}"></script>
 @endsection

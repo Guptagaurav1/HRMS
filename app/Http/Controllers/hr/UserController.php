@@ -187,13 +187,11 @@ class UserController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * trash of user details.
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, String $id)
     { 
-        // dd($id);
         User::where('id', $id)->delete();
-        // return redirect()->back()->with('success','User Deleted Successfully !');
-        return redirect()->route('users')->with(['success' =>'Role Deleted !']);
+        return redirect()->route('users')->with(['success' =>'User Deleted Successfully !']);
     }
 }
