@@ -41,19 +41,19 @@
                         <label class="form-label" class="text-dark ">Gender <span class="text-danger">*</span></label>
                         <select id="" class="form-control form-control-sm" name="gender" required>
                             <option value=""> Select Gender</option>
-                            <option value="Male" {{$details->gender == 'Male' ? 'selected' : ''}}>Male</option>
-                            <option value="Female" {{$details->gender == 'Female' ? 'selected' : ''}}>Female</option>
-                            <option value="Other" {{$details->gender == 'Other' ? 'selected' : ''}}>Other</option>
+                            <option value="Male" {{$details->getPersonalDetail->emp_gender == 'Male' ? 'selected' : ''}}>Male</option>
+                            <option value="Female" {{$details->getPersonalDetail->emp_gender == 'Female' ? 'selected' : ''}}>Female</option>
+                            <option value="Other" {{$details->getPersonalDetail->emp_gender == 'Other' ? 'selected' : ''}}>Other</option>
                         </select>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Category <span class="text-danger">*</span></label>
                         <select class="form-control form-control-sm" name="category" required="" fdprocessedid="fbbzqq">
                           <option value="Not Specified">Not Specified</option>
-                          <option value="general" {{$details->getPersonalDetail && $details->getPersonalDetail->category == 'general' ? 'selected' : ''}}>General</option>
-                          <option value="obc" {{$details->getPersonalDetail && $details->getPersonalDetail->category == 'obc' ? 'selected' : ''}}>OBC</option>
-                          <option value="sc" {{$details->getPersonalDetail && $details->getPersonalDetail->category == 'sc' ? 'selected' : ''}}>SC/ST</option>
-                          <option value="st" {{$details->getPersonalDetail && $details->getPersonalDetail->category == 'st' ? 'selected' : ''}}>PH</option>
+                          <option value="general" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_category == 'general' ? 'selected' : ''}}>General</option>
+                          <option value="obc" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_category == 'obc' ? 'selected' : ''}}>OBC</option>
+                          <option value="sc" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_category == 'sc' ? 'selected' : ''}}>SC/ST</option>
+                          <option value="st" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_category == 'st' ? 'selected' : ''}}>PH</option>
                         </select>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -94,43 +94,43 @@
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Guardian Name(Parents/Others) <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Guardian Name" value="{{$details->getPersonalDetail ? $details->getPersonalDetail->father_name : ''}}" name="guardian_name" required>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Guardian Name" value="{{$details->getPersonalDetail ? $details->getPersonalDetail->emp_father_name : ''}}" name="guardian_name" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label text-wrap">Guardian(Parents/Others) Contact No.<span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm"
-                            placeholder="Enter Guardian Contact Number" value="{{$details->getPersonalDetail ? $details->getPersonalDetail->father_mobile : ''}}" name="guardian_contact" required>
+                            placeholder="Enter Guardian Contact Number" value="{{$details->getPersonalDetail ? $details->getPersonalDetail->emp_father_mobile : ''}}" name="guardian_contact" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Blood Group <span class="text-danger">*</span></label>
                         <select name="blood_group" class="form-control form-control-sm" required>
                             <option value="Not Specified" selected="" disabled="">Not Specified</option>
-                            <option value="a+" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'a+' ? 'selected' : ''}}>A+</option>
-                            <option value="a-" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'a-' ? 'selected' : ''}}>A-</option>
-                            <option value="b+" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'b+' ? 'selected' : ''}}>B+</option>
-                            <option value="b-" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'b-' ? 'selected' : ''}}>B-</option>
-                            <option value="o+" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'o+' ? 'selected' : ''}}>O+</option>
-                            <option value="o-" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'o-' ? 'selected' : ''}}>O-</option>
-                            <option value="ab+" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'ab+' ? 'selected' : ''}}>AB+</option>
-                            <option value="ab-" {{$details->getPersonalDetail && $details->getPersonalDetail->blood_group == 'ab-' ? 'selected' : ''}}>AB-</option>
+                            <option value="a+" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_blood_group == 'a+' ? 'selected' : ''}}>A+</option>
+                            <option value="a-" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_blood_group == 'a-' ? 'selected' : ''}}>A-</option>
+                            <option value="b+" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_blood_group == 'b+' ? 'selected' : ''}}>B+</option>
+                            <option value="b-" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_blood_group == 'b-' ? 'selected' : ''}}>B-</option>
+                            <option value="o+" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_blood_group == 'o+' ? 'selected' : ''}}>O+</option>
+                            <option value="o-" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_blood_group == 'o-' ? 'selected' : ''}}>O-</option>
+                            <option value="ab+" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_blood_group == 'ab+' ? 'selected' : ''}}>AB+</option>
+                            <option value="ab-" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_blood_group == 'ab-' ? 'selected' : ''}}>AB-</option>
                         </select>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Martial Status<span class="text-danger">*</span></label>
                         <select name="martial_status" class="form-control form-select" required="">
                           <option value="Not Specified" selected="" disabled="">Not Specified</option>
-                          <option value="single" {{$details->getPersonalDetail && $details->getPersonalDetail->marital_status == 'single' ? 'selected' : ''}}>Single</option>
-                          <option value="married" {{$details->getPersonalDetail && $details->getPersonalDetail->marital_status == 'married' ? 'selected' : ''}}>Married</option>
-                          <option value="widowed" {{$details->getPersonalDetail && $details->getPersonalDetail->marital_status == 'widowed' ? 'selected' : ''}}>Widowed</option>
-                          <option value="divorced" {{$details->getPersonalDetail && $details->getPersonalDetail->marital_status == 'divorced' ? 'selected' : ''}}>Divorced / Seperated</option>
+                          <option value="single" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_marital_status == 'single' ? 'selected' : ''}}>Single</option>
+                          <option value="married" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_marital_status == 'married' ? 'selected' : ''}}>Married</option>
+                          <option value="widowed" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_marital_status == 'widowed' ? 'selected' : ''}}>Widowed</option>
+                          <option value="divorced" {{$details->getPersonalDetail && $details->getPersonalDetail->emp_marital_status == 'divorced' ? 'selected' : ''}}>Divorced / Seperated</option>
                         </select>
                     </div>
 
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Spouse Name </label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Spouse Name" value="{{$details->getPersonalDetail->spouse_name}}">
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Spouse Name" value="{{$details->getPersonalDetail->emp_husband_wife_name}}">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Language Known <span class="text-danger">*</span></label>
@@ -149,15 +149,15 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">Passport Size Photo<span class="text-danger">*</span></label>
-                            <img src="{{asset('recruitment/candidate_documents/passport_size_photo/'.$details->getPersonalDetail->photograph.'')}}" alt="no-photo-found"  class="img-fluid img-thumbnail w-50" />
+                            <img src="{{asset('recruitment/candidate_documents/passport_size_photo/'.$details->getPersonalDetail->emp_photo.'')}}" alt="no-photo-found"  class="img-fluid img-thumbnail w-50" />
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">E-Signature<span class="text-danger">*</span></label>
-                            <img src="{{asset('recruitment/candidate_documents/sign/'.$details->getPersonalDetail->signature.'')}}" alt="signature-not-found" width="170px" />
+                            <img src="{{asset('recruitment/candidate_documents/sign/'.$details->getPersonalDetail->emp_signature.'')}}" alt="signature-not-found" width="170px" />
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label for="formFileSm" class="form-label">Candidate Resume <span class="text-danger">*</span></label>        
-                            <a class="btn btn-sm btn-primary mt-5" href="{{asset('resume/'.$details->resume.'')}}" target='_blank'> View <i
+                            <a class="btn btn-sm btn-primary mt-5" href="{{asset('recruitment/candidate_documents/employee_resume/'.$details->resume.'')}}" target='_blank'> View <i
                                     class="fa-solid fa-download"></i></a>
                         </div>
                     </div>
@@ -176,20 +176,20 @@
                         <label for="p_address" class="form-label">Permanent Address <span
                                 class="text-danger">*</span></label>
                         <textarea class="form-control" id="p_address"
-                            placeholder="Enter Complete Address With State and City" name="p_address" required>{{$details->getAddressDetail->permanent_add}}</textarea>
+                            placeholder="Enter Complete Address With State and City" name="p_address" required>{{$details->getAddressDetail->emp_permanent_address}}</textarea>
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
                         <label for="c_address" class="form-label">Correspondence Address <span class="text-danger">*</span><input class="form-check-input" type="checkbox" id="filladdress" ></span>Same as permanent</label>
-                        <textarea class="form-control" id="c_address" placeholder="Enter Complete Address With State and City" name="c_address" required>{{$details->getAddressDetail->correspondence_add}}</textarea>
+                        <textarea class="form-control" id="c_address" placeholder="Enter Complete Address With State and City" name="c_address" required>{{$details->getAddressDetail->emp_local_address}}</textarea>
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
                         <label class="form-label">Nearest Police Station<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Police Station" value="{{$details->getPersonalDetail->nearest_police_station}}" name="nearest_police_station" required>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Police Station" value="{{$details->getIdProofDetail->nearest_police_station}}" name="nearest_police_station" required>
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
                         <label for="formFile" class="form-label">Police Verification Id</label>
                         <input type="text" class="form-control form-control-sm"
-                            placeholder="Enter Police Verification ID" value="{{$details->getPersonalDetail->police_verification_id}}" name="police_verification_id" />
+                            placeholder="Enter Police Verification ID" value="{{$details->getIdProofDetail->police_verification_id}}" name="police_verification_id" />
                     </div>
                 </div>
             </div>
@@ -208,31 +208,31 @@
                         <select class="form-select form-control" name="bank_name" required>
                             <option value="">Select Bank Name</option>
                             @foreach($banks as $bank)
-                            <option value="{{$bank->id}}" {{$details->getBankDetail->bank_name_id == $bank->id ? 'selected' : ''}}>{{$bank->name_of_bank}}</option>
+                            <option value="{{$bank->id}}" {{$details->getBankDetail->bank_id == $bank->id ? 'selected' : ''}}>{{$bank->name_of_bank}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Bank Branch Name <span class="text-danger">*</span></label>
-                        <input type="tel" class="form-control form-control-sm" placeholder="Enter Branch Name" value="{{$details->getBankDetail->branch}}" name="branch_name" required>
+                        <input type="tel" class="form-control form-control-sm" placeholder="Enter Branch Name" value="{{$details->getBankDetail->emp_branch}}" name="branch_name" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Bank Account Number <span class="text-danger">*</span></label>
                         <input type="number" class="form-control form-control-sm"
-                            placeholder="Enter Bank Account Number" value="{{$details->getBankDetail->account_no}}" name="bank_account" required>
+                            placeholder="Enter Bank Account Number" value="{{$details->getBankDetail->emp_account_no}}" name="bank_account" required>
                     </div>
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">IFSC Code <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter IFSC Code" value="{{$details->getBankDetail->ifsc_code}}" name="bank_ifsc" required>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter IFSC Code" value="{{$details->getBankDetail->emp_ifsc}}" name="bank_ifsc" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Aadhar Number <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Aadhar Number" value="{{$details->getPersonalDetail->aadhar_card_no}}" name="aadhar_no" required>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Aadhar Number" value="{{$details->getIdProofDetail->emp_aadhaar_no}}" name="aadhar_no" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">PAN Number <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter PAN Number" value="{{$details->getBankDetail->pan_card_no}}" name="pan_no" required>
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter PAN Number" value="{{$details->getBankDetail->emp_pan}}" name="pan_no" required>
                     </div>
                 </div>
             </div>
@@ -252,15 +252,15 @@
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">10th Passing Year <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control form-control-sm" placeholder="Enter 10th Passing Year" min="0" value="{{$details->getEducationDetail['10th_year']}}" name="tenth_year" required>
+                            <input type="number" class="form-control form-control-sm" placeholder="Enter 10th Passing Year" min="0" value="{{$details->getEducationDetail['emp_tenth_year']}}" name="tenth_year" required>
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Percentage/Grade</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Enter Percentage" value="{{$details->getEducationDetail['10th_percentage']}}" name="tenth_percentage" >
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter Percentage" value="{{$details->getEducationDetail['emp_tenth_percentage']}}" name="tenth_percentage" >
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Board Name</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Enter Board Name" value="{{$details->getEducationDetail['10th_board']}}">
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter Board Name" value="{{$details->getEducationDetail['emp_tenth_board_name']}}">
 
                         </div>
 
@@ -276,15 +276,15 @@
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">12th Passing Year </label>
                             <input type="text" class="form-control form-control-sm"
-                                placeholder="Enter 12th Passing Year" value="{{$details->getEducationDetail['12th_year']}}" name="twelth_year" >
+                                placeholder="Enter 12th Passing Year" value="{{$details->getEducationDetail['emp_twelve_year']}}" name="twelth_year" >
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Percentage/Grade</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Enter Percentage" value="{{$details->getEducationDetail['12th_percentage']}}" name="twelth_percentage" >
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter Percentage" value="{{$details->getEducationDetail['emp_twelve_percentage']}}" name="twelth_percentage" >
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Board Name</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Enter Board Name" value="{{$details->getEducationDetail['12th_board']}}" name="twelth_board" >
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter Board Name" value="{{$details->getEducationDetail['emp_twelve_board_name']}}" name="twelth_board" >
 
                         </div>
 
@@ -300,25 +300,25 @@
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Passing Year/Persuing </label>
                             <input type="number" class="form-control form-control-sm"
-                                placeholder="Passing Year / Pursuing" value="{{$details->getEducationDetail->grad_year}}" name="grad_year" >
+                                placeholder="Passing Year / Pursuing" value="{{$details->getEducationDetail->emp_graduation_year}}" name="grad_year" >
                         </div>
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Percentage/Grade</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Percentage/Grade" value="{{$details->getEducationDetail->grad_percentage}}" >
+                            <input type="text" class="form-control form-control-sm" placeholder="Percentage/Grade" value="{{$details->getEducationDetail->emp_graduation_percentage}}" >
                         </div>
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Mode Of Graduation</label>
                             <select class="form-control form-select" name="graduation_mode">
                               <option value="Not Specified">Not Specified</option>
-                              <option value="regular" {{$details->getEducationDetail->grad_mode == 'regular' ? 'selected' : ''}}>Regular</option>
-                              <option value="distance" {{$details->getEducationDetail->grad_mode == 'distance' ? 'selected' : ''}}>Distance</option>
-                              <option value="correspondence" {{$details->getEducationDetail->grad_mode == 'correspondence' ? 'selected' : ''}}>Correspondence</option>
+                              <option value="regular" {{$details->getEducationDetail->emp_graduation_mode == 'regular' ? 'selected' : ''}}>Regular</option>
+                              <option value="distance" {{$details->getEducationDetail->emp_graduation_mode == 'distance' ? 'selected' : ''}}>Distance</option>
+                              <option value="correspondence" {{$details->getEducationDetail->emp_graduation_mode == 'correspondence' ? 'selected' : ''}}>Correspondence</option>
                             </select>
 
                         </div>
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Degree Name</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Enter Degree Name" value="{{$details->getEducationDetail->grad_name}}">
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter Degree Name" value="{{$details->getEducationDetail->emp_gradqualification}}">
 
                         </div>
 
@@ -334,24 +334,24 @@
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Passing Year/Persuing </label>
-                            <input type="number" class="form-control form-control-sm" placeholder="Enter Passing Year" value="{{$details->getEducationDetail->post_grad_year}}" name="post_grad_year" >
+                            <input type="number" class="form-control form-control-sm" placeholder="Enter Passing Year" value="{{$details->getEducationDetail->emp_postgraduation_year}}" name="post_grad_year" >
                         </div>
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Percentage/Grade</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Enter Percentage" value="{{$details->getEducationDetail->post_grad_percentage}}">
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter Percentage" value="{{$details->getEducationDetail->emp_postgraduation_percentage}}">
                         </div>
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Mode Of Post Graduation</label>
                             <select class="form-select form-control" name="postgraduation_mode">
                               <option value="Not Specified">Not Specified</option>
-                              <option value="regular" {{$details->getEducationDetail->post_grad_mode == 'regular' ? 'selected' : ''}}>Regular</option>
-                              <option value="distance" {{$details->getEducationDetail->post_grad_mode == 'distance' ? 'selected' : ''}}>Distance</option>
-                              <option value="correspondence" {{$details->getEducationDetail->post_grad_mode == 'correspondence' ? 'selected' : ''}}>Correspondence</option>
+                              <option value="regular" {{$details->getEducationDetail->emp_postgraduation_mode == 'regular' ? 'selected' : ''}}>Regular</option>
+                              <option value="distance" {{$details->getEducationDetail->emp_postgraduation_mode == 'distance' ? 'selected' : ''}}>Distance</option>
+                              <option value="correspondence" {{$details->getEducationDetail->emp_postgraduation_mode == 'correspondence' ? 'selected' : ''}}>Correspondence</option>
                             </select>
                         </div>
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Degree Name</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Enter Degree Name" value="{{$details->getEducationDetail->post_grad_name}}">
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter Degree Name" value="{{$details->getEducationDetail->emp_postgradqualification}}">
                         </div>
                     </div>
                 </div>
@@ -399,12 +399,24 @@
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Start Date </label>
                             <input type="date" class="form-control form-control-sm" value="{{$details->getCompanyDetail->start_date}}"><br>
-                            <p>Last 3months Salary Slip Document <a href="{{asset('recruitment/candidate_documents/sal_slip/'.$details->getCompanyDetail->last_3months_sal_slip_doc.'')}}" target="_blank"><i class="fa-solid fa-download"></i></a></p>
+                            <p>Last 3months Salary Slip Document 
+                                @if($details->getCompanyDetail->last_3months_sal_slip_doc)
+                                <a href="{{asset('recruitment/candidate_documents/sal_slip/'.$details->getCompanyDetail->last_3months_sal_slip_doc.'')}}" target="_blank"><i class="fa-solid fa-download"></i></a>
+                                @else
+                                <p class="text-danger">Not Uploaded</p>
+                                @endif
+                            </p>
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">End Date </label>
                             <input type="date" class="form-control form-control-sm" placeholder="Enter Salary CTC" value="{{$details->getCompanyDetail->end_date}}"><br>
-                            <p>Last 3months Bank Statement Document <a href="{{asset('recruitment/candidate_documents/sal_slip/'.$details->getCompanyDetail['3months_bank_stat_doc'].'')}}" target="_blank"><i class="fa-solid fa-download"></i></a></p>
+                            <p>Last 3months Bank Statement Document
+                                @if($details->getCompanyDetail['3months_bank_stat_doc'])
+                                <a href="{{asset('recruitment/candidate_documents/sal_slip/'.$details->getCompanyDetail['3months_bank_stat_doc'].'')}}" target="_blank"><i class="fa-solid fa-download"></i></a>
+                                @else
+                                <p class="text-danger">Not Uploaded</p>
+                                @endif
+                                </p>
                         </div>
 
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -480,17 +492,17 @@
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
 
                             <label class="form-label">Enter PF UAN No </label>
-                            <input type="text" class="form-control" placeholder="Enter PF" value="{{$details->getPersonalDetail->pf_no}}">
+                            <input type="text" class="form-control" placeholder="Enter PF" value="{{$details->getBankDetail->emp_pf_no}}">
 
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">ESI No</label>
-                            <input type="text" class="form-control" placeholder="Enter ESI No" value="{{$details->getEsiDetail->previous_esi_no}}">
+                            <input type="text" class="form-control" placeholder="Enter ESI No" value="{{$details->getBankDetail->emp_esi_no}}">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
 
                             <label class="form-label">Passport No </label>
-                            <input type="text" class="form-control" placeholder="Enter Passport" value="{{$details->getPersonalDetail->passport_no}}">
+                            <input type="text" class="form-control" placeholder="Enter Passport" value="{{$details->getIdProofDetail->emp_passport_no}}">
 
                         </div>
                     </div>

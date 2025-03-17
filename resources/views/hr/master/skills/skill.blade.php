@@ -68,9 +68,12 @@
                                 </td>
 
                                 <td>
+                                    @if(auth()->user()->hasPermission('skills.edit'))
                                     <a  href="{{ route('skills.edit',['skill' => $skill1->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
-
+                                    @endif
+                                    @if(auth()->user()->hasPermission('skills.destroy'))
                                     <a  class="delete-skill" data-id="{{ $skill1->id }}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a>
+                                    @endif
                                 </td>
                             </tr>
                             @empty

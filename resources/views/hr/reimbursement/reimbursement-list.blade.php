@@ -1,7 +1,5 @@
 @extends('layouts.master', ['title' => 'Reimbursement List'])
-
 @section('style')
-
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
@@ -130,14 +128,18 @@
                                 <span class="badge alert-{{$color}}">{{$status}}</span>
                             </td>
                             <td class="text-nowrap text-center">
-                                <a href="{{route('reimbursement.view-reciept', ['id' => $reimbursment->id])}}">
-                                    <button class="btn btn-sm btn-primary">View Receipt <i
-                                            class="fa-solid fa-file"></i></button>
-                                </a>
+                                @if(auth()->user()->hasPermission('reimbursement.view-reciept'))
+                                    <a href="{{route('reimbursement.view-reciept', ['id' => $reimbursment->id])}}">
+                                        <button class="btn btn-sm btn-primary">View Receipt <i
+                                                class="fa-solid fa-file"></i></button>
+                                    </a>
+                                @endif
+                                @if(auth()->user()->hasPermission('reimbursement.view-more-attachment'))
                                 <a href="{{route('reimbursement.view-more-attachment', ['id' => $reimbursment->id])}}">
                                     <button class="btn btn-sm btn-primary">View More <i
                                             class="fa-solid fa-eye"></i></button>
                                 </a>
+                                @endif
                             </td>
                             <td class="text-danger">
                                 @if(auth()->guard('employee')->check() && $reimberstatus->verified_by < 3)

@@ -8,6 +8,12 @@ use App\Models\Qualification;
 use App\Models\Skill;
 use App\Models\FunctionalRole;
 use App\Models\PositionRequest;
+use App\Models\EmpPersonalDetail;
+use App\Models\EmpAccountDetail;
+use App\Models\EmpAddressDetail;
+use App\Models\EmpIdProof;
+use App\Models\EmpEducationDetail;
+use App\Models\EmpExperienceDetail;
 
 /**
  * Get role id from role name.
@@ -221,4 +227,32 @@ if (!function_exists('get_position_title')) {
          return null;
      }
  }
+
+ /**
+ * Add employee code in all employee tables
+ *  on direct join in recruitment form.
+ * @param string $employeeCode
+ * @param integer $req_id
+ */
+if (!function_exists('update_employee_code')) {
+    function update_employee_code($req_id, $employeeCode)
+    {
+        try {
+            DB::beginTransaction();
+            EmpPersonalDetail::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
+            EmpAccountDetail::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
+            EmpAddressDetail::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
+            EmpIdProof::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
+            EmpEducationDetail::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
+            EmpExperienceDetail::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
+            DB::commit();
+            return true;
+        }
+        catch (Throwable $e) {
+            DB::rollBack();
+            return false;
+        }
+       
+    }
+} 
  

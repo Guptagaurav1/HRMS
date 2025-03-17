@@ -15,9 +15,11 @@
                 <div class="panel-header heading-stripe">
                     <h3 class="mt-2 text-center">Add Work Order</h3>
                 </div>
-                <div class="col-12 d-flex justify-content-end">
-                    <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Work Order List</button></a>  
-                </div>
+                @if(auth()->user()->hasPermission('work-order-list'))
+                    <div class="col-12 d-flex justify-content-end">
+                        <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Work Order List</button></a>  
+                    </div>
+                @endif
 
 
                 <form action="{{ route('store-work-order') }}" method="post" enctype="multipart/form-data">

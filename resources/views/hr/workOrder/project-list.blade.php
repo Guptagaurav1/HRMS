@@ -15,10 +15,11 @@
                     <h2 class="mt-2">Project list</h2>
                 </div>
                 <div class="row px-3 mb-3">
-                    <div class="col-md-12 d-flex justify-content-end ml-5">
-                       
-                        <a href="{{route('add-project')}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Project</button></a>
-                    </div>
+                    @if(auth()->user()->hasPermission('add-project'))
+                        <div class="col-md-12 d-flex justify-content-end ml-5">
+                            <a href="{{route('add-project')}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Project</button></a>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="row px-3 mt-2">

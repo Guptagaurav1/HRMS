@@ -1,6 +1,5 @@
-$('.delete-user').click(function(){
+$('.delete-user').click(function() {
     var id = $(this).data('id');
- 
      Swal.fire({
          title: "Are you sure?",
          text: "You want to delete This record!",
@@ -15,4 +14,4 @@ $('.delete-user').click(function(){
          }
      });
  })
-   
+ 

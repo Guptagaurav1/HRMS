@@ -13,9 +13,11 @@
 
     </div>
     <div class="row" id="tab-1">
-        <div class="col-12 d-flex justify-content-end">
-            <a href="{{route('project-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Project List</button></a>  
-        </div>
+        @if(auth()->user()->hasPermission('project-list'))
+            <div class="col-12 d-flex justify-content-end">
+                <a href="{{route('project-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Project List</button></a>  
+            </div>
+        @endif
         <form action="{{ route('update-project',$project->id) }}" method="post" >
             @csrf
             <div class="col-12">

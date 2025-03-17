@@ -81,10 +81,11 @@
                             </div>
                         </div>
                     @endif
-
+                @if(auth()->user()->hasPermission('departments.create'))
                 <div class="text-end">
                     <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary">Add Department <i class="fa-solid fa-plus"></i></button></a>
                 </div>
+                @endif
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
@@ -113,8 +114,12 @@
                                     {{ $skills1 }}
                             </td>
                             <td class="text-center m-2 gap-2">
-                                <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit  <i class="fa-solid fa-pen-to-square"></i></button></a>
-                                <a class="delete-department" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
+                                @if(auth()->user()->hasPermission('departments.edit'))
+                                    <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit  <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                @endif
+                                @if(auth()->user()->hasPermission('departments.destroy'))
+                                    <a class="delete-department" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
+                                @endif
                             </td>
                         </tr>
                         @empty

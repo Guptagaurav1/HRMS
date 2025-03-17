@@ -22,7 +22,9 @@
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-primary mt-2">CSV</button>
                             </form>
-                            <a href="{{route('addnew-candidate')}}" class="btn btn-sm btn-primary mt-2 mx-2">Back</a>
+                            @if(auth()->user()->hasPermission('addnew-candidate'))
+                                <a href="{{route('addnew-candidate')}}" class="btn btn-sm btn-primary mt-2 mx-2">Back</a>
+                            @endif
                         </div>
 
                         {{-- Show Messages --}}
@@ -143,10 +145,14 @@
                                         <td> 
                                             @if (!empty($candidate->emp_current_working_status))
                                                 @if ($candidate->emp_current_working_status == 'active')
-                                                    <a href="{{ route('employee-details', ['empid' => $candidate->empid]) }}" class="text-capitalize text-decoration-none text-success">{{$candidate->emp_code." (".$candidate->emp_current_working_status.") "}}  
-                                                    </a>
+                                                    @if(auth()->user()->hasPermission('employee-details'))
+                                                        <a href="{{ route('employee-details', ['empid' => $candidate->empid]) }}" class="text-capitalize text-decoration-none text-success">{{$candidate->emp_code." (".$candidate->emp_current_working_status.") "}}  
+                                                        </a>
+                                                    @endif
                                                 @else
-                                                    <a href="{{ route('employee-details', ['empid' => $candidate->empid]) }}" class="text-capitalize text-decoration-none text-danger">{{$candidate->emp_code."  (".$candidate->emp_current_working_status." ".$candidate->emp_dor." )"}}</a>
+                                                    @if(auth()->user()->hasPermission('employee-details'))
+                                                        <a href="{{ route('employee-details', ['empid' => $candidate->empid]) }}" class="text-capitalize text-decoration-none text-danger">{{$candidate->emp_code."  (".$candidate->emp_current_working_status." ".$candidate->emp_dor." )"}}</a>
+                                                    @endif
                                                 @endif
                                             @else
                                                 <span class="text-danger">Not Deployed</span>
@@ -155,9 +161,12 @@
                                         
                                         </td>
                                         <td>
-                                            <a href="{{ route('applicant-recruitment-details-summary', ['rec_id' => $candidate->id]) }}">
-                                            <button class="btn btn-sm btn-primary">View <i
-                                                                class="fa-solid fa-eye"></i></button></a>
+                                            @if(auth()->user()->hasPermission('applicant-recruitment-details-summary'))
+                                                <a href="{{ route('applicant-recruitment-details-summary', ['rec_id' => $candidate->id]) }}">
+                                                <button class="btn btn-sm btn-primary">View <i
+                                                                    class="fa-solid fa-eye"></i></button>
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @empty

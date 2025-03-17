@@ -64,7 +64,9 @@
                                         <td> INR {{ number_format($value->amount, 2) }}</td>
                                       
                                         <td>
-                                            <a href="{{route('wo-project-report',$value->project->id)}}" target="_balnk"><button type="submit" class="btn btn-primary mb-3">Generate Report</button></a>
+                                            @if(auth()->user()->hasPermission('wo-project-report'))
+                                                <a href="{{route('wo-project-report',$value->project->id)}}" target="_balnk"><button type="submit" class="btn btn-primary mb-3">Generate Report</button></a>
+                                            @endif
                                         </td>
 
                                         

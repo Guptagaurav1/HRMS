@@ -66,7 +66,7 @@
                         @forelse($data as $record)
                         <tr class="group">
                             <td class="text-center">
-                                <a href="{{ route('employee-details', ['empid' => $record->emp_id]) }}"
+                                <a href="{{ route('employee-details', ['empid' => $record->id]) }}"
                                     class="text-primary">{{$record->emp_code}}</a>
                             </td>
                             <td class="text-center">{{$record->emp_name}}</td>
