@@ -2,27 +2,33 @@
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
 @endsection
 
 @section('contents')
 
 <div class="fluid-container">
-    <div class="">
-        <h2>Project Form</h2>
 
-    </div>
-    <div class="row" id="tab-1">
-        <div class="col-12 d-flex justify-content-end">
+<div class="dashboard-breadcrumb mb-25">
+        
+        <div class="">
+        <h2>Project Form</h2>
+        </div>
+        <div class="">
             <a href="{{route('project-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Project List</button></a>  
         </div>
+    </div>
+  
+    <div class="row" id="tab-1">
+       
         <form action="{{ route('store-project') }}" method="post" >
             @csrf
             <div class="col-12">
                 <div class="panel">
                     
                     <div class="panel-header">
-                        <h5>Work Order Details</h5>
+                        <h5 class="text-white">Work Order Details</h5>
                     </div>
                     <div class="panel-body">
                         <div class="row g-3">
@@ -42,15 +48,15 @@
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                         <label class="form-label text-wrap"> Project Number <span class="text-danger">*</span></label> </label>
-                                        <input name="project_number" id="project_number" type="text" class="form-control form-control-sm" placeholder="Enter Project Number" value="{{ old('project_number') }}">
+                                        <input name="project_number" id="project_number" type="text" class="form-control bg-white" placeholder="Enter Project Number" value="{{ old('project_number') }}">
                                         @error('project_number')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                 </div>
-                            </div>
                            
                            
-                            <div class="row">
+                           
+                           
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap"> Project Name <span class="text-danger">*</span></label></label>
                                     <input name="project_name" id="project_name" type="text" class="form-control form-control-sm" placeholder="Project Name" value="{{ old('project_name') }}">
@@ -69,14 +75,14 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                 </div>
-
-                            </div>
+                                </div>
+                          
                           
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 d-flex justify-content-end">
+            <div class="col-12 d-flex justify-content-end mt-3 px-2">
                 <button type="submit" class="btn btn-sm btn-primary"> Register Project <i class="fa-solid fa-arrow-right"></i></button>
             </div>
         <form>

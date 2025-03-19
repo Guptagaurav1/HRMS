@@ -17,46 +17,44 @@
                 </div>
                 <div class="row d-flex  justify-content-between mt-1" id="">
                     <div class="col-md-6 px-3 workcenter ">
-                        <label>Work Order Number : {{$wo_number}}</label>
+                    <p class="fw-bold fs-6 work-order-No">
+                    View Attendance for Work order(Only Attendance Generate But Salary Calculation Pending)
+                        <span class="text-dark fw-bold">: {{$wo_number}}</span>
+                    </p>
                         
                     </div>
                     <div class="col-md-2 workcenter">
                         <label>Total Entry</label>
-                        <span>Entry: 0</span>
+                        <span class="text-dark fw-bold">: 0</span>
                     </div>
                   
                 </div>
               
-                <div class="col-sm-6 col-md-12 py-2 mt-3 text-center">
-                    <p class="fw-bold fs-6 work-order-No">
-                    View Attendance for Work order(Only Attendance Generate But Salary Calculation Pending) :<br>
-                        <span>Work order: {{$wo_number}}</span>
-                    </p>
-                </div>
+               
                 <form method="get" action="{{ route('wo-sal-attendance') }}" >
                     <div class="col-md-12 text-center py-3 ">
                         <label>Select Month :</label><br>
                         
                             <!-- <input type="month" name="month" value="{{old('month',date('Y-m'))}}" /> -->
                             <input name="month" class="date-picker" placeholder="mm-year" value="{{$month}}" />
-                            <select name="work_order" id="" >
+                            <select name="work_order" id="">
                                 <option value="">--Select WorkOrder --</option>
                                 @foreach($workOrders as  $workOrder)
                                 <option value="{{$workOrder->id}}" {{ request('work_order') == $workOrder->id ? 'selected' : '' }}>{{$workOrder->wo_number}}</option>
                                 @endforeach
                             </select>
-                            <button type="submit" class="btn btn-primary">Check</button>
+                            <button type="submit" class="btn btn-primary"> Check <i class="fa-solid fa-square-check"></i></button>
                         </div>
                    
-                    <div class="col-md-12 px-3">
-                        <p class="text-danger" style="font-size: 12px;">Total Hrs Applicable Only For Some Cases</p>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
+                    <!-- <div class="col-md-12 px-3">
+                        <p class="text-danger fs-6">Total Hrs Applicable Only For Some Cases</p>
+                    </div> -->
+                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-3 gap-2">
                         <div class="col-auto">
                             <input name="search" type="text" class="form-control" placeholder="Search" >
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search</button>
+                            <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                     </div>
                 </form>

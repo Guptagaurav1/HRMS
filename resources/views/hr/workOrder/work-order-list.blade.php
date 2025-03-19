@@ -100,10 +100,11 @@
                     </div>
                 </form>
             </div>
-            
+             
 
+            <form method="post" action="{{ route('work-order-report') }}">
             <div class="table-responsive">
-                <form method="post" action="{{ route('work-order-report') }}">
+               
                     @csrf
                     <div class="col-sm-12">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
@@ -185,11 +186,13 @@
                             {{ $totalWorkOrders->links() }}
                         </div>
                     </div>
-                    <div class="col-md-12 d-flex justify-content-end align-items-center">
+                   
+               
+            </div>
+            <div class="col-md-12 text-end py-4 px-3">
                         <button class="btn btn-primary" type="submit">Generate Work-Order Report</button>
                     </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
 </div>

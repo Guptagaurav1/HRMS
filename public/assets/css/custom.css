@@ -163,9 +163,15 @@ label{
     
 }
 
+.form-control{
+  background-color: white !important;
+}
+
+
+
 
 .form-control:focus {
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 5px rgba(210, 216, 221, 0.5);
     border-color: #007bff;
 }
 
