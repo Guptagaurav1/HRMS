@@ -76,9 +76,9 @@
                                     <td>{{ $employee->emp_work_order }}</td>
                                     <td class="attributes-column">{{ $employee->emp_name }}</td>
                                     <td>{{ $employee->emp_email_first }}</td>
-                                    <td>{{ $employee->emp_dob }}</td>
+                                    <td>{{ date('jS F, Y', strtotime($employee->getPersonalDetail->emp_dob)) }}</td>
                                     <td><img class="img-fluid border rounded"
-                                            src="{{ asset('recruitment/candidate_documents/passport_size_photo') . '/' . $employee->photograph }}"
+                                            src="{{ asset('recruitment/candidate_documents/passport_size_photo') . '/' . $employee->getPersonalDetail->emp_photo }}"
                                             alt="no-photo" width="100" height="100"></td>
                                     <td>
                                         <a

@@ -395,18 +395,15 @@
                         </ul> --}}
                     </li>
                     @if(Auth::check())
-                    @if( (auth()->user()->hasPermission('add-employee')) || auth()->user()->hasPermission('add-employee') || auth()->user()->hasPermission('employee-list') || auth()->user()->hasPermission('employee-list') || auth()->user()->hasPermission('employee-list'))
+                    @if( (auth()->user()->hasPermission('employee.add-employee')) || auth()->user()->hasPermission('employee.employee-list'))
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="hrmDropdown"><span class="nav-icon"><i class="fa-light fa-user-tie"></i></span> <span class="sidebar-txt">Employee</span></a>
                             <ul class="sidebar-dropdown-menu" id="hrmDropdown">
-                                @if(auth()->user()->hasPermission('add-employee'))
-                                <li class="sidebar-dropdown-item"><a href="{{route('add-employee') }}" class="sidebar-link">Add Employee</a></li>
+                                @if(auth()->user()->hasPermission('employee.add-employee'))
+                                <li class="sidebar-dropdown-item"><a href="{{route('employee.add-employee') }}" class="sidebar-link">Add Employee</a></li>
                                 @endif
-                                @if(auth()->user()->hasPermission('employee-list'))
-                                <li class="sidebar-dropdown-item"><a href="{{route('employee-list')}}" class="sidebar-link">Employee List</a></li>
-                                @endif
-                                @if(auth()->user()->hasPermission('employee-list'))
-                                    <li class="sidebar-dropdown-item"><a href="{{route('edit-employee')}}" class="sidebar-link">Edit Employee</a></li>
+                                @if(auth()->user()->hasPermission('employee.employee-list'))
+                                <li class="sidebar-dropdown-item"><a href="{{route('employee.employee-list')}}" class="sidebar-link">Employee List</a></li>
                                 @endif
                             </ul>
                         </li>
@@ -490,7 +487,7 @@
                         </ul>
                     </li>
                     @endif
-                    
+                    @if(auth()->user()->hasPermission('position-request') || auth()->user()->hasPermission('modify-profile-request') || auth()->user()->hasPermission('profile-detail-request-list'))
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-user"></i></span> <span class="sidebar-txt">Profile</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
@@ -506,6 +503,7 @@
 
                         </ul>
                     </li>
+                    @endif
                    
                     @if(auth()->user()->hasPermission('compose-email'))
                     <li class="sidebar-dropdown-item">

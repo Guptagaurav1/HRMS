@@ -52,28 +52,32 @@ class RecruitmentForm extends Model
      * Get Personal Details.
      */ 
     public function getPersonalDetail(): HasOne{
-        return $this->hasOne(RecPersonalDetail::class, 'rec_id', 'id');
+        // return $this->hasOne(RecPersonalDetail::class, 'rec_id', 'id');
+        return $this->hasOne(EmpPersonalDetail::class, 'rec_id', 'id');
     }
 
     /**
      * Get Address Details.
      */ 
     public function getAddressDetail(): HasOne{
-        return $this->hasOne(RecAddressDetail::class, 'rec_id', 'id')->select('permanent_add', 'correspondence_add');
+        // return $this->hasOne(RecAddressDetail::class, 'rec_id', 'id')->select('permanent_add', 'correspondence_add');
+        return $this->hasOne(EmpAddressDetail::class, 'rec_id', 'id')->select('emp_permanent_address', 'emp_local_address');
     }
 
     /**
      * Get Bank Details.
      */ 
     public function getBankDetail(): HasOne{
-        return $this->hasOne(RecBankDetail::class, 'rec_id', 'id')->select('bank_name_id', 'account_no', 'branch', 'ifsc_code', 'pan_card_no')->with('getBankData');
+        // return $this->hasOne(RecBankDetail::class, 'rec_id', 'id')->select('bank_name_id', 'account_no', 'branch', 'ifsc_code', 'pan_card_no')->with('getBankData');
+        return $this->hasOne(EmpAccountDetail::class, 'rec_id', 'id')->select('bank_id', 'emp_account_no', 'emp_branch', 'emp_ifsc', 'emp_pan', 'emp_esi_no', 'emp_pf_no')->with('getBankData');
     }
 
     /**
      * Get Educational Details.
      */ 
     public function getEducationDetail(): HasOne{
-        return $this->hasOne(RecEducationalDetail::class, 'rec_id', 'id');
+        // return $this->hasOne(RecEducationalDetail::class, 'rec_id', 'id');
+        return $this->hasOne(EmpEducationDetail::class, 'rec_id', 'id');
     }
 
     /**
@@ -93,9 +97,9 @@ class RecruitmentForm extends Model
     /**
      * Get ESI Details.
      */ 
-    public function getEsiDetail(): hasOne{
-        return $this->hasOne(RecEsiDetail::class, 'rec_id', 'id')->select('previous_esi_no');
-    }
+    // public function getEsiDetail(): hasOne{
+    //     return $this->hasOne(RecEsiDetail::class, 'rec_id', 'id')->select('previous_esi_no');
+    // }
 
     /**
      * Get Position Request Details.
@@ -110,5 +114,12 @@ class RecruitmentForm extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Get ID Proofs Details.
+     */ 
+    public function getIdProofDetail(): HasOne{
+        return $this->hasOne(EmpIdProof::class, 'rec_id', 'id')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station');
+    }
     
 }

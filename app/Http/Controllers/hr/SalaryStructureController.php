@@ -9,10 +9,12 @@ use App\Models\Salary;
 use App\Models\EmpSendDoc;
 use App\Models\WorkOrder;
 use App\Models\AppointmentFormat;
+use App\Models\SalaryLog;
 use PDF;
 use Illuminate\Support\Facades\DB;
 use App;
 use stdClass;
+use Throwable;
 
 class SalaryStructureController extends Controller
 {
@@ -220,7 +222,7 @@ class SalaryStructureController extends Controller
                         // Use DomPDF to generate PDF
                         $pdf = App::make('dompdf.wrapper');
                         $pdf->loadHTML($message_new);
-                        $pdf->save(public_path("Documents/Appointment Letter/{$file_name}"));
+                        $pdf->save(public_path("recruitment/candidate_documents/Appointment Letter/{$file_name}"));
 
                         // Insert record in the database
                         EmpSendDoc::create([
@@ -235,7 +237,7 @@ class SalaryStructureController extends Controller
                 $appointmentFormat = AppointmentFormat::where('type', 'appointment')
                  ->where('name', 'GNGPL')
                  ->first();
-                 if ($appointmentFormat) {
+                if ($appointmentFormat) {
                     $message = $appointmentFormat->format;
                     $message_2 = $appointmentFormat->format_2;
             
@@ -291,7 +293,7 @@ class SalaryStructureController extends Controller
                     // Use DomPDF to generate PDF
                     $pdf = App::make('dompdf.wrapper');
                     $pdf->loadHTML($message_new);
-                    $pdf->save(public_path("app/public/Documents/Appointment Letter/{$file_name}"));
+                    $pdf->save(public_path("app/public/recruitment/candidate_documents/Appointment Letter/{$file_name}"));
 
                     // Insert record in the database
                     EmpSendDoc::create([
@@ -360,7 +362,7 @@ class SalaryStructureController extends Controller
                    // Use DomPDF to generate PDF
                    $pdf = App::make('dompdf.wrapper');
                    $pdf->loadHTML($message_new);
-                   $pdf->save(public_path("app/public/Documents/Appointment Letter/{$file_name}"));
+                   $pdf->save(public_path("app/public/recruitment/candidate_documents/Appointment Letter/{$file_name}"));
 
                    // Insert record in the database
                    EmpSendDoc::create([
@@ -374,5 +376,141 @@ class SalaryStructureController extends Controller
         return redirect()->route('salary-list')->with('success','Salary structure created Successfully !');
 
        }
-}
+    }
+    
+
+    public function edit_salary(Request $request){
+        $id = $request->id;
+        $salary = Salary::with('empDetail')->where('id',$id)->first();
+        // dd($salary);
+        return view("hr.salary.edit-salary", compact('salary'));
+
+    } 
+
+    public function update_salary(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+            $id = $request->salary_id;
+            $request->validate([
+                'sal_basic' => 'required',
+                'sal_da' => 'required',
+                'sal_conveyance' => 'required',
+                'sal_hra' => 'required',
+                'medical_allowance' => 'required',
+                'sal_school_fee' => 'required',
+                'sal_car_allow' => 'required',
+                'sal_grade_pay' => 'required',
+                'sal_special_allowance' => 'required',
+                'sal_pf_employee' => 'required',
+                'sal_esi_employer' => 'required',
+                'sal_lwf_employer' => 'required',
+                'sal_prof_tax' => 'required',
+            ]);
+
+            $excp_pf = ($request->exception_pf == " ") ? 'yes' : 'no';
+            $excp_esi = ($request->exception_esi == " ") ? 'yes' : 'no';
+
+            $medical_insurance_ctc = $request->medical_insurance_ctc ?: 0;
+            $accident_insurance_ctc = $request->accident_insurance_ctc ?: 0;
+
+            $salary = Salary::find($id);
+
+            $previous_salary_data = [
+                'salary_id' =>$id,
+                'sal_emp_id' => $salary->sl_emp_id,
+                'sal_emp_code' => $salary->sl_emp_code,
+                'sal_emp_doj' => $salary->sa_emp_doj,
+                'sal_emp_name' => $salary->sal_emp_name,
+                'sal_emp_designation' => $salary->sal_emp_designation,
+                'sal_ctc' => $salary->sal_ctc,
+                'sal_gross' => $salary->sal_gross,
+                'sal_net' => $salary->sal_net,
+                'sal_basic' => $salary->sal_basic,
+                'sal_da' => $salary->sal_da,
+                'sal_conveyance' => $salary->sal_conveyance,
+                'sal_hra' => $salary->sal_hra,
+                'medical_allowance' => $salary->medical_allowance,
+                'sal_telephone' => $salary->sal_telephone,
+                'sal_school_fee' => $salary->sal_school_fee,
+                'sal_car_allow' => $salary->sal_car_allow,
+                'sal_grade_pay' => $salary->sal_grade_pay,
+                'sal_special_allowance' => $salary->sal_special_allowance,
+                'sal_pf_employee' => $salary->sal_pf_employee,
+                'sal_pf_employer' => $salary->sal_pf_employer,
+                'pf_exception' => $salary->pf_exception,
+                'esi_exception' => $salary->esi_exception,
+                'sal_lwf_employee' => $salary->sal_lwf_employee,
+                'sal_esi_employer' => $salary->sal_esi_employer,
+                'sal_esi_employee' => $salary->sal_esi_employee,
+                'sal_lwf_employee' => $salary->sal_lwf_employee,
+                'sal_prof_tax' => $salary->sal_prof_tax,
+                'accident_insurance' => $salary->accident_insurance,
+                'medical_insurance' => $salary->medical_insurance,
+                
+                'medical_insurance_ctc' => $salary->medical_insurance_ctc,
+                'accident_insurance_ctc' => $salary->accident_insurance_ctc,
+                'tds_deduction' => $salary->tds_deduction,
+                'pf_wages' => $salary->pf_wages,
+                'sal_tax' => $salary->sal_prof_tax,
+                'sal_remark' => $salary->sal_remark,
+                'sal_entry_by' => $salary->created_by,
+                'sal_add_date' => $salary->created_at,
+                // Add any other fields you want to track
+            ];
+
+            $salary_log= new SalaryLog();
+            $salary_log->create($previous_salary_data);
+
+            $salary->sal_ctc = $request->sal_emp_ctc;
+            $salary->sal_gross = $request->sal_gross;
+            $salary->sal_net = $request->sal_net;
+            $salary->sal_basic = $request->sal_basic;
+            $salary->sal_hra = $request->sal_hra;
+            $salary->sal_da = $request->sal_da;
+            $salary->sal_conveyance = $request->sal_conveyance;
+            $salary->sal_telephone = $request->sal_telephone;
+            $salary->medical_allowance = $request->medical_allowance;
+            $salary->sal_uniform = $request->sal_uniform;
+            $salary->sal_school_fee = $request->sal_school_fee;
+            $salary->sal_car_allow = $request->sal_car_allow;
+            $salary->sal_grade_pay = $request->sal_grade_pay;
+            $salary->sal_special_allowance = $request->sal_special_allowance;
+            $salary->sal_pf_employer = $request->sal_pf_employer;
+            $salary->sal_pf_employee = $request->sal_pf_employee;
+            $salary->sal_esi_employer = $request->sal_esi_employer;
+            $salary->sal_esi_employee = $request->sal_esi_employee;
+            $salary->pf_exception = $excp_pf;
+            $salary->esi_exception = $excp_esi;
+            $salary->sal_lwf_employer = $request->sal_lwf_employer;
+            $salary->sal_lwf_employee = $request->sal_lwf;
+            $salary->medical_insurance = $request->medical_ins;
+            $salary->accident_insurance = $request->accident_ins;
+            $salary->tds_deduction = $request->tds_deduction;
+            $salary->pf_wages = $request->pf_wages;
+            $salary->sal_tax = $request->sal_prof_tax;
+            $salary->medical_insurance_ctc = $medical_insurance_ctc;
+            $salary->accident_insurance_ctc = $accident_insurance_ctc;
+            $salary->sal_remark = $request->sal_remark;
+
+            $salary->save();
+            return redirect()->route('salary-list')->with('success', 'Salary structure updated successfully!');
+        }catch (Throwable $e){
+            DB::rollBack();
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    
+        
+    }
+
+
+    /**
+     * trash of user details.
+     */
+    public function destroy(Request $request, String $id)
+    { 
+        User::where('id', $id)->delete();
+        return redirect()->route('salary-list')->with(['success' =>'Salary Deleted Successfully !']);
+    }
+
 }

@@ -33,7 +33,7 @@ class HolidayController extends Controller
         }
         $holidays = $holidays->paginate(10);
 
-        return view("hr.holiday-list", compact('holidays', 'search'));
+        return view("hr.leaves.holiday-list", compact('holidays', 'search'));
     }
 
     /**
@@ -56,7 +56,7 @@ class HolidayController extends Controller
         }
         $leave_requests = $leave_requests->OrderByDesc('leave_request.id')->paginate(10)->withQueryString();
 
-        return view("hr.applied-request-list", compact('leave_requests', 'search'));
+        return view("hr.leaves.applied-request-list", compact('leave_requests', 'search'));
     }
 
     /**
@@ -75,10 +75,10 @@ class HolidayController extends Controller
         $prev_month_startdate = $pre_month_year->format("Y-m-01");
         $prev_month_enddate = $pre_month_year->format("Y-m-$last_date"); // format last date.
         $search = '';
-        $data = EmpDetail::select('emp_id', 'emp_name', 'emp_email_first', 'emp_phone_first', 'emp_code', 'emp_designation')->where('emp_work_order', 'PSSPL Internal Employees')
-                ->where('emp_status', 'Active')
+        $data = EmpDetail::select('id', 'emp_name', 'emp_email_first', 'emp_phone_first', 'emp_code', 'emp_designation')->where('emp_work_order', 'PSSPL Internal Employees')
+                ->where('emp_current_working_status', 'Active')
                 ->where('emp_doj', '<', $prev_month_enddate)
-                ->whereRaw("CONCAT(emp_id, '', ?) NOT IN (SELECT at_emp FROM leave_regularizations)", [$previous_month])
+                ->whereRaw("CONCAT(id, '', ?) NOT IN (SELECT at_emp FROM leave_regularizations)", [$previous_month])
                 ->where(function ($query) use ($prev_month_startdate) {
                     $query->where('emp_dor', '>', $prev_month_startdate)
                           ->orWhere('emp_dor', '')
@@ -100,7 +100,7 @@ class HolidayController extends Controller
         // print_r($data->getBindings());die;
 
 
-        return view("hr.leave-regularization", compact('previous_month', 'data', 'search'));
+        return view("hr.leaves.leave-regularization", compact('previous_month', 'data', 'search'));
     }
 
     /**
@@ -124,7 +124,7 @@ class HolidayController extends Controller
     public function leave_receipt(Request $request, $leave_id)
     {
           $data = LeaveRequest::select('leave_request.*', 'emp_details.emp_name', 'emp_details.department', 'emp_details.emp_designation', 'users.first_name', 'users.last_name', 'roles.role_name')->join('emp_details', 'leave_request.emp_code', '=', 'emp_details.emp_code')->leftJoin('users', 'leave_request.approved_disapproved_by', '=', 'users.id')->leftJoin('roles', 'users.role_id', '=', 'roles.id')->where('leave_request.id', $leave_id)->first();
-         return view("hr.leave-request-reciept", compact('data'));
+         return view("hr.leaves.leave-request-reciept", compact('data'));
     }
 
     /**
@@ -135,7 +135,7 @@ class HolidayController extends Controller
         try
         {
             $empdetails = EmpDetail::findOrFail($empid);
-            return view("hr.employee-details", compact('empdetails'));
+            return view("hr.leaves.employee-details", compact('empdetails'));
         }
         catch(Throwable $th){
             return redirect()->route('leave-regularization')->with(['error' => true, 'message' => 'Server Error']);

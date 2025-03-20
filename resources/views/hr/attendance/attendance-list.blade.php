@@ -73,15 +73,15 @@
                     <tbody>
                          @forelse($wo_attendances as $key => $wo_attendance)
                         <tr>
-                            <td>{{$wo_attendance->empDetail->emp_code}}</td>
-                            <td>{{$wo_attendance->empDetail->emp_name}}</td>
-                            <td>{{$wo_attendance->attendance_m_y}}</td>
-                            <td>{{$wo_attendance->wo_number}}</td>
-                            <td>{{$wo_attendance->gap_in_service}}</td>
-                            <td>{{$wo_attendance->working_days}}</td>
-                            <td>{{$wo_attendance->approve_leave}}</td>
-                            <td>{{$wo_attendance->lwp_leave}}</td>
-                            <td>{{$wo_attendance->empDetail->emp_designation}}</td>
+                            <td>{{$wo_attendance->empDetail->emp_code??NULL}}</td>
+                            <td>{{$wo_attendance->empDetail->emp_name??NULL}}</td>
+                            <td>{{$wo_attendance->attendance_m_y??NULL}}</td>
+                            <td>{{$wo_attendance->wo_number??NULL}}</td>
+                            <td>{{$wo_attendance->gap_in_service??NULL}}</td>
+                            <td>{{$wo_attendance->working_days??NULL}}</td>
+                            <td>{{$wo_attendance->approve_leave??NULL}}</td>
+                            <td>{{$wo_attendance->lwp_leave??NULL}}</td>
+                            <td>{{$wo_attendance->empDetail->emp_designation??NULL}}</td>
                             <td>
                                 <a href="{{route('edit-attendance',$wo_attendance->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                             </td>
@@ -93,6 +93,7 @@
                         @endforelse
                     </tbody>
                 </table>
+                {{$wo_attendances->links()}}
             </div>
             
         </div>

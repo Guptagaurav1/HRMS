@@ -9,9 +9,6 @@ class WorkOrder extends Model
 {
     use HasFactory;
     
-
-    
-
     public function contacts()
     {
         return $this->hasMany(WoContactDetail::class);

@@ -35,6 +35,8 @@ use App\Http\Controllers\hr\SalaryStructureController;
 
 use App\Http\Controllers\hr\EventController;
 use App\Http\Controllers\hr\ReimbursementController;
+use App\Http\Controllers\hr\PoshController;
+use App\Http\Controllers\hr\EmployeeController;
 // Tenant Controller
 
 use App\Http\Controllers\TenantController;
@@ -70,10 +72,11 @@ Route::middleware('guest')->group(function () {
 
        
 
+        Route::get("forgot-password", 'forget_password')->name("guest.forgot-password");
+        Route::post("send-reset-link", 'send_reset_link')->name("guest.send-reset-link");
+        Route::get("password-reset-form/{token}", 'reset_password')->name("guest.reset-password-form");
+        Route::post('reset-password', 'reset_password_action')->name("guest.reset-password");
     });
-    Route::get("forgot-password", function () {
-        return view("forgot-password");
-    })->name("forgot-password");
 
     Route::controller(RecruitmentController::class)->prefix('guest')->group(function () {
         Route::get('personal-details/{id}', 'personal_details')->name('guest.personal_details');
@@ -248,6 +251,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("organisation-workOrder/{or_id}","organisation_workOrder")->name("organisation-workOrder");
         Route::get("workOrder-details/{workOrder_id}","workOrder_details")->name("workOrder-details");
         Route::post("work-order-report","work_order_report")->name("work-order-report");
+        Route::post('export', 'export_csv')->name("export-work-order");
 
     });
 
@@ -264,7 +268,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
         Route::post('send-mail/{id}', 'send_mail')->name('salary-slip.sendmail');
         Route::get('employee-details/{salaryid}', 'employee_details')->name("employee-details-salary-retainer");
-        Route::post('export', 'export_csv')->name("export-salary");
+        Route::post('export', 'export_csv')->name("export_csv");
         Route::get("edit/{id}", 'edit_slip')->name("salary-slip-edit");
         Route::post("update-slip", 'update_slip')->name("salary-slip-update");
         Route::get("print/{id}", 'print_salary_slip')->name("employee-code-retainer");
@@ -339,6 +343,11 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("salary-list",'index')->name('salary-list');
         Route::get("create-salary",'create')->name('create-salary');
         Route::post("save-salary",'save_salary')->name('save-salary');
+        Route::get("edit-salary/{id}",'edit_salary')->name('edit-salary');
+        Route::post("update-salary/{id}",'update_salary')->name('update-salary');
+        Route::get("/delete/{id}", 'destroy')->name("delete-salary");
+    
+
     });
 
 
@@ -359,6 +368,30 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("view-more-attachment/{id}", 'view_attachment')->name("reimbursement.view-more-attachment");
         Route::post("save-response", 'store_response');
     });
+
+    Route::controller(EmployeeController::class)->prefix('employee')->group(function () {
+        Route::get('/create/{recruitment_id?}', 'create')->name('employee.add-employee');
+        Route::post('add_emp_details', 'save_emp_details');
+        Route::post('add_personal_details', 'save_personal_details');
+        Route::post('add_address_details', 'save_address_details');
+        Route::post('add_bank_details', 'save_bank_details');
+        Route::post('add_education_details', 'save_education_details');
+        Route::post('add_id_details', 'save_id_details');
+        Route::post('add_experience_details', 'save_experience_details');
+        Route::post('bulk-upload', 'bulk_upload')->name('employee.bulk_upload');
+        Route::get("list", 'show_employees')->name("employee.employee-list");
+        Route::get("edit/{id}", 'edit')->name('employee.edit-employee');
+        Route::post('update-emp-details', 'update_emp_details')->name('employee.update-emp-details');
+        
+        Route::get("view-letter/{id}", 'view_letter')->name("employee.view-letter");
+        Route::get("send-letter/{id}", 'send_letter')->name("employee.send-letter");
+        Route::post("send-credentials", 'send_credentials');
+        Route::post("send-appointment-letter", 'send_appointment_letter');
+        Route::post("export", 'export_employees')->name('employee.export');
+       
+        
+    });
+    
         
     //tenants
     Route::resource('tenants',TenantController::class);
@@ -394,26 +427,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 });
 
-  
-    Route::get("add-employee", function () {
-        return view("hr.add-employee");
-    })->name('add-employee');
-
-    Route::get("edit-employee", function () {
-        return view("hr.edit-employee");
-    })->name('edit-employee');
-    
-    Route::get("employee-list", function () {
-        return view(" hr.employee-list");
-    })->name("employee-list");
-
-    Route::get("view-letter", function () {
-     return view(" hr.view-letter");
-    })->name("view-letter");
-
-    Route::get("send-letter", function () {
-        return view(" hr.send-letter");
-    })->name("send-letter");
     Route::get("position-review-dept", function () {
         return view(" hr.position-review-dept");
     })->name("position-review-dept");
@@ -462,10 +475,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view("hr.recruitment-plan-page-summary");
     })->name("recruitment-plan-page-summary");
 
-    Route::get("edit-salary", function () {
-        return view("hr.edit-salary");
-    })->name("edit-salary");
-
+    
  
     Route::get("invoice-encloser", function () {
         return view("hr.invoice-encloser");

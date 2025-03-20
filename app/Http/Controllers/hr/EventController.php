@@ -29,12 +29,13 @@ class EventController extends Controller
     {
         $comingdate = date('Y-m-d', strtotime('+40 days'));
         $currentdate = date('Y-m-d');
-        $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first', 'emp_details.emp_dob', 'rec_personal_details.photograph')
-                    ->leftJoin('rec_personal_details', 'emp_details.emp_code', '=', 'rec_personal_details.emp_code')
-                    ->where('emp_status', 'Active')
-                    ->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
-                    ->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
-                    ->orderByRaw('DATE_FORMAT(emp_dob,"%m-%d")');
+        $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first')
+                    ->where('emp_current_working_status', 'Active')
+                    ->whereHas('getPersonalDetail', function ($query) use ($comingdate, $currentdate) {
+                        $query->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
+                        ->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
+                        ->orderByRaw('DATE_FORMAT(emp_dob,"%m-%d")');
+                    });
         $search = '';
         if($request->search){
             $search = $request->search;
@@ -42,9 +43,7 @@ class EventController extends Controller
                 $query->where('emp_details.emp_code', 'LIKE', '%'. $search. '%')
                     ->orWhere('emp_details.emp_name', 'LIKE', '%'. $search. '%')
                     ->orWhere('emp_details.emp_work_order', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_dob', 'LIKE', '%'. $search. '%')
-                    ->orWhere('rec_personal_details.photograph', 'LIKE', '%'. $search. '%');
+                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%');
             });
         }
 
@@ -59,12 +58,13 @@ class EventController extends Controller
     {
         $comingdate = date('Y-m-d', strtotime('+15 days'));
         $currentdate = date('Y-m-d');
-        $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first', 'emp_details.emp_dom', 'rec_personal_details.photograph')
-                    ->leftJoin('rec_personal_details', 'emp_details.emp_code', '=', 'rec_personal_details.emp_code')
-                    ->where('emp_status', 'Active')
-                    ->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
-                    ->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
-                    ->orderByRaw('DATE_FORMAT(emp_dom,"%m-%d")');
+        $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first')
+                    ->where('emp_current_working_status', 'Active')
+                    ->whereHas('getPersonalDetail', function ($query) use ($comingdate, $currentdate) {
+                        $query->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
+                        ->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
+                        ->orderByRaw('DATE_FORMAT(emp_dom,"%m-%d")');
+                    });
         $search = '';
         if($request->search){
             $search = $request->search;
@@ -72,9 +72,7 @@ class EventController extends Controller
                 $query->where('emp_details.emp_code', 'LIKE', '%'. $search. '%')
                     ->orWhere('emp_details.emp_name', 'LIKE', '%'. $search. '%')
                     ->orWhere('emp_details.emp_work_order', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_dom', 'LIKE', '%'. $search. '%')
-                    ->orWhere('rec_personal_details.photograph', 'LIKE', '%'. $search. '%');
+                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%');
             });
         }
 
@@ -89,9 +87,8 @@ class EventController extends Controller
     {
         $comingdate = date('Y-m-d', strtotime('+40 days'));
         $currentdate = date('Y-m-d');
-        $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first', 'emp_details.emp_doj', 'rec_personal_details.photograph')
-                    ->leftJoin('rec_personal_details', 'emp_details.emp_code', '=', 'rec_personal_details.emp_code')
-                    ->where('emp_status', 'Active')
+        $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first', 'emp_details.emp_doj')
+                    ->where('emp_current_working_status', 'Active')
                     ->whereRaw("DATE_FORMAT(emp_doj,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
                     ->whereRaw("DATE_FORMAT(emp_doj,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
                     ->orderByRaw('DATE_FORMAT(emp_doj,"%m-%d")');
@@ -103,8 +100,7 @@ class EventController extends Controller
                     ->orWhere('emp_details.emp_name', 'LIKE', '%'. $search. '%')
                     ->orWhere('emp_details.emp_work_order', 'LIKE', '%'. $search. '%')
                     ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_doj', 'LIKE', '%'. $search. '%')
-                    ->orWhere('rec_personal_details.photograph', 'LIKE', '%'. $search. '%');
+                    ->orWhere('emp_details.emp_doj', 'LIKE', '%'. $search. '%');
             });
         }
 

@@ -73,7 +73,7 @@
                                                     @endif  
                                                     <div class="ratio ratio-1x1 h-auto border">
                                                         {{-- <img  src="{{asset('assets/vendor/images/shortlisted.png')}}" alt="img" /> --}}
-                                                        <iframe class="iframe_resume" src="{{ $data->resume ? asset('resume/'.$data->resume.'') : '' }}"
+                                                        <iframe class="iframe_resume" src="{{ $data->resume ? asset('recruitment/candidate_documents/employee_resume/'.$data->resume.'') : '' }}"
                                                             title="Resume" frameborder="0" allowfullscreen
                                                             style="width:100%" ; height="700px">
                                                         </iframe>
@@ -647,9 +647,11 @@
                                                 <tr>
                                                     <td class="bold">Employee Code</td>
                                                     <td>
-                                                        @if(auth()->user()->hasPermission('add-employee'))
-                                                            <a href="{{route('add-employee')}}" class="btn btn-sm btn-primary mt-2 text-light text-decoration-none">Generate</a>
-                                                        @endif
+                                                    @if(auth()->user()->hasPermission('add-employee'))
+                                                        <a href="{{route('employee.add-employee', ['recruitment_id' => $data->id])}}" class="btn btn-sm btn-primary mt-2 text-light text-decoration-none">Generate
+                                                        </a>
+                                                    @endif
+                                                    
                                                     </td>
                                                 </tr>
                                             @endif

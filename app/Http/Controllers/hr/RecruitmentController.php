@@ -28,6 +28,12 @@ use App\Models\RecPreviousCompany;
 use App\Models\RecEsiDetail;
 use App\Models\RecNomineeDetail;
 use App\Models\ContactedByCallLog;
+use App\Models\EmpPersonalDetail;
+use App\Models\EmpAccountDetail;
+use App\Models\EmpAddressDetail;
+use App\Models\EmpIdProof;
+use App\Models\EmpEducationDetail;
+use App\Models\EmpExperienceDetail;
 use Throwable;
 use Illuminate\Validation\Rules\File;
 use App\Mail\JobDescriptionMail;
@@ -974,8 +980,7 @@ class RecruitmentController extends Controller
                         </div>
                         ' . $message_new . '
                     </div>';
-            // print_r($message_new);
-            // die;
+            
             $pdf = App::make('dompdf.wrapper');
             $pdf->loadHTML($html);
             $path = public_path('recruitment/offer-letter');
@@ -1040,7 +1045,7 @@ class RecruitmentController extends Controller
             return response()->json(['success' => true, 'message' => 'Mail Send Successfully!']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+            return response()->json(['error' => true, 'message' => 'Server Error']);
         }
     }
 
@@ -1050,6 +1055,7 @@ class RecruitmentController extends Controller
     public function store_join_status(Request $request)
     {
         try {
+            DB::beginTransaction();
             $this->validate($request, [
                 'recruitment' => ['required', 'integer'],
                 'emp_code' => ['required']
@@ -1065,9 +1071,17 @@ class RecruitmentController extends Controller
                 $personal_details->emp_code = $request->emp_code;
                 $personal_details->save();
             }
-            // Send Mail.
+            // Update all employee table records.
+            if(!update_employee_code($request->recruitment, $request->emp_code))
+            {
+                DB::rollBack();
+                return response()->json(['error' => true, 'message' => 'Server Error']);   
+            }
+            
+            DB::commit();
             return response()->json(['success' => true, 'message' => 'Submitted Candidate has been joined!']);
         } catch (Throwable $th) {
+            DB::rollBack();
             return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
@@ -1266,8 +1280,6 @@ class RecruitmentController extends Controller
 
             $pdf->save($fullPath)->stream('invoice.pdf');
             $fileurl = asset('recruitment/offer-letter/' . $fileName);
-             print_r($message_new);
-            die;
             DB::commit();
             return response()->json(['success' => true, 'path' => $fileurl]);
         } catch (Throwable $th) {
@@ -1672,88 +1684,112 @@ class RecruitmentController extends Controller
     public function save_personal_details(Request $request)
     {
         try {
+            DB::beginTransaction();
             $request->validate([
-                'gender' => ['required'],
-                'category' => ['required'],
+                'emp_gender' => ['required'],
+                'emp_dob' => ['required'],
+                'emp_category' => ['required'],
                 'preferred_location' => ['required'],
-                'father_name' => ['required'],
-                'father_mobile' => ['required'],
+                'emp_father_name' => ['required'],
+                'emp_father_mobile' => ['required'],
                 'nearest_police_station' => ['required'],
-                'marital_status' => ['required'],
-                'aadhar_card_no' => ['required'],
-                'signature' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
-                'photograph' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
+                'emp_marital_status' => ['required'],
+                'emp_aadhaar_no' => ['required'],
+                'emp_signature' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
+                'emp_photo' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
                 'language_known' => ['required'],
-                'police_verification_doc' => [File::types(['pdf'])->max('1mb')],
-                'passport_doc' => [File::types(['pdf'])->max('1mb')],
-                'aadhar_card_doc' => ['required', File::types(['pdf'])->max('1mb')],
-                'nearest_police_station' => ['required'],
-            ]);
+                'police_verification_file' => [File::types(['pdf'])->max('1mb')],
+                'passport_file' => [File::types(['pdf'])->max('1mb')],
+                'aadhar_card_doc' => ['required', File::types(['pdf'])->max('1mb')]
+                ]);
 
             $recruitment_id = decrypt($request->rec_id);
-            $obj = new RecPersonalDetail();
-            $obj->fill($request->all());
+            
+            // Fill employee details form.
+            $obj = new EmpPersonalDetail();
+            $obj->emp_gender = $request->emp_gender;
+            $obj->emp_dob = $request->emp_dob;
+            $obj->preferred_location = $request->preferred_location;
+            $obj->emp_dom = $request->emp_dom;
+            $obj->emp_blood_group = $request->emp_blood_group;
+            $obj->emp_marital_status = $request->emp_marital_status;
+            $obj->emp_husband_wife_name = $request->emp_husband_wife_name;
+            $obj->emp_signature = $request->emp_signature;
+            $obj->emp_photo = $request->emp_photo;
+            $obj->language_known = $request->language_known;
+            $obj->emp_father_name = $request->emp_father_name;
+            $obj->emp_father_mobile = $request->emp_father_mobile;
+            $obj->emp_category = $request->emp_category;
+
+            // Fill Emp id proof.
+            $idobj = new EmpIdProof();
+            $idobj->nearest_police_station = $request->nearest_police_station; // id proof
+            $idobj->emp_passport_no = $request->emp_passport_no;  // id prrof
+            $idobj->police_verification_id = $request->police_verification_id;
+            $idobj->emp_aadhaar_no = $request->emp_aadhaar_no;
 
             // Store aadhar card.
             if ($request->hasFile('aadhar_card_doc')) {
                 $file = $request->file('aadhar_card_doc');
-                $aadhar_card_doc = time() . '.' . $file->getClientOriginalExtension();
+                $aadhar_card_doc = 'aadhar_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/aadhar_card'), $aadhar_card_doc);
-                $obj->aadhar_card_doc = $aadhar_card_doc;
+                $idobj->aadhar_card_doc = $aadhar_card_doc;
             }
 
             // Store Signature.
-            if ($request->hasFile('signature')) {
-                $file = $request->file('signature');
-                $signature = time() . '.' . $file->getClientOriginalExtension();
+            if ($request->hasFile('emp_signature')) {
+                $file = $request->file('emp_signature');
+                $signature = 'sign_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/sign'), $signature);
-                $obj->signature = $signature;
+                $obj->emp_signature = $signature;
             }
 
             // Store Photograph.
-            if ($request->hasFile('photograph')) {
-                $file = $request->file('photograph');
-                $photograph = time() . '.' . $file->getClientOriginalExtension();
+            if ($request->hasFile('emp_photo')) {
+                $file = $request->file('emp_photo');
+                $photograph = 'photo_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/passport_size_photo'), $photograph);
-                $obj->photograph = $photograph;
+                $obj->emp_photo = $photograph;
             }
 
             // Store Police verification document.
-            if ($request->hasFile('police_verification_doc')) {
-                $file = $request->file('police_verification_doc');
-                $police_verification_doc = time() . '.' . $file->getClientOriginalExtension();
+            if ($request->hasFile('police_verification_file')) {
+                $file = $request->file('police_verification_file');
+                $police_verification_doc = 'police_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/police_verification'), $police_verification_doc);
-                $obj->police_verification_doc = $police_verification_doc;
+                $idobj->police_verification_file = $police_verification_doc;
             }
 
             // Store Category Document document.
             if ($request->hasFile('category_doc')) {
                 $file = $request->file('category_doc');
-                $category_doc = time() . '.' . $file->getClientOriginalExtension();
+                $category_doc = 'category_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/category'), $category_doc);
-                $obj->category_doc = $category_doc;
+                $idobj->category_doc = $category_doc;
             }
 
-
             // Store Passport document.
-            if ($request->hasFile('passport_doc')) {
-                $file = $request->file('passport_doc');
-                $passport_doc = time() . '.' . $file->getClientOriginalExtension();
+            if ($request->hasFile('passport_file')) {
+                $file = $request->file('passport_file');
+                $passport_doc = 'passport_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/category'), $passport_doc);
-                $obj->passport_doc = $passport_doc;
+                $idobj->passport_file = $passport_doc;
             }
 
             $obj->rec_id = $recruitment_id;
-            $obj->status = 'active';
             $obj->save();
+
+            $idobj->rec_id = $recruitment_id;
+            $idobj->save();
 
             // Update recuruitment form also.
             RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'personal_stage']);
-
+            DB::commit();
             return response()->json(['success' => true, 'message' => 'Personal Form Details Submitted Successfully..']);
         }
         catch (Throwable $th) {
-            return response()->json(['error' => true,'message' => 'Server Error']);
+            DB::rollBack();
+            return response()->json(['error' => true,'message' => $th->getMessage()]);
         }
     }
 
@@ -1763,44 +1799,53 @@ class RecruitmentController extends Controller
     public function save_address_details(Request $request)
     {
         try {
+            DB::beginTransaction();
             $request->validate([
-                'permanent_add' => ['required'],
-                'per_doc_type' => ['required'],
+                'emp_permanent_address' => ['required'],
+                'permanent_doc_type' => ['required'],
                 'permanent_add_doc' => ['required', File::types(['pdf'])->max('1mb')],
-                'correspondence_add' => ['required'],
-                'corres_doc_type' => ['required'],
+                'emp_local_address' => ['required'],
+                'correspondence_doc_type' => ['required'],
                 'correspondence_add_doc' => ['required', File::types(['pdf'])->max('1mb')],
             ]);
 
             $recruitment_id = decrypt($request->rec_id);
-            $obj = new RecAddressDetail();
-            $obj->fill($request->all());
 
+            // Fill address details form.
+            $obj = new EmpAddressDetail();
+            $obj->emp_permanent_address = $request->emp_permanent_address;
+            $obj->emp_local_address = $request->emp_local_address;
+            $obj->rec_id = $recruitment_id;
+            $obj->save();
+
+            // Update the existing record or create new one.
+            $idobj = EmpIdProof::where('rec_id', $recruitment_id)->firstOrFail();
+            $idobj->correspondence_doc_type = $request->correspondence_doc_type;
+            $idobj->permanent_doc_type = $request->permanent_doc_type;
             // Store permanent address proof.
             if ($request->hasFile('permanent_add_doc')) {
                 $file = $request->file('permanent_add_doc');
-                $permanent_add_doc = time() . '.' . $file->getClientOriginalExtension();
+                $permanent_add_doc = 'permanent_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/permanent_address_proof'), $permanent_add_doc);
-                $obj->permanent_add_doc = $permanent_add_doc;
+                $idobj->permanent_add_doc = $permanent_add_doc;
             }
 
             // Store correspondence address proof.
             if ($request->hasFile('correspondence_add_doc')) {
                 $file = $request->file('correspondence_add_doc');
-                $correspondence_add_doc = time() . '.' . $file->getClientOriginalExtension();
+                $correspondence_add_doc = 'local_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/correspondence_add_proof'), $correspondence_add_doc);
-                $obj->correspondence_add_doc = $correspondence_add_doc;
+                $idobj->correspondence_add_doc = $correspondence_add_doc;
             }
 
-            $obj->rec_id = $recruitment_id;
-            $obj->save();
-
+            $idobj->save();
             // Update recuruitment form also.
             RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'address_stage']);
-
+            DB::commit();
             return response()->json(['success' => true, 'message' => 'Address Form Details Submitted Successfully..']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            DB::rollBack();
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1811,44 +1856,54 @@ class RecruitmentController extends Controller
     public function save_bank_details(Request $request)
     {
         try {
+            DB::beginTransaction();
             $request->validate([
-                'bank_name_id' => ['required'],
-                'account_no' => ['required'],
-                'ifsc_code' => ['required'],
-                'branch' => ['required'],
+                'bank_id' => ['required'],
+                'emp_account_no' => ['required'],
+                'emp_ifsc' => ['required'],
+                'emp_branch' => ['required'],
                 'bank_doc' => ['required', File::types(['pdf'])->max('1mb')],
-                'pan_card_no' => ['required'],
+                'emp_pan' => ['required'],
                 'pan_card_doc' => ['required', File::types(['pdf'])->max('1mb')],
             ]);
 
             $recruitment_id = decrypt($request->rec_id);
-            $obj = new RecBankDetail();
-            $obj->fill($request->all());
+            $obj = new EmpAccountDetail();
+            $obj->bank_id = $request->bank_id;
+            $obj->emp_account_no = $request->emp_account_no;
+            $obj->emp_ifsc = $request->emp_ifsc;
+            $obj->emp_branch = $request->emp_branch;
+            $obj->emp_pan = $request->emp_pan;
+            $obj->emp_pf_no = $request->emp_pf_no;
+            $obj->rec_id = $recruitment_id;
+            $obj->save();
+
+            // Update the existing record or create new one.
+            $idobj = EmpIdProof::where('rec_id', $recruitment_id)->firstOrFail();
 
             // Store bank document.
             if ($request->hasFile('bank_doc')) {
                 $file = $request->file('bank_doc');
-                $bank_doc = time() . '.' . $file->getClientOriginalExtension();
+                $bank_doc = 'bank_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/bank_account'), $bank_doc);
-                $obj->bank_doc = $bank_doc;
+                $idobj->bank_doc = $bank_doc;
             }
 
             // Store pan card document.
             if ($request->hasFile('pan_card_doc')) {
                 $file = $request->file('pan_card_doc');
-                $pan_card_doc = time() . '.' . $file->getClientOriginalExtension();
+                $pan_card_doc = 'pan_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/pancard'), $pan_card_doc);
-                $obj->pan_card_doc = $pan_card_doc;
+                $idobj->pan_card_doc = $pan_card_doc;
             }
-
-            $obj->rec_id = $recruitment_id;
-            $obj->save();
+            $idobj->save(); // Update documents.
 
             // Update recuruitment form also.
             RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'bank_stage']);
-
+            DB::commit();
             return response()->json(['success' => true, 'message' => 'Bank Form Details Submitted Successfully..']);
         } catch (Throwable $th) {
+            DB::rollBack();
             return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
@@ -1861,39 +1916,39 @@ class RecruitmentController extends Controller
         try {
             $request->validate([
                 'rec_id' => ['required'],
-                '10th_percentage' => ['required'],
-                '10th_year' => ['required'],
-                '10th_board' => ['required'],
-                '10th_doc' => ['required', File::types(['pdf'])->max('1mb')],
-                '12th_doc' => [File::types(['pdf'])->max('1mb')],
+                'emp_tenth_percentage' => ['required'],
+                'emp_tenth_year' => ['required'],
+                'emp_tenth_board_name' => ['required'],
+                'emp_tenth_doc' => ['required', File::types(['pdf'])->max('1mb')],
+                'emp_twelve_doc' => [File::types(['pdf'])->max('1mb')],
                 'grad_doc' => [File::types(['pdf'])->max('1mb')],
                 'post_grad_doc' => [File::types(['pdf'])->max('1mb')]
             ]);
 
             $recruitment_id = decrypt($request->rec_id);
-            $obj = new RecEducationalDetail();
+            $obj = new EmpEducationDetail();
             $obj->fill($request->all());
 
             // Store 10th class document.
-            if ($request->hasFile('10th_doc')) {
-                $file = $request->file('10th_doc');
-                $tenth_doc = time() . '.' . $file->getClientOriginalExtension();
+            if ($request->hasFile('emp_tenth_doc')) {
+                $file = $request->file('emp_tenth_doc');
+                $tenth_doc = 'tenth_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/10th'), $tenth_doc);
-                $obj->{'10th_doc'} = $tenth_doc;
+                $obj->emp_tenth_doc = $tenth_doc;
             }
 
             // Store 12th class document.
-            if ($request->hasFile('12th_doc')) {
-                $file = $request->file('12th_doc');
-                $twelth_doc = time() . '.' . $file->getClientOriginalExtension();
+            if ($request->hasFile('emp_twelve_doc')) {
+                $file = $request->file('emp_twelve_doc');
+                $twelth_doc = 'twelth_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/12th'), $twelth_doc);
-                $obj->{'12th_doc'} = $twelth_doc;
+                $obj->emp_twelve_doc = $twelth_doc;
             }
 
             // Store graduation document.
             if ($request->hasFile('grad_doc')) {
                 $file = $request->file('grad_doc');
-                $grad_doc = time() . '.' . $file->getClientOriginalExtension();
+                $grad_doc = 'grad_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/graduation'), $grad_doc);
                 $obj->{'grad_doc'} = $grad_doc;
             }
@@ -1901,7 +1956,7 @@ class RecruitmentController extends Controller
             // Store post graduation document.
             if ($request->hasFile('post_grad_doc')) {
                 $file = $request->file('post_grad_doc');
-                $post_grad_doc = time() . '.' . $file->getClientOriginalExtension();
+                $post_grad_doc = 'post_'.time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/post_graduation'), $post_grad_doc);
                 $obj->{'post_grad_doc'} = $post_grad_doc;
             }
@@ -1985,20 +2040,19 @@ class RecruitmentController extends Controller
         try {
             $request->validate([
                 'rec_id' => ['required'],
-                'previous_esi_no' => ['required_with:has_esi'],
+                'emp_esi_no' => ['required_with:has_esi'],
             ]);
 
             $recruitment_id = decrypt($request->rec_id);
-            $obj = new RecEsiDetail();
-            $obj->previous_esi_no = $request->previous_esi_no;
-            $obj->rec_id = $recruitment_id;
+            $obj = EmpAccountDetail::where('rec_id', $recruitment_id)->firstOrFail();
+            $obj->emp_esi_no = $request->emp_esi_no;
             $obj->save();
 
             // Update recuruitment form also.
             RecruitmentForm::where('id', $recruitment_id)->update(['rec_form_status' => 'esi_stage']);
             return response()->json(['success' => true, 'message' => 'ESI Form Details Submitted Successfully..']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
     /**
