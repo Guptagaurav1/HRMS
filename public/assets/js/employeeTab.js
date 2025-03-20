@@ -138,4 +138,14 @@ $(document).ready(function () {
     }
   });
 
+    
+  $("#same-as").click(function() {
+    if ($(this).is(':checked')) {
+        $("#local_address").val($("#permanent_address").val());
+    }
+    else {
+        $("#local_address").val("");
+    }
+  });
+
 });

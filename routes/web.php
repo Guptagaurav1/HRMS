@@ -60,10 +60,11 @@ Route::middleware('guest')->group(function () {
         Route::get('/', 'login')->name('login');
         Route::post('d-login', 'd_login')->name('department_login');
         Route::post('emp-login', 'emp_login')->name('employee_login');
+        Route::get("forgot-password", 'forget_password')->name("guest.forgot-password");
+        Route::post("send-reset-link", 'send_reset_link')->name("guest.send-reset-link");
+        Route::get("password-reset-form/{token}", 'reset_password')->name("guest.reset-password-form");
+        Route::post('reset-password', 'reset_password_action')->name("guest.reset-password");
     });
-    Route::get("forgot-password", function () {
-        return view("forgot-password");
-    })->name("forgot-password");
 
     Route::controller(RecruitmentController::class)->prefix('guest')->group(function () {
         Route::get('personal-details/{id}', 'personal_details')->name('guest.personal_details');
@@ -370,8 +371,11 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("edit/{id}", 'edit')->name('employee.edit-employee');
         Route::post('update-emp-details', 'update_emp_details')->name('employee.update-emp-details');
         
-        Route::get("view-letter", 'view_letter')->name("employee.view-letter");
+        Route::get("view-letter/{id}", 'view_letter')->name("employee.view-letter");
         Route::get("send-letter/{id}", 'send_letter')->name("employee.send-letter");
+        Route::post("send-credentials", 'send_credentials');
+        Route::post("send-appointment-letter", 'send_appointment_letter');
+        Route::post("export", 'export_employees')->name('employee.export');
        
         
     });
