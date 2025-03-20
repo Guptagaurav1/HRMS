@@ -22,9 +22,9 @@
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-primary mt-2">CSV</button>
                             </form>
-                            @if(auth()->user()->hasPermission('addnew-candidate'))
+                            {{-- @if(auth()->user()->hasPermission('addnew-candidate')) --}}
                                 <a href="{{route('addnew-candidate')}}" class="btn btn-sm btn-primary mt-2 mx-2">Back</a>
-                            @endif
+                            {{-- @endif --}}
                         </div>
 
                         {{-- Show Messages --}}

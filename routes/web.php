@@ -55,11 +55,21 @@ use App\Http\Controllers\TenantController;
 Route::get('/testuser', function (){
     return view('user-details-multistep');
 });
+
+
+
 Route::middleware('guest')->group(function () {
+
+    Route::get('import-data', [HrController::class,'import'])->name('import-data');
+    Route::post('import-data-save', [HrController::class,'importDataSave'])->name('importDataSave');
+
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
         Route::post('d-login', 'd_login')->name('department_login');
         Route::post('emp-login', 'emp_login')->name('employee_login');
+
+       
+
     });
     Route::get("forgot-password", function () {
         return view("forgot-password");

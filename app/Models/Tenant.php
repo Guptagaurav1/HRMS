@@ -28,4 +28,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'domain_name'
         ];
     }
+
+    public function domain()
+    {
+        return $this->hasOne(Domain::class, 'tenant_id');
+    }
 }

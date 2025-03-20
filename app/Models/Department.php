@@ -16,6 +16,7 @@ class Department extends Model
      * @var string
      */
     protected $table = 'departments';
+    protected $fillable =['id','department','created_at'];
 
 
     public static function boot()
