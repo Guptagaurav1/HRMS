@@ -27,7 +27,7 @@
                             <a href="{{route('salary-slip')}}" class="btn btn-primary mb-3">Reset</a>
                         </div>
                     </form>
-                    <form action="{{route('export-salary')}}" class="row g-3 mt-2 mx-1" method="post">
+                    <form action="{{route('export_csv')}}" class="row g-3 mt-2 mx-1" method="post">
                         @csrf
                         <div class="col-auto">
                            <input type="hidden" name="search" value="{{$search}}">

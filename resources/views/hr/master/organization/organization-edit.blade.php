@@ -18,7 +18,6 @@
                                 <a href="{{route('organizations.index')}}" class="btn btn-sm btn-primary">Back</a>
                             </div>
                         </div>
-                    
                             <div class="panel-body">
                                 <div class="row g-3">
                                     <div class="col-xxl-6 col-lg-6 col-sm-6">
@@ -56,7 +55,6 @@
                                 </div>
                                 
                             </div>
-                        
                     </div>
                 </div>
                 

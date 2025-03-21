@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        Schema::disableForeignKeyConstraints();
+
         if (!Schema::hasTable('users')) {
             Schema::create('users', function (Blueprint $table) {
                 $table->integer('id')->autoIncrement();
@@ -318,7 +321,7 @@ return new class extends Migration
     
 
          //   update user roles
-
+         if(!Schema::hasColumn('users', 'role_id','department_id','company_id')){
             Schema::table('users', function (Blueprint $table) {
                 $table->unsignedBigInteger(column: 'role_id')->after('dob')->nullable();
                 $table->foreign('role_id')->references('id')->on('roles')->onDelete('NO ACTION');
@@ -327,6 +330,7 @@ return new class extends Migration
                 $table->unsignedBigInteger('company_id')->nullable();
                 $table->foreign('company_id')->references('id')->on('companies')->onDelete('NO ACTION');
             });
+         }
 
             //   holidays
 
@@ -349,6 +353,28 @@ return new class extends Migration
                 });
             }
 
+              //   projects
+
+                if (!Schema::hasTable('projects')) {
+                    Schema::create('projects', function (Blueprint $table) {
+                        $table->id();
+                        $table->unsignedBigInteger('organisation_id')->nullable();
+                        $table->foreign('organisation_id')->references('id')->on('organizations')->onDelete('NO ACTION');
+                        $table->string('project_number')->unique();
+                        $table->string('project_name');
+                        $table->string('empanelment_reference')->nullable();
+                        
+                        $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+                        $table->integer('created_by')->nullable();
+                        $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+                        $table->integer('updated_by')->nullable();
+                        $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+                        $table->integer('deleted_by')->nullable();
+                        $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+                        $table->softDeletes();
+                        $table->timestamps();
+                    });
+                }
             //   work_orders
 
             if (!Schema::hasTable('work_orders')) {
@@ -781,6 +807,63 @@ return new class extends Migration
         });
     }
 
+    // country
+    if (!Schema::hasTable('countries')) {
+        Schema::create('countries', function (Blueprint $table) {
+            $table->id();
+            $table->string('sortname');
+            $table->string('name');
+            $table->integer('phonecode');
+            $table->integer('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->integer('updated_by')->nullable();
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->integer('deleted_by')->nullable();
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+
+    //   states
+
+    if (!Schema::hasTable('states')) {
+        Schema::create('states', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->string('state');
+            $table->string('state_code');
+            $table->string('slug');
+            $table->integer('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->integer('updated_by')->nullable();
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->integer('deleted_by')->nullable();
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+//   cities
+
+if (!Schema::hasTable('cities')) {
+    Schema::create('cities', function (Blueprint $table) {
+        $table->id();
+        $table->string('city_name');
+        $table->integer('city_code')->nullable();
+        $table->unsignedBigInteger('state_code');
+        $table->foreign('state_code')->references('id')->on('states');
+        $table->integer('created_by')->nullable();
+        $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+        $table->integer('updated_by')->nullable();
+        $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+        $table->integer('deleted_by')->nullable();
+        $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+        $table->softDeletes();
+        $table->timestamps();
+    });
+}
    //   position_requests
 
     if (!Schema::hasTable('position_requests')) {
@@ -830,49 +913,6 @@ return new class extends Migration
         });
     }
 
-    //   cities
-
-    if (!Schema::hasTable('cities')) {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->id();
-            $table->string('city_name');
-            $table->integer('city_code')->nullable();
-            $table->unsignedBigInteger('state_code');
-            $table->foreign('state_code')->references('id')->on('states');
-            $table->integer('created_by')->nullable();
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->integer('updated_by')->nullable();
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->integer('deleted_by')->nullable();
-            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->softDeletes();
-            $table->timestamps();
-        });
-    }
-
-    //   projects
-
-    if (!Schema::hasTable('projects')) {
-        Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('organisation_id')->nullable();
-            $table->foreign('organisation_id')->references('id')->on('organizations')->onDelete('NO ACTION');
-            $table->string('project_number')->unique();
-            $table->string('project_name');
-            $table->string('empanelment_reference')->nullable();
-            
-            $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
-            $table->integer('created_by')->nullable();
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->integer('updated_by')->nullable();
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->integer('deleted_by')->nullable();
-            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
-            $table->softDeletes();
-            $table->timestamps();
-        });
-    }
-
     //   send_mail_log
 
     if (!Schema::hasTable('send_mail_log')) {
@@ -886,6 +926,27 @@ return new class extends Migration
             $table->string('department')->nullable();
             $table->string('sender_email');
             $table->longText('message')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->integer('updated_by')->nullable();
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->integer('deleted_by')->nullable();
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+ //   districts
+
+    if (!Schema::hasTable('districts')) {
+        Schema::create('districts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('country_id');
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->unsignedBigInteger('state_id');
+            $table->foreign('state_id')->references('id')->on('states');
+            $table->string('district_name');
+            $table->string('slug');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->integer('updated_by')->nullable();
@@ -1225,6 +1286,228 @@ return new class extends Migration
                 $table->timestamps();
             });
         }
+
+         // contacted_by_call_logs
+
+        if (!Schema::hasTable('contacted_by_call_logs')) {
+            Schema::create('contacted_by_call_logs', function (Blueprint $table) {
+                $table->id();
+                $table->string('job_position');
+                $table->string('client_name');
+                $table->string('name');
+                $table->string('email');
+                $table->string('phone_no');
+                $table->string('experience')->nullable();
+                $table->string('curr_ctc')->nullable();
+                $table->string('exp_ctc')->nullable();
+                $table->string('notice_period')->nullable();
+                $table->string('qualification')->nullable();
+                $table->string('location')->nullable();
+                $table->string('resume')->nullable();
+                $table->string('rec_email')->nullable();
+                $table->string('rec_type')->nullable();
+                $table->string('remarks')->nullable();
+                $table->integer('created_by')->nullable();
+                $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('updated_by')->nullable();
+                $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('deleted_by')->nullable();
+                $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+        
+        // wo_billing_structure
+
+        if (!Schema::hasTable('wo_billing_structure')) {
+            Schema::create('wo_billing_structure', function (Blueprint $table) {
+                $table->id();
+            $table->unsignedBigInteger('organisation_id');
+                $table->foreign('organisation_id')->references('id')->on('organizations');
+                $table->string('wo_number')->nullable();
+                $table->string('billing_to')->nullable();
+                $table->text('billing_address')->nullable();
+                $table->string('contact_person')->nullable();
+                $table->string('email_id')->nullable();
+                $table->string('billing_sac_code')->nullable();
+                $table->string('billing_gst_no')->nullable();
+                $table->string('billing_tax_mode')->nullable();
+                $table->enum('show_service_charge', ['yes','no'])->nullable();
+                $table->string('service_charge_rate')->nullable();
+                $table->string('billing_state')->nullable();
+                $table->string('billing_tax_rate')->nullable();
+
+                $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+                $table->integer('created_by')->nullable();
+                $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('updated_by')->nullable();
+                $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('deleted_by')->nullable();
+                $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+        //form16
+
+        if (!Schema::hasTable('form16')) {
+            Schema::create('form16', function (Blueprint $table) {
+                $table->id();
+                $table->integer('emp_id');
+                $table->string('pan_no')->nullable();
+                $table->string('financial_year')->nullable();
+                $table->string('attachment')->nullable();
+                $table->enum('source',['bulk_upload','normal_upload'])->default('normal_upload');
+            
+                $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+                $table->integer('created_by')->nullable();
+                $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('updated_by')->nullable();
+                $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('deleted_by')->nullable();
+                $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+        //reimbursements
+
+        if (!Schema::hasTable('reimbursements')) {
+            Schema::create('reimbursements', function (Blueprint $table) {
+                $table->id();
+                $table->string('rem_id')->unique();
+                $table->string('emp_id');
+                $table->string('designation');
+                $table->string('department');
+                $table->string('date')->nullable();
+                $table->string('name');
+                $table->string('total_amount')->nullable();
+                $table->string('advance_amount')->nullable();
+                $table->enum('final_submit', ['yes','no'])->default('no');
+                $table->string('remarks')->nullable();
+                $table->integer('created_by')->nullable();
+                $table->integer('updated_by')->nullable();
+                $table->integer('deleted_by')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+           //reimbursements status
+
+           if (!Schema::hasTable('reimbursement_status')) {
+            Schema::create('reimbursement_status', function (Blueprint $table) {
+                $table->id();
+                $table->string('rem_id');
+                $table->foreign('rem_id')->references('rem_id')->on('reimbursements');
+                $table->string('emp_id')->nullable();
+                $table->enum('verified_by', ['1','2','3'])->nullable();
+                $table->enum('verified_status', ['approved','disapproved','pending'])->nullable();
+                $table->string('verified_time')->nullable();
+                $table->integer('created_by')->nullable();
+                $table->integer('updated_by')->nullable();
+                $table->integer('deleted_by')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+
+         //reimbursements details
+
+         if (!Schema::hasTable('reimbursement_details')) {
+            Schema::create('reimbursement_details', function (Blueprint $table) {
+                $table->id();
+                $table->string('rem_id');
+                $table->foreign('rem_id')->references('rem_id')->on('reimbursements');
+                $table->string('emp_id')->nullable();
+                $table->string('issue_date')->nullable();
+                $table->text('description')->nullable();
+                $table->string('amount')->nullable();
+                $table->string('invoice_attachment')->nullable();
+                $table->integer('created_by')->nullable();
+                $table->integer('updated_by')->nullable();
+                $table->integer('deleted_by')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+        //reimbursements details
+
+        if (!Schema::hasTable('reimbursement_details')) {
+            Schema::create('reimbursement_details', function (Blueprint $table) {
+                $table->id();
+                $table->string('rem_id');
+                $table->foreign('rem_id')->references('rem_id')->on('reimbursements');
+                $table->string('emp_id')->nullable();
+                $table->string('issue_date')->nullable();
+                $table->text('description')->nullable();
+                $table->string('amount')->nullable();
+                $table->string('invoice_attachment')->nullable();
+                $table->integer('created_by')->nullable();
+                $table->integer('updated_by')->nullable();
+                $table->integer('deleted_by')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+        // add parent id to menus
+
+        if (!Schema::hasColumn('menus','parent_id')) {
+            Schema::table('menus', function (Blueprint $table) {
+                $table->bigInteger('parent_id');
+            });
+            
+        }
+
+        // appointment_format
+        if (!Schema::hasTable('appointment_format')) {
+            Schema::create('appointment_format', function (Blueprint $table) {
+                $table->id();
+                $table->string('name')->nullable();
+                $table->longText('format')->nullable();
+                $table->mediumText('format_2')->nullable();
+                $table->string('type');
+                $table->enum('employment_type', ['Permenant','Contractual'])->nullable();
+                $table->integer('status')->default(1);
+                $table->integer('created_by')->nullable();
+                $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('updated_by')->nullable();
+                $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('deleted_by')->nullable();
+                $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+         // appointment_format
+         if (!Schema::hasTable('emp_send_doc')) {
+            Schema::create('emp_send_doc', function (Blueprint $table) {
+                $table->id();
+                $table->string('emp_code')->nullable();
+                $table->string('doc_type')->nullable();
+                $table->longText('document')->nullable();
+                $table->integer('status')->default(1);
+                $table->integer('created_by')->nullable();
+                $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('updated_by')->nullable();
+                $table->foreign('updated_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->integer('deleted_by')->nullable();
+                $table->foreign('deleted_by')->references('id')->on('users')->onDelete('NO ACTION');
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+
+        Schema::enableForeignKeyConstraints();
+        
 }
 
     /**
@@ -1232,6 +1515,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('failed_jobs');
@@ -1274,5 +1559,14 @@ return new class extends Migration
         Schema::dropIfExists('rec_nominee_details');
         Schema::dropIfExists('notifications');
         Schema::dropIfExists('invoice_records');
+        Schema::dropIfExists('contacted_by_call_logs');
+        Schema::dropIfExists('wo_billing_structure');
+        Schema::dropIfExists('form16');
+        Schema::dropIfExists('reimbursements');
+        Schema::dropIfExists('reimbursement_status');
+        Schema::dropIfExists('reimbursement_details');
+        Schema::dropIfExists('appointment_format');
+        Schema::dropIfExists('emp_send_doc');
+        Schema::enableForeignKeyConstraints();
     }
 };

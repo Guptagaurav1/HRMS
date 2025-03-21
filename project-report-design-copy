@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Invoice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      
+        .invoice-container {
+            background-color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 1200px;
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .invoice-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .invoice-header p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .invoice-details,
+        .invoice-items {
+            margin-bottom: 30px;
+        }
+
+        .invoice-details div,
+        .invoice-items table {
+            margin-bottom: 15px;
+        }
+
+        .invoice-details div p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .invoice-items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .invoice-items th,
+        .invoice-items td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .invoice-items th {
+            background-color: #f8f9fa;
+            font-size: 18px;
+        }
+
+        .invoice-items td {
+            font-size: 16px;
+        }
+
+        .invoice-items tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        .invoice-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .total-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .download-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-print {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-print:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .invoice-container {
+                padding: 20px;
+            }
+
+            .invoice-header h1 {
+                font-size: 28px;
+            }
+
+            .invoice-details div p {
+                font-size: 14px;
+            }
+
+            .invoice-items th, .invoice-items td {
+                padding: 8px;
+            }
+
+            .total-amount {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="containe mt-5">
+    <div class="invoice-container">
+        <!-- Invoice Header -->
+        <div class="invoice-header">
+            <h1>Generate Work Order Report</h1>
+        </div>
+        <div class="row px-3 mt-2">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @else
+                <div class="alert alert-error alert-dismissible fade show" role="alert">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
+        </div>
+
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Organisation:</strong> John Doe</p>
+                    <p><strong>Project Name:</strong> john.doe@example.com</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p><strong>Date:</strong> 01-Jan-2025</p>
+                    <p><strong>Project Number: </strong> #123456</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice Items Table -->
+
+        <div class="table-responsive mt-3 ">
+          
+
+            <table  class="table table-bordered table-hover digi-dataTable all-employee-table table-striped">
+                <thead>
+                    <tr>
+                        <th>Work Order No.</th>
+                        <th>Coordinator</th>
+                        <th>No. of Resources</th>
+                        <th>Location</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Amount (INR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>WO001</td>
+                        <td>John Doe</td>
+                        <td>5</td>
+                        <td>New York</td>
+                        <td>01-01-2025</td>
+                        <td>31-01-2025</td>
+                        <td>500,000</td>
+                    </tr>
+                    <tr>
+                        <td>WO002</td>
+                        <td>Jane Smith</td>
+                        <td>3</td>
+                        <td>San Francisco</td>
+                        <td>10-02-2025</td>
+                        <td>10-03-2025</td>
+                        <td>300,000</td>
+                    </tr>
+                    <tr class="total-row text-dark">
+                        <td colspan="6" class="text-end fw-bold">Total Amount</td>
+                        <td class="fw-bold">INR 800,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       
+
+        <!-- Invoice Footer -->
+        <div class="invoice-footer">
+            <div class="total-amount">
+                <p class="text-dark">Total Work Orders Amount: INR 800,000</p>
+            </div>
+            <div>
+                <button class="btn-print" onclick="window.print()">Print Invoice</button>
+                
+                <button class="download-btn">Download Zip <i class="fa-solid fa-file-zipper text-white"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

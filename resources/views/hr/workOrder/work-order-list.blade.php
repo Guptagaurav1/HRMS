@@ -12,6 +12,15 @@
         <div class="panel">
             <div class="panel-header">
                 <h2 class="mt-2">WorkOrder Report</h2>
+                <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
             </div>
             <!-- <div class="row px-3 mt-3">
                     <div class="col-md-12 d-flex gap-3">
@@ -21,7 +30,7 @@
                    
                 </div> -->
 
-                <div class="col-md-12 d-flex justify-content-start px-2 mt-3">
+                <div class="col-md-12 d-flex justify-content-start px-2 mt-4">
                     <form class="" method="get">
                         <div class="d-flex gap-3 col-md-6">
                             <div class="col-auto mb-3">
@@ -44,11 +53,11 @@
                         <div class="d-flex gap-3 col-md-6">
                             <div class="col-md-12 d-flex justify-content-end gap-5">
                                 @if(auth()->user()->hasPermission('addnew-candidate'))
-                                    <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">CSV</button></a>
+                                    <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">CSV  <i class="fa-solid fa-file-export"></i></button></a>
                                 @endif
                                 @if(auth()->user()->hasPermission('add-work-order'))
                                     <a href="{{'add-work-order'}}"><button class="btn btn-sm btn-primary">Add Work
-                                        Order</button></a>
+                                        Order  <i class="fa-solid fa-plus"></i></button></a>
                                 @endif
                             </div>
                         
@@ -114,10 +123,11 @@
                     </div>
                 </form>
             </div>
-            
+             
 
-            <div class="table-responsive">
-                <form method="post" action="{{ route('work-order-report') }}">
+            <form method="post" action="{{ route('work-order-report') }}">
+            <div class="table-responsive mt-4">
+               
                     @csrf
                     <div class="col-sm-12">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
@@ -204,15 +214,17 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="text-end">
+                        <div class="py-3 px-2">
                             {{ $totalWorkOrders->links() }}
                         </div>
                     </div>
-                    <div class="col-md-12 d-flex justify-content-end align-items-center">
-                        <button class="btn btn-primary" type="submit">Generate Work-Order Report</button>
-                    </div>
-                </form>
+                   
+               
             </div>
+            <div class="col-md-12 text-end py-4 px-3">
+                        <button class="btn btn-primary" type="submit">Generate Work  Report <i class="fa-solid fa-file-import"></i></button>
+                    </div>
+            </form>
         </div>
     </div>
 </div>

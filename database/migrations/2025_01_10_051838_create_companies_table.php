@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('website');
             $table->string('bank_payee_name');
             $table->string('bank_name');
-            $table->bigInteger('account_no');
+            $table->string('account_no');
             $table->string('ifsc_code');
             $table->string('branch_name');
             $table->string('branch_address');
@@ -34,9 +34,12 @@ return new class extends Migration
             $table->string('bank_email');
             $table->string('twitter_link');
             $table->string('facebook_link');
+            $table->string('linkedin_link');
             $table->string('youtube_link');
             $table->string('instagram_link');
             $table->string('pinterest_link');
+            $table->integer('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('NO ACTION');
             $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');

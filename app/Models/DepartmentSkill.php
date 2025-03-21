@@ -11,7 +11,7 @@ class DepartmentSkill extends Model
     use HasFactory,SoftDeletes;
     
     public $timestamps = false;
-
+    protected $fillable = ['id','department_id','skill_id','status'];
 
     public static function boot()
     {

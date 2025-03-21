@@ -79,8 +79,11 @@
     </div>
 </div>
 
+@section('modal')
 
 @endsection
+
+
 <div class="modal fade" id="leaveDetailsModal" tabindex="1" aria-labelledby="leaveDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content shadow-lg">
@@ -205,6 +208,10 @@
         </div>
     </div>
 </div>
+
+
+@endsection
+
 
 @section('script')
 <script src="{{asset('assets/js/hr/leave_request.js')}}"></script>

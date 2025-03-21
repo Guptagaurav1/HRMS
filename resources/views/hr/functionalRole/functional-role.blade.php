@@ -12,6 +12,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h4 class="text-white mt-2">Functional Role</h4>
+                    <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
                 </div>
             
                 <div class="panel-body">
@@ -71,14 +80,16 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $role->role }}</td>
-                                 <td> 
+                                    
+                                 <td class="text-center"> 
                                     @if(auth()->user()->hasPermission('edit-functional-role'))
-                                        <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button class="btn btn-sm btn-primary">Edit</button></a>
+                                        <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                     @endif
                                     @if(auth()->user()->hasPermission('edit-functional-role'))
-                                        <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete</button>
+                                        <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete <i class="fa-solid fa-trash"></i></button>
                                     @endif
                                 </td>
+                              
                             </tr>
                                 @empty 
                                 <tr>

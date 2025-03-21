@@ -90,7 +90,7 @@
                                         @endphp
                                     </td>
                                     <td><img class="img-fluid border rounded"
-                                            src="{{ asset('recruitment/candidate_documents/passport_size_photo') . '/' . $employee->photograph }}"
+                                            src="{{ asset('recruitment/candidate_documents/passport_size_photo') . '/' . $employee->getPersonalDetail->emp_photo }}"
                                             alt="no-photo" width="100" height="100"></td>
                                     <td>
                                         <a

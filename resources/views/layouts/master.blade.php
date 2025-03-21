@@ -31,6 +31,7 @@
             <span></span>
         </div>
     </div>
+    
     <!-- preloader end -->
 
     @include('layouts.header')

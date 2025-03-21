@@ -163,187 +163,112 @@
                             <div class="col-md-12">
                                 <div class="termsAndConditions fadeIn">
                                     <div class="serviceLeadingSection">
-                                        <h4><span class="sn blue">1.</span><span class="st blue">Our services</span></h4>
-                                        <p class="spl">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                            Explicabo expedita minima architecto adipisci atque neque libero
-                                            facilis officia blanditiis provident
-                                            repudiandae numquam earum dolorem hic quis ipsa, a quisquam placeat:</p>
+                                        <h4><span class="sn blue">1.</span><span class="st blue">Acceptance of Offer</span></h4>
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Dolores reiciendis eaque itaque facere quidem tenetur impedit nobis eum.
-                                                Consequatur
-                                                dignissimos aliquam
-                                                accusamus magnam aliquid laboriosam, neque incidunt quia voluptatem ducimus?
+                                            
+                                            <p class="serviceDetails">The candidate must confirm acceptance of the offer in writing (via email or signed offer letter) within 24 hours of receiving.
                                             </p>
                                             <div class="secionLine lineColorBlue"></div>
                                         </div>
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Suscipit ducimus praesentium deserunt vitae molestiae, id illum! Atque
-                                                nostrum omnis,
-                                                debitis eius numquam quam expedita reprehenderit delectus illo blanditiis
-                                                maxime quaerat.</p>
-                                            <div class="secionLine lineColorBlue"></div>
-                                        </div>
-                                        <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor, sit amet consectetur adipisicing
-                                                elit.
-                                                Voluptate non est delectus ex ea in voluptatum officiis?
-                                                Consequatur similique praesentium veniam voluptates sit sed qui id, porro
-                                                facere numquam
-                                                sequi?</p>
-                                            <div class="secionLine lineColorBlue"></div>
-                                        </div>
-                                        <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor, sit amet consectetur adipisicing
-                                                elit.
-                                                Voluptate non est delectus ex ea in voluptatum officiis?
-                                                Consequatur similique praesentium veniam voluptates sit sed qui id, porro
-                                                facere numquam
-                                                sequi?</p>
-                                            <div class="secionLine lineColorBlue"></div>
-                                        </div>
-                                        <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor, sit amet consectetur adipisicing
-                                                elit.
-                                                Voluptate non est delectus ex ea in voluptatum officiis?
-                                                Consequatur similique praesentium veniam voluptates sit sed qui id, porro
-                                                facere numquam
-                                                sequi?</p>
-                                            <div class="secionLine lineColorBlue"></div>
-                                        </div>
-                                        <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor, sit amet consectetur adipisicing
-                                                elit.
-                                                Voluptate non est delectus ex ea in voluptatum officiis?
-                                                Consequatur similique praesentium veniam voluptates sit sed qui id, porro
-                                                facere numquam
-                                                sequi?</p>
+                                            <p class="serviceDetails">Failure to confirm within the given time frame may result in the withdrawal of the offer.</p>
                                             <div class="secionLine lineColorBlue"></div>
                                         </div>
                                     </div>
 
                                     <div class="serviceLeadingSection">
-                                        <h4><span class="sn orange">2.</span><span class="st orange">Lorem ipsum</span>
+                                        <h4><span class="sn orange">2.</span><span class="st orange">Joining Date & Onboarding</span>
                                         </h4>
-                                        <p class="spl">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                            Explicabo expedita minima architecto adipisci atque neque libero
-                                            facilis officia blanditiis provident
-                                            repudiandae numquam earum dolorem hic quis ipsa, a quisquam placeat:</p>
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
+                                            <p class="serviceDetails">The candidate must report to the assigned workplace on the specified joining date.</p>
                                             <div class="secionLine lineColorOrange"></div>
                                         </div>
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
-                                            <div class="secionLine lineColorOrange"></div>
-                                        </div>
-                                        <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
+                                            <p class="serviceDetails">Any request for a change in the joining date must be communicated in advance and is subject to company approval.</p>
                                             <div class="secionLine lineColorOrange"></div>
                                         </div>
                                     </div>
                                     <div class="serviceLeadingSection">
-                                        <h4><span class="sn lightGreen">3.</span><span class="st lightGreen">Lorem
-                                                ipsum</span></h4>
-                                        <p class="spl">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                            Explicabo expedita minima architecto adipisci atque neque libero
-                                            facilis officia blanditiis provident
-                                            repudiandae numquam earum dolorem hic quis ipsa, a quisquam placeat:</p>
+                                        <h4><span class="sn lightGreen">3.</span><span class="st lightGreen">Probation Period</span></h4>
+                                        
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
+                                            
+                                            <p class="serviceDetails">The candidate will undergo a probation period of 06 months during which performance and conduct will be assessed.</p>
                                             <div class="secionLine lineColorGreen"></div>
                                         </div>
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
+                                            
+                                            <p class="serviceDetails">Employment confirmation will be subject to satisfactory performance during this period.</p>
                                             <div class="secionLine lineColorGreen"></div>
                                         </div>
-                                        <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
-                                            <div class="secionLine lineColorGreen"></div>
-                                        </div>
+                                       
                                     </div>
                                     <div class="serviceLeadingSection">
-                                        <h4><span class="sn purple">4.</span><span class="st purple">Lorem ipsum</span>
+                                        <h4><span class="sn purple">4.</span><span class="st purple">Workplace Policies & Code of Conduct</span>
                                         </h4>
-                                        <p class="spl">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                            Explicabo expedita minima architecto adipisci atque neque libero
-                                            facilis officia blanditiis provident
-                                            repudiandae numquam earum dolorem hic quis ipsa, a quisquam placeat:</p>
+                                        
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
+                                            
+                                            <p class="serviceDetails">The candidate agrees to adhere to all company policies, including dress code, professional conduct, and ethical guidelines.</p>
                                             <div class="secionLine lineColorPurple"></div>
                                         </div>
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
+                                            
+                                            <p class="serviceDetails">Any violation of company policies may lead to disciplinary action or termination.</p>
                                             <div class="secionLine lineColorPurple"></div>
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div class="serviceLeadingSection">
+                                        <h4><span class="sn red">5.</span><span class="st red">Notice Period & Termination</span>
+                                        </h4>
+                                        
+                                        <div class="serviceInfoContainer">
+                                            
+                                            <p class="serviceDetails">In case of resignation, the employee must serve the notice period as mentioned in the offer letter.</p>
+                                            <div class="secionLine lineColorRed"></div>
                                         </div>
                                         <div class="serviceInfoContainer">
-                                            <h6 class="serviceLead">Some service info</h6>
-                                            <p class="serviceDetails">Lorem ipsum dolor sit amet consectetur adipisicing
-                                                elit.
-                                                Perferendis repellendus rem quas eius, deleniti quos pariatur earum nihil
-                                                voluptate inventore
-                                                vel atque possimus labore laborum, reprehenderit maxime, placeat quo
-                                                corrupti.</p>
-                                            <div class="secionLine lineColorPurple"></div>
+                                            
+                                            <p class="serviceDetails">The company reserves the right to terminate employment with due notice as per company policies.</p>
+                                            <div class="secionLine lineColorRed"></div>
                                         </div>
+                                       
+                                    </div>
+
+                                    <div class="serviceLeadingSection">
+                                        <h4><span class="sn brown">6.</span><span class="st brown">Non-Compete & Conflict of Interest</span>
+                                        </h4>
+                                        
+                                        <div class="serviceInfoContainer">
+                                            
+                                            <p class="serviceDetails">The employee must not engage in any employment, business, or activity that conflicts with the company’s interests.</p>
+                                            <div class="secionLine lineColorBrown"></div>
+                                        </div>
+                                        <div class="serviceInfoContainer">
+                                            
+                                            <p class="serviceDetails">Any breach may result in legal consequences.</p>
+                                            <div class="secionLine lineColorBrown"></div>
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div class="serviceLeadingSection">
+                                        <h4><span class="sn pink">7.</span><span class="st pink">Amendments & Modifications</span>
+                                        </h4>
+                                        
+                                        <div class="serviceInfoContainer">
+                                            
+                                            <p class="serviceDetails">The company reserves the right to amend policies and terms of employment from time to time.</p>
+                                            <div class="secionLine lineColorPink"></div>
+                                        </div>
+                                        <div class="serviceInfoContainer">
+                                            
+                                            <p class="serviceDetails">The employee will be informed about any changes in due course.</p>
+                                            <div class="secionLine lineColorPink"></div>
+                                        </div>
+                                       
                                     </div>
 
                                 </div>

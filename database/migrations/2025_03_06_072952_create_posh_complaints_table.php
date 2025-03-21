@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('posh_complaints', function (Blueprint $table) {
             $table->id();
-            $table->integer('emp_id');
-            $table->foreign('emp_id')->references('emp_id')->on('emp_details');
+            $table->unsignedBigInteger('emp_id');
+            $table->foreign('emp_id')->references('id')->on('emp_details');
             $table->string('subject');
             $table->mediumText('description')->nullable();
             $table->mediumText('revert')->nullable();
