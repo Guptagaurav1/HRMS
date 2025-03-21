@@ -8,9 +8,11 @@
 @section('contents')
     <div class="dashboard-breadcrumb mb-25">
         <h2>Edit User</h2>
-        <div class="btn-box">
-            <a href="{{route('users')}}" class="btn btn-sm btn-primary">User List</a>
-        </div>
+        @if(auth()->user()->hasPermission('users'))
+            <div class="btn-box">
+                <a href="{{route('users')}}" class="btn btn-sm btn-primary">User List</a>
+            </div>
+        @endif
     </div>
     
     <form action="{{ route('update-user',$user->id) }}" method="post">

@@ -36,12 +36,12 @@
                                 @enderror
                             </div>
   							
+                            <div class="col-md-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mb-3 text-end">Submit <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
 						</form>
                         </div>
                     </div>
-                    <div class="col-md-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary mb-3 text-end">Submit <i class="fa-solid fa-arrow-right"></i></button>
-                      </div>
                 </div>
             </div>
    

@@ -53,7 +53,9 @@
                                 <td>Download <a href> <i class="fa-solid fa-download"></i></a></td>
                                <td class="text-center"> <span class="badge bg-success">Success</span></td>
                                 <td> 
-                                    <a href="{{'recruitment-plan-page-summary'}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a>
+                                    @if(auth()->user()->hasPermission('recruitment-plan-page-summary'))
+                                        <a href="{{'recruitment-plan-page-summary'}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a>
+                                    @endif
                                   
                                 </td>
                                 <td colspan="3"> 

@@ -9,6 +9,14 @@ class Salary extends Model
 {
     use HasFactory;
 
+    protected $table = 'salary';
+
+    public function empDetail()
+    {
+        return $this->belongsTo(EmpDetail::class, 'sl_emp_id', 'emp_id');
+    }
+    
+
     public static function boot()
     {
         parent::boot();

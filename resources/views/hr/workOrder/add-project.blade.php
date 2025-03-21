@@ -8,28 +8,33 @@
 
 @section('contents')
 
-<div class="fluid-container">
-
-<div class="dashboard-breadcrumb mb-25">
-        
-        <div class="">
-        <h2>Project Form</h2>
-        </div>
-        <div class="">
-            <a href="{{route('project-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Project List</button></a>  
+<div class="panel">
+<div class="panel-header heading-stripe">
+                <h3 class="mt-2 text-center">Add Project</h3>
+                <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
+            </div>
+    <div class="row" id="tab-1">
+        <div class="col-12 d-flex justify-content-end">
+            @if(auth()->user()->hasPermission('project-list'))
+                <a href="{{route('project-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Project List <i class="fa-solid fa-list"></i></button></a>  
+            @endif
         </div>
     </div>
   
-    <div class="row" id="tab-1">
+    <div class="row" id="tab-1" >
        
         <form action="{{ route('store-project') }}" method="post" >
             @csrf
             <div class="col-12">
                 <div class="panel">
-                    
-                    <div class="panel-header">
-                        <h5 class="text-white">Work Order Details</h5>
-                    </div>
                     <div class="panel-body">
                         <div class="row g-3">
                             <div class="row">
@@ -65,7 +70,7 @@
                                 @enderror
                                 </div>
                                
-                                <div class="col-sm-12 col-md-4 text-wrap">
+                                <div class="col-sm-12 col-md-4 text-wrap mt-4">
                                     <label class="form-label text-wrap">
                                         Empanelment Reference <span class="text-danger">*</span></label>
                                     </label>
@@ -82,18 +87,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 d-flex justify-content-end mt-3 px-2">
+           
+       
+    </div>
+    
+</div>
+<div class="col-12 d-flex justify-content-end  px-3 mb-3">
                 <button type="submit" class="btn btn-sm btn-primary"> Register Project <i class="fa-solid fa-arrow-right"></i></button>
             </div>
-        <form>
-    </div>
-</div>
+<form>
 @endsection
 
 @section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
-<script src={{asset('assets/vendor/js/addmore.js')}}></script>
+
 
 @endsection

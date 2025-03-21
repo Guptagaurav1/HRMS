@@ -72,8 +72,34 @@ class User extends Authenticatable
     /**
      * Get role name.
     */
+
+
     public function role(){
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    // public function role(){
+    //     return $this->hasOne(Role::class, 'id', 'role_id');
+    // }
+
+    public function hasPermission($routeName)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return false; 
+        }
+        $menu = Menu::where('page', $routeName)->first();
+        if (!$menu) {
+            return false; 
+        }
+        $role = Role::select('menu_id')->where('id', $user->role_id)->first();
+        if (!$role || !$role->menu_id) {
+            return false; // Role not found or no menu assigned
+        }
+        // Ensure we compare against menu IDs, not route names
+        $menuIdExplode = explode(',', $role->menu_id);
+        return in_array($menu->id, $menuIdExplode);
+    
     }
 
 }

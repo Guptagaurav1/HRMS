@@ -68,15 +68,20 @@
                                         @endif
                                     </td>
                                     <td> 
-                                        <a href="{{ route('edit-user', $user->id) }}"><button class="btn btn-sm btn-primary" title="Edit">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
-                                        <a data-id="{{ $user->id }}"  class="delete-user"><button class="btn btn-sm btn-danger"  title="Delete">Delete <i class="fa-solid fa-trash"></i></button></a>
-                                        
-                                        <button 
-                                            class="status-toggle btn btn-{{ $user->status == 1 ? 'success' : 'danger' }}" 
-                                            data-id="{{ $user->id }}"
-                                            data-status="{{ $user->status }}">
-                                            {{ $user->status == 1 ? 'Activate' : 'Deactivate' }}
-                                        </button> 
+                                        @if(auth()->user()->hasPermission('edit-user'))
+                                            <a href="{{ route('edit-user', $user->id) }}"><button class="btn btn-sm btn-primary" title="Edit">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        @endif
+                                        @if(auth()->user()->hasPermission('delete-user'))
+                                            <a data-id="{{ $user->id }}"  class="delete-user"><button class="btn btn-sm btn-danger"  title="Delete">Delete <i class="fa-solid fa-trash"></i></button></a>
+                                        @endif
+                                        @if(auth()->user()->hasPermission('users.update-status'))
+                                            <button 
+                                                class="status-toggle btn btn-{{ $user->status == 1 ? 'success' : 'danger' }}" 
+                                                data-id="{{ $user->id }}"
+                                                data-status="{{ $user->status }}">
+                                                {{ $user->status == 1 ? 'Activate' : 'Deactivate' }}
+                                            </button> 
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty

@@ -11,7 +11,7 @@ $('.delete-role').click(function(){
          confirmButtonText: "Confirm"
      }).then((result) => {
          if (result.isConfirmed) {
-         window.location.href = SITE_URL+'/manage-roles/delete/'+ id;
+         window.location.href = SITE_URL+'/admin/manage-roles/delete/'+ id;
          }
      });
  })

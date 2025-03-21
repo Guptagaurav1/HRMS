@@ -11,13 +11,12 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Organization Lists</h3>
-               
-
             </div>
-            <div class="text-end px-2">
-                <a href="{{ route('organizations.create') }}" class="mt-3"><button type="button" class="btn btn-primary">Add Organization <i class="fa-solid fa-plus"></i></button></a>
-
-            </div>
+            @if(auth()->user()->hasPermission('organizations.create'))
+                <div class="text-end px-2">
+                    <a href="{{ route('organizations.create') }}" class="mt-3"><button type="button" class="btn btn-primary">Add Organization <i class="fa-solid fa-plus"></i></button></a>
+                </div>
+            @endif
            
             <div class="col-md-12 d-flex justify-content-start px-2">
                 <form class="row g-3" method="get">
@@ -56,8 +55,12 @@
                                     <td class="text-center">{{ $value->contact }}</td>
                                     <td class="text-center">{{ $value->address }}</td>
                                     <td class="text-center">
+                                        @if(auth()->user()->hasPermission('organizations.edit'))
                                         <a href="{{ route('organizations.edit',['organization' => $value->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        @endif
+                                        @if(auth()->user()->hasPermission('organizations.destroy'))
                                         <a class="delete-organization" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete  <i class="fa-solid fa-trash"></i></button></a>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
@@ -80,8 +83,7 @@
 @section('script')
 <script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
 <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-{{-- <script src={{asset('assets/js/select2-init.js')}}></script> --}}
-
+<script src={{asset('assets/js/select2-init.js')}}></script>
 <script src={{asset('assets/js/masters/organization.js')}}></script>
 
 @endsection

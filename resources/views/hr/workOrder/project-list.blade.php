@@ -1,27 +1,30 @@
 @extends('layouts.master')
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
+
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
 
 @endsection
 
 @section('contents')
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-2">Project list</h2>
+                    <h2 class="mt-2">Project List</h2>
+                    <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
                 </div>
-                <div class="row px-3 mb-3">
-                    <div class="col-md-12 d-flex justify-content-end ml-5">
-                       
-                        <a href="{{route('add-project')}}"><button class="btn btn-sm btn-primary" style="margin-left: 120px;margin-top:25px">Add Project</button></a>
-                    </div>
                 </div>
+                
 
-                <div class="row px-3 mt-2">
+                <div class="mt-2">
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>{{ $message }}</strong>
@@ -32,9 +35,32 @@
                         </div>
                     @endif
                 </div>
+
+                <div class="col-md-12 d-flex justify-content-between mx-3">
+                  
+                     <form class="row g-3" method="get" action="{{route('project-list')}}">
+                         <div class="col-auto">
+                             <input type="text" name="search" class="form-control" value="{{$search}}" placeholder="Search" required>
+                         </div>
+                         <div class="col-auto">
+                             <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                             <a href="{{ route('project-list') }}">
+                             <button type="button" class="btn btn-secondary mb-3">Clear <i
+                             class="fa-solid fa-eraser"></i></button></a>
+                         </div>
+                     </form>
+                     <div class="">
+                    @if(auth()->user()->hasPermission('add-project'))
+                        <div class="col-md-12 d-flex justify-content-end px-4">
+                            <a href="{{route('add-project')}}"><button class="btn btn-sm btn-primary" >Add Project <i class="fa-solid fa-plus"></i></button></a>
+                        </div>
+                    @endif
+                </div>
+                 </div>
               
                 <div class="table-responsive">
-                    <table id="project-table" class="table table-bordered table-hover display nowrap" style="width: 100%">
+                <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                id="allEmployeeTable">
                         <thead>
                             <tr>
                                 <th class="srno-column">S.No.</th>
@@ -46,14 +72,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
+                        @if(!empty($projects))
+                                 @foreach($projects as $key => $value)
+                                     <tr>
+                                         <td class="srno-column">{{$key+1}}</td>
+                                         <td>{{$value->organizations->name}}</td>
+                                         <td>{{$value->project_name}}</td>
+                                         <td>{{$value->project_number}}</td>
+                                         <td>{{$value->empanelment_reference }}</td>
+                                       
+                                         <td>
+                                         <a href="{{route('edit-project',$value->id)}}"><button type="submit" class="btn btn-primary"> Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                         </td>
+                                     </tr>
+                                   
+                                 @endforeach
+                                 @else
+                                 <tr>
+                                     <td class="text-danger text-center" colspan="12">No Record Found</td>
+                                 </tr>
+                                 @endif
                         </tbody>
                     </table>
-                    <div>
-                        
+                    <div class="py-3 px-2">
+                         {{ $projects->links() }}
                     </div>
                    
-                    <div class="table-bottom-control"></div>
+                    
                 </div>
             </div>
         </div>

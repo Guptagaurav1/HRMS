@@ -12,13 +12,24 @@
             <div class="panel">
                 <div class="panel-header">
                     <h4 class="text-white mt-2">Functional Role</h4>
+                    <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
                 </div>
             
                 <div class="panel-body">
                     <div class="row ">
-                        <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{route('add-functional-role')}}"><button class="btn btn-sm btn-primary">Add Functional Role <i class="fa-solid fa-plus"></i></button></a>  
-                        </div> 
+                        @if(auth()->user()->hasPermission('add-functional-role'))
+                            <div class="col-md-12 d-flex justify-content-end">
+                            <a href="{{route('add-functional-role')}}"><button class="btn btn-sm btn-primary">Add Functional Role <i class="fa-solid fa-plus"></i></button></a>  
+                            </div> 
+                        @endif
 
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -69,10 +80,16 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $role->role }}</td>
-                                 <td> 
-                                    <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button class="btn btn-sm btn-primary">Edit</button></a>
-                                    <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete</button>
+                                    
+                                 <td class="text-center"> 
+                                    @if(auth()->user()->hasPermission('edit-functional-role'))
+                                        <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    @endif
+                                    @if(auth()->user()->hasPermission('edit-functional-role'))
+                                        <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete <i class="fa-solid fa-trash"></i></button>
+                                    @endif
                                 </td>
+                              
                             </tr>
                                 @empty 
                                 <tr>

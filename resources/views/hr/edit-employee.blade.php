@@ -460,11 +460,11 @@
        </div> 
     
 @endsection
-
 @section('script')
 <script src="{{asset('assets/js/employeeTab.js')}}"></script>
 
 @endsection
+
 
  
 

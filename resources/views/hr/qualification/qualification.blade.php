@@ -14,9 +14,11 @@
             
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-12 d-flex justify-content-end">
-                        <a href="{{route('add-qualification')}}"><button class="btn btn-sm btn-primary">Add Qualification <i class="fa-solid fa-plus"></i></button></a>  
-                        </div> 
+                        @if(auth()->user()->hasPermission('add-qualification'))
+                            <div class="col-md-12 d-flex justify-content-end">
+                                <a href="{{route('add-qualification')}}"><button class="btn btn-sm btn-primary">Add Qualification <i class="fa-solid fa-plus"></i></button></a>  
+                            </div>
+                        @endif 
 
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -68,8 +70,12 @@
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $qualification->qualification }}</td>
                                  <td class="text-center"> 
-                                    <a href="{{route('edit-qualification', ['id' => $qualification->id])}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
-                                    <button class="btn btn-sm btn-primary delete" data-id="{{$qualification->id}}">Delete <i class="fa-solid fa-trash"></i></button>
+                                    @if(auth()->user()->hasPermission('edit-qualification'))
+                                        <a href="{{route('edit-qualification', ['id' => $qualification->id])}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    @endif
+                                    @if(auth()->user()->hasPermission('destroy-qualification'))
+                                        <button class="btn btn-sm btn-primary delete" data-id="{{$qualification->id}}">Delete <i class="fa-solid fa-trash"></i></button>
+                                    @endif
                                 </td>
                             </tr>
                                 @empty 

@@ -34,7 +34,7 @@
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Employee PAN No<span class="text-danger">**</span></label>
-                            <select id="emp_pan" class=" selectpicker form-select" name="emp_pan" value>
+                            <select id="emp_id" class=" selectpicker form-select" name="emp_pan" value>
                                 <option value="">Select Employee</option>
                                 @foreach($empDetail as $key => $value)
                                 <option value="{{$value->emp_id}}">{{$value->emp_pan}}</option>
@@ -112,13 +112,13 @@
 
 @section('script')
 
-<script src={{asset('assets/js/tab-changes.js')}}></script>
+<script src="{{asset('assets/js/tab-changes.js')}}"></script>
 <script>
     $(document).ready(function() {
     //   $('#pan').parent().css('max-width','184px');
 
-    $('#emp_pan').change(function(e) {
-      var emp_id = document.getElementById("emp_pan").value;
+    $('#emp_id').change(function(e) {
+      var emp_id = document.getElementById("emp_id").value;
       
       $.ajax({
         url: '{{ route("emp-data", ":id") }}'.replace(':id', emp_id),

@@ -15,10 +15,11 @@
                 </div>
                 <div class="row px-3 mb-3">
                     
-            
-                    <div class="col-md-12 d-flex justify-content-end mt-4">
-                        <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">Add New Candidate <i class="fa-solid fa-plus"></i></button></a>
-                    </div>
+                    @if(auth()->user()->hasPermission('addnew-candidate'))
+                        <div class="col-md-12 d-flex justify-content-end mt-4">
+                            <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">Add New Candidate <i class="fa-solid fa-plus"></i></button></a>
+                        </div>
+                    @endif
 
                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

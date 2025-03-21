@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger(column: 'role_id')->after('dob')->nullable();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('NO ACTION');
-            $table->unsignedBigInteger('department_id')->after('role_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('NO ACTION');
-            $table->unsignedBigInteger('company_id')->nullable();
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('NO ACTION');
-        });
+        if (!Schema::hasColumn('users','role_id')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->unsignedBigInteger(column: 'role_id')->after('dob')->nullable();
+                $table->foreign('role_id')->references('id')->on('roles')->onDelete('NO ACTION');
+                $table->unsignedBigInteger('department_id')->after('role_id')->nullable();
+                $table->foreign('department_id')->references('id')->on('departments')->onDelete('NO ACTION');
+                $table->unsignedBigInteger('company_id')->nullable();
+                $table->foreign('company_id')->references('id')->on('companies')->onDelete('NO ACTION');
+            });
+        }
     }
 
     /**

@@ -93,11 +93,11 @@ $reimberstatus = $reimbursement->get_status()->orderByDesc('id')->first();
                                 <td class="attributes-column">{{$detail->description}}</td>
                                 <td>{{Illuminate\Support\Number::currency($detail->amount, 'inr')}}</td>
                                 <td>
-                                    @if($detail->invoice_attachment)
-                                    <a href="{{asset('recruitment/candidate_documents/reimbursement').'/'.$detail->invoice_attachment}}"><button class="btn btn-sm btn-primary"> View Attachment <i class="fa-solid fa-paperclip"></i></button></a>
-                                    @else
-                                    <span>Not Available</span>
-                                    @endif
+                                        @if($detail->invoice_attachment)
+                                        <a href="{{asset('recruitment/candidate_documents/reimbursement').'/'.$detail->invoice_attachment}}"><button class="btn btn-sm btn-primary"> View Attachment <i class="fa-solid fa-paperclip"></i></button></a>
+                                        @else
+                                        <span>Not Available</span>
+                                        @endif
                                 </td>
                             </tr>
                             @endforeach

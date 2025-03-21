@@ -29,7 +29,7 @@
 
                                     <label class="form-label mt-2 text-dark">Gender <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <select name="gender" class="form-control" required>
+                                    <select name="emp_gender" class="form-control" required>
                                         <option value="" selected="" disabled="">Select Gender
                                         </option>
                                         <option value="male">Male</option>
@@ -39,21 +39,11 @@
 
                                 </div>
                                 <div class="col-md-6">
-
-                                    <label class="form-label mt-2 text-dark">Category <span
+                                    <label class="form-label mt-2 text-dark">Date of Birth <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <select name="category" class="form-control category" required>
-                                        <option value="" selected="" disabled="">Select Category
-                                        </option>
-                                        <option value="general">Un-Reserved</option>
-                                        <option value="obc">OBC</option>
-                                        <option value="sc">SC</option>
-                                        <option value="st">ST</option>
-                                    </select>
-                                    <input type="file" name="category_doc" class="form-control d-none my-2"
-                                        accept=".pdf">
-
+                                    <input type="date" name="emp_dob" class="form-control" required>
                                 </div>
+                                
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Preferred Job Location <span
                                             class="text-danger fw-bold">*</span></label>
@@ -63,14 +53,14 @@
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Date of Marriage</label>
-                                    <input type="date" name="date_of_marriage" class="form-control">
+                                    <input type="date" name="emp_dom" class="form-control">
 
                                 </div>
                                
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Blood Group</label>
-                                    <select name="blood_group" class="form-control">
+                                    <select name="emp_blood_group" class="form-control">
                                         <option value="Not Specified">Not Specified</option>
                                         <option value="a+">A+</option>
                                         <option value="a-">A-</option>
@@ -96,11 +86,11 @@
 
                                     <label class="form-label text-dark">Marital Status <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <select name="marital_status" class="form-control" required>
+                                    <select name="emp_marital_status" class="form-control" required>
                                         <option value="" selected disabled>Not
                                             Specified
                                         </option>
-                                        <option value="unmarried">Single</option>
+                                        <option value="single">Single</option>
                                         <option value="married">Married</option>
                                     </select>
 
@@ -108,7 +98,7 @@
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Spouse Name</label>
-                                    <input type="text" name="spouse_name" class="form-control"
+                                    <input type="text" name="emp_husband_wife_name" class="form-control"
                                         placeholder="Enter spouse name">
 
                                 </div>
@@ -116,7 +106,7 @@
 
                                     <label class="form-label text-dark">Add Signature photo <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="file" name="signature" class="form-control"
+                                    <input type="file" name="emp_signature" class="form-control"
                                         accept=".jpg, .jpeg, .png" required>
 
                                 </div>
@@ -124,7 +114,7 @@
 
                                     <label class="form-label text-dark">Add Passport size photo <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="file" name="photograph" class="form-control"
+                                    <input type="file" name="emp_photo" class="form-control"
                                         accept=".jpg, .jpeg, .png" required>
                                 </div>
                                
@@ -136,36 +126,26 @@
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Father's Name <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="text" name="father_name" class="form-control"
+                                    <input type="text" name="emp_father_name" class="form-control"
                                         placeholder="Enter father's full name" required>
                                 </div>
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Father's Contact No. <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="number" name="father_mobile" class="form-control"
+                                    <input type="number" name="emp_father_mobile" class="form-control"
                                         placeholder="Enter father's contact number" required>
 
                                 </div>
-                                <div class="col-md-6">
-
-                                    <label class="form-label text-dark">PF Number</label>
-                                    <input type="number" name="pf_no" class="form-control" placeholder="Enter pf number">
-
-                                </div>
                                
-                                <div class="col-md-6">
-
-                                    <label class="form-label text-dark">Language Known <span
-                                            class="text-danger fw-bold">*</span></label>
-                                    <input type="text" name="language_known" class="form-control" required>
-                                </div>
+                               
+                              
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Passport No.</label>
-                                    <input type="number" name="passport_no" class="form-control"
+                                    <input type="number" name="emp_passport_no" class="form-control"
                                         placeholder="Enter Your Passport No.">
-                                    <input type="file" name="passport_doc" class="form-control my-2" accept=".pdf">
+                                    <input type="file" name="passport_file" class="form-control my-2" accept=".pdf">
 
                                 </div>
                                 <div class="col-md-6">
@@ -173,7 +153,7 @@
                                     <label class="form-label text-dark">Police verification Id</label>
                                     <input type="number" name="police_verification_id" class="form-control"
                                         placeholder="Enter Your Police Verification No.">
-                                    <input type="file" name="police_verification_doc" class="form-control my-2"
+                                    <input type="file" name="police_verification_file" class="form-control my-2"
                                         accept=".pdf">
 
 
@@ -182,13 +162,35 @@
 
                                     <label class="form-label text-dark">Aadhar Card No. <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="text" name="aadhar_card_no" class="form-control"
+                                    <input type="text" name="emp_aadhaar_no" class="form-control"
                                         placeholder="Enter Your Aadhar No." maxlength="12"
                                         onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
                                         required>
                                     <input type="file" name="aadhar_card_doc" class="form-control my-2"
                                         accept=".pdf" required>
 
+
+                                </div>
+                                <div class="col-md-6">
+
+                                    <label class="form-label text-dark">Language Known <span
+                                            class="text-danger fw-bold">*</span></label>
+                                    <input type="text" name="language_known" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <label class="form-label mt-2 text-dark">Category <span
+                                            class="text-danger fw-bold">*</span></label>
+                                    <select name="emp_category" class="form-control category" required>
+                                        <option value="" selected="" disabled="">Select Category
+                                        </option>
+                                        <option value="general">Un-Reserved</option>
+                                        <option value="obc">OBC</option>
+                                        <option value="sc">SC</option>
+                                        <option value="st">ST</option>
+                                    </select>
+                                    <input type="file" name="category_doc" class="form-control d-none my-2"
+                                        accept=".pdf">
 
                                 </div>
                                
@@ -224,7 +226,7 @@
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Permanent Address <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <textarea placeholder="Enter Complete Permanent Address With State and City" name="permanent_add"
+                                    <textarea placeholder="Enter Complete Permanent Address With State and City" name="emp_permanent_address"
                                         class="w-full form-control" id="permanent" required></textarea>
                                 </div>
                                 <div class="col-md-6">
@@ -234,7 +236,7 @@
                                             <input class="form-check-input" type="checkbox" id="sameas">
                                         </span>
                                         Check If Same as permanent</label>
-                                    <textarea class="form-control" name="correspondence_add" placeholder="Enter Correspondence Address"
+                                    <textarea class="form-control" name="emp_local_address" placeholder="Enter Correspondence Address"
                                         id="correspondence" required></textarea>
 
                                 </div>
@@ -242,7 +244,7 @@
 
                                     <label class="form-label text-dark">Permanent Address Proof <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <select name="per_doc_type" class="form-control" required>
+                                    <select name="permanent_doc_type" class="form-control" required>
                                         <option value="" selected disabled>Select Document Type
                                         </option>
                                         <option value="electricity bill">Electricity Bill</option>
@@ -259,7 +261,7 @@
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Correspondence Address Proof <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <select name="corres_doc_type" class="form-control" required>
+                                    <select name="correspondence_doc_type" class="form-control" required>
                                         <option value="" selected disabled>Select Document Type
                                         </option>
                                         <option value="electricity bill">Electricity Bill</option>
@@ -289,7 +291,7 @@
 
         {{-- Bank Details Form --}}
         @if ($details->rec_form_status == 'address_stage')
-            <div class="bank-details-form" style="height: 100vh;">
+            <div class="bank-details-form" style="height: 105vh;">
                 <form class="d-flex align-items-center justify-content-center bank_detail" enctype="multipart/form-data">
                     @csrf
                     <div class="d-none">
@@ -304,7 +306,7 @@
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Bank Name <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <select name="bank_name_id" class="form-control" required>
+                                    <select name="bank_id" class="form-control" required>
                                         <option value="">Not Specified</option>
                                         @foreach ($banks as $bank)
                                             <option value="{{ $bank->id }}">{{ $bank->name_of_bank }}
@@ -316,38 +318,42 @@
                                     <label class="form-label mt-2 text-dark">Bank Branch <span
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="text" class="form-control" placeholder="Enter Branch Name"
-                                        name="branch" required />
+                                        name="emp_branch" required />
                                 </div>
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Bank Account No. <span
                                             class="text-danger fw-bold">*</span></label>
 
-                                    <input type="number" class="form-control" name="account_no"
+                                    <input type="number" class="form-control" name="emp_account_no"
                                         placeholder="Enter Bank Account No" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleTextarea" class="form-label text-dark">Bank IFSC
                                         No. <span class="text-danger fw-bold">*</span></label>
-                                    <input type="text" class="form-control" name="ifsc_code"
+                                    <input type="text" class="form-control" name="emp_ifsc"
                                         placeholder="Enter Bank IFSC No" required>
-
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label text-dark">PAN Card No <span
-                                            class="text-danger fw-bold">*</span></label>
-                                    <input type="text" class="form-control" name="pan_card_no" required
-                                        placeholder="Enter PAN  No" maxlength="10" minlength="10">
-
-                                    <input type="file" name="pan_card_doc" accept=".pdf" class="form-control my-2"
-                                        required>
+                                    <label class="form-label text-dark">PF Number</label>
+                                    <input type="text" name="emp_pf_no" maxlength="12" class="form-control" placeholder="Enter pf number">
                                 </div>
+                             
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Bank Cancelled Cheque/Bank
                                         Passbook <span class="text-danger fw-bold">*</span></label>
 
 
                                     <input type="file" name="bank_doc" accept=".pdf" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-dark">PAN Card No <span
+                                            class="text-danger fw-bold">*</span></label>
+                                    <input type="text" class="form-control" name="emp_pan" required
+                                        placeholder="Enter PAN  No" maxlength="10" minlength="10">
+
+                                    <input type="file" name="pan_card_doc" accept=".pdf" class="form-control my-2"
+                                        required>
                                 </div>
                             </div>
 
@@ -387,26 +393,26 @@
                                             class="text-danger fw-bold">*</span></label>
 
                                     <input type="text" class="form-control" placeholder="Enter 10th % Or CGPA"
-                                        name="10th_percentage" required>
+                                        name="emp_tenth_percentage" required>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">10th Class Passing
                                         Year <span class="text-danger fw-bold">*</span></label>
                                     <input type="number" class="form-control"
-                                        placeholder="Enter 10th Class Passing Year" name="10th_year"
+                                        placeholder="Enter 10th Class Passing Year" name="emp_tenth_year"
                                         max={{ date('Y') }} min="0" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">10th Class Board <span
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="text" class="form-control" placeholder="Enter 10th Board Name"
-                                        name="10th_board" required>
+                                        name="emp_tenth_board_name" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">10th Class Board
                                         Document <span class="text-danger fw-bold">*</span></label>
-                                    <input type="file" class="form-control" name="10th_doc" accept=".pdf" required>
+                                    <input type="file" class="form-control" name="emp_tenth_doc" accept=".pdf" required>
                                 </div>
 
 
@@ -421,27 +427,27 @@
                                         Name</label>
 
                                     <input type="text" class="form-control" placeholder="Enter Graduation Degree Name"
-                                        name="grad_name">
+                                        name="emp_gradqualification">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Graduation % /
                                         CGPA</label>
                                     <input type="number" class="form-control"
-                                        placeholder="Enter Graduation Percentage or CGPA" name="grad_percentage">
+                                        placeholder="Enter Graduation Percentage or CGPA" name="emp_graduation_percentage">
 
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Graduation Passing
                                         Year</label>
                                     <input type="number" class="form-control"
-                                        placeholder="Enter Graduation Passing Year" name="grad_year"
+                                        placeholder="Enter Graduation Passing Year" name="emp_graduation_year"
                                         max={{ date('Y') }} min="0">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Graduation
                                         Mode</label>
-                                    <select name="grad_mode" class="form-control">
+                                    <select name="emp_graduation_mode" class="form-control">
                                         <option value="Not Specified">Not Specified</option>
                                         <option value="regular">Regular</option>
                                         <option value="distance">Distance</option>
@@ -465,31 +471,31 @@
                                 <h5 class="border-bottom">12th Class Section</h5>
                             </div>
                             <div class="row px-4 mt-2">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">12th Class % /
                                         CGPA</label>
 
                                     <input type="text" class="form-control" placeholder="Enter 12th % Or CGPA"
-                                        name="12th_percentage">
+                                        name="emp_twelve_percentage">
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">12th Class Passing
                                         Year</label>
                                     <input type="number" class="form-control"
-                                        placeholder="Enter 12th Class Passing Year" name="12th_year"
+                                        placeholder="Enter 12th Class Passing Year" name="emp_twelve_year"
                                         max={{ date('Y') }} min="0">
                                 </div>
-                                <div class="col-md-12 my-2">
+                                <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">12th Class
                                         Board</label>
                                     <input type="text" class="form-control" placeholder="Enter 12th Board Name"
-                                        name="12th_board">
+                                        name="emp_twelve_board_name">
                                 </div>
-                                <div class="col-md-12 my-2">
+                                <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">12th Class Board
                                         Document</label>
-                                    <input type="file" name="12th_doc" class="form-control" accept=".pdf">
+                                    <input type="file" name="emp_twelve_doc" class="form-control" accept=".pdf">
                                 </div>
 
                                 {{-- Post Graduation --}}
@@ -502,27 +508,27 @@
                                         Name</label>
 
                                     <input type="text" class="form-control"
-                                        placeholder="Enter Post Graduation Degree Name" name="post_grad_name">
+                                        placeholder="Enter Post Graduation Degree Name" name="emp_postgradqualification">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Post Graduation % /
                                         CGPA</label>
-                                    <input type="number" class="form-control" name="post_grad_percentage"
+                                    <input type="number" class="form-control" name="emp_postgraduation_percentage"
                                         placeholder="Enter Post Graduation Percentage or CGPA">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Post Graduation
                                         Passing
                                         Year</label>
-                                    <input type="number" class="form-control" name="post_grad_year"
+                                    <input type="number" class="form-control" name="emp_postgraduation_year"
                                         placeholder="Enter Graduation Passing Year" max={{ date('Y') }}
                                         min="0">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Post Graduation
                                         Mode</label>
-                                    <select name="post_grad_mode" class="form-control">
+                                    <select name="emp_postgraduation_mode" class="form-control">
                                         <option value="Not Specified">Not Specified</option>
                                         <option value="regular">Regular</option>
                                         <option value="distance">Distance</option>
@@ -558,7 +564,7 @@
                     </div>
                     <div class="row px-5 py-3" style="padding-top: 50px; padding-bottom: 50px;">
                         <div class="col-md-6 bg-white" style="padding-bottom: 100px;">
-                            <h5 class="text-center px-3 pt-5">Curreny Company Details Form</h5>
+                            <h5 class="text-center px-3 pt-5">Current Company Details Form</h5>
                             <p class="text-danger">Note : <u>Fields with "*" are mandatory to fill.</u></p>
                             <div class="row px-4">
                                 <div class="col-md-12">
@@ -646,7 +652,7 @@
                                         <option value="experience">Experience</option>
                                         <option value="appraisal letter">Appraisal Letter</option>
                                     </select>
-                                    <input type="file" class="form-control" name="doc_file" accept=".pdf">
+                                    <input type="file" class="form-control my-2" name="doc_file" accept=".pdf">
                                 </div>
 
                             </div>
@@ -689,7 +695,7 @@
                                     <label class="form-label mt-2 text-dark">ESI Number <span
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="text" class="form-control" placeholder="Enter ESI Number"
-                                        name="previous_esi_no">
+                                        name="emp_esi_no">
                                 </div>
 
 

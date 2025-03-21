@@ -266,7 +266,7 @@ class InvoiceBillingController extends Controller
             $sub_total = (float)$sub_total; 
             $service_charge_rate = (float)$service_charge_rate;
 
-            $gst_tax=$bill_structure->billing_tax_rate / 2;
+            $gst_tax=(float)$bill_structure->billing_tax_rate / 2;
             $i_gst = round(($sub_total * $gst_tax) / 100);
             $bill_structure->i_gst=$i_gst;
             $tax_value = $i_gst;
@@ -478,12 +478,13 @@ class InvoiceBillingController extends Controller
        
             $file = $request->file('file');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('Form16', $fileName, 'public');
+            $path = $file->move(public_path("recruitment/candidate_documents/form_16/"), $fileName);
         }else{
           
             $fileName="";
+            
         }
-      
+    //   dd($path);
         $form = new Form16();
         $form->pan_no =$request->pan_no;
         $form->emp_id =$request->emp_pan;
@@ -499,7 +500,7 @@ class InvoiceBillingController extends Controller
 
     public function emp_data(Request $request,string $id){
         $id =$request->id;
-        $empDetail = EmpDetail::select('emp_id','emp_pan','emp_code','emp_work_order','emp_name')->where('emp_id',$id)->first();
+        $empDetail = EmpDetail::select('emp_id','emp_pan','emp_code','emp_work_order','emp_name','emp_doj','emp_designation','emp_salary')->where('emp_id',$id)->first();
         // dd($empDetail);
         if($empDetail){
             return response()->json([
@@ -524,9 +525,10 @@ class InvoiceBillingController extends Controller
             // Handle the uploaded zip file
             $zipFile = $request->file('zip_data');
             $zipFileName = $zipFile->getClientOriginalName();
-            $zipFilePath = $zipFile->storeAs('Form16/Zip', $zipFileName, 'public');
-            $zipFilePath = public_path('Form16/Zip') . '/' . $zipFileName;
-            $zipFile->move(public_path('Form16/Zip'), $zipFileName);
+            $zipFilePath = $zipFile->storeAs('app/public/recruitment/candidate_documents/form_16/Zip', $zipFileName, 'public');
+           
+            $zipFilePath = public_path('recruitment/candidate_documents/form_16/Zip') . '/' . $zipFileName;
+            $zipFile->move(public_path('recruitment/candidate_documents/form_16/Zip'), $zipFileName);
     
             // Initialize the ZipArchive object
             $zip = new ZipArchive;
@@ -534,7 +536,7 @@ class InvoiceBillingController extends Controller
     
             if ($resZip === TRUE) {
                 // Extract files from the ZIP to the target directory
-                $zip->extractTo(public_path('Form16'));
+                $zip->extractTo(public_path('recruitment/candidate_documents/form_16'));
                 $zip->close();
             } else {
                 return redirect()->route('form16')->with('error', 'Failed to open ZIP file.');
@@ -542,8 +544,8 @@ class InvoiceBillingController extends Controller
     
             // Define directories for processed and failed files
             $folderName = pathinfo($zipFileName, PATHINFO_FILENAME);
-            $currentDir = public_path('Form16') . '/' . $folderName;
-            $failedDir = public_path('Form16/failed');
+            $currentDir = public_path('recruitment/candidate_documents/form_16') . '/' . $folderName;
+            $failedDir = public_path('recruitment/candidate_documents/form_16/failed');
     
             if (!File::exists($failedDir)) {
                 File::makeDirectory($failedDir, 0777, true);
@@ -555,7 +557,7 @@ class InvoiceBillingController extends Controller
             foreach ($files as $file) {
                 $fileName = $file->getFilename();
                 $filePath = $file->getRealPath();
-                $destinationPath = public_path('Form16') . '/' . $fileName;
+                $destinationPath = public_path('recruitment/candidate_documents/form_16') . '/' . $fileName;
                 
                 $failedPath = $failedDir . '/' . $fileName;
     

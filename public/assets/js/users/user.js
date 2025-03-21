@@ -1,6 +1,5 @@
-$('.delete-user').click(function(){
+$('.delete-user').click(function() {
     var id = $(this).data('id');
- 
      Swal.fire({
          title: "Are you sure?",
          text: "You want to delete This record!",
@@ -11,8 +10,8 @@ $('.delete-user').click(function(){
          confirmButtonText: "Confirm"
      }).then((result) => {
          if (result.isConfirmed) {
-         window.location.href = SITE_URL+'/users/delete/'+ id;
+         window.location.href = SITE_URL+'/admin/users/delete/'+ id;
          }
      });
  })
-   
+ 

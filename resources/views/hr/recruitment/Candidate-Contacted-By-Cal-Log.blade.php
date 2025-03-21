@@ -35,9 +35,11 @@
                             <button type="submit" class="btn btn-primary mb-3"> Search <i
                                     class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
-                        <div class="col-auto">
-                            <a href="{{route('recruitment.call_logs')}}" class="btn btn-primary mb-3">Reset</a>
-                        </div>
+                        @if(auth()->user()->hasPermission('recruitment.call_logs'))
+                            <div class="col-auto">
+                                <a href="{{route('recruitment.call_logs')}}" class="btn btn-primary mb-3">Reset</a>
+                            </div>
+                        @endif
                     </form>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -112,8 +114,13 @@
                                         <td class="rid-column">{{$log->first_name." ".$log->last_name." / ".$log->email}}</td>
                                         <td class="rid-column">{{$log->remarks}}</td>
                                         <td class="rid-column">{{date('jS M, Y', strtotime($log->created_at))}}</td>
-                                        <td class="rid-column"><a href="{{asset('resume').'/'.$log->resume}}" download><span class="badge text-bg-success">Download <i class="fa-solid fa-download"></i></span></a></td>
-                                        <td class="rid-column"><a href="{{route('recruitment.edit-call_log', ['id' => $log->id])}}"> <button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a></td>
+                                        <td class="rid-column">
+                                            <a href="{{asset('resume').'/'.$log->resume}}" download><span class="badge text-bg-success">Download <i class="fa-solid fa-download"></i></span></a></td>
+                                        <td class="rid-column">
+                                            @if(auth()->user()->hasPermission('recruitment.edit-call_log'))
+                                                <a href="{{route('recruitment.edit-call_log', ['id' => $log->id])}}"> <button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

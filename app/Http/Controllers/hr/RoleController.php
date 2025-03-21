@@ -13,29 +13,30 @@ class RoleController extends Controller
 {
     public function index(Request $request){
      
-        $roles = Role::with('menu')->orderBy('id','desc');
-        $search = $request->search;
-
-        if($search){
-            $roles->where(function($q) use($search){
-                $q->where('role_name', 'like','%'.$search.'%')
+        $roles = Role::with('menu')
+        ->orderBy('id', 'desc');
+    
+    $search = $request->search;
+    
+    if ($search) {
+        $roles->where(function ($q) use ($search) {
+            $q->where('role_name', 'like', '%' . $search . '%')
                 ->orWhereHas('menu', function ($query) use ($search) {
                     $query->where('name', 'like', "%$search%");
                 });
-            });
-        }
+        });
+    }
+    
         $roles = $roles->paginate(10);
-        $rolesWithMenus = [];
-        foreach ($roles as $role) {
-            $menu_ids = explode(',', $role->menu_id);  // Get the menu IDs as an array
-            $menus = Menu::whereIn('id', $menu_ids) 
-            ->pluck('name')              // Get the names of the menus
-            ->toArray(); 
+        $roles->getCollection()->transform(function ($role) {
+        $menu_ids = explode(',', $role->menu_id); // Convert string to array
+        $menus = Menu::whereIn('id', $menu_ids)->pluck('name')->toArray(); // Get menu names
+        $role->menu_names = implode(', ', $menus); // Add a new property
+        return $role;
+    });
 
-            $role->menu_names = implode(', ', $menus);
-            $rolesWithMenus[] = $role;
-        }
-       
+        $rolesWithMenus = $roles;
+    
         return view('hr.role&menu.manage-roles', compact('rolesWithMenus','search'));
     }
 
@@ -64,9 +65,11 @@ class RoleController extends Controller
         if(is_array($checkMenuArray)){
             $checkString = implode(',', $checkMenuArray);
         }
-       
 
+        $countRID = Role::select('rid')->count();
+        $currentCount = $countRID + 1;
         $roles = new Role();
+        $roles->rid = "R"."-".$currentCount;
         $roles->role_name = $request->role_name;
         $roles->menu_id =$checkString;
 

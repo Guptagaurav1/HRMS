@@ -74,7 +74,12 @@
                                     <span class="badge alert-info">Direct Process</span>
                                     @endif
                                 </td>
-                                <td><a href="{{route('applicant-recruitment-details-summary', ['rec_id' => $record->id, 'position' => $record->pos_req_id])}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a></td>
+                                <td>
+                                    @if(auth()->user()->hasPermission('applicant-recruitment-details-summary'))
+                                    <a href="{{route('applicant-recruitment-details-summary', ['rec_id' => $record->id, 'position' => $record->pos_req_id])}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a>
+                                    @endif
+                                </td>
+
                             </tr>
                             @empty
                                 <tr>

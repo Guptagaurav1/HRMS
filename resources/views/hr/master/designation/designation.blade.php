@@ -12,9 +12,11 @@
             <div class="panel-header">
                 <h3 class="mt-2">Designation Lists</h3>
             </div>
-            <div class="text-end px-2 mt-3">
-                <a href="{{ route('designations.create') }}"><button type="button" class="btn btn-primary mb-3">Add Designation <i class="fa-solid fa-plus"></i></button></a>
-            </div>
+            @if(auth()->user()->hasPermission('designations.create'))
+                <div class="text-end px-2 mt-3">
+                    <a href="{{ route('designations.create') }}"><button type="button" class="btn btn-primary mb-3">Add Designation <i class="fa-solid fa-plus"></i></button></a>
+                </div>
+            @endif
             <div class="col-md-12 d-flex justify-content-start px-2">
                 <form class="row g-3" method="get">
                     <div class="col-auto mb-3">
@@ -29,7 +31,7 @@
 
             <div class="table-responsive">
                 <div class="col-sm-12">
-                    <table class="table table-bordered table-hover  all-employee-table table-striped"
+                    <table class="table table-bordered table-hover all-employee-table table-striped"
                         id="allEmployeeTable">
                         <thead>
                             <tr>
@@ -45,8 +47,12 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ ucwords($value->name)  }}</td>
                                     <td>
-                                        <a href="{{ route('designations.edit',['designation' => $value->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
+                                        @if(auth()->user()->hasPermission('designations.edit'))
+                                            <a href="{{ route('designations.edit',['designation' => $value->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
+                                        @endif
+                                        @if(auth()->user()->hasPermission('designations.destroy'))
                                         <a class="delete-designation" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete</button></a>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
