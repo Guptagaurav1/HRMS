@@ -85,7 +85,7 @@
                                 @forelse($salary as $key => $value)
                                     <tr>
                                         <td title="Emp. Code">{{$value->sl_emp_code}}</td>
-                                        <td title="Work Order">{{$value->emp_work_order}}</td>
+                                        <td title="Work Order">{{$value->empDetail->emp_work_order}}</td>
                                         <td title="D.O.J">{{$value->sa_emp_doj}}</td>
                                         <td title="EMp. Name">{{$value->sal_emp_name}}</td>
                                         <td title="Dessination">{{$value->sal_emp_designation}}	</td>
@@ -103,13 +103,13 @@
                                         <td title="TDS Tax Amount">{{$value->tds_tax_amount}}</td>
 
                                         <td title="TDS Deduction">{{$value->tds_deduction}}</td>
-                                        <td title="PF No.">{{$value->emp_pf_no}}</td>
-                                        <td title="ESI No.">{{$value->emp_esi_no}}</td>
-                                        <td title="Bank No.">{{$value->emp_bank}}</td>
-                                        <td title="Account No.">{{$value->emp_account_no}}</td>
-                                        <td>{{$value->emp_ifsc}}</td>
-                                        <td title="Phone">{{$value->emp_phone_first}}</td>
-                                        <td title="Email">{{$value->emp_email_first}}</td>
+                                        <td title="PF No.">{{$value->getBankDetail->emp_pf_no??NULL}}</td>
+                                        <td title="ESI No.">{{$value->getBankDetail->emp_esi_no??NULL}}</td>
+                                        <td title="Bank No.">{{$value->getBankDetail->getBankData->name_of_bank??NULL}}</td>
+                                        <td title="Account No.">{{$value->getBankDetail->emp_account_no??NULL}}</td>
+                                        <td>{{$value->getBankDetail->emp_ifsc}}</td>
+                                        <td title="Phone">{{$value->empDetail->emp_phone_first}}</td>
+                                        <td title="Email">{{$value->empDetail->emp_email_first}}</td>
                                         <td title="Remark" >{{$value->sal_remark}}</td>
                                         <td><a href="{{route('edit-salary',$value->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                         <a data-id="{{ $value->id }}"  class="delete-salary"><button class="btn btn-sm btn-danger"  title="Delete">Delete <i class="fa-solid fa-trash"></i></button></a>

@@ -12,7 +12,7 @@ class Form16Failed extends Model
 
     public function empDetail()
     {
-        return $this->belongsTo(EmpDetail::class, 'emp_id', 'emp_id');
+        return $this->belongsTo(EmpDetail::class, 'emp_id', 'id');
     }
     protected $fillable = [
         'emp_id', 'pan_no', 'financial_year', 'attachment', 'source'

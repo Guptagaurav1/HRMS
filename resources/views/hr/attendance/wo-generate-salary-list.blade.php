@@ -102,16 +102,16 @@
                                 @foreach($wo_emps as $wo_emp)
                                 <tr>
                                             
-                                            <td>{{$wo_emp->emp_code}}</td>
-                                            <td>{{$wo_emp->emp_name}}</td>
+                                            <td>{{$wo_emp->empDetail->emp_code}}</td>
+                                            <td>{{$wo_emp->empDetail->emp_name}}</td>
                                             <td><input type="number" name="at_appr_leave" readonly value="{{$wo_emp->approve_leave}}"></td>
                                             <td><input type="number" name="lwp_leave" readonly value="{{$wo_emp->lwp_leave}}"></td>
-                                            <td>{{$wo_emp->emp_gender}}</td>
-                                            <td>{{$wo_emp->emp_bank}} \{{$wo_emp->emp_account_no}}</td>
-                                            <td>{{$wo_emp->emp_doj}}</td>
-                                            <td>@if($wo_emp->emp_dor) {{$wo_emp->emp_dor}} @else N/A @endif</td>
-                                            <td>{{$wo_emp->emp_place_of_posting}}</td>
-                                            <td>{{$wo_emp->emp_designation}}</td>
+                                            <td>{{$wo_emp->empDetail->getPersonalDetail->emp_gender??NULL}}</td>
+                                            <td>{{$wo_emp->empDetail->getBankDetail->getBankData->name_of_bank??NULL}} \{{$wo_emp->empDetail->getBankDetail->emp_account_no??NULL}}</td>
+                                            <td>{{$wo_emp->empDetail->emp_doj??NULL}}</td>
+                                            <td>@if($wo_emp->empDetail->emp_dor??NULL) {{$wo_emp->empDetail->emp_dor}} @else N/A @endif</td>
+                                            <td>{{$wo_emp->empDetail->emp_place_of_posting??NULL}}</td>
+                                            <td>{{$wo_emp->empDetail->emp_designation??NULL}}</td>
                                           
                                         </tr>
                                     @endforeach

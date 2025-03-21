@@ -31,7 +31,7 @@ class WoAttendance extends Model
     
     public function empDetail()
     {
-        return $this->belongsTo(EmpDetail::class, 'emp_id', 'emp_id');
+        return $this->belongsTo(EmpDetail::class, 'emp_id', 'id');
     }
 
     public static function boot()

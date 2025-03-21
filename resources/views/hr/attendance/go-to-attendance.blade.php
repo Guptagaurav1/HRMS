@@ -55,7 +55,7 @@
                             <select name="emp_status" id="emp_status">
                                 <option value="">-- All --</option>
                                 <option value="active" {{ request('emp_status') == 'active' ? 'selected' : '' }}>Active</option>
-                                <option value="inactive" {{ request('emp_status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                <option value="resign" {{ request('emp_status') == 'resign' ? 'selected' : '' }}>Resign</option>
                             </select>
                             <button type="submit" class="btn btn-primary">Check</button>
                         
@@ -136,16 +136,16 @@
                                     @foreach($wo_emps as $wo_emp)
                                         <tr>
                                             <input type="hidden" name="emp_code" id="emp_code" value="{{ $wo_emp->employ_code }}">
-                                            <td><input  type="checkbox" name="check[]" value="{{ $wo_emp->emp_id}}"></td>
-                                            <td>{{$wo_emp->emp_code}}</td>
-                                            <td>{{$wo_emp->emp_name}}</td>
+                                            <td><input  type="checkbox" name="check[]" value="{{ $wo_emp->id??NULL}}"></td>
+                                            <td>{{$wo_emp->emp_code??NULL}}</td>
+                                            <td>{{$wo_emp->emp_name??NULL}}</td>
                                             <td><input type="number" step="0.01" name="at_appr_leave" id="at_appr_leave" min="0" max="31" value=""></td>
                                             <td><input type="number" step="0.01" name="leave" id="leave" min="0" max="31"></td>
                                             <td><input type="number" step="0.01" name="no_of_work_days" id="no_of_work_days" value="0" min="0"></td>
-                                            <td>{{$wo_emp->emp_gender}}</td>
-                                            <td>{{$wo_emp->emp_bank}} \{{$wo_emp->emp_account_no}}</td>
-                                            <td>{{$wo_emp->emp_doj}}</td>
-                                            <td>{{$wo_emp->emp_status}}</td>
+                                            <td title="Gender">{{$wo_emp->getPersonalDetail->emp_gender??NULL}}</td>
+                                            <td>{{$wo_emp->getBankDetail->getBankData->name_of_bank}} \{{$wo_emp->getBankDetail->emp_account_no}}</td>
+                                            <td>{{$wo_emp->emp_doj??NULL}}</td>
+                                            <td>{{$wo_emp->emp_current_working_status}}</td>
                                             <td><input type="date" name="dor" id="dor" class="form-control" value="{{ $wo_emp->emp_dor }}" 
                                             ></td>
                                             <input type="hidden" name="emp_designation" id="emp_designation" value="{{ $wo_emp->emp_designation }}">

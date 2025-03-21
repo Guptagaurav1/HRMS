@@ -122,12 +122,12 @@
                                 <tr>
                                             <input type="hidden" name="month_date" id="month_date" value="{{ $month }}">
                                             <input type="hidden" name="work_order" id="work_order" value="{{ $wo_id }}">
-                                            <input type="hidden" name="sal_emp_email" id="sal_emp_email" value="{{ $wo_emp->emp_email_second }}">
-                                            <input type="hidden" name="sa_emp_doj" id="sa_emp_doj" value="{{ $wo_emp->emp_doj }}">
-                                            <input type="hidden" name="sa_emp_dor" id="sa_emp_dor" value="{{ $wo_emp->emp_dor }}">
+                                            <input type="hidden" name="sal_emp_email" id="sal_emp_email" value="{{ $wo_emp->empDetail->emp_email_second }}">
+                                            <input type="hidden" name="sa_emp_doj" id="sa_emp_doj" value="{{ $wo_emp->empDetail->emp_doj }}">
+                                            <input type="hidden" name="sa_emp_dor" id="sa_emp_dor" value="{{ $wo_emp->empDetail->emp_dor }}">
                                             <input type="hidden" name="sal_emp_name" id="sal_emp_name" value="{{ $wo_emp->sal_emp_name }}">
-                                            <input type="hidden" name="sal_emp_designation" id="sal_emp_designation" value="{{ $wo_emp->sal_emp_designation }}">
-                                            <input type="hidden" name="sal_ctc" id="sal_ctc" value="{{ $wo_emp->sal_ctc }}">
+                                            <input type="hidden" name="sal_emp_designation" id="sal_emp_designation" value="{{ $wo_emp->empDetail->sal_emp_designation }}">
+                                            <input type="hidden" name="sal_ctc" id="sal_ctc" value="{{ $wo_emp->empDetail->sal_ctc }}">
                                             <input type="hidden" name="sal_gross" id="sal_gross" value="{{ $wo_emp->sal_gross }}">
                                             <input type="hidden" name="sal_net" id="sal_net" value="{{ $wo_emp->sal_net }}">
                                             <input type="hidden" name="sal_basic" id="sal_basic" value="{{ $wo_emp->sal_basic }}">
@@ -140,31 +140,31 @@
                                             <input type="hidden" name="sal_pf_employee" id="sal_pf_employee" value="{{ $wo_emp->sal_pf_employee }}">
                                             <input type="hidden" name="sal_esi_employee" id="sal_esi_employee" value="{{ $wo_emp->sal_esi_employee }}">
                                             <input type="hidden" name="sal_tax" id="sal_tax" value="{{ $wo_emp->sal_tax }}">
-                                            <input type="hidden" name="emp_designation" id="emp_designation" value="{{ $wo_emp->emp_designation }}">
-                                            <input type="hidden" name="emp_pan" id="emp_pan" value="{{ $wo_emp->emp_pan }}">
-                                            <input type="hidden" name="emp_aadhaar_no" id="emp_aadhaar_no" value="{{ $wo_emp->emp_aadhaar_no }}">
-                                            <input type="hidden" name="emp_account_no" id="emp_account_no" value="{{ $wo_emp->emp_account_no }}">
-                                            <input type="hidden" name="emp_bank" id="emp_bank" value="{{ $wo_emp->emp_bank }}">
-                                            <input type="hidden" name="emp_pf_no" id="emp_pf_no" value="{{ $wo_emp->emp_pf_no }}">
-                                            <input type="hidden" name="emp_esi_no" id="emp_esi_no" value="{{ $wo_emp->emp_esi_no }}">
-                                            <input type="hidden" name="emp_code" id="emp_code" value="{{ $wo_emp->emp_code }}">
-                                            <input type="hidden" name="tds_deduction" id="tds_deduction" value="{{ $wo_emp->tds_deduction }}">
+                                            <input type="hidden" name="emp_designation" id="emp_designation" value="{{ $wo_emp->empDetail->emp_designation }}">
+                                            <input type="hidden" name="emp_pan" id="emp_pan" value="{{ $wo_emp->empDetail->getBankDetail->emp_pan??NULL}}">
+                                            <input type="hidden" name="emp_aadhaar_no" id="emp_aadhaar_no" value="{{ $wo_emp->empDetail->getBankDetail->emp_aadhaar_no??NULL }}">
+                                            <input type="hidden" name="emp_account_no" id="emp_account_no" value="{{ $wo_emp->empDetail->getBankDetail->emp_account_no??NULL }}">
+                                            <input type="hidden" name="emp_bank" id="emp_bank" value="{{ $wo_emp->empDetail->getBankDetail->getBankData->name_of_bank??NULL }}">
+                                            <input type="hidden" name="emp_pf_no" id="emp_pf_no" value="{{ $wo_emp->empDetail->getBankDetail->emp_pf_no??NULL }}">
+                                            <input type="hidden" name="emp_esi_no" id="emp_esi_no" value="{{ $wo_emp->empDetail->getBankDetail->emp_esi_no??NULL }}">
+                                            <input type="hidden" name="emp_code" id="emp_code" value="{{ $wo_emp->empDetail->emp_code??NULL }}">
+                                            <input type="hidden" name="tds_deduction" id="tds_deduction" value="{{ $wo_emp->tds_deduction??NULL }}">
                                             <td>
                                                 <!-- <div class="form-check"> -->
-                                                    <input class="form-check-input" type="checkbox" name="check[]" value="{{ $wo_emp->emp_id}}">
+                                                    <input class="form-check-input" type="checkbox" name="check[]" value="{{ $wo_emp->empDetail->emp_id??NULL}}">
                                                 <!-- </div> -->
                                             </td>
-                                            <td>{{$wo_emp->emp_code}}</td>
-                                            <td>{{$wo_emp->emp_name}}</td>
-                                            <td><input type="number" name="at_appr_leave" readonly value="{{$wo_emp->approve_leave}}"></td>
-                                            <td><input type="number" name="lwp_leave" readonly value="{{$wo_emp->lwp_leave}}"></td>
-                                            <td>{{$wo_emp->emp_gender}}</td>
-                                            <td>{{$wo_emp->emp_bank}} \{{$wo_emp->emp_account_no}}</td>
-                                            <td>{{$wo_emp->emp_doj}}</td>
+                                            <td>{{$wo_emp->empDetail->emp_code??NULL}}</td>
+                                            <td>{{$wo_emp->empDetail->emp_name??NULL}}</td>
+                                            <td><input type="number" name="at_appr_leave" readonly value="{{$wo_emp->approve_leave??NULL}}"></td>
+                                            <td><input type="number" name="lwp_leave" readonly value="{{$wo_emp->lwp_leave??NULL}}"></td>
+                                            <td>{{$wo_emp->empDetail->getPersonalDetail->emp_gender??NULL}}</td>
+                                            <td>{{$wo_emp->empDetail->getBankDetail->getBankData->name_of_bank??NULL}} \{{$wo_emp->empDetail->getBankDetail->emp_account_no??NULL}}</td>
+                                            <td>{{$wo_emp->empDetail->emp_doj}}</td>
                                             <!-- <td><input type="date" name="dor" id="dor" class="form-control" value="{{ $wo_emp->emp_dor }}" ></td> -->
-                                             <td>@if($wo_emp->emp_dor) {{$wo_emp->emp_dor}} @else N/A @endif</td>
-                                            <td>{{$wo_emp->emp_place_of_posting}}</td>
-                                            <td>{{$wo_emp->emp_designation}}</td>
+                                             <td>@if($wo_emp->empDetail->emp_dor) {{$wo_emp->empDetail->emp_dor}} @else N/A @endif</td>
+                                            <td>{{$wo_emp->empDetail->emp_place_of_posting}}</td>
+                                            <td>{{$wo_emp->empDetail->emp_designation}}</td>
                                             <td><input type="text" step="0.01" min="0" name="remarks" placeholder="Enter Remarks" value="{{$wo_emp->remark}}"></td>
                                             <td><input type="number" step="0.01" min="0" name="advance"  value="{{ $wo_emp->advance }}" ></td>
                                             <td><input type="number" step="0.01" min="0" name="recovery"  value="{{ $wo_emp->recovery }}"></td>

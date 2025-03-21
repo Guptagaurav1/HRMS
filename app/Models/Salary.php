@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Salary extends Model
 {
@@ -13,7 +15,7 @@ class Salary extends Model
 
     public function empDetail()
     {
-        return $this->belongsTo(EmpDetail::class, 'sl_emp_id', 'emp_id');
+        return $this->belongsTo(EmpDetail::class, 'sl_emp_id', 'id');
     }
     
 

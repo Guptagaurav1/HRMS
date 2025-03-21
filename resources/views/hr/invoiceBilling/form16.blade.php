@@ -63,12 +63,12 @@
                                 @forelse($form16 as $key => $value)
                                 <tr>
                                     <td>{{ $key+1}}</td>
-                                    <td>{{ $value->empDetail->emp_code}}</td>
-                                    <td>{{ $value->empDetail->emp_name}}</td>
-                                    <td>{{ $value->empDetail->emp_work_order}}</td>
-                                    <td>{{$value->pan_no}}</td>
-                                    <td>{{$value->financial_year}}</td>
-                                    <td>{{$value->created_at}}</td>
+                                    <td>{{ $value->empDetail->emp_code??NULL}}</td>
+                                    <td>{{ $value->empDetail->emp_name??NULL}}</td>
+                                    <td>{{ $value->empDetail->emp_work_order??NULL}}</td>
+                                    <td>{{$value->pan_no??NULL}}</td>
+                                    <td>{{$value->financial_year??NULL}}</td>
+                                    <td>{{$value->created_at??NULL}}</td>
                                     <td>@if(!empty($value->attachment))
                                               
                                                 <a href="{{ asset('storage/Form16/' . $value->attachment) }}" target="_blank" ><button class="btn btn-primary mb-3">view Doc </button></a>

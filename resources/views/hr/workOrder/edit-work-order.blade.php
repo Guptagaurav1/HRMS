@@ -20,6 +20,7 @@
                     <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 mt-3"> Work Order
                             List</button></a>
                 </div>
+                @endif
 
                 <form action="{{ route('update-work-order', $workOrder->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -353,10 +354,6 @@
 
     </div>
 </div>
-
-
-
-
 
 @endsection
 
