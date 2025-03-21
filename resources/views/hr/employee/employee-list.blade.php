@@ -22,7 +22,8 @@
                                 <div class="col-md-12 d-flex justify-content-start">
                                     <form class="row g-3">
                                         <div class="col-auto">
-                                            <input type="search" class="form-control" placeholder="Search" required>
+                                            <input type="search" class="form-control" placeholder="Search" name="search"
+                                                value="{{ $search }}" required>
                                         </div>
                                         <div class="col-auto">
                                             <button type="submit" class="btn btn-primary mb-3"> Search <i
@@ -36,7 +37,15 @@
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-auto flex-1">
-                                        <button class="btn btn-sm btn-primary">CSV <i class="fa-solid fa-file-export"></i></button>
+                                       
+                                        <form class="export-csv" action="{{route('employee.export')}}" method="post">
+                                            @csrf
+                                            <div class="d-none">
+                                                <input type="hidden" name="search" value="{{ $search }}">
+                                            </div>
+                                            <button type="submit" class="btn btn-sm btn-primary">CSV <i
+                                                    class="fa-solid fa-download"></i></button>
+                                        </form>
                                     </div>
                                     <div class="col-auto">
                                         <button class="btn btn-sm btn-primary" id="send-credential" disabled>
@@ -170,12 +179,19 @@
                                                     class="btn btn-sm btn-primary"> <i
                                                         class="fa-solid fa-pen-to-square"></i> Edit</button></td></a>
                                         <td class="my-3">
-                                            <a href="{{ route('employee.send-letter', ['id' => $employee->id]) }}"><button
-                                                    class="btn btn-sm btn-primary">Send Letter <i
-                                                        class="fa-solid fa-paper-plane"></i></button></a>
-                                            <a href="{{ route('employee.view-letter') }}"><button
+                                            {{-- <a href="{{ route('employee.send-letter', ['id' => $employee->id]) }}"> --}}
+                                            @if (Illuminate\Support\Str::lower($employee->emp_current_working_status) == 'active' &&
+                                                    $employee->getBankDetail &&
+                                                    $employee->getBankDetail->emp_sal_structure_status == 'completed')
+                                                <button class="btn btn-sm btn-primary send-letter"
+                                                    data-id={{ $employee->id }}>Send Letter <i
+                                                        class="fa-solid fa-paper-plane"></i></button>
+                                            @endif
+                                            {{-- </a> --}}
+                                            <a href="{{ route('employee.view-letter', ['id' => $employee->id]) }}"><button
                                                     class="btn btn-sm btn-primary">View Letter <i
-                                                        class="fa-solid fa-eye"></i></button></a>
+                                                        class="fa-solid fa-eye"></i></button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @empty

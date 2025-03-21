@@ -44,7 +44,7 @@ class MenuSeeder extends Seeder
 
                // me Team list
 
-               ['mid' =>'M-18', 'section' => 'Master', 'section_icon' => '', 'name' => 'My Team List','page' => ' my-team-list','status'=> '1','parent_id'=> '6'],
+               ['mid' =>'M-18', 'section' => 'My Team', 'section_icon' => '', 'name' => 'My Team List','page' => ' my-team-list','status'=> '1','parent_id'=> '6'],
 
                 // Leave
 
@@ -181,11 +181,11 @@ class MenuSeeder extends Seeder
                    
                 ['mid' =>'M-98', 'section' => 'Recruitment', 'section_icon' => '', 'name' => 'Recruitment Plan Summary','page' => 'recruitment-plan-page-summary','status'=> '1','parent_id'=> '8'],
 
+                // employee
 
-               
-
-
-        ];
+                ['mid' =>'M-100', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Add Employee','page' => 'employee.add-employee','status'=> '1','parent_id'=> '23'],
+                ['mid' =>'M-101', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Employee List','page' => 'employee.employee-list','status'=> '1','parent_id'=> '23'],
+            ];
 
         foreach ($data as $routeData) {
             $menu = new Menu;

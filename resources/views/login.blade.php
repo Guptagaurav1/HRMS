@@ -13,7 +13,8 @@
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}">
     <link rel="stylesheet" id="rtlStyle" href="#">
     <title>Login</title>
-    <script async src="https://www.google.com/recaptcha/api.js"></script>
+    {{-- <script async src="https://www.google.com/recaptcha/api.js"></script> --}}
+    <script async src="{{asset('assets/js/captcha/api.js')}}"></script>
 </head>
 <body class="light-theme">
     <div class="main-content login-panel">
@@ -107,7 +108,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end mb-25 mx-3">
-                <a href="{{'forgot-password'}}" class="text-white fs-14">Forgot Password?</a>
+                <a href="{{route('guest.forgot-password')}}" class="text-white fs-14">Forgot Password?</a>
             </div>
             
         </div>

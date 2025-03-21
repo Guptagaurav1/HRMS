@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tenant;
+use App\Models\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -13,7 +14,12 @@ class TenantController extends Controller
      */
     public function index()
     {
-        return view('tenants.index');
+        $tenants = Tenant::with('domain')
+                    ->select('id','first_name','last_name','mobile','email','gender','dob','company_name','domain_name')
+                    ->orderByDesc('id');
+        $tenants = $tenants->paginate(10);
+
+        return view('tenants.index', compact('tenants'));
     }
 
     /**
@@ -37,7 +43,7 @@ class TenantController extends Controller
             'last_name' => 'required|string|max:255',
             'mobile' => 'required|numeric',
             'gender' => 'required|max:255',
-            'email' => ['required',Rule::unique('users')->whereNull('deleted_at')],
+            'email' => 'required|unique:users',
             'dob' => 'required|max:255',
             'company_name' => 'required|max:255',
             'company_address' => 'required|max:255',       
