@@ -17,8 +17,8 @@
 
 </head>
 <body class="light-theme">
-    <div class="main-content login-panel">
-        <div class="login-body">
+    <div class="main-content login-panel position-relative">
+        <div class="login-body mt-2">
             <div class="top d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <img src="{{asset('assets/images/PrakharNEWLogo.png')}}" alt="Logo" width="30%">
@@ -33,9 +33,20 @@
                 <span class="text-danger">{{session()->get('message')}}</span>
                 @endif
                 @if(session()->has('success'))
-                <span class="text-success">{{session()->get('message')}}</span>
+                <span class="text-success">{{session()->get('message')}}.. <span class="text-danger" id="countdown">5</span></span>
                 @endif
                 <!-- Tab Contents -->
+                {{-- Show password requirements --}}
+                <div class="jumbotron border my-2 p-2 bg-grey text-danger">
+                    <p>Password must meet the following requirements:</p>
+                    <ul>
+                        <li>At least 8 characters long</li>
+                        <li>Contain at least one uppercase letter</li>
+                        <li>Contain at least one lowercase letter</li>
+                        <li>Contain at least one number</li>
+                        <li>Contain at least one special character (!@#$%^&amp;*)</li>
+                    </ul>
+                </div>
                 <div>
                     <form class="form reset-form" action="{{route('guest.reset-password')}}" method="post">
                         @csrf
@@ -50,13 +61,17 @@
                             <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="input-group mb-20">
+                        <div class="input-group">
                             <span class="input-group-text"><i class="fa-regular fa-key"></i></span>
                             <input type="password" name="password_confirmation" class="form-control rounded-end password" placeholder="Confirm Password" minlength="8" required>
-                            <span class="input-group-text"><i class="fa-regular fa-eye-slash eye"></i></span>
+                            <span class="input-group-text"><i class="fa-regular fa-eye-slash eye"></i></span><br>
+                            
                             @error('password_confirmation')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
+                        </div>
+                        <div class="mb-20">
+                            <span class="text-danger confirm"></span>
                         </div>
                        <!-- Google Recaptcha -->
                        <div class="input-group mb-20">
@@ -66,10 +81,10 @@
                         @enderror
                         </div>
                     
-                        <button type="submit" class="btn btn-primary w-100 login-btn">Reset</button>
+                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                     <div class="mb-25 my-2">
-                        <a href="{{route('login')}}" class="btn btn-primary w-100 text-light">Login</a>
+                        <a href="{{route('login')}}" class="btn btn-primary w-100 text-light">Cancel</a>
                     </div>
                 </div>
               
@@ -83,6 +98,8 @@
     <script src="{{asset('assets/vendor/js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
     <script src="{{asset('assets/js/reset-password.js')}}"></script>
-    
+    @if (session()->has('success'))
+    <script src="{{ asset('assets/js/add_timer.js') }}"></script>
+    @endif
 </body>
 </html>

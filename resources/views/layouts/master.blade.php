@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}"/>
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}"/>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{asset('assets/css/jquery-ui.css')}}">
     <link rel="stylesheet" id="rtlStyle" href="#"/>
     <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multidatespicker/1.6.6/jquery-ui.multidatespicker.css">
+    <link href="{{asset('assets/css/select2.min.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('assets/css/jquery-ui.multidatespicker.css')}}">
    
     @yield('style')
 </head>
@@ -56,11 +56,13 @@
         const SITE_URL = "{{ config('js.site_url')}}";
     </script>
     <script src="{{asset('assets/js/master.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multidatespicker/1.6.6/jquery-ui.multidatespicker.min.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multidatespicker/1.6.6/jquery-ui.multidatespicker.min.js"></script> --}}
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+    <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery-ui.multidatespicker.min.js')}}"></script>
+    <script src="{{asset('assets/js/select2.min.js')}}"></script>
     <script type="text/JavaScript" src="{{asset('assets/js/jQuery.print.js')}}"></script>
 
      @yield('script')
@@ -76,10 +78,8 @@
         });
 
     </script>
-
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
-
+<script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
+{{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
 </body>
 
 </html>

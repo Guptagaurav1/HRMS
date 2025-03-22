@@ -483,8 +483,8 @@
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-user"></i></span> <span class="sidebar-txt">Profile</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">My Account</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('modify-profile-request')}}" class="sidebar-link">Modify Profile Request</a></li>
-                            <li class="sidebar-dropdown-item"><a href="{{route('profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('profile.modify-profile-request')}}" class="sidebar-link">Modify Profile</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('profile.profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
 
                         </ul>
                     </li>
@@ -674,7 +674,7 @@
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span> <span class="sidebar-txt">Logs</span></a>
                             <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                <li class="sidebar-dropdown-item"><a href="{{route('credential_log_list')}}"
+                                <li class="sidebar-dropdown-item"><a href="{{route('employee.sent-credentials-logs')}}"
                                         class="sidebar-link">Credential Log List</a></li>
                             </ul>
                         </li>
@@ -685,11 +685,11 @@
                                         class="sidebar-link">Posh Complaint List</a></li>
                             </ul>
                         </li>
-                        <li class="help-center">
+                        {{-- <li class="help-center">
                             <h3>Help Center</h3>
                             <p>We're an award-winning, forward thinking</p>
                             <a href="#" class="btn btn-sm btn-light">Go to Help Center</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </ul>
                 <!-- If logged-in user is employee. -->

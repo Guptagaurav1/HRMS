@@ -44,12 +44,12 @@ class EmployeeController extends Controller
     public function create($recruitment_id = null)
     {
         try {
-            $reporting_managers = ReportingManager::select('email')->get();
+            $reporting_managers = ReportingManager::select('id', 'name', 'email')->get();
             $designations = Designation::select('name')->get();
             $departments = Department::select('department')->get();
             $functional_roles = FunctionalRole::select('role')->get();
             $banks = Bank::select('id', 'name_of_bank')->get();
-            $skills = Skill::select('skill')->get();
+            $skills = Skill::select('id', 'skill')->get();
             $workorders = WorkOrder::select('wo_number')->get();
             $recruitment_details = new StdClass();
             $employee_id = '';
@@ -315,17 +315,63 @@ class EmployeeController extends Controller
                 'emp_highest_qualification' => ['required']
             ]);
 
-            // Save Account details
+            $data = $request->all();
+
+            // Store Docrate document.
+            if ($request->hasFile('doctorate_doc')) {
+                $file = $request->file('doctorate_doc');
+                $doctorate_verification_doc = 'doctorate_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/doctorate'), $doctorate_verification_doc);
+                $data['doctorate_doc'] = $doctorate_verification_doc;
+            }
+            // Store Post Graduation document.
+            if ($request->hasFile('post_grad_doc')) {
+                $file = $request->file('post_grad_doc');
+                $post_verification_doc = 'post_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/post_graduation'), $post_verification_doc);
+                $data['post_grad_doc'] = $post_verification_doc;
+            }
+            // Store Graduation document.
+            if ($request->hasFile('grad_doc')) {
+                $file = $request->file('grad_doc');
+                $graduation_verification_doc = 'graduation_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/graduation'), $graduation_verification_doc);
+                $data['grad_doc'] = $graduation_verification_doc;
+            }
+
+            // Store Diploma document.
+            if ($request->hasFile('diploma_doc')) {
+                $file = $request->file('diploma_doc');
+                $diploma_verification_doc = 'diploma_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/diploma'), $diploma_verification_doc);
+                $data['diploma_doc'] = $diploma_verification_doc;
+            }
+            // Store Twelth document.
+            if ($request->hasFile('emp_twelve_doc')) {
+                $file = $request->file('emp_twelve_doc');
+                $twelth_verification_doc = 'twelth_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/12th'), $twelth_verification_doc);
+                $data['emp_twelve_doc'] = $twelth_verification_doc;
+            }
+            // Store Tenth document.
+            if ($request->hasFile('emp_tenth_doc')) {
+                $file = $request->file('emp_tenth_doc');
+                $tenth_verification_doc = 'tenth_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/10th'), $tenth_verification_doc);
+                $data['emp_tenth_doc'] = $tenth_verification_doc;
+            }
+
+            // Save Educations details
             if ($request->rec_id) {
                 EmpEducationDetail::updateOrCreate(
                     ['rec_id' => $request->rec_id],
-                    $request->all()
+                    $data
                 );
             } else {
                 $empdetails = EmpEducationDetail::where('emp_code', $request->emp_code)->first();
                 if ($empdetails) {
                     $oldDetails = $empdetails->getOriginal();
-                    $empdetails->fill($request->all());
+                    $empdetails->fill($data);
                     $empdetails->save();
 
                     // Get Only changed values.
@@ -345,7 +391,7 @@ class EmployeeController extends Controller
                     }
                 } else {
                     $empdetails = new EmpEducationDetail();
-                    $empdetails->fill($request->all());
+                    $empdetails->fill($data);
                     $empdetails->save();
                 }
                 // EmpEducationDetail::updateOrCreate(
@@ -964,9 +1010,9 @@ class EmployeeController extends Controller
                     // Save Log of change work order.
                     EmpCredentialLog::create([
                         'emp_code' => $employee->emp_code,
-                        'emp_name' => $request->emp_designation,
+                        'emp_name' => $request->emp_name,
                         'emp_work_order' => $employee->emp_work_order,
-                        'emp_email' => $employee->emp_email,
+                        'emp_email' => $employee->emp_email_first,
                         'emp_password' => $emp_password_hash
                     ]);
 
@@ -1255,5 +1301,26 @@ class EmployeeController extends Controller
             // Close CSV file handle
             fclose($handle);
         }, 200, $headers);
+    }
+
+    /**
+     * Sent Credentials Logs
+     */
+    public function sent_credential_logs(Request $request)
+    {
+        $logs = EmpCredentialLog::select('emp_code', 'emp_name', 'emp_work_order', 'emp_email', 'created_at');
+        $search = '';
+        if ($request->search) {
+            $search = $request->search;
+            $logs = $logs->whereAny([
+                'emp_code',
+                'emp_name',
+                'emp_work_order',
+                'emp_email'
+            ], 'LIKE', '%' . $request->search . '%');
+        }
+
+        $logs = $logs->orderByDesc('id')->paginate(10);
+        return view('hr.employee.credential_log_list', compact('logs', 'search'));
     }
 }

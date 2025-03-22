@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Sent Credentials Logs'])
 
 @section('style')
 
@@ -17,10 +17,13 @@
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3 mt-2">
                         <div class="col-auto">
-                            <input type="text" class="form-control" placeholder="Search" required>
+                            <input type="search" name="search" class="form-control" value="{{$search}}" placeholder="Search" required>
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3"> Search</button>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('employee.sent-credentials-logs')}}" class="btn btn-primary mb-3"> Reset</a>
                         </div>
                     </form>
                 </div>
@@ -38,16 +41,22 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse ($logs as $log)
                             <tr>
-                                <td class="srno-column">1</td>
-                                <td class="rid-column">PSSPL/2022-23/2382</td>
-                                <td>Ghanshyam Kumar</td>
-                                <td class="attributes-column">BECIL/CG/CMSCL/MAN/2425/1367</td>
-                                <td>sonukksahu20@gmail.com</td>
+                                <td class="srno-column">{{$loop->iteration}}</td>
+                                <td class="rid-column">{{$log->emp_code}}</td>
+                                <td>{{$log->emp_name}}</td>
+                                <td class="attributes-column">{{$log->emp_work_order}}</td>
+                                <td>{{$log->emp_email}}</td>
                                 <td>
-                                    27th December, 2024
+                                    {{date('jS F, Y', strtotime($log->created_at))}}
                                 </td>
                             </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-center text-danger" colspan="6">No Record Found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

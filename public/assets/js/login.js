@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const employeeContent = document.getElementById('employee-content');
 
   departmentTab.addEventListener('click', function () {
-    console.log('hi');
     departmentTab.classList.add('active');
     departmentTab.classList.remove('inactive');
     employeeTab.classList.remove('active');
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  departmentTab.click();
+  employeeTab.click();
 });
 (() => {
   'use strict'

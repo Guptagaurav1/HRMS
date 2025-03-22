@@ -24,4 +24,15 @@ $(document).ready(function() {
         });
     });
 
+    // Validate confirm password duplicacy.
+    $("input[name=password_confirmation]").keyup(() => {
+        var confirmPassword = $("input[name=password_confirmation]").val();
+        var password = $("input[name=password]").val();
+        if (confirmPassword != password) {
+            $("span.confirm").text("Confirm Password do not match");
+        } else {
+            $("span.confirm").text("");
+        }
+    });
+
 });

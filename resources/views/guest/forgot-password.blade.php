@@ -35,9 +35,9 @@
                     <span class="text-danger">{{ session()->get('message') }}</span>
                 @endif
                 @if (session()->has('success'))
-                    <span class="text-success">{{ session()->get('message') }}</span>
+                    <span class="text-success">{{ session()->get('message') }}.. <span class="text-danger" id="countdown">5</span></span>
                 @endif
-                <!-- Tab Contents -->
+                <!-- Reset Form -->
                 <div>
                     <form class="form send-reset-link" action="{{ route('guest.send-reset-link') }}" method="post">
                         @csrf
@@ -46,7 +46,8 @@
                             <select name="role" id="roles" class="form-select" required>
                                 <option value="">Select Role</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->role_name }}">{{ $role->role_name }}</option>
+                                    <option value="{{ $role->role_name }}">
+                                        {{ Illuminate\Support\Str::of($role->role_name)->headline() }}</option>
                                 @endforeach
                             </select>
                             @error('role')
@@ -71,7 +72,7 @@
                         <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                     <div class="mb-25 my-2">
-                        <a href="{{ route('login') }}" class="btn btn-primary w-100 text-light">Login</a>
+                        <a href="{{ route('login') }}" class="btn btn-primary w-100 text-light">Cancel</a>
                     </div>
                 </div>
 
@@ -89,7 +90,9 @@
     <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('assets/js/forgot-password.js') }}"></script>
-
+    @if (session()->has('success'))
+    <script src="{{ asset('assets/js/add_timer.js') }}"></script>
+    @endif
 
 </body>
 
