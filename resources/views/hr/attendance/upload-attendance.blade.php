@@ -21,7 +21,7 @@
                             <div class="panel-header">
                                 <h5 class="text-white">Bulk Upload Employee</h5>
                                 <div class="btn-box">
-                                    <a href="{{route('employee-list')}}" class="btn btn-sm btn-primary"><i class="fa-solid fa-download"></i> Download CSV Format</a>
+                                    <a href="" class="btn btn-sm btn-primary"><i class="fa-solid fa-download"></i> Download CSV Format</a>
                                 </div>
                             </div>
                             <div class="row px-3 mt-2">
