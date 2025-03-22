@@ -14,16 +14,23 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h4 class="mt-2">Create Organization</h4>
-                        <div class="btn-box">
-                            <a href="{{route('organizations.index')}}" class="btn btn-sm btn-primary">Back</a>
+                        
+                        <div class="text-start">
+                    <a href="{{ route('organizations.index') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
                         </div>
+                    </a>
+                </div>
                     </div>
                 
                         <div class="panel-body">
                             <div class="row g-3">
                                 <div class="col-xxl-6 col-lg-6 col-sm-6">
                                     <label for="company_id" class="form-label">Organization Name <span class="text-danger"> ** </span></label>
-                                    <input type="text" name="name" class="form-control form-control-sm" name="{{ old('name') }}">
+                                    <input type="text" name="name" class="form-control form-control-sm" name="{{ old('name') }}" placeholder="Enter Organization Name">
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -31,24 +38,24 @@
 
                                 <div class="col-xxl-6 col-lg-6 col-sm-6">
                                     <label for="address" class="form-label">Address<span class="text-danger"> ** </span></label>
-                                    <input type="text" name="address" class="form-control form-control-sm" name="{{ old('address') }}">
+                                    <input type="text" name="address" class="form-control form-control-sm" name="{{ old('address') }}" placeholder="Enter Address">
                                     @error('address')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-xxl-6 col-lg-6 col-sm-6 mt-2">
+                                <div class="col-xxl-6 col-lg-6 col-sm-6 mt-3">
                                     <label for="contact" class="form-label">Contact Number<span class="text-danger"> ** </span></label>
-                                    <input type="text" name="contact" class="form-control form-control-sm" name="{{ old('contact') }}">
+                                    <input type="text" name="contact" class="form-control form-control-sm" name="{{ old('contact') }}" placeholder="Enter Contact No">
                                     @error('contact')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
 
-                                <div class="col-xxl-6 col-lg-6 col-sm-6 mt-2">
+                                <div class="col-xxl-6 col-lg-6 col-sm-6 mt-3">
                                     <label for="email" class="form-label">Email <span class="text-danger"> ** </span></label>
-                                    <input type="text" name="email" class="form-control form-control-sm" name="{{ old('email') }}">
+                                    <input type="text" name="email" class="form-control form-control-sm" name="{{ old('email') }}" placeholder="Enter Email">
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

@@ -12,6 +12,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="text-white mt-2">Banks Details</h3>
+                    <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
                 </div>
             
                 <div class="panel-body">

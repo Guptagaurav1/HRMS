@@ -10,9 +10,18 @@
             <div class="panel">
                 <div class="panel-header">
                     <h2 class="mt-2">Employee List</h2>
+                    <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
                 </div>
                 <div class="row" class="mt-5">
-                    <p class="text-danger " id="search-applicable">** Search applicable on Emp Id/Name/Work Order
+                    <p class="text-danger " id="search-applicable"> <strong class="fw-bold text-dark">Note :</strong> Search applicable on Emp Id/Name/Work Order
                         Number/Designation/Contact/Email (Official/ Personal )/Job Place/Qualification</p>
                 </div>
                 <div class="panel-body">

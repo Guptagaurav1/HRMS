@@ -44,10 +44,10 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h3 class="mt-2">Department</h3>
+                <h3 class="mt-2">Department Lists</h3>
                 <!-- Back Button Wrapped in a Box -->
                 <div class="text-start">
-                    <a href="{{ route('departments.index') }}">
+                    <a href="{{ route('hr_dashboard') }}">
                         <div class="back-button-box">
                             <button type="button" class="btn btn-back">
                                 <i class="fa-solid fa-arrow-left"></i>
