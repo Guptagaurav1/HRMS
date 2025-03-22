@@ -111,9 +111,12 @@ $(document).ready(function () {
         }
     });
 
+    // $("button.btn-primary").click(function() {
+    //     next($(this));
+    // });
     $("form").submit(function(event) {
         var element = $(this);
-        if (!element.hasClass("bulk-upload")) {
+        if (!element.hasClass("bulk-upload") && !element.hasClass("add-department")) {
             event.preventDefault();
          
             next(element);
@@ -158,5 +161,63 @@ $(document).ready(function () {
         $("#tab-2").show();
         $("#tab-1").hide();
 
-    })
+    });
+    
+    // Add multi select
+    $('.modal-select').select2({
+        dropdownParent: $('#departmentModal')
+    });
+
+    function get_departments(){
+        $.ajax({
+            url : SITE_URL+ '/hr/departments/get-departments',
+            type : 'post',
+            dataType : 'json',
+            data : {
+                '_token' : $("meta[name=csrf-token]").attr('content'),
+            },
+            success : function(response) {
+                if(response.success) {
+                    var html = '';
+                    $.each(response.departments, function(index, value) {
+                        html += '<option value="' + value.department + '">' + value.department + '</option>';
+                    });
+                    $('select[name=department]').html(html);
+                } else {
+                    console.log('Failed to get departments');
+                }
+            }
+        });
+    }
+
+    // Add department.
+    $("form.add-department").submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url : SITE_URL+ '/hr/departments/create-new',
+            type : 'POST',
+            dataType : 'json',
+            data : $(this).serialize(),
+            success : function(response) {
+                if(response.success) {
+                    Swal.fire({
+                        title: "Success",
+                        text: response.message,
+                        icon: "success",
+                        allowOutsideClick: () => !Swal.isLoading()
+                    });
+                    $("#departmentModal").modal('hide');
+                    get_departments();
+                    $("form.add-department")[0].reset();
+                } else if(response.error) {
+                    Swal.fire({
+                        title: "Error",
+                        text: response.message,
+                        icon: "error",
+                        allowOutsideClick: () => !Swal.isLoading()
+                    });
+                }
+            }
+        });
+    });
 });

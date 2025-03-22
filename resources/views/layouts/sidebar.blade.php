@@ -491,6 +491,11 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-user"></i></span> <span class="sidebar-txt">Profile</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+<<<<<<< HEAD
+                            <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">My Account</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('profile.modify-profile-request')}}" class="sidebar-link">Modify Profile</a></li>
+                            <li class="sidebar-dropdown-item"><a href="{{route('profile.profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
+=======
                             @if(auth()->user()->hasPermission('position-request'))
                                 <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">My Account</a></li>
                             @endif
@@ -500,6 +505,7 @@
                             @if(auth()->user()->hasPermission('profile-detail-request-list'))
                                 <li class="sidebar-dropdown-item"><a href="{{route('profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
                             @endif
+>>>>>>> c9cad9520c042af3a5a6ce892f9043ac1ed5839a
 
                         </ul>
                     </li>
@@ -694,7 +700,7 @@
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span> <span class="sidebar-txt">Logs</span></a>
                             <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                <li class="sidebar-dropdown-item"><a href="{{route('credential_log_list')}}"
+                                <li class="sidebar-dropdown-item"><a href="{{route('employee.sent-credentials-logs')}}"
                                         class="sidebar-link">Credential Log List</a></li>
                             </ul>
                         </li>
@@ -708,23 +714,22 @@
                             </ul>
                         </li>
                         @endif
+                        {{-- <li class="help-center">
                         <li class="help-center">
                             <h3>Help Center</h3>
                             <p>We're an award-winning, forward thinking</p>
                             <a href="#" class="btn btn-sm btn-light">Go to Help Center</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </ul>
                 <!-- If logged-in user is employee. -->
+                @endif
+                
+                @if(auth('employee')->check())
                 <ul class="sidebar-link-group">
                     <li class="sidebar-dropdown-item">
                        
                     </li>
-                    
-                @endif
-                @if(auth('employee')->check())
-               
-                  
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-magnifying-glass"></i></span> <span class="sidebar-txt">Home</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
@@ -765,17 +770,8 @@
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-clipboard-user"></i></span> <span class="sidebar-txt">Employee Details</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                             <li class="sidebar-dropdown-item"><a href="{{route('employee-salary-slip')}}" class="sidebar-link">Employee Salary Slip</a></li>
-                            
                         </ul>
                     </li>
-
-                  
-                    
-                    
-                    
-                    
-                   
-                   
                     
                     <ul class="sidebar-link-group">
                         <li class="sidebar-dropdown-item">
@@ -794,8 +790,8 @@
                         </li>
                         
                     </ul>
+                    @endif
                 </ul>
-                @endif
             </li>
         </ul>
     </div>

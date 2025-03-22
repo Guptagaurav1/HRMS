@@ -40,6 +40,7 @@ use App\Http\Controllers\hr\EmployeeController;
 // Tenant Controller
 
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\hr\ProfileController;
 
 
 
@@ -121,6 +122,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/edit/{department}", 'edit')->name("departments.edit");
         Route::post("/update/{department}", 'update')->name("departments.update");
         Route::get("/delete/{department}", 'destroy')->name("departments.destroy");
+        Route::post("create-new", 'create_new');
+        Route::post("get-departments", 'get_departments');
+
     });
 
     Route::controller(OrganizationController::class)->prefix('organizations')->group(function (){
@@ -338,7 +342,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
     });
 
-     
     Route::controller(SalaryStructureController::class)->prefix('salary')->group(function(){
         Route::get("salary-list",'index')->name('salary-list');
         Route::get("create-salary",'create')->name('create-salary');
@@ -349,7 +352,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     
 
     });
-
 
     Route::controller(EventController::class)->prefix('events')->group(function () {
         Route::get("birthday-list", 'birthday_list')->name("events.birthday-list");
@@ -389,9 +391,14 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("send-appointment-letter", 'send_appointment_letter');
         Route::post("export", 'export_employees')->name('employee.export');
        
-        
+    Route::get("credential_log_list", 'sent_credential_logs')->name("employee.sent-credentials-logs"); 
     });
-    
+
+    Route::controller(ProfileController::class)->prefix('profile')->group(function () {
+        Route::get('modify-profile', 'profile_update_request')->name("profile.modify-profile-request");
+        Route::post('submit-profile-request', 'submit_update_request')->name("profile.submit-profile-request");
+        Route::get("profile-update-request-list", 'request_list')->name("profile.profile-detail-request-list");
+    });
         
     //tenants
     Route::resource('tenants',TenantController::class);
@@ -431,9 +438,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         return view(" hr.position-review-dept");
     })->name("position-review-dept");
 
-    Route::get("credential_log_list", function () {
-        return view(" hr.credential_log_list");
-    })->name("credential_log_list");
+
 
     Route::get("posh-complaint-list", function () {
         return view(" hr.posh-complaint-list");
@@ -450,17 +455,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("work-order-salary-sheet", function () {
         return view("hr.work-order-salary-sheet");
     })->name("work-order-salary-sheet");
-
-    
-
-    Route::get("profile-detail-request-list", function () {
-        return view("hr.profile-detail-request-list");
-    })->name("profile-detail-request-list");
-
-   
-    Route::get("modify-profile-request", function () {
-        return view("hr.modify-profile-request");
-    })->name("modify-profile-request");
 
     Route::get("add-role", function () {
         return view("hr.add-role");

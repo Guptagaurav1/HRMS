@@ -43,7 +43,7 @@
                     <form method="post" action="{{ route('departments.save') }}">
                         @csrf
                     <label class="form-label">Department<span class="text-danger">*</span></label>
-                    <input type="text" name="department"  value="" placeholder="Enter department name" class="form-control">
+                    <input type="text" name="department" placeholder="Enter department name" class="form-control" value="{{old('department')}}" required>
                     @error('department')
                         <small class="text-danger">{{$message}}</small>
                     @enderror
@@ -53,13 +53,25 @@
                     <select id="inputState" name="skill[]" class="form-control js-example-basic-multiple" name="states[]" multiple="multiple">
                         <option value="">Select Skill</option>
                         @foreach ($skills as $skill)
-                            <option value="{{$skill->id}}">{{ ucwords($skill->skill) }}</option> 
+                            <option value="{{$skill->id}}" {{old('skill') && in_array($skill->id, old('skill')) ? 'selected' : ''}}>{{ ucwords($skill->skill) }}</option> 
                         @endforeach
                     </select>
 
                     @error('skill')
                         <small class="text-danger">{{$message}}</small>
                      @enderror
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Reporting Manager<span class="text-danger">*</span></label>
+                    <select name="reporting_manager_id" class="form-select" required>
+                        <option value="">Select Reporting Manager</option>
+                        @foreach ($reporting_managers as $manager)
+                        <option value="{{$manager->id}}" {{old('reporting_manager_id') == $manager->id ? 'selected' : ''}}>{{$manager->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('reporting_manager_id')
+                        <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="col-md-12 mb-4 text-end">
                     <button type="submit" class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>

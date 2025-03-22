@@ -26,53 +26,22 @@
                 <a href="{{'/'}}"><i class="fa-duotone fa-house-chimney"></i></a>
             </div>
             <div class="bottom">
-                <h3 class="panel-title" id="logintext">Department Login</h3>
+                <h3 class="panel-title" id="logintext">Employee Login</h3>
                 <div class="row mb-3">
                     <div class="col-md-12" style="width: 100%">
                         <ul class="nav nav-tabs" id="tabContent" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="department-tab" data-bs-toggle="tab" href="#department" role="tab" aria-controls="department" aria-selected="true">DEPARTMENT</a>
+                                <a class="nav-link active" id="employee-tab" data-bs-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="false">EMPLOYEE</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link inactive" id="employee-tab" data-bs-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="false">EMPLOYEE</a>
+                                <a class="nav-link inactive" id="department-tab" data-bs-toggle="tab" href="#department" role="tab" aria-controls="department" aria-selected="true">DEPARTMENT</a>
                             </li>
+                            
                         </ul>
                     </div>
                 </div>
                 
-                <!-- Tab Contents -->
-                <div id="department-content" class="tab-content">
-                    @if(session()->has('error'))
-                    <span class="text-danger">{{session()->get('message')}}</span>
-                    @endif
-                   
-                    <form action="{{route('department_login')}}" class="form" method="post">
-                        @csrf
-                        <div class="input-group mb-25">
-                            <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-                            <input type="text" class="form-control" name="email" placeholder="Enter Email Id" required>
-                            @error('email')
-                            <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
-                        <div class="input-group mb-20">
-                            <span class="input-group-text"><i class="fa-regular fa-lock"></i></span>
-                            <input type="password" name="password" class="form-control rounded-end password" placeholder="Password" required>
-                            <a role="button" class="password-show"><i class="fa-duotone fa-eye-slash eyeicon"></i></a>
-                            @error('password')
-                            <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
-                         <!-- Google Recaptcha -->
-                         <div class="input-group mb-20">
-                            <div class="g-recaptcha" data-sitekey={{config('services.recaptcha.key')}}></div>
-                            @error('g-recaptcha-response')
-                               <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
-                    </form>
-                </div>
+                <!-- Employee Tab -->
                 <div id="employee-content" class="tab-content">
                     @if(session()->has('emperror'))
                     <span class="text-danger">{{session()->get('message')}}</span>
@@ -106,6 +75,41 @@
                         <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
                     </form>
                 </div>
+
+                {{-- Department Tab --}}
+                <div id="department-content" class="tab-content">
+                    @if(session()->has('error'))
+                    <span class="text-danger">{{session()->get('message')}}</span>
+                    @endif
+                   
+                    <form action="{{route('department_login')}}" class="form" method="post">
+                        @csrf
+                        <div class="input-group mb-25">
+                            <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                            <input type="text" class="form-control" name="email" placeholder="Enter Email Id" required>
+                            @error('email')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="input-group mb-20">
+                            <span class="input-group-text"><i class="fa-regular fa-lock"></i></span>
+                            <input type="password" name="password" class="form-control rounded-end password" placeholder="Password" required>
+                            <a role="button" class="password-show"><i class="fa-duotone fa-eye-slash eyeicon"></i></a>
+                            @error('password')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                         <!-- Google Recaptcha -->
+                         <div class="input-group mb-20">
+                            <div class="g-recaptcha" data-sitekey={{config('services.recaptcha.key')}}></div>
+                            @error('g-recaptcha-response')
+                               <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
+                    </form>
+                </div>
+               
             </div>
             <div class="d-flex justify-content-end mb-25 mx-3">
                 <a href="{{route('guest.forgot-password')}}" class="text-white fs-14">Forgot Password?</a>
