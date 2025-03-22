@@ -66,8 +66,7 @@
     </div>
 </div>
 
-
-@endsection
+@section('modal')
 
 <div class="modal fade" id="leaveDetailsModal" tabindex="1" aria-labelledby="leaveDetailsModalLabel" aria-hidden="false">
     <div class="modal-dialog modal-lg">
@@ -128,4 +127,12 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+
+@endsection
+
+
+
 

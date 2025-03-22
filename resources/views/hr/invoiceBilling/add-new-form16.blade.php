@@ -37,7 +37,7 @@
                             <select id="emp_id" class=" selectpicker form-select" name="emp_pan" value>
                                 <option value="">Select Employee</option>
                                 @foreach($empDetail as $key => $value)
-                                <option value="{{$value->emp_id}}">{{$value->emp_pan}}</option>
+                                <option value="{{$value->id}}">{{$value->emp_pan}}</option>
                                 @endforeach
                                 @error('emp_pan')
                                         <div class="text-danger">{{ $message }}</div>
@@ -87,7 +87,7 @@
                 <div class="panel-header">
                     <h5 class="text-white">Bulk Upload Form 16</h5>
                     <div class="btn-box">
-                        <a href="{{route('employee-list')}}" class="btn btn-sm btn-primary"><i
+                        <a href="" class="btn btn-sm btn-primary"><i
                                 class="fa-solid fa-download"></i> Download CSV Format</a>
                     </div>
                 </div>

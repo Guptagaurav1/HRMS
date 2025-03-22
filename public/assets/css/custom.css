@@ -163,9 +163,15 @@ label{
     
 }
 
+.form-control{
+  background-color: white !important;
+}
+
+
+
 
 .form-control:focus {
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 5px rgba(210, 216, 221, 0.5);
     border-color: #007bff;
 }
 
@@ -285,7 +291,7 @@ label{
 }
 
 
-/* Applicant Form */
+/* Multisetep Form  Applicant Form */
 
 
 
@@ -602,83 +608,6 @@ label{
   height: 100vh;
 }
 
-/* work-order css start here */
-.tabset > input[type="radio"] {
-  position: absolute;
-  left: -200vw;
-}
-
-.tabset .tab-panel {
-  display: none;
-}
-
-.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
-.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
-.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
-.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
-.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
-.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6),
-.tabset > input:nth-child(13):checked ~ .tab-panels > .tab-panel:nth-child(7) {
-  display: block;
-}
-
-/*
- Styling
-*/
-
-.tabset > label {
-  position: relative;
-  display: inline-block;
-  padding: 15px 15px 25px;
-  border: 1px solid transparent;
-  border-bottom: 0;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-input:focus-visible + label {
-  outline: 2px solid rgba(0,102,204,1);
-  border-radius: 3px;
-}
-
-.tabset > label:hover,
-.tabset > input:focus + label,
-.tabset > input:checked + label {
-  color: slategray;
-}
-
-.tabset > label:hover::after,
-.tabset > input:focus + label::after,
-.tabset > input:checked + label::after {
-  background: #06c;
-}
-
-.tabset > input:checked + label {
-  border-color: #ccc;
-  border-bottom: 1px solid #fff;
-  margin-bottom: -1px;
-}
-
-.tab-panel {
-  padding: 10px 0;
-  border-top: 1px solid #ccc;
-}
-
-/*
- Demo purposes only
-*/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
-.tabset {
-  max-width: 65em;
-}
-
-
-
 
 /* Acceptance Form  Modal css Terms and Condtions  */
 
@@ -761,7 +690,9 @@ button:focus {
   position:absolute;
   top:7px;
 }
+
 /*Font Colours below*/
+
 .lightGreen{
   color: rgb(85, 189, 134);
 }
@@ -830,6 +761,9 @@ button:focus {
   }
 }
 
+
+/* Tabs Button Design CSS */
+
   
 .employee-tab {
   background-color: #fff;
@@ -856,13 +790,14 @@ button:focus {
 .tab-btn {
   background: none;
   border: none;
-  padding: 10px;
+  padding: 6px;
   width: 100%;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #495057;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-left: 3px solid #211919;
 }
 
 .tab-btn:hover {
@@ -877,7 +812,6 @@ button:focus {
 }
 
 .tab-content {
-  padding: 20px;
   display: none;
 }
 
@@ -888,7 +822,7 @@ button:focus {
 .tab-btn {
   position: relative;
 }
-           
+
 .tab-btn:hover:after {
   width: 100%;
 }
@@ -899,4 +833,74 @@ button:focus {
 }
 
 
+/* Back button css */
+
+
+    
+.back-button-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 31px;
+  width: 43px;
+  background-color: #f8f9fa; 
+  border-radius: 35px;
+}
+
+
+
+.btn-back {
+  background-color: transparent;
+  border: none;
+  font-size: 20px; 
+  color: #007bff; 
+  transition: color 0.3s, transform 0.3s ease;
+  padding: 0;
+}
+
+/* Hover effect for the icon */
+.btn-back:hover {
+  color: gray; 
+  transform: scale(1.2); 
+  transform: rotate(-360deg); 
+  
+}
+
+
+
+/* Search Applicable pera Employee List */
+
+#search-applicable{
+  
+  padding-top: 20px !important;
+  text-align: start;
+  padding-left: 20px;
+}
+
+
+/* Calender Icon Color  */
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 2px;
+  filter: invert(0.1);
+  color:  black;
+}
+
+
+/* Placeholder Color */
+input::-webkit-input-placeholder{
+  color:#4C4646 !important;
+  font-weight: 500;
+  
+}
+
+
+
+
+
+ 
 

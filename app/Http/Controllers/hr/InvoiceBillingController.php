@@ -293,8 +293,7 @@ class InvoiceBillingController extends Controller
                 $invoice_number = $invoice_number;
             }
             // $check_invoice->ir_invoice_number= $ir_invoice_number;
-            // dd($invoice_number);
-            // dd($request->month);
+          
             $s_month =$request->month;
 
         return view("hr.invoiceBilling.tax-invoice",compact('s_month','invoice_number','check_invoice','workOrder','woAttendances','sub_total','totalmanpower','company_master','bill_structure'));
@@ -354,7 +353,7 @@ class InvoiceBillingController extends Controller
             });
         }        
         $billing_strut=$billing_strut->paginate(10);
-        // dd($billing_strut);
+      
         return view("hr.invoiceBilling.biling-structure-list",compact('billing_strut','search'));
     }
    
@@ -364,7 +363,7 @@ class InvoiceBillingController extends Controller
         return view("hr.invoiceBilling.create-billing-structure",compact('organizations'));
     }
     public function create_biling_structure(Request $request){
-        // dd($request);
+        
         $request->validate([
             'organisation' => 'required',
             'workOrder' => 'required',
@@ -401,7 +400,7 @@ class InvoiceBillingController extends Controller
     public function edit_biling_structure(Request $request, String $id){
         $id=$request->id;
         $billingStructure= BillingStructure::with('organizations')->find($id);
-        // dd($billingStructure);
+       
         return view("hr.invoiceBilling.update-billing-structure",compact('billingStructure'));
     }
     public function update_biling_structure(Request $request, String $id){
@@ -442,7 +441,7 @@ class InvoiceBillingController extends Controller
         $search =$request->search;
         $form16 = Form16::select('form16.*')
         ->with(['empDetail' => function ($query) use ($search) {
-            $query->select('emp_id', 'emp_code', 'emp_name', 'emp_work_order'); 
+            $query->select('id', 'emp_code', 'emp_name', 'emp_work_order'); 
             if ($search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('emp_code', 'like', '%' . $search . '%')
@@ -459,12 +458,15 @@ class InvoiceBillingController extends Controller
         })
         ->orderByDesc('id') 
         ->get();
-        // dd($form16);    
+     
         return view("hr.invoiceBilling.form16",compact('form16','search'));
     }
     public function addForm16(){
 
-        $empDetail = EmpDetail::select('emp_id','emp_pan')->where('emp_status','Active')->where('emp_current_working_status','active')->get();
+        $empDetail = EmpDetail::where('emp_current_working_status','active')
+        ->whereHas('getBankDetail', function ($query) {
+            $query->where('emp_sal_structure_status', 'completed');
+        })->get();
        
         return view("hr.invoiceBilling.add-new-form16",compact('empDetail'));
     }
@@ -500,12 +502,25 @@ class InvoiceBillingController extends Controller
 
     public function emp_data(Request $request,string $id){
         $id =$request->id;
-        $empDetail = EmpDetail::select('emp_id','emp_pan','emp_code','emp_work_order','emp_name','emp_doj','emp_designation','emp_salary')->where('emp_id',$id)->first();
-        // dd($empDetail);
+        $empDetail = EmpDetail::select('id','emp_code','emp_work_order','emp_name','emp_doj','emp_designation',)->where('id',$id)->first();
         if($empDetail){
             return response()->json([
                 'message' => 'Employee Details retrieved successfully',
-                'data' => $empDetail
+                // 'data' => $empDetail
+                'data' => [
+                'emp_name' => $empDetail->emp_name,
+                'emp_code' => $empDetail->emp_code,
+                'emp_work_order' => $empDetail->emp_work_order,
+                'emp_doj' => $empDetail->emp_doj,
+                'emp_designation' => $empDetail->emp_designation,
+                'emp_salary' => $empDetail->getBankDetail->emp_salary, // Accessing salary from the related model
+                'emp_account_no' => $empDetail->getBankDetail->emp_account_no,
+                'emp_branch' => $empDetail->getBankDetail->emp_branch,
+                'emp_ifsc' => $empDetail->getBankDetail->emp_ifsc,
+                'emp_pan' => $empDetail->getBankDetail->emp_pan,
+                'emp_esi_no' => $empDetail->getBankDetail->emp_esi_no,
+                'emp_pf_no' => $empDetail->getBankDetail->emp_pf_no,
+            ]
             ], 200);
         }
 
@@ -587,7 +602,7 @@ class InvoiceBillingController extends Controller
                             File::move($filePath, $destinationPath);
     
                             Form16::create([
-                                'emp_id' => $employee->emp_id,
+                                'id' => $employee->emp_id,
                                 'pan_no' => $panNo,
                                 'financial_year' => $financialYear,
                                 'attachment' => $fileName,

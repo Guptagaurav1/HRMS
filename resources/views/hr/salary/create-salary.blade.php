@@ -55,7 +55,7 @@
                                 <select id="emp_id" class=" selectpicker form-select" name="sal_emp_id" id="" value>
                                     <option value="">Select Employee</option>
                                     @foreach($employee as $key => $value)
-                                    <option value="{{$value->emp_id}}">{{$value->emp_code}}</option>
+                                    <option value="{{$value->id}}">{{$value->emp_code}}</option>
                                     @endforeach
                                     @error('emp_code')
                                             <div class="text-danger">{{ $message }}</div>

@@ -16,36 +16,37 @@
                     <h2 class="mt-2">Go TO Attendance</h2>
                 </div>
                 <div class="row d-flex  justify-content-between mt-1" id="">
-                    <div class="col-md-6 px-3 workcenter ">
-                        <label>Work Order Number : {{$wo_number}}</label>
-                        <p class="work-order-No">
-                            Add/Update Attendance For Work Order<br>
-                            <span>Work order: {{$wo_number}}</span>
+                    <div class="col-md-6 px-3 workcenter">
+                        <!-- <label>Work Order Number : {{$wo_number}}</label> -->
+                        <p class="work-order-No fw-bold">
+                            Add/Update Attendance For Work Order 
+                        <span class="text-dark">: {{$wo_number}}</span>
                         </p>
                     </div>
                     <div class="col-md-2 workcenter">
-                        <label>Total Entry</label><br>
-                        <span>Entry: 0</span>
+                        <label>Total Entry</label>
+                        <span class="text-dark fw-bold">: 0</span>
                     </div>
-                    <div class="col-md-3 workcenter">
+                    <div class="col-md-3 workcenter px-5">
 
                         <a href="{{route('upload-attendance')}}">
                             <button class="btn btn-sm btn-primary">Bulk Upload <i class="fa-solid fa-upload"></i></button>
-                        </a><br>
-                        <span class="text-danger mt-5 ">Note: Overtime Rate/Hr and</span>
+                        </a>
+                        
 
                     </div>
+                    <!-- <span class="text-danger mt-5 ">Note: Overtime Rate/Hr and</span> -->
                 </div>
                 <div class="col-md-12 px-3">
-                    <p class="note"><span class="text-danger ">Note :</span> Show Only Employees whose Salary Structure is Created.
+                    <p class="note"><span class="text-danger">Note :</span> (Show Only Employees whose Salary Structure is Created.)
                     </p>
                 </div>
-                <div class="col-sm-6 col-md-12 py-2 mt-3 text-center">
+                <!-- <div class="col-sm-6 col-md-12 py-2 mt-3 text-center">
                     <p class="fw-bold fs-6 work-order-No">
                         View Attendance and Calculate Salary for<br>
                         <span>Work order: {{$wo_number}}</span>
                     </p>
-                </div>
+                </div> -->
                 <form method="get" action="{{ route('go-to-attendance',$wo_id)}}" >
                     <div class="col-md-12 text-center py-3 ">
                         <label>Select Month :</label><br>
@@ -55,21 +56,21 @@
                             <select name="emp_status" id="emp_status">
                                 <option value="">-- All --</option>
                                 <option value="active" {{ request('emp_status') == 'active' ? 'selected' : '' }}>Active</option>
-                                <option value="inactive" {{ request('emp_status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                <option value="resign" {{ request('emp_status') == 'resign' ? 'selected' : '' }}>Resign</option>
                             </select>
-                            <button type="submit" class="btn btn-primary">Check</button>
+                            <button type="submit" class="btn btn-primary">Check <i class="fa-solid fa-square-check"></i></button>
                         
                     </div>
-                    <div class="col-md-12 px-3">
-                        <p class="text-danger" style="font-size: 12px;">Total Hrs Applicable Only For Some Cases</p>
-                    </div>
-                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
+                    <!-- <div class="col-md-12 px-3">
+                        <p class="text-danger fs-6">Total Hrs Applicable Only For Some Cases</p>
+                    </div> -->
+                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-3 gap-2">
                         <div class="col-auto">
                             <input name="search" type="text" class="form-control" placeholder="Search" >
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search</button>
-                            <a href="{{route('go-to-attendance',$wo_id)}}" class="btn btn-primary mb-3">Reset</a>
+                            <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                            <a href="{{route('go-to-attendance',$wo_id)}}" class="btn btn-primary mb-3">Reset <i class="fa-solid fa-rotate-right"></i></a>
                         </div>
                     </div>
                 </form>
@@ -136,16 +137,16 @@
                                     @foreach($wo_emps as $wo_emp)
                                         <tr>
                                             <input type="hidden" name="emp_code" id="emp_code" value="{{ $wo_emp->employ_code }}">
-                                            <td><input  type="checkbox" name="check[]" value="{{ $wo_emp->emp_id}}"></td>
-                                            <td>{{$wo_emp->emp_code}}</td>
-                                            <td>{{$wo_emp->emp_name}}</td>
+                                            <td><input  type="checkbox" name="check[]" value="{{ $wo_emp->id??NULL}}"></td>
+                                            <td>{{$wo_emp->emp_code??NULL}}</td>
+                                            <td>{{$wo_emp->emp_name??NULL}}</td>
                                             <td><input type="number" step="0.01" name="at_appr_leave" id="at_appr_leave" min="0" max="31" value=""></td>
                                             <td><input type="number" step="0.01" name="leave" id="leave" min="0" max="31"></td>
                                             <td><input type="number" step="0.01" name="no_of_work_days" id="no_of_work_days" value="0" min="0"></td>
-                                            <td>{{$wo_emp->emp_gender}}</td>
-                                            <td>{{$wo_emp->emp_bank}} \{{$wo_emp->emp_account_no}}</td>
-                                            <td>{{$wo_emp->emp_doj}}</td>
-                                            <td>{{$wo_emp->emp_status}}</td>
+                                            <td title="Gender">{{$wo_emp->getPersonalDetail->emp_gender??NULL}}</td>
+                                            <td>{{$wo_emp->getBankDetail->getBankData->name_of_bank}} \{{$wo_emp->getBankDetail->emp_account_no}}</td>
+                                            <td>{{$wo_emp->emp_doj??NULL}}</td>
+                                            <td>{{$wo_emp->emp_current_working_status}}</td>
                                             <td><input type="date" name="dor" id="dor" class="form-control" value="{{ $wo_emp->emp_dor }}" 
                                             ></td>
                                             <input type="hidden" name="emp_designation" id="emp_designation" value="{{ $wo_emp->emp_designation }}">
@@ -182,9 +183,9 @@
                         @endif
                     </form>
                 </div>
-                <div class="col-sm-6 col-md-12 py-2 mt-3 text-center">
+                <div class="col-sm-6 col-md-12 py-2 mt-3 text-end px-2">
                     <p class="fw-bold fs-5 work-order-No">
-                        <a href="{{ route('wo-sal-attendance') }}"><button type="button" class="btn btn-sm btn-primary">Calculate Salary</button></a>
+                        <a href="{{ route('wo-sal-attendance') }}"><button type="button" class="btn btn-sm btn-primary">Calculate Salary <i class="fa-solid fa-calculator-simple"></i></button></a>
                     </p>
                 </div>
                 <!-- <div class="col-md-12 text-center py-3 ">

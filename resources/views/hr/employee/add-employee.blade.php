@@ -5,9 +5,18 @@
 @endsection
 
 @section('contents')
-    <div class="">
-        <h2>Generate Employee</h2>
-        <h5>Create Employee details</h5>
+    <div class="dashboard-breadcrumb mb-25 gap-4">
+        <h2 class="sw-bold text-dark">Create Employee details</h2>
+        <div class="text-start">
+            <a href="{{ route('hr_dashboard') }}">
+                <div class="back-button-box">
+                    <button type="button" class="btn btn-back">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                </div>
+            </a>
+        </div>
+
     </div>
 
     @if (!empty($recruitment_details->finally) && $recruitment_details->finally == 'joined')
@@ -27,10 +36,10 @@
             </div>
         </div>
 
-        <div class="panel">
+        <div class="panel px-2">
             <div id="tab-1">
 
-                <div class="employee-tab">
+                <div class="employee-tab mt-3">
                     <ul class="d-flex align-items-center justify-content-between  flex-wrap">
                         <li>
                             <button type="button" class="tab-btn active" id="tab1">Employee Details</button>
@@ -39,10 +48,10 @@
                             <button type="button" class="tab-btn" id="tab6">Personal Details</button>
                         </li>
                         <li>
-                            <button type="button" class="tab-btn" id="tab2">Communication Details</button>
+                            <button type="button" class="tab-btn" id="tab2">Inquiry Details</button>
                         </li>
                         <li>
-                            <button type="button" class="tab-btn" id="tab3">Acount Details</button>
+                            <button type="button" class="tab-btn" id="tab3">Account Details</button>
                         </li>
                         <li>
                             <button type="button" class="tab-btn" id="tab4">Educational Details</button>
@@ -58,7 +67,7 @@
                 </div>
 
                 {{-- Employee Details Form --}}
-                <div class="tab-content active" id="content1">
+                <div class="tab-content active mt-4" id="content1">
                     <form class="emp_details">
                         @csrf
                         <div class="d-none">
@@ -947,7 +956,7 @@
                                 <select name="skill[]" class="form-select modal-select" multiple required>
                                     <option value="">Select Skill</option>
                                     @foreach ($skills as $skill)
-                                    <option value="{{ $skill->id }}">{{ ucwords($skill->skill) }}</option>
+                                        <option value="{{ $skill->id }}">{{ ucwords($skill->skill) }}</option>
                                     @endforeach
                                 </select>
 

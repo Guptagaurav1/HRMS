@@ -55,12 +55,24 @@ use App\Http\Controllers\hr\ProfileController;
 |
 */
 
+Route::get('/testuser', function (){
+    return view('user-details-multistep');
+});
+
+
 
 Route::middleware('guest')->group(function () {
+
+    Route::get('import-data', [HrController::class,'import'])->name('import-data');
+    Route::post('import-data-save', [HrController::class,'importDataSave'])->name('importDataSave');
+
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
         Route::post('d-login', 'd_login')->name('department_login');
         Route::post('emp-login', 'emp_login')->name('employee_login');
+
+       
+
         Route::get("forgot-password", 'forget_password')->name("guest.forgot-password");
         Route::post("send-reset-link", 'send_reset_link')->name("guest.send-reset-link");
         Route::get("password-reset-form/{token}", 'reset_password')->name("guest.reset-password-form");
@@ -487,6 +499,11 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::get("add-company-master", function () {
         return view("hr.add-company-master");
     })->name("add-company-master");
+
+    Route::get("temp-profile", function () {
+        return view("hr.temp-profile");
+    })->name("temp-profile");
+
 
     
  

@@ -11,12 +11,15 @@ use App\Models\Salary;
 use App\Models\EmpSalarySlip;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\EmpAccountDetail;
+use App\Models\EmpPersonalDetail;
+use App\Models\EmpAddressDetail;
 
 class AttendanceController extends Controller
 {
     public function index(Request $request ,string $wo_id)
     {
-    //    dd($request->month);
+    
         $workOrder= WorkOrder::find($wo_id);
         $wo_number= $workOrder->wo_number??NULL;
       
@@ -31,63 +34,68 @@ class AttendanceController extends Controller
         
         if(!empty($month)){
             if(!empty($emp_status)){
-
-                    $wo_emps = DB::table('emp_details as emp')
-                        ->distinct()
-                        ->selectRaw("work.wo_end_date, work.wo_start_date, wo.emp_id, emp.*, emp.emp_code AS employ_code,emp.emp_id AS employ_id ")
-                        ->leftJoin('wo_attendances as wo', 'emp.emp_id', '=', 'wo.emp_id')
-                        ->leftJoin('work_orders as work', 'work.wo_number', '=', 'emp.emp_work_order')
-                        ->when($search, function ($query, $search) {
-                            // Add the search conditions here
-                            $query->where(function ($query) use ($search) {
-                                $query->where('emp.emp_code', 'like', '%' . $search . '%')
-                                    ->orWhere('emp.emp_name', 'like', '%' . $search . '%')
-                                    ->orWhere('emp.emp_account_no', 'like', '%' . $search . '%')
-                                    ->orWhere('emp.emp_bank', 'like', '%' . $search . '%')
-                                    ->orWhere('emp.emp_place_of_posting', 'like', '%' . $search . '%')
-                                    ->orWhere('emp.emp_designation', 'like', '%' . $search . '%');
-                            });
+                    $wo_emps = EmpDetail::with('woAttendance')
+                    ->where('emp_work_order', $wo_number)
+                    ->where('emp_doj', '<', $cur_m_y)
+                    ->where('emp_current_working_status','=', $emp_status)
+                    ->whereHas('getBankDetail', function ($query) {
+                            $query->where('emp_sal_structure_status', 'completed');
                         })
-                        ->where('emp.emp_work_order', $wo_number)
-                        ->where('emp.emp_sal_structure_status', 'completed')
-                        ->where('emp.emp_doj','<', $cur_m_y)
-                        ->where('emp.emp_status','=', $emp_status)
-                        ->whereRaw("
-                            CONCAT(emp.emp_id,'',?) NOT IN (
-                                SELECT at_emp 
-                                FROM wo_attendances 
-                                WHERE wo_number = ?
-                            )
-                        ", [$m_y, $wo_number])
-                        ->paginate(10)->appends(request()->query());
+                   
+                    ->whereNotIn('id', function ($query) use ($wo_number, $m_y) {
+                        $query->select('at_emp')
+                            ->from('wo_attendances')
+                            ->where('wo_number', $wo_number)
+                            ->whereRaw("CONCAT(at_emp, '', ?) = emp_details.id", [$m_y]);
+                    })
+                    ->when($search, function ($query, $search) {
+                        $query->where(function ($query) use ($search) {
+                            $query->where('emp_code', 'like', '%' . $search . '%')
+                                ->orWhere('emp_name', 'like', '%' . $search . '%')
+                                ->whereHas('getBankDetail', function ($query) use ($search) {
+                                    $query->where('emp_account_no', 'like', '%' . $search . '%')
+                                    ->whereHas('getBankData', function ($query) use ($search) {
+                                        $query->where('name_of_bank', 'like', '%' . $search . '%');
+                                    });
+                                   })
+                                ->orWhere('emp_place_of_posting', 'like', '%' . $search . '%')
+                                ->orWhere('emp_designation', 'like', '%' . $search . '%');
+                        });
+                    })
+                    ->paginate(10);
+                 
             }else{
-                $wo_emps = DB::table('emp_details as emp')
-                ->distinct()
-                ->selectRaw("work.wo_end_date, work.wo_start_date, wo.emp_id, emp.*, emp.emp_code AS employ_code,emp.emp_id AS employ_id ")
-                ->leftJoin('wo_attendances as wo', 'emp.emp_id', '=', 'wo.emp_id')
-                ->leftJoin('work_orders as work', 'work.wo_number', '=', 'emp.emp_work_order')
-                ->when($search, function ($query, $search) {
-                    // Add the search conditions here
-                    $query->where(function ($query) use ($search) {
-                        $query->where('emp.emp_code', 'like', '%' . $search . '%')
-                              ->orWhere('emp.emp_name', 'like', '%' . $search . '%')
-                              ->orWhere('emp.emp_account_no', 'like', '%' . $search . '%')
-                              ->orWhere('emp.emp_bank', 'like', '%' . $search . '%')
-                              ->orWhere('emp.emp_place_of_posting', 'like', '%' . $search . '%')
-                              ->orWhere('emp.emp_designation', 'like', '%' . $search . '%');
-                    });
-                })
-                ->where('emp.emp_work_order', $wo_number)
-                ->where('emp.emp_sal_structure_status', 'completed')
-                ->where('emp.emp_doj','<', $cur_m_y)
-                ->whereRaw("
-                    CONCAT(emp.emp_id,'',?) NOT IN (
-                        SELECT at_emp 
-                        FROM wo_attendances 
-                        WHERE wo_number = ?
-                    )
-                ", [$m_y, $wo_number])
-                ->paginate(10)->appends(request()->query());
+                
+                 $wo_emps = EmpDetail::with('woAttendance')
+                    ->where('emp_work_order', $wo_number)
+                    ->where('emp_doj', '<', $cur_m_y)
+                    ->whereHas('getBankDetail', function ($query) {
+                            $query->where('emp_sal_structure_status', 'completed');
+                        })
+                   
+                    ->whereNotIn('id', function ($query) use ($wo_number, $m_y) {
+                        $query->select('at_emp')
+                            ->from('wo_attendances')
+                            ->where('wo_number', $wo_number)
+                            ->whereRaw("CONCAT(at_emp, '', ?) = emp_details.id", [$m_y]);
+                    })
+                    ->when($search, function ($query, $search) {
+                        // Add search conditions here
+                        $query->where(function ($query) use ($search) {
+                            $query->where('emp_code', 'like', '%' . $search . '%')
+                                ->orWhere('emp_name', 'like', '%' . $search . '%')
+                                ->whereHas('getBankDetail', function ($query) use ($search) {
+                                    $query->where('emp_account_no', 'like', '%' . $search . '%')
+                                    ->whereHas('getBankData', function ($query) use ($search) {
+                                        $query->where('name_of_bank', 'like', '%' . $search . '%');
+                                    });
+                                   })
+                                ->orWhere('emp_place_of_posting', 'like', '%' . $search . '%')
+                                ->orWhere('emp_designation', 'like', '%' . $search . '%');
+                        });
+                    })
+                    ->paginate(10);
+                    // ->appends(request()->query());
             }
         }else{
             $wo_emps="";
@@ -182,11 +190,9 @@ class AttendanceController extends Controller
 
     public function wo_sal_attendance(Request $request){
         $search = $request->search;
-       
         $wo_id = $request->work_order;
         $month = $request->month;
         $workOrder= WorkOrder::find($wo_id);
-        
         $workOrders = WorkOrder::orderBy('id','desc')->get();
         $wo_number= $workOrder->wo_number??NULL;
       
@@ -199,41 +205,48 @@ class AttendanceController extends Controller
         $cur_m_y = $curr_month_year->endOfMonth()->format('Y-m-31');
         
         if(!empty($month)){
-           
-                $wo_emps = WoAttendance::select('*', 'work.wo_start_date')
-                ->join('emp_details as emp', 'wo_attendances.emp_id', '=', 'emp.emp_id')
-                ->join('salary', 'salary.sl_emp_code', '=', 'wo_attendances.emp_code')
-                ->leftJoin('work_orders as work', 'work.wo_number', '=', 'emp.emp_work_order')
-                ->when($search, function ($query, $search) {
-                    // Add the search conditions here
-                    $query->where(function ($query) use ($search) {
-                        $query->where('emp.emp_code', 'like', '%' . $search . '%')
-                            ->orWhere('emp.emp_name', 'like', '%' . $search . '%')
-                            ->orWhere('emp.emp_account_no', 'like', '%' . $search . '%')
-                            ->orWhere('emp.emp_bank', 'like', '%' . $search . '%')
-                            ->orWhere('emp.emp_place_of_posting', 'like', '%' . $search . '%')
-                            ->orWhere('emp.emp_designation', 'like', '%' . $search . '%');
+        
+            $wo_emps = WoAttendance::with(['empDetail'])
+            ->when($search, function ($query, $search) {
+                $query->where(function ($query) use ($search) {
+                    $query->whereHas('empDetail', function ($query) use($search) {
+                        // Search on empDetail fields
+                        $query->where('emp_code', 'like', '%' . $search . '%')
+                            ->orWhere('emp_name', 'like', '%' . $search . '%')
+                            ->orWhere('emp_place_of_posting', 'like', '%' . $search . '%')
+                            ->orWhere('emp_designation', 'like', '%' . $search . '%')
+                            ->whereHas('getBankDetail', function ($query) use ($search) {
+                                // Search in bank detail fields
+                                $query->where('emp_account_no', 'like', '%' . $search . '%')
+                                    ->whereHas('getBankData', function ($query) use ($search) {
+                                        // Search in bank data fields
+                                        $query->where('name_of_bank', 'like', '%' . $search . '%');
+                                    });
+                            });
                     });
-                })
-                ->where('wo_attendances.attendance_month', $m_y)
-                ->where('emp.emp_work_order', $wo_number)
-                ->where('wo_attendances.wo_number', $wo_number)
-                ->where('emp.emp_sal_structure_status', 'completed')
-                
-                ->whereRaw("
-                CONCAT(emp.emp_id,'',?) NOT IN (
+                });
+            })
+            ->where('attendance_month', $m_y)
+            ->where('wo_number', $wo_number)
+            ->whereHas('empDetail', function ($query) use($wo_number) {
+                // Ensure related empDetail has emp_work_order
+                $query->where('emp_work_order', $wo_number)
+                    ->whereHas('getBankDetail', function ($query) {
+                        $query->where('emp_sal_structure_status', 'completed');
+                    });
+            })
+            ->whereRaw("CONCAT(emp_id,'',?) NOT IN (
                     SELECT wo_attendance_at_emp 
                     FROM emp_salary_slip 
                     WHERE work_order = ?
-                )
-            ", [$m_y, $wo_number])
-              
-                ->paginate(10)->appends(request()->query());
-            
+                )", [$m_y, $wo_number])
+            ->paginate(10)
+            ->appends(request()->query());
+        
         }else{
             $wo_emps="";
         }
-     
+    
         return view("hr.attendance.wo-sal-attendance" ,compact('wo_id','wo_number','month','wo_emps','workOrders'));
 
     }
@@ -401,23 +414,33 @@ class AttendanceController extends Controller
         return redirect()->route('wo-generate-salary',compact('attendance_month','workOrder'))->with('success','Salary Slip Calculated Successfully');
     }
 
-    public function wo_generate_salary(Request $request){
-        
+    // current active employee salary save list
+    public function wo_generate_salary(Request $request){ 
         $wo_id = $request->workOrder;
         $workOrder= WorkOrder::find($wo_id);
         $wo_number= $workOrder->wo_number??NULL;
         $m_y = $request->attendance_month;
-        // dd($m_y);
-        $wo_emps = WoAttendance::select('*')
-                ->join('emp_details', 'wo_attendances.emp_id', '=', 'emp_details.emp_id')
-                ->join('salary', 'salary.sl_emp_code', '=', 'wo_attendances.emp_code')
-                // ->leftJoin('work_orders as work', 'work.wo_number', '=', 'emp_details.emp_work_order')
-                ->where('wo_attendances.attendance_month', $m_y)
-                ->where('emp_details.emp_status', 'Active')
-                ->where('emp_details.emp_sal_structure_status', 'completed')
-                ->where('emp_details.emp_work_order', $wo_number)
-                ->paginate(10)->appends(request()->query());
-                // dd($wo_emps);
+      
+        $wo_emps = WoAttendance::with(['empDetail'])  
+        // $wo_emps = WoAttendance::with([
+        //     'empDetail:id,emp_code,emp_name,emp_work_order,emp_current_working_status,emp_doj,emp_place_of_posting,emp_designation',
+        //     'empDetail.getBankDetail:id,emp_account_no', 
+        //     'empDetail.getBankDetail.getBankData:name_of_bank',
+        //     'empDetail.getPersonalDetail:id,emp_gender'
+        // ])
+        ->where('attendance_month', $m_y)
+        ->whereHas('empDetail', function ($query) use ($wo_number) {
+            $query->where('emp_work_order', $wo_number)
+                  ->where('emp_current_working_status', 'Active')
+                  ->whereHas('getBankDetail', function ($query) {
+                      $query->where('emp_sal_structure_status', 'completed');
+                  })
+                  ->whereHas('getPersonalDetail'); // Ensuring personal detail exists
+        })
+        ->paginate(10)
+        ->appends(request()->query());
+        
+        //  dd($wo_emps[0]->empDetail);
         return view("hr.attendance.wo-generate-salary-list",compact('wo_emps','wo_number','m_y'));
     }
 

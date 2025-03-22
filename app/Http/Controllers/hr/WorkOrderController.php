@@ -105,11 +105,11 @@ class WorkOrderController extends Controller
                     });
             });
         }
-        $totalWorkOrders = $totalWorkOrders->paginate(10);
+        $totalWorkOrders = $totalWorkOrders->orderBy('id', 'desc')->paginate(10);
     
         // Add contact details for each work order
         foreach ($totalWorkOrders as $key => $value) {
-            // Check if contacts exist 
+            // Check contacts exist 
             if (!empty($value['contacts'][0])) {
                 $wo_details = $value['contacts'][0]['wo_client_contact_person'] . '/' . $value['contacts'][0]['wo_client_email'];
             } else {
@@ -151,7 +151,7 @@ class WorkOrderController extends Controller
         }
         
         try {   
-          
+            
             $workOrder = new WorkOrder();
             $workOrder->wo_internal_ref_no = $request->internal_reference;
             $workOrder->project_id = $request->project_name;
@@ -180,7 +180,9 @@ class WorkOrderController extends Controller
             $workOrder->previous_order_no = $request->prev_order_no;
             $workOrder->wo_remarks = $request->remarks;
             $workOrder->wo_attached_file = $fileName;
+           
             $workOrder->save();
+          
             $c_person_name=$request->input('c_person_name');
             if(is_array($request->c_person_name)){
                 foreach($request->c_person_name as $key => $value){
@@ -217,7 +219,7 @@ class WorkOrderController extends Controller
        
         $request->validate([
             'attachment' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', // Validate the file type and size
-            'organisation' => 'required',
+            // 'organisation' => 'required',
             'project_name' => 'required',
             'work_order' => 'required'
         ]);
@@ -232,9 +234,9 @@ class WorkOrderController extends Controller
                 $path = $file->storeAs('uploadWorkOrder', $fileName, 'public');
     
             }else{
-                $fileName=  $workOrder->wo_attached_file;
+                $fileName =  $workOrder->wo_attached_file??NULL;
             } 
-          
+            
             $workOrder->wo_internal_ref_no = $request->internal_reference;
             $workOrder->project_id = $request->project_name;
             $workOrder->wo_number = $request->work_order;
@@ -262,8 +264,8 @@ class WorkOrderController extends Controller
             $workOrder->amendment_date = $request->amendment_date;
             $workOrder->previous_order_no = $request->prev_order_no;
             $workOrder->wo_remarks = $request->remarks;
-            $workOrder->wo_attached_file = $fileName;
-            $workOrder->update();
+            $workOrder->wo_attached_file = $fileName??NULL;
+            $workOrder->save();
            
                 $contactsData = $request->c_person_name;
                 
@@ -291,7 +293,7 @@ class WorkOrderController extends Controller
                         $woContactDetail->save();
                     }
                  
-            }
+               }
 
             return redirect()->route('work-order-list')->with('success','WorkOrder updated !');
         }catch(Throwable $th){

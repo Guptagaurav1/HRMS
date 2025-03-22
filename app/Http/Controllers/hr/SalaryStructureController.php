@@ -10,6 +10,8 @@ use App\Models\EmpSendDoc;
 use App\Models\WorkOrder;
 use App\Models\AppointmentFormat;
 use App\Models\SalaryLog;
+use App\Models\EmpAccountDetail;
+
 use PDF;
 use Illuminate\Support\Facades\DB;
 use App;
@@ -18,36 +20,43 @@ use Throwable;
 
 class SalaryStructureController extends Controller
 {
-    //
     public function index(Request $request){
         $search = $request->search;
-
-        $salary = Salary::with('empDetail')  
-        ->leftJoin('emp_details', 'emp_details.emp_id', '=', 'salary.sl_emp_id')  
+        $salary = Salary::with(['empDetail'])
         ->when($search, function ($query, $search) {
-            // Add the search conditions here
             $query->where(function ($query) use ($search) {
-                $query->where('emp_details.emp_code', 'like', '%' . $search . '%')
-                      ->orWhere('emp_details.emp_name', 'like', '%' . $search . '%')
-                      ->orWhere('emp_details.emp_account_no', 'like', '%' . $search . '%')
-                      ->orWhere('emp_details.emp_bank', 'like', '%' . $search . '%')
-                      ->orWhere('emp_details.emp_place_of_posting', 'like', '%' . $search . '%')
-                      ->orWhere('emp_details.emp_designation', 'like', '%' . $search . '%')
-                      ->orWhere('emp_details.emp_work_order', 'like', '%' . $search . '%');
-                      
+                // Condition for empDetail fields
+                $query->whereHas('empDetail', function ($q) use ($search) {
+                    $q->where('emp_code', 'like', '%' . $search . '%')
+                    ->orWhere('emp_name', 'like', '%' . $search . '%')
+                    ->orWhere('emp_place_of_posting', 'like', '%' . $search . '%')
+                    ->orWhere('emp_designation', 'like', '%' . $search . '%')
+                    ->orWhere('emp_work_order', 'like', '%' . $search . '%');
+                });
+                
+                // OR condition for bank details
+                $query->orWhereHas('empDetail.getBankDetail', function ($q) use ($search) {
+                    $q->where('emp_account_no', 'like', '%' . $search . '%')
+                    ->orWhereHas('getBankData', function ($q) use ($search) {
+                        $q->where('name_of_bank', 'like', '%' . $search . '%');
+                    });
+                });
             });
         })
-        ->orderBy('emp_details.emp_status', 'desc')  
-        ->orderBy('salary.id', 'desc')  
-        ->select('salary.*', 'emp_details.*')  
-        ->paginate(10);
-    
-        // dd($salary);
-        return view("hr.salary.salary-list",compact('salary','search'));
+        ->orderBy('salary.id', 'desc')
+        ->paginate(10)
+        ->appends(request()->query());
+
+    return view("hr.salary.salary-list", compact('salary', 'search'));
+
     }
+
     public function create(){
-        $employee = EmpDetail::select('emp_id','emp_code','emp_name','emp_doj','emp_designation','emp_salary')->where('emp_sal_structure_status','pending')->get();
-        // dd($employee);
+        $employee = EmpDetail::select('id','emp_code','emp_name','emp_doj','emp_designation')
+        ->whereHas('getBankDetail', function ($query) {
+            $query->where('emp_sal_structure_status', 'pending');
+        })->get();
+       
         return view("hr.salary.create-salary",compact('employee'));
     }
 
@@ -69,7 +78,6 @@ class SalaryStructureController extends Controller
         'sal_lwf_employer' => 'required',
         'sal_prof_tax' => 'required',
        ]);
-       // dd($request);
         if($request->exception_pf == " "){
             $excp_pf = 'yes';
         }else{
@@ -95,8 +103,7 @@ class SalaryStructureController extends Controller
         }
         $sal_emp_id = $request->sal_emp_id;
         // check employee salary structure created or not
-        $ex_salary= Salary::where('sl_Emp_id',$sal_emp_id)->first();
-        // dd($ex_salary);
+        $ex_salary= Salary::where('sl_emp_id',$sal_emp_id)->first();
         if(!empty($ex_salary)){
             return redirect()->route('create-salary')->with('success','Salary structure already exist in system !');
         }
@@ -138,16 +145,18 @@ class SalaryStructureController extends Controller
         $salary->sal_remark = $request->sal_remark;
        
         $salary->save();
+        $sal_emp_code =$request->sal_emp_code;
         
-        $employee= EmpDetail::find($sal_emp_id);
-        // $employee->update([
-        //     'emp_sal_structure_status'=>'completed']);
+        $emp_sal_strut= EmpAccountDetail::where('emp_code',$sal_emp_code);
+        // dd($emp_sal_strut);
+        $emp_sal_strut->update([
+            'emp_sal_structure_status'=>'completed']);
         //  dd($employee);
 
 
         // send appointment letter code start here
         // check send appointment or not 
-        $emp_send_doc= EmpSendDoc::where('emp_code',$sal_emp_id)->where('doc_type','Appointment')->orderby('id','desc')->first();
+        $emp_send_doc= EmpSendDoc::where('emp_code',$sal_emp_code)->where('doc_type','Appointment')->orderby('id','desc')->first();
         if(!empty($emp_send_doc)){
             $docs = $empData->document;
           
@@ -157,6 +166,7 @@ class SalaryStructureController extends Controller
             $emp_salary = Salary::where('sl_emp_id', $sal_emp_id)->first();
             $sl_emp_code =$emp_salary->sl_emp_code;
             // employee wo 
+            $employee= EmpDetail::find($sal_emp_id);
             $work_or_no =$employee->emp_work_order;
            
             // get wo end date
@@ -222,7 +232,9 @@ class SalaryStructureController extends Controller
                         // Use DomPDF to generate PDF
                         $pdf = App::make('dompdf.wrapper');
                         $pdf->loadHTML($message_new);
-                        $pdf->save(public_path("recruitment/candidate_documents/Appointment Letter/{$file_name}"));
+                        // $pdf->move(public_path("recruitment/candidate_documents/Appointment Letter/{$file_name}"));
+                        $file_path = public_path("recruitment/candidate_documents/appointment_letter/{$file_name}");
+                         $pdf->save($file_path);
 
                         // Insert record in the database
                         EmpSendDoc::create([
@@ -232,12 +244,81 @@ class SalaryStructureController extends Controller
                         ]);
                     }
                 }
-            }elseif ("GNGPL (Goa Natural Gas Pvt.Ltd )" == ($wo_order->wo_oraganisation_name)) {
-                 // Fetch appointment format
-                $appointmentFormat = AppointmentFormat::where('type', 'appointment')
-                 ->where('name', 'GNGPL')
-                 ->first();
-                if ($appointmentFormat) {
+                elseif ("GNGPL (Goa Natural Gas Pvt.Ltd )" == ($wo_order->wo_oraganisation_name)) {
+                    // Fetch appointment format
+                    $appointmentFormat = AppointmentFormat::where('type', 'appointment')
+                    ->where('name', 'GNGPL')
+                    ->first();
+                    if ($appointmentFormat) {
+                        $message = $appointmentFormat->format;
+                        $message_2 = $appointmentFormat->format_2;
+                
+                        // Prepare other variables (e.g., employee name, CTC, etc.)
+                        $emp_name = $emp_salary->sal_emp_name;
+                        $designation = $emp_salary->sal_emp_designation;
+                        $sal_ctc = $emp_salary->sal_ctc;
+                        $ctc_pa = $sal_ctc * 12;
+                        $doj = date("d-m-Y", strtotime($employee->emp_doj));
+                        $wo_valid_upto = date("d/m/Y", strtotime($wo_end_date));
+                
+                        // Handle number to words
+                        $locale = 'en_US';
+                        $fmt = new \NumberFormatter($locale, \NumberFormatter::SPELLOUT);
+                        $in_words = $fmt->format($emp_salary->sal_net);
+
+                        $bonus = round((8.33 / 100) * $emp_salary->sal_basic);
+                        $ctc = $emp_salary->sal_gross + $emp_salary->sal_pf_employer + $emp_salary->sal_esi_employer + $bonus;
+                        $ctc_pa = $ctc * 12;
+                
+                        // Replace placeholders in the message
+                        $message_new = str_replace('{{today_date}}', now()->format('d/M/Y'), $message);
+                        $message_new = str_replace('{{candidate_name}}', $emp_name, $message_new);
+                        $message_new = str_replace('{{designation}}', $designation, $message_new);
+                        $message_new = str_replace('{{emp_code}}', $sl_emp_code, $message_new);
+                        $message_new = str_replace('{{sal_ctc}}', $sal_ctc, $message_new);
+                        $message_new = str_replace('{{ctc_pa}}', $ctc_pa, $message_new);
+                        $message_new = str_replace('{{basic}}', $emp_salary->sal_basic, $message_new);
+                        $message_new = str_replace('{{hra}}', $emp_salary->sal_hra, $message_new);
+                        $message_new = str_replace('{{conveyance}}', $emp_salary->sal_conveyance, $message_new);
+                        $message_new = str_replace('{{sal_telephone}}', $emp_salary->sal_telephone, $message_new);
+                        $message_new = str_replace('{{sal_pa}}', $emp_salary->medical_allowance, $message_new);
+                        $message_new = str_replace('{{sal_special_allowance}}', $emp_salary->sal_special_allowance, $message_new);
+                        $message_new = str_replace('{{sal_gross}}', $emp_salary->sal_gross, $message_new);
+                        $message_new = str_replace('{{sal_net}}', $emp_salary->sal_net, $message_new);
+                        $message_new = str_replace('{{sal_pf_emmployee}}', $emp_salary->sal_pf_emmployee, $message_new);
+                        $message_new = str_replace('{{sal_esi_employee}}', $emp_salary->sal_esi_employee, $message_new);
+                        $message_new = str_replace('{{sal_pf_employer}}', $emp_salary->sal_pf_employer, $message_new);
+                        $message_new = str_replace('{{sal_esi_employer}}', $emp_salary->sal_esi_employer, $message_new);
+                        $message_new = str_replace('{{sal_medical_ins}}', $emp_salary->sal_medical_ins, $message_new);
+                        $message_new = str_replace('{{deduction}}', $emp_salary->sal_pf_employee + $emp_salary->sal_esi_employee + $emp_salary->medical_insurance, $message_new);
+                        $message_new = str_replace('{{word}}', ucwords($in_words), $message_new);
+                        $message_new = str_replace('{{doj}}', humanReadableFormat($doj), $message_new);
+                        $message_new = str_replace('{{doe}}', humanReadableFormat($wo_end_date), $message_new);
+                        $message_new = str_replace('{{wo_valid}}', $wo_valid_upto, $message_new);
+                        // Continue replacing other placeholders...
+                        $message_new .= $message_2;
+                
+                        // Generate PDF
+                        $unq_no = now()->format('Ymdhisa');
+                        $file_name = "appointment_{$unq_no}.pdf";
+                    
+                        // Use DomPDF to generate PDF
+                        $pdf = App::make('dompdf.wrapper');
+                        $pdf->loadHTML($message_new);
+                        $pdf->save(public_path("app/public/recruitment/candidate_documents/Appointment Letter/{$file_name}"));
+
+                        // Insert record in the database
+                        EmpSendDoc::create([
+                            'emp_code' => $sl_emp_code,
+                            'doc_type' => 'Appointment',
+                            'document' => $file_name,
+                        ]);
+                    }
+                }else{
+                    $appointmentFormat = AppointmentFormat::where('type', 'appointment')
+                    ->where('name', 'BECIL')
+                    ->first();
+                    if ($appointmentFormat) {
                     $message = $appointmentFormat->format;
                     $message_2 = $appointmentFormat->format_2;
             
@@ -289,7 +370,7 @@ class SalaryStructureController extends Controller
                     // Generate PDF
                     $unq_no = now()->format('Ymdhisa');
                     $file_name = "appointment_{$unq_no}.pdf";
-                  
+                    
                     // Use DomPDF to generate PDF
                     $pdf = App::make('dompdf.wrapper');
                     $pdf->loadHTML($message_new);
@@ -301,75 +382,7 @@ class SalaryStructureController extends Controller
                         'doc_type' => 'Appointment',
                         'document' => $file_name,
                     ]);
-                }
-            }else{
-                $appointmentFormat = AppointmentFormat::where('type', 'appointment')
-                ->where('name', 'BECIL')
-                ->first();
-                if ($appointmentFormat) {
-                   $message = $appointmentFormat->format;
-                   $message_2 = $appointmentFormat->format_2;
-           
-                   // Prepare other variables (e.g., employee name, CTC, etc.)
-                   $emp_name = $emp_salary->sal_emp_name;
-                   $designation = $emp_salary->sal_emp_designation;
-                   $sal_ctc = $emp_salary->sal_ctc;
-                   $ctc_pa = $sal_ctc * 12;
-                   $doj = date("d-m-Y", strtotime($employee->emp_doj));
-                   $wo_valid_upto = date("d/m/Y", strtotime($wo_end_date));
-           
-                   // Handle number to words
-                   $locale = 'en_US';
-                   $fmt = new \NumberFormatter($locale, \NumberFormatter::SPELLOUT);
-                   $in_words = $fmt->format($emp_salary->sal_net);
-
-                   $bonus = round((8.33 / 100) * $emp_salary->sal_basic);
-                   $ctc = $emp_salary->sal_gross + $emp_salary->sal_pf_employer + $emp_salary->sal_esi_employer + $bonus;
-                   $ctc_pa = $ctc * 12;
-           
-                   // Replace placeholders in the message
-                   $message_new = str_replace('{{today_date}}', now()->format('d/M/Y'), $message);
-                   $message_new = str_replace('{{candidate_name}}', $emp_name, $message_new);
-                   $message_new = str_replace('{{designation}}', $designation, $message_new);
-                   $message_new = str_replace('{{emp_code}}', $sl_emp_code, $message_new);
-                   $message_new = str_replace('{{sal_ctc}}', $sal_ctc, $message_new);
-                   $message_new = str_replace('{{ctc_pa}}', $ctc_pa, $message_new);
-                   $message_new = str_replace('{{basic}}', $emp_salary->sal_basic, $message_new);
-                   $message_new = str_replace('{{hra}}', $emp_salary->sal_hra, $message_new);
-                   $message_new = str_replace('{{conveyance}}', $emp_salary->sal_conveyance, $message_new);
-                   $message_new = str_replace('{{sal_telephone}}', $emp_salary->sal_telephone, $message_new);
-                   $message_new = str_replace('{{sal_pa}}', $emp_salary->medical_allowance, $message_new);
-                   $message_new = str_replace('{{sal_special_allowance}}', $emp_salary->sal_special_allowance, $message_new);
-                   $message_new = str_replace('{{sal_gross}}', $emp_salary->sal_gross, $message_new);
-                   $message_new = str_replace('{{sal_net}}', $emp_salary->sal_net, $message_new);
-                   $message_new = str_replace('{{sal_pf_emmployee}}', $emp_salary->sal_pf_emmployee, $message_new);
-                   $message_new = str_replace('{{sal_esi_employee}}', $emp_salary->sal_esi_employee, $message_new);
-                   $message_new = str_replace('{{sal_pf_employer}}', $emp_salary->sal_pf_employer, $message_new);
-                   $message_new = str_replace('{{sal_esi_employer}}', $emp_salary->sal_esi_employer, $message_new);
-                   $message_new = str_replace('{{sal_medical_ins}}', $emp_salary->sal_medical_ins, $message_new);
-                   $message_new = str_replace('{{deduction}}', $emp_salary->sal_pf_employee + $emp_salary->sal_esi_employee + $emp_salary->medical_insurance, $message_new);
-                   $message_new = str_replace('{{word}}', ucwords($in_words), $message_new);
-                   $message_new = str_replace('{{doj}}', humanReadableFormat($doj), $message_new);
-                   $message_new = str_replace('{{doe}}', humanReadableFormat($wo_end_date), $message_new);
-                   $message_new = str_replace('{{wo_valid}}', $wo_valid_upto, $message_new);
-                   // Continue replacing other placeholders...
-                   $message_new .= $message_2;
-           
-                   // Generate PDF
-                   $unq_no = now()->format('Ymdhisa');
-                   $file_name = "appointment_{$unq_no}.pdf";
-                 
-                   // Use DomPDF to generate PDF
-                   $pdf = App::make('dompdf.wrapper');
-                   $pdf->loadHTML($message_new);
-                   $pdf->save(public_path("app/public/recruitment/candidate_documents/Appointment Letter/{$file_name}"));
-
-                   // Insert record in the database
-                   EmpSendDoc::create([
-                       'emp_code' => $sl_emp_code,
-                       'doc_type' => 'Appointment',
-                       'document' => $file_name,
-                   ]);
+                    }
                 }
             }
         
@@ -382,7 +395,6 @@ class SalaryStructureController extends Controller
     public function edit_salary(Request $request){
         $id = $request->id;
         $salary = Salary::with('empDetail')->where('id',$id)->first();
-        // dd($salary);
         return view("hr.salary.edit-salary", compact('salary'));
 
     } 
@@ -456,9 +468,10 @@ class SalaryStructureController extends Controller
                 'sal_remark' => $salary->sal_remark,
                 'sal_entry_by' => $salary->created_by,
                 'sal_add_date' => $salary->created_at,
+                // 'sal_add_date' => $salary->created_at,
                 // Add any other fields you want to track
             ];
-
+            // dd($previous_salary_data);
             $salary_log= new SalaryLog();
             $salary_log->create($previous_salary_data);
 
@@ -494,6 +507,7 @@ class SalaryStructureController extends Controller
             $salary->sal_remark = $request->sal_remark;
 
             $salary->save();
+            DB::commit(); 
             return redirect()->route('salary-list')->with('success', 'Salary structure updated successfully!');
         }catch (Throwable $e){
             DB::rollBack();

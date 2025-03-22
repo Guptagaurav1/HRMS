@@ -11,6 +11,15 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Skill</h3>
+                <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="row">
                 @if($message = Session::get('success'))
@@ -44,9 +53,9 @@
 
 
                 <div class="col-md-12">
-                    <div class="text-end px-2">
+                    <div class="text-end px-2 mt-3">
                         <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary">Add
-                                Department</button></a>
+                                Department <i class="fa-solid fa-plus"></i></button></a>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -54,25 +63,26 @@
                         id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th>Sr No.</th>
-                                <th>Skills</th>
-                                <th>Action</th>
+                                <th class="text-center">Sr No.</th>
+                                <th class="text-center">Skills</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($skills as $skill1)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class='text-center'>
                                     {{ ucwords($skill1->skill) }}
                                 </td>
 
-                                <td>
+                                <td class="text-center">
+
                                     @if(auth()->user()->hasPermission('skills.edit'))
-                                    <a  href="{{ route('skills.edit',['skill' => $skill1->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
+                                    <a  href="{{ route('skills.edit',['skill' => $skill1->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                     @endif
                                     @if(auth()->user()->hasPermission('skills.destroy'))
-                                    <a  class="delete-skill" data-id="{{ $skill1->id }}"><button type="button" class="btn btn-sm btn-danger">Delete</button></a>
+                                    <a  class="delete-skill" data-id="{{ $skill1->id }}"><button type="button" class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
                                     @endif
                                 </td>
                             </tr>
@@ -98,8 +108,8 @@
 @section('script')
 <script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
 <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-{{--
-<script src={{asset('assets/js/select2-init.js')}}></script> --}}
+
+<script src={{asset('assets/js/select2-init.js')}}></script>
 
 <script src={{asset('assets/js/masters/skill.js')}}></script>
 

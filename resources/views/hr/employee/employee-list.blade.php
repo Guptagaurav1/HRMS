@@ -12,7 +12,7 @@
                     <h2 class="mt-2">Employee List</h2>
                 </div>
                 <div class="row" class="mt-5">
-                    <p class="text-danger mx-2 fs-6 text-sm">** Search applicable on Emp Id/Name/Work Order
+                    <p class="text-danger " id="search-applicable">** Search applicable on Emp Id/Name/Work Order
                         Number/Designation/Contact/Email (Official/ Personal )/Job Place/Qualification</p>
                 </div>
                 <div class="panel-body">
@@ -31,12 +31,13 @@
                                         </div>
                                         <div class="col-auto">
                                             <a href="{{ route('employee.employee-list') }}"
-                                                class="btn btn-primary mb-3">Reset</a>
+                                                class="btn btn-primary mb-3">Reset <i class="fa-solid fa-rotate-left"></i></a>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-auto flex-1">
+                                       
                                         <form class="export-csv" action="{{route('employee.export')}}" method="post">
                                             @csrf
                                             <div class="d-none">

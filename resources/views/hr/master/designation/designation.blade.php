@@ -31,7 +31,7 @@
 
             <div class="table-responsive">
                 <div class="col-sm-12">
-                    <table class="table table-bordered table-hover  all-employee-table table-striped"
+                    <table class="table table-bordered table-hover all-employee-table table-striped"
                         id="allEmployeeTable">
                         <thead>
                             <tr>
