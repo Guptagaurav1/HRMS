@@ -15,11 +15,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rules\Password;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Throwable;
 use Mail;
 use stdClass;
+
 
 class AuthController extends Controller
 {
@@ -233,7 +234,10 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             'token' => ['required'],
-            'password' => ['required', 'min:8', 'confirmed'],
+            'password' => ['required', 'confirmed', Password::min(8)
+            ->mixedCase()
+            ->numbers()
+            ->symbols()],
             'g-recaptcha-response' => ['required']
         ], [
             'password.required' => 'This field is required',

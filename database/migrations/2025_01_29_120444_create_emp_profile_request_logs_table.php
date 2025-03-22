@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('changed_column');
             $table->foreign('changed_column')->references('id')->on('emp_changed_columns_reqs');
             $table->string('assigned_to')->nullable();
-            $table->enum('status', ['open','completed','dropped'])->nullable();  
+            $table->enum('status', ['open','completed','dropped'])->default('open')->nullable();  
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->integer('updated_by')->nullable();
