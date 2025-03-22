@@ -223,7 +223,7 @@
         </div>
 
         {{-- Personal Details Form --}}
-        <div class="tab-content" id="content6">
+        <div class="tab-content mt-4" id="content6">
             <form class="personal_details">
                 @csrf
                 <div class="d-none">
@@ -346,10 +346,10 @@
                             value="{{!empty($recruitment_details->getPersonalDetail) ? $recruitment_details->getPersonalDetail->emp_husband_wife_name : ''}}">
                     </div>
 
-                    <div class="col-12 d-flex justify-content-between">
+                    <div class="col-12 d-flex justify-content-between py-3 ">
                         <button type="button" class="btn btn-sm btn-secondary" id="previous-btn2">Previous <i
                                 class="fa-solid fa-arrow-left"></i></button>
-                        <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
+                        
                         <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn">Save & Next <i
                                 class="fa-solid fa-arrow-right"></i></button>
                     </div>
@@ -358,7 +358,7 @@
         </div>
 
         {{-- Address Details Form --}}
-        <div class="tab-content" id="content2">
+        <div class="tab-content mt-4" id="content2">
             <form class="address_details">
                 @csrf
                 <div class="d-none">
@@ -383,7 +383,7 @@
                         </textarea>
                     </div>
 
-                    <div class="col-12 d-flex justify-content-between">
+                    <div class="col-12 d-flex justify-content-between py-3">
                         <button type="button" class="btn btn-sm btn-secondary" id="previous-btn2">Previous <i
                                 class="fa-solid fa-arrow-left"></i></button>
                         <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn2">Save & Next <i
@@ -394,7 +394,7 @@
         </div>
 
         {{-- Bank Details Form --}}
-        <div class="tab-content" id="content3">
+        <div class="tab-content mt-4" id="content3">
             <form class="bank_details">
                 @csrf
                 <div class="d-none">
@@ -467,7 +467,7 @@
                     </div>
 
 
-                    <div class="col-12 d-flex justify-content-between">
+                    <div class="col-12 d-flex justify-content-between py-3">
                         <button type="button" class="btn btn-sm btn-secondary" id="previous-btn3">Previous <i
                                 class="fa-solid fa-arrow-left"></i></button>
                         <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Save & Next <i
@@ -478,7 +478,7 @@
         </div>
 
         {{-- Education Details Form --}}
-        <div class="tab-content" id="content4">
+        <div class="tab-content mt-4" id="content4">
             <form class="education_details">
                 @csrf
                 <div class="d-none">
@@ -650,7 +650,7 @@
 
                     </div>
 
-                    <div class="col-12 d-flex justify-content-between">
+                    <div class="col-12 d-flex justify-content-between py-3">
                         <button type="button" class="btn btn-sm btn-secondary" id="previous-btn4">Previous <i
                                 class="fa-solid fa-arrow-left"></i></button>
                         <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Save & Next <i
@@ -661,7 +661,7 @@
         </div>
 
         {{-- Experience Detail Form --}}
-        <div class="tab-content" id="content7">
+        <div class="tab-content mt-4" id="content7">
             <form class="experience_details">
                 @csrf
                 <div class="d-none">
@@ -688,7 +688,7 @@
                         <input class="form-control form-control-sm" name="resume_file" type="file" accept=".pdf">
                     </div>
 
-                    <div class="col-12 d-flex justify-content-between">
+                    <div class="col-12 d-flex justify-content-between py-3">
                         <button type="button" class="btn btn-sm btn-secondary" id="previous-btn3">Previous <i
                                 class="fa-solid fa-arrow-left"></i></button>
                         <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Save & Next <i
@@ -699,7 +699,7 @@
         </div>
 
         {{-- Id Proof Detail Form --}}
-        <div class="tab-content" id="content5">
+        <div class="tab-content mt-4" id="content5">
             <form class="id_proofs">
                 @csrf
                 <div class="d-none">
@@ -746,7 +746,7 @@
                             value="{{!empty($recruitment_details->getIdProofDetail) ? $recruitment_details->getIdProofDetail->nearest_police_station : ''}}">
                     </div>
                     <div class="row">
-                        <div class="col-12 d-flex justify-content-between">
+                        <div class="col-12 d-flex justify-content-between py-3">
                             <button type="button" class="btn btn-sm btn-secondary" id="previous-btn4">Previous <i
                                     class="fa-solid fa-arrow-left"></i></button>
                             <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Save <i

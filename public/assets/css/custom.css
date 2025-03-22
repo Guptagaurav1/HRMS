@@ -705,15 +705,7 @@ button:focus {
 .purple{
   color: #2a0073
 }
-.red{
-  color: #d31044
-}
-.brown{
-  color: #a05756;
-}
-.pink{
-  color: #ff0084;
-}
+
 /*Set the colours for the lines*/
 
 .lineColorGreen{
@@ -728,20 +720,12 @@ button:focus {
 .lineColorPurple{
   background-image: linear-gradient(to bottom right, #b25f88, #2a0073)
 }
-.lineColorRed{
-  background-image: linear-gradient(to bottom right, #d31044, #b80000)
-}
-.lineColorBrown{
-  background-image: linear-gradient(to bottom right, #a05756, #893442);
-}
-.lineColorPink{
-  background-image: linear-gradient(to bottom right, #ff0084, #9e0032);
-}
 .closeTerms{
   border-bottom: 1px solid black;
   margin-top: 15px;
   margin-bottom: 15px;
   padding-bottom: 5px;
+  
 }
 .fadeIn{
   animation-name: fadeIn;
@@ -753,7 +737,7 @@ button:focus {
 @keyframes fadeIn{
   0% {
 
-    opacity: 0;
+    opacity: 0;  
   }
   100%{
 
@@ -895,8 +879,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 input::-webkit-input-placeholder{
   color:#4C4646 !important;
   font-weight: 500;
-  
 }
+
 
 
 

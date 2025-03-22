@@ -2,6 +2,7 @@
 @section('style')
 {{-- <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" /> --}}
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" /> 
 @endsection
 
 @section('contents')
@@ -9,7 +10,16 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h5>Skill</h5>
+                <h2 class="mt-2">Update Skill</h2>
+                <div class="text-end">
+                <a href="{{ route('skills.index') }}">
+                    <div class="back-button-box">
+                        <button type="button" class="btn btn-back">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </a>
+            </div> 
             </div>
                 <div class="row my-4">
                     @if ($message = Session::get('success'))
@@ -34,7 +44,7 @@
                     </div>
                 </div>
                 <div class="text-end p-2">
-                    <button type="submit" class="btn btn-primary mb-3">Add Skills</button>
+                    <button type="submit" class="btn btn-primary mb-3">Submit <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
 
             </form>

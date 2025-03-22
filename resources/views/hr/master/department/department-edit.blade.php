@@ -9,8 +9,16 @@
     <div class="col-12">
         <div class="panel mb-4">
             <div class="panel-header">
-                <h4 class="text-white mt-2">Department</h4>
-                <a href="{{route('departments.index')}}"><button class="btn btn-sm btn-primary">Back</button></a>  
+                <h2 class="text-white mt-2">Update Department</h2>
+                <div class="text-end">
+                <a href="{{ route('departments.index') }}">
+                    <div class="back-button-box">
+                        <button type="button" class="btn btn-back">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </a>
+            </div> 
             </div>
             <div class="row px-3 mt-2">
                 @if ($message = Session::get('success'))

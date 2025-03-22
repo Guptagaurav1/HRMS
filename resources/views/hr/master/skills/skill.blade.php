@@ -10,7 +10,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h3 class="mt-2">Skill</h3>
+                <h2 class="mt-2">Skills List</h2>
                 <div class="text-start">
                     <a href="{{ route('hr_dashboard') }}">
                         <div class="back-button-box">
@@ -55,7 +55,7 @@
                 <div class="col-md-12">
                     <div class="text-end px-2 mt-3">
                         <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary">Add
-                                Department <i class="fa-solid fa-plus"></i></button></a>
+                                Skills <i class="fa-solid fa-plus"></i></button></a>
                     </div>
                 </div>
                 <div class="table-responsive">

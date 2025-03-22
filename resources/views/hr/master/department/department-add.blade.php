@@ -9,9 +9,18 @@
     <div class="col-12">
         <div class="panel mb-4">
             <div class="panel-header">
-                <h5 class="text-white">Create Department</h5>
+                <h2 class="text-white">Create Department</h2>
 
-                <a href="{{route('departments.index')}}"><button class="btn btn-sm btn-primary">Back</button></a>  
+               
+                <div class="text-end">
+                <a href="{{ route('departments.index') }}">
+                    <div class="back-button-box">
+                        <button type="button" class="btn btn-back">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </a>
+            </div>
 
             </div>
 
