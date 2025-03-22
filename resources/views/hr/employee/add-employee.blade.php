@@ -208,7 +208,7 @@
                 </div>
 
                 {{-- Personal Details Form --}}
-                <div class="tab-content" id="content6">
+                <div class="tab-content mt-4" id="content6">
                     <form class="personal_details">
                         @csrf
                         <div class="d-none">
@@ -347,7 +347,7 @@
                 </div>
 
                 {{-- Address Details Form --}}
-                <div class="tab-content" id="content2">
+                <div class="tab-content mt-4" id="content2">
                     <form class="address_details">
                         @csrf
                         <div class="d-none">
@@ -381,7 +381,7 @@
                 </div>
 
                 {{-- Bank Details Form --}}
-                <div class="tab-content" id="content3">
+                <div class="tab-content mt-4" id="content3">
                     <form class="bank_details">
                         @csrf
                         <div class="d-none">
@@ -465,7 +465,7 @@
                 </div>
 
                 {{-- Education Details Form --}}
-                <div class="tab-content" id="content4">
+                <div class="tab-content mt-4" id="content4">
                     <form class="education_details">
                         @csrf
                         <div class="d-none">
@@ -789,7 +789,7 @@
                 </div>
 
                 {{-- Experience Detail Form --}}
-                <div class="tab-content" id="content7">
+                <div class="tab-content mt-4" id="content7">
                     <form class="experience_details">
                         @csrf
                         <div class="d-none">
@@ -830,7 +830,7 @@
                 </div>
 
                 {{-- Id Proof Detail Form --}}
-                <div class="tab-content" id="content5">
+                <div class="tab-content mt-4" id="content5">
                     <form class="id_proofs">
                         @csrf
                         <div class="d-none">
