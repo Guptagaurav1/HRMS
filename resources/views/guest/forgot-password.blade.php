@@ -69,10 +69,10 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit</button>
+                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit <i class="fa-solid fa-check"></i></button>
                     </form>
                     <div class="mb-25 my-2">
-                        <a href="{{ route('login') }}" class="btn btn-primary w-100 text-light">Cancel</a>
+                        <a href="{{ route('login') }}" class="btn btn-primary w-100 text-light">Cancel <i class="fa-solid fa-xmark"></i></a>
                     </div>
                 </div>
 

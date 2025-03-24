@@ -198,7 +198,7 @@
                             </div>
 
 
-                            <div class="col-12 d-flex justify-content-end">
+                            <div class="col-12 d-flex justify-content-end py-3">
                                 <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
                                 <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn">Save &
                                     Next <i class="fa-solid fa-arrow-right"></i></button>
@@ -335,7 +335,7 @@
                                     value="{{ !empty($recruitment_details->getPersonalDetail) ? $recruitment_details->getPersonalDetail->emp_husband_wife_name : '' }}">
                             </div>
 
-                            <div class="col-12 d-flex justify-content-between">
+                            <div class="col-12 d-flex justify-content-between py-3">
                                 <button type="button" class="btn btn-sm btn-secondary" id="previous-btn2">Previous <i
                                         class="fa-solid fa-arrow-left"></i></button>
                                 <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
@@ -370,7 +370,7 @@
                                     placeholder="Enter Correspondence Address With State And City">{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->emp_local_address : '' }}</textarea>
                             </div>
 
-                            <div class="col-12 d-flex justify-content-between">
+                            <div class="col-12 d-flex justify-content-between py-3">
                                 <button type="button" class="btn btn-sm btn-secondary" id="previous-btn2">Previous <i
                                         class="fa-solid fa-arrow-left"></i></button>
                                 <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn2">Save &
@@ -454,7 +454,7 @@
                             </div>
 
 
-                            <div class="col-12 d-flex justify-content-between">
+                            <div class="col-12 d-flex justify-content-between py-3">
                                 <button type="button" class="btn btn-sm btn-secondary" id="previous-btn3">Previous <i
                                         class="fa-solid fa-arrow-left"></i></button>
                                 <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Save &
@@ -778,7 +778,7 @@
 
                             </div>
 
-                            <div class="col-12 d-flex justify-content-between">
+                            <div class="col-12 d-flex justify-content-between py-3">
                                 <button type="button" class="btn btn-sm btn-secondary" id="previous-btn4">Previous <i
                                         class="fa-solid fa-arrow-left"></i></button>
                                 <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Save &
@@ -819,7 +819,7 @@
                                     accept=".pdf">
                             </div>
 
-                            <div class="col-12 d-flex justify-content-between">
+                            <div class="col-12 d-flex justify-content-between py-3">
                                 <button type="button" class="btn btn-sm btn-secondary" id="previous-btn3">Previous <i
                                         class="fa-solid fa-arrow-left"></i></button>
                                 <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Save &
@@ -878,7 +878,7 @@
                                     value="{{ !empty($recruitment_details->getIdProofDetail) ? $recruitment_details->getIdProofDetail->nearest_police_station : '' }}">
                             </div>
                             <div class="row">
-                                <div class="col-12 d-flex justify-content-between">
+                                <div class="col-12 d-flex justify-content-between py-3">
                                     <button type="button" class="btn btn-sm btn-secondary" id="previous-btn4">Previous
                                         <i class="fa-solid fa-arrow-left"></i></button>
                                     <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Save
@@ -922,7 +922,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-end">
+                    <div class="col-12 d-flex justify-content-end py-3">
                         <button type="submit" class="btn btn-sm btn-primary"> <i class="fa-solid fa-upload"></i> Upload
                             CSV</button>
                     </div>
