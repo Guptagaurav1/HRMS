@@ -125,6 +125,42 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
+                        <h5 class="text-white">ESIC and PF</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row g-3">
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Opt For PF(Employee And Employer)</label>
+                                <select id="opt_pf" name="opt_pf" class="form-select">
+                                    <option value="">Select</option>
+                                    <option value="yes" selected>Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Opt For ESI(Employee And Employer)</label>
+                                <select id="opt_esi" name="opt_esi" class="form-select">
+                                    <option value="">Select</option>
+                                    <option value="yes" selected>Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6" id="pf_no_field">
+                                <label class="form-label">PF UAN No</label>
+                                <input type="number" name="pf_no" id="pf_no" class="form-control form-control-sm" placeholder="Enter PF UAN No">
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6" id="esi_no_field">
+                                <label for="formFile" class="form-label">ESI No</label>
+                                <input type="number" name="esi_no"  id="esi_no" class="form-control form-control-sm" pattern="^(\d{2})[\–\-](\d{2})[\–\-](\d{6})[\–\-](\d{3})[\–\-](\d{4})$" placeholder="Enter ESI No">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
                         <h5 class="text-white">Gross Salary</h5>
                     </div>
 
@@ -179,7 +215,7 @@
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">Medical Allowance <span class="text-danger">*</span></label>
-                                    <input type="number" name="medical_allowance" id="medical_allowance" onchange="cal_gross();" required min="0" class="form-control form-control-sm">
+                                    <input type="number" name="medical_allowance" id="medical_allowance" onchange="cal_gross();" required  value="0" min="0" class="form-control form-control-sm">
                                     @error('medical_allowance')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -228,15 +264,15 @@
                             <div class="row g-3">
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">Telephone </label>
-                                    <input type="number" name="sal_telephone" id="sal_telephone" class="form-control form-control-sm" min="0" onchange="cal_gross();">
+                                    <input type="number" name="sal_telephone" id="sal_telephone" class="form-control form-control-sm" value="0" min="0" onchange="cal_gross();">
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">Uniform</label>
-                                    <input type="number" name="sal_uniform" id="sal_uniform" onchange="cal_gross();" min="0" class="form-control form-control-sm">
+                                    <input type="number" name="sal_uniform" id="sal_uniform" onchange="cal_gross();" min="0" class="form-control form-control-sm" value="0">
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">School Fee<span style="color: red">*</span></label>
-                                    <input type="number" name="sal_school_fee" id="sal_school_fee" class="form-control form-control-sm" onchange="cal_gross();" required min="0">
+                                    <input type="number" name="sal_school_fee" id="sal_school_fee" class="form-control form-control-sm" onchange="cal_gross();" required min="0" value="0">
                                     @error('sal_school_fee')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -277,20 +313,14 @@
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">PF Employee max(1800)<span class="text-danger">
-                                            *</span></label>
-                                    <input type="number" name="sal_pf_employee" id="sal_pf" onkeyup="cal_gross();" required class="form-control form-control-sm">
-                                    @error('sal_pf')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <label class="form-label">PF Employee max(1800)</label>
+                                    <input type="number" name="sal_pf_employee" id="sal_pf" onkeyup="cal_gross();" readonly class="form-control form-control-sm">
+                                   
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">ESIC<span class="text-danger">
-                                    *</span></label>
-                                    <input type="number" name="sal_esi_employee" id="sal_esi" required onkeyup="cal_gross();" class="form-control form-control-sm">
-                                    @error('sal_esi')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <label class="form-label">ESIC </label>
+                                    <input type="number" name="sal_esi_employee" id="sal_esi" onkeyup="cal_gross();" readonly class="form-control form-control-sm">
+                                   
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">LWF Employee(labour Welfare Fund)<span class="text-danger">
@@ -316,42 +346,7 @@
                 </div>
             </div>
 
-            <div class="col-12">
-                <div class="panel">
-                    <div class="panel-header">
-                        <h5 class="text-white">ESIC and PF</h5>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row g-3">
-                            <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label class="form-label">Opt For PF(Employee And Employer)</label>
-                                <select id="opt_pf" name="opt_pf" class="form-select">
-                                    <option value="">Select</option>
-                                    <option value="yes" selected>Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                            </div>
-                            <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label class="form-label">Opt For ESI(Employee And Employer)</label>
-                                <select id="opt_esi" name="opt_esi" class="form-select">
-                                    <option value="">Select</option>
-                                    <option value="yes" selected>Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                            </div>
-                            <div class="col-xxl-3 col-lg-6 col-sm-6" calss="pf_no_field">
-                                <label class="form-label">PF UAN No</label>
-                                <input type="number" name="pf_no" id="pf_no" class="form-control form-control-sm" placeholder="Enter PF UAN No">
-                            </div>
-                            <div class="col-xxl-3 col-lg-6 col-sm-6" id="esi_no_field">
-                                <label for="formFile" class="form-label">ESI No</label>
-                                <input type="number" name="esi_no"  id="esi_no" class="form-control form-control-sm" pattern="^(\d{2})[\–\-](\d{2})[\–\-](\d{6})[\–\-](\d{3})[\–\-](\d{4})$" placeholder="Enter ESI No">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">

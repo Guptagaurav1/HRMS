@@ -263,8 +263,8 @@ class EmployeeController extends Controller
                 );
             } else {
                 $empdetails = EmpAccountDetail::where('emp_code', $request->emp_code)->first();
-                $oldDetails = $empdetails->getOriginal();
                 if ($empdetails) {
+                    $oldDetails = $empdetails->getOriginal();
                     $empdetails->fill($request->all());
                     $empdetails->save();
 
@@ -462,8 +462,8 @@ class EmployeeController extends Controller
             } else {
 
                 $empdetails = EmpIdProof::where('emp_code', $request->emp_code)->first();
-                $oldDetails = $empdetails->getOriginal();
                 if ($empdetails) {
+                    $oldDetails = $empdetails->getOriginal();
                     $empdetails->fill($data);
                     $empdetails->save();
 
@@ -535,8 +535,8 @@ class EmployeeController extends Controller
                 );
             } else {
                 $empdetails = EmpExperienceDetail::where('emp_code', $request->emp_code)->first();
-                $oldDetails = $empdetails->getOriginal();
                 if ($empdetails) {
+                    $oldDetails = $empdetails->getOriginal();
                     $empdetails->fill($data);
                     $empdetails->save();
 

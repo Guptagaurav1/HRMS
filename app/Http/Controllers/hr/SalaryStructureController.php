@@ -73,9 +73,9 @@ class SalaryStructureController extends Controller
         'sal_car_allow' => 'required',
         'sal_grade_pay' => 'required',
         'sal_special_allowance' => 'required',
-        'sal_pf_employee' => 'required',
-        'sal_esi_employer' => 'required',
-        'sal_lwf_employer' => 'required',
+        // 'sal_pf_employee' => 'required',
+        // 'sal_esi_employer' => 'required',
+        // 'sal_lwf_employer' => 'required',
         'sal_prof_tax' => 'required',
        ]);
         if($request->exception_pf == " "){
@@ -107,6 +107,22 @@ class SalaryStructureController extends Controller
         if(!empty($ex_salary)){
             return redirect()->route('create-salary')->with('success','Salary structure already exist in system !');
         }
+        
+        $sal_emp_code =$request->sal_emp_code;
+        $emp_sal_strut= EmpAccountDetail::where('emp_code',$sal_emp_code)->first();
+        if ($emp_sal_strut) {
+            // If PF number is provided, update it
+            if (!empty($request->pf_no)) {
+                $emp_sal_strut->emp_pf_no = $request->pf_no;
+            }
+
+            // If ESI number is provided, update it
+            if (!empty($request->esi_no)) {
+                $emp_sal_strut->emp_esi_no =  $request->esi_no;
+            }
+            $emp_sal_strut->save();
+        }
+        
         $salary = new Salary();
         $salary->sl_emp_id = $request->sal_emp_id;
         $salary->sl_emp_code = $request->sal_emp_code;
@@ -145,14 +161,13 @@ class SalaryStructureController extends Controller
         $salary->sal_remark = $request->sal_remark;
        
         $salary->save();
-        $sal_emp_code =$request->sal_emp_code;
         
-        $emp_sal_strut= EmpAccountDetail::where('emp_code',$sal_emp_code);
+      
         // dd($emp_sal_strut);
-        $emp_sal_strut->update([
-            'emp_sal_structure_status'=>'completed']);
-        //  dd($employee);
-
+        if ($salary) {
+            $emp_sal_strut->update([
+                'emp_sal_structure_status'=>'completed']);
+        }
 
         // send appointment letter code start here
         // check send appointment or not 
@@ -414,9 +429,9 @@ class SalaryStructureController extends Controller
                 'sal_car_allow' => 'required',
                 'sal_grade_pay' => 'required',
                 'sal_special_allowance' => 'required',
-                'sal_pf_employee' => 'required',
-                'sal_esi_employer' => 'required',
-                'sal_lwf_employer' => 'required',
+                // 'sal_pf_employee' => 'required',
+                // 'sal_esi_employer' => 'required',
+                // 'sal_lwf_employer' => 'required',
                 'sal_prof_tax' => 'required',
             ]);
 
@@ -471,10 +486,27 @@ class SalaryStructureController extends Controller
                 // 'sal_add_date' => $salary->created_at,
                 // Add any other fields you want to track
             ];
-            // dd($previous_salary_data);
             $salary_log= new SalaryLog();
             $salary_log->create($previous_salary_data);
 
+            // dd($request);
+            $sl_emp_code = $request->sal_emp_code;
+            $emp_sal_strut= EmpAccountDetail::where('emp_code',$sl_emp_code)->first();
+            //  dd($emp_sal_strut);
+            if ($emp_sal_strut) {
+                // If PF number is provided, update it
+                if (!empty($request->pf_no)) {
+                    $emp_sal_strut->emp_pf_no = $request->pf_no;
+                }
+            
+                // If ESI number is provided, update it
+                if (!empty($request->esi_no)) {
+                    $emp_sal_strut->emp_esi_no = $request->esi_no;
+                }
+                $emp_sal_strut->save();
+            }
+            
+          
             $salary->sal_ctc = $request->sal_emp_ctc;
             $salary->sal_gross = $request->sal_gross;
             $salary->sal_net = $request->sal_net;
@@ -506,6 +538,7 @@ class SalaryStructureController extends Controller
             $salary->accident_insurance_ctc = $accident_insurance_ctc;
             $salary->sal_remark = $request->sal_remark;
 
+            
             $salary->save();
             DB::commit(); 
             return redirect()->route('salary-list')->with('success', 'Salary structure updated successfully!');
