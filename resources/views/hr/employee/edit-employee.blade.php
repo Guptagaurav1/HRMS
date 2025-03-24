@@ -56,7 +56,7 @@
         @endif
     </div>
 
-    <div class="panel" id="tab-1">
+    <div class="panel px-2" id="tab-1">
 
         <div class="employee-tab">
             <ul class="d-flex align-items-center justify-content-between  flex-wrap">
@@ -67,10 +67,10 @@
                     <button type="button" class="tab-btn" id="tab2">Personal Details</button>
                 </li>
                 <li>
-                    <button type="button" class="tab-btn" id="tab3">Communication Details</button>
+                    <button type="button" class="tab-btn" id="tab3">Inquiry Details</button>
                 </li>
                 <li>
-                    <button type="button" class="tab-btn" id="tab4">Acount Details</button>
+                    <button type="button" class="tab-btn" id="tab4">Account Details</button>
                 </li>
                 <li>
                     <button type="button" class="tab-btn" id="tab5">Educational Details</button>
@@ -92,7 +92,7 @@
               <div class="d-none">
                 <input type="hidden" name="emp_id" value="{{$id}}">
               </div>
-            <div class="row g-3">
+            <div class="row g-3 mt-3">
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label class="form-label">Work Order Number <span class="text-danger">*</span></label>
                     <select class="form-select js-example-basic-multiple" name="emp_work_order" required>
@@ -249,9 +249,9 @@
                 </div>
 
                 @if ($employee_details->emp_current_working_status == 'active')
-                <div class="col-12 d-flex justify-content-end">
+                <div class="col-12 d-flex justify-content-end py-3 px-2">
                     <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
-                    <button type="submit" class="btn btn-sm btn-primary" >Update </button>
+                    <button type="submit" class="btn btn-sm btn-primary" >Update <i class="fa-solid fa-check"></i></button>
                 </div>
                 @endif
             </div>
@@ -259,7 +259,7 @@
         </div>
 
         {{-- Personal Details Form --}}
-        <div class="tab-content" id="content2">
+        <div class="tab-content mt-3" id="content2">
             <form class="personal_details">
                 @csrf
                 <div class="d-none">
@@ -339,10 +339,10 @@
                 </div>
 
                 @if ($employee_details->emp_current_working_status == 'active')
-                <div class="col-12 d-flex justify-content-end">
+                <div class="col-12 d-flex justify-content-end py-3 px-2">
                     
                     <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn">Update</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn">Update <i class="fa-solid fa-check"></i></button>
                 </div>
                 @endif
             </div>
@@ -350,7 +350,7 @@
         </div>
 
         {{-- Address Details Form --}}
-        <div class="tab-content" id="content3">
+        <div class="tab-content mt-3" id="content3">
             <form class="address_details">
                 @csrf
                 <div class="d-none">
@@ -371,9 +371,9 @@
                 </div>
              
                 @if ($employee_details->emp_current_working_status == 'active')
-                <div class="col-12 d-flex justify-content-end">
+                <div class="col-12 d-flex justify-content-end py-3 px-2">
                     
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn2">Update</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn2">Update <i class="fa-solid fa-check"></i></button>
                 </div>
                 @endif
             </div>
@@ -381,7 +381,7 @@
         </div>
 
         {{-- Bank Details Form --}}
-        <div class="tab-content" id="content4">
+        <div class="tab-content mt-3"  id="content4">
             <form class="bank_details">
                 @csrf
                 <div class="d-none">
@@ -441,9 +441,9 @@
                 </div>
 
                 @if ($employee_details->emp_current_working_status == 'active')
-                <div class="col-12 d-flex justify-content-end">
+                <div class="col-12 d-flex justify-content-end px-2 py-3">
                     
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Update</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Update <i class="fa-solid fa-check"></i></button>
                 </div>
                 @endif
             </div>
@@ -451,7 +451,7 @@
         </div>
 
         {{-- Education Details Form --}}
-        <div class="tab-content" id="content5">
+        <div class="tab-content mt-3" id="content5">
             <form class="education_details">
                 @csrf
                 <div class="d-none">
@@ -594,9 +594,9 @@
 
                 </div>
                 @if ($employee_details->emp_current_working_status == 'active')
-                <div class="col-12 d-flex justify-content-end">
+                <div class="col-12 d-flex justify-content-end px-2 py-3">
                   
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Update</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Update <i class="fa-solid fa-check"></i></button>
                 </div>
                 @endif
             </div>
@@ -604,7 +604,7 @@
         </div>
 
         {{-- Experience Detail Form --}}
-        <div class="tab-content" id="content6">
+        <div class="tab-content mt-3" id="content6">
             <form class="experience_details">
                 @csrf
                 <div class="d-none">
@@ -630,9 +630,9 @@
                 </div>
 
                 @if ($employee_details->emp_current_working_status == 'active')
-                <div class="col-12 d-flex justify-content-end">
+                <div class="col-12 d-flex justify-content-end px-2 py-3">
                     
-                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Update</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Update <i class="fa-solid fa-check"></i></button>
                 </div>
                 @endif
             </div>
@@ -640,7 +640,7 @@
         </div>
 
         {{-- Id Proof Detail Form --}}
-        <div class="tab-content" id="content7">
+        <div class="tab-content mt-3" id="content7">
             <form class="id_proofs">
                 @csrf
                 <div class="d-none">
@@ -680,8 +680,8 @@
                 </div>
                 @if ($employee_details->emp_current_working_status == 'active')
                 <div class="row">
-                    <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Update</button>
+                    <div class="col-12 d-flex justify-content-end px-2 py-3">
+                        <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Update <i class="fa-solid fa-check"></i></button>
                     </div>
                 </div>
                 @endif
