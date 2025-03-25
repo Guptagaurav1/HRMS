@@ -11,6 +11,15 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Designation Lists</h3>
+                <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
             </div>
             @if(auth()->user()->hasPermission('designations.create'))
                 <div class="text-end px-2 mt-3">
@@ -44,14 +53,14 @@
 
                             @forelse($designations as $key => $value)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ ucwords($value->name)  }}</td>
-                                    <td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ ucwords($value->name)  }}</td>
+                                    <td class="text-center">
                                         @if(auth()->user()->hasPermission('designations.edit'))
-                                            <a href="{{ route('designations.edit',['designation' => $value->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>
+                                            <a href="{{ route('designations.edit',['designation' => $value->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                         @endif
                                         @if(auth()->user()->hasPermission('designations.destroy'))
-                                        <a class="delete-designation" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete</button></a>
+                                        <a class="delete-designation" data-id="{{ $value->id }}"><button type="button" class="btn btn-sm btn-primary">Delete <i class="fa-solid fa-trash"></i></button></a>
                                         @endif
                                     </td>
                                 </tr>

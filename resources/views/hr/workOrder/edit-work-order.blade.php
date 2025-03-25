@@ -100,16 +100,11 @@
                     <span><strong>Work Order :</strong> {{ $workOrder->wo_number }} <strong> Added On : </strong> {{
                         $workOrder->created_at }}</span>
                 </div>
-                @endif
-
                 <div>
                     <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary"> Work Order
                             List <i class="fa-solid fa-list"></i></button></a>
                 </div>
             </div>
-
-
-
             @endif
 
             <form action="{{ route('update-work-order', $workOrder->id) }}" method="post" enctype="multipart/form-data">
@@ -195,11 +190,11 @@
                                     <div class="col-sm-12 col-md-4">
                                         <label class="form-label">Work Order Number <span
                                                 class="text-danger">*</span></label>
-                                                <input name="work_order" type="text"
+                                                <input name="wo_number" type="text"
                                             class="form-control form-control-sm"
                                             placeholder="Enter Work Order No"
-                                            value="{{ old('work_order',$workOrder->wo_number) }}">
-                                        @error('work_order')
+                                            value="{{ old('wo_number',$workOrder->wo_number) }}">
+                                        @error('wo_number')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

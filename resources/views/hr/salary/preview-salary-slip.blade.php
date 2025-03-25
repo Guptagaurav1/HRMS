@@ -11,22 +11,36 @@
             <div class="col-xxl-7 col-xl-11">
                 <div class="panel rounded-0">
                     <div class="row">
-                         <div class="col-md-12 d-flex justify-content-end my-3">
+                         <!-- <div class="col-md-12 d-flex justify-content-end my-3">
                         <a href="{{route('salary-slip')}}" class="btn btn-primary">Back</a>
-                    </div>
+                        
+                    </div> -->
+
+                    <div class="text-end px-4">
+                    <a href="{{ route('salary-slip') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
                     </div>
                     
                     <div class="panel-body invoice printarea" id="invoiceBody">
                         <div class="d-none">
                             <input type="hidden" id="slip-id" value="{{$id}}">
                         </div>
-                        <div class="invoice-header mb-25">
+                        <div class="invoice-header">
                             <div class="row justify-content-between align-items-end">
                             
-                                <div class="col-xl-5 col-lg-6 col-sm-6">
-                                    <div class="shop-address">
-                                        <div class="logo mb-20">
-                                            <img src="{{asset('assets/images/PrakharNEWLogo.png')}}" alt="Logo" class="w-50">
+                                <div class="col-lg-12 col-sm-6">
+                                    <div class="shop-address" >
+                                        <div class="d-flex align-items-center justify-content-between">
+                                           
+                                            <img src="{{asset('assets\images\PrakharLimited-logo.png')}}" alt="Logo" style="width:120px">
+                                      
+                                            <img src="{{asset('assets\images\11years.png')}}" alt="Logo" style="width:90px">
                                         </div>
                                         <div class="part-txt">
                                             <p class="mb-1">Prakhar Software Solutions Pvt. Ltd.</p>

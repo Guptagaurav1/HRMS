@@ -46,7 +46,6 @@
     <script src="{{asset('assets/vendor/js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('assets/vendor/js/jquery.overlayScrollbars.min.js')}}"></script>
     <script src="{{asset('assets/vendor/js/apexcharts.js')}}"></script>
-    <!-- <script src="{{asset('assets/vendor/js/jquery.dataTables.min.js')}}"></script> -->
     <script src="{{asset('assets/vendor/js/moment.min.js')}}"></script>
     <script src="{{asset('assets/vendor/js/daterangepicker.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.bundle.min.js')}}"></script>
@@ -57,10 +56,6 @@
         const SITE_URL = "{{ config('js.site_url')}}";
     </script>
     <script src="{{asset('assets/js/master.js')}}"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-    {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multidatespicker/1.6.6/jquery-ui.multidatespicker.min.js"></script> --}}
-    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
     <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery-ui.multidatespicker.min.js')}}"></script>
     <script src="{{asset('assets/js/select2.min.js')}}"></script>
@@ -79,8 +74,6 @@
         });
 
     </script>
-{{-- <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script> --}}
-{{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
 </body>
 
 </html>

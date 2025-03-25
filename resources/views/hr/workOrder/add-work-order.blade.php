@@ -34,7 +34,7 @@
                 </div>
             </div>
             @endif
-
+            
             <form action="{{ route('store-work-order')}}" method="post" enctype="multipart/form-data">
                 @csrf
 
@@ -61,7 +61,8 @@
                             <div class="row g-3">
                                 <div class="col-sm-12 col-md-4">
                                     <label class="form-label">Organisation <span class="text-danger">*</span></label>
-                                    <select name="organisation" id="organisation" class="form-select form-control" required>
+                                    <select name="organisation" id="organisation" class="form-select form-control"
+                                        required>
                                         <option value="">--Select Organisation--</option>
                                         @foreach($organization as $key => $organization_data)
                                         <option value="{{$organization_data->id}}" @if ($organization_data->name ==
@@ -114,9 +115,9 @@
                                     <div class="col-sm-12 col-md-4">
                                         <label class="form-label">Work Order Number <span
                                                 class="text-danger">*</span></label>
-                                        <input name="work_order" type="text" class="form-control form-control-sm" 
-                                            placeholder="Enter Work Order No" value="{{ old('work_order') }}" required/>
-                                        @error('work_order')
+                                        <input name="wo_number" type="text" class="form-control form-control-sm" 
+                                            placeholder="Enter Work Order No" value="{{ old('wo_number') }}" required/>
+                                        @error('wo_number')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -124,8 +125,8 @@
                                         <label class="form-label text-wrap">
                                             Previous Work Order Number
                                         </label>
-                                        <input name="prev_wo_no" type="text" class="form-control form-control-sm" required
-                                            placeholder="Previous Work Order No In case of amendment"
+                                        <input name="prev_wo_no" type="text" class="form-control form-control-sm"
+                                            required placeholder="Previous Work Order No In case of amendment"
                                             value="{{ old('prev_wo_no') }}">
                                     </div>
                                     <div class="col-sm-12 col-md-4 text-wrap">
@@ -134,7 +135,7 @@
                                         </label>
                                         <input name="internal_reference" id="internal_reference" type="text"
                                             class="form-control form-control-sm" placeholder="Internal Reference"
-                                            value="{{ old('internal_reference') }}">
+                                            value="{{ old('internal_reference') }}" required>
                                     </div>
 
 
@@ -307,7 +308,7 @@
                                     <div class="col-sm-12 col-md-4 text-wrap">
                                         <label class="form-label text-wrap">Email</label>
                                         <input name="c_email[]" id="c_email" type="email"
-                                            class="form-control form-control-sm" placeholder="Email" value="">
+                                            class="form-control form-control-sm" placeholder="Enter Email" value="">
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <label for="exampleTextarea" class="form-label">Remarks</label>
@@ -370,12 +371,12 @@
                                         value="{{ old('invoice_address') }}"></textarea>
                                 </div>
                             </div>
-                            
+
                         </div>
 
                         <div class="col-12 d-flex justify-content-between py-3 px-3">
                             <button type="button" class="btn btn-sm btn-primary  prev-btn">Previous <i
-                                class="fa-solid fa-arrow-left"></i></button>
+                                    class="fa-solid fa-arrow-left"></i></button>
                             <button type="submit" class="btn btn-sm btn-primary">Register Work Order <i
                                     class="fa-solid fa-arrow-right"></i></button>
                         </div>
@@ -396,21 +397,21 @@
 
 <script>
     $(document).ready(function () {
-       
+
         let currentTab = 0;
 
         function showTabContent(index) {
-           
+
             $(".tab-content").removeClass("active");
-          
+
             $(".tab-btn").removeClass("active");
 
-           
+
             $(".tab-content").eq(index).addClass("active");
             $(".tab-btn").eq(index).addClass("active");
         }
 
-      
+
         $(".next-btn").click(function () {
             if (currentTab < $(".tab-btn").length - 1) {
                 currentTab++;
@@ -418,7 +419,7 @@
             }
         });
 
-       
+
         $(".prev-btn").click(function () {
             if (currentTab > 0) {
                 currentTab--;

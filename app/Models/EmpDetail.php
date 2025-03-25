@@ -41,7 +41,7 @@ class EmpDetail extends Authenticatable
     {
         return $this->hasMany(WoAttendance::class, 'emp_id', 'id');
     }
-
+    
     public static function boot()
     {
         parent::boot();
@@ -120,4 +120,10 @@ class EmpDetail extends Authenticatable
     {
         return $this->hasMany(WoAttendance::class, 'emp_id', 'id');
     }
+
+    public function form16()
+    {
+        return $this->hasMany(Form16::class, 'emp_id', 'id');
+    }
+
 }

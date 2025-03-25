@@ -103,11 +103,11 @@
                                         <td title="TDS Tax Amount">{{$value->tds_tax_amount}}</td>
 
                                         <td title="TDS Deduction">{{$value->tds_deduction}}</td>
-                                        <td title="PF No.">{{$value->getBankDetail->emp_pf_no??NULL}}</td>
-                                        <td title="ESI No.">{{$value->getBankDetail->emp_esi_no??NULL}}</td>
-                                        <td title="Bank No.">{{$value->getBankDetail->getBankData->name_of_bank??NULL}}</td>
-                                        <td title="Account No.">{{$value->getBankDetail->emp_account_no??NULL}}</td>
-                                        <td>{{$value->getBankDetail->emp_ifsc}}</td>
+                                        <td title="PF No.">{{$value->empDetail->getBankDetail->emp_pf_no??NULL}}</td>
+                                        <td title="ESI No.">{{$value->empDetail->getBankDetail->emp_esi_no??NULL}}</td>
+                                        <td title="Bank No.">{{$value->empDetail->getBankDetail->getBankData->name_of_bank??NULL}}</td>
+                                        <td title="Account No.">{{$value->empDetail->getBankDetail->emp_account_no??NULL}}</td>
+                                        <td>{{$value->empDetail->getBankDetail->emp_ifsc}}</td>
                                         <td title="Phone">{{$value->empDetail->emp_phone_first}}</td>
                                         <td title="Email">{{$value->empDetail->emp_email_first}}</td>
                                         <td title="Remark" >{{$value->sal_remark}}</td>

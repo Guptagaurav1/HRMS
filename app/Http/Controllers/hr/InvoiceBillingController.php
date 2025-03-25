@@ -19,7 +19,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Illuminate\Support\Facades\File;
-
+use App\Models\EmpAccountDetail;
 class InvoiceBillingController extends Controller
 {
     public function index(Request $request){
@@ -439,35 +439,36 @@ class InvoiceBillingController extends Controller
     // form16 function strat here
     public function form16(Request $request){
         $search =$request->search;
-        $form16 = Form16::select('form16.*')
-        ->with(['empDetail' => function ($query) use ($search) {
-            $query->select('id', 'emp_code', 'emp_name', 'emp_work_order'); 
-            if ($search) {
-                $query->where(function ($query) use ($search) {
-                    $query->where('emp_code', 'like', '%' . $search . '%')
-                          ->orWhere('emp_name', 'like', '%' . $search . '%')
-                          ->orWhere('emp_work_order', 'like', '%' . $search . '%');
-                });
-            }
-        }])
-        ->when($search, function ($query) use ($search) {
-            $query->where(function ($query) use ($search) {
-                $query->where('financial_year', 'like', '%' . $search . '%')
-                      ->orWhere('pan_no', 'like', '%' . $search . '%');
+        $form16 = Form16::with(['empDetail' => function ($query) {
+                $query->select('id', 'emp_code', 'emp_name', 'emp_work_order');
+        }
+        ])
+        ->when($search, function ($query, $search) {
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('empDetail', function ($que) use ($search) {
+                        $que->where('emp_code', 'like', '%' . $search . '%')
+                            ->orWhere('emp_name', 'like', '%' . $search . '%')
+                            ->orWhere('emp_work_order', 'like', '%' . $search . '%');
+                        
+                })
+                ->orwhere('pan_no', 'like', '%' . $search . '%')
+                ->orWhere('financial_year', 'like', '%' . $search . '%');
+                    
+                    
             });
         })
-        ->orderByDesc('id') 
-        ->get();
+      
+        ->paginate(10);
      
         return view("hr.invoiceBilling.form16",compact('form16','search'));
     }
     public function addForm16(){
 
-        $empDetail = EmpDetail::where('emp_current_working_status','active')
-        ->whereHas('getBankDetail', function ($query) {
+        $empDetail = EmpDetail::whereHas('getBankDetail', function ($query) {
             $query->where('emp_sal_structure_status', 'completed');
-        })->get();
-       
+        })
+        ->where('emp_current_working_status','active')
+        ->get();
         return view("hr.invoiceBilling.add-new-form16",compact('empDetail'));
     }
     public function create(Request $request){

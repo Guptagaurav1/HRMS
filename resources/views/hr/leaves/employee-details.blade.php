@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'Employee Details'])
+ @extends('layouts.master', ['title' => 'Employee Details'])
 @section('style')
 
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />

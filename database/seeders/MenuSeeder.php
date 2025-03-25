@@ -120,7 +120,7 @@ class MenuSeeder extends Seeder
 
                 //attendance
 
-                ['mid' =>'M-65', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Attendance List','page' => 'go-to-attendance','status'=> '1','parent_id'=> '15'],
+                ['mid' =>'M-65', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Work Order Attendance List','page' => 'go-to-attendance','status'=> '1','parent_id'=> '15'],
                 ['mid' =>'M-66', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Work Order Salary Attendance ','page' => 'wo-sal-attendance','status'=> '1','parent_id'=> '15'],
                 ['mid' =>'M-67', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Work Order Generate Salary ','page' => 'wo-generate-salary','status'=> '1','parent_id'=> '15'],
                
@@ -185,6 +185,22 @@ class MenuSeeder extends Seeder
 
                 ['mid' =>'M-100', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Add Employee','page' => 'employee.add-employee','status'=> '1','parent_id'=> '23'],
                 ['mid' =>'M-101', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Employee List','page' => 'employee.employee-list','status'=> '1','parent_id'=> '23'],
+
+                // attendacne
+                ['mid' =>'M-102', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Attendance List','page' => 'attendance-list','status'=> '1','parent_id'=> '15'],
+            
+                ['mid' =>'M-103', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Upload Attendance ','page' => 'upload-attendance','status'=> '1','parent_id'=> '15'],
+
+                // salary structure
+                ['mid' =>'M-105', 'section' => 'Salary Structure', 'section_icon' => '', 'name' => 'Salary List','page' => 'salary-list','status'=> '1','parent_id'=> '24'],
+                ['mid' =>'M-104', 'section' => 'Salary Structure', 'section_icon' => '', 'name' => 'Create Salary  ','page' => 'create-salary','status'=> '1','parent_id'=> '24'],
+
+                ['mid' =>'M-106', 'section' => 'Salary Structure', 'section_icon' => '', 'name' => 'Edit Salary','page' => 'edit-salary','status'=> '1','parent_id'=> '24'],
+                ['mid' =>'M-107', 'section' => 'Salary Structure', 'section_icon' => '', 'name' => 'Delete Salary','page' => 'delete-salary','status'=> '1','parent_id'=> '24'],
+
+
+            
+
             ];
 
         foreach ($data as $routeData) {

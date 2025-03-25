@@ -441,14 +441,14 @@
                     @if (
                         $employee_details->emp_current_working_status == 'active' ||
                             $employee_details->emp_current_working_status == 'inactive')
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-end py-3 px-2">
 
                             <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
                             <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn">Update</button>
+                                id="employee-details-btn">Update <i class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
-                </div>
+               
             </form>
         </div>
 
@@ -514,13 +514,15 @@
                     @if (
                         $employee_details->emp_current_working_status == 'active' ||
                             $employee_details->emp_current_working_status == 'inactive')
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-end py-3 px-2">
 
                             <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn2">Update</button>
+                                id="employee-details-btn2">Update <i class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
                 </div>
+               
+            </div>
             </form>
         </div>
 
@@ -601,13 +603,13 @@
                     @if (
                         $employee_details->emp_current_working_status == 'active' ||
                             $employee_details->emp_current_working_status == 'inactive')
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-end px-2 py-3">
 
                             <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn3">Update</button>
+                                id="employee-details-btn3">Update <i class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
-                </div>
+               
             </form>
         </div>
 
@@ -984,13 +986,15 @@
                     @if (
                         $employee_details->emp_current_working_status == 'active' ||
                             $employee_details->emp_current_working_status == 'inactive')
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-end px-2 py-3">
 
                             <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn4">Update</button>
+                                id="employee-details-btn4">Update <i class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
                 </div>
+             
+            </div>
             </form>
         </div>
 

@@ -1,8 +1,7 @@
 @extends('layouts.master', ['title' => 'Compose Mail'])
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
 @endsection
 
 @section('contents')
