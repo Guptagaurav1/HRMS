@@ -114,14 +114,13 @@ $(document).ready(function () {
     // $("button.btn-primary").click(function() {
     //     next($(this));
     // });
+
     $("form").submit(function(event) {
         var element = $(this);
-        if (!element.hasClass("bulk-upload") && !element.hasClass("add-department")) {
+        if (!element.hasClass("bulk-upload") && !element.hasClass("add-department") && !element.hasClass("add-designation")) {
             event.preventDefault();
-         
             next(element);
         }
-        
     });
 
     // Previous Button Logic
@@ -190,6 +189,28 @@ $(document).ready(function () {
         });
     }
 
+    function get_designations(){
+        $.ajax({
+            url : SITE_URL+ '/hr/designations/get-designations',
+            type : 'post',
+            dataType : 'json',
+            data : {
+                '_token' : $("meta[name=csrf-token]").attr('content'),
+            },
+            success : function(response) {
+                if(response.success) {
+                    var html = '<option value="">Select Designation</option>';
+                    $.each(response.designations, function(index, value) {
+                        html += '<option value="' + value.name + '">' + value.name + '</option>';
+                    });
+                    $('select[name=emp_designation]').html(html);
+                } else {
+                    console.log('Failed to get departments');
+                }
+            }
+        });
+    }
+
     // Add department.
     $("form.add-department").submit(function (e) {
         e.preventDefault();
@@ -220,4 +241,84 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Get Reporting managers on change of department.
+    $("select[name=department]").change(function () {
+        $.ajax({
+            url : SITE_URL+ '/hr/employee/get-reporting-managers',
+            type : 'post',
+            dataType : 'json',
+            data : {
+                '_token' : $("meta[name=csrf-token]").attr('content'),
+                'department' : $(this).val()
+            },
+            success : function(response) {
+                if(response.success) {
+                    var html = '<option value="" selected>Not Specify</option>';
+                    html += '<option value="' + response.reporting_manager + '">' + response.reporting_manager + '</option>';
+                    $('select[name=reporting_email]').html(html);
+                } else {
+                    var html = '<option value="" selected>Not Specify</option>';
+                    $('select[name=reporting_email]').html(html);
+                }
+            }
+        });
+    });
+
+    // Add Department.
+    $("form.add-designation").submit(function (e) {
+        e.preventDefault();
+                $.ajax({
+                    url : SITE_URL+ '/hr/designations/create-new',
+                    type : 'POST',
+                    dataType : 'json',
+                    data : $(this).serialize(),
+                    success : function(response) {
+                        if(response.success) {
+                            Swal.fire({
+                                title: "Success",
+                                text: response.message,
+                                icon: "success",
+                                allowOutsideClick: () => !Swal.isLoading()
+                            });
+                            $("#designationModal").modal('hide');
+                            get_designations();
+                            $("form.add-designation")[0].reset();
+                        } else if(response.error) {
+                            Swal.fire({
+                                title: "Error",
+                                text: response.message,
+                                icon: "error",
+                                allowOutsideClick: () => !Swal.isLoading()
+                            });
+                        }
+                    }
+                });
+    });
+
+    // Get Cities.
+    $("select[name=state]").change(function (){
+        $.ajax({
+            url : SITE_URL+ '/hr/recruitment/cities',
+            type : 'post',
+            dataType : 'json',
+            data : {
+                '_token' : $("meta[name=csrf-token]").attr('content'),
+               'stateid' : $(this).val()
+            },
+            success : function(response) {
+                if(response.success) {
+                    var html = '<option value="" selected>Select City</option>';
+                    $.each(response.cities, function(index, value) {
+                        html += '<option value="' + value.id + '">' + value.city_name + '</option>';
+                    });
+                    $('select[name=emp_city]').html(html);
+                } else {
+                    var html = '<option value="" selected>Select City</option>';
+                    $('select[name=emp_city]').html(html);
+                }
+            }
+        });
+    });
+
 });

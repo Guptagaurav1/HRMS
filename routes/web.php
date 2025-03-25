@@ -55,7 +55,7 @@ use App\Http\Controllers\hr\ProfileController;
 |
 */
 
-Route::get('/testuser', function (){
+Route::get('/testuser', function () {
     return view('user-details-multistep');
 });
 
@@ -63,15 +63,15 @@ Route::get('/testuser', function (){
 
 Route::middleware('guest')->group(function () {
 
-    Route::get('import-data', [HrController::class,'import'])->name('import-data');
-    Route::post('import-data-save', [HrController::class,'importDataSave'])->name('importDataSave');
+    Route::get('import-data', [HrController::class, 'import'])->name('import-data');
+    Route::post('import-data-save', [HrController::class, 'importDataSave'])->name('importDataSave');
 
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
         Route::post('d-login', 'd_login')->name('department_login');
         Route::post('emp-login', 'emp_login')->name('employee_login');
 
-       
+
 
         Route::get("forgot-password", 'forget_password')->name("guest.forgot-password");
         Route::post("send-reset-link", 'send_reset_link')->name("guest.send-reset-link");
@@ -102,7 +102,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
     });
-  
+
     // Masters
     // ----------------------------------------
 
@@ -115,7 +115,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/destroy/{id}", 'destroy')->name("skills.destroy");
     });
 
-    Route::controller(DepartmentController::class)->prefix('departments')->group(function (){
+    Route::controller(DepartmentController::class)->prefix('departments')->group(function () {
         Route::get("/", 'index')->name("departments.index");
         Route::get("/create", 'create')->name("departments.create");
         Route::post("/save", 'save')->name("departments.save");
@@ -124,10 +124,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/delete/{department}", 'destroy')->name("departments.destroy");
         Route::post("create-new", 'create_new');
         Route::post("get-departments", 'get_departments');
-
     });
 
-    Route::controller(OrganizationController::class)->prefix('organizations')->group(function (){
+    Route::controller(OrganizationController::class)->prefix('organizations')->group(function () {
         Route::get("/", 'index')->name("organizations.index");
         Route::get("/create", 'create')->name("organizations.create");
         Route::post("/store", 'store')->name("organizations.store");
@@ -136,15 +135,17 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/delete/{organization}", 'destroy')->name("organizations.destroy");
     });
 
-    Route::controller(DesignationController::class)->prefix('designations')->group(function (){
+    Route::controller(DesignationController::class)->prefix('designations')->group(function () {
         Route::get("/", 'index')->name("designations.index");
         Route::get("/create", 'create')->name("designations.create");
         Route::post("/store", 'store')->name("designations.store");
         Route::get("/edit/{designation}", 'edit')->name("designations.edit");
         Route::post("/update/{designation}", 'update')->name("designations.update");
         Route::get("/delete/{designation}", 'destroy')->name("designations.destroy");
+        Route::post("create-new", 'create_new');
+        Route::post("get-designations", 'get_designations');
     });
-  
+
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
         Route::get("company-master", 'company_details')->name("company-master");
@@ -173,7 +174,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("send-jd", 'send_jd_mail');
         Route::post("send-bulk-jd", 'send_bulk_mail');
         Route::get("position-report/{id}", 'position_contacts')->name("show-assign-work-log");
-        Route::get("preview-job-description/{id}", 'preview_jd')->name("preview-job-description");    
+        Route::get("preview-job-description/{id}", 'preview_jd')->name("preview-job-description");
         Route::get("applicant-detail-summary/{rec_id}/{position?}", 'applicant_detail')->name("applicant-recruitment-details-summary");
         Route::post('update-email', 'update_email');
         Route::post('update-salary', 'update_salary');
@@ -211,26 +212,25 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("update-call-log", 'update_call_log')->name("recruitment.update-call_log");
         Route::post("export-call-log", 'export_call_log')->name("recruitment.export_call_log");
         Route::get("offerlettershared-list", 'offer_letter_shared_list')->name("recruitment.offerlettershared-list");
-      
     });
 
-    Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function (){
+    Route::controller(FunctionalRoleController::class)->prefix('functional-role')->group(function () {
         Route::get("/", 'index')->name("functional-role");
         Route::get("/add", 'create')->name("add-functional-role");
         Route::post("/store", 'store')->name("store-functional-role");
         Route::get("/edit/{id}", 'edit')->name("edit-functional-role");
         Route::post("/update/{id}", 'update')->name("update-functional-role");
         Route::get("/delete/{id}", 'destroy')->name("destroy-functional-role");;
-    });  
-    Route::controller(QualificationController::class)->prefix('qualification')->group(function (){
+    });
+    Route::controller(QualificationController::class)->prefix('qualification')->group(function () {
         Route::get("/", 'index')->name("qualification");
         Route::get("/add", 'create')->name("add-qualification");
         Route::post("/store", 'store')->name("store-qualification");
         Route::get("/edit/{id}", 'edit')->name("edit-qualification");
         Route::post("/update/{id}", 'update')->name("update-qualification");
         Route::post("/delete/{id}", 'destroy')->name("destroy-qualification");
-    });    
-    Route::controller(BankController::class)->prefix('bank')->group(function (){
+    });
+    Route::controller(BankController::class)->prefix('bank')->group(function () {
         Route::get("/", 'index')->name("bank-details");
         Route::get("/add", 'create')->name("add-bank");
         Route::post("/store", 'store')->name("store-bank");
@@ -243,24 +243,23 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     });
 
     /////////// workorder routes start ///////
-    Route::controller(WorkOrderController::class)->group(function (){
-        Route::get("work-order-list","index")->name("work-order-list");
-        Route::get("get-work-order","getWorkOrder")->name("get-work-order");
-        Route::get("add-work-order","create")->name("add-work-order");
-        Route::post("store-work-order","store")->name("store-work-order");
-        Route::get("edit-work-order/{id}","edit")->name("edit-work-order");
-        Route::post("update-work-order/{id}","update")->name("update-work-order");
-        Route::get("view-work-order/{id}","show")->name("view-work-order");
+    Route::controller(WorkOrderController::class)->group(function () {
+        Route::get("work-order-list", "index")->name("work-order-list");
+        Route::get("get-work-order", "getWorkOrder")->name("get-work-order");
+        Route::get("add-work-order", "create")->name("add-work-order");
+        Route::post("store-work-order", "store")->name("store-work-order");
+        Route::get("edit-work-order/{id}", "edit")->name("edit-work-order");
+        Route::post("update-work-order/{id}", "update")->name("update-work-order");
+        Route::get("view-work-order/{id}", "show")->name("view-work-order");
 
-        Route::get("organisation-workOrder/{or_id}","organisation_workOrder")->name("organisation-workOrder");
-        Route::get("workOrder-details/{workOrder_id}","workOrder_details")->name("workOrder-details");
-        Route::post("work-order-report","work_order_report")->name("work-order-report");
+        Route::get("organisation-workOrder/{or_id}", "organisation_workOrder")->name("organisation-workOrder");
+        Route::get("workOrder-details/{workOrder_id}", "workOrder_details")->name("workOrder-details");
+        Route::post("work-order-report", "work_order_report")->name("work-order-report");
         Route::post('export', 'export_csv')->name("export-work-order");
-
     });
 
     /////////// workorder routes end ///////
-  
+
     Route::controller(HelpdeskController::class)->prefix('helpdesk')->group(function () {
         Route::get('compose-email', 'compose')->name('compose-email');
         Route::post('send-email', 'send_mail')->name('compose');
@@ -290,23 +289,21 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("edit-attendance/{id}", 'edit_attendance')->name("edit-attendance");
         Route::post("update-attendance/{id}", 'update_attendance')->name("update-attendance");
         Route::get("attendance-list", 'attendance_list')->name("attendance-list");
-       
     });
-    
-     
+
+
     Route::controller(ProjectController::class)->prefix('project')->group(function () {
-        Route::get("/","index")->name("project-list");
-        Route::get("projectlist/","projectlist")->name("projectlist");
-        Route::get("add-project","create")->name("add-project");
-        Route::post("store-project","store")->name("store-project");
-        Route::get("edit-project/{id}","edit")->name("edit-project");
-        Route::post("update-project/{id}","update")->name("update-project");
+        Route::get("/", "index")->name("project-list");
+        Route::get("projectlist/", "projectlist")->name("projectlist");
+        Route::get("add-project", "create")->name("add-project");
+        Route::post("store-project", "store")->name("store-project");
+        Route::get("edit-project/{id}", "edit")->name("edit-project");
+        Route::post("update-project/{id}", "update")->name("update-project");
 
-        Route::get("project-report","project_report")->name("project-report");
-        Route::get("wo-project-report/{project_no}","woReport")->name("wo-project-report");
-        Route::get("organisation-project/{or_id}","organisation_project")->name("organisation-project");
-        Route::get("project-details/{project_id}","project_details")->name("project-details");
-
+        Route::get("project-report", "project_report")->name("project-report");
+        Route::get("wo-project-report/{project_no}", "woReport")->name("wo-project-report");
+        Route::get("organisation-project/{or_id}", "organisation_project")->name("organisation-project");
+        Route::get("project-details/{project_id}", "project_details")->name("project-details");
     });
 
     Route::controller(MailLogController::class)->prefix('logs')->group(function () {
@@ -322,40 +319,37 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 
     Route::controller(InvoiceBillingController::class)->prefix('invoice-billling')->group(function () {
-        Route::get("/",'index')->name('generate-invoice');
-        Route::post("invoice-details",'invoice_details')->name('invoice-details');
-        Route::get("invoice-list",'invoice_list')->name('invoice-list');
+        Route::get("/", 'index')->name('generate-invoice');
+        Route::post("invoice-details", 'invoice_details')->name('invoice-details');
+        Route::get("invoice-list", 'invoice_list')->name('invoice-list');
         Route::get("tax-invoice/{wo}/{month}", 'tax_slip')->name("tax-invoice");
         Route::post("save-tax-slip", 'save_slip')->name("save-tax-slip");
-    
-        Route::get("biling-structure-list",'biling_structure')->name('biling-structure-list');
-        Route::get("add-billing-structure",'add_biling_structure')->name('add-biling-tructure');
-        Route::post("create-billing-structure",'create_biling_structure')->name('create-billing-structure');
-        Route::get("edit-billing-structure/{id}",'edit_biling_structure')->name('edit-billing-structure');
-        Route::post("update-billing-structure/{id}",'update_biling_structure')->name('update-billing-structure');
-        
-        Route::get("form16-list",'form16')->name('form16');
-        Route::get("add-new-form16",'addForm16')->name('add-new-form16');
-        Route::post("create-form16",'create')->name('create-form16');
-        Route::get("emp-data/{id}",'emp_data')->name('emp-data');
-        Route::post("upload-form16",'uploadForm16')->name('upload-form16');
 
+        Route::get("biling-structure-list", 'biling_structure')->name('biling-structure-list');
+        Route::get("add-billing-structure", 'add_biling_structure')->name('add-biling-tructure');
+        Route::post("create-billing-structure", 'create_biling_structure')->name('create-billing-structure');
+        Route::get("edit-billing-structure/{id}", 'edit_biling_structure')->name('edit-billing-structure');
+        Route::post("update-billing-structure/{id}", 'update_biling_structure')->name('update-billing-structure');
+
+        Route::get("form16-list", 'form16')->name('form16');
+        Route::get("add-new-form16", 'addForm16')->name('add-new-form16');
+        Route::post("create-form16", 'create')->name('create-form16');
+        Route::get("emp-data/{id}", 'emp_data')->name('emp-data');
+        Route::post("upload-form16", 'uploadForm16')->name('upload-form16');
     });
 
-    Route::controller(SalaryStructureController::class)->prefix('salary')->group(function(){
-        Route::get("salary-list",'index')->name('salary-list');
-        Route::get("create-salary",'create')->name('create-salary');
-        Route::post("save-salary",'save_salary')->name('save-salary');
-        Route::get("edit-salary/{id}",'edit_salary')->name('edit-salary');
-        Route::post("update-salary/{id}",'update_salary')->name('update-salary');
+    Route::controller(SalaryStructureController::class)->prefix('salary')->group(function () {
+        Route::get("salary-list", 'index')->name('salary-list');
+        Route::get("create-salary", 'create')->name('create-salary');
+        Route::post("save-salary", 'save_salary')->name('save-salary');
+        Route::get("edit-salary/{id}", 'edit_salary')->name('edit-salary');
+        Route::post("update-salary/{id}", 'update_salary')->name('update-salary');
         Route::get("/delete/{id}", 'destroy')->name("delete-salary");
-    
-
     });
 
     Route::controller(EventController::class)->prefix('events')->group(function () {
         Route::get("birthday-list", 'birthday_list')->name("events.birthday-list");
-        Route::get("marriage-anniversary-list", "anniversary_list")->name("events.marriage-anniversary-list"); 
+        Route::get("marriage-anniversary-list", "anniversary_list")->name("events.marriage-anniversary-list");
         Route::get("work-anniversary-list", "work_anniversary_list")->name("events.work-anniversary-list");
         Route::get("birthday-template", 'birthday_template')->name("events.birthday-template");
         Route::post("send-birthday-mail", 'send_birthday_mail');
@@ -384,14 +378,14 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("list", 'show_employees')->name("employee.employee-list");
         Route::get("edit/{id}", 'edit')->name('employee.edit-employee');
         Route::post('update-emp-details', 'update_emp_details')->name('employee.update-emp-details');
-        
+
         Route::get("view-letter/{id}", 'view_letter')->name("employee.view-letter");
         Route::get("send-letter/{id}", 'send_letter')->name("employee.send-letter");
         Route::post("send-credentials", 'send_credentials');
         Route::post("send-appointment-letter", 'send_appointment_letter');
         Route::post("export", 'export_employees')->name('employee.export');
-       
-    Route::get("credential_log_list", 'sent_credential_logs')->name("employee.sent-credentials-logs"); 
+        Route::post('get-reporting-managers', 'get_reporting_managers');
+        Route::get("credential_log_list", 'sent_credential_logs')->name("employee.sent-credentials-logs");
     });
 
     Route::controller(ProfileController::class)->prefix('profile')->group(function () {
@@ -399,19 +393,18 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('submit-profile-request', 'submit_update_request')->name("profile.submit-profile-request");
         Route::get("profile-update-request-list", 'request_list')->name("profile.profile-detail-request-list");
     });
-        
-    //tenants
-    Route::resource('tenants',TenantController::class);
 
+    //tenants
+    Route::resource('tenants', TenantController::class);
 });
 
 
 
-  ////////////////////////// user routes //////////////////////////////////////////////////////////
+////////////////////////// user routes //////////////////////////////////////////////////////////
 
-  Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     // Route::post('users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.update-status');
-    Route::controller(UserController::class)->prefix('users')->group(function(){
+    Route::controller(UserController::class)->prefix('users')->group(function () {
         Route::post('/{user}/update-status', 'updateStatus')->name('users.update-status');
         Route::get("/", 'index')->name("users");
         Route::get("/create", 'create')->name("add-user");
@@ -422,7 +415,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     });
     // Route::resource('users',UserController::class);
 
-    Route::controller(RoleController::class)->prefix('manage-roles')->group(function (){
+    Route::controller(RoleController::class)->prefix('manage-roles')->group(function () {
         Route::get("/", 'index')->name("manage-roles");
         Route::get("/create", 'create')->name("add-manage-role");
         Route::post("/store", 'store')->name("store-manage-role");
@@ -434,82 +427,82 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
 });
 
-    Route::get("position-review-dept", function () {
-        return view(" hr.position-review-dept");
-    })->name("position-review-dept");
+Route::get("position-review-dept", function () {
+    return view(" hr.position-review-dept");
+})->name("position-review-dept");
 
 
 
-    Route::get("posh-complaint-list", function () {
-        return view(" hr.posh-complaint-list");
-    })->name("posh-complaint-list");
+Route::get("posh-complaint-list", function () {
+    return view(" hr.posh-complaint-list");
+})->name("posh-complaint-list");
 
 
-    Route::get("reimbursement-list", function () {
-        return view(" hr.reimbursement-list");
-    })->name("reimbursement-list");
-
-   
+Route::get("reimbursement-list", function () {
+    return view(" hr.reimbursement-list");
+})->name("reimbursement-list");
 
 
-    Route::get("work-order-salary-sheet", function () {
-        return view("hr.work-order-salary-sheet");
-    })->name("work-order-salary-sheet");
-
-    Route::get("add-role", function () {
-        return view("hr.add-role");
-    })->name("add-role");
 
 
-    Route::get("employee-month-salary-slip", function () {
-        return view("hr.employee-month-salary-slip");
-    })->name("employee-month-salary-slip");
+Route::get("work-order-salary-sheet", function () {
+    return view("hr.work-order-salary-sheet");
+})->name("work-order-salary-sheet");
 
-    Route::get("recruitment-plan-page-summary", function () {
-        return view("hr.recruitment-plan-page-summary");
-    })->name("recruitment-plan-page-summary");
-
-    
- 
-    Route::get("invoice-encloser", function () {
-        return view("hr.invoice-encloser");
-    })->name("invoice-encloser");
-
-    // Route::get("view-more-attachment", function () {
-    //     return view("hr.view-more-attachment");
-    // })->name("view-more-attachment");
+Route::get("add-role", function () {
+    return view("hr.add-role");
+})->name("add-role");
 
 
-    Route::get("birthday-template", function () {
-        return view("hr.birthday-template");
-    })->name("birthday-template");
+Route::get("employee-month-salary-slip", function () {
+    return view("hr.employee-month-salary-slip");
+})->name("employee-month-salary-slip");
 
-    Route::get("marriage-anniversary-list-template", function () {
-        return view("hr.marriage-anniversary-list-template");
-    })->name("marriage-anniversary-list-template");
-
-    Route::get("work-anniversary-list-template", function () {
-        return view("hr.work-anniversary-list-template");
-    })->name("work-anniversary-list-template");
-
-    Route::get("company-master-edit", function () {
-        return view("hr.company-master-edit");
-    })->name("company-master-edit");
-
-    Route::get("add-company-master", function () {
-        return view("hr.add-company-master");
-    })->name("add-company-master");
-
-    Route::get("temp-profile", function () {
-        return view("hr.temp-profile");
-    })->name("temp-profile");
+Route::get("recruitment-plan-page-summary", function () {
+    return view("hr.recruitment-plan-page-summary");
+})->name("recruitment-plan-page-summary");
 
 
-    
- 
+
+Route::get("invoice-encloser", function () {
+    return view("hr.invoice-encloser");
+})->name("invoice-encloser");
+
+// Route::get("view-more-attachment", function () {
+//     return view("hr.view-more-attachment");
+// })->name("view-more-attachment");
+
+
+Route::get("birthday-template", function () {
+    return view("hr.birthday-template");
+})->name("birthday-template");
+
+Route::get("marriage-anniversary-list-template", function () {
+    return view("hr.marriage-anniversary-list-template");
+})->name("marriage-anniversary-list-template");
+
+Route::get("work-anniversary-list-template", function () {
+    return view("hr.work-anniversary-list-template");
+})->name("work-anniversary-list-template");
+
+Route::get("company-master-edit", function () {
+    return view("hr.company-master-edit");
+})->name("company-master-edit");
+
+Route::get("add-company-master", function () {
+    return view("hr.add-company-master");
+})->name("add-company-master");
+
+Route::get("temp-profile", function () {
+    return view("hr.temp-profile");
+})->name("temp-profile");
+
+
+
+
 
 Route::middleware('employee')->prefix('employee')->group(function () {
-    Route::get('/', function(){
+    Route::get('/', function () {
         return view('employee.dashboard');
     })->name('employee_dashboard');
 
@@ -532,7 +525,7 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get("employee-modify-profile-request", function () {
         return view("employee.employee-modify-profile-request");
     })->name("employee-modify-profile-request");
-   
+
 
     Route::get("employee-profile-detail-request-list", function () {
         return view("employee.employee-profile-detail-request-list");
@@ -570,4 +563,3 @@ Route::middleware('employee')->prefix('employee')->group(function () {
 // });
 
 // dd($namedRoutes);
-

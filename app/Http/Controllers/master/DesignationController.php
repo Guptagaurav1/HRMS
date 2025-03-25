@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Designation;
 use Illuminate\Validation\Rule;
+use Throwable;
 
 class DesignationController extends Controller
 {
@@ -87,5 +88,36 @@ class DesignationController extends Controller
     public function destroy(Designation $designation){
         $data = $designation->delete();
         return redirect()->back()->with('success','Deleted Successfully !');
+    }
+
+    /**
+     * Add a new designation through js.
+     */
+    public function create_new(Request $request){
+        try{
+            $request->validate([
+                'name' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('designations')->whereNull('deleted_at'),
+                ]
+            ]);
+            $designation = new Designation();
+            $designation->fill($request->all());
+            $designation->status = '1';
+            $designation->save();
+            return response()->json(['success' => true, 'message' => 'Designation added successfully!']);
+        }
+        catch(Throwable $e){
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Get all Designations.
+     */
+    public function get_designations(Request $request){
+        $designations =  Designation::select('name')->where('status', '1')->orderByDesc('id')->get();
+        return response()->json(['success' => true, 'designations' => $designations]);
     }
 }

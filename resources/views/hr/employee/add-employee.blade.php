@@ -114,9 +114,9 @@
                                 <label class="form-label">Reporting Email <span class="text-danger">*</span></label>
                                 <select class="form-select" name="reporting_email" required>
                                     <option value="" selected>Not Specify</option>
-                                    @foreach ($reporting_managers as $manager)
+                                    {{-- @foreach ($reporting_managers as $manager)
                                         <option value="{{ $manager->email }}">{{ $manager->email }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
 
                             </div>
@@ -134,7 +134,10 @@
                             </div>
 
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Designation <span class="text-danger">*</span></label>
+                                <label class="form-label">Designation <span class="text-danger">*</span> <i
+                                        class="fa fa-plus border rounded p-1 small border-primary text-light bg-primary"
+                                        role="button" data-bs-toggle="modal" data-bs-target="#designationModal"
+                                        aria-hidden="true"></i></label>
                                 <select name="emp_designation" class="form-select" required>
                                     <option value="">Select Designation</option>
                                     @foreach ($designations as $designation)
@@ -186,9 +189,7 @@
                                 <label class="form-label">Current Working Status <span
                                         class="text-danger">*</span></label>
                                 <select class="form-select" name="emp_current_working_status" required>
-                                    <option value="">Select Status</option>
-                                    <option value="active">Active</option>
-                                    <option value="resign">Resign</option>
+                                    <option value="active" selected>Active</option>
                                 </select>
                             </div>
 
@@ -356,10 +357,30 @@
                         </div>
                         <div class="row g-3">
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label for="exampleTextarea" class="form-label">State <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select" id="state" name="state" required>
+                                    <option value="">Select State</option>
+                                    @foreach($states as $state)
+                                        <option value="{{$state->id}}"
+                                            {{ !empty($recruitment_details->getAddressDetail) && $recruitment_details->getAddressDetail->state == $state->id ?'selected' : '' }}>
+                                            {{$state->state}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label for="exampleTextarea" class="form-label">City<span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select" id="cities" name="emp_city" required>
+                                    <option value="">Select City</option>
+                                </select>
+                            </div>
+                           
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
                                 <label for="exampleTextarea" class="form-label">Permanent Address <span
                                         class="text-danger">*</span></label>
                                 <textarea class="form-control" id="permanent_address" name="emp_permanent_address"
-                                    placeholder="Enter Permanent Address With State And City" required>{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->emp_permanent_address : '' }}</textarea>
+                                    placeholder="Enter Permanent Address" required>{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->emp_permanent_address : '' }}</textarea>
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
                                 <label for="exampleTextarea" class="form-label">Correspondence Address <span
@@ -367,7 +388,13 @@
                                             type="checkbox" id="same-as"></span>Same as
                                     permanent</label>
                                 <textarea class="form-control" id="local_address" name="emp_local_address"
-                                    placeholder="Enter Correspondence Address With State And City">{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->emp_local_address : '' }}</textarea>
+                                    placeholder="Enter Correspondence Address">{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->emp_local_address : '' }}</textarea>
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label for="exampleTextarea" class="form-label">PIN code<span
+                                        class="text-danger">*</span></label>
+                                <input type="number" class="form-control form-control-sm" name="pincode" placeholder="Enter PIN code" required>
+                                
                             </div>
 
                             <div class="col-12 d-flex justify-content-between">
@@ -428,7 +455,7 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">IFSC Code <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm" name="emp_ifsc"
-                                    placeholder="Enter IFSC Code"
+                                    placeholder="Enter IFSC Code" maxlength="11"
                                     value="{{ !empty($recruitment_details->getBankDetail) ? $recruitment_details->getBankDetail->emp_ifsc : '' }}"
                                     required>
                             </div>
@@ -449,7 +476,7 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">ESI No</label>
                                 <input type="text" class="form-control form-control-sm" name="emp_esi_no"
-                                    placeholder="Enter ESI Number"
+                                    placeholder="Enter ESI Number" maxlength="17"
                                     value="{{ !empty($recruitment_details->getBankDetail) ? $recruitment_details->getBankDetail->emp_esi_no : '' }}">
                             </div>
 
@@ -520,7 +547,7 @@
                                         </div>
                                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                                             <label class="form-label">Upload Doc <span class="small">(Only Pdf)</span>
-                                                <span class="small">(max size : 1mb)</span></label>
+                                                <span class="fw-lighter small">(Max size :1mb)</span></label>
                                             <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                 name="emp_tenth_doc">
                                         </div>
@@ -556,7 +583,7 @@
                                             </div>
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
-                                                        Pdf)</span> <span class="small">(max size : 1mb)</span></label>
+                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span></label>
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="emp_twelve_doc">
                                             </div>
@@ -605,7 +632,7 @@
                                             </div>
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
-                                                        Pdf)</span> <span class="small">(max size : 1mb)</span></label>
+                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span></label>
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="diploma_doc">
                                             </div>
@@ -663,7 +690,7 @@
                                             </div>
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
-                                                        Pdf)</span> <span class="small">(max size : 1mb)</span></label>
+                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span></label>
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="grad_doc">
                                             </div>
@@ -719,7 +746,7 @@
                                             </div>
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
-                                                        Pdf)</span> <span class="small">(max size : 1mb)</span></label>
+                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span></label>
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="post_grad_doc">
                                             </div>
@@ -766,7 +793,7 @@
                                             </div>
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
-                                                        Pdf)</span> <span class="small">(max size : 1mb)</span></label>
+                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span> </label>
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="doctorate_doc">
                                             </div>
@@ -813,8 +840,7 @@
                                     placeholder="Enter Experience">
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label for="resume_file" class="form-label">Upload Resume <span>(Max Size :
-                                        1mb)</span></label>
+                                <label for="resume_file" class="form-label">Upload Resume <span class="fw-lighter small">(Max size :1mb)</span></label>
                                 <input class="form-control form-control-sm" name="resume_file" type="file"
                                     accept=".pdf">
                             </div>
@@ -845,7 +871,7 @@
                                     value="{{ !empty($recruitment_details->getIdProofDetail) ? $recruitment_details->getIdProofDetail->police_verification_id : '' }}">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label for="formFile" class="form-label">Police Verification Attachment</label>
+                                <label for="formFile" class="form-label">Police Verification Attachment <span class="fw-lighter small">(Max size :1mb)</span></label>
                                 <input class="form-control" type="file" name="police_verification_file"
                                     accept=".pdf">
                             </div>
@@ -864,18 +890,26 @@
                                     value="{{ !empty($recruitment_details->getIdProofDetail) ? $recruitment_details->getIdProofDetail->emp_passport_no : '' }}">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label for="formFile" class="form-label">Upload Passport Document</label>
+                                <label for="formFile" class="form-label">Passport Document <span class="fw-lighter small">(Max size :1mb)</span></label>
                                 <input class="form-control" type="file" name="passport_file" accept=".pdf">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label for="formFile" class="form-label">Correspondence Address Proof Attachment</label>
-                                <input class="form-control" type="file" name="correspondence_add_doc" accept=".pdf">
+                                <label for="formFile" class="form-label">Permanent Address Proof Attachment <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <input class="form-control" type="file" name="permanent_add_doc" accept=".pdf">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
                                 <label class="form-label">Nearest Police Station</label>
                                 <input type="text" class="form-control form-control-sm" name="nearest_police_station"
                                     placeholder="Enter Neareset Police Station"
                                     value="{{ !empty($recruitment_details->getIdProofDetail) ? $recruitment_details->getIdProofDetail->nearest_police_station : '' }}">
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Bank Document <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <input type="file" class="form-control form-control-sm" name="bank_doc" accept=".pdf">
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Category Document <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <input type="file" class="form-control form-control-sm" name="category_doc" accept=".pdf">
                             </div>
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-between">
@@ -934,6 +968,7 @@
 @endsection
 
 @section('modal')
+    {{-- Add Department Modal  --}}
     <div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="departmentModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -974,11 +1009,44 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit<i
-                                    class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit<i
+                                class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Add Designation Modal --}}
+    <div class="modal fade" id="designationModal" tabindex="-1" aria-labelledby="designationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-light" id="designationModalLabel">Add Designation</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" class="add-designation">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Designation<span class="text-danger">*</span></label>
+                                <input type="text" name="name" placeholder="Enter designation name"
+                                    class="form-control" required>
+                            </div>
+
                         </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit<i
+                                class="fa-solid fa-arrow-right"></i></button>
+                    </div>
                 </form>
             </div>
         </div>

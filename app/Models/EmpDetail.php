@@ -77,7 +77,7 @@ class EmpDetail extends Authenticatable
      */
     public function experience(): HasOne
     {
-        return $this->hasOne(EmpExperienceDetail::class, 'emp_code', 'emp_code')->select('emp_experience', 'emp_skills');
+        return $this->hasOne(EmpExperienceDetail::class, 'emp_code', 'emp_code')->select('emp_experience', 'emp_skills', 'resume_file');
     }
 
     /**
@@ -92,7 +92,7 @@ class EmpDetail extends Authenticatable
      * Get ID Proofs Details.
      */ 
     public function getIdProofDetail(): HasOne{
-        return $this->hasOne(EmpIdProof::class, 'emp_code', 'emp_code')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station', 'police_verification_id');
+        return $this->hasOne(EmpIdProof::class, 'emp_code', 'emp_code')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station', 'police_verification_id', 'permanent_add_doc', 'category_doc', 'passport_file', 'police_verification_file');
     }
 
     /**
@@ -106,7 +106,7 @@ class EmpDetail extends Authenticatable
      * Get Address Details.
      */ 
     public function getAddressDetail(): HasOne{
-        return $this->hasOne(EmpAddressDetail::class, 'emp_code', 'emp_code')->select('emp_permanent_address', 'emp_local_address');
+        return $this->hasOne(EmpAddressDetail::class, 'emp_code', 'emp_code')->select('emp_permanent_address', 'emp_local_address', 'state', 'emp_city', 'pincode');
     }
 
     /**

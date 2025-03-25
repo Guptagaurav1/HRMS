@@ -898,6 +898,18 @@ input::-webkit-input-placeholder{
   
 }
 
+/* For edit employee page  */
+#activestatus:checked+.activelabel:hover {
+  color: white !important;
+}
+
+#activestatus:not(:checked)+.activelabel:hover {
+  color: blue !important;
+}
+
+.inactiveradio:checked+.inactivelabel {
+  color: white !important;
+}
 
 
 
