@@ -26,6 +26,15 @@
                             <p class="text-danger ">Note : <u>Fields with "*" are mandatory to fill.</u></p>
                             <div class="row px-4">
                                 <div class="col-md-6">
+                                    <label class="form-label mt-2 text-dark">Name</label>
+                                    <input type="text" class="form-control"
+                                        value="{{ $details->firstname . ' ' . $details->lastname }}" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label mt-2 text-dark">Email</label>
+                                    <input type="text" class="form-control" value="{{ $details->email }}" disabled>
+                                </div>
+                                <div class="col-md-6">
 
                                     <label class="form-label mt-2 text-dark">Gender <span
                                             class="text-danger fw-bold">*</span></label>
@@ -43,20 +52,15 @@
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="date" name="emp_dob" class="form-control" required>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Preferred Job Location <span
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="text" name="preferred_location" class="form-control"
                                         placeholder="Enter preffered job location" required>
                                 </div>
-                                <div class="col-md-6">
 
-                                    <label class="form-label text-dark">Date of Marriage</label>
-                                    <input type="date" name="emp_dom" class="form-control">
 
-                                </div>
-                               
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Blood Group</label>
@@ -73,7 +77,7 @@
                                     </select>
 
                                 </div>
-                               
+
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Nearest Police Station <span
@@ -97,6 +101,12 @@
                                 </div>
                                 <div class="col-md-6">
 
+                                    <label class="form-label text-dark">Date of Marriage</label>
+                                    <input type="date" name="emp_dom" class="form-control">
+
+                                </div>
+                                <div class="col-md-6">
+
                                     <label class="form-label text-dark">Spouse Name</label>
                                     <input type="text" name="emp_husband_wife_name" class="form-control"
                                         placeholder="Enter spouse name">
@@ -106,18 +116,21 @@
 
                                     <label class="form-label text-dark">Add Signature photo <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="file" name="emp_signature" class="form-control"
+                                    <input type="file" name="emp_signature" class="form-control photo"
                                         accept=".jpg, .jpeg, .png" required>
+                                    <img class="img-fluid preview_photo w-50 rounded my-2">
+
 
                                 </div>
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Add Passport size photo <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="file" name="emp_photo" class="form-control"
+                                    <input type="file" name="emp_photo" class="form-control photo"
                                         accept=".jpg, .jpeg, .png" required>
+                                    <img class="img-fluid preview_photo w-50 rounded my-2">
                                 </div>
-                               
+
                             </div>
                         </div>
                         <div class="col-md-6" style="background-color:#F8FAFC; padding-bottom: 100px;">
@@ -133,13 +146,14 @@
 
                                     <label class="form-label text-dark">Father's Contact No. <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="number" name="emp_father_mobile" class="form-control"
-                                        placeholder="Enter father's contact number" required>
+                                    <input type="text" name="emp_father_mobile" class="form-control"
+                                        placeholder="Enter father's contact number" maxlength="10" minlength="10"
+                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
 
                                 </div>
-                               
-                               
-                              
+
+
+
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Passport No.</label>
@@ -193,7 +207,7 @@
                                         accept=".pdf">
 
                                 </div>
-                               
+
 
 
                             </div>
@@ -224,9 +238,37 @@
                             <p class="text-danger">Note : <u>Fields with "*" are mandatory to fill.</u></p>
                             <div class="row px-4 address_details">
                                 <div class="col-md-6">
+                                    <label for="country" class="form-label">Country</label>
+                                    <input type="text" class="form-control form-control-sm" value="India" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="state" class="form-label">State <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" id="state" name="state" required>
+                                        <option value="">Select State</option>
+                                        @foreach ($states as $state)
+                                            <option value="{{ $state->id }}">{{ $state->state }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="state" class="form-label">City <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" id="cities" name="emp_city" required>
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pincode" class="form-label">ZIP Code<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" name="pincode" placeholder="Enter ZIP code" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
+                                </div>
+
+
+                                <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Permanent Address <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <textarea placeholder="Enter Complete Permanent Address With State and City" name="emp_permanent_address"
+                                    <textarea placeholder="Enter Complete Permanent Address" name="emp_permanent_address"
                                         class="w-full form-control" id="permanent" required></textarea>
                                 </div>
                                 <div class="col-md-6">
@@ -257,8 +299,8 @@
                                         accept=".pdf" required>
 
                                 </div>
-                              
-                                <div class="col-md-6">
+
+                                {{-- <div class="col-md-6">
                                     <label class="form-label text-dark">Correspondence Address Proof <span
                                             class="text-danger fw-bold">*</span></label>
                                     <select name="correspondence_doc_type" class="form-control" required>
@@ -272,7 +314,7 @@
                                     </select>
                                     <input type="file" name="correspondence_add_doc" class="form-control my-2"
                                         accept=".pdf" required>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -336,9 +378,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">PF Number</label>
-                                    <input type="text" name="emp_pf_no" maxlength="12" class="form-control" placeholder="Enter pf number">
+                                    <input type="text" name="emp_pf_no" maxlength="12" class="form-control"
+                                        placeholder="Enter pf number">
                                 </div>
-                             
+
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Bank Cancelled Cheque/Bank
                                         Passbook <span class="text-danger fw-bold">*</span></label>
@@ -412,7 +455,8 @@
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">10th Class Board
                                         Document <span class="text-danger fw-bold">*</span></label>
-                                    <input type="file" class="form-control" name="emp_tenth_doc" accept=".pdf" required>
+                                    <input type="file" class="form-control" name="emp_tenth_doc" accept=".pdf"
+                                        required>
                                 </div>
 
 
@@ -434,7 +478,8 @@
                                     <label class="form-label mt-2 text-dark">Graduation % /
                                         CGPA</label>
                                     <input type="number" class="form-control"
-                                        placeholder="Enter Graduation Percentage or CGPA" name="emp_graduation_percentage">
+                                        placeholder="Enter Graduation Percentage or CGPA"
+                                        name="emp_graduation_percentage">
 
                                 </div>
                                 <div class="col-md-6">
@@ -757,12 +802,12 @@
                                         <label class="form-label">Aadhar Card Number <span
                                                 class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="aadhar_card_no[]" class="form-control bg-white"
-                                            maxlength="12" placeholder="Enter Aadhar Number" required>
+                                            maxlength="12" placeholder="Enter Aadhar Number" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Date of Birth <span
                                                 class="text-danger fw-bold">*</span></label>
-                                        <input type="date" name="dob[]" class="form-control bg-white" required>
+                                        <input type="date" name="dob[]" class="form-control bg-white" max="{{date('Y-m-d',strtotime('18 years ago'))}}" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Upload Aadhar Document <span

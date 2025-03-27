@@ -39,7 +39,7 @@
                                         </tr>
                                         <tr>
                                             <td class="bold">Department</td>
-                                            <td>{{$position->getDepartment->department}}</td>
+                                            <td>{{!empty($position->getDepartment) ? $position->getDepartment->department : ''}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Functional Role</td>

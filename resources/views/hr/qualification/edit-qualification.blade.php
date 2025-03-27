@@ -26,7 +26,8 @@
   							  @enderror
   							</div>
   							<div class="col-auto">
-  							  <button type="submit" class="btn btn-primary mb-3">Update</button>
+  							  <button type="submit" class="btn btn-primary mb-3">Submit</button>
+								<a href="{{route('qualification')}}" class="btn btn-primary mb-3 text-end mx-2">Cancel</a>
   							</div>
 						</form>
 					</div>

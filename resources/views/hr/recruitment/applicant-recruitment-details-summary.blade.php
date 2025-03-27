@@ -526,19 +526,23 @@
                                             <tr>
                                                 <td class="bold">Send Offer Letter</td>
                                                 <td>
+                                                    @if($data->rec_form_status == 'relationship_stage')
                                                     <form class="form send_offer_letter">
                                                         @csrf
                                                         <div class="d-none">
                                                             <input type="hidden" name="recruitment" value="{{$data->id}}">
                                                         </div>
                                                         <button type="submit" class="btn btn-sm btn-primary mt-2 fourth_stage">Send Offer Letter<i class="fa-solid fa-check"></i>
-                                                    </button>
+                                                        </button>
                                                     </form>
+                                                    @else
+                                                    <span class="text-danger">Recruitment Form not submitted yet</span>
+                                                    @endif
                                                 
                                                 </td>
 
                                             </tr>
-                                            @elseif(!empty($data->stage5))
+                                            @elseif(!empty($data->stage5) && $data->rec_form_status == 'relationship_stage')
                                                 <tr>
                                                 <td class="bold">Send Offer Letter</td>
                                                 <td>
@@ -647,7 +651,7 @@
                                                 <tr>
                                                     <td class="bold">Employee Code</td>
                                                     <td>
-                                                    @if(auth()->user()->hasPermission('add-employee'))
+                                                    @if(auth()->user()->hasPermission('employee.add-employee'))
                                                         <a href="{{route('employee.add-employee', ['recruitment_id' => $data->id])}}" class="btn btn-sm btn-primary mt-2 text-light text-decoration-none">Generate
                                                         </a>
                                                     @endif

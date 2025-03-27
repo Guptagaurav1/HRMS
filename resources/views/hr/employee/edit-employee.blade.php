@@ -302,9 +302,9 @@
                     @if (
                         $employee_details->emp_current_working_status == 'active' ||
                             $employee_details->emp_current_working_status == 'inactive')
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-end px-2 py-3">
                             <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
-                            <button type="submit" class="btn btn-sm btn-primary">Update </button>
+                            <button type="submit" class="btn btn-sm btn-primary">Update <i class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
                 </div>
@@ -448,7 +448,7 @@
                                 id="employee-details-btn">Update <i class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
-               
+                </div>
             </form>
         </div>
 
@@ -502,10 +502,10 @@
                     </div>
 
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
-                        <label for="exampleTextarea" class="form-label">PIN code<span
+                        <label for="exampleTextarea" class="form-label">ZIP Code<span
                                 class="text-danger">*</span></label>
                         <input type="number" class="form-control form-control-sm" name="pincode"
-                            placeholder="Enter PIN code"
+                            placeholder="Enter ZIP Code"
                             value="{{ !empty($employee_details->getAddressDetail) ? $employee_details->getAddressDetail->pincode : '' }}"
                             required>
 
@@ -522,7 +522,6 @@
                     @endif
                 </div>
                
-            </div>
             </form>
         </div>
 
@@ -609,7 +608,7 @@
                                 id="employee-details-btn3">Update <i class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
-               
+                </div>
             </form>
         </div>
 
@@ -993,8 +992,6 @@
                         </div>
                     @endif
                 </div>
-             
-            </div>
             </form>
         </div>
 
@@ -1037,11 +1034,12 @@
                     @if (
                         $employee_details->emp_current_working_status == 'active' ||
                             $employee_details->emp_current_working_status == 'inactive')
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-end px-2 py-3">
 
                             <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn3">Update</button>
+                                id="employee-details-btn3">Update <i class="fa-solid fa-check"></i></button>
                         </div>
+                      
                     @endif
                 </div>
             </form>
@@ -1067,7 +1065,8 @@
                         @if (!empty($employee_details->getIdProofDetail) && $employee_details->getIdProofDetail->police_verification_file)
                             <a href="{{ asset('recruitment/candidate_documents/police_verification') . '/' . $employee_details->getIdProofDetail->police_verification_file }}"
                                 target="_blank">View</a>
-                        @endif</label>
+                        @endif
+                    </label>
                         <input class="form-control" type="file" name="police_verification_file" accept=".pdf">
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
@@ -1132,9 +1131,9 @@
                         $employee_details->emp_current_working_status == 'active' ||
                             $employee_details->emp_current_working_status == 'inactive')
                         <div class="row">
-                            <div class="col-12 d-flex justify-content-end">
+                            <div class="col-12 d-flex justify-content-end px-2 py-3">
                                 <button type="submit" class="btn btn-sm btn-primary"
-                                    id="employee-details-btn4">Update</button>
+                                    id="employee-details-btn4">Update <i class="fa-solid fa-check"></i></button>
                             </div>
                         </div>
                     @endif

@@ -54,16 +54,20 @@ class EmployeeController extends Controller
             $skills = Skill::select('id', 'skill')->get();
             $workorders = WorkOrder::select('wo_number')->get();
             $states = State::select('id', 'state')->orderBy('state')->where('country_id', 1)->get();
-            
+
             $recruitment_details = new StdClass();
             $employee_id = '';
+            $cities = '';
             if ($recruitment_id) {
                 $recruitment_details = RecruitmentForm::findOrFail($recruitment_id);
                 if ($recruitment_details->finally == 'joined') {
                     $employee_id = EmpDetail::where('emp_code', $recruitment_details->emp_code)->value('id');
                 }
+                if (!empty($recruitment_details->getAddressDetail)) {
+                    $cities = City::select('id', 'city_name')->where('state_code', $recruitment_details->getAddressDetail->state)->get();
+                }
             }
-            return view("hr.employee.add-employee", compact('reporting_managers', 'designations', 'departments', 'functional_roles', 'banks', 'skills', 'recruitment_details', 'recruitment_id', 'employee_id', 'workorders', 'states'));
+            return view("hr.employee.add-employee", compact('reporting_managers', 'designations', 'departments', 'functional_roles', 'banks', 'skills', 'recruitment_details', 'recruitment_id', 'employee_id', 'workorders', 'states', 'cities'));
         } catch (Throwable $e) {
             abort(404);
         }
@@ -461,8 +465,8 @@ class EmployeeController extends Controller
                 $data['correspondence_add_doc'] = $correspondence_add_doc;
             }
 
-             // Store permanent address proof.
-             if ($request->hasFile('permanent_add_doc')) {
+            // Store permanent address proof.
+            if ($request->hasFile('permanent_add_doc')) {
                 $file = $request->file('permanent_add_doc');
                 $permanent_add_doc = 'permanent_' . time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/permanent_address_proof'), $permanent_add_doc);
@@ -470,8 +474,8 @@ class EmployeeController extends Controller
                 $data['permanent_add_doc'] = $permanent_add_doc;
             }
 
-             // Store Bank Document proof.
-             if ($request->hasFile('bank_doc')) {
+            // Store Bank Document proof.
+            if ($request->hasFile('bank_doc')) {
                 $file = $request->file('bank_doc');
                 $bank_doc = 'bank_' . time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/bank_account'), $bank_doc);
@@ -479,8 +483,8 @@ class EmployeeController extends Controller
                 $data['bank_doc'] = $bank_doc;
             }
 
-             // Store Category Document proof.
-             if ($request->hasFile('category_doc')) {
+            // Store Category Document proof.
+            if ($request->hasFile('category_doc')) {
                 $file = $request->file('category_doc');
                 $category_doc = 'category_' . time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('recruitment/candidate_documents/category'), $category_doc);
@@ -630,7 +634,6 @@ class EmployeeController extends Controller
             foreach ($fileContents as $line_number => $content) {
 
                 $line = str_getcsv($content);
-
                 $emp_password = substr(str_shuffle("01234567891234567890"), 0, 6);
 
                 // Save Employee Details
@@ -651,6 +654,7 @@ class EmployeeController extends Controller
                 $empdetails->emp_remark = $line[51];
                 $empdetails->role_id = get_role_id('Employee');
                 $empdetails->reporting_email = $line[52];
+                $empdetails->emp_current_working_status = 'active';
                 $empdetails->save();
 
                 // Save Personal Details
@@ -724,7 +728,7 @@ class EmployeeController extends Controller
             return redirect()->route('employee.employee-list')->with(['success' => true, 'message' => 'Uploaded successfully']);
         } catch (Throwable $e) {
             DB::rollBack();
-            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 
@@ -772,7 +776,7 @@ class EmployeeController extends Controller
             $recruitment_id = '';
             $cities = '';
             $employee_details = EmpDetail::findOrFail($id);
-            if(!empty($employee_details->getAddressDetail)){
+            if (!empty($employee_details->getAddressDetail)) {
                 $cities = City::select('id', 'city_name')->where('state_code', $employee_details->getAddressDetail->state)->get();
             }
             return view("hr.employee.edit-employee", compact('banks', 'skills', 'reporting_managers', 'designations', 'departments', 'functional_roles', 'employee_id', 'employee_details', 'recruitment_id', 'workorders', 'id', 'states', 'cities'));
@@ -1366,14 +1370,81 @@ class EmployeeController extends Controller
     /**
      * Get Reporting Managers
      */
-    public function get_reporting_managers(Request $request){
-        try{
+    public function get_reporting_managers(Request $request)
+    {
+        try {
             $department = Department::where('department', $request->department)->firstOrFail();
             $reporting_manager = $department->get_reporting_manager->email;
             return response()->json(['success' => true, 'reporting_manager' => $reporting_manager]);
         } catch (Throwable $th) {
-            return response()->json(['error' => true,'message' => $th->getMessage()]);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
-       
+    }
+
+    /**
+     * Send data for preview.
+     * @param file $csv file
+     */
+    public function preview_csv(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'csv' => ['required', File::types(['csv', 'txt'])->max('1mb')]
+            ], [
+                'csv.required' => 'The CSV file is required.',
+                'csv.file' => 'The selected file is not a valid CSV.',
+                'csv.max' => 'The CSV file size may not be greater than 1MB.'
+            ]);
+            $file = $request->file('csv');
+            $fileContents = file($file->getPathname());
+            $header = array_shift($fileContents);
+
+            $required_data = [];
+            $storecode = [];
+            $storeemail = [];
+            foreach ($fileContents as $line_number => $content) {
+
+                $line = str_getcsv($content);
+                $required_data[$line_number]['color'] = '';
+                $required_data[$line_number]['status_color'] = '';
+                $required_data[$line_number]['status'] = '';
+
+                if ($line[1] && $line[0] && $line[2] && $line[3] && $line[4] && $line[5] && $line[10] && $line[21] && $line[23] && $line[52]) {
+                    //    Validate Employee Code
+                    if (in_array($line[1], $storecode) || EmpDetail::where('emp_code', $line[1])->exists()) {
+                        $required_data[$line_number]['color'] = 'red';
+                        $required_data[$line_number]['status_color'] = 'danger';
+                        $required_data[$line_number]['status'] = 'Duplicate Employee Code';
+                    }
+
+                    //    Validate Email Id.
+                    if (!filter_var($line[23], FILTER_VALIDATE_EMAIL) || in_array($line[23], $storeemail) || EmpDetail::where('emp_email_first', $line[23])->exists()) {
+                        $required_data[$line_number]['color'] = 'red';
+                        $required_data[$line_number]['status_color'] = 'danger';
+                        $required_data[$line_number]['status'] = 'Invalid or Duplicate Email';
+                    }
+                } else {
+                    $required_data[$line_number]['color'] = 'red';
+                    $required_data[$line_number]['status_color'] = 'danger';
+                    $required_data[$line_number]['status'] = 'Please fill out the required fields';
+                }
+
+
+                $storecode[] = $line[1];
+                $required_data[$line_number]['emp_work_order'] = $line[0];
+                $required_data[$line_number]['emp_code'] = $line[1];
+                $required_data[$line_number]['emp_name'] = $line[2];
+                $required_data[$line_number]['emp_doj'] = date('Y-m-d', strtotime($line[10]));
+                $required_data[$line_number]['emp_phone_first'] = $line[21];
+                $required_data[$line_number]['emp_email_first'] = $line[23];
+                $required_data[$line_number]['emp_gender'] = $line[3];
+                $required_data[$line_number]['emp_category'] = $line[4];
+                $required_data[$line_number]['emp_dob'] = date('Y-m-d', strtotime($line[5]));
+                $required_data[$line_number]['reporting_email'] = $line[52];
+            }
+            return response()->json(['success' => true, 'data' => $required_data]);
+        } catch (Throwable $e) {
+            return response()->json(['error' => true, 'message' => 'Server Error']);
+        }
     }
 }

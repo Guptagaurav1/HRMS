@@ -93,6 +93,8 @@ Route::middleware('guest')->group(function () {
         Route::get('print-hr-form/{id}', 'print_hr_form')->name('guest.print_hr_form');
         Route::get('recruitment-form/{id}/{ref}/{send_mail_id}', 'recruitment_form')->name('guest.recruitment_form');
         Route::post('submit-details', 'submit_details');
+        Route::post("cities", "get_cities");
+
     });
 });
 
@@ -386,6 +388,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("export", 'export_employees')->name('employee.export');
         Route::post('get-reporting-managers', 'get_reporting_managers');
         Route::get("credential_log_list", 'sent_credential_logs')->name("employee.sent-credentials-logs");
+        Route::post('preview-csv', 'preview_csv');
     });
 
     Route::controller(ProfileController::class)->prefix('profile')->group(function () {
@@ -393,6 +396,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('submit-profile-request', 'submit_update_request')->name("profile.submit-profile-request");
         Route::get("profile-update-request-list", 'request_list')->name("profile.profile-detail-request-list");
     });
+
+    Route::controller(PoshController::class)->prefix('posh')->group(function () {
+        Route::get('posh-complaint-list', 'complaint_list')->name("posh.complaint-list");
+    });
+    
+
 
     //tenants
     Route::resource('tenants', TenantController::class);
@@ -430,13 +439,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 Route::get("position-review-dept", function () {
     return view(" hr.position-review-dept");
 })->name("position-review-dept");
-
-
-
-Route::get("posh-complaint-list", function () {
-    return view(" hr.posh-complaint-list");
-})->name("posh-complaint-list");
-
 
 Route::get("reimbursement-list", function () {
     return view(" hr.reimbursement-list");

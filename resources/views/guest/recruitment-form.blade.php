@@ -37,32 +37,32 @@
                                     </div>
                                 @endif
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label mt-2 text-dark">First Name</label>
+                                    <label class="form-label mt-2 text-dark">First Name <span class="text-danger">*</span> </label>
                                     <input class="form-control" name="firstname" placeholder="Enter Your First Name"
                                         required />
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label mt-2 text-dark">Last Name</label>
+                                    <label class="form-label mt-2 text-dark">Last Name <span class="text-danger">*</span></label>
                                     <input class="form-control" name="lastname" placeholder="Enter Your Last Name"
                                         required />
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label text-dark">Date Of Birth</label>
-                                    <input type="date" name="dob" class="form-control" required>
+                                    <label class="form-label text-dark">Date Of Birth <span class="text-danger">*</span></label>
+                                    <input type="date" name="dob" class="form-control" max="{{date('Y-m-d',strtotime('18 years ago'))}}" required>
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label text-dark">Current Location</label>
+                                    <label class="form-label text-dark">Current Location <span class="text-danger">*</span></label>
                                     <input type="text" name="location" class="form-control"
                                         placeholder="Enter Your Current Location" required>
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label text-dark">Highest Education</label>
+                                    <label class="form-label text-dark">Highest Education <span class="text-danger">*</span></label>
                                     <input type="text" name="education" class="form-control"
                                         placeholder="Enter Your Education Details" required>
 
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label text-dark">Total Experience</label>
+                                    <label class="form-label text-dark">Total Experience <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" aria-label="total experience"
                                             name="experience" aria-describedby="basic-addon2" required>
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="col-12 col-md-6">
 
-                                    <label class="form-label text-dark">Skills</label>
+                                    <label class="form-label text-dark">Skills <span class="text-danger">*</span></label>
                                     <select name="skill[]" class="form-control js-example-basic-multiple"
                                         multiple="multiple" required>
                                         <option value="Not Specified">Not Specified</option>
@@ -91,22 +91,22 @@
                                 </div>
                                 <div class="col-12 col-md-6">
 
-                                    <label class="form-label text-dark">Email</label>
+                                    <label class="form-label text-dark">Email <span class="text-danger">*</span></label>
                                     <input type="email" name="email" class="form-control" placeholder="Enter Your Email"
                                         required>
 
                                 </div>
                                 <div class="col-12 col-md-6">
 
-                                    <label class="form-label text-dark">Contact No.</label>
+                                    <label class="form-label text-dark">Contact No. <span class="text-danger">*</span></label>
                                     <input type="text" name="phone" class="form-control"
-                                        placeholder="Enter Your Contact No." required>
+                                        placeholder="Enter Your Contact No." maxlength="10" minlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
 
                                 </div>
 
                                 <div class="col-12 col-md-6">
 
-                                    <label class="form-label text-dark">Resume</label>
+                                    <label class="form-label text-dark">Resume <span class="text-danger">*</span></label>
                                     <input type="file" name="resume" class="form-control" accept=".pdf" required>
 
                                 </div>

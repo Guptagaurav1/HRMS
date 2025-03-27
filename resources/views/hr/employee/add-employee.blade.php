@@ -373,6 +373,13 @@
                                         class="text-danger">*</span></label>
                                 <select class="form-select" id="cities" name="emp_city" required>
                                     <option value="">Select City</option>
+                                    @if ($cities)
+                                @foreach ($cities as $city)
+                                    <option value="{{ $city->id }}"
+                                        {{ !empty($recruitment_details->getAddressDetail) && $recruitment_details->getAddressDetail->emp_city == $city->id ? 'selected' : '' }}>
+                                        {{ $city->city_name }}</option>
+                                @endforeach
+                            @endif
                                 </select>
                             </div>
                            
@@ -391,9 +398,9 @@
                                     placeholder="Enter Correspondence Address">{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->emp_local_address : '' }}</textarea>
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label for="exampleTextarea" class="form-label">PIN code<span
+                                <label for="exampleTextarea" class="form-label">ZIP Code<span
                                         class="text-danger">*</span></label>
-                                <input type="number" class="form-control form-control-sm" name="pincode" placeholder="Enter PIN code" required>
+                                <input type="text" class="form-control form-control-sm" name="pincode" placeholder="Enter ZIP code" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'');" value="{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->pincode : '' }}" required>
                                 
                             </div>
 
@@ -547,7 +554,12 @@
                                         </div>
                                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                                             <label class="form-label">Upload Doc <span class="small">(Only Pdf)</span>
-                                                <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                                <span class="fw-lighter small">(Max size :1mb)</span>
+                                            @if (!empty($recruitment_details->getEducationDetail) && $recruitment_details->getEducationDetail->emp_tenth_doc)
+                                                <a href="{{ asset('recruitment/candidate_documents/10th') . '/' . $recruitment_details->getEducationDetail->emp_tenth_doc }}"
+                                                    target="_blank">View</a>
+                                            @endif
+                                            </label>
                                             <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                 name="emp_tenth_doc">
                                         </div>
@@ -583,7 +595,12 @@
                                             </div>
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
-                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span>  
+                                                        @if (!empty($recruitment_details->getEducationDetail) && $recruitment_details->getEducationDetail->emp_twelve_doc)
+                                                        <a href="{{ asset('recruitment/candidate_documents/12th') . '/' . $recruitment_details->getEducationDetail->emp_twelve_doc }}"
+                                                            target="_blank">View</a>
+                                                    @endif
+                                                </label>
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="emp_twelve_doc">
                                             </div>
@@ -633,6 +650,8 @@
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
                                                         Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                                    
+                                                    
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="diploma_doc">
                                             </div>
@@ -690,7 +709,12 @@
                                             </div>
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
-                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span>
+                                                        @if (!empty($recruitment_details->getEducationDetail) && $recruitment_details->getEducationDetail->grad_doc)
+                                                <a href="{{ asset('recruitment/candidate_documents/graduation') . '/' . $recruitment_details->getEducationDetail->grad_doc }}"
+                                                    target="_blank">View</a>
+                                            @endif
+                                                    </label>
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="grad_doc">
                                             </div>
@@ -746,7 +770,12 @@
                                             </div>
                                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                                 <label class="form-label">Upload Doc <span class="small">(Only
-                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                                        Pdf)</span> <span class="fw-lighter small">(Max size :1mb)</span>
+                                                    @if (!empty($recruitment_details->getEducationDetail) && $recruitment_details->getEducationDetail->post_grad_doc)
+                                                        <a href="{{ asset('recruitment/candidate_documents/post_graduation') . '/' . $employee_details->education->post_grad_doc }}"
+                                                            target="_blank">View</a>
+                                                    @endif
+                                                    </label>
                                                 <input type="file" accept=".pdf" class="form-control form-control-sm"
                                                     name="post_grad_doc">
                                             </div>
@@ -840,7 +869,8 @@
                                     placeholder="Enter Experience">
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label for="resume_file" class="form-label">Upload Resume <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <label for="resume_file" class="form-label">Upload Resume <span class="fw-lighter small">(Max size :1mb)</span>
+                                </label>
                                 <input class="form-control form-control-sm" name="resume_file" type="file"
                                     accept=".pdf">
                             </div>
@@ -871,7 +901,12 @@
                                     value="{{ !empty($recruitment_details->getIdProofDetail) ? $recruitment_details->getIdProofDetail->police_verification_id : '' }}">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label for="formFile" class="form-label">Police Verification Attachment <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <label for="formFile" class="form-label">Police Verification Attachment <span class="fw-lighter small">(Max size :1mb)</span>
+                                    @if (!empty($recruitment_details->getIdProofDetail) && $recruitment_details->getIdProofDetail->police_verification_file)
+                                    <a href="{{ asset('recruitment/candidate_documents/police_verification') . '/' . $recruitment_details->getIdProofDetail->police_verification_file }}"
+                                        target="_blank">View</a>
+                                @endif
+                                </label>
                                 <input class="form-control" type="file" name="police_verification_file"
                                     accept=".pdf">
                             </div>
@@ -890,11 +925,21 @@
                                     value="{{ !empty($recruitment_details->getIdProofDetail) ? $recruitment_details->getIdProofDetail->emp_passport_no : '' }}">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label for="formFile" class="form-label">Passport Document <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <label for="formFile" class="form-label">Passport Document <span class="fw-lighter small">(Max size :1mb)</span>
+                                    @if (!empty($recruitment_details->getIdProofDetail) && $recruitment_details->getIdProofDetail->passport_file)
+                                    <a href="{{ asset('recruitment/candidate_documents/passport') . '/' . $recruitment_details->getIdProofDetail->passport_file }}"
+                                        target="_blank">View</a>
+                                @endif
+                                </label>
                                 <input class="form-control" type="file" name="passport_file" accept=".pdf">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label for="formFile" class="form-label">Permanent Address Proof Attachment <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <label for="formFile" class="form-label">Permanent Address Proof Attachment <span class="fw-lighter small">(Max size :1mb)</span>
+                                    @if (!empty($recruitment_details->getIdProofDetail) && $recruitment_details->getIdProofDetail->permanent_add_doc)
+                                    <a href="{{ asset('recruitment/candidate_documents/permanent_address_proof') . '/' . $recruitment_details->getIdProofDetail->permanent_add_doc }}"
+                                        target="_blank">View</a>
+                                @endif
+                                </label>
                                 <input class="form-control" type="file" name="permanent_add_doc" accept=".pdf">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
@@ -904,11 +949,21 @@
                                     value="{{ !empty($recruitment_details->getIdProofDetail) ? $recruitment_details->getIdProofDetail->nearest_police_station : '' }}">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label class="form-label">Bank Document <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <label class="form-label">Bank Document <span class="fw-lighter small">(Max size :1mb)</span>
+                                    @if (!empty($recruitment_details->getIdProofDetail) && $recruitment_details->getIdProofDetail->bank_doc)
+                                    <a href="{{ asset('recruitment/candidate_documents/bank_account') . '/' . $recruitment_details->getIdProofDetail->bank_doc }}"
+                                        target="_blank">View</a>
+                                @endif
+                                </label>
                                 <input type="file" class="form-control form-control-sm" name="bank_doc" accept=".pdf">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label class="form-label">Category Document <span class="fw-lighter small">(Max size :1mb)</span></label>
+                                <label class="form-label">Category Document <span class="fw-lighter small">(Max size :1mb)</span>
+                                    @if (!empty($recruitment_details->getIdProofDetail) && $recruitment_details->getIdProofDetail->category_doc)
+                                    <a href="{{ asset('recruitment/candidate_documents/category') . '/' . $recruitment_details->getIdProofDetail->category_doc }}"
+                                        target="_blank">View</a>
+                                @endif
+                                </label>
                                 <input type="file" class="form-control form-control-sm" name="category_doc" accept=".pdf">
                             </div>
                             <div class="row">
@@ -957,9 +1012,36 @@
                         </div>
                     </div>
                     <div class="col-12 d-flex justify-content-end py-3">
-                        <button type="submit" class="btn btn-sm btn-primary"> <i class="fa-solid fa-upload"></i> Upload
-                            CSV</button>
+                        <button type="button" class="btn btn-sm btn-primary show_preview">Preview</button>
+                        <button type="submit" class="btn btn-sm btn-primary d-none csv-submit mx-2"> <i class="fa-solid fa-upload"></i> Final Submit</button>
+                        <button type="reset" class="btn btn-sm btn-primary mx-2 reset">Reset</button>
                     </div>
+
+                    {{-- Show Preview  --}}
+                    <div class="table-responsive d-none preview-table my-3">
+                        <table class="table table-bordered table-hover table-striped digi-dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Work Order</th>
+                                    <th>Employee Code</th>
+                                    <th>Employee Name</th>
+                                    <th>Gender</th>
+                                    <th>Category</th>
+                                    <th>DOB</th>
+                                    <th>DOJ</th>
+                                    <th>Phone</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Reporting Mail</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="preview-table">
+                                <!-- Preview Data Will Be Here -->
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
                 </form>
             </div>
 

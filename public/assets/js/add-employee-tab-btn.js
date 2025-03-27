@@ -321,4 +321,101 @@ $(document).ready(function () {
         });
     });
 
+
+    // Show preview Table.
+    $("button.show_preview").click(function(){
+        var csvfile = $("input[name=csv]");
+        Swal.fire({
+            title: "Loading...",
+            didOpen: () => {
+              Swal.showLoading();
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+
+        if (csvfile) {
+            var token =  $("meta[name=csrf-token]").attr('content');
+            var fd = new FormData();
+            fd.append('csv', csvfile[0].files[0]); 
+            fd.append('_token', token); 
+            $.ajax({
+                url : SITE_URL+ '/hr/employee/preview-csv',
+                type : 'post',
+                data : fd,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success : function(response) {
+                    swal.close();
+                    if(response.success) {
+                        var html = '';
+                        var validfile = true;
+                        $.each(response.data, function(index, value) {
+                            if(value.status_color == 'danger') {
+                                validfile = false;
+                            }
+                            html += '<tr class="table-'+value.status_color+'">';
+                            html += '<td>' + value.emp_work_order + '</td>';
+                            html += '<td>' + value.emp_code + '</td>';
+                            html += '<td>' + value.emp_name + '</td>';
+                            html += '<td>' + value.emp_gender + '</td>';
+                            html += '<td>' + value.emp_category + '</td>';
+                            html += '<td>' + value.emp_dob + '</td>';
+                            html += '<td>' + value.emp_doj + '</td>';
+                            html += '<td>' + value.emp_phone_first + '</td>';
+                            html += '<td class="text-start">' + value.emp_email_first + '</td>';
+                            html += '<td class="text-start">' + value.reporting_email + '</td>';
+                            html += '<td>' + value.status + '</td>';
+                            html += '</tr>';
+                        });
+                        if (!validfile) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Invalid File Content",
+                                text: 'Please fix errors and try again',
+                                allowOutsideClick: () => false
+                            });
+                        }
+                        else {
+                            $("button.csv-submit").removeClass("d-none");
+                        }
+                        $("div.preview-table tbody").html(html);
+                        $("div.preview-table").removeClass('d-none');
+                    } else if(response.error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: response.message,
+                            allowOutsideClick: () => false
+                        });
+                    }
+                }
+            });
+        }
+        else {
+            // If file not upload then show error.
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "File not found!",
+                allowOutsideClick: () => false
+            });
+        }
+    });
+
+    // Reset preview table.
+    function reset_preview() {
+        $("div.preview-table").addClass('d-none');
+        $("button.csv-submit").addClass("d-none");
+    }
+    // Reset CSV data.
+    $("form.bulk-upload").bind('reset',function(){
+        reset_preview();
+    });
+
+    // Disable submit on change of file upload.
+    $("input[name=csv]").change(function(){
+        reset_preview();
+    });
+
 });
