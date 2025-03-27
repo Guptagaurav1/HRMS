@@ -356,11 +356,10 @@
                                         @foreach($state as $key => $value)
                                         <option value="{{$value->id}}">{{ $value->state }}</option>
                                         @endforeach
-
                                     </select>
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">PIN Number</label>
+                                    <label class="form-label text-wrap">Postal Code</label>
                                     <input name="invoice_pin" id="invoice_pin" type="number"
                                         class="form-control form-control-sm" placeholder="PIN Number"
                                         value="{{ old('invoice_pin') }}">
@@ -430,6 +429,9 @@
 
 
         showTabContent(currentTab);
+
+
+        
     });
 </script>
 
