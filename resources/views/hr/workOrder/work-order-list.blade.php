@@ -52,9 +52,7 @@
                     </form>
                         <div class="d-flex gap-3 col-md-6">
                             <div class="col-md-12 d-flex justify-content-end gap-5">
-                                @if(auth()->user()->hasPermission('addnew-candidate'))
-                                    <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">CSV  <i class="fa-solid fa-file-export"></i></button></a>
-                                @endif
+                                
                                 @if(auth()->user()->hasPermission('add-work-order'))
                                     <a href="{{'add-work-order'}}"><button class="btn btn-sm btn-primary">Add Work
                                         Order  <i class="fa-solid fa-plus"></i></button></a>
@@ -76,8 +74,8 @@
                 <form class="row g-3" method="get">
                     <div class="col-sm-12 col-md-2">
                         <label class="form-label">Organisation <span class="text-danger">*</span></label>
-                        <select id="organisation" class="form-select" name="organisation">
-                            <option value="">--Select Organisation--</option>
+                        <select id="organisation" class="form-select" name="organisation" value="{{$organisation??NULL}}">
+                            <option value="">Select Organisation</option>
                             @foreach($organization_data as $key => $organization_data)
                             <option value="{{$organization_data->id}}" @if ($organization_data->id ==
                                 $organisation) selected @endif>
@@ -91,7 +89,7 @@
                     </div>
                     <div class="col-sm-12 col-md-3">
                         <label class="form-label text-wrap"> Project Name <span class="text-danger">*</span></label>
-                        <select name="project_name" id="project_name" class="form-select" value="{{$project_name}}"
+                        <select name="project_name" id="project_name" class="form-select" value="{{$project_name??NULL}}"
                             style="min-width: 150px;">
                             <option value="">Select Project</option>
                             @foreach ($projects as $project)
@@ -124,8 +122,23 @@
                 </form>
             </div>
              
+            @if(auth()->user()->hasPermission('add-work-order'))
+               
+                <form class="col-md-12 text-end px-3" action="{{route('export-work-order')}}" method="post">
+                    @csrf
+                    <div class="d-none">
+                        <input type="hidden" name="search" value="{{ $searchValue??NULL }}">
+                        <input type="hidden" name="project_name" value="{{ $project_name??NULL }}">
+                        <input type="hidden" name="organisation" value="{{ $organisation??NULL }}">
+                        <input type="hidden" name="start_date" value="{{ $woStart??NULL }}">
+                        <input type="hidden" name="end_date" value="{{ $woEnd??NULL }}">
+                    </div>
+                    <button type="submit" class="btn btn-link p-0 text-decoration-none">Download CSV <i
+                            class="fa-solid fa-download"></i></button>
+                </form>
 
-            <form method="post" action="{{ route('work-order-report') }}">
+            @endif
+            <form method="post" action="{{ route('work-order-report') }}">          
             <div class="table-responsive mt-4">
                
                     @csrf
@@ -164,7 +177,7 @@
                                     <td>{{$value->wo_project_coordinator}}</td>
                                     <td>{{$value->wo_start_date}}</td>
                                     <td>{{$value->wo_end_date}}</td>
-                                    <td>{{$value->wo_amount}}</td>
+                                    <td>INR {{ number_format($value->wo_amount, 2) }}</td>
                                     <td>{{ $value->contacts_details }}</td>
                                     <td>{{$value->created_at}}</td>
                                     <td>

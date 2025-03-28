@@ -1,132 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Invoice</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-    <style>
-        
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .invoice-container {
-            padding: 30px;
-        }
-
-        .card {
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        
-        .invoice-header {
-            /* display: flex;
-            justify-content: space-between; */
-            /* align-items: center;
-            background-color: #add8e6; */
-            /* padding: 15px;
-            border-radius: 5px 5px 0 0; */
-        }
-
-        .invoice-header h1 {
-            
-            font-weight: 700;
-            color: white;
-        }
-
-        .invoice-header .logo {
-            width: 80px;
-            height: auto;
-        }
-
-        /* Footer styles */
-        .invoice-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #e0e0e0;
-            padding: 20px;
-            border-top: 1px solid #ddd;
-            margin-top: 20px;
-            border-radius: 0 0 5px 5px;
-        }
-
-        .invoice-footer .total-amount {
-            font-size: 20px;
-            font-weight: bold;
-            color: #007bff;
-        }
-
-        .invoice-footer .download-btn, .invoice-footer .btn-print {
-            background-color: #007bff;
-            color: #fff;
-            padding: 12px 25px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .invoice-footer .download-btn:hover, .invoice-footer .btn-print:hover {
-            background-color: #0056b3;
-        }
-
-        /* Centering the card */
-        .center-card {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* Table styles */
-        .invoice-items table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .invoice-items th,
-        .invoice-items td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        .invoice-items th {
-            background-color: #f8f9fa;
-        }
-
-        .invoice-items tbody tr:hover {
-            background-color: #f1f1f1;
-            cursor: pointer;
-        }
-
-        /* Responsive styling */
-        @media (max-width: 768px) {
-            .invoice-header h1 {
-                font-size: 28px;
-            }
-
-            .invoice-header .logo {
-                width: 60px;
-            }
-
-            .invoice-footer {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .invoice-footer .total-amount {
-                margin-bottom: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-
+@extends('layouts.guest.master', ['title' => 'WorkORder Report '])
+@section('content')
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" /> -->
 
 <div class="center-card">
     <div class="card invoice-container">
@@ -154,7 +29,7 @@
         </div>
 
        
-        <div class="text-end">
+        <div class="text-end hide-text">
             @if(!empty($wo_details))
                 @if($zipFilePath)
                     <a href="{{ asset('storage/' . basename($zipFilePath)) }}" class="btn btn-success mb-3" target="_blank">Download ZIP</a>
@@ -163,6 +38,7 @@
                 @endif
             @endif
         </div>
+        
 
         
         @foreach($wo_details as $project_id => $wo_detail)
@@ -235,12 +111,24 @@
         <div class="invoice-footer">
             <div class="total-amount">Total Amount: INR {{ number_format($overallSum, 2) }}</div>
             <div class="buttons">
-                <button class="btn-print" onclick="window.print()">Print Invoice</button>
+               
+                <a href="{{route('work-order-list')}}"> <button class="btn-print hide-text">Cancle</button></a>
+                <button class="btn-print hide-text">save</button>
+                <!-- <button class="btn-print hide-text">Download CSV</button> -->
+                
+                
+
+                <button class="btn-print hide-text" onclick="window.print()">Print Report</button>
+                <button class="btn-print hide-text">Share</button>
+                <form action="{{route('export-work-order')}}" method="post">
+                    @csrf
+                        <input type="hidden" name="check_workOrders" value="{{ implode(',', $check_workOrders ?? []) }}">
+                   <button type="submit" class="btn-print hide-text">Download CSV</button>
+                </form>
             </div>
         </div>
 
     </div>
 </div>
 
-</body>
-</html>
+@endsection

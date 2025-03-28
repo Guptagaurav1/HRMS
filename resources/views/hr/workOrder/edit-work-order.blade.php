@@ -137,7 +137,7 @@
                                     <div class="col-sm-12 col-md-4">
                                         <label class="form-label">Organisation <span
                                                 class="text-danger">*</span></label>
-                                        <select name="organisation" id="edit-organisation" class="form-select">
+                                        <select name="organisation" id="organisation" class="form-select" value="{{$workOrder->project->organizations->id}}">
                                             <option selected>--Select Organisation--</option>
                                             @foreach($organization as $key => $organization_data)
                                             <option value="{{$organization_data->id}}" @if ($organization_data->
@@ -154,8 +154,14 @@
                                     <div class="col-sm-12 col-md-4 text-wrap">
                                         <label class="form-label text-wrap"> Project Name <span
                                                 class="text-danger">*</span></label>
-                                        <select name="project_name" id="edit_project_name" class="form-select" value="">
+                                        <select name="project_name" id="project_name" class="form-select" value="">
                                             <option value="">Select a Project</option>
+                                            @foreach ($projects as $project)
+                                                <option value="{{ $project->id }}" 
+                                                        {{ (old("project_name", $project->id ?? '') == $workOrder->project->id) ? 'selected' : '' }}>
+                                                    {{ $project->project_name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                         @error('project_name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -165,7 +171,7 @@
                                         <label class="form-label text-wrap"> Project Number </label>
                                         <input name="project_no" id="project_no" readonly type="text"
                                             class="form-control form-control-sm" placeholder="Enter Project Number"
-                                            value="{{$workOrder->project->project_number }}">
+                                            value="{{old('project_no',$workOrder->project->project_number) }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -176,7 +182,7 @@
                                         <input name="empanelment_reference" readonly id="empanelment_reference"
                                             type="text" class="form-control form-control-sm"
                                             placeholder="Empanelment Reference"
-                                            value="{{ $workOrder->project->empanelment_reference }}">
+                                            value="{{ old('project_no',$workOrder->project->empanelment_reference) }}">
                                     </div>
                                 </div>
                             </div>
@@ -450,74 +456,10 @@
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
 <script src="{{asset('assets/vendor/js/addmore.js')}}"></script>
-<script src="{{asset('assets/js/work-order.js')}}"></script>
+<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
 
 <script>
     $(document).ready(function () {
-        $('#edit-organisation').on('change', function () {
-            var selectedValue = $(this).val();
-            if (selectedValue) {
-                $.ajax({
-                    url: '{{ route("organisation-project", ":id") }}'.replace(':id', selectedValue),
-                    type: 'GET',
-                    success: function (response) {
-                        let dropdown = $("#edit_project_name");
-                        dropdown.empty();
-                        dropdown.append('<option value="">Select a Project</option>');
-                        let projects = response.data;
-                        // Loop through response and append to dropdown
-                        $.each(projects, function (key, project) {
-                            dropdown.append('<option value="' + project.id + '">' + project.project_name + '</option>');
-                        });
-
-                        let project_name = "{{ old('project_name', $workOrder->project->id) }}";
-                        if (project_name) {
-                            dropdown.val(project_name);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Error:", error);
-                    }
-                });
-            }
-        });
-        var initialOrgId = "{{ old('organisation', $workOrder->project->organizations->id) }}";
-        if (initialOrgId) {
-            $('#edit-organisation').val(initialOrgId).trigger('change');
-        }
-        $('#edit_project_name').on('change', function () {
-            var selectedValue = $(this).val();
-            if (selectedValue) {
-                $.ajax({
-                    // url: 'project/project-details/' + selectedValue, // Route URL with parameter
-                    url: '{{ route("project-details", ":id") }}'.replace(':id', selectedValue),
-                    type: 'GET',
-                    success: function (response) {
-
-                        let project_number = response.data.project_number;
-                        // alert(project_name);
-                        let empanelment_reference = response.data.empanelment_reference;
-                        $('#project_no').val(project_number);
-                        $('#empanelment_reference').val(empanelment_reference);
-
-                        let project_no = "{{ old('project_no', $workOrder->project_number) }}";
-                        if (project_no) {
-                            $('#project_no').val(project_no);
-                        }
-                        let empanelment_ref = "{{ old('empanelment_reference', $workOrder->empanelment_reference) }}";
-                        if (empanelment_ref) {
-                            $('#empanelment_reference').val(empanelment_ref);
-                        }
-
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Error:", error);
-                    }
-                });
-            }
-        });
-
-
         $('.tab-btn').click(function () {
 
             var tabId = $(this).attr('id');

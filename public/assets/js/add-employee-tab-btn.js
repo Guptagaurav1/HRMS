@@ -20,7 +20,7 @@ $(document).ready(function () {
                     if (callback) callback(saveEmpDetails);
                 }
             },
-            error: function(key, xhr) {
+            error: function(xhr) {
                 console.log("Error in " + key, xhr.responseText);
             }
         });

@@ -65,8 +65,8 @@
                                         required>
                                         <option value="">--Select Organisation--</option>
                                         @foreach($organization as $key => $organization_data)
-                                        <option value="{{$organization_data->id}}" @if ($organization_data->name ==
-                                            old('organization')) selected @endif>
+                                        <option value="{{$organization_data->id}}" @if ($organization_data->id ==
+                                            old('organization',$project->organisation_id??NULL)) selected @endif>
                                             {{ $organization_data->name }}</option>
                                         @endforeach
                                     </select>
@@ -77,8 +77,17 @@
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap"> Project Name <span
                                             class="text-danger">*</span></label>
-                                    <select name="project_name" id="project_name" class="form-select form-control"
-                                        value=""></select>
+                                    <select name="project_name" id="project_name" class="form-select form-control">
+                                    <option value="">Select a Project</option>
+                                    @if($projects)
+                                    @foreach ($projects as $project_val)
+                                        <option value="{{ $project_val->id }}" 
+                                                {{ (old("project_name", $project_val->id ?? '') == ($project->id??NULL)) ? 'selected' : '' }}>
+                                            {{ $project_val->project_name }}
+                                        </option>
+                                    @endforeach
+                                    @endif
+                                    </select>
                                     @error('project_name')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -87,7 +96,7 @@
 
                                     <label class="form-label text-wrap"> Project Numbers </label>
                                     <input id="project_no" readonly type="text" class="form-control form-control-sm"
-                                        placeholder="Enter Project Number" value="" required>
+                                        placeholder="Enter Project Number" value="{{$project->project_number??NULL }}" >
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 text-wrap">
@@ -96,7 +105,7 @@
                                         </label>
                                         <input readonly id="empanelment_reference" type="text"
                                             class="form-control form-control-sm" placeholder="Empanelment Reference"
-                                            value="">
+                                            value="{{$project->empanelment_reference??NULL }}">
                                     </div>
                                 </div>
                             </div>
@@ -275,8 +284,7 @@
                         <div class="col-12 d-flex justify-content-between py-3">
                             <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 prev-btn">Previous <i
                                     class="fa-solid fa-arrow-left"></i></button>
-                            <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 next-btn">Save & Next <i
-                                    class="fa-solid fa-share"></i></button>
+                            <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 next-btn">Save & Next <i class="fa-solid fa-share"></i></button>
                         </div>
                     </div>
 
@@ -419,7 +427,6 @@
             }
         });
 
-
         $(".prev-btn").click(function () {
             if (currentTab > 0) {
                 currentTab--;
@@ -429,7 +436,9 @@
 
 
         showTabContent(currentTab);
+ 
     });
+   
 </script>
 
 @endsection
