@@ -85,7 +85,7 @@ class MenuSeeder extends Seeder
                   
                 // Functional Role
                 
-                ['mid' =>'M-45', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification List','page' => 'functional-role','status'=> '1','parent_id'=> '10'],
+                ['mid' =>'M-45', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification List','page' => 'qualification','status'=> '1','parent_id'=> '10'],
                 ['mid' =>'M-46', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification Add','page' => 'add-qualification','status'=> '1','parent_id'=> '10'],
                 ['mid' =>'M-47', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification Edit','page' => 'edit-qualification','status'=> '1','parent_id'=> '10'],
                 ['mid' =>'M-48', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification Delete','page' => 'destroy-qualification','status'=> '1','parent_id'=> '10'],
@@ -198,8 +198,13 @@ class MenuSeeder extends Seeder
                 ['mid' =>'M-106', 'section' => 'Salary Structure', 'section_icon' => '', 'name' => 'Edit Salary','page' => 'edit-salary','status'=> '1','parent_id'=> '24'],
                 ['mid' =>'M-107', 'section' => 'Salary Structure', 'section_icon' => '', 'name' => 'Delete Salary','page' => 'delete-salary','status'=> '1','parent_id'=> '24'],
 
+                // Profile
+                ['mid' =>'M-108', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Modify Profile Request','page' => 'profile.modify-profile-request','status'=> '1','parent_id'=> '25'],
+                ['mid' =>'M-109', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Profile Request Log','page' => 'profile.profile-detail-request-list','status'=> '1','parent_id'=> '25'],
 
+                // Posh Structure
             
+                ['mid' =>'M-110', 'section' => 'Posh', 'section_icon' => '', 'name' => 'Complaint List','page' => 'posh.complaint-list','status'=> '1','parent_id'=> '26']
 
             ];
 

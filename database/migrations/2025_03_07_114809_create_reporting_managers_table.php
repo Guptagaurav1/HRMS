@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('reporting_managers', function (Blueprint $table) {
             $table->id();
-            $table->string('email',191);
-            $table->foreign('email')->references('email')->on('users');
+            $table->string('email');
             $table->string('name');
             $table->string('designation');
             $table->string('access_emp_code')->nullable();

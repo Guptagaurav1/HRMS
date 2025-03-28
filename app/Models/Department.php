@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Department extends Model
 {
@@ -45,4 +46,13 @@ class Department extends Model
     ->wherePivotNull('deleted_at');
 
     }
+
+    /**
+     * Get the reporting manager associated with the department.
+     */
+    public function get_reporting_manager(): HasOne
+    {
+        return $this->hasOne(ReportingManager::class, 'id', 'reporting_manager_id')->select('email');
+    }
+
 }

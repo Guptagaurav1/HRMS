@@ -78,13 +78,13 @@
                             <td>{{$value->wo_location}}</td>
                             <td>{{$value->wo_start_date}}</td>
                             <td>{{$value->wo_end_date}}</td>
-                            <td>INR {{ number_format($value->wo_amount, 2) }}</td>
+                            <td>INR {{ number_format($value->wo_amount, 2)}}</td>
                         </tr>
                     @endforeach
                     <tr>
                         <td>Total Amount</td>
                         <td colspan="5"></td>
-                        <td> INR {{ number_format($wo_detail->wo_pro_sum, 2) }}</td>
+                        <td> INR {{ number_format($wo_detail->wo_pro_sum, 2)}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -102,22 +102,19 @@
                 <tr>
                     <td class="text-dark fw-bold">Total Amount</td>
                     <td colspan="5"></td>
-                    <td class="text-dark fw-bold"> INR {{ number_format($overallSum, 2) }}</td>
+                    <td class="text-dark fw-bold"> INR {{number_format($overallSum, 2)}}</td>
                 </tr>
             </tbody>
         </table>
 
        
         <div class="invoice-footer">
-            <div class="total-amount">Total Amount: INR {{ number_format($overallSum, 2) }}</div>
+            <div class="total-amount">Total Amount: INR {{number_format($overallSum, 2) }}</div>
             <div class="buttons">
                
-                <a href="{{route('work-order-list')}}"> <button class="btn-print hide-text">Cancle</button></a>
+                <a href="{{route('work-order-list')}}"> <button class="btn-print hide-text">Cancel</button></a>
                 <button class="btn-print hide-text">save</button>
-                <!-- <button class="btn-print hide-text">Download CSV</button> -->
-                
-                
-
+            
                 <button class="btn-print hide-text" onclick="window.print()">Print Report</button>
                 <button class="btn-print hide-text">Share</button>
                 <form action="{{route('export-work-order')}}" method="post">

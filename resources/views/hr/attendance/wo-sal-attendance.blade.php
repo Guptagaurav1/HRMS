@@ -33,7 +33,7 @@
                
                 <form method="get" action="{{ route('wo-sal-attendance') }}" >
                     <div class="col-md-12 text-center py-3 ">
-                        <label>Select Month :</label><br>
+                        <label>Select Workorder :</label><br>
                         
                             <!-- <input type="month" name="month" value="{{old('month',date('Y-m'))}}" /> -->
                             <input name="month" class="date-picker" placeholder="mm-year" value="{{$month}}" />

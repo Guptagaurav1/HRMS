@@ -881,9 +881,20 @@ input::-webkit-input-placeholder{
   font-weight: 500;
 }
 
- 
-/* work-order report css start here */
+/* For edit employee page  */
+#activestatus:checked+.activelabel:hover {
+  color: white !important;
+}
 
+#activestatus:not(:checked)+.activelabel:hover {
+  color: blue !important;
+}
+
+.inactiveradio:checked+.inactivelabel {
+  color: white !important;
+}
+
+/* work-order report css start here */
 .invoice-container {
   padding: 30px;
 }

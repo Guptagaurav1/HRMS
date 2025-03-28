@@ -23,35 +23,42 @@
             <div class="panel-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Position Title (Client Name)
+                        <label class="form-label">Position Title (Client Name) <span class="text-danger">**</span>
                         </label>
                         <select class="form-select js-example-basic-multiple" name="job_position" required>
-                            <option value="">Select Title</option>
+                            <option value="" class="form-select">Select Title</option>
                             @foreach($positions as $position)
                                 <option value="{{$position->position_title.','.$position->client_name}}">{{$position->position_title.' ( '.$position->client_name.' ) '}}</option>
                             @endforeach
                         </select>
+                        <span class="error text-danger mt-2" id="position-error"></span>
                         @error('job_position')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control form-control-sm" name="name" value="{{old('name')}}" required>
+                        <label class="form-label">Full Name <span class="text-danger">**</span></label>
+                        <input type="text" class="form-control form-control-sm" name="name" id="fullname" value="{{old('name')}}" placeholder="Enter Candidate Name">
+                        <span class="error text-danger mt-2" id="error-fullname"></span>
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control form-control-sm" name="email" value="{{old('email')}}" required>
+                        <label class="form-label">Email <span class="text-danger">**</span></label>
+                        <input type="email" class="form-control form-control-sm" name="email" value="{{old('email')}}" placeholder="Enter A Email" required>
+                        <span class="error text-danger mt-2" id="error-email"></span>
+
                         @error('email')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Contact No</label>
-                        <input type="number" class="form-control form-control-sm" min="0" name="phone_no" value="{{old('phone_no')}}" required>
+                        <label class="form-label">Contact No <span class="text-danger">**</span></label>
+
+                        <input type="text" class="form-control form-control-sm" name="phone_no" value="{{old('phone_no')}}" placeholder="Enter Your Contact No" maxlength="10">
+                        <span class="error text-danger mt-2" id="error-phone"></span>
+                      
                         @error('phone_no')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -125,8 +132,16 @@
             </div>
         </div>
     </div>
-    <div class="col-12 d-flex justify-content-end ">
-        <button type="submit" class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
+    <div class="col-12 d-flex justify-content-end gap-3 ">
+        <div>
+            <a href="">
+                <button type="button" class="btn btn-sm btn-primary">Cancel</button>
+            </a>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-sm btn-primary" id="submit-btn">Submit </button>
+        </div>
+        
     </div>
 </form>
 
@@ -138,6 +153,66 @@
 <script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
 <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
 <script src={{asset('assets/js/select2-init.js')}}></script>
+
+<script>
+
+
+    $(document).ready(function(){
+      $("#submit-btn").click(function(event){
+        event.preventDefault();  
+    
+        var isValid = true;
+    
+        
+        $(".error").text('');
+    
+       
+        var regexName = /^[a-zA-Z\s]+$/;
+        var regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  
+        var regexContact = /^[0-9]{10}$/;
+    
+        
+   
+
+        
+        if ($("select[name='job_position']").val() === "") {
+          $("#position-error").text("Job Position is required.");
+          isValid = false;
+        }
+
+        let firstname = $("#fullname").val().trim();
+    
+        
+        if (firstname === "" || !regexName.test(firstname)) {
+          $("#error-fullname").text("First Name is  must only contain letters.");
+          isValid = false;
+        }
+    
+      
+       
+        var email = $("input[name='email']").val().trim();
+        if (email === "" || !regexEmail.test(email)) {
+          $("#error-email").text("Please enter a valid email.");
+          isValid = false;
+        }
+    
+       
+        var contact = $("input[name='phone_no']").val().trim();
+        if (contact.length !== 10 || isNaN(contact)) {
+          $("#error-phone").text("Please enter a valid 10-digit contact number.");
+          isValid = false;
+        }
+    
+    
+       
+        if (isValid) {
+          $("form").submit();
+        }
+      });
+    });
+    
+
+</script>
 
 
 @endsection

@@ -133,7 +133,7 @@ class RecruitmentController extends Controller
         $record->attachment = !empty($filename) ? $filename : '';
         $record->save();
 
-        return redirect()->route('position-request');
+        return redirect()->route('recruitment-report')->with(['success' => true, 'message' => 'Position request added successfully']);
     }
 
     /**
@@ -1094,9 +1094,10 @@ class RecruitmentController extends Controller
     {
         try {
             $recruitmentId = decrypt($id);
-            $details = RecruitmentForm::select('id', 'rec_form_status')->findOrFail($recruitmentId);
+            $details = RecruitmentForm::select('id', 'rec_form_status', 'firstname', 'lastname', 'email')->findOrFail($recruitmentId);
+            $states = State::select('id', 'state')->whereNull('deleted_at')->get();
             $banks = Bank::select('id', 'name_of_bank')->whereNull('deleted_at')->get();
-            return view('guest.user_details', compact('id', 'details', 'banks'));
+            return view('guest.user_details', compact('id', 'details', 'banks', 'states'));
         } catch (Throwable $th) {
             return abort(404);
         }
@@ -1562,7 +1563,7 @@ class RecruitmentController extends Controller
      */
     public function recruitment_list(Request $request)
     {
-        $candidates = RecruitmentForm::select('recruitment_forms.id', 'recruitment_forms.firstname', 'recruitment_forms.lastname', 'recruitment_forms.email', 'recruitment_forms.phone', 'recruitment_forms.job_position', 'recruitment_forms.dob', 'recruitment_forms.location', 'recruitment_forms.experience',  'recruitment_forms.skill', 'recruitment_forms.education', 'recruitment_forms.finally', 'recruitment_forms.status', 'emp_details.emp_current_working_status', 'emp_details.emp_id AS empid', 'recruitment_forms.emp_code', 'emp_details.emp_dor')->leftJoin('emp_details', 'recruitment_forms.emp_code', '=', 'emp_details.emp_code');
+        $candidates = RecruitmentForm::select('recruitment_forms.id', 'recruitment_forms.firstname', 'recruitment_forms.lastname', 'recruitment_forms.email', 'recruitment_forms.phone', 'recruitment_forms.job_position', 'recruitment_forms.dob', 'recruitment_forms.location', 'recruitment_forms.experience',  'recruitment_forms.skill', 'recruitment_forms.education', 'recruitment_forms.finally', 'recruitment_forms.status', 'emp_details.emp_current_working_status', 'emp_details.id AS empid', 'recruitment_forms.emp_code', 'emp_details.emp_dor')->leftJoin('emp_details', 'recruitment_forms.emp_code', '=', 'emp_details.emp_code');
         $search = '';
         if ($request->search) {
             $search = $request->search;
@@ -1801,12 +1802,15 @@ class RecruitmentController extends Controller
         try {
             DB::beginTransaction();
             $request->validate([
+                'state' => ['required'],
+                'emp_city' => ['required'],
+                'pincode' => ['required'],
                 'emp_permanent_address' => ['required'],
                 'permanent_doc_type' => ['required'],
                 'permanent_add_doc' => ['required', File::types(['pdf'])->max('1mb')],
                 'emp_local_address' => ['required'],
-                'correspondence_doc_type' => ['required'],
-                'correspondence_add_doc' => ['required', File::types(['pdf'])->max('1mb')],
+                // 'correspondence_doc_type' => ['required'],
+                'correspondence_add_doc' => [File::types(['pdf'])->max('1mb')],
             ]);
 
             $recruitment_id = decrypt($request->rec_id);
@@ -1815,6 +1819,9 @@ class RecruitmentController extends Controller
             $obj = new EmpAddressDetail();
             $obj->emp_permanent_address = $request->emp_permanent_address;
             $obj->emp_local_address = $request->emp_local_address;
+            $obj->state = $request->state;
+            $obj->emp_city = $request->emp_city;
+            $obj->pincode = $request->pincode;
             $obj->rec_id = $recruitment_id;
             $obj->save();
 

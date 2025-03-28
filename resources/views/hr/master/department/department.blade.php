@@ -44,17 +44,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h3 class="mt-2">Department Lists</h3>
-                <!-- Back Button Wrapped in a Box -->
-                <div class="text-start">
-                    <a href="{{ route('hr_dashboard') }}">
-                        <div class="back-button-box">
-                            <button type="button" class="btn btn-back">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </button>
-                        </div>
-                    </a>
-                </div>
+                <h3 class="mt-2">Department List</h3>
             </div>
             <div class="row px-3 mt-2">
                 @if($message = Session::get('success'))

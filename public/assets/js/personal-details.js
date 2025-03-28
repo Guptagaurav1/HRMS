@@ -299,6 +299,36 @@ $(document).ready(function () {
     //     $(this).closest('tr').remove();
     // });
 
+    // Show preview image.
+    $(".photo").change(function (e) {
+        imgURL = URL.createObjectURL(e.target.files[0]);
+        $(this).closest(".col-md-6").find('.preview_photo').attr("src", imgURL);
+    });
+
+     // Get Cities.
+     $("select[name=state]").change(function (){
+        $.ajax({
+            url : '/guest/cities',
+            type : 'post',
+            dataType : 'json',
+            data : {
+                '_token' : $("meta[name=csrf-token]").attr('content'),
+               'stateid' : $(this).val()
+            },
+            success : function(response) {
+                if(response.success) {
+                    var html = '<option value="" selected>Select City</option>';
+                    $.each(response.cities, function(index, value) {
+                        html += '<option value="' + value.id + '">' + value.city_name + '</option>';
+                    });
+                    $('select[name=emp_city]').html(html);
+                } else {
+                    var html = '<option value="" selected>Select City</option>';
+                    $('select[name=emp_city]').html(html);
+                }
+            }
+        });
+    });
 });
 
 

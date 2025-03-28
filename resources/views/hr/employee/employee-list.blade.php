@@ -64,6 +64,9 @@
 
                                 </div>
                             </div>
+                            <div class="col-xl-2 col-3 text-end">
+                                <a href="{{route('employee.add-employee')}}" class="btn btn-primary">Add Employee</a>
+                            </div>
                         </div>
                     </div>
 

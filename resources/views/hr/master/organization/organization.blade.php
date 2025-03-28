@@ -42,8 +42,8 @@
 
             <div class="table-responsive">
                 <div class="col-sm-12">
-                    <table class="table table-bordered table-hover  all-employee-table table-striped"
-                        id="allEmployeeTable">
+                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                            id="allEmployeeTable">
                         <thead>
                             <tr>
                                 <th class="text-center">Sr No.</th>
@@ -59,11 +59,11 @@
                             @forelse($organizations as $key => $value)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center">{{ ucwords($value->name)  }}</td>
-                                    <td class="text-wrap">{{ $value->email }}</td>
+                                    <td class="text-center attributes-column">{{ ucwords($value->name)  }}</td>
+                                    <td class="text-center attributes-column">{{ $value->email }}</td>
                                     <td class="text-center">{{ $value->contact }}</td>
-                                    <td class="text-center">{{ $value->address }}</td>
-                                    <td class="text-center">
+                                    <td class="text-center attributes-column">{{ $value->address }}</td>
+                                    <td class="">
                                         @if(auth()->user()->hasPermission('organizations.edit'))
                                         <a href="{{ route('organizations.edit',['organization' => $value->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                         @endif

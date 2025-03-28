@@ -61,7 +61,7 @@ class RecruitmentForm extends Model
      */ 
     public function getAddressDetail(): HasOne{
         // return $this->hasOne(RecAddressDetail::class, 'rec_id', 'id')->select('permanent_add', 'correspondence_add');
-        return $this->hasOne(EmpAddressDetail::class, 'rec_id', 'id')->select('emp_permanent_address', 'emp_local_address');
+        return $this->hasOne(EmpAddressDetail::class, 'rec_id', 'id')->select('emp_permanent_address', 'emp_local_address', 'state', 'emp_city', 'pincode');
     }
 
     /**
@@ -119,7 +119,7 @@ class RecruitmentForm extends Model
      * Get ID Proofs Details.
      */ 
     public function getIdProofDetail(): HasOne{
-        return $this->hasOne(EmpIdProof::class, 'rec_id', 'id')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station');
+        return $this->hasOne(EmpIdProof::class, 'rec_id', 'id')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station', 'police_verification_id', 'permanent_add_doc', 'category_doc', 'passport_file', 'police_verification_file');
     }
     
 }
