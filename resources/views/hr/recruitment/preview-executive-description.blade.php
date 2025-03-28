@@ -42,7 +42,7 @@
                                     <label class="form-label" class="text-dark">Department </label>
                                     <input type="text" class="form-control form-control-sm"
                                         placeholder="Enter Department Name" name="department"
-                                        value="{{ $request->getDepartment->department }}" readonly>
+                                        value="{{ !empty($request->getDepartment) ?  $request->getDepartment->department : '' }}" readonly>
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label" class="text-dark">Job Position </label>
@@ -125,7 +125,7 @@
                                 <label class="form-label" class="text-dark">Department </label>
                                 <input type="text" class="form-control form-control-sm"
                                     placeholder="Enter Department Name" name="department"
-                                    value="{{ $request->getDepartment->department }}" readonly>
+                                    value="{{!empty($request->getDepartment) ?  $request->getDepartment->department : ''}}" readonly>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label" class="text-dark">Job Position </label>
@@ -185,7 +185,7 @@
                     </tr>
                     <tr>
                         <td class="bold">Department</td>
-                        <td>{{ $request->getDepartment->department }}</td>
+                        <td>{{ !empty($request->getDepartment) ?  $request->getDepartment->department : '' }}</td>
                     </tr>
                     <tr>
                         <td class="bold">Functional Role</td>

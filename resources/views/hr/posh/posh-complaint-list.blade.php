@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'POSH Complaints'])
 
 @section('style')
 
@@ -16,10 +16,13 @@
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3 mt-2">
                         <div class="col-auto">
-                            <input type="text" class="form-control" placeholder="Search" required>
+                            <input type="search" class="form-control" placeholder="Search" name="search" required>
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="reset" class="btn btn-primary mb-3"> Reset <i class="fa-solid fa-rotate-left"></i></button>
                         </div>
                     </form>
                 </div>
@@ -39,17 +42,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($complaints as $complaint)
                             <tr>
-                                <td class="srno-column">1</td>
-                                <td class="rid-column">PSSPL/DEL/2021-22/0174</td>
-                                <td>Gaurav Gupta</td>
-                                <td class="attributes-column">Checking</td>
-                                <td>Nothing</td>
+                                <td class="srno-column">{{$loop->iteration}}</td>
+                                <td class="rid-column">{{$complaint->employee->emp_code}}</td>
+                                <td>{{$complaint->employee->emp_name}}</td>
+                                <td class="attributes-column">{{$complaint->subject}}</td>
+                                <td>{{$complaint->description}}</td>
                                 <td>
-    
                                     <a href="#"><button class="btn btn-sm btn-primary">Wait <i class="fa-solid fa-circle-pause"></i></button></a>
                                 </td>
-                                <td>19-march-2024</td>
+                                <td>{{date('jS F, Y', strtotime($complaint->created_at))}}</td>
                                 <td>
     
                                     <a href="#"><button class="btn btn-sm btn-primary" data-bs-toggle="modal"
@@ -58,6 +61,7 @@
                                     <a href="#"><button class="btn btn-sm btn-primary">Response  <i class="fa-solid fa-reply"></i></button></a>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

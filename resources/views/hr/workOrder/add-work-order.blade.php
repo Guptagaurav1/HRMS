@@ -115,10 +115,9 @@
                                     <div class="col-sm-12 col-md-4">
                                         <label class="form-label">Work Order Number <span
                                                 class="text-danger">*</span></label>
-                                        <input name="work_order" type="text" class="form-control form-control-sm"
-                                            placeholder="Enter Work Order No" value="{{ old('work_order') }}"
-                                            required />
-                                        @error('work_order')
+                                        <input name="wo_number" type="text" class="form-control form-control-sm" 
+                                            placeholder="Enter Work Order No" value="{{ old('wo_number') }}" required/>
+                                        @error('wo_number')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>

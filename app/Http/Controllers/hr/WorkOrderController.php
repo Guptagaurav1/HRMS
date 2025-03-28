@@ -12,6 +12,7 @@ use App\Models\Project;
 use Throwable;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 
 
@@ -136,8 +137,8 @@ class WorkOrderController extends Controller
                 'organisation' => 'required',
                 'project_name' => 'required',
                 // 'contacts.*.c_contact' => 'digits:10',
-                'attachment' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', // Validate the file type and size
-                'work_order' => 'required'
+                'attachment' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', 
+                'wo_number' => ['required',Rule::unique('work_orders')->whereNull('deleted_at')],
 
             ]);
         if ($request->hasFile('attachment') && $request->file('attachment')->isValid()) {
@@ -155,7 +156,7 @@ class WorkOrderController extends Controller
             $workOrder = new WorkOrder();
             $workOrder->wo_internal_ref_no = $request->internal_reference;
             $workOrder->project_id = $request->project_name;
-            $workOrder->wo_number = $request->work_order;
+            $workOrder->wo_number = $request->wo_number;
             $workOrder->prev_wo_no = $request->prev_wo_no;
             $workOrder->wo_date_of_issue = $request->issue_date;
             $workOrder->wo_concern_ministry = $request->concern_ministry;
@@ -221,7 +222,7 @@ class WorkOrderController extends Controller
             'attachment' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', // Validate the file type and size
             // 'organisation' => 'required',
             'project_name' => 'required',
-            'work_order' => 'required'
+            'wo_number' => ['required',Rule::unique('work_orders')->whereNull('deleted_at')->ignore($id)],
         ]);
         try {   
             $workOrder= WorkOrder::find($id);
@@ -239,7 +240,7 @@ class WorkOrderController extends Controller
             
             $workOrder->wo_internal_ref_no = $request->internal_reference;
             $workOrder->project_id = $request->project_name;
-            $workOrder->wo_number = $request->work_order;
+            $workOrder->wo_number = $request->wo_number;
             $workOrder->prev_wo_no = $request->prev_wo_no;
             $workOrder->wo_date_of_issue = $request->issue_date;
            

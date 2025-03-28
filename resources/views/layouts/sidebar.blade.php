@@ -477,7 +477,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if(auth()->user()->hasPermission('salary-list'))
+                    @if(auth()->user()->hasPermission('salary-list') || auth()->user()->hasPermission('create-salary'))
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-indian-rupee-sign"></i></span> <span class="sidebar-txt">Salary Structure</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
@@ -487,18 +487,18 @@
                         </ul>
                     </li>
                     @endif
-                    @if(auth()->user()->hasPermission('position-request') || auth()->user()->hasPermission('modify-profile-request') || auth()->user()->hasPermission('profile-detail-request-list'))
+                    @if(auth()->user()->hasPermission('profile.modify-profile-request') || auth()->user()->hasPermission('profile.profile-detail-request-list'))
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-solid fa-user"></i></span> <span class="sidebar-txt">Profile</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                            @if(auth()->user()->hasPermission('position-request'))
+                            {{-- @if(auth()->user()->hasPermission('position-request'))
                                 <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">My Account</a></li>
+                            @endif --}}
+                            @if(auth()->user()->hasPermission('profile.modify-profile-request'))
+                                <li class="sidebar-dropdown-item"><a href="{{route('profile.modify-profile-request')}}" class="sidebar-link">Modify Profile Request</a></li>
                             @endif
-                            @if(auth()->user()->hasPermission('modify-profile-request'))
-                                <li class="sidebar-dropdown-item"><a href="{{route('modify-profile-request')}}" class="sidebar-link">Modify Profile Request</a></li>
-                            @endif
-                            @if(auth()->user()->hasPermission('profile-detail-request-list'))
-                                <li class="sidebar-dropdown-item"><a href="{{route('profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
+                            @if(auth()->user()->hasPermission('profile.profile-detail-request-list'))
+                                <li class="sidebar-dropdown-item"><a href="{{route('profile.profile-detail-request-list')}}" class="sidebar-link">Profile Request Log</a></li>
                             @endif
 
                         </ul>
@@ -518,18 +518,19 @@
                     <li class="sidebar-dropdown-item">
                         <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span class="nav-icon"><i class="fa-light fa-envelope-open-text"></i></span> <span class="sidebar-txt">Work Order</span></a>
                         <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+                            @if(auth()->user()->hasPermission('project-list'))
+                                <li class="sidebar-dropdown-item"><a href="{{route('project-list')}}" class="sidebar-link">Project List</a></li>
+                            @endif
                             @if(auth()->user()->hasPermission('add-work-order'))
                                 <li class="sidebar-dropdown-item"><a href="{{route('add-work-order')}}" class="sidebar-link">Add Work Order</a></li>
                             @endif
                             @if(auth()->user()->hasPermission('work-order-list'))
                                 <li class="sidebar-dropdown-item"><a href="{{route('work-order-list')}}" class="sidebar-link">Work Order List</a></li>
                             @endif
-                            @if(auth()->user()->hasPermission('project-list'))
-                                <li class="sidebar-dropdown-item"><a href="{{route('project-list')}}" class="sidebar-link">Project List</a></li>
-                            @endif
-                            @if(auth()->user()->hasPermission('project-report'))
+                           
+                            <!-- @if(auth()->user()->hasPermission('project-report'))
                                 <li class="sidebar-dropdown-item"><a href="{{route('project-report')}}" class="sidebar-link">WorkOrder Project Report</a></li>
-                            @endif
+                            @endif -->
                         </ul>
                     </li>
                     @endif
@@ -699,11 +700,11 @@
                             </ul>
                         </li>
                         @endif
-                        @if(auth()->user()->hasPermission('posh-complaint-list'))
+                        @if(auth()->user()->hasPermission('posh.complaint-list'))
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-person"></i></span> <span class="sidebar-txt">Posh</span></a>
                             <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                <li class="sidebar-dropdown-item"><a href="{{route('posh-complaint-list')}}"
+                                <li class="sidebar-dropdown-item"><a href="{{route('posh.complaint-list')}}"
                                         class="sidebar-link">Posh Complaint List</a></li>
                             </ul>
                         </li>

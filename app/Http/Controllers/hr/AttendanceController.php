@@ -81,8 +81,8 @@ class AttendanceController extends Controller
                     })
                     ->when($search, function ($query, $search) {
                         // Add search conditions here
-                        $query->where(function ($query) use ($search) {
-                            $query->where('emp_code', 'like', '%' . $search . '%')
+                        $query->where(function ($q) use ($search) {
+                            $q->where('emp_code', 'like', '%' . $search . '%')
                                 ->orWhere('emp_name', 'like', '%' . $search . '%')
                                 ->whereHas('getBankDetail', function ($query) use ($search) {
                                     $query->where('emp_account_no', 'like', '%' . $search . '%')
@@ -561,7 +561,7 @@ class AttendanceController extends Controller
     // attendance list start here
     public function attendance_list(Request $request){
         $search = $request->search;
-        $wo_attendances = WoAttendance::with('empDetail')->orderby('status','desc');
+        $wo_attendances = WoAttendance::with(['empDetail'])->orderby('status','desc');
         if(!empty($search)){
             $wo_attendances->where(function($q) use($search){
                 $q->where('wo_number', 'like','%'.$search.'%')
@@ -574,7 +574,7 @@ class AttendanceController extends Controller
             });
         }
         $wo_attendances = $wo_attendances->paginate(10);
-       
+    //    dd($wo_attendances[0]->empDetail);
         foreach ($wo_attendances as $key => $attendance) {
             $year_day = date('Y', strtotime($attendance->attendance_month));
             $month_day = date('m', strtotime($attendance->attendance_month));

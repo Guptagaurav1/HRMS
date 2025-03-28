@@ -37,6 +37,7 @@
   							</div>
   							<div class="col-auto">
   							  <button type="submit" class="btn btn-primary mb-3">Submit <i class="fa-solid fa-arrow-right"></i></button>
+							<a href="{{route('functional-role')}}" class="btn btn-primary mb-3 text-end mx-2">Cancel</a>
   							</div>
 						</form>
                         </div>
