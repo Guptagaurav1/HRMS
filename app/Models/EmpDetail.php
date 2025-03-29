@@ -92,7 +92,7 @@ class EmpDetail extends Authenticatable
      * Get ID Proofs Details.
      */ 
     public function getIdProofDetail(): HasOne{
-        return $this->hasOne(EmpIdProof::class, 'emp_code', 'emp_code')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station', 'police_verification_id', 'permanent_add_doc', 'category_doc', 'passport_file', 'police_verification_file');
+        return $this->hasOne(EmpIdProof::class, 'emp_code', 'emp_code')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station', 'police_verification_id', 'permanent_add_doc', 'category_doc', 'passport_file', 'police_verification_file', 'aadhar_card_doc');
     }
 
     /**
@@ -106,7 +106,7 @@ class EmpDetail extends Authenticatable
      * Get Address Details.
      */ 
     public function getAddressDetail(): HasOne{
-        return $this->hasOne(EmpAddressDetail::class, 'emp_code', 'emp_code')->select('emp_permanent_address', 'emp_local_address', 'state', 'emp_city', 'pincode');
+        return $this->hasOne(EmpAddressDetail::class, 'emp_code', 'emp_code')->select('emp_permanent_address', 'emp_local_address', 'state', 'emp_city', 'pincode')->with('getState', 'getCity');
     }
 
     /**

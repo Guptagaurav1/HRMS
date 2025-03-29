@@ -24,11 +24,11 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Gender</td>
-                                    <td>{{$empdetails->emp_gender}}</td>
+                                    <td>{{$empdetails->getPersonalDetail->emp_gender}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Date Of Birth</td>
-                                    <td>{{$empdetails->emp_dob}}</td>
+                                    <td>{{$empdetails->getPersonalDetail->emp_dob}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Work Order</td>
@@ -40,11 +40,11 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">Highest Qualification</td>
-                                    <td>{{$empdetails->emp_highest_qualification}}</td>
+                                    <td>{{!empty($empdetails->education) &&  $empdetails->education->emp_highest_qualification ? $empdetails->education->emp_highest_qualification : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Father Name</td>
-                                    <td>{{$empdetails->emp_father_name}}</td>
+                                    <td>{{!empty($empdetails->getPersonalDetail) ? $empdetails->getPersonalDetail->emp_father_name : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Designation</td>
@@ -56,43 +56,43 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">Salary</td>
-                                    <td>{{$empdetails->emp_salary}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_salary : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">PAN No</td>
-                                    <td>{{$empdetails->emp_pan}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_pan : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Account No</td>
-                                    <td>{{$empdetails->emp_account_no}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_account_no : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Bank Name</td>
-                                    <td>{{$empdetails->emp_bank}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) && !empty($empdetails->getBankDetail->getBankData) ? $empdetails->getBankDetail->getBankData->name_of_bank : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">IFSC Code</td>
-                                    <td>{{$empdetails->emp_ifsc}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_ifsc : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Blood Group</td>
-                                    <td>{{$empdetails->emp_blood_group}}</td>
+                                    <td>{{!empty($empdetails->getPersonalDetail) ? $empdetails->getPersonalDetail->emp_blood_group : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Permanent Address</td>
-                                    <td>{{$empdetails->emp_permanent_address}}</td>
+                                    <td>{{!empty($empdetails->getAddressDetail) ?$empdetails->getAddressDetail->emp_permanent_address : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Local Address</td>
-                                    <td>{{$empdetails->emp_local_address}}</td>
+                                    <td>{{!empty($empdetails->getAddressDetail) ?$empdetails->getAddressDetail->emp_local_address : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">City</td>
-                                    <td>{{$empdetails->emp_city}}</td>
+                                    <td>{{!empty($empdetails->getAddressDetail) ?$empdetails->getAddressDetail->getCity->city_name : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">State</td>
-                                    <td>{{$empdetails->emp_state}}</td>
+                                    <td>{{!empty($empdetails->getAddressDetail) && !empty($empdetails->getAddressDetail->getState) ?$empdetails->getAddressDetail->getState->state : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Phone No.</td>

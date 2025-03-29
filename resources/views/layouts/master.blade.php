@@ -49,6 +49,7 @@
     <script src="{{asset('assets/vendor/js/moment.min.js')}}"></script>
     <script src="{{asset('assets/vendor/js/daterangepicker.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/js/calenderOpen.js')}}"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
     <script src="{{asset('assets/js/sweetalert2.all.min.js')}}"></script>
 
@@ -60,6 +61,8 @@
     <script src="{{asset('assets/js/jquery-ui.multidatespicker.min.js')}}"></script>
     <script src="{{asset('assets/js/select2.min.js')}}"></script>
     <script type="text/JavaScript" src="{{asset('assets/js/jQuery.print.js')}}"></script>
+    {{-- <script src="{{asset('assets/js/masters/ckeditor.js')}}"></script> --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 
      @yield('script')
   

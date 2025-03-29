@@ -209,7 +209,7 @@ class AuthController extends Controller
                 return redirect()->route('guest.forgot-password')->with(['success' => true, 'message' => "Password reset link send to $reciever_email successfully."]);
             } catch (Throwable $e) {
                 DB::rollBack();
-                return redirect()->route('guest.forgot-password')->with(['error' => true, 'message' => $e->getMessage()]);
+                return redirect()->route('guest.forgot-password')->with(['error' => true, 'message' => 'Invalid Credentials']);
             }
         }
     }
