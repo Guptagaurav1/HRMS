@@ -92,8 +92,13 @@
     </div>
     
 </div>
-<div class="col-12 d-flex justify-content-end  px-3 mb-3">
-                <button type="submit" class="btn btn-sm btn-primary"> Register Project <i class="fa-solid fa-arrow-right"></i></button>
+<div class="col-12 d-flex justify-content-end  px-3 mb-3 gap-3">
+    <div><button type="button" class="btn btn-sm btn-primary"> Cancel </button></div>
+    <div>
+    <button type="submit" class="btn btn-sm btn-primary"> Submit </button>
+    </div>
+
+
             </div>
 <form>
 @endsection

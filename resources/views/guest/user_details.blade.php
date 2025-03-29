@@ -38,13 +38,14 @@
 
                                     <label class="form-label mt-2 text-dark">Gender <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <select name="emp_gender" class="form-control" required>
+                                    <select name="emp_gender" class="form-control" id="skills_multiple" data-required="true">
                                         <option value="" selected="" disabled="">Select Gender
                                         </option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                         <option value="others">Others</option>
                                     </select>
+                                    <span class="error-message text-danger"></span>
 
                                 </div>
                                 <div class="col-md-6">
@@ -54,13 +55,11 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label text-dark">Preferred Job Location <span
-                                            class="text-danger fw-bold">*</span></label>
-                                    <input type="text" name="preferred_location" class="form-control"
-                                        placeholder="Enter preffered job location" required>
+                                    <label class="form-label text-dark">Preferred Job Location <span class="text-danger fw-bold">*</span></label>
+                                    <input type="text" name="preferred_location" class="form-control" placeholder="Enter preferred job location" data-required="true">
+                                    <span class="error-message text-danger"></span>
                                 </div>
-
-
+    
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Blood Group</label>
@@ -214,7 +213,7 @@
                         </div>
 
                         <div class="col-md-12 text-end">
-                            <button type="submit" class="btn btn-primary login-btn user_submit" id="user_submit">Submit
+                            <button type="button" class="btn btn-primary login-btn user_submit">Submit
                                 <i class="fa-solid fa-arrow-right"></i></button>
 
                         </div>
@@ -871,4 +870,5 @@
 @endsection
 @section('script')
     <script src={{ asset('assets/js/personal-details.js') }}></script>
+    <script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection

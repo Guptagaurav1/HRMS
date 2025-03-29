@@ -68,6 +68,7 @@
                                 <th>Project Name</th>
                                 <th>Project Number</th>
                                 <th>Empanelment Reference</th>
+                                <th>Added on</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -80,9 +81,11 @@
                                          <td>{{$value->project_name}}</td>
                                          <td>{{$value->project_number}}</td>
                                          <td>{{$value->empanelment_reference }}</td>
+                                         <td>{{$value->created_at }}</td>
                                        
                                          <td>
                                          <a href="{{route('edit-project',$value->id)}}"><button type="submit" class="btn btn-primary"> Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                         <a href="{{route('add-work-order',$value->id)}}"><button class="btn btn-primary"><i class="fa-solid fa-plus"></i> WorkOrder</button></a>
                                          </td>
                                      </tr>
                                    

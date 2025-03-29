@@ -40,8 +40,8 @@
 
             <div class="table-responsive">
                 <div class="col-sm-12">
-                    <table class="table table-bordered table-hover all-employee-table table-striped"
-                        id="allEmployeeTable">
+                <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                id="allEmployeeTable">
                         <thead>
                             <tr>
                                 <th class="text-center">Sr No.</th>
