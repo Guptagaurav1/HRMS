@@ -289,13 +289,56 @@
                                         </label>
                                         <input name="location" id="location" type="text" class="form-control form-control-sm" placeholder="Loaction" value="{{ old('location',$workOrder->wo_location) }}">
                                     </div>
-                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                    <!-- <div class="col-sm-12 col-md-4 text-wrap">
                                         <label class="form-label text-wrap">
                                             City
                                         </label>
                                         <input name="city" id="city" type="text" class="form-control form-control-sm" placeholder="City" value="{{ old('city',$workOrder->wo_city) }}">
+                                    </div> -->
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                        <label class="form-label text-wrap">State</label>
+                                        <select class="form-select" name="state" id="state">
+                                            <option value=""> Select State</option>
+
+                                            @foreach($states as $key => $value)
+                                            <option value="{{$value->id}}" {{ (old("state", $value->id ?? '') == ($workOrder->wo_state??NULL)) ? 'selected' : '' }}>{{ $value->state }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                        <label class="form-label text-wrap"> City</label>
+                                        <select class="form-select" id="cities" name="city" >
+                                            <option value="">Select City</option>
+                                            @if ($cities)
+                                                @foreach ($cities as $city)
+                                                    <option value="{{ $city->id }}"
+                                                        {{ old('city',$workOrder->wo_city)== $city->id ? 'selected' : '' }}>
+                                                        {{ $city->city_name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
                                     </div>
 
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                        <label class="form-label text-wrap">Postal Code</label>
+                                        <input name="pincode" id="pincode" type="number"
+                                            class="form-control form-control-sm" placeholder="PIN Number"
+                                            value="{{ old('pincode',$workOrder->wo_pin) }}">
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                        <label for="exampleTextarea" class="form-label">Attachment (Doc)</label>
+                                    
+                                    <input name="attachment" id="attachment" class="form-control form-control-sm" id="formFileSm" type="file">
+                                    </div>
+                                    @if($workOrder->wo_attached_file)
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                    
+                                        <label for="Download_attachment" calss="form-label text-wrap">Download Attachment  <i class="fa-solid fa-download"></i></label>
+                                        <a href="{{ asset('storage/uploadWorkOrder/' . $workOrder->wo_attached_file) }}" target="_balnk" class="btn btn-primary btn-sm">{{ $workOrder->wo_attached_file}}</a>
+                                    </div>
+                                    @endif
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 text-wrap">
@@ -318,20 +361,7 @@
                                         <textarea name="remarks" class="form-control" id="remarks" placeholder="Enter Address" value="">{{ old('remarks',$workOrder->wo_remarks) }}</textarea>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 text-wrap">
-                                        <label for="exampleTextarea" class="form-label">Attachment (Doc)</label>
-                                    
-                                    <input name="attachment" id="attachment" class="form-control form-control-sm" id="formFileSm" type="file">
-                                    </div>
-                                    @if($workOrder->wo_attached_file)
-                                    <div class="col-sm-12 col-md-6 text-wrap">
-                                    
-                                        <label for="Download_attachment" calss="form-label text-wrap">Download Attachment  <i class="fa-solid fa-download"></i></label>
-                                        <a href="{{ asset('storage/uploadWorkOrder/' . $workOrder->wo_attached_file) }}" target="_balnk" class="btn btn-primary btn-sm">{{ $workOrder->wo_attached_file}}</a>
-                                    </div>
-                                    @endif
-                                </div>
+                             
 
                             </div>
                         </div>
@@ -421,15 +451,40 @@
                                     <label class="form-label text-wrap">Invoice Client Name</label>
                                     <input name="invoice_client_name" id="invoice_client_name" type="text" class="form-control form-control-sm" placeholder="Invoice Client Name" value="{{ old('invoice_client_name',$workOrder->wo_invoice_name) }}">
                                 </div>
-                                <div class="col-sm-12 col-md-4 text-wrap">
+                                <!-- <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap">State</label>
                                     <input name="invoice_state" id="invoice_state" type="text" class="form-control form-control-sm" placeholder="State" value="{{ old('invoice_state',$workOrder->wo_state) }}">
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap">PIN Number</label>
                                     <input name="invoice_pin" id="invoice_pin" type="number" class="form-control form-control-sm" placeholder="PIN Number" value="{{ old('invoice_pin',$workOrder->wo_pin) }}">
+                                </div> -->
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap"> Invoice State</label>
+                                    <select class="form-select form-control" name="invoice_state">
+                                        <option value=""> Select State</option>
+                                        @foreach($states as $key => $value)
+                                        <option value="{{$value->id}}" >{{ $value->state }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <div class="col-sm-12 col-md-12 text-wrap">
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap">Invoice City</label>
+                                    
+                                    <select class="form-select" id="cities" name="invoice_city" >
+                                        <option value="">Select City</option>
+                                       
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap">Invoice Postal Code</label>
+                                    <input name="invoice_pin" id="invoice_pin" type="number"
+                                        class="form-control form-control-sm" placeholder="PIN Number"
+                                        value="{{ old('invoice_pin',$workOrder->wo_invoice_pincode) }}">
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-wrap">
                                     <label for="exampleTextarea" class="form-label">Address</label>
                                     <textarea name="invoice_address" id="invoice_address" class="form-control" id="exampleTextarea" placeholder="Enter Address" value="{{ old('invoice_address',$workOrder->wo_invoice_address) }}"></textarea>
                                 </div>
@@ -457,6 +512,7 @@
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
 <script src="{{asset('assets/vendor/js/addmore.js')}}"></script>
 <script src="{{asset('assets/js/hr/work-order.js')}}"></script>
+<script src="{{ asset('assets/js/city.js') }}"></script>
 
 <script>
     $(document).ready(function () {

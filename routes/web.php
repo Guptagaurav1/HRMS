@@ -282,7 +282,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(AttendanceController::class)->prefix('attendance')->group(function () {
         Route::get('go-to-attendance/{wo_id}', 'index')->name("go-to-attendance");
         Route::post('add-attendance/{wo_id}', 'add_attendance')->name("add-attendance");
-        Route::get("wo-sal-attendance", 'wo_sal_attendance')->name("wo-sal-attendance");
+        Route::get("wo-sal-attendance/{work_order?}/{month?}", 'wo_sal_attendance')->name("wo-sal-attendance");
         Route::post("wo-sal-calculate", 'wo_sal_calculate')->name("wo-sal-calculate");
         Route::get("wo-generate-salary", 'wo_generate_salary')->name("wo-generate-salary");
 

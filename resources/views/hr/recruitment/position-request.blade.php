@@ -348,7 +348,7 @@
 
 @section('script')
 <script>
-    $(document).ready(function () {
+    
         $(document).ready(function () {
             $("#submit-btn").click(function (event) {
 
@@ -395,6 +395,14 @@
                 } 
             });
         });
-    });
+    
 </script>
 @endsection
+
+@section('script')
+ <script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
+ <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
+ <script src={{asset('assets/js/select2-init.js')}}></script>
+ 
+ 
+ @endsection

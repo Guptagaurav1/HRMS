@@ -1234,4 +1234,5 @@
 
 @section('script')
     <script src="{{ asset('assets/js/employeeTab.js') }}"></script>
+    <script src="{{ asset('assets/js/city.js') }}"></script>
 @endsection

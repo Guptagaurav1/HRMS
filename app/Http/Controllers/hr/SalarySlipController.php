@@ -142,7 +142,7 @@ class SalarySlipController extends Controller
      * Edit Salary Slip.
      */
     public function edit_slip(Request $request, $id){
-        $slip = EmpSalarySlip::select('emp_salary_slip.*', 'wo_attendance.overtime_rate', 'wo_attendance.total_working_hrs')->join('wo_attendance', 'wo_attendance.at_emp', '=', 'emp_salary_slip.wo_attendance_at_emp')->where('emp_salary_id', $id)->first();
+        $slip = EmpSalarySlip::select('emp_salary_slip.*', 'wo_attendances.overtime_rate', 'wo_attendances.total_working_hrs')->join('wo_attendances', 'wo_attendances.at_emp', '=', 'emp_salary_slip.wo_attendance_at_emp')->where('emp_salary_id', $id)->first();
         return view("hr.salary.salary-slip-edit", compact('slip', 'id'));
     }
 
