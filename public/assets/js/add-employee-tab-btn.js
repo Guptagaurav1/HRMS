@@ -394,4 +394,10 @@ $(document).ready(function () {
         reset_preview();
     });
 
+     // Show preview of images.
+     $(".photo").change(function (e) {
+        imgURL = URL.createObjectURL(e.target.files[0]);
+        $(this).closest(".photodiv").find('.preview_photo').attr("src", imgURL);
+    });
+
 });

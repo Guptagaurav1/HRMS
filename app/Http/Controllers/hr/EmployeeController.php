@@ -137,20 +137,40 @@ class EmployeeController extends Controller
                 'emp_gender' => ['required'],
                 'emp_category' => ['required'],
                 'emp_dob' => ['required'],
-                'emp_marital_status' => ['required']
+                'emp_marital_status' => ['required'],
+                'emp_signature' => [File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
+                'emp_photo' => [File::types(['jpg', 'jpeg', 'png'])->max('1mb')],
             ]);
+
+                $data = $request->all();
+              // Store Signature.
+              if ($request->hasFile('emp_signature')) {
+                $file = $request->file('emp_signature');
+                $signature = 'sign_'.time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/sign'), $signature);
+                $data['emp_signature'] = $signature;
+            }
+
+            // Store Photograph.
+            if ($request->hasFile('emp_photo')) {
+                $file = $request->file('emp_photo');
+                $photograph = 'photo_'.time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/passport_size_photo'), $photograph);
+                $data['emp_photo'] = $photograph;
+
+            }
 
             // Save employee details
             if ($request->rec_id) {
                 EmpPersonalDetail::updateOrCreate(
                     ['rec_id' => $request->rec_id],
-                    $request->all()
+                    $data
                 );
             } else {
                 $empdetails = EmpPersonalDetail::where('emp_code', $request->emp_code)->first();
                 if ($empdetails) {
                     $oldDetails = $empdetails->getOriginal();
-                    $empdetails->fill($request->all());
+                    $empdetails->fill($data);
                     $empdetails->save();
 
                     // Get Only changed values.
@@ -170,7 +190,7 @@ class EmployeeController extends Controller
                     }
                 } else {
                     $empdetails = new EmpPersonalDetail();
-                    $empdetails->fill($request->all());
+                    $empdetails->fill($data);
                     $empdetails->save();
                 }
                 // EmpPersonalDetail::updateOrCreate(
@@ -430,6 +450,7 @@ class EmployeeController extends Controller
                 'permanent_add_doc' => [File::types(['pdf'])->max('1mb')],
                 'correspondence_add_doc' => [File::types(['pdf'])->max('1mb')],
                 'bank_doc' => [File::types(['pdf'])->max('1mb')],
+                'aadhar_card_doc' => [File::types(['pdf'])->max('1mb')],
                 'category_doc' => [File::types(['pdf'])->max('1mb')],
             ]);
 
@@ -437,6 +458,15 @@ class EmployeeController extends Controller
             $data = $request->all();
             $empdetails = new EmpIdProof();
             $empdetails->fill($data);
+
+            // Store Aadhar Card document.
+            if ($request->hasFile('aadhar_card_doc')) {
+                $file = $request->file('aadhar_card_doc');
+                $aadhar_card_doc = 'aadhar_'.time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('recruitment/candidate_documents/aadhar_card'), $aadhar_card_doc);
+                $empdetails->aadhar_card_doc = $aadhar_card_doc;
+                $data['aadhar_card_doc'] = $aadhar_card_doc;
+            }
 
             // Store Police verification document.
             if ($request->hasFile('police_verification_file')) {

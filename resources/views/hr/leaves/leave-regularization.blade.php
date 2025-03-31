@@ -105,7 +105,3 @@
     </div>
 </div>
 @endsection
-
-@section('script')
-<script src={{asset('assets/vendor/js/calenderOpen.js')}}></script>
-@endsection

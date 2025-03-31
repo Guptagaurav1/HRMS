@@ -61,8 +61,8 @@
     <script src="{{asset('assets/js/jquery-ui.multidatespicker.min.js')}}"></script>
     <script src="{{asset('assets/js/select2.min.js')}}"></script>
     <script type="text/JavaScript" src="{{asset('assets/js/jQuery.print.js')}}"></script>
-    
-    
+    {{-- <script src="{{asset('assets/js/masters/ckeditor.js')}}"></script> --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 
      @yield('script')
   

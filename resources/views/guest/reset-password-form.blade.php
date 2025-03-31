@@ -33,7 +33,7 @@
                 <span class="text-danger">{{session()->get('message')}}</span>
                 @endif
                 @if(session()->has('success'))
-                <span class="text-success">{{session()->get('message')}}.. <span class="text-danger" id="countdown">5</span></span>
+                <span class="text-success">{{session()->get('message')}}<span class="text-danger border rounded-circle p-1 border-danger"><span id="countdown" class="p-2">5</span></span></span>
                 @endif
                 <!-- Tab Contents -->
                 {{-- Show password requirements --}}

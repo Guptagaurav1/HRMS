@@ -42,6 +42,11 @@ use App\Http\Controllers\hr\EmployeeController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\hr\ProfileController;
 
+use App\Http\Controllers\vms\VendorController;
+use App\Http\Controllers\master\CompanyController;
+
+
+
 
 
 /*
@@ -94,7 +99,6 @@ Route::middleware('guest')->group(function () {
         Route::get('recruitment-form/{id}/{ref}/{send_mail_id}', 'recruitment_form')->name('guest.recruitment_form');
         Route::post('submit-details', 'submit_details');
         Route::post("cities", "get_cities");
-
     });
 });
 
@@ -151,6 +155,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(MasterController::class)->prefix('master')->group(function () {
         Route::get("skill", 'skills')->name("skill");
         Route::get("company-master", 'company_details')->name("company-master");
+
+        Route::controller(CompanyController::class)->prefix('company')->group(function (){
+            Route::get("/", 'index')->name("company.list");
+            Route::get("create", 'create')->name("company.create");
+            Route::post("store", 'store')->name("company.store");
+        });
     });
 
     Route::controller(TeamController::class)->prefix('teams')->group(function () {
@@ -399,15 +409,28 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(PoshController::class)->prefix('posh')->group(function () {
         Route::get('posh-complaint-list', 'complaint_list')->name("posh.complaint-list");
+        Route::post('view-complaint', 'complaint_details');
+        Route::post('complaint-response', 'response');
     });
-    
+
+   
+
 
 
     //tenants
     Route::resource('tenants', TenantController::class);
 });
 
-
+Route::middleware('auth')->prefix('vms')->group(function () {
+    Route::controller(VendorController::class)->prefix('vendors')->group(function () {
+        Route::get("/", "index")->name("vendors.index");
+        Route::get("create", 'create')->name("vendors.create");
+        Route::post("save", 'save')->name("vendors.save");
+        Route::get("edit/{id}", 'edit')->name("vendors.edit");
+        Route::post("update", 'update')->name("vendors.update");
+        Route::post("delete", 'destroy');
+    });
+});
 
 ////////////////////////// user routes //////////////////////////////////////////////////////////
 
@@ -491,9 +514,7 @@ Route::get("company-master-edit", function () {
     return view("hr.company-master-edit");
 })->name("company-master-edit");
 
-Route::get("add-company-master", function () {
-    return view("hr.add-company-master");
-})->name("add-company-master");
+
 
 Route::get("temp-profile", function () {
     return view("hr.temp-profile");

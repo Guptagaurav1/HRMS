@@ -4,21 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Company extends Model
+class PoshComplaint extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
+   /**
+    * The attributes that aren't mass assignable.
+    *
+    * @var array
+    */
     protected $guarded = [];
 
     /**
-     * Store user detail on create, update and delete.
-     *
+     * Get Employee Data
+     */ 
+    public function employee() : BelongsTo
+    {
+        return $this->belongsTo(EmpDetail::class, 'emp_id', 'id')->select('emp_code', 'emp_name', 'emp_email_first');
+    }
+
+    /**
+     * Save user on revert or create complaint.
      */
     public static function boot()
     {
@@ -27,6 +36,7 @@ class Company extends Model
             static::creating(function ($model) {
                 $model->created_by = auth()->user()->id;
             });
+
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
             });
