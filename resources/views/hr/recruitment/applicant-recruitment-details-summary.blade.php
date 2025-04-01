@@ -160,7 +160,7 @@
 
                                         We are pleased to inform you that you have been selected for the profile of {{$data->job_position}} with our organisation i.e. Prakhar Software Solutions Pvt. Ltd.</br></br>
 
-                                        You are therefore requested to report at Prakhar Software Solutions Pvt. Ltd. located in New Delhi on <span id="dateoj">{{$data->doj}}</span> for the document verification & induction and training on the services offered by the Client Organisation.</br></br>
+                                        You are therefore requested to report at Prakhar Software Solutions Pvt. Ltd. located in New Delhi on <span id="dateoj">{{date('jS F, Y', strtotime($data->doj))}}</span> for the document verification & induction and training on the services offered by the Client Organisation.</br></br>
 
                                         We have also enclosed the required documents for joining along with our corporate profile. You are requested to share your educational documents in response to this mail (and copy to info@prakharsoftwares.com) and upon verification of the documents, the offer letter would be issued. </br></br>
 
@@ -328,7 +328,7 @@
                                                 </div>
                                                 <tr>
                                                     <td class="bold">Interview Details</td>
-                                                    <td><input type="text" class="form-control" name="interview_details" required/></td>
+                                                    <td><textarea class="form-control" name="interview_details" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bold">Action</td>

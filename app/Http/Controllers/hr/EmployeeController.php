@@ -1083,7 +1083,7 @@ class EmployeeController extends Controller
                     // Save Log of change work order.
                     EmpCredentialLog::create([
                         'emp_code' => $employee->emp_code,
-                        'emp_name' => $request->emp_name,
+                        'emp_name' => $employee->emp_name,
                         'emp_work_order' => $employee->emp_work_order,
                         'emp_email' => $employee->emp_email_first,
                         'emp_password' => $emp_password_hash
@@ -1123,9 +1123,9 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Send Appointment Letter.
+     * Send Appointment Letter using db.
      */
-    public function send_appointment_letter(Request $request)
+    public function send_old_appointment_letter(Request $request)
     {
         try {
             DB::beginTransaction();
@@ -1243,6 +1243,185 @@ class EmployeeController extends Controller
             $path = public_path('recruitment/candidate_documents/appointment_letter');
             $fullPath = $path . '/' . $fileName;
             $pdf->save($fullPath)->stream('invoice.pdf');
+
+            // Save document to send_doc table
+            $doc =  EmpSendDoc::create([
+                'emp_code' => $empdetails->emp_code,
+                'doc_type' => 'Appointment',
+                'document' => $fileName,
+            ]);
+
+            // Save Log of change work order.
+            EmpChangeLog::create([
+                'emp_code' => $empdetails->emp_code,
+                'emp_designation' => $salary->sal_emp_designation,
+                'emp_salary' => !empty($salary->sal_ctc) ? $salary->sal_ctc : '',
+                'emp_doc' => $doc->id,
+                'start_date' => date('Y-m-d')
+            ]);
+
+            // Send Mail.
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+            $mail_html = "<h4>Greetings from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+           
+            <h4>Please find the attached Appointment Letter</h4></br>
+             
+            <h4>Kindly Acknowledge the receipt of this mail </h4></br> 
+             
+            <h4>Best of luck.
+            </h4></br>
+            </br></br>
+            <h4 style='text-align: left;
+            margin-left: 30px;'>Regards,</h4></br>
+            <h4 style='text-align: left;
+            margin-left: 30px;'>HR Team</h4></br>
+            <h4 style='text-align: left;
+            margin-left: 30px;'>Email:- hr@prakharsoftwares.com</h4></br>
+            <h4 style='text-align: left;
+            margin-left: 30px;'>Mobile:- 7983363526</h4></br>
+            <h4>Note: If you have any query just reply to this email or contact no. which is listed above. </h4>";
+
+            $maildata = new stdClass();
+            $maildata->subject = "Appointment Letter";
+            $maildata->name = $empdetails->emp_name;
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $mail_html;
+            $maildata->url = url('/');
+            $maildata->file = $fullPath;
+            Mail::to($empdetails->emp_email_first)->send(new ShortlistMail($maildata));
+
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Appointment Letter Sent Successfully.']);
+        } catch (Throwable $th) {
+            DB::rollback();
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+
+      /**
+     * Send Appointment Letter using blade.
+     */
+    public function send_appointment_letter(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $empdetails = EmpDetail::select('emp_code', 'emp_name', 'emp_designation', 'emp_place_of_posting', 'emp_email_first', 'emp_work_order')->findOrFail($request->employee_id);
+            $salary = Salary::where('sl_emp_code', $empdetails->emp_code)->firstOrFail();
+            $workorders = WorkOrder::select('id', 'project_id', 'wo_end_date')->where('wo_number', $empdetails->emp_work_order)->firstOrFail();
+            $organisation = $workorders->project->organizations->name;
+            $today_date = date("d/M/Y");
+            $ctc_pa =  (int) $salary->sal_ctc * 12;
+            $doe = $workorders->wo_end_date;
+            $wo_valid_upto = date("d/m/Y", strtotime($workorders->wo_end_date));
+            $data = new stdClass();
+            if ($empdetails->emp_work_order == 'PSSPL Internal Employees') {
+                $template = AppointmentFormat::select('format', 'format_2')->where(['type' => 'appointment', 'name' => 'internal'])->firstOrFail();
+                $message = $template->format;
+                $message_2 = $template->format_2;
+                $blade = 'hr.templates.appointment-letter.internal';
+                $data->today_date =  $today_date;
+                $data->candidate_name =  $empdetails->emp_name;
+                $data->designation =  $salary->sal_emp_designation;
+                $data->emp_code =  $empdetails->emp_code;
+                $data->sal_ctc =  $salary->sal_ctc;
+                $data->ctc_pa =  $ctc_pa;
+                $data->basic =  $salary->sal_basic;
+                $data->hra =  $salary->sal_hra;
+                $data->conveyance =  $salary->sal_conveyance;
+                $data->sal_telephone =  $salary->sal_telephone;
+                $data->sal_pa =  $salary->medical_allowance;
+                $data->sal_special_allowance =  $salary->sal_special_allowance;
+                $data->sal_gross =  $salary->sal_gross;
+                $data->sal_net =  $salary->sal_net;
+                $data->sal_pf_emmployee =  $salary->sal_pf_employee;
+                $data->sal_esi_employee =  $salary->sal_esi_employee;
+                $data->sal_pf_employer =  $salary->sal_pf_employer;
+                $data->sal_esi_employer =  $salary->sal_esi_employer;
+                $data->sal_medical_ins =  $salary->medical_insurance;
+                $data->deduction =  $salary->sal_pf_employee + $salary->sal_esi_employee + $salary->medical_insurance;
+                $data->word =  Number::spell($salary->sal_net);
+                $data->doj =  date('jS F, Y', strtotime($salary->sa_emp_doj));
+                $data->place_of_posting =  $empdetails->emp_place_of_posting;
+
+
+            } elseif ($organisation == 'GNGPL (Goa Natural Gas Pvt.Ltd)') {
+                $template = AppointmentFormat::select('format', 'format_2')->where(['type' => 'appointment', 'name' => 'GNGPL'])->firstOrFail();
+                $message = $template->format;
+                $message_2 = $template->format_2;
+                $blade = 'hr.templates.appointment-letter.gngpl';
+
+                $bonus = round((8.33 / 100) * $salary->sal_basic);
+                $ctc = $salary->sal_gross + $salary->sal_pf_employer + $salary->sal_esi_employer + $bonus;
+
+                $data->today_date =  $today_date;
+                $data->candidate_name =  $empdetails->emp_name;
+                $data->designation =  $salary->sal_emp_designation;
+                $data->emp_code =  $empdetails->emp_code;
+                $data->sal_ctc =  $ctc;
+                $data->ctc_pa =  $ctc_pa;
+                $data->basic =  $salary->sal_basic;
+                $data->hra =  $salary->sal_hra;
+                $data->conveyance =  $salary->sal_conveyance;
+                $data->sal_telephone =  $salary->sal_telephone;
+                $data->sal_pa =  $salary->medical_allowance;
+                $data->sal_special_allowance =  $salary->sal_special_allowance;
+                $data->sal_gross =  $salary->sal_gross;
+                $data->sal_net =  $salary->sal_net;
+                $data->sal_pf_emmployee =  $salary->sal_pf_employee;
+                $data->sal_esi_employee =  $salary->sal_esi_employee;
+                $data->sal_pf_employer =  $salary->sal_pf_employer;
+                $data->sal_esi_employer =  $salary->sal_esi_employer;
+                $data->bonus =  $bonus;
+                $data->sal_medical_ins =  $salary->medical_insurance;
+                $data->deduction =  ($salary->sal_pf_employee + $salary->sal_esi_employee + $salary->medical_insurance);
+                $data->word =  Number::spell($salary->sal_net);
+                $data->doj =  date('jS F, Y', strtotime($salary->sa_emp_doj));
+                $data->doe =  date("d/m/Y", strtotime($doe));
+                $data->wo_valid =  $wo_valid_upto;
+
+            } else {
+                $template = AppointmentFormat::select('format', 'format_2')->where(['type' => 'appointment', 'name' => 'BECIL'])->firstOrFail();
+                $message = $template->format;
+                $message_2 = $template->format_2;
+                $blade = 'hr.templates.appointment-letter.becil';
+
+                $data->today_date =  $today_date;
+                $data->candidate_name =  $empdetails->emp_name;
+                $data->designation =  $salary->sal_emp_designation;
+                $data->emp_code =  $empdetails->emp_code;
+                $data->sal_ctc =  $salary->sal_ctc;
+                $data->ctc_pa =  $ctc_pa;
+                $data->basic =  $salary->sal_basic;
+                $data->hra =  $salary->sal_hra;
+                $data->conveyance =  $salary->sal_conveyance;
+                $data->sal_telephone =  $salary->sal_telephone;
+                $data->sal_pa =  $salary->medical_allowance;
+                $data->sal_special_allowance =  $salary->sal_special_allowance;
+                $data->sal_gross =  $salary->sal_gross;
+                $data->sal_net =  $salary->sal_net;
+                $data->sal_pf_emmployee =  $salary->sal_pf_employee;
+                $data->sal_esi_employee =  $salary->sal_esi_employee;
+                $data->sal_pf_employer =  $salary->sal_pf_employer;
+                $data->sal_esi_employer =  $salary->sal_esi_employer;
+                $data->sal_medical_ins =  $salary->medical_insurance;
+                $data->deduction =  ($salary->sal_pf_employee + $salary->sal_esi_employee + $salary->medical_insurance);
+                $data->word =  Number::spell($salary->sal_net);
+                $data->doj =  date('jS F, Y', strtotime($salary->sa_emp_doj));
+                $data->doe =  date("d/m/Y", strtotime($doe));
+                $data->wo_valid =  $wo_valid_upto;
+            }
+
+            $unq_no = date("Ymdhisa");
+            $fileName = "appointment_" . $unq_no . ".pdf";
+            $pdf = App::make('dompdf.wrapper');
+            $path = public_path('recruitment/candidate_documents/appointment_letter');
+            $fullPath = $path . '/' . $fileName;
+            $pdf->loadView($blade, ['empdetails' => $data]);
+            file_put_contents($fullPath, $pdf->output());
 
             // Save document to send_doc table
             $doc =  EmpSendDoc::create([

@@ -84,7 +84,7 @@
                             <select class="form-select" name="employment_type" value="{{old('employment_type')}}"
                                 required>
                                 <option value="">Select Employment Type</option>
-                                <option value="Permanent" {{old('employment_type')=='Permanent' ? 'selected' : '' }}>
+                                <option value="Permenant" {{old('employment_type')=='Permenant' ? 'selected' : '' }}>
                                     Permanent</option>
                                 <option value="Contractual" {{old('employment_type')=='Contractual' ? 'selected' : ''
                                     }}>
@@ -347,54 +347,5 @@
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function () {
-        $(document).ready(function () {
-            $("#submit-btn").click(function (event) {
-
-                event.preventDefault();
-                
-    
-        
-                 $(".error").text('');
-
-                let isValid = true;
-                let errorMessages = ""; 
-
-                
-                $(".error-message").text("");
-                $("#error-messages").html("");
-
-                
-                $('input[required],select[required]').each(function () {
-                    let field = $(this);
-                    let fieldName = field.attr('name');
-                    let errorElement = $('#error-' + fieldName);
-
-                    if (!field.val().trim()) {
-                        errorElement.text("This field is required.");
-                        errorMessages += "span" + fieldName + " is required.</span>";
-                        isValid = false;
-                    }
-                });
-
-                let functional_role_data= $("#functional-role-fields").val();
-
-                if (functional_role_data === "") {
-               $("#error-functional_role").text("At least one skill is required.");
-                   isValid = false;
-        
-                }
-    
-
-                
-
-                if (isValid) {
-                    
-                    $("form").submit();
-                } 
-            });
-        });
-    });
-</script>
+<script src="{{ asset('assets/js/hr/position_request.js') }}"></script>
 @endsection

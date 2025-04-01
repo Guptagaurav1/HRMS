@@ -4,7 +4,7 @@ namespace App\Http\Controllers\vms;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Vendor;
+use App\Models\Client;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Company;
@@ -12,18 +12,18 @@ use Illuminate\Validation\Rule;
 use Throwable;
 use DB;
 
-class VendorController extends Controller
+class ClientController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         // Eager load the related department data
-        $vendors = Vendor::whereNull('deleted_at');
+        $clients = Client::whereNull('deleted_at');
         $search = $request->search;
         if ($search) {
-            $vendors->whereHas('user', function ($query) use ($search) {
+            $clients->whereHas('user', function ($query) use ($search) {
                 $query->where('last_name', 'like', "%$search%")
                     ->orwhere('first_name', 'like', "%$search%")
                     ->orwhere('email', 'like', "%$search%")
@@ -35,24 +35,25 @@ class VendorController extends Controller
             });
         }
 
-        $vendors = $vendors->orderByDesc('id')->paginate(20)->withQueryString();
+        $clients = $clients->paginate(20)->withQueryString();
 
-        return view("vms.vendors.lists-vendor", compact('vendors', 'search'));
+        return view("vms.clients.lists-client", compact('clients', 'search'));
     }
 
     /**
-     * Show the form for creating a new Vendor.
+     * Show the form for creating a new client.
      */
     public function create()
     {
-        //fetch roles to show in add vendor page
-        $role = Role::where('role_name', 'VMS-Vendor')->orderBy('id', 'desc')->first();
+        //fetch roles to show in add client page
+        $role = Role::select('id')->where('role_name', 'VMS-Client')->orderBy('id', 'desc')->first();
         $companies = Company::select('id', 'name')->orderByDesc('id')->get();
-        return view("vms.vendors.add-vendor", compact('role', 'companies'));
+        return view("vms.clients.add-client", compact('role', 'companies'));
     }
 
+    
     /**
-     * Store Vendor Details.
+     * Store Client Details.
      */
     public function save(Request $request)
     {
@@ -63,14 +64,12 @@ class VendorController extends Controller
             'phone' => 'required|digits:10',
             'role_id' => 'required',
             'dob' => 'required',
-            'address' => 'required',
             'company_id' => 'required'
         ]);
 
         try {
             DB::beginTransaction();
             $data = $request->all();
-            unset($data['address']);
             $dob = $request->dob;
             $password_s = date('d-m-Y', strtotime($dob));
             $password = str_replace("-", "", $password_s);
@@ -80,36 +79,36 @@ class VendorController extends Controller
             // Save User Data.
             $user_id = User::create($data)->id;
 
-            // Save Vendor Data.
-            $vendor_data = ['user_id' => $user_id, 'address' => $request->address];
-            Vendor::create($vendor_data);
+            // Save Client Data.
+            $client_data = ['user_id' => $user_id];
+            Client::create($client_data);
 
             DB::commit();
-            return redirect()->route('vendors.index')->with(['success' => true, 'message' => 'Vendor Added Successfully !']);
+            return redirect()->route('clients.index')->with(['success' => true, 'message' => 'Client Added Successfully !']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return redirect()->route('vendors.index')->with(['error' => true, 'message' => $th->getMessage()]);
+            return redirect()->route('clients.index')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
     /**
-     * Edit Vendor.
+     * Edit Client.
      */
     public function edit($id)
     {
         //fetch roles to show in add vendor page
-        $role = Role::where('role_name', 'VMS-Vendor')->orderBy('id', 'desc')->first();
+        $role = Role::where('role_name', 'VMS-Client')->orderBy('id', 'desc')->first();
         $companies = Company::select('id', 'name')->orderByDesc('id')->get();
-        $vendor = Vendor::findOrFail($id);
-        return view("vms.vendors.edit-vendor", compact('role', 'companies', 'vendor'));
+        $client = Client::findOrFail($id);
+        return view("vms.clients.edit-client", compact('role', 'companies', 'client'));
     }
 
     /**
-     * Update Vendor Details.
+     * Update Client Details.
      */
     public function update(Request $request)
     {
-        $vendor = Vendor::findOrFail($request->id);
+        $vendor = Client::findOrFail($request->id);
 
         $request->validate([
             'first_name' => 'required',
@@ -121,46 +120,41 @@ class VendorController extends Controller
             ],
             'phone' => 'required|digits:10',
             'dob' => 'required',
-            'address' => 'required',
             'company_id' => 'required'
         ]);
 
         try {
             DB::beginTransaction();
             $data = $request->all();
-            unset($data['address']);
             unset($data['_token']);
             unset($data['id']);
 
             // Update User Data.
             User::where('id', $vendor->user_id)->update($data);
 
-            // Update Vendor Data.
-            Vendor::where('id', $vendor->id)->update(['address' => $request->address]);
-
             DB::commit();
-            return redirect()->route('vendors.index')->with(['success' => true, 'message' => 'Vendor Updated Successfully !']);
+            return redirect()->route('clients.index')->with(['success' => true, 'message' => 'Client Updated Successfully !']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return redirect()->route('vendors.index')->with(['error' => true, 'message' => $th->getMessage()]);
+            return redirect()->route('clients.index')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
-    /**
-     * Delete Vendor.
+     /**
+     * Delete Client.
      */
     public function destroy(Request $request)
     {
         $id = request()->id;
 
         try {
-            $vendor = Vendor::findOrFail($id);
+            $client = Client::findOrFail($id);
             DB::beginTransaction();
-            $vendor->delete();
-            User::where('id', $vendor->user_id)->update(['status' => '0']);
-            User::where('id', $vendor->user_id)->delete();
+            $client->delete();
+            User::where('id', $client->user_id)->update(['status' => '0']);
+            User::where('id', $client->user_id)->delete();
             DB::commit();
-            return response()->json(['success' => true, 'message' => 'Vendor deleted successfully!']);
+            return response()->json(['success' => true, 'message' => 'Client deleted successfully!']);
         } catch (Throwable $th) {
             DB::rollBack();
             return response()->json(['error' => true, 'message' => $th->getMessage()]);

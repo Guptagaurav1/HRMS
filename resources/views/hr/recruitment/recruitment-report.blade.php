@@ -93,7 +93,7 @@
                                     <a href="{{route('show-assign-work-log', ['id' => $position->id])}}" class="text-primary">{{get_position_contacts($position->id)}} <span>Contacts</span></a>
                                 </td>
                                 <td class="text-center">{{date('jS F, Y', strtotime($position->created_at))}}</td>
-                                <td class="text-center">{{date('jS F, Y', strtotime($position->date_notified))}}</td>
+                                <td class="text-center">{{$position->date_notified ? date('jS F, Y', strtotime($position->date_notified)) : ''}}</td>
                                 <td class="text-center">{{$position->getCity &&  $position->getState ? $position->getCity->city_name." - ".$position->getState->state : '-'}}</td>
                                 <td class="text-center">{{get_username($position->assigned_executive)}}</td>
                                 <td class="text-center">{{$position->no_of_completed_requirements." / ".$position->no_of_requirements}}</td>

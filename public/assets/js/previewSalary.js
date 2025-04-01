@@ -14,15 +14,15 @@ $("#sendMail").click(function () {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, send it!"
     }).then((result) => {
-            Swal.fire({
-            title: "Sending...",
-            text: "Please wait while the mail is being sent.",
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-      if (result.isConfirmed) {
+        if (result.isConfirmed) {
+          Swal.fire({
+          title: "Sending...",
+          text: "Please wait while the mail is being sent.",
+          allowOutsideClick: false,
+          didOpen: () => {
+              Swal.showLoading();
+          }
+      });
         $(this).attr('disabled', 'disabled');
         $.ajax({
             url: SITE_URL+'/hr/salary-slip/send-mail/'+salarySlipId,

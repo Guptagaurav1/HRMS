@@ -1,25 +1,25 @@
-@extends('layouts.master', ['title' => 'Create Vendor'])
+@extends('layouts.master', ['title' => 'Create Client'])
 @section('style')
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
 @endsection
 
 @section('contents')
     <div class="dashboard-breadcrumb mb-25">
-        <h2>Create Vendor</h2>
+        <h2>Create Client</h2>
         <div class="btn-box">
-            <a href="{{route('vendors.index')}}" class="btn btn-sm btn-primary">Vendor List</a>
+            <a href="{{route('clients.index')}}" class="btn btn-sm btn-primary">Client List</a>
         </div>
     </div>
-    <form action="{{ route('vendors.save') }}" method="post">
+    <form action="{{ route('clients.save') }}" method="post">
         @csrf
-        <d class="d-none">
+        <div class="d-none">
             <input type="hidden" name="role_id" value="{{ $role->id }}">
-        </d>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h4 class="mt-1">Vendor Details</h4>
+                        <h4 class="mt-1">Client Details</h4>
                     </div>
                 
                         <div class="panel-body">
@@ -72,13 +72,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-xxl-12 col-lg-12 col-sm-12">
-                                    <label for="address" class="form-label">Address <span class="text-danger"> ** </span> </label>
-                                    <textarea  name="address" class="form-control form-control-sm" >{{ old('address') }}</textarea>
-                                    @error('address')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                               
                             </div>
                           
                         </div>
@@ -86,7 +80,7 @@
             </div>
             
             <div class="col-12 d-flex justify-content-end">
-                <a href="{{route('vendors.index')}}" class="btn btn-sm btn-primary mx-2">Cancel</a>
+                <a href="{{route('clients.index')}}" class="btn btn-sm btn-primary mx-2">Cancel</a>
                 <button type="submit" class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
             </div>
         </div>

@@ -21,3 +21,4 @@ yarn-error.log
 /public/salary-slips/*
 /public/resume/*
 /public/recruitment/candidate_documents/*
+/public/recruitment/offer-letter/*

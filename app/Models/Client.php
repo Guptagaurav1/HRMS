@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Vendor extends Model
+class Client extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -16,14 +16,14 @@ class Vendor extends Model
      *
      * @var string
      */
-    protected $table = 'vms_vendors';
+    protected $table = 'vms_clients';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'address'];
+    protected $fillable = ['user_id'];
 
     /**
      * Store user id on create, update or delete
@@ -55,4 +55,5 @@ class Vendor extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id')->select('first_name', 'last_name', 'email', 'phone', 'role_id', 'status', 'dob', 'company_id')->with('role');
     }
+
 }

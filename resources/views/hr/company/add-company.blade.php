@@ -19,7 +19,7 @@
                         <div class="panel-header">
                             <h5 class="text-white">Company Details</h5>
                             <div class="btn-box">
-                                <a href="{{ route('company-master') }}" class="btn btn-sm btn-primary">Company Master List
+                                <a href="{{ route('company.list') }}" class="btn btn-sm btn-primary">Company List
                                     <i class="fa-solid fa-list"></i></a>
                             </div>
                         </div>

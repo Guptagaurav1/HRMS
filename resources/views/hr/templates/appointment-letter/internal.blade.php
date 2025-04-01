@@ -244,14 +244,14 @@
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">You will be eligible for comp offs in case of working on Sundays.</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>PRIVILEGED LEAVE&nbsp;</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>Privileged Leave&nbsp;</strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">This has been designed to give you vacation periods for rest and relaxation and to provide time off for your personal needs. You will however be entitled to this leave 15 days after completion of 1 year of your service. This cannot be carried forward and has to be consumed in following year.</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>CASUAL LEAVE/SICK LEAVE</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>Casual Leave/Sick Leave</strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">The period of such leave is limited to 12 days in a calendar year and is granted in such a manner that the total period of absence including holidays. CL cannot be taken as a matter of right and has to be approved in writing or through E-mail. SL should be accompanied with a medical certificate.</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>&nbsp;</strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>LEAVE ACCUMULATION/ CARRY FORWARD</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>Leave Accumulation/ Carry Forward</strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">No policy as of now for leave carry forward.</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><span>&nbsp;</span></p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;">&nbsp;</p>
@@ -399,7 +399,7 @@
     <h5 style="margin-top:0pt; margin-bottom:0pt; page-break-after:avoid; font-size:12pt;">Notice Period- Non-Serve case</h5>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">In case employee is not able to serve Notice Period (Exceptional: Extreme Medical Reason) company is not liable to give Experience Letter, Reliving letter and may file case of Dual Employment in regards of Employee.</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>CONDUCT</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>Conduct</strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">Any act of indiscipline / misconduct / holding the company to ransom / creating union / any misconduct / unprofessional behavior in the organization cannot be tolerated by the company and can attract termination and immediate dismissal without any notice, costs or benefits.</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
     <p style="margin-top:0pt; margin-left:36pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
@@ -411,7 +411,7 @@
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">This Agreement made between the Employee and the Employer</p>
     <ol style="margin:0pt; padding-left:0pt;" type="a">
-        <li style="margin-left:35.32pt; padding-left:0.68pt; font-size:12pt;">(Resident Registration No.</li>
+        <li style="margin-left:35.32pt; padding-left:0.68pt; font-size:12pt;">Resident Registration No.</li>
         <li style="margin-left:36pt; padding-left:0pt; font-size:12pt;">PAN&nbsp; ID No<strong>&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;,&nbsp;</strong></li>
         <li style="margin-left:35.32pt; padding-left:0.68pt; font-size:12pt;">Aadhaar&nbsp; No: <strong>&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;</strong>,&nbsp; an Indian (the &ldquo;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&rdquo;) and</li>
     </ol>

@@ -1,8 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'My Profile'])
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
 @endsection
 
 @section('contents')
@@ -27,18 +25,18 @@
                            <button class="image-change"><i class="fa-light fa-camera"></i></button>
                         </div>
                         <div class="part-txt">
-                           <h4 class="admin-name fs-4">Gaurav</h4>
-                           <h4 class=" fs-4 mt-2">Front End Developer</h4>
+                           <h4 class="admin-name fs-4">{{$details->emp_name}}</h4>
+                           <h4 class=" fs-4 mt-2">{{$details->emp_designation}}</h4>
 
                         </div>
                      </div>
                      <div class="bottom">
                         <ul class="mt-1">
-                           <li class="text-dark fs-6" ><span class="text-dark">Employee Code:</span>Gaurav</li>
-                           <li class="text-dark fs-6"><span>Mobile No:</span>+(1) 987 65433</li>
-                           <li class="text-dark fs-6"><span>E-Mail ID:</span>example@mail.com</li>
-                           <li class="text-dark fs-6"><span>Address:</span>California, United States</li>
-                           <li class="text-dark fs-6"><span>Joining Date:</span>24 Nov 2022</li>
+                           <li class="text-dark fs-6" ><span class="text-dark">Employee Code:</span>{{$details->emp_designation}}</li>
+                           <li class="text-dark fs-6"><span>Mobile No:</span>{{$details->emp_phone_first}}</li>
+                           <li class="text-dark fs-6"><span>E-Mail ID:</span>{{$details->emp_email_first}}</li>
+                           <li class="text-dark fs-6"><span>Address:</span>{{!empty($details->getAddressDetail) ? $details->getAddressDetail->emp_permanent_address : ''}}</li>
+                           <li class="text-dark fs-6"><span>Joining Date:</span>{{date('jS F, Y', strtotime($details->emp_doj))}}</li>
                         </ul>
                      </div>
                   </div>
@@ -56,48 +54,48 @@
                            <tbody>
                                <tr>
                                    <td class="bold">Reporting Name:</td>
-                                   <td>NA</td>
+                                   <td>{{$manager->first_name." ".$manager->last_name}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Reporting Designation:</td>
-                                   <td>NA</td>
+                                   <td class="text-capitalize">{{get_role_name($manager->role_id)}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Reporting Email:</td>
-                                   <td>NA</td>
+                                   <td>{{$details->reporting_email}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Gender:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_gender : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Category:</td>
-                                   <td>NA</td>
+                                   <td class="text-capitalize">{{!empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_category : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Work Order No:</td>
-                                   <td>NA</td>
+                                   <td class="text-capitalize">{{$details->emp_work_order}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Job Place:</td>
-                                   <td>NA</td>
+                                   <td>{{$details->emp_place_of_posting}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Department:</td>
-                                   <td>NA</td>
+                                   <td>{{$details->department}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Functional Role:</td>
-                                   <td>NA</td>
+                                   <td>{{$details->emp_functional_role}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Date of Joining:</td>
-                                   <td>NA</td>
+                                   <td>{{date('jS F, Y', strtotime($details->emp_doj))}}</td>
                                </tr>
                                
                                <tr>
                                    <td class="bold">CTC:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getBankDetail) ? Illuminate\Support\Number::currency($details->getBankDetail->emp_salary, in: 'INR') : ''}}</td>
                                </tr>
                                
                            </tbody>
@@ -110,62 +108,62 @@
                            <tbody>
                                <tr>
                                    <td class="bold">Permanent Address:</td>
-                                   <td class="attributes-column">PSSPL/DEL/2021-22/0172,PSSPL/DEL/2021-22/0172,PSSPL/DEL/2021-22/0172</td>
+                                   <td class="attributes-column">{{!empty($details->getAddressDetail) ? $details->getAddressDetail->emp_permanent_address : ''}}</td>
                                 
                                </tr>
                                <tr>
                                    <td class="bold">Correspondence Address:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getAddressDetail) ? $details->getAddressDetail->emp_local_address : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Date of birth:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getPersonalDetail) ? date('jS F,Y', strtotime($details->getPersonalDetail->emp_dob)) : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Personal Contact no:</td>
-                                   <td>NA</td>
+                                   <td>{{$details->emp_phone_first}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Alternate Contact no:</td>
-                                   <td>NA</td>
+                                   <td>{{$details->emp_phone_second}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Personal Email Id:</td>
-                                   <td>NA</td>
+                                   <td>{{$details->emp_email_first}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Alternate Email Id:</td>
-                                   <td>NA</td>
+                                   <td>{{$details->emp_email_second}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Father Name:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_father_name : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Father Contact No:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_father_mobile : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Blood Group :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_blood_group : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Marital Status :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_marital_status : ''}}</td>
                                </tr>
                                <tr>
                                  <td class="bold">Husband / Wife Name :</td>
-                                 <td>NA</td>
+                                 <td>{{!empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_husband_wife_name : ''}}</td>
                              </tr>
                              <tr>
                               <td class="bold">No of Childrens :</td>
-                              <td>NA</td>
+                              <td>{{!empty($details->getPersonalDetail) ? $details->getPersonalDetail->emp_children : ''}}</td>
                           </tr>
                                
                               
                                <tr>
                                    <td class="bold">Working Status :</td>
-                                   <td><span class="badge text-bg-primary">Active</span></td>
+                                   <td><span class="badge text-bg-primary text-capitalize">{{$details->emp_current_working_status}}</span></td>
                                </tr>
                            </tbody>
                        </table>
@@ -186,15 +184,15 @@
 
                                <tr>
                                    <td class="bold">10th Passing Year:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_tenth_year : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Percentage/Grade:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_tenth_percentage : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Board Name</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_tenth_board_name : ''}}</td>
                                </tr>
 
                            </tbody>
@@ -211,15 +209,15 @@
 
                                <tr>
                                    <td class="bold">12th Passing Year:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_tenth_year : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Percentage/Grade:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_twelve_percentage : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Board Name</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_twelve_board_name : ''}}</td>
                                </tr>
 
                            </tbody>
@@ -236,19 +234,19 @@
 
                                <tr>
                                    <td class="bold">Graduation Passing Year/pursuing</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_graduation_year : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Percentage/Grade:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_graduation_percentage : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Mode Of Graduation</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_graduation_mode : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Degree Name</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_gradqualification : ''}}</td>
                                </tr>
 
                            </tbody>
@@ -265,19 +263,19 @@
 
                                <tr>
                                    <td class="bold">Post Graduation Passing Year/pursuing</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_postgraduation_year : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Percentage/Grade:</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_postgraduation_percentage : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Mode Of Post Graduation</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_postgraduation_mode : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Degree Name</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->education) ? $details->education->emp_postgradqualification : ''}}</td>
                                </tr>
 
                            </tbody>
@@ -294,27 +292,27 @@
                            <tbody>
                                <tr>
                                    <td class="bold">Bank Name :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getBankDetail) && $details->getBankDetail->getBankData ? $details->getBankDetail->getBankData->name_of_bank : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Branch Name :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getBankDetail) && $details->getBankDetail->getBankData ? $details->getBankDetail->emp_branch : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">IFSC Code :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getBankDetail) ? $details->getBankDetail->emp_ifsc : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Account No :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getBankDetail) ? $details->getBankDetail->emp_account_no : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Aadhar No :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getIdProofDetail) ? $details->getIdProofDetail->emp_aadhaar_no : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Pan No :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getBankDetail) ? $details->getBankDetail->emp_pan : ''}}</td>
                                </tr>
                            </tbody>
                        </table>
@@ -325,24 +323,21 @@
                            id="allEmployeeTable">
                            <tbody>
                                <tr>
-                                   <td class="bold">PF UIN No :</td>
-                                   <td>NA</td>
+                                   <td class="bold">PF UAN No :</td>
+                                   <td>{{!empty($details->getBankDetail) ? $details->getBankDetail->emp_pf_no : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">ESI No :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getBankDetail) ? $details->getBankDetail->emp_esi_no : ''}}</td>
                                </tr>
                                <tr>
                                    <td class="bold">Passport No. :</td>
-                                   <td>NA</td>
+                                   <td>{{!empty($details->getIdProofDetail) ? $details->getIdProofDetail->emp_passport_no : ''}}</td>
                                </tr>
-                               <tr>
-                                   <td class="bold">Departments Recommendation :</td>
-                                   <td>NA</td>
-                               </tr>
+                             
                                <tr>
                                    <td class="bold">Working Status:</td>
-                                   <td><span class="badge text-bg-success">NA</span></td>
+                                   <td><span class="badge text-bg-success text-capitalize">{{$details->emp_current_working_status}}</span></td>
                                </tr>
                            </tbody>
                        </table>
@@ -350,6 +345,8 @@
                    <div class="col-md-12">
                      <h4 class="panel-header">Additional Certificate</h4>
                      <div class="table-responsive after-add-more" id="add-field">
+                        <form method="post" class="form-add-certificate">
+                            @csrf
                          <table class="table table-bordered table-hover digi-dataTable table-striped" id="allEmployeeTable">
                              <thead id="table-head">
                                  <tr>
@@ -360,24 +357,43 @@
                                  </tr>
                              </thead>
                              <tbody id="table-body">
+                                    @forelse($details->getCertificateDetail as $certificate)
                                  <tr>
                                      <td class="text-center">
-                                         <input type="text" class="form-control form-control-sm">
+                                         <input type="text" class="form-control form-control-sm" name="certificate_name[]" maxlength="50" value="{{$certificate->certificate_name}}" required>
                                      </td>
                                      <td class="text-center">
-                                         <input type="number" class="form-control form-control-sm">
+                                         <input type="number" class="form-control form-control-sm" name="duration[]" min="0" value="{{$certificate->duration}}" required>
                                      </td>
                                      <td class="text-center">
-                                         <input type="text" class="form-control form-control-sm">
+                                         <input type="text" class="form-control form-control-sm" name="grade[]" value="{{$certificate->grade}}" required>
                                      </td>
                                      <td class="text-center">
-                                       <button class="btn btn-sm btn-primary">Save</button>
-                                       <button class="btn btn-sm btn-primary add-more-btn">Add More</button>
-                                         
+                                       <button type="button" class="btn btn-sm btn-primary add-more-btn">Add More</button>
                                      </td>
                                  </tr>
+                                 @empty
+                                 <tr>
+                                    <td class="text-center">
+                                        <input type="text" class="form-control form-control-sm" name="certificate_name[]" maxlength="50" required>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="number" class="form-control form-control-sm" name="duration[]" min="0" required>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" class="form-control form-control-sm" name="grade[]" required>
+                                    </td>
+                                    <td class="text-center">
+                                      <button type="button" class="btn btn-sm btn-primary add-more-btn">Add More</button>
+                                    </td>
+                                </tr>
+                                 @endforelse
                              </tbody>
                          </table>
+                         <div class="text-end">
+                         <button type="submit" class="btn btn-primary m-2 submit">Submit</button>
+                         </div>
+                        </form>
                      </div>
                      <div class="d-flex justify-content-end">
                          
@@ -391,7 +407,7 @@
      
    </div>
    <div class="text-end">
-    <a href="{{route("employee-modify-profile-request")}}">  <button class="btn btn-sm btn-primary">Request For Modification</button></a>
+    <a href="{{route("profile.modify-profile-request")}}">  <button class="btn btn-sm btn-primary">Request For Modification</button></a>
 
    </div>
 </div>
