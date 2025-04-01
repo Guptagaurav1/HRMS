@@ -227,13 +227,49 @@
                                             class="form-control form-control-sm" placeholder="Loaction"
                                             value="{{ old('location') }}">
                                     </div>
+                                    
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                        <label class="form-label text-wrap">State</label>
+                                        <select class="form-select form-control" name="state" id="state">
+                                            <option value=""> Select State</option>
+                                            @foreach($states as $key => $value)
+                                            <option value="{{$value->id}}" >{{ $value->state }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="col-sm-12 col-md-4 text-wrap">
                                         <label class="form-label text-wrap"> City</label>
-                                        <input name="city" id="city" type="text" class="form-control form-control-sm"
-                                            placeholder="City" value="{{ old('city') }}">
+                                        <select class="form-select" id="cities" name="city" >
+                                            <option value="">Select City</option>
+                                          
+                                        </select>
                                     </div>
+                                
 
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                        <label class="form-label text-wrap">Postal Code</label>
+                                        <input name="pincode" id="pincode" type="number"
+                                            class="form-control form-control-sm" placeholder="PIN Number"
+                                            value="{{ old('pincode') }}">
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                        <label for="exampleTextarea" class="form-label">Address</label>
+                                        <textarea name="remarks" class="form-control" id="remarks"
+                                            placeholder="Enter Remarks if any?" value="{{ old('remarks') }}"></textarea>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 text-wrap">
+                                        Attachment
+                                        <input name="attachment" id="attachment" class="form-control form-control-sm"
+                                            id="formFileSm" type="file">
+                                        @error('attachment')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                
+                                </div>
+
 
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 text-wrap">
@@ -258,24 +294,8 @@
                                 </div>
 
 
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 text-wrap">
-                                        <label for="exampleTextarea" class="form-label">Address</label>
-                                        <textarea name="remarks" class="form-control" id="remarks"
-                                            placeholder="Enter Remarks if any?" value="{{ old('remarks') }}"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 text-wrap">
-                                        Attachment
-                                        <input name="attachment" id="attachment" class="form-control form-control-sm"
-                                            id="formFileSm" type="file">
-                                        @error('attachment')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                
+                               
 
 
                             </div>
@@ -357,21 +377,32 @@
                                         value="{{ old('invoice_client_name') }}">
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">State</label>
+                                    <label class="form-label text-wrap"> Invoice State</label>
                                     <select class="form-select form-control" name="invoice_state">
                                         <option value=""> Select State</option>
-                                        @foreach($state as $key => $value)
+                                        @foreach($states as $key => $value)
                                         <option value="{{$value->id}}">{{ $value->state }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
-                                    <label class="form-label text-wrap">Postal Code</label>
+                                    <label class="form-label text-wrap">Invoice City</label>
+                                    
+                                    <select class="form-select" id="cities" name="invoice_city" >
+                                        <option value="">Select City</option>
+                                       
+                                    </select>
+                                </div>
+                               
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4 text-wrap">
+                                    <label class="form-label text-wrap">Invoice Postal Code</label>
                                     <input name="invoice_pin" id="invoice_pin" type="number"
                                         class="form-control form-control-sm" placeholder="PIN Number"
                                         value="{{ old('invoice_pin') }}">
                                 </div>
-                                <div class="col-sm-12 col-md-12 text-wrap">
+                                <div class="col-sm-12 col-md-4 text-wrap">
                                     <label for="exampleTextarea" class="form-label">Address</label>
                                     <textarea name="invoice_address" id="invoice_address" class="form-control"
                                         id="exampleTextarea" placeholder="Enter Address"
@@ -399,7 +430,7 @@
 @section('script')
 <script src="{{asset('assets/vendor/js/addmore.js')}}"></script>
 <script src="{{asset('assets/js/hr/work-order.js')}}"></script>
-
+<script src="{{ asset('assets/js/city.js') }}"></script>
 
 
 <script>

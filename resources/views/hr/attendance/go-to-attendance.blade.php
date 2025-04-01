@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 @endsection
 
@@ -25,7 +26,7 @@
                     </div>
                     <div class="col-md-2 workcenter">
                         <label>Total Entry</label>
-                        <span class="text-dark fw-bold">: 0</span>
+                        <span class="text-dark fw-bold">: {{ $totalRecords??NULL }}</span>
                     </div>
                     <div class="col-md-3 workcenter px-5">
 
@@ -41,18 +42,13 @@
                     <p class="note"><span class="text-danger">Note :</span> (Show Only Employees whose Salary Structure is Created.)
                     </p>
                 </div>
-                <!-- <div class="col-sm-6 col-md-12 py-2 mt-3 text-center">
-                    <p class="fw-bold fs-6 work-order-No">
-                        View Attendance and Calculate Salary for<br>
-                        <span>Work order: {{$wo_number}}</span>
-                    </p>
-                </div> -->
+              
                 <form method="get" action="{{ route('go-to-attendance',$wo_id)}}" >
-                    <div class="col-md-12 text-center py-3 ">
+                    <!-- <div class="col-md-12 text-center py-3 ">
                         <label>Select Month :</label><br>
                         
-                            <input name="month" class="date-picker month_year" placeholder="mm-year" value="{{$month}}" />
-                            <!-- <input type="date" name="month" value="{{ request('month', $month) }}" /> -->
+                            <input name="month" class="date-picker date-picker" placeholder="mm-year" value="{{$month}}" />
+                            <label>Status</label>
                             <select name="emp_status" id="emp_status">
                                 <option value="">-- All --</option>
                                 <option value="active" {{ request('emp_status') == 'active' ? 'selected' : '' }}>Active</option>
@@ -60,10 +56,37 @@
                             </select>
                             <button type="submit" class="btn btn-primary">Check <i class="fa-solid fa-square-check"></i></button>
                         
-                    </div>
-                    <!-- <div class="col-md-12 px-3">
-                        <p class="text-danger fs-6">Total Hrs Applicable Only For Some Cases</p>
                     </div> -->
+                    <div class="row  mx-3 pt-2">
+                        <div class="col-md-3 col-12">
+                        </div>
+                        <!-- Select Month Input -->
+                        <div class="col-md-2 col-12 ">
+                            <label for="month" class="form-label">Select Month:</label>
+                            <input name="month" class="form-control date-picker month_year" placeholder="mm-yyyy" value="{{ $month }}" />
+                        </div>
+
+                        <!-- Status Select Input -->
+                        <div class="col-md-2 col-12">
+                            <label for="emp_status" class="form-label">Status:</label>
+                            <select name="emp_status" id="emp_status" class="form-select">
+                                <option value="">-- All --</option>
+                                <option value="active" {{ request('emp_status') == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ request('emp_status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                <option value="resign" {{ request('emp_status') == 'resign' ? 'selected' : '' }}>Resign</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-md-2 col-12  pt-4 d-flex justify-content-center align-items-center">
+                            <button type="submit" class="btn btn-primary ">Check <i class="fa-solid fa-square-check"></i></button>
+                        </div>
+                        <div class="col-md-2 col-6 ">
+                        </div>
+                    </div>
+                   
+                    </form>
+                    <form method="get" action="{{ route('go-to-attendance',$wo_id)}}" >
                     <div class="col-md-12 d-flex justify-content-start mx-3 mt-3 gap-2">
                         <div class="col-auto">
                             <input name="search" type="text" class="form-control" placeholder="Search" >
@@ -132,11 +155,11 @@
                             </thead>
                             <tbody>
                                 
-                                @if(!empty($wo_emps) && ($wo_emps != ' ') )
+                                @if(!empty($wo_emps) && ($totalRecords > 0) )
                                 <input type="hidden" name="attendance_month" id="attendance_month" value="{{ $month }}">
                                     @foreach($wo_emps as $wo_emp)
                                         <tr>
-                                            <input type="hidden" name="emp_code" id="emp_code" value="{{ $wo_emp->employ_code }}">
+                                            <input type="hidden" name="emp_code" id="emp_code" value="{{ $wo_emp->emp_code }}">
                                             <td><input  type="checkbox" name="check[]" value="{{ $wo_emp->id??NULL}}"></td>
                                             <td>{{$wo_emp->emp_code??NULL}}</td>
                                             <td>{{$wo_emp->emp_name??NULL}}</td>
@@ -150,8 +173,8 @@
                                             <td><input type="date" name="dor" id="dor" class="form-control" value="{{ $wo_emp->emp_dor }}" 
                                             ></td>
                                             <input type="hidden" name="emp_designation" id="emp_designation" value="{{ $wo_emp->emp_designation }}">
-                                            <input type="hidden" name="emp_vendor_rate" id="emp_vendor_rate" value="{{ $wo_emp->emp_salary }}">
-                                            <input type="hidden" name="emp_ctc" id="emp_ctc" value="{{ $wo_emp->emp_salary }}">
+                                            <input type="hidden" name="emp_vendor_rate" id="emp_vendor_rate" value="{{ $wo_emp->getBankDetail->emp_unit}}">
+                                            <input type="hidden" name="emp_ctc" id="emp_ctc" value="{{ $wo_emp->getBankDetail->emp_salary }}">
                                             
                                             <td>{{$wo_emp->emp_place_of_posting}}</td>
                                             <td>{{$wo_emp->emp_designation}}</td>
@@ -173,31 +196,19 @@
                                 @endif
                             </tbody>
                         </table>
-                        @if(!empty($wo_emps) && ($wo_emps != ' '))
+                        @if(!empty($wo_emps) && ($totalRecords > 0))
                         <div>
                             {{ $wo_emps->links() }}
                         </div>
-                        <div class="col-auto m-2 px-3 ">
-                            <button class="btn btn-primary">Add Attendance</button>
-                        </div>
+                            
+                            <div class="col-auto m-2 px-3 ">
+                                <button id="btn-attendance" disabled class="btn btn-primary">Add Attendance</button>
+                            </div>
+                           
                         @endif
                     </form>
                 </div>
-                <div class="col-sm-6 col-md-12 py-2 mt-3 text-end px-2">
-                    <p class="fw-bold fs-5 work-order-No">
-                        <a href="{{ route('wo-sal-attendance') }}"><button type="button" class="btn btn-sm btn-primary">Calculate Salary <i class="fa-solid fa-calculator-simple"></i></button></a>
-                    </p>
-                </div>
-                <!-- <div class="col-md-12 text-center py-3 ">
-
-                <form method="post" action="{{ route('wo-sal-attendance')}}" >
-                    <label>Select Month :</label><br>
-                    <input type="month" name="month" value="{{old('month',date('Y-m'))}}" />
-                    <input type="hidden" name="wo_id" value="{{old('month',$wo_id)}}" />
-                    <button type="submit" class="btn btn-primary">View <i class="fa-solid fa-eye"></i></button> 
-                </form>
-                </div> -->
-               
+                
             </div>
         </div>
     </div>
@@ -206,103 +217,5 @@
 @endsection
 
 @section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
-<script src={{asset('assets/vendor/js/calenderOpen.js')}}></script>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('[name="at_appr_leave"],[name="leave"]').bind('keyup', function(){
-      // updateWorkingDays();
-      var outer_ele = $(this).parent().parent();
-      var appr_leave = parseInt(outer_ele.children().eq(4).children().val());
-      var lwd = parseInt(outer_ele.children().eq(5).children().val());
-      var no_of_work_days = outer_ele.children().eq(6).children().val();
-      month_date = $('.month_year').val().split(' ');
-      month = new Date(Date.parse(month_date[0].replace(/ .*/,'') +" 1, 2022")).getMonth()+1;
-      year = month_date[1];
-      total_days = new Date(year, month, 0).getDate();
-
-      if(isNaN(appr_leave)){
-        appr_leave = 0;
-      }
-      outer_ele.children().eq(6).children().val(total_days-(lwd)+(appr_leave));
-
-    });
-
-  });
-
-
-
-  $('[name="check[]"]').change(function() {
-      if ($(this).is(':checked')) {
-        var checked = $(this).parent().parent();
-      checked.children().eq(0).attr('name', checked.children().eq(0).attr('name') + '_check[]');
-      checked.children().eq(4).children().attr('name', checked.children().eq(4).children().attr('name') + '_check[]');
-      checked.children().eq(5).children().attr('name', checked.children().eq(5).children().attr('name') + '_check[]');
-      
-      checked.children().eq(11).children().attr('name', checked.children().eq(11).children().attr('name') + '_check[]');
-      checked.children().eq(12).attr('name', checked.children().eq(12).attr('name') + '_check[]');
-      checked.children().eq(13).attr('name', checked.children().eq(13).attr('name') + '_check[]');
-      checked.children().eq(14).attr('name', checked.children().eq(14).attr('name') + '_check[]');
-    //   checked.children().eq(16).children().attr('name', checked.children().eq(16).children().attr('name') + '_check[]');
-      checked.children().eq(17).children().attr('name', checked.children().eq(17).children().attr('name') + '_check[]');
-      checked.children().eq(18).children().attr('name', checked.children().eq(18).children().attr('name') + '_check[]');
-      checked.children().eq(19).children().attr('name', checked.children().eq(19).children().attr('name') + '_check[]');
-      checked.children().eq(20).children().attr('name', checked.children().eq(20).children().attr('name') + '_check[]');
-      checked.children().eq(21).children().attr('name', checked.children().eq(21).children().attr('name') + '_check[]');
-
-    } else {
-      var checked = $(this).parent().parent();
-      checked.children().eq(0).attr('name', 'emp_code');
-      checked.children().eq(4).children().attr('name', 'at_appr_leave');
-      checked.children().eq(5).children().attr('name', 'leave');
-      checked.children().eq(11).children().attr('name', 'dor');
-      checked.children().eq(12).attr('name', 'emp_designation');
-      checked.children().eq(13).attr('name', 'emp_vendor_rate');
-      checked.children().eq(14).attr('name', 'emp_ctc');
-
-      checked.children().eq(17).children().attr('name', 'remarks');
-      checked.children().eq(18).children().attr('name', 'advance');
-      checked.children().eq(19).children().attr('name', 'recovery');
-      checked.children().eq(20).children().attr('name', 'overtime_rate');
-      checked.children().eq(21).children().attr('name', 'total_working_hrs');
-      // console.log(checked.children().eq(0).attr('name'));
-    }
-  });
-
-  $("#all").click(function() {
-    $('input:checkbox').not(this).prop('checked', this.checked);
-    if ($(this).is(':checked')) {
-      $('[id="emp_code"]').attr('name', 'emp_code_check[]');
-      $('[id="at_appr_leave"]').attr('name', 'at_appr_leave_check[]');
-      $('[id="leave"]').attr('name', 'leave_check[]');
-      $('[id="dor"]').attr('name', 'dor_check[]');
-      $('[id="emp_designation"]').attr('name', 'emp_designation_check[]');
-      $('[id="emp_vendor_rate"]').attr('name', 'emp_vendor_rate_check[]');
-      $('[id="emp_ctc"]').attr('name', 'emp_ctc_check[]');
-      $('[id="remarks"]').attr('name', 'remarks_check[]');
-      $('[id="advance"]').attr('name', 'advance_check[]');
-      $('[id="recovery"]').attr('name', 'recovery_check[]');
-      $('[id="overtime_rate"]').attr('name', 'overtime_rate_check[]');
-      $('[id="total_working_hrs"]').attr('name', 'total_working_hrs_check[]');
-    } else {
-      $('[id="emp_code"]').attr('name', 'emp_code');
-      $('[id="at_appr_leave"]').attr('name', 'at_appr_leave');
-      $('[id="leave"]').attr('name', 'leave');
-      $('[id="dor"]').attr('name', 'dor');
-      $('[id="emp_designation"]').attr('name', 'emp_designation');
-      $('[id="emp_vendor_rate"]').attr('name', 'emp_vendor_rate');
-      $('[id="emp_ctc"]').attr('name', 'emp_ctc');
-      $('[id="remarks"]').attr('name', 'remarks');
-      $('[id="advance"]').attr('name', 'advance');
-      $('[id="recovery"]').attr('name', 'recovery');
-      $('[id="overtime_rate"]').attr('name', 'overtime_rate');
-      $('[id="total_working_hrs"]').attr('name', 'total_working_hrs');
-    }
-    // $('input:checkbox').not(this).attr('checked','checked');
-  });
-</script>
-
+<script src="{{asset('assets/js/attendance/attendance.js')}}"></script>
 @endsection

@@ -8,6 +8,7 @@ use App\Models\WorkOrder;
 use App\Models\WoContactDetail;
 use App\Models\Organization;
 use App\Models\State;
+use App\Models\City;
 use App\Models\Project;
 use Throwable;
 use ZipArchive;
@@ -133,9 +134,10 @@ class WorkOrderController extends Controller
         // dd($project);
 
         $organization = Organization::select('id','name')->orderBy('id','desc')->get();
-        $state = State::select('id','state')->orderBy('id','asc')->get('stateid');
+        $states = State::select('id', 'state')->orderBy('state')->where('country_id', 1)->get();
+       
         $projects = project::select('id','project_name')->orderBy('id','desc')->get();
-        return view("hr.workOrder.add-work-order",compact('organization','state','project','projects'));
+        return view("hr.workOrder.add-work-order",compact('organization','states','project','projects'));
     }
     public function store(Request $request){
             $request->validate([
@@ -174,12 +176,14 @@ class WorkOrderController extends Controller
             $workOrder->wo_amount = $request->amount;
             $workOrder->wo_project_coordinator = $request->coordinator_name;
             $workOrder->wo_invoice_address = $request->invoice_address;
-
-        
             $workOrder->wo_invoice_name = $request->invoice_client_name;
 
-            $workOrder->wo_state = $request->invoice_state;
-            $workOrder->wo_pin = $request->invoice_pin;
+            $workOrder->wo_state = $request->state;
+            $workOrder->wo_pin = $request->pincode;
+
+            $workOrder->wo_invoice_state = $request->invoice_state;
+            $workOrder->wo_invoice_city = $request->invoice_city;
+            $workOrder->wo_invoice_pincode = $request->invoice_pin;
             $workOrder->amendment_number = $request->amendment_number;
             $workOrder->amendment_date = $request->amendment_date;
             $workOrder->previous_order_no = $request->prev_order_no;
@@ -216,9 +220,15 @@ class WorkOrderController extends Controller
        
         $workOrder = WorkOrder::with('project.organizations','contacts')->findOrFail($id);
         $organization = Organization::orderBy('id','desc')->get();
-        $state = State::select('id','state')->orderBy('id','asc')->get();
+        $states = State::select('id', 'state')->orderBy('state')->where('country_id', 1)->get();
+        $wo_state =$workOrder->wo_state??NULL;
+        $cities=" ";
+        if(!empty($wo_state)){
+           $cities = City::select('id', 'city_name')->orderBy('city_name')->where('state_code',$wo_state)->get();
+        }
+        // dd($workOrder->wo_city);
         $projects = project::select('id','project_name')->orderBy('id','desc')->get();
-        return view("hr.workOrder.edit-work-order",compact('workOrder','organization','state','projects'));
+        return view("hr.workOrder.edit-work-order",compact('workOrder','organization','states','projects','cities'));
     
     }
     public function update(Request $request,string $id){
@@ -260,17 +270,20 @@ class WorkOrderController extends Controller
             $workOrder->wo_amount = $request->amount;
             $workOrder->wo_project_coordinator = $request->coordinator_name;
             $workOrder->wo_invoice_address = $request->invoice_address;
-
-        
             $workOrder->wo_invoice_name = $request->invoice_client_name;
 
-            $workOrder->wo_state = $request->invoice_state;
-            $workOrder->wo_pin = $request->invoice_pin;
+            $workOrder->wo_state = $request->state;
+            $workOrder->wo_pin = $request->pincode;
+
+            $workOrder->wo_invoice_state = $request->invoice_state;
+            $workOrder->wo_invoice_city = $request->invoice_city;
+            $workOrder->wo_invoice_pincode = $request->invoice_pin;
             $workOrder->amendment_number = $request->amendment_number;
             $workOrder->amendment_date = $request->amendment_date;
             $workOrder->previous_order_no = $request->prev_order_no;
             $workOrder->wo_remarks = $request->remarks;
             $workOrder->wo_attached_file = $fileName??NULL;
+          
             $workOrder->save();
            
                 $contactsData = $request->c_person_name;

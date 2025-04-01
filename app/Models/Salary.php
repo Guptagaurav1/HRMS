@@ -39,4 +39,10 @@ class Salary extends Model
         
     }
 
+
+    public function woAttendance()
+    {
+        return $this->belongsTo(WoAttendance::class, 'sl_emp_code', 'emp_code');
+    }
+
 }
