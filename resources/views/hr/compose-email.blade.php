@@ -1,6 +1,5 @@
 @extends('layouts.master', ['title' => 'Compose Mail'])
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
 @endsection
 
@@ -21,7 +20,7 @@
                 </div>
                 
                 <div class="card-body">
-                    <form class="form" method="post" action="{{route('compose')}}" enctype="multipart/form-data">
+                    <form class="form compose-email">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 mb-1">
@@ -35,7 +34,7 @@
                             <div class="col-md-6 mb-1">
                                 <label for="to" class="form-label">To</label>
                                 <input type="text" class="form-control"  name="to"
-                                    placeholder="Enter recipient email" value="{{old('to')}}" required>
+                                    placeholder="Enter comma seperated recipient email" value="{{old('to')}}" required>
                                 @error('to')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
@@ -59,7 +58,7 @@
                             <div class="col-md-12">
                                 <label for="body" class="form-label">Message / Query</label>
                                 <textarea class="form-control" name="body" rows="6" id="body"
-                                    placeholder="Write your message here" required>{{old('body')}}</textarea>
+                                    placeholder="Write your message here">{{old('body')}}</textarea>
                                 @error('body')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror

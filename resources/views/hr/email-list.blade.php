@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'Mail Logs'])
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
@@ -83,7 +81,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$email->to_mail}}</td>
                             <td>{{$email->subject}}</td>
-                            <td>{{$email->content}}</td>
+                            <td>{!! $email->content !!}</td>
                             <td>{{$email->cc}}</td>
                             <td>{{$email->attatchment}}</td>
                             <td>{{date('d M Y', strtotime($email->created_at))}}</td>
@@ -104,8 +102,3 @@
 </div>
 @endsection
 
-@section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
-@endsection

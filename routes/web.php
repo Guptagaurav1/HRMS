@@ -48,6 +48,7 @@ use App\Http\Controllers\master\CompanyController;
 
 // Define Employee Controllers
 use App\Http\Controllers\employee\ProfileController as EmployeeProfileController;
+use App\Http\Controllers\employee\EmployeeLeaveController;
 
 
 
@@ -113,6 +114,9 @@ Route::middleware('all')->prefix('user')->group(function () {
         Route::get('compose-email', 'compose')->name('compose-email');
         Route::post('send-email', 'send_mail')->name('compose');
         Route::get("mail-logs", 'mail_log')->name("email-list");
+    });
+    Route::controller(HolidayController::class)->prefix('leave')->group(function () {
+        Route::get("holidays", 'index')->name("holiday-list");
     });
 });
 
@@ -182,7 +186,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     });
 
     Route::controller(HolidayController::class)->prefix('leave')->group(function () {
-        Route::get("/", 'index')->name("holiday-list");
+        // Route::get("/", 'index')->name("holiday-list");
         Route::get("request-list", 'leave_requests')->name("applied-request-list");
         Route::get("leave-regularization", 'leave_regularization')->name("leave-regularization");
         Route::post('request-details', 'leave_details');
@@ -546,6 +550,7 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     Route::controller(EmployeeProfileController::class)->prefix('profile')->group(function (){
         Route::get("myprofile", 'show_profile')->name("employee.myprofile");
         Route::post("add-certificate", 'save_certificates');
+        Route::post("update-image", 'update_image');
     });
     Route::controller(ProfileController::class)->prefix('profile')->group(function () {
         Route::get('modify-profile', 'profile_update_request')->name("profile.modify-profile-request");
@@ -553,17 +558,19 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         Route::get("profile-update-request-list", 'request_list')->name("profile.profile-detail-request-list");
     });
     
-    Route::get("employee-compose-email", function () {
-        return view("employee.employee-compose-email");
-    })->name("employee-compose-email");
+    Route::controller(EmployeeLeaveController::class)->prefix('leave')->group(function(){
+        Route::get("leave-request", 'leave_request')->name("leave.leave_request");
+    });
 
-    Route::get("employee-holiday-list", function () {
-        return view("employee.employee-holiday-list");
-    })->name("employee-holiday-list");
+    // Route::get("employee-compose-email", function () {
+    //     return view("employee.employee-compose-email");
+    // })->name("employee-compose-email");
 
-    Route::get("employee-apply-leave-request", function () {
-        return view("employee.employee-apply-leave-request");
-    })->name("employee-apply-leave-request");
+    // Route::get("employee-holiday-list", function () {
+    //     return view("employee.employee-holiday-list");
+    // })->name("employee-holiday-list");
+
+
 
     Route::get("employee-reimbursement-list", function () {
         return view("employee.employee-reimbursement-list");

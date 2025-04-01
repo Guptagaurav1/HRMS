@@ -1349,6 +1349,7 @@ class EmployeeController extends Controller
 
 
             } elseif ($organisation == 'GNGPL (Goa Natural Gas Pvt.Ltd)') {
+               
                 $template = AppointmentFormat::select('format', 'format_2')->where(['type' => 'appointment', 'name' => 'GNGPL'])->firstOrFail();
                 $message = $template->format;
                 $message_2 = $template->format_2;
@@ -1384,6 +1385,7 @@ class EmployeeController extends Controller
                 $data->wo_valid =  $wo_valid_upto;
 
             } else {
+               
                 $template = AppointmentFormat::select('format', 'format_2')->where(['type' => 'appointment', 'name' => 'BECIL'])->firstOrFail();
                 $message = $template->format;
                 $message_2 = $template->format_2;

@@ -892,8 +892,10 @@
                                     class="nav-icon"><i class="fa-solid fa-user"></i></span> <span
                                     class="sidebar-txt">Profile</span></a>
                             <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+                                @if (auth('employee')->user()->hasPermission('employee.myprofile'))
                                 <li class="sidebar-dropdown-item"><a href="{{ route('employee.myprofile') }}"
                                         class="sidebar-link">My Account</a></li>
+                                    @endif
                                 @if (auth('employee')->user()->hasPermission('profile.modify-profile-request'))
                                     <li class="sidebar-dropdown-item"><a
                                             href="{{ route('profile.modify-profile-request') }}"
@@ -940,11 +942,18 @@
                                     class="nav-icon"><i class="fa-solid fa-business-time"></i></span> <span
                                     class="sidebar-txt">Leave</span></a>
                             <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                <li class="sidebar-dropdown-item"><a href="{{ route('employee-holiday-list') }}"
+                                {{-- <li class="sidebar-dropdown-item"><a href="{{ route('employee-holiday-list') }}"
+                                        class="sidebar-link">Holiday List</a></li> --}}
+                                        @if (auth('employee')->user()->hasPermission('holiday-list'))
+                                <li class="sidebar-dropdown-item"><a href="{{ route('holiday-list') }}"
                                         class="sidebar-link">Holiday List</a></li>
+                                        @endif
+
+                                        @if (auth('employee')->user()->hasPermission('leave.leave_request'))
                                 <li class="sidebar-dropdown-item"><a
-                                        href="{{ route('employee-apply-leave-request') }}" class="sidebar-link">Apply
+                                        href="{{ route('leave.leave_request') }}" class="sidebar-link">Apply
                                         Leave</a></li>
+                                        @endif
                                 <li class="sidebar-dropdown-item"><a
                                         href="{{ route('employee-applied-request-list') }}"
                                         class="sidebar-link">Applied Request List</a></li>

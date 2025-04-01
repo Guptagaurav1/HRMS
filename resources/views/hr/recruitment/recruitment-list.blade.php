@@ -22,8 +22,10 @@
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-primary mt-2">CSV</button>
                             </form>
+
+                            {{-- Not Necessary to add - commented by vikas --}}
                             {{-- @if(auth()->user()->hasPermission('addnew-candidate')) --}}
-                                <a href="{{route('addnew-candidate')}}" class="btn btn-sm btn-primary mt-2 mx-2">Back</a>
+                                {{-- <a href="{{route('addnew-candidate')}}" class="btn btn-sm btn-primary mt-2 mx-2">Back</a> --}}
                             {{-- @endif --}}
                         </div>
 

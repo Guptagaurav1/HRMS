@@ -72,11 +72,14 @@ class HelpdeskController extends Controller
             ]);
             Mail::to($to)->cc($cc)->send(new ComposeMail($maildata));
             DB::commit();
-        return redirect()->route('email-list')->with(['success' => true, 'message' => 'Mail Sent Successfully']);
+        // return redirect()->route('email-list')->with(['success' => true, 'message' => 'Mail Sent Successfully']);
+        return response()->json(['success' => true, 'message' => 'Mail Sent Successfully']);
         }
         catch(Throwable $th){
             DB::rollBack();
-         return redirect()->route('email-list')->with(['error' => true, 'message' => 'Server Error']);
+        //  return redirect()->route('email-list')->with(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => 'Server Error']);
+
         }
   
     } 

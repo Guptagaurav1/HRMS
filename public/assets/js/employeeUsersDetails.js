@@ -73,4 +73,52 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Upload the image.
+    $("form.img-upload").submit(function(event) {
+        event.preventDefault();
+        $(this).find("button.submit").attr('disabled', 'disabled');
+        Swal.fire({
+            title: "Updating...",
+            didOpen: () => {
+              Swal.showLoading();
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+        let formData = new FormData(this);
+        $.ajax({
+            url: SITE_URL+'/employee/profile/update-image',
+            type: 'POST',
+            dataType : 'json',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                Swal.hideLoading();
+                if (response.success) {
+                    Swal.fire({
+                        title: "Congratulations!",
+                        text: response.message,
+                        icon: "success",
+                        allowOutsideClick: () => false
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                          window.location.reload();
+                        }
+                    });
+                }
+                else if(response.error) {
+                    $(this).find("button.submit").removeAttr('disabled');
+                    Swal.hideLoading();
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: response.message,
+                        allowOutsideClick: () => false
+                    });
+                }
+            }
+        });
+    });
 });
