@@ -44,7 +44,7 @@ class MenuSeeder extends Seeder
 
             // me Team list
 
-            ['mid' => 'M-18', 'section' => 'My Team', 'section_icon' => '', 'name' => 'My Team List', 'page' => ' my-team-list', 'status' => '1', 'parent_id' => '6'],
+            ['mid' => 'M-18', 'section' => 'My Team', 'section_icon' => '', 'name' => 'My Team List', 'page' => 'my-team-list', 'status' => '1', 'parent_id' => '6'],
 
             // Leave
 
@@ -215,6 +215,9 @@ class MenuSeeder extends Seeder
 
             ['mid' => 'M-113', 'section' => 'Master', 'section_icon' => '', 'name' => 'Company List', 'page' => 'company.list', 'status' => '1', 'parent_id' => '28'],
             ['mid' => 'M-114', 'section' => 'Master', 'section_icon' => '', 'name' => 'Add Company', 'page' => 'company.create', 'status' => '1', 'parent_id' => '28'],
+
+            // organization 
+            ['mid' => 'M115', 'section' => 'Master', 'section_icon' => '', 'name' => 'Organizations Details', 'page' => 'organizations.show', 'status' => '1', 'parent_id' => '4'],
 
 
 

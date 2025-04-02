@@ -10,6 +10,8 @@ use App\Models\DepartmentSkill;
 use App\Models\User;
 use App\Models\CompanyMaster;
 use App\Models\Role;
+use App\Models\ReportingManager;
+use App\Models\Qualification;
 
 
 class HrController extends Controller
@@ -57,8 +59,31 @@ class HrController extends Controller
             //     'status' => $row['status'] ?? null,
             //     'created_at' => $row['created'] ?? null,
             //     'updated_at' => $row['created'] ?? null,
-            //     'company_id' => $row['company_id'] === "NULL" ?  : $row['company_id'],
+            //     // 'company_id' => $row['company_id'] === "NULL" ?  : $row['company_id'],
             // ]);
+
+
+
+            // department
+
+            // Department::create([
+            //     'id' => $row['id'],
+            //     'department' => $row['department'],
+            //     // 'reporting_manager_id' => $row['status'],
+            //     'status' => $row['status'],
+            // ]);
+
+            //reporting Manager
+
+            // ReportingManager::create([
+            //     'email' =>  $row['email'],
+            //     'name' =>  $row['name'],
+            //     'designation' =>  $row['designation'],
+            //     'access_emp_code' =>  $row['access_emp_code'],
+            //     'status' =>  $row['status']
+            // ]);
+
+
 
             // company Master
 
@@ -96,14 +121,24 @@ class HrController extends Controller
 
             // add record in roles table 
 
-            Role::create([
-                'id' => $row['id'],
-                'rid' => $row['rid'],
-                'role_name' => $row['role_name'],
-                'menu_id' => $row['roles_assigned'],
-                'status' => $row['status'],
-                'created_at' => $row['time_stamp']
-            ]);
+            // Role::create([
+            //     'id' => $row['id'],
+            //     'rid' => $row['rid'],
+            //     'role_name' => $row['role_name'],
+            //     'menu_id' => $row['roles_assigned'],
+            //     'status' => $row['status'],
+            //     'created_at' => $row['time_stamp']
+            // ]);
+
+            // qualification
+
+            Qualification::create([
+                    'id' => $row['id'],
+                    'qualification' => $row['qualification'],
+                    'status' => $row['status'],
+                    'created_at' => $row['add_time']
+                ]);
+
         }
         fclose($handle);
         return back()->with('success', 'CSV Imported Successfully!');

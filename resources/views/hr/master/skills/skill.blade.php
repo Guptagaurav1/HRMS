@@ -21,7 +21,15 @@
                     </a>
                 </div>
             </div>
+          
             <div class="row">
+                <div class="col-md-12">
+                    <div class="text-end px-2 mt-3">
+                        <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary">Add
+                                Skills <i class="fa-solid fa-plus"></i></button></a>
+                    </div>
+                </div>
+
                 @if($message = Session::get('success'))
                 <div class="col-md-12">
                     <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
@@ -44,20 +52,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </div>
-            @endif
-
-              
-
-            </div>
-            <div class="row">
-
-
-                <div class="col-md-12">
-                    <div class="text-end px-2 mt-3">
-                        <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary">Add
-                                Skills <i class="fa-solid fa-plus"></i></button></a>
-                    </div>
-                </div>
+                @endif
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                         id="allEmployeeTable">
