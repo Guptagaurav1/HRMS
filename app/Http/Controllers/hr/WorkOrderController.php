@@ -14,6 +14,7 @@ use Throwable;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -107,7 +108,7 @@ class WorkOrderController extends Controller
                     });
             });
         }
-        $totalWorkOrders = $totalWorkOrders->orderBy('id', 'desc')->paginate(10);
+        $totalWorkOrders = $totalWorkOrders->orderBy('id', 'desc')->paginate(25);
     
         // Add contact details for each work order
         foreach ($totalWorkOrders as $key => $value) {
@@ -158,7 +159,7 @@ class WorkOrderController extends Controller
         }
         
         try {   
-            
+            DB::beginTransaction();
             $workOrder = new WorkOrder();
             $workOrder->wo_internal_ref_no = $request->internal_reference;
             $workOrder->project_id = $request->project_name;
@@ -189,6 +190,7 @@ class WorkOrderController extends Controller
             $workOrder->previous_order_no = $request->prev_order_no;
             $workOrder->wo_remarks = $request->remarks;
             $workOrder->wo_attached_file = $fileName;
+            // dd($workOrder);
            
             $workOrder->save();
           
@@ -207,10 +209,11 @@ class WorkOrderController extends Controller
                     $woContactDetail->save();
                 }
             }
-
-            return redirect()->route('work-order-list')->with('success','WorkOrder created !');
+            DB::commit();
+            return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'WorkOrder created successfully.']); 
         }catch(Throwable $th){
-                return response()->json(['error' => true, 'message' => 'Server Error.']); 
+            DB::rollBack();
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
         }
 
        
@@ -240,6 +243,7 @@ class WorkOrderController extends Controller
             'wo_number' => ['required',Rule::unique('work_orders')->whereNull('deleted_at')->ignore($id)],
         ]);
         try {   
+            DB::beginTransaction();
             $workOrder= WorkOrder::find($id);
             
             // update attechment of workorder
@@ -314,9 +318,15 @@ class WorkOrderController extends Controller
                  
                }
 
-            return redirect()->route('work-order-list')->with('success','WorkOrder updated !');
+        //     return redirect()->route('work-order-list')->with('success','WorkOrder updated !');
+        // }catch(Throwable $th){
+        //         return response()->json(['error' => true, 'message' => 'Server Error.']); 
+        // }
+            DB::commit();
+            return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'WorkOrder updated successfully.']); 
         }catch(Throwable $th){
-                return response()->json(['error' => true, 'message' => 'Server Error.']); 
+            DB::rollBack();
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
         }
     }
     public function show(String $id){

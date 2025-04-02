@@ -654,6 +654,10 @@
                                         class="sidebar-txt">Leave</span></a>
                                 <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                                     @if (auth()->user()->hasPermission('holiday-list'))
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('emp-leaves') }}"
+                                                class="sidebar-link">Leave List</a></li>
+                                    @endif
+                                    @if (auth()->user()->hasPermission('holiday-list'))
                                         <li class="sidebar-dropdown-item"><a href="{{ route('holiday-list') }}"
                                                 class="sidebar-link">Holiday List</a></li>
                                     @endif

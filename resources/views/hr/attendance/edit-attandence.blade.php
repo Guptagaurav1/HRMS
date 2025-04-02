@@ -26,15 +26,16 @@
                     @csrf
                     <div class="panel-body">
                         <div class="row g-3">
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Epm. Code </label>
+                                <input type="tel" name="emp_code" readonly class="form-control form-control-sm" value="{{$wo_attendance->emp_code}}" >
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Designation <span class="text-danger"></label>
+                                <input type="text" name="designation" readonly class="form-control form-control-sm" value="{{$wo_attendance->designation}}">
+                            </div>
                             
-                            <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label class="form-label">Designation <span class="text-danger">*</span></label>
-                                <input type="text" name="designation" class="form-control form-control-sm" value="{{$wo_attendance->designation}}">
-                            </div>
-                            <div class="col-xxl-3 col-lg-6 col-sm-6">
-                                <label class="form-label">CTC <span class="text-danger">*</span></label>
-                                <input type="tel" name="ctc" class="form-control form-control-sm" value="{{$wo_attendance->ctc}}" >
-                            </div>
+                            
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
                                 <label for="inputDate" class="form-label">Approve Leave</label>
                                 <input type="text" name="lwp_leave" class="form-control" id="inputDate" value="{{$wo_attendance->lwp_leave}}">
@@ -43,6 +44,22 @@
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
                                 <label class="form-label">LWP <span class="text-danger">*</span></label>
                                 <input type="text" name="approve_leave" class="form-control form-control-sm" value="{{$wo_attendance->approve_leave}} ">
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Advance <span class="text-danger">*</span></label>
+                                <input type="text" name="advance" class="form-control form-control-sm" value="{{$wo_attendance->advance}} ">
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Recovery <span class="text-danger">*</span></label>
+                                <input type="text" name="recovery" class="form-control form-control-sm" value="{{$wo_attendance->recovery}} ">
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Overtime Rate <span class="text-danger">*</span></label>
+                                <input type="text" name="overtime_rate" class="form-control form-control-sm" value="{{$wo_attendance->overtime_rate}} ">
+                            </div>
+                            <div class="col-xxl-3 col-lg-6 col-sm-6">
+                                <label class="form-label">Total Working Hrs <span class="text-danger">*</span></label>
+                                <input type="text" name="total_working_hrs" class="form-control form-control-sm" value="{{$wo_attendance->total_working_hrs}} ">
                             </div>
                             
                 

@@ -14,6 +14,8 @@ use Carbon\Carbon;
 use App\Models\EmpAccountDetail;
 use App\Models\EmpPersonalDetail;
 use App\Models\EmpAddressDetail;
+use Throwable;
+
 
 class AttendanceController extends Controller
 {
@@ -62,7 +64,7 @@ class AttendanceController extends Controller
                                 ->orWhere('emp_designation', 'like', '%' . $search . '%');
                         });
                     });
-                  $wo_emps=  $wo_query->paginate(10);
+                  $wo_emps=  $wo_query->paginate(25);
                   $totalRecords = $wo_query->count();
                  
             }else{
@@ -95,7 +97,7 @@ class AttendanceController extends Controller
                                 ->orWhere('emp_designation', 'like', '%' . $search . '%');
                         });
                     });
-                    $wo_emps= $wo_query->paginate(10);
+                    $wo_emps= $wo_query->paginate(25);
                     // ->appends(request()->query());
                     $totalRecords = $wo_query->count();
             }
@@ -266,162 +268,170 @@ class AttendanceController extends Controller
         if(empty($check_emps)){
             return redirect()->route('wo-sal-attendance')->with('error','Please checked the checkbox before submit attendance.');
         }
-        foreach($check_emps as $key => $check_emp){
+        try{
+            DB::beginTransaction();
+            foreach($check_emps as $key => $check_emp){
+            
+                $userId = auth()->id();
+                $attendance = $request->month_date; 
+                $attendance_month = Carbon::parse($attendance)->format('F Y');
+            
+                $at_appr_leave = $request->at_appr_leave_check[$key]??NULL;
+                $lwp_leave = $request->lwp_leave_check[$key]??NULL;
+                $sal_emp_doj = $request->sa_emp_doj_check[$key]??NULL;
+                $sal_basic = $request->sal_basic_check[$key]??NULL;
+
+                $sal_pf_employee = $request->sal_pf_employee_check[$key]??NULL;
+                $sal_hra = $request->sal_hra_check[$key]??NULL;
+                $sal_esi_employee = $request->sal_esi_employee_check[$key]??NULL;
+                $sal_pf_wages = $request->emp_pf_wages_check[$key]??NULL;
+                $sal_conveyance = $request->sal_conveyance_check[$key]??NULL;
+                $medical_allowance = $request->medical_allowance_check[$key]??NULL;
+                $sal_special_allowance = $request->sal_special_allowance_check[$key]??NULL;
+                $overtime_rate = $request->overtime_rate_check[$key]??NULL;
+                $total_working_hrs = $request->total_working_hrs_check[$key]??NULL;
+
+                $sa_emp_dor = $request->sa_emp_dor_check[$key]??NULL;
+                $medical_insurance_ctc = $request->medical_insurance_ctc_check[$key]??NULL;
+                $accident_insurance_ctc = $request->accident_insurance_ctc_check[$key]??NULL;
+                $sal_esi_wages = $request->emp_esi_wages_check[$key]??NULL;
+                $sal_medical_insurance = $request->emp_medical_insurance_check[$key]??NULL;
+                $sal_accidental_insurance = $request->emp_accidental_insurance_check[$key]??NULL;
+                $sal_tax = $request->sal_tax_check[$key]??NULL;
+                $tds_deduction = $request->tds_deduction_check[$key]??NULL;
+                $sal_recovery = $request->recovery_check[$key]??NULL;
+                $sal_advance = $request->advance_check[$key]??NULL;
+            
+            
+                $year_day = date('Y', strtotime($attendance_month));
+                $month_day = date('m', strtotime($attendance_month));
+                $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month_day, $year_day);
+                // dd($lwp_leave);
+                if ($at_appr_leave > $lwp_leave) {
+                $gap_in_service =  0;
+                $working_days = $days_in_month - $gap_in_service; //calculate working days
         
-            $userId = auth()->id();
-            $attendance = $request->month_date; 
-            $attendance_month = Carbon::parse($attendance)->format('F Y');
-           
-            $at_appr_leave = $request->at_appr_leave_check[$key]??NULL;
-            $lwp_leave = $request->lwp_leave_check[$key]??NULL;
-            $sal_emp_doj = $request->sa_emp_doj_check[$key]??NULL;
-            $sal_basic = $request->sal_basic_check[$key]??NULL;
-
-            $sal_pf_employee = $request->sal_pf_employee_check[$key]??NULL;
-            $sal_hra = $request->sal_hra_check[$key]??NULL;
-            $sal_esi_employee = $request->sal_esi_employee_check[$key]??NULL;
-            $sal_pf_wages = $request->emp_pf_wages_check[$key]??NULL;
-            $sal_conveyance = $request->sal_conveyance_check[$key]??NULL;
-            $medical_allowance = $request->medical_allowance_check[$key]??NULL;
-            $sal_special_allowance = $request->sal_special_allowance_check[$key]??NULL;
-            $overtime_rate = $request->overtime_rate_check[$key]??NULL;
-            $total_working_hrs = $request->total_working_hrs_check[$key]??NULL;
-
-            $sa_emp_dor = $request->sa_emp_dor_check[$key]??NULL;
-            $medical_insurance_ctc = $request->medical_insurance_ctc_check[$key]??NULL;
-            $accident_insurance_ctc = $request->accident_insurance_ctc_check[$key]??NULL;
-            $sal_esi_wages = $request->emp_esi_wages_check[$key]??NULL;
-            $sal_medical_insurance = $request->emp_medical_insurance_check[$key]??NULL;
-            $sal_accidental_insurance = $request->emp_accidental_insurance_check[$key]??NULL;
-            $sal_tax = $request->sal_tax_check[$key]??NULL;
-            $tds_deduction = $request->tds_deduction_check[$key]??NULL;
-            $sal_recovery = $request->recovery_check[$key]??NULL;
-            $sal_advance = $request->advance_check[$key]??NULL;
-           
-           
-            $year_day = date('Y', strtotime($attendance_month));
-            $month_day = date('m', strtotime($attendance_month));
-            $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month_day, $year_day);
-            // dd($lwp_leave);
-            if ($at_appr_leave > $lwp_leave) {
-              $gap_in_service =  0;
-              $working_days = $days_in_month - $gap_in_service; //calculate working days
-      
-            } 
-            else {
-              $gap_in_service = $lwp_leave - $at_appr_leave; //get actual leave without wallet leave
-              $working_days = $days_in_month - $gap_in_service; //calculate working days 
-      
-            }
-            //calculate working days end
-            //calculate actual salary in month
-            $date = date_parse($attendance_month);
-            $month = $date['month'];
-            $year = $date['year'];
-      
-            $start_date = date("Y-m-d", strtotime($month . "/01/" . $year));
-            // $last_date = date("Y-m-d", strtotime($month . "/" . $days . "/" . $year));
-            $last_date = date("Y-m-d", strtotime($month . "/" . "31" . "/" . $year));
-           
-            if (($sal_emp_doj >= $start_date) && ($sal_emp_doj <= $last_date)) {
-              $from = changeSqlToUser_DateFromat($sal_emp_doj);
-            } else {
-              $from = changeSqlToUser_DateFromat($start_date);
-            }
-           
-            if (($sa_emp_dor >= $start_date) && ($sa_emp_dor <= $last_date)) {
-              $to = changeSqlToUser_DateFromat($sa_emp_dor);
-            } else {
-              $to = changeSqlToUser_DateFromat($last_date);
-            }
+                } 
+                else {
+                $gap_in_service = $lwp_leave - $at_appr_leave; //get actual leave without wallet leave
+                $working_days = $days_in_month - $gap_in_service; //calculate working days 
+        
+                }
+                //calculate working days end
+                //calculate actual salary in month
+                $date = date_parse($attendance_month);
+                $month = $date['month'];
+                $year = $date['year'];
+        
+                $start_date = date("Y-m-d", strtotime($month . "/01/" . $year));
+                // $last_date = date("Y-m-d", strtotime($month . "/" . $days . "/" . $year));
+                $last_date = date("Y-m-d", strtotime($month . "/" . "31" . "/" . $year));
             
-            $sal_basic = round($sal_basic * $working_days / $days_in_month);
-            $sal_pf_employee = round(($sal_pf_employee * $working_days) / $days_in_month);
-           
-            $sal_hra = round($sal_hra * $working_days / $days_in_month);
-            $sal_esi_employee = round(($sal_esi_employee * $working_days) / $days_in_month);
-            // $sal_esi_employee = round($sal_esi_employee);
+                if (($sal_emp_doj >= $start_date) && ($sal_emp_doj <= $last_date)) {
+                $from = changeSqlToUser_DateFromat($sal_emp_doj);
+                } else {
+                $from = changeSqlToUser_DateFromat($start_date);
+                }
             
-            $sal_pf_wages = round($sal_pf_wages * $working_days / $days_in_month);
-            $sal_conveyance = round($sal_conveyance * $working_days / $days_in_month);
-            $medical_allowance = round($medical_allowance * $working_days / $days_in_month);
-            $sal_special_allowance = round($sal_special_allowance * $working_days / $days_in_month);
-            //deduction
-      
-            //overtime
-            $total_overtime_allowance =round($overtime_rate * $total_working_hrs);
-            if(isset($total_overtime_allowance) && !empty ($total_overtime_allowance))
-            {
-               $new_overtime_allowance = $total_overtime_allowance;
-            }
-            else {
-              $new_overtime_allowance= 0;
-            }
-      
-            $sal_gross = $sal_basic + $sal_hra + $sal_conveyance + $medical_allowance + $sal_special_allowance + $new_overtime_allowance - $medical_insurance_ctc - $accident_insurance_ctc;
+                if (($sa_emp_dor >= $start_date) && ($sa_emp_dor <= $last_date)) {
+                $to = changeSqlToUser_DateFromat($sa_emp_dor);
+                } else {
+                $to = changeSqlToUser_DateFromat($last_date);
+                }
+                
+                $sal_basic = round($sal_basic * $working_days / $days_in_month);
+                $sal_pf_employee = round(($sal_pf_employee * $working_days) / $days_in_month);
             
-            if($sal_esi_wages > 0){
-              $sal_esi_wages = $sal_gross;
-            }
-          
-            $sal_total_deduction =  $sal_pf_employee + $sal_esi_employee +$sal_medical_insurance + $sal_accidental_insurance+ $sal_tax + $tds_deduction;
-            $sal_net = $sal_gross - $sal_total_deduction - $sal_recovery - $sal_advance;
-           
-            $at_emp = $check_emp."". $attendance_month;
-            $workOrder_id =$request->work_order;
-            $workOrder= WorkOrder::find($workOrder_id);
-            $wo_number= $workOrder->wo_number??NULL;
-            $EmpSalarySlip = new EmpSalarySlip();
-           
-            $EmpSalarySlip->work_order = $wo_number; 
-            $EmpSalarySlip->sal_emp_code = $request->emp_code_check[$key]??NULL; 
+                $sal_hra = round($sal_hra * $working_days / $days_in_month);
+                $sal_esi_employee = round(($sal_esi_employee * $working_days) / $days_in_month);
+                // $sal_esi_employee = round($sal_esi_employee);
+                
+                $sal_pf_wages = round($sal_pf_wages * $working_days / $days_in_month);
+                $sal_conveyance = round($sal_conveyance * $working_days / $days_in_month);
+                $medical_allowance = round($medical_allowance * $working_days / $days_in_month);
+                $sal_special_allowance = round($sal_special_allowance * $working_days / $days_in_month);
+                //deduction
+        
+                //overtime
+                $total_overtime_allowance =round($overtime_rate * $total_working_hrs);
+                if(isset($total_overtime_allowance) && !empty ($total_overtime_allowance))
+                {
+                $new_overtime_allowance = $total_overtime_allowance;
+                }
+                else {
+                $new_overtime_allowance= 0;
+                }
+        
+                $sal_gross = $sal_basic + $sal_hra + $sal_conveyance + $medical_allowance + $sal_special_allowance + $new_overtime_allowance - $medical_insurance_ctc - $accident_insurance_ctc;
+                
+                if($sal_esi_wages > 0){
+                $sal_esi_wages = $sal_gross;
+                }
             
-            $EmpSalarySlip->wo_attendance_at_emp = $at_emp??NULL; 
-            $EmpSalarySlip->sal_emp_name = $request->sal_emp_email_check[$key]??NULL; 
-            $EmpSalarySlip->sal_emp_email = $request->sal_emp_email_check[$key]??NULL; 
-            $EmpSalarySlip->sal_month = $attendance_month; 
-            $EmpSalarySlip->sal_pf_number = $sal_pf_employee; 
-            $EmpSalarySlip->sal_working_days = $working_days; 
-            $EmpSalarySlip->sal_esi_number = $request->emp_esi_no_check[$key]??NULL; 
+                $sal_total_deduction =  $sal_pf_employee + $sal_esi_employee +$sal_medical_insurance + $sal_accidental_insurance+ $sal_tax + $tds_deduction;
+                $sal_net = $sal_gross - $sal_total_deduction - $sal_recovery - $sal_advance;
+            
+                $at_emp = $check_emp."". $attendance_month;
+                $workOrder_id =$request->work_order;
+                $workOrder= WorkOrder::find($workOrder_id);
+                $wo_number= $workOrder->wo_number??NULL;
+                $EmpSalarySlip = new EmpSalarySlip();
+            
+                $EmpSalarySlip->work_order = $wo_number; 
+                $EmpSalarySlip->sal_emp_code = $request->emp_code_check[$key]??NULL; 
+                
+                $EmpSalarySlip->wo_attendance_at_emp = $at_emp??NULL; 
+                $EmpSalarySlip->sal_emp_name = $request->sal_emp_email_check[$key]??NULL; 
+                $EmpSalarySlip->sal_emp_email = $request->sal_emp_email_check[$key]??NULL; 
+                $EmpSalarySlip->sal_month = $attendance_month; 
+                $EmpSalarySlip->sal_pf_number = $sal_pf_employee; 
+                $EmpSalarySlip->sal_working_days = $working_days; 
+                $EmpSalarySlip->sal_esi_number = $request->emp_esi_no_check[$key]??NULL; 
 
-            $EmpSalarySlip->sal_aadhar_no = $request->emp_aadhaar_no_check[$key]??NULL;
-            $EmpSalarySlip->sal_pan_no = $request->emp_pan_check[$key]??NULL;
-            $EmpSalarySlip->sal_designation = $request->emp_designation_check[$key]??NULL;
-            $EmpSalarySlip->sal_bank_name = $request->emp_bank_check[$key]??NULL;
-            $EmpSalarySlip->sal_account_no = $request->emp_account_no_check[$key]??NULL; 
-            $EmpSalarySlip->sal_uan_no = $request->emp_pf_no_check[$key]??NULL;
-            $EmpSalarySlip->emp_sal_ctc = $request->sal_ctc_check[$key]??NULL; 
+                $EmpSalarySlip->sal_aadhar_no = $request->emp_aadhaar_no_check[$key]??NULL;
+                $EmpSalarySlip->sal_pan_no = $request->emp_pan_check[$key]??NULL;
+                $EmpSalarySlip->sal_designation = $request->emp_designation_check[$key]??NULL;
+                $EmpSalarySlip->sal_bank_name = $request->emp_bank_check[$key]??NULL;
+                $EmpSalarySlip->sal_account_no = $request->emp_account_no_check[$key]??NULL; 
+                $EmpSalarySlip->sal_uan_no = $request->emp_pf_no_check[$key]??NULL;
+                $EmpSalarySlip->emp_sal_ctc = $request->sal_ctc_check[$key]??NULL; 
 
-            $EmpSalarySlip->sal_basic = $sal_basic; 
-            $EmpSalarySlip->sal_hra = $sal_hra; 
-            $EmpSalarySlip->sal_conveyance = $sal_conveyance; 
-            $EmpSalarySlip->sal_special_allowance = $sal_special_allowance; 
-            $EmpSalarySlip->sal_medical_allowance = $medical_allowance; 
-            $EmpSalarySlip->sal_gross = $sal_gross; 
-            $EmpSalarySlip->sal_net = $sal_net; 
-            $EmpSalarySlip->sal_pf_employee = $sal_pf_employee; 
-            $EmpSalarySlip->sal_esi_employee = $sal_esi_employee; 
-            $EmpSalarySlip->sal_recovery = $sal_recovery; 
-            $EmpSalarySlip->sal_pf_wages = $sal_pf_wages; 
-            $EmpSalarySlip->sal_esi_wages = $sal_esi_wages; 
-            $EmpSalarySlip->sal_advance = $sal_advance; 
-            $EmpSalarySlip->sal_medical_insurance = $sal_medical_insurance; 
-            $EmpSalarySlip->sal_accident_insurance = $attendance_month; 
-            $EmpSalarySlip->tds_deduction = $tds_deduction; 
-            $EmpSalarySlip->sal_tax = $sal_tax; 
-            $EmpSalarySlip->sal_medical_insurance_ctc = $medical_insurance_ctc; 
-            $EmpSalarySlip->sal_accident_insurance_ctc = $accident_insurance_ctc; 
-            $EmpSalarySlip->sal_group_medical = '0'; 
-            $EmpSalarySlip->sal_total_deduction = $sal_total_deduction; 
-            $EmpSalarySlip->sal_doj = $sal_emp_doj; 
-            $EmpSalarySlip->total_overtime_allowance = $total_overtime_allowance; 
-             
-            $EmpSalarySlip->sal_remarks = $request->remarks_check[$key]??NULL; 
-            $EmpSalarySlip->user_id = $userId;
-            $EmpSalarySlip->save();
-        }
+                $EmpSalarySlip->sal_basic = $sal_basic; 
+                $EmpSalarySlip->sal_hra = $sal_hra; 
+                $EmpSalarySlip->sal_conveyance = $sal_conveyance; 
+                $EmpSalarySlip->sal_special_allowance = $sal_special_allowance; 
+                $EmpSalarySlip->sal_medical_allowance = $medical_allowance; 
+                $EmpSalarySlip->sal_gross = $sal_gross; 
+                $EmpSalarySlip->sal_net = $sal_net; 
+                $EmpSalarySlip->sal_pf_employee = $sal_pf_employee; 
+                $EmpSalarySlip->sal_esi_employee = $sal_esi_employee; 
+                $EmpSalarySlip->sal_recovery = $sal_recovery; 
+                $EmpSalarySlip->sal_pf_wages = $sal_pf_wages; 
+                $EmpSalarySlip->sal_esi_wages = $sal_esi_wages; 
+                $EmpSalarySlip->sal_advance = $sal_advance; 
+                $EmpSalarySlip->sal_medical_insurance = $sal_medical_insurance; 
+                $EmpSalarySlip->sal_accident_insurance = $attendance_month; 
+                $EmpSalarySlip->tds_deduction = $tds_deduction; 
+                $EmpSalarySlip->sal_tax = $sal_tax; 
+                $EmpSalarySlip->sal_medical_insurance_ctc = $medical_insurance_ctc; 
+                $EmpSalarySlip->sal_accident_insurance_ctc = $accident_insurance_ctc; 
+                $EmpSalarySlip->sal_group_medical = '0'; 
+                $EmpSalarySlip->sal_total_deduction = $sal_total_deduction; 
+                $EmpSalarySlip->sal_doj = $sal_emp_doj; 
+                $EmpSalarySlip->total_overtime_allowance = $total_overtime_allowance; 
+                
+                $EmpSalarySlip->sal_remarks = $request->remarks_check[$key]??NULL; 
+                $EmpSalarySlip->user_id = $userId;
+                $EmpSalarySlip->save();
+            }
      
-        return redirect()->route('wo-generate-salary',compact('attendance_month','workOrder'))->with('success','Salary Slip Calculated Successfully');
+            // return redirect()->route('wo-generate-salary',compact('attendance_month','workOrder'))->with('success','Salary Slip Calculated Successfully');
+            DB::commit();
+            return redirect()->route('salary-slip')->with(['success' => true, 'message' => 'WorkOrder created successfully.']); 
+        }catch(Throwable $th){
+            DB::rollBack();
+            return redirect()->route('wo-sal-attendance')->with(['error' => true, 'message' => 'Server Error.']);
+        }
     }
 
     // current active employee salary save list
@@ -445,7 +455,6 @@ class AttendanceController extends Controller
         ->paginate(10)
         ->appends(request()->query());
         
-        //  dd($wo_emps[0]->empDetail);
         return view("hr.attendance.wo-generate-salary-list",compact('wo_emps','wo_number','m_y'));
     }
 
@@ -589,7 +598,7 @@ class AttendanceController extends Controller
                 });
             });
         }
-        $wo_attendances = $wo_attendances->paginate(10);
+        $wo_attendances = $wo_attendances->paginate(25);
     //    dd($wo_attendances[0]->empDetail);
         foreach ($wo_attendances as $key => $attendance) {
             $year_day = date('Y', strtotime($attendance->attendance_month));
@@ -621,7 +630,7 @@ class AttendanceController extends Controller
     // edit attendance code start here
     public function edit_attendance(Request $request){
         $id = $request->id;
-        $wo_attendance = WoAttendance::select('designation','approve_leave','lwp_leave','ctc')->where('id',$id)->first();
+        $wo_attendance = WoAttendance::select('emp_code','wo_number','designation','approve_leave','lwp_leave','ctc','recovery','advance','overtime_rate','total_working_hrs')->where('id',$id)->first();
         return view("hr.attendance.edit-attandence",compact('wo_attendance','id'));
     }
     // edit attendance code end here
@@ -631,10 +640,14 @@ class AttendanceController extends Controller
         $id= $request->id;
         $attendance= WoAttendance::find($id);
         $attendance->update([
-            'designation' => $request->designation,
+            // 'designation' => $request->designation,
             'approve_leave' => $request->approve_leave,
             'lwp_leave' => $request->lwp_leave,
-            'ctc' => $request->ctc,
+            'advance' => $request->advance,
+            'recovery' => $request->recovery,
+            'overtime_rate' => $request->overtime_rate,
+            'total_working_hrs' => $request->total_working_hrs,
+            
         ]);
        return redirect()->route('attendance-list')->with('success','Attendance Updated Successfully !');
     }

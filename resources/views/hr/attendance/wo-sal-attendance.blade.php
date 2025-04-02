@@ -175,10 +175,10 @@
                                             <td>{{$wo_emp->empDetail->emp_place_of_posting}}</td>
                                             <td>{{$wo_emp->empDetail->emp_designation}}</td>
                                             <td><input type="text" name="remarks" placeholder="Enter Remarks" value="{{$wo_emp->remark}}"></td>
-                                            <td><input type="number" step="0.01" min="0" name="advance"  value="{{ $wo_emp->advance }}" ></td>
-                                            <td><input type="number" step="0.01" min="0" name="recovery"  value="{{ $wo_emp->recovery }}"></td>
-                                            <td><input type="number" step="0.01" min="0" name="overtime_rate"  value="{{ $wo_emp->overtime_rate }}"></td>
-                                            <td><input type="number" step="0.01" min="0" name="total_working_hrs"  value="{{ $wo_emp->total_working_hrs }}"></td>
+                                            <td><input type="number" step="0.01" min="0" name="advance"  readonly value="{{ $wo_emp->advance }}" ></td>
+                                            <td><input type="number" step="0.01" min="0" name="recovery" readonly value="{{ $wo_emp->recovery }}"></td>
+                                            <td><input type="number" step="0.01" min="0" name="overtime_rate" readonly  value="{{ $wo_emp->overtime_rate }}"></td>
+                                            <td><input type="number" step="0.01" min="0" name="total_working_hrs" readonly value="{{ $wo_emp->total_working_hrs }}"></td>
                                             
                                             <input type="hidden" name="emp_medical_insurance" id="emp_medical_insurance" value="{{ $wo_emp->salary->medical_insurance }}">
                                             <input type="hidden" name="emp_accidental_insurance" id="emp_accidental_insurance" value="{{ $wo_emp->salary->accident_insurance }}">

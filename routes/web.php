@@ -41,6 +41,7 @@ use App\Http\Controllers\hr\EmployeeController;
 
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\hr\ProfileController;
+use App\Http\Controllers\hr\LeaveController;
 
 use App\Http\Controllers\vms\VendorController;
 use App\Http\Controllers\master\CompanyController;
@@ -411,6 +412,10 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get('posh-complaint-list', 'complaint_list')->name("posh.complaint-list");
         Route::post('view-complaint', 'complaint_details');
         Route::post('complaint-response', 'response');
+    });
+
+    Route::controller(LeaveController::class)->prefix('leaves')->group(function () {
+        Route::get('emp-leaves', 'index')->name("emp-leaves");
     });
 
    

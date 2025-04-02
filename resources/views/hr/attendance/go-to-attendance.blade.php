@@ -143,7 +143,7 @@
                                     <th>Bank Name / Account No</th>
                                     <th>Joining Date</th>
                                     <th>Status</th>
-                                    <th>DOL</th>
+                                    <th>DOR</th>
                                     <th>Posting Place</th>
                                     <th>Designation</th>
                                     <th>Remarks</th>
@@ -163,8 +163,8 @@
                                             <td><input  type="checkbox" name="check[]" value="{{ $wo_emp->id??NULL}}"></td>
                                             <td>{{$wo_emp->emp_code??NULL}}</td>
                                             <td>{{$wo_emp->emp_name??NULL}}</td>
-                                            <td><input type="number" step="0.01" name="at_appr_leave" id="at_appr_leave" min="0" max="31" value=""></td>
-                                            <td><input type="number" step="0.01" name="leave" id="leave" min="0" max="31"></td>
+                                            <td><input type="number" step="0.01" name="at_appr_leave" id="at_appr_leave" min="0" max="31" value="0"></td>
+                                            <td><input type="number" step="0.01" name="leave" id="leave" min="0" max="31" value="0"></td>
                                             <td><input type="number" step="0.01" name="no_of_work_days" id="no_of_work_days" value="0" min="0"></td>
                                             <td title="Gender">{{$wo_emp->getPersonalDetail->emp_gender??NULL}}</td>
                                             <td>{{$wo_emp->getBankDetail->getBankData->name_of_bank}} \{{$wo_emp->getBankDetail->emp_account_no}}</td>
@@ -179,10 +179,10 @@
                                             <td>{{$wo_emp->emp_place_of_posting}}</td>
                                             <td>{{$wo_emp->emp_designation}}</td>
                                             <td><input type="text" name="remarks" id="remarks" placeholder="Enter Remarks" value=""></td>
-                                            <td><input type="number" name="advance" id="advance"></td>
-                                            <td><input type="number" name="recovery" id="recovery" ></td>
-                                            <td><input type="number" name="overtime_rate" id="overtime_rate"></td>
-                                            <td><input type="number" name="total_working_hrs" id="total_working_hrs"></td>
+                                            <td><input type="number" name="advance" id="advance" value="0"></td>
+                                            <td><input type="number" name="recovery" id="recovery" value="0"></td>
+                                            <td><input type="number" name="overtime_rate" id="overtime_rate" value="0"></td>
+                                            <td><input type="number" name="total_working_hrs" id="total_working_hrs" value="0"></td>
                                             
                                            
                                            

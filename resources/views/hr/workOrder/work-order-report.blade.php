@@ -6,13 +6,14 @@
         <!-- Invoice Header -->
         <div class="invoice-header text-start">
             <img src="https://prakharsoftwares.com/assets/images/prakhar_updated_logo.png" alt="Logo" class="logo" width="200">  
+           
         </div>
 
         <div class="text-center mt-1">
             <h4>Work Order Report</h4>
         </div>
 
-        <!-- Alert Messages -->
+       
         <div class="row px-3 mt-2">
             @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
