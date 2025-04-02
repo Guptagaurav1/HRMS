@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EmpDetail extends Authenticatable
 {
@@ -113,7 +113,7 @@ class EmpDetail extends Authenticatable
      * Get Bank Details.
      */ 
     public function getBankDetail(): HasOne{
-        return $this->hasOne(EmpAccountDetail::class, 'emp_code', 'emp_code')->select('bank_id', 'emp_account_no', 'emp_branch', 'emp_ifsc', 'emp_pan', 'emp_esi_no', 'emp_pf_no', 'emp_salary', 'emp_sal_structure_status','emp_unit')->with('getBankData');
+        return $this->hasOne(EmpAccountDetail::class, 'emp_code', 'emp_code')->select('bank_id', 'emp_account_no', 'emp_branch', 'emp_ifsc', 'emp_pan', 'emp_esi_no', 'emp_pf_no', 'emp_salary', 'emp_sal_structure_status', 'emp_unit')->with('getBankData');
     }
 
     public function woAttendance()
@@ -126,4 +126,33 @@ class EmpDetail extends Authenticatable
         return $this->hasMany(Form16::class, 'emp_id', 'id');
     }
 
+    /**
+     * Get Certificate Details.
+     */ 
+    public function getCertificateDetail(): HasMany{
+        return $this->hasMany(EmpCertificateDetail::class, 'emp_code', 'emp_code')->select('certificate_name', 'duration', 'grade');
+    }
+
+    /**
+     * Check user has permission or not.
+     */
+    public function hasPermission($routeName)
+    {
+        $user = auth('employee')->user();
+        if (!$user) {
+            return false; 
+        }
+        $menu = Menu::where('page', $routeName)->first();
+        if (!$menu) {
+            return false; 
+        }
+        $role = Role::select('menu_id')->where('id', $user->role_id)->first();
+        if (!$role || !$role->menu_id) {
+            return false; // Role not found or no menu assigned
+        }
+        // Ensure we compare against menu IDs, not route names
+        $menuIdExplode = explode(',', $role->menu_id);
+        return in_array($menu->id, $menuIdExplode);
+    
+    }
 }

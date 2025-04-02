@@ -35,7 +35,7 @@ class VendorController extends Controller
             });
         }
 
-        $vendors = $vendors->paginate(20)->withQueryString();
+        $vendors = $vendors->orderByDesc('id')->paginate(20)->withQueryString();
 
         return view("vms.vendors.lists-vendor", compact('vendors', 'search'));
     }
@@ -46,9 +46,9 @@ class VendorController extends Controller
     public function create()
     {
         //fetch roles to show in add vendor page
-        $roles = Role::where('role_name', 'VMS-Vendor')->orderBy('id', 'desc')->get();
+        $role = Role::where('role_name', 'VMS-Vendor')->orderBy('id', 'desc')->first();
         $companies = Company::select('id', 'name')->orderByDesc('id')->get();
-        return view("vms.vendors.add-vendor", compact('roles', 'companies'));
+        return view("vms.vendors.add-vendor", compact('role', 'companies'));
     }
 
     /**

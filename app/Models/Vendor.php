@@ -10,9 +10,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Vendor extends Model
 {
     use HasFactory, SoftDeletes;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'vms_vendors';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['user_id', 'address'];
 
+    /**
+     * Store user id on create, update or delete
+     *
+     */
     public static function boot()
     {
         parent::boot();

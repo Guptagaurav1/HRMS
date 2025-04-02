@@ -17,7 +17,13 @@ class HelpdeskController extends Controller
      * Show the form for compose mail.
     */
     public function compose(Request $request){
-        return view("hr.compose-email"); 
+        if (auth()->check()){
+            $email = auth()->user()->email;
+        }
+        if (auth('employee')->check()){
+            $email = auth('employee')->user()->emp_email_first;
+        }
+        return view("hr.compose-email", compact('email')); 
     } 
 
     /**
@@ -66,20 +72,28 @@ class HelpdeskController extends Controller
             ]);
             Mail::to($to)->cc($cc)->send(new ComposeMail($maildata));
             DB::commit();
-        return redirect()->route('email-list')->with(['success' => true, 'message' => 'Mail Sent Successfully']);
+        // return redirect()->route('email-list')->with(['success' => true, 'message' => 'Mail Sent Successfully']);
+        return response()->json(['success' => true, 'message' => 'Mail Sent Successfully']);
         }
         catch(Throwable $th){
             DB::rollBack();
-         return redirect()->route('email-list')->with(['error' => true, 'message' => 'Server Error']);
+        //  return redirect()->route('email-list')->with(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => 'Server Error']);
+
         }
   
     } 
 
     /**
-     * 
+     * Show send mails.
     */
     public function mail_log(Request $request){
-        $usermail = auth()->user()->email;
+        if (auth()->check()){
+            $usermail = auth()->user()->email;
+        }
+        if (auth('employee')->check()){
+            $usermail = auth('employee')->user()->emp_email_first;
+        }
        $emails = EmailHistory::where('from_mail', $usermail);
         $search = '';
         if ($request->search) {

@@ -23,10 +23,10 @@
 <div style="margin: 0px 30px; font-size:14px;">
     <p style="text-align: center;"><strong><em><u>Appointment Letter</u></em></strong></p>
 
-    <p><samp>Date - <strong>{{ today_date }}</strong><br />
-            Dear&nbsp;<strong>{{ candidate_name }},</strong><br />
-            Employee Code: <strong>{{ emp_code }}</strong><br />
-            Date of joining: <strong>{{ doj }}</strong></samp></p>
+    <p><samp>Date - <strong>{{ $empdetails->today_date }}</strong><br />
+            Dear&nbsp;<strong>{{ $empdetails->candidate_name }},</strong><br />
+            Employee Code: <strong>{{ $empdetails->emp_code }}</strong><br />
+            Date of joining: <strong>{{ $empdetails->doj }}</strong></samp></p>
 
     <p><em>With reference to your application and subsequent discussion, it gives us immense pleasure to offer you an
             appointment in <strong>Prakhar Software Solutions Pvt Ltd.</strong></em></p>
@@ -39,10 +39,10 @@
 
     <ol>
         <li><em>We are pleased to inform you that you have been selected for the post of
-            </em><strong>{{ designation }}</strong> <em>for one of our esteemed clients.</em></li>
+            </em><strong>{{ $empdetails->designation }}</strong> <em>for one of our esteemed clients.</em></li>
         <li><em>Your &ldquo;Annual compensation&rdquo; is attached herewith as in Annexure-A</em></li>
         <li><em>Your employment with us will be governed by terms and conditions referred in Annexure-B </em></li>
-        <li><em>Your services are effective from {{ doj }} to {{ doe }}.</em>
+        <li><em>Your services are effective from {{ $empdetails->doj }} to {{ $empdetails->doe }}.</em>
         </li>
         <li><em>Please sign in the duplicate copy of this letter (Photocopy enclosed) on all the sheets at the bottom on
                 the left corner, and return to the Human resource Department of our Corporate Office at Delhi.</em></li>
@@ -56,7 +56,7 @@
         <tbody>
             <tr>
                 <td colspan="4">
-                    <p><samp><strong>Annual Cost to Company&nbsp; {{ sal_ctc }}*12 = {{ ctc_pa }} Lakh
+                    <p><samp><strong>Annual Cost to Company&nbsp; {{ $empdetails->sal_ctc }}*12 = {{ $empdetails->ctc_pa }} Lakh
                                 PA</strong></samp>
                     </p>
                 </td>
@@ -69,53 +69,53 @@
             </tr>
             <tr>
                 <td style="width:128px"><samp>Basic</samp></td>
-                <td style="width:186px"><samp>{{ basic }}</samp></td>
+                <td style="width:186px"><samp>{{ $empdetails->basic }}</samp></td>
                 <td style="width:159px"><samp>PF(Employee)</samp></td>
-                <td style="width:133px"><samp>{{ sal_pf_emmployee }}</samp></td>
+                <td style="width:133px"><samp>{{ $empdetails->sal_pf_emmployee }}</samp></td>
             </tr>
             <tr>
                 <td style="width:128px"><samp>HRA</samp></td>
-                <td style="width:186px"><samp>{{ hra }}</samp></td>
+                <td style="width:186px"><samp>{{ $empdetails->hra }}</samp></td>
                 <td style="width:159px"><samp>ESI(Employee)</samp></td>
-                <td style="width:133px"><samp>{{ sal_esi_employee }}</samp></td>
+                <td style="width:133px"><samp>{{ $empdetails->sal_esi_employee }}</samp></td>
             </tr>
             <tr>
                 <td style="width:128px"><samp>Conveyance</samp></td>
-                <td style="width:186px"><samp>{{ conveyance }}</samp></td>
+                <td style="width:186px"><samp>{{ $empdetails->conveyance }}</samp></td>
                 <td style="width:159px"><samp>Medical Insurance</samp></td>
-                <td style="width:133px"><samp>{{ sal_medical_ins }}</samp></td>
+                <td style="width:133px"><samp>{{ $empdetails->sal_medical_ins }}</samp></td>
             </tr>
             <tr>
                 <td style="width:128px"><samp>Telephone Allowance</samp></td>
-                <td style="width:186px"><samp>{{ sal_telephone }}</samp></td>
+                <td style="width:186px"><samp>{{ $empdetails->sal_telephone }}</samp></td>
                 <td style="width:159px">&nbsp;</td>
                 <td style="width:133px">&nbsp;</td>
             </tr>
             <tr>
                 <td style="width:128px"><samp>Medical Allowance</samp></td>
-                <td style="width:186px"><samp>{{ sal_pa }}</samp></td>
+                <td style="width:186px"><samp>{{ $empdetails->sal_pa }}</samp></td>
                 <td style="width:159px">&nbsp;</td>
                 <td style="width:133px">&nbsp;</td>
             </tr>
             <tr>
                 <td style="width:128px"><em>Special Allowance</em></td>
-                <td style="width:186px"><samp>{{ sal_special_allowance }}</samp></td>
+                <td style="width:186px"><samp>{{ $empdetails->sal_special_allowance }}</samp></td>
                 <td style="width:159px">&nbsp;</td>
                 <td style="width:133px">&nbsp;</td>
             </tr>
             <tr>
                 <td style="width:128px"><samp>Total Earning</samp></td>
-                <td style="width:186px"><samp>{{ sal_gross }}</samp></td>
+                <td style="width:186px"><samp>{{ $empdetails->sal_gross }}</samp></td>
                 <td style="width:159px"><samp>Total Deduction</samp></td>
-                <td style="width:133px"><samp>{{ deduction }}</samp></td>
+                <td style="width:133px"><samp>{{ $empdetails->deduction }}</samp></td>
             </tr>
             <tr>
                 <td style="width:128px"><samp>Net Pay</samp></td>
-                <td colspan="3" style="width:479px"><samp>Rs.{{ sal_net }}</samp></td>
+                <td colspan="3" style="width:479px"><samp>Rs.{{ $empdetails->sal_net }}</samp></td>
             </tr>
             <tr>
                 <td style="width:128px"><samp>In words</samp></td>
-                <td colspan="3" style="width:479px"><samp>{{ word }}</samp></td>
+                <td colspan="3" style="width:479px"><samp>{{ $empdetails->word }}</samp></td>
             </tr>
         </tbody>
     </table>
@@ -124,11 +124,11 @@
         <tbody>
             <tr>
                 <td style="width:501px"><samp>Employer&rsquo;s Contribution to PF</samp></td>
-                <td style="width:106px"><samp>{{ sal_pf_employer }}</samp></td>
+                <td style="width:106px"><samp>{{ $empdetails->sal_pf_employer }}</samp></td>
             </tr>
             <tr>
                 <td style="width:501px"><samp>Employer&rsquo;s Contribution to ESI</samp></td>
-                <td style="width:106px"><samp>{{ sal_esi_employer }}</samp></td>
+                <td style="width:106px"><samp>{{ $empdetails->sal_esi_employer }}</samp></td>
             </tr>
         </tbody>
     </table>

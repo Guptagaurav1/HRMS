@@ -31,9 +31,21 @@ class HolidayController extends Controller
                 'holiday_type'
             ], 'LIKE', '%'.$request->search.'%');
         }
+        $dob = '';
+        $month = '';
+        $day = '';
+
         $holidays = $holidays->paginate(10);
 
-        return view("hr.leaves.holiday-list", compact('holidays', 'search'));
+        if (auth('employee')->check()) {
+            $user = EmpDetail::where('emp_code', auth('employee')->user()->emp_code)->first();
+            $dob = date('d-M-Y', strtotime($user->getPersonalDetail->emp_dob));
+            $month = date('F', strtotime($user->getPersonalDetail->emp_dob));
+            $day = date('l', strtotime($user->getPersonalDetail->emp_dob));
+
+        }
+
+        return view("hr.leaves.holiday-list", compact('holidays', 'search', 'dob', 'month', 'day'));
     }
 
     /**

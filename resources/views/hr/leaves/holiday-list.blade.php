@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'Holidays'])
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
 @endsection
 
@@ -36,23 +34,32 @@
                                 <th>Date</th>
                                 <th>Month</th>
                                 <th>Day</th>
-                                <th>Type</th>
+                                <th class="text-start">Type</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center">
+                        <tbody>
                             @forelse($holidays as $holiday)
                             <tr>
                                 <td>{{$holiday->holiday_name}}</td>
                                 <td>{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
                                 <td>{{date('F', strtotime($holiday->holiday_date))}}</td>
                                 <td>{{date('l', strtotime($holiday->holiday_date))}}</td>
-                                <td class="text-center">{{$holiday->holiday_type}}</td>
+                                <td>{{$holiday->holiday_type}}</td>
                             </tr>
                             @empty
                             <tr>
                                 <td class="text-danger text-center" colspan="5">No Record Found</td>
                             </tr>
                             @endforelse
+                            @if($day)
+                                <tr>
+                                    <td>Birthaday Leave</td>
+                                    <td>{{$dob}}</td>
+                                    <td>{{$month}}</td>
+                                    <td>{{$day}}</td>
+                                    <td>Not Specify</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

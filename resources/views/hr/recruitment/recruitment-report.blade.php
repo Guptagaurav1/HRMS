@@ -14,12 +14,12 @@
                     <h2 class="mt-2">Recruitment Report</h2>
                 </div>
                 <div class="row px-3 mb-3">
-                    
-                    @if(auth()->user()->hasPermission('addnew-candidate'))
+                    {{-- Need to remove candidate section --commented by vikas --}}
+                    {{-- @if(auth()->user()->hasPermission('addnew-candidate'))
                         <div class="col-md-12 d-flex justify-content-end mt-4">
                             <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">Add New Candidate <i class="fa-solid fa-plus"></i></button></a>
                         </div>
-                    @endif
+                    @endif --}}
 
                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -93,7 +93,7 @@
                                     <a href="{{route('show-assign-work-log', ['id' => $position->id])}}" class="text-primary">{{get_position_contacts($position->id)}} <span>Contacts</span></a>
                                 </td>
                                 <td class="text-center">{{date('jS F, Y', strtotime($position->created_at))}}</td>
-                                <td class="text-center">{{date('jS F, Y', strtotime($position->date_notified))}}</td>
+                                <td class="text-center">{{$position->date_notified ? date('jS F, Y', strtotime($position->date_notified)) : ''}}</td>
                                 <td class="text-center">{{$position->getCity &&  $position->getState ? $position->getCity->city_name." - ".$position->getState->state : '-'}}</td>
                                 <td class="text-center">{{get_username($position->assigned_executive)}}</td>
                                 <td class="text-center">{{$position->no_of_completed_requirements." / ".$position->no_of_requirements}}</td>
