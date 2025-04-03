@@ -450,8 +450,8 @@
                                     @if (auth()->user()->hasPermission('company.list'))
                                         {{-- <li class="sidebar-dropdown-item"><a href="{{ route('company-master') }}"
                                                 class="sidebar-link">Company Master</a></li> --}}
-                                                <li class="sidebar-dropdown-item"><a href="{{ route('company.list') }}"
-                                                    class="sidebar-link">Company</a></li>
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('company.list') }}"
+                                                class="sidebar-link">Company</a></li>
                                     @endif
 
                                     @if (auth()->user()->hasPermission('functional-role'))
@@ -628,7 +628,7 @@
                                 </ul>
                             </li>
                         @endif
-                        @if (auth()->user()->hasPermission('manage-roles') || auth()->user()->hasPermission('manage-roles'))
+                        @if (auth()->user()->hasPermission('manage-roles') || auth()->user()->hasPermission('add-user'))
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span
                                     class="nav-icon"><i class="fa-light fa-envelope-open-text"></i></span> <span
@@ -815,7 +815,7 @@
                         @endif
 
                         <ul class="sidebar-link-group">
-                            @if (auth()->user()->hasPermission('credential_log_list'))
+                            @if (auth()->user()->hasPermission('employee.sent-credentials-logs'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
                                         data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
@@ -851,8 +851,11 @@
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
                                         <li class="sidebar-dropdown-item"><a href="{{ route('vendors.index') }}"
                                                 class="sidebar-link">Vendors</a></li>
-                                        <li class="sidebar-dropdown-item"><a href=""
-                                                class="sidebar-link">Clients</a></li>
+                                        @if (auth()->user()->hasPermission('clients.index'))
+                                            <li class="sidebar-dropdown-item"><a href="{{ route('clients.index') }}"
+                                                    class="sidebar-link">Clients</a></li>
+                                        @endif
+
                                     </ul>
                                 </li>
                             @endif
@@ -877,7 +880,7 @@
                                     class="nav-icon"><i class="fa-solid fa-magnifying-glass"></i></span> <span
                                     class="sidebar-txt">Home</span></a>
                             <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                <li class="sidebar-dropdown-item"><a href="{{ route('position-request') }}"
+                                <li class="sidebar-dropdown-item"><a href="{{ route('employee_dashboard') }}"
                                         class="sidebar-link">Home</a></li>
 
                             </ul>
@@ -888,18 +891,26 @@
                                     class="nav-icon"><i class="fa-solid fa-user"></i></span> <span
                                     class="sidebar-txt">Profile</span></a>
                             <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                <li class="sidebar-dropdown-item"><a href="{{ route('employee-users-details') }}"
+                                @if (auth('employee')->user()->hasPermission('employee.myprofile'))
+                                <li class="sidebar-dropdown-item"><a href="{{ route('employee.myprofile') }}"
                                         class="sidebar-link">My Account</a></li>
-                                <li class="sidebar-dropdown-item"><a
-                                        href="{{ route('employee-modify-profile-request') }}"
-                                        class="sidebar-link">Modify Profile Request</a></li>
-                                <li class="sidebar-dropdown-item"><a
-                                        href="{{ route('employee-profile-detail-request-list') }}"
-                                        class="sidebar-link">Profile Request Log</a></li>
+                                    @endif
+                                @if (auth('employee')->user()->hasPermission('profile.modify-profile-request'))
+                                    <li class="sidebar-dropdown-item"><a
+                                            href="{{ route('profile.modify-profile-request') }}"
+                                            class="sidebar-link">Modify Profile Request</a></li>
+                                @endif
+                                @if (auth('employee')->user()->hasPermission('profile.profile-detail-request-list'))
+                                    <li class="sidebar-dropdown-item"><a
+                                            href="{{ route('profile.profile-detail-request-list') }}"
+                                            class="sidebar-link">Profile Request Log</a></li>
+                                @endif
+
+
 
                             </ul>
                         </li>
-                        <li class="sidebar-dropdown-item">
+                        {{-- <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span
                                     class="nav-icon"><i class="fa-solid fa-envelope"></i></span> <span
                                     class="sidebar-txt">Helpdesk</span></a>
@@ -908,8 +919,21 @@
                                         class="sidebar-link">Compose Mail</a></li>
 
                             </ul>
-                        </li>
+                        </li> --}}
 
+                        @if (auth('employee')->user()->hasPermission('compose-email'))
+                        <li class="sidebar-dropdown-item">
+                            <a role="button" class="sidebar-link has-sub"
+                                data-dropdown="ecommerceDropdown"><span class="nav-icon"><i
+                                        class="fa-solid fa-envelope"></i></span> <span
+                                    class="sidebar-txt">Helpdesk</span></a>
+                            <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+                                <li class="sidebar-dropdown-item"><a href="{{ route('compose-email') }}"
+                                        class="sidebar-link">Compose Mail</a></li>
+
+                            </ul>
+                        </li>
+                    @endif
 
 
                         <li class="sidebar-dropdown-item">
@@ -917,11 +941,18 @@
                                     class="nav-icon"><i class="fa-solid fa-business-time"></i></span> <span
                                     class="sidebar-txt">Leave</span></a>
                             <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                <li class="sidebar-dropdown-item"><a href="{{ route('employee-holiday-list') }}"
+                                {{-- <li class="sidebar-dropdown-item"><a href="{{ route('employee-holiday-list') }}"
+                                        class="sidebar-link">Holiday List</a></li> --}}
+                                        @if (auth('employee')->user()->hasPermission('holiday-list'))
+                                <li class="sidebar-dropdown-item"><a href="{{ route('holiday-list') }}"
                                         class="sidebar-link">Holiday List</a></li>
+                                        @endif
+
+                                        @if (auth('employee')->user()->hasPermission('leave.leave_request'))
                                 <li class="sidebar-dropdown-item"><a
-                                        href="{{ route('employee-apply-leave-request') }}" class="sidebar-link">Apply
+                                        href="{{ route('leave.leave_request') }}" class="sidebar-link">Apply
                                         Leave</a></li>
+                                        @endif
                                 <li class="sidebar-dropdown-item"><a
                                         href="{{ route('employee-applied-request-list') }}"
                                         class="sidebar-link">Applied Request List</a></li>
@@ -940,7 +971,7 @@
                         </li>
 
                         <ul class="sidebar-link-group">
-                            <li class="sidebar-dropdown-item">
+                            {{-- <li class="sidebar-dropdown-item">
                                 <a role="button" class="sidebar-link has-sub"
                                     data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
                                             class="fa-solid fa-right-from-bracket"></i></span> <span
@@ -952,7 +983,7 @@
                                             href="{{ route('reiembursement-list-employee') }}"
                                             class="sidebar-link">Reimbursement List</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="help-center">
                                 <h3>Help Center</h3>
                                 <p>We're an award-winning, forward thinking</p>

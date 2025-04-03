@@ -121,7 +121,7 @@
                                     <td>{{$company->email}}</td>
                                     <td>{{$company->address}}</td>
                                     <td>{{$company->registration_no}}</td>
-                                    <td>View</td>
+                                    <td><a href="{{route('company.view', ['id' => $company->id])}}" class="btn btn-primary text-light text-decoration-none">View</a></td>
                                    </tr>
                                 @empty
                                     <tr>

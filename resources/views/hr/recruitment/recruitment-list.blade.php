@@ -22,8 +22,10 @@
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-primary mt-2">CSV</button>
                             </form>
+
+                            {{-- Not Necessary to add - commented by vikas --}}
                             {{-- @if(auth()->user()->hasPermission('addnew-candidate')) --}}
-                                <a href="{{route('addnew-candidate')}}" class="btn btn-sm btn-primary mt-2 mx-2">Back</a>
+                                {{-- <a href="{{route('addnew-candidate')}}" class="btn btn-sm btn-primary mt-2 mx-2">Back</a> --}}
                             {{-- @endif --}}
                         </div>
 
@@ -135,7 +137,7 @@
                                         <td class="rid-column">{{$candidate->firstname." ".$candidate->lastname}}</td>
                                         <td>{{$candidate->email." / ".$candidate->phone}}</td>
                                         <td>{{$candidate->job_position}}</td>
-                                        <td>{{$candidate->id}}</td>
+                                        <td>{{$candidate->client_name}}</td>
                                         <td>{{$candidate->dob}}</td>
                                         <td>{{$candidate->location}}</td>
                                         <td>{{$candidate->experience}}</td>

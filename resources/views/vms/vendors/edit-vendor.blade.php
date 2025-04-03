@@ -14,6 +14,7 @@
         @csrf
         <div class="d-none">
             <input type="hidden" name="id" value="{{ $vendor->id }}">
+            <input type="hidden" name="role_id" value="{{ $role->id }}">
         </div>
         <div class="row">
             <div class="col-12">
@@ -24,18 +25,6 @@
 
                     <div class="panel-body">
                         <div class="row g-3">
-                            <div class="col-xxl-6 col-lg-6 col-sm-6">
-                                <label for="role_id" class="form-label">Select User Type <span class="text-danger"> **
-                                    </span></label>
-                                <select class="form-select" readonly>
-                                    <option value="{{ $role->id }}" selected>
-                                        {{ $role->role_name }}
-                                    </option>
-                                </select>
-                                @error('role_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
                             <div class="col-xxl-6 col-lg-6 col-sm-6">
                                 <label for="first_name" class="form-label">First Name <span class="text-danger"> **
                                     </span></label>

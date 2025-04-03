@@ -206,14 +206,14 @@
                                         @endif
                                         @if(auth()->user()->hasPermission('go-to-attendance'))
                                             <a href="{{route('go-to-attendance',$value->id)}}" class="btn btn-primary mb-3">
-                                                <span class="badge badge-primary">Go To Attendance <i
+                                                <span class="badge badge-primary">Attendance <i
                                                         class="fa-solid fa-clipboard-user"></i></span>
                                             </a>
                                         @endif
-                                            <br>
-                                        @if(auth()->user()->hasPermission('work-order-salary-sheet'))
-                                            <a href="{{route('work-order-salary-sheet')}}" class="btn btn-primary mb-3">
-                                                <span class="badge badge-primary">Go To Salary Sheet <i
+                                            
+                                        @if(auth()->user()->hasPermission('wo-sal-attendance'))
+                                            <a href="{{route('wo-sal-attendance')}}" class="btn btn-primary mb-3">
+                                                <span class="badge badge-primary">Salary <i
                                                         class="fa-solid fa-file-contract"></i></span>
                                             </a>
                                         @endif

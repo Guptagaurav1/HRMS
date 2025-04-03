@@ -24,10 +24,10 @@
 </div>
 <div style='margin: 50px;   font-size:14px;'>
     <p style='text-align: center;'><strong><em><u>Appointment Letter</u></em></strong></p>
-    <p><samp>Date - <strong>{{ today_date }}</strong><br />
-            Dear&nbsp;<strong>{{ candidate_name }},</strong><br />
-            Employee Code: <strong>{{ emp_code }}</strong><br />
-            Date of joining: <strong>{{ doj }}</strong></samp>
+    <p><samp>Date - <strong>{{ $empdetails->today_date }}</strong><br />
+            Dear&nbsp;<strong>{{ $empdetails->candidate_name }},</strong><br />
+            Employee Code: <strong>{{ $empdetails->emp_code }}</strong><br />
+            Date of joining: <strong>{{ $empdetails->doj }}</strong></samp>
     </p>
     <br>
     <p><em>With reference to your application and subsequent discussion, it gives us immense pleasure to offer you
@@ -44,12 +44,12 @@
     <p>Details of Terms and Conditions:</p>
     <ol>
         <li><em>We are pleased to inform you that you have been selected for the post of
-            </em><strong>{{ designation }}</strong>.
+            </em><strong>{{ $empdetails->designation }}</strong>.
         </li>
         <li><em>Your &ldquo;Annual compensation&rdquo; is attached herewith as in Annexure-A</em></li>
         <li><em>Your employment with us will be governed by terms and conditions referred in Annexure-B </em></li>
-        <li><em>Your services are effective from the date of your joining {{ doj }} to
-                {{ doe }}.</em>
+        <li><em>Your services are effective from the date of your joining {{ $empdetails->doj }} to
+                {{ $empdetails->doe }}.</em>
         </li>
         <li><em>Please sign in the duplicate copy of this letter (Photocopy enclosed) on all the sheets at the
                 bottom on
@@ -65,7 +65,8 @@
         <tbody>
             <tr>
                 <td colspan='4'>
-                    <p><samp><strong>Annual Cost to Company&nbsp; {{ sal_ctc }}*12 = {{ ctc_pa }} Lakh
+                    <p><samp><strong>Annual Cost to Company&nbsp; {{ $empdetails->sal_ctc }}*12 =
+                                {{ $empdetails->ctc_pa }} Lakh
                                 PA</strong></samp>
                     </p>
                 </td>
@@ -78,51 +79,51 @@
             </tr>
             <tr>
                 <td style='width:150px'><samp>Basic</samp></td>
-                <td style='width:150px'><samp>{{ basic }}</samp></td>
+                <td style='width:150px'><samp>{{ $empdetails->basic }}</samp></td>
                 <td style='width:150px'><samp>PF(Employee)</samp></td>
-                <td style='width:150px'><samp>{{ sal_pf_emmployee }}</samp></td>
+                <td style='width:150px'><samp>{{ $empdetails->sal_pf_emmployee }}</samp></td>
             </tr>
             <tr>
                 <td style='width:150px'><samp>HRA</samp></td>
-                <td style='width:150px'><samp>{{ hra }}</samp></td>
+                <td style='width:150px'><samp>{{ $empdetails->hra }}</samp></td>
                 <td style='width:150px'><samp>ESI(Employee)</samp></td>
-                <td style='width:150px'><samp>{{ sal_esi_employee }}</samp></td>
+                <td style='width:150px'><samp>{{ $empdetails->sal_esi_employee }}</samp></td>
             </tr>
             <tr>
                 <td style='width:150px'><samp>Transportation Allowance</samp></td>
-                <td style='width:150px'><samp>{{ conveyance }}</samp></td>
+                <td style='width:150px'><samp>{{ $empdetails->conveyance }}</samp></td>
                 <td style='width:150px'><samp>&nbsp;</samp></td>
                 <td style='width:150px'><samp>&nbsp;</samp></td>
             </tr>
             <tr>
                 <td style='width:150px'><samp><strong>Gross</strong></samp></td>
-                <td style='width:150px'><samp><strong>{{ sal_gross }}</strong></samp></td>
+                <td style='width:150px'><samp><strong>{{ $empdetails->sal_gross }}</strong></samp></td>
                 <td style='width:150px'><samp><strong>Total Deduction</strong></samp></td>
-                <td style='width:150px'><samp><strong>{{ deduction }} </strong></samp></td>
+                <td style='width:150px'><samp><strong>{{ $empdetails->deduction }} </strong></samp></td>
             </tr>
             <tr>
                 <td style='width:150px'>PF (Employer)</td>
-                <td style='width:150px'>{{ sal_pf_employer }}</td>
+                <td style='width:150px'>{{ $empdetails->sal_pf_employer }}</td>
                 <td style='width:150px'>&nbsp;</td>
                 <td style='width:150px'>&nbsp;</td>
             </tr>
             <tr>
                 <td style='width:100px'><em>ESI (Employer)</em></td>
-                <td style='width:100px'><samp>{{ sal_esi_employer }}</samp></td>
+                <td style='width:100px'><samp>{{ $empdetails->sal_esi_employer }}</samp></td>
                 <td style='width:100px'>&nbsp;</td>
                 <td style='width:100px'>&nbsp;</td>
             </tr>
             <tr>
                 <td style='width:100px'><em>Ex-gratia in lieu of bonus</em></td>
-                <td style='width:100px'><samp>{{ bonus }}</samp></td>
+                <td style='width:100px'><samp>{{ $empdetails->bonus }}</samp></td>
                 <td style='width:100px'>&nbsp;</td>
                 <td style='width:100px'>&nbsp;</td>
             </tr>
             <tr>
                 <td style='width:100px'><strong>(CTC)</strong></td>
-                <td style='width:100px'><strong>{{ sal_ctc }}</strong></td>
+                <td style='width:100px'><strong>{{ $empdetails->sal_ctc }}</strong></td>
                 <td style='width:100px'><strong> Net Pay</strong></td>
-                <td style='width:100px'><strong>Rs.{{ sal_net }}</strong></td>
+                <td style='width:100px'><strong>Rs.{{ $empdetails->sal_net }}</strong></td>
             </tr>
         </tbody>
     </table>

@@ -12,6 +12,9 @@
     </div>
     <form action="{{ route('vendors.save') }}" method="post">
         @csrf
+        <d class="d-none">
+            <input type="hidden" name="role_id" value="{{ $role->id }}">
+        </d>
         <div class="row">
             <div class="col-12">
                 <div class="panel">
@@ -21,20 +24,6 @@
                 
                         <div class="panel-body">
                             <div class="row g-3">
-                                <div class="col-xxl-6 col-lg-6 col-sm-6">
-                                    <label for="role_id" class="form-label">Select User Type <span class="text-danger"> ** </span></label>
-                                    <select id="role_id" name="role_id" class="form-select">
-                                            @foreach($roles as $role)
-                                            <option value="{{ $role->id }}" 
-                                                @if ($role->id == old('role')) selected @endif>
-                                                {{ $role->role_name }}
-                                            </option>
-                                            @endforeach
-                                    </select>
-                                    @error('role_id')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
                                 <div class="col-xxl-6 col-lg-6 col-sm-6">
                                     <label for="first_name" class="form-label">First Name <span class="text-danger"> ** </span></label>
                                     <input type="text" name="first_name" class="form-control form-control-sm" value="{{ old('first_name') }}" maxlength="20" required>

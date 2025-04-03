@@ -6,7 +6,7 @@
 <div class="fluid-container">
     <form method="post" action="{{ route('store-manage-role') }}">
     @csrf
-        <div class="row" style="background-color:white; height: 100vh;">
+        <div class="row" >
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">

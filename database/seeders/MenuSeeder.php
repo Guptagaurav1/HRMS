@@ -140,6 +140,7 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-76', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Birthday Wish Log', 'page' => 'events.birthday-list', 'status' => '1', 'parent_id' => '17'],
             ['mid' => 'M-77', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Work Anniversary Wish Log', 'page' => 'events.work-anniversary-list', 'status' => '1', 'parent_id' => '17'],
 
+
             //Logs
 
             ['mid' => 'M-78', 'section' => 'Response Log', 'section_icon' => '', 'name' => 'Employee Profile Response Log', 'page' => 'employee-profile-response-log', 'status' => '1', 'parent_id' => '18'],
@@ -219,9 +220,17 @@ class MenuSeeder extends Seeder
             // organization 
             ['mid' => 'M115', 'section' => 'Master', 'section_icon' => '', 'name' => 'Organizations Details', 'page' => 'organizations.show', 'status' => '1', 'parent_id' => '4'],
 
+            // VMS Clients
 
+            ['mid' => 'M-115', 'section' => 'VMS', 'section_icon' => '', 'name' => 'Clients', 'page' => 'clients.index', 'status' => '1', 'parent_id' => '27'],
 
+            // Employee Details
+            ['mid' => 'M-116', 'section' => 'Employee Details', 'section_icon' => '', 'name' => 'Employee Details', 'page' => 'employee-month-salary-slip', 'status' => '1', 'parent_id' => '29'],
+            ['mid' => 'M-117', 'section' => 'Employee Details', 'section_icon' => '', 'name' => 'Employee Profile', 'page' => 'employee.myprofile', 'status' => '1', 'parent_id' => '29'],
 
+            ['mid' => 'M-118', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Credentials Logs', 'page' => 'employee.sent-credentials-logs', 'status' => '1', 'parent_id' => '18'],
+
+            ['mid' => 'M-119', 'section' => 'Leave', 'section_icon' => '', 'name' => 'Apply Leave', 'page' => 'leave.leave_request', 'status' => '1', 'parent_id' => '7'],
         ];
 
         foreach ($data as $routeData) {

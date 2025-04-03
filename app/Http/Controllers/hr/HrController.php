@@ -12,6 +12,10 @@ use App\Models\CompanyMaster;
 use App\Models\Role;
 use App\Models\ReportingManager;
 use App\Models\Qualification;
+use App\Models\State;
+use App\Models\City;
+use App\Models\FunctionalRole;
+use App\Models\AppointmentFormat;
 
 
 class HrController extends Controller
@@ -132,13 +136,56 @@ class HrController extends Controller
 
             // qualification
 
-            Qualification::create([
-                    'id' => $row['id'],
-                    'qualification' => $row['qualification'],
-                    'status' => $row['status'],
-                    'created_at' => $row['add_time']
-                ]);
+            // Qualification::create([
+            //         'id' => $row['id'],
+            //         'qualification' => $row['qualification'],
+            //         'status' => $row['status'],
+            //         'created_at' => $row['add_time']
+            //     ]);
 
+            // Import State data
+
+                // State::create([
+                //     'id' => $row['id'],
+                //     'country_id ' => $row['country_id'],
+                //     'state' => $row['state'],
+                //     'state_code' => $row['state_code'],
+                //     'slug' => $row['slug'],
+                //     // 'created_at' =>  Carbon::parse($row['created_at']),
+                //     // 'updated_at' =>  Carbon::parse($row['updated_at']),
+                //     // 'deleted_at' =>  Carbon::parse($row['deleted_at']) ?? NULL
+                // ]);
+
+
+            // Import City
+
+                // City::create([
+                //     'id' => $row['id'],
+                //     'city_name' => $row['city_name'],
+                //     'city_code' => $row['city_code'],
+                //     'state_code' => $row['state_code']
+                // ]);
+
+            //   import functional role
+
+            // FunctionalRole::create([
+            //     'id' => $row['id'],
+            //     'role' => $row['role'],
+            //     'status' => $row['status'],
+            //     'created_at' => $row['add_time'] 
+            // ]);
+
+
+            // import appointment_format
+            AppointmentFormat::create([
+            'id' => $row['id'],
+            'name' => $row['name'],
+            'format' => $row['format'],
+            'format_2' => $row['format_2'],
+            'type' => $row['type'],
+            'employment_type' => $row['employment_type'] ?? NULL,
+            'status' => $row['status']
+            ]);
         }
         fclose($handle);
         return back()->with('success', 'CSV Imported Successfully!');
