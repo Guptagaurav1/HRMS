@@ -1,8 +1,4 @@
 @extends('layouts.master', ['title' => 'Update Call Details'])
-@section('style')
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
-
 @section('contents')
 <div class="panel-header">
     <h2 class="mt-2 px-2">Edit Candidate Details Contacted By Call</h2>
@@ -28,7 +24,7 @@
             <div class="panel-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label" style="color: black;font-weight:bold">Position Title (Client Name)
+                        <label class="form-label" style="color: black;font-weight:bold">Position Title (Client Name)<span class="text-danger">*</span>
                         </label>
                         <select class="form-select js-example-basic-multiple" name="job_position" required>
                             <option value="">Select Title</option>
@@ -41,22 +37,25 @@
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control form-control-sm" name="name" value="{{$log->name}}" required>
+                        <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-sm for_char" name="name" value="{{$log->name}}" required>
+                        <span class="name"></span>
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control form-control-sm" name="email" value="{{$log->email}}" required>
+                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control form-control-sm for_char" name="email" value="{{$log->email}}" required>
+                        <span class="email"></span>
                         @error('email')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Contact No</label>
-                        <input type="number" class="form-control form-control-sm" min="0" name="phone_no" value="{{$log->phone_no}}" required>
+                        <label class="form-label">Contact No <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-sm for_char" maxlength="10" name="phone_no" value="{{$log->phone_no}}" required>
+                        <span class="phone_no"></span>
                         @error('phone_no')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -112,10 +111,10 @@
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label for="formFileSm" class="form-label">Resume
+                        <label for="formFileSm" class="form-label">Resume <span class="text-danger">*</span>
                             <span class="px-5"> <a href="{{asset('resume')."/".$log->resume}}" class="btn btn-sm btn-primary" target="_blank">View <i class="fa-solid fa-eye"></i></a></span>
                         </label>
-                        <input class="form-control form-control-sm" name="resume" type="file" accept=".pdf">
+                        <input class="form-control form-control-sm" name="resume" type="file" accept=".pdf" required>
                         @error('resume')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -141,8 +140,6 @@
 @endsection
 
 @section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
 
 @endsection

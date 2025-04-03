@@ -75,22 +75,23 @@
                         @endif
                     <div class="table-responsive">
                         <div class="">
-                            <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                            <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                            id="allEmployeeTable">
                                 <thead>
-                                    <tr style="background-color: #2A3F54">
-                                        <th class="text-white"><strong>Recruitment Id</strong></th>
-                                        <th class="text-white"><strong>Name</strong></th>
-                                        <th class="text-white"><strong>Contact Details</strong></th>
-                                        <th class="text-white"><strong>Job Position</strong></th>
-                                        <th class="text-white"><strong>Client Name</strong></th>
-                                        <th class="text-white"><strong>DOB</strong></th>
-                                        <th class="text-white"><strong>Location</strong></th>
-                                        <th class="text-white"><strong>Experience</strong></th>
-                                        <th class="text-white"><strong>Skills</strong></th>
-                                        <th class="text-white"><strong>Education</strong></th>
-                                        <th class="text-white"><strong>Status</strong></th>
-                                        <th class="text-white"><strong>Employee Status</strong></th>
-                                        <th class="text-white"><strong>Action</strong></th>
+                                    <tr>
+                                        <th class="text-center">Recruitment Id</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Contact Details</th>
+                                        <th class=" text-center">Job Position</th>
+                                        <th class=" text-center">Client Name</th>
+                                        <th class=" text-center">DOB</th>
+                                        <th class="text-center">Location</th>
+                                        <th class="text-center">Experience</th>
+                                        <th class="text-center">Skills</th>
+                                        <th class="text-center">Education</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Employee Status</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                     {{-- <tr>
                                         <th><input type="text" placeholder="Recruitment Id" class="rec-list_head"></th>
@@ -131,18 +132,18 @@
                                       
                                     @endphp
                                     <tr>
-                                        <td class="srno-column">{{$candidate->id}}</td>
-                                        <td class="rid-column">{{$candidate->firstname." ".$candidate->lastname}}</td>
-                                        <td>{{$candidate->email." / ".$candidate->phone}}</td>
-                                        <td>{{$candidate->job_position}}</td>
-                                        <td>{{$candidate->id}}</td>
-                                        <td>{{$candidate->dob}}</td>
-                                        <td>{{$candidate->location}}</td>
-                                        <td>{{$candidate->experience}}</td>
-                                        <td>{{$candidate->skill}}</td>
-                                        <td>{{$candidate->education}}</td>
-                                        <td><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
-                                        <td> 
+                                        <td class="srno-column text-center">{{$candidate->id}}</td>
+                                        <td class="rid-column text-center">{{$candidate->firstname." ".$candidate->lastname}}</td>
+                                        <td class="text-center">{{$candidate->email." / ".$candidate->phone}}</td>
+                                        <td class="attributes-column text-center">{{$candidate->job_position}}</td>
+                                        <td class="text-center">{{$candidate->id}}</td>
+                                        <td class="text-center">{{$candidate->dob}}</td>
+                                        <td class="attributes-column text-center">{{$candidate->location}}</td>
+                                        <td class="text-center">{{$candidate->experience}}</td>
+                                        <td class="text-center attributes-column">{{$candidate->skill}}</td>
+                                        <td class="text-center">{{$candidate->education}}</td>
+                                        <td class="text-center"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
+                                        <td class="text-center"> 
                                             @if (!empty($candidate->emp_current_working_status))
                                                 @if ($candidate->emp_current_working_status == 'active')
                                                     @if(auth()->user()->hasPermission('employee-details'))
@@ -160,7 +161,7 @@
                                         
                                         
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             @if(auth()->user()->hasPermission('applicant-recruitment-details-summary'))
                                                 <a href="{{ route('applicant-recruitment-details-summary', ['rec_id' => $candidate->id]) }}">
                                                 <button class="btn btn-sm btn-primary">View <i
@@ -180,7 +181,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-12 d-flex justify-content-center my-2">
+                    <div class="col-md-12 d-flex justify-content-start my-2">
                         {{$candidates->links()}}
                     </div>
                 </div>

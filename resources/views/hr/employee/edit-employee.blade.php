@@ -1,7 +1,4 @@
 @extends('layouts.master', ['title' => 'Update Employee'])
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
 
 @section('contents')
     <div class="dashboard-breadcrumb mb-25">
@@ -9,9 +6,7 @@
         <div>
             <a href="{{ route('employee.employee-list') }}"><button class="btn btn-sm btn-primary"> Employee List <i
                         class="fa-solid fa-list"></i></button></a>
-
         </div>
-
     </div>
 
     <div class="dashboard-breadcrumb mb-25">
@@ -120,16 +115,17 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label" class="text-dark">Employee Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" name="emp_name"
+                        <input type="text" class="form-control form-control-sm for_char" name="emp_name"
                             placeholder="Enter Employee Name"
                             value="{{ !empty($employee_details->emp_name) ? $employee_details->emp_name : '' }}" required>
+                            <span class="emp_name"></span>
                         @error('emp_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Department <span class="text-danger">*</span> <i
-                                class="fa fa-plus border rounded p-1 small border-primary text-light bg-primary"
+                                class="fa fa-plus border rounded  small border-primary text-light bg-primary"
                                 role="button" data-bs-toggle="modal" data-bs-target="#departmentModal"
                                 aria-hidden="true"></i></label>
                         <select name="department" class="form-select" required>
@@ -174,7 +170,7 @@
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Designation <span class="text-danger">*</span> <i
-                                class="fa fa-plus border rounded p-1 small border-primary text-light bg-primary"
+                                class="fa fa-plus border rounded  small border-primary text-light bg-primary"
                                 role="button" data-bs-toggle="modal" data-bs-target="#designationModal"
                                 aria-hidden="true"></i></label>
                         <select name="emp_designation" class="form-select" required>
@@ -204,10 +200,11 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Email(Personal)<span class="text-danger">*</span></label>
-                        <input type="email" class="form-control form-control-sm" name="emp_email_first"
+                        <input type="email" class="form-control form-control-sm for_char" name="emp_email_first"
                             placeholder="Enter Email"
                             value="{{ !empty($employee_details->emp_email_first) ? $employee_details->emp_email_first : '' }}"
                             required>
+                            <span class="emp_email_first"></span>
                         @error('emp_email_first')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -294,7 +291,7 @@
                     </div>
 
 
-                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                    <div class="col-lg-12 ">
                         <label for="emp_remark" class="form-label">Remarks</label>
                         <textarea class="form-control" name="emp_remark" placeholder="Enter Remarks">{{ $employee_details->emp_remark }}</textarea>
                     </div>
@@ -302,9 +299,15 @@
                     @if (
                         $employee_details->emp_current_working_status == 'active' ||
                             $employee_details->emp_current_working_status == 'inactive')
-                        <div class="col-12 d-flex justify-content-end px-2 py-3">
-                            <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
-                            <button type="submit" class="btn btn-sm btn-primary">Update <i class="fa-solid fa-check"></i></button>
+                        <div class="col-12 d-flex justify-content-end px-2 py-3 gap-3">
+                            <div>
+                          <a href="{{ route('hr_dashboard') }}">  <button type="button" class="btn btn-sm btn-secondary">Cancel </button></a>
+                            </div>
+                            <div>
+                            <button type="submit" class="btn btn-sm btn-primary">Update </button>
+                            </div>
+                            
+                            
                         </div>
                     @endif
                 </div>
@@ -553,10 +556,11 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Bank Account Number <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control form-control-sm" name="emp_account_no"
+                        <input type="number" class="form-control form-control-sm for_char" name="emp_account_no"
                             placeholder="Enter Bank Account Number"
                             value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_account_no : '' }}"
                             required>
+                            <span class="emp_account_no"></span>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Vendor Rate (Rs)</label>
@@ -573,18 +577,20 @@
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">IFSC Code <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" name="emp_ifsc"
+                        <input type="text" class="form-control form-control-sm for_char" name="emp_ifsc"
                             placeholder="Enter IFSC Code" maxlength="11"
                             value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_ifsc : '' }}"
                             required>
+                            <span class="emp_ifsc"></span>
                     </div>
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">PAN Number <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" name="emp_pan" maxlength="10"
+                        <input type="text" class="form-control form-control-sm for_char" name="emp_pan" maxlength="10"
                             minlength="10" placeholder="Enter PAN Number"
                             value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_pan : '' }}"
                             required>
+                            <span class="emp_pan"></span>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">PF UAN No</label>
@@ -1234,4 +1240,5 @@
 
 @section('script')
     <script src="{{ asset('assets/js/employeeTab.js') }}"></script>
+    <script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection

@@ -1,9 +1,4 @@
 @extends('layouts.master', ['title' => 'Add Employee'])
-
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
-
 @section('contents')
     <div class="dashboard-breadcrumb mb-25 gap-4">
         <h2 class="sw-bold text-dark">Create Employee details</h2>
@@ -78,7 +73,7 @@
                         <div class="row g-3">
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Work Order Number <span class="text-danger">*</span></label>
-                                <select class="form-select js-example-basic-multiple" name="emp_work_order" required>
+                                <select class="form-select  js-example-basic-multiple" name="emp_work_order" required>
                                     <option value="">Select Work Order</option>
                                     @foreach ($workorders as $workorder)
                                         <option value="{{ $workorder->wo_number }}">{{ $workorder->wo_number }}</option>
@@ -93,10 +88,11 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label" class="text-dark">Employee Name <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="emp_name"
+                                <input type="text" class="form-control form-control-sm for_char" name="emp_name"
                                     placeholder="Enter Employee Name"
                                     value="{{ !empty($recruitment_details->firstname) ? $recruitment_details->firstname . ' ' . $recruitment_details->lastname : '' }}"
                                     required>
+                                    <span class="emp_name"></span>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Department <span class="text-danger">*</span> <i
@@ -112,7 +108,7 @@
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Reporting Email <span class="text-danger">*</span></label>
-                                <select class="form-select" name="reporting_email" required>
+                                <select class="form-select mt-3" name="reporting_email" required>
                                     <option value="" selected>Not Specify</option>
                                     {{-- @foreach ($reporting_managers as $manager)
                                         <option value="{{ $manager->email }}">{{ $manager->email }}</option>
@@ -135,7 +131,7 @@
 
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Designation <span class="text-danger">*</span> <i
-                                        class="fa fa-plus border rounded p-1 small border-primary text-light bg-primary"
+                                        class="fa fa-plus border rounded  small border-primary text-light bg-primary"
                                         role="button" data-bs-toggle="modal" data-bs-target="#designationModal"
                                         aria-hidden="true"></i></label>
                                 <select name="emp_designation" class="form-select" required>
@@ -158,10 +154,11 @@
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Email(Personal)<span class="text-danger">*</span></label>
-                                <input type="email" class="form-control form-control-sm" name="emp_email_first"
+                                <input type="email" class="form-control form-control-sm for_char" name="emp_email_first"
                                     placeholder="Enter Email"
                                     value="{{ !empty($recruitment_details->email) ? $recruitment_details->email : '' }}"
                                     required>
+                                    <span class="emp_email_first"></span>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Contact (Office)</label>
@@ -193,7 +190,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
+                            <div class="col-lg-12 col-sm-6">
                                 <label for="emp_remark" class="form-label">Remarks</label>
                                 <textarea class="form-control" name="emp_remark" placeholder="Enter Remarks"></textarea>
                             </div>
@@ -443,10 +440,11 @@
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Bank Account Number <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control form-control-sm" name="emp_account_no"
+                                <input type="text" class="form-control form-control-sm for_char" name="emp_account_no"
                                     placeholder="Enter Bank Account Number"
                                     value="{{ !empty($recruitment_details->getBankDetail) ? $recruitment_details->getBankDetail->emp_account_no : '' }}"
-                                    required>
+                                    minlength="9" maxlength="18"  required>
+                                    <span class="emp_account_no"></span>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Vendor Rate (Rs)</label>
@@ -461,18 +459,20 @@
 
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">IFSC Code <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="emp_ifsc"
+                                <input type="text" class="form-control form-control-sm for_char" name="emp_ifsc"
                                     placeholder="Enter IFSC Code" maxlength="11"
                                     value="{{ !empty($recruitment_details->getBankDetail) ? $recruitment_details->getBankDetail->emp_ifsc : '' }}"
                                     required>
+                                    <span class="emp_ifsc"></span>
                             </div>
 
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">PAN Number <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="emp_pan"
-                                    placeholder="Enter PAN Number" maxlength="10"
+                                <input type="text" class="form-control form-control-sm for_char" name="emp_pan"
+                                    placeholder="Enter PAN Number" maxlength="10" 
                                     value="{{ !empty($recruitment_details->getBankDetail) ? $recruitment_details->getBankDetail->emp_pan : '' }}"
                                     required>
+                                    <span class="emp_pan"></span>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">PF UAN No</label>
@@ -482,9 +482,10 @@
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">ESI No</label>
-                                <input type="text" class="form-control form-control-sm" name="emp_esi_no"
+                                <input type="text" class="form-control form-control-sm for_char" name="emp_esi_no"
                                     placeholder="Enter ESI Number" maxlength="17"
                                     value="{{ !empty($recruitment_details->getBankDetail) ? $recruitment_details->getBankDetail->emp_esi_no : '' }}">
+                                    <span class="emp_esi_no"></span>
                             </div>
 
 
@@ -1135,5 +1136,6 @@
     </div>
 @endsection
 @section('script')
-    <script src="{{ asset('assets/js/add-employee-tab-btn.js') }}"></script>
+<script src="{{ asset('assets/js/add-employee-tab-btn.js') }}"></script>
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection

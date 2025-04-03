@@ -85,8 +85,6 @@
                     </div>
                 </div>
             </div>
-
-
     </div>
     <div class="col-12 d-flex justify-content-end  px-3 py-3">
         <button type="submit" class="btn btn-sm btn-primary"> Register Project <i

@@ -1,12 +1,4 @@
 @extends('layouts.master')
-
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
-
-@endsection
-
 @section('contents')
     <div class="row">
                
@@ -57,7 +49,7 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="srno-column">Sr No.</th>
+                                <th class="srno-column text-center">Sr No.</th>
                                 <!-- <th class="rid-column">RID</th> -->
                                 <th class="text-center">Role Name</th>
                                 <th class="text-center">Attributes</th>
@@ -68,14 +60,14 @@
                         <tbody>
                             @forelse($rolesWithMenus as $key => $role)
                             <tr>
-                                <td class="srno-column"> {{ $key +1 }} </td>
-                                <td>{{ $role->role_name}}</td>
-                                <td class="attributes-column">
+                                <td class="srno-column text-center"> {{ $key +1 }} </td>
+                                <td class="text-center">{{ $role->role_name}}</td>
+                                <td class="attributes-column text-center">
                                     <span>{{ $role->menu_names }}</span><br>
                                 </td>
                               
-                                <td>{{ $role->created_at}}</td>
-                                <td> 
+                                <td class="text-center">{{ $role->created_at}}</td>
+                                <td class="text-center"> 
                                     {{-- @if(auth()->user()->hasPermission('edit-manage-role')) --}}
                                         <a href="{{route('edit-manage-role',$role->id)}}" title="Edit"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                     {{-- @endif --}}

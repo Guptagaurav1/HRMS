@@ -19,6 +19,7 @@
     <link href="{{asset('assets/css/sweetalert2.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/select2.min.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('assets/css/jquery-ui.multidatespicker.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css')}}"/>
    
     @yield('style')
 </head>

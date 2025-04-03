@@ -1,11 +1,4 @@
 @extends('layouts.master', ['title' => 'Sent Credentials Logs'])
-
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
-
 @section('contents')
 <div class="fluid-container">
     <div class="row">
@@ -32,23 +25,23 @@
                         id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="srno-column">ID.</th>
-                                <th class="rid-column">Emp Code</th>
-                                <th>Name</th>
-                                <th class="attributes-column">Work Order</th>
-                                <th>Email</th>
-                                <th>Sent Date</th>
+                                <th class="srno-column text-center">ID.</th>
+                                <th class="rid-column text-center">Emp Code</th>
+                                <th class="text-center">Name</th>
+                                <th class="attributes-column text-center">Work Order</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Sent Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($logs as $log)
                             <tr>
-                                <td class="srno-column">{{$loop->iteration}}</td>
-                                <td class="rid-column">{{$log->emp_code}}</td>
-                                <td>{{$log->emp_name}}</td>
-                                <td class="attributes-column">{{$log->emp_work_order}}</td>
-                                <td>{{$log->emp_email}}</td>
-                                <td>
+                                <td class="srno-column text-center">{{$loop->iteration}}</td>
+                                <td class="rid-column text-center">{{$log->emp_code}}</td>
+                                <td class="text-center">{{$log->emp_name}}</td>
+                                <td class="attributes-column text-center">{{$log->emp_work_order}}</td>
+                                <td class="text-center">{{$log->emp_email}}</td>
+                                <td class="text-center">
                                     {{date('jS F, Y', strtotime($log->created_at))}}
                                 </td>
                             </tr>
@@ -64,6 +57,5 @@
         </div>
     </div>
 </div>
-
 @endsection
 

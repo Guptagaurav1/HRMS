@@ -54,9 +54,9 @@
                      
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Client Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-sm" name="client_name"
+                            <input type="text" class="form-control form-control-sm for_char" name="client_name"
                                 value="{{old('client_name')}}" placeholder="Enter Client Name" required>
-                                <span class="text-danger error-message" id="error-client_name"></span>
+                                <span class="client_name" ></span>
                             @error('client_name')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -84,7 +84,7 @@
                             <select class="form-select" name="employment_type" value="{{old('employment_type')}}"
                                 required>
                                 <option value="">Select Employment Type</option>
-                                <option value="Permanent" {{old('employment_type')=='Permanent' ? 'selected' : '' }}>
+                                <option value="Permenant" {{old('employment_type')=='Permenant' ? 'selected' : '' }}>
                                     Permanent</option>
                                 <option value="Contractual" {{old('employment_type')=='Contractual' ? 'selected' : ''
                                     }}>
@@ -175,8 +175,8 @@
                                         style="font-size: 10px;"></i>
                                 </a></label>
                             <div class="">
-                                <select class="form-select js-example-basic-multiple" name="functional_role[]"
-                                    multiple="multiple" id="functional-role-fields">
+                                <select class="form-select" name="functional_role[]"
+                                    multiple="multiple" id="functional-role-fields" required>
                                     <option value="">Nothing Selected</option>
                                     @foreach($functional_role as $role)
                                     <option value="{{$role->id}}" {{old('functional_role') && in_array($role->id,
@@ -237,8 +237,8 @@
                                     <i class="fa-solid fa-plus d-inline-block bg-success text-white rounded-circle p-1"
                                         style="font-size: 10px;"></i>
                                 </a></label>
-                            <select class="form-select js-example-basic-multiple" name="education[]" multiple="multiple"
-                                required>
+                            <select class="form-select" name="education[]" multiple="multiple"
+                              id="education"  required>
                                 <option value="">Nothing Selected</option>
                                 @foreach($qualification as $qualify)
                                 <option value="{{$qualify->id}}" {{old('education') && in_array($qualify->id,
@@ -277,8 +277,8 @@
                                     <i class="fa-solid fa-plus d-inline-block bg-success text-white rounded-circle p-1"
                                         style="font-size: 10px;"></i>
                                 </a></label>
-                            <select class="form-select js-example-basic-multiple" multiple="multiple"
-                                name="skill_sets[]" required>
+                            <select class="form-select " multiple="multiple"
+                                name="skill_sets[]" id="placeholder" required>
                                 <option value="">Nothing Selected</option>
                                 @foreach($skills as $skill)
                                 <option value="{{$skill->id}}" {{old('skill_sets') && in_array($skill->id,
@@ -312,8 +312,8 @@
                         
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Assign To <span class="text-danger">*</span></label>
-                            <select class="form-select js-example-basic-multiple" multiple="multiple"
-                                name="assigned_executive[]" required>
+                            <select class="form-select " multiple="multiple"
+                                name="assigned_executive[]" id="assign-to" required>
                                 <option value="">Nothing Selected</option>
                                 @foreach($hr_executives as $hr_executive)
                                 <option value="{{$hr_executive->id}}" {{old('assigned_executive') &&
@@ -333,7 +333,7 @@
         <div class="col-12 d-flex justify-content-end align-items-center gap-3 mt-2 px-1">
            
             <div>
-                <button type="button" class="btn btn-sm btn-primary">Cancel</button>
+                <button type="button" class="btn btn-sm btn-secondary">Cancel</button>
             </div>
             <div>
                 <button type="submit" class="btn btn-sm btn-primary" id="submit-btn">Submit</button>
@@ -347,54 +347,6 @@
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function () {
-        $(document).ready(function () {
-            $("#submit-btn").click(function (event) {
-
-                event.preventDefault();
-                
-    
-        
-                 $(".error").text('');
-
-                let isValid = true;
-                let errorMessages = ""; 
-
-                
-                $(".error-message").text("");
-                $("#error-messages").html("");
-
-                
-                $('input[required],select[required]').each(function () {
-                    let field = $(this);
-                    let fieldName = field.attr('name');
-                    let errorElement = $('#error-' + fieldName);
-
-                    if (!field.val().trim()) {
-                        errorElement.text("This field is required.");
-                        errorMessages += "span" + fieldName + " is required.</span>";
-                        isValid = false;
-                    }
-                });
-
-                let functional_role_data= $("#functional-role-fields").val();
-
-                if (functional_role_data === "") {
-               $("#error-functional_role").text("At least one skill is required.");
-                   isValid = false;
-        
-                }
-    
-
-                
-
-                if (isValid) {
-                    
-                    $("form").submit();
-                } 
-            });
-        });
-    });
-</script>
+<script src="{{ asset('assets/js/hr/position_request.js') }}"></script>
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection

@@ -1,17 +1,11 @@
 @extends('layouts.master', ['title' => 'Send Letter'])
-
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
-
 @section('contents')
 
 
 <div class="row">
-    
-        <h2 class="panel-header py-2 px-2">Send Appointment Letter</h2>
-    
+
+    <h2 class="panel-header py-2 px-2">Send Appointment Letter</h2>
+
     <div class="col-12">
         <div class="panel">
             <div class="row px-3">
@@ -32,15 +26,17 @@
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Employee Salary<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Salary" value="{{$empdetails->getBankDetail->emp_salary}}">
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Salary"
+                            value="{{$empdetails->getBankDetail->emp_salary}}">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Employee Designation<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Enter Designation" value="{{$empdetails->emp_designation}}">
+                        <input type="text" class="form-control form-control-sm" placeholder="Enter Designation"
+                            value="{{$empdetails->emp_designation}}">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label for="inputDate" class="form-label">End date</label>
-                        <input type="date" class="form-control" >
+                        <input type="date" class="form-control">
                     </div>
                 </div>
             </div>
@@ -70,7 +66,7 @@
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label for="inputDate" class="form-label">Start date</label>
-                    <input type="date" class="form-control" >
+                    <input type="date" class="form-control">
                 </div>
 
             </div>
@@ -80,7 +76,7 @@
                     </p>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -104,7 +100,7 @@
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                     <label for="inputDate" class="form-label">Date Of Joining</label>
-                    <input type="date" class="form-control"  readonly>
+                    <input type="date" class="form-control" readonly>
                 </div>
 
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -120,10 +116,10 @@
                     <input type="text" class="form-control form-control-sm" readonly>
                 </div>
                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                    <label class="form-label">Net Salary <span class="text-danger"span></label>
+                    <label class="form-label">Net Salary <span class="text-danger" span></label>
                     <input type="text" class="form-control form-control-sm" readonly>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -330,16 +326,22 @@
             <div class="row g-3">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <label>All Fields are Mandatory. Those Fields are not in Used Set as 0 (Zero ) value</label>
-                    <p class="text-danger calculation-criteria mt-2" ><span>Gross =</span> <span>Basic + HRA + DA + PA + Conveyence +
+                    <p class="text-danger calculation-criteria mt-2"><span>Gross =</span> <span>Basic + HRA + DA + PA +
+                            Conveyence +
                             Telephone + Uniform + School Fee + Car + Grade Pay + Special Allowance</span></p>
                     <p class="text-danger calculation-criteria"><span>Net Salary =</span> <span>Gross - Employee
                             Contribution</span></p>
-                    <p class="text-danger calculation-criteria"><span>Employee Contribution =</span> <span>PF + ESI + LWF +
+                    <p class="text-danger calculation-criteria"><span>Employee Contribution =</span> <span>PF + ESI +
+                            LWF +
                             Professional Tax</span></p>
-                    <p class="text-danger calculation-criteria"><span>PF(EMPLOYEE) =</span> <span>12 % of Basic</span></p>
-                    <p class="text-danger calculation-criteria"><span>PF(EMPLOYER) =</span> <span>13 % of Basic</span></p>
-                    <p class="text-danger calculation-criteria"><span>ESIC(EMPLOYEE) =</span> <span>0.75 % of Gross</span></p>
-                    <p class="text-danger calculation-criteria"><span>ESIC(EMPLOYER) =</span> <span>3.25 % of Gross</span></p>
+                    <p class="text-danger calculation-criteria"><span>PF(EMPLOYEE) =</span> <span>12 % of Basic</span>
+                    </p>
+                    <p class="text-danger calculation-criteria"><span>PF(EMPLOYER) =</span> <span>13 % of Basic</span>
+                    </p>
+                    <p class="text-danger calculation-criteria"><span>ESIC(EMPLOYEE) =</span> <span>0.75 % of
+                            Gross</span></p>
+                    <p class="text-danger calculation-criteria"><span>ESIC(EMPLOYER) =</span> <span>3.25 % of
+                            Gross</span></p>
                 </div>
             </div>
         </div>
@@ -366,7 +368,8 @@
             </div>
             <div class="d-flex align-items-center justify-content-center mt-2">
                 <div>
-                    <button class="btn btn-sm btn-primary">Preview Letter <i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="btn btn-sm btn-primary">Preview Letter <i
+                            class="fa-solid fa-arrow-left"></i></button>
                 </div>
             </div>
 
@@ -380,9 +383,4 @@
 
     </div>
 </div>
-
-
-
-
-
 @endsection

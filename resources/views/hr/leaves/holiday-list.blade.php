@@ -13,9 +13,7 @@
             <div class="panel-header">
                 <h3 class="mt-2">Holiday List</h3>
             </div>
-            <p class="px-3 mt-2">Your Holiday List
-            </p>
-            <div class="col-md-12 d-flex justify-content-start mx-3">
+            <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
                 <form class="row g-3">
                     <div class="col-auto mb-3">
                         <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
@@ -32,20 +30,20 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th>Holiday Name</th>
-                                <th>Date</th>
-                                <th>Month</th>
-                                <th>Day</th>
-                                <th>Type</th>
+                                <th class="text-center">Holiday Name</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">Day</th>
+                                <th class="text-center">Type</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
                             @forelse($holidays as $holiday)
                             <tr>
-                                <td>{{$holiday->holiday_name}}</td>
-                                <td>{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
-                                <td>{{date('F', strtotime($holiday->holiday_date))}}</td>
-                                <td>{{date('l', strtotime($holiday->holiday_date))}}</td>
+                                <td class="text-center">{{$holiday->holiday_name}}</td>
+                                <td class="text-center">{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
+                                <td class="text-center">{{date('F', strtotime($holiday->holiday_date))}}</td>
+                                <td class="text-center">{{date('l', strtotime($holiday->holiday_date))}}</td>
                                 <td class="text-center">{{$holiday->holiday_type}}</td>
                             </tr>
                             @empty

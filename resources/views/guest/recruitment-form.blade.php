@@ -38,36 +38,35 @@
                             <div class="col-12 col-md-6">
                                 <label class="form-label mt-2 text-dark">First Name <span class="text-danger">*</span>
                                 </label>
-                                <input class="form-control for_char" data-id="first_name" name="firstname" placeholder="Enter Your First Name"
-                                    required/>
-                                <span class="error-message text-danger firstname"></span>
+                                <input class="form-control for_char" data-id="first_name" name="firstname"
+                                    placeholder="Enter Your First Name" required />
+                                <span class="error-message  firstname"></span>
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="form-label mt-2 text-dark">Last Name <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control for_char" data-id="last_name" name="lastname" placeholder="Enter Your Last Name"
-                                     required/>
-                                <span class="error-message text-danger lastname"></span>
+                                <input class="form-control for_char" data-id="last_name" name="lastname"
+                                    placeholder="Enter Your Last Name" required />
+                                <span class="error-message  lastname"></span>
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="form-label text-dark">Date Of Birth <span
                                         class="text-danger">*</span></label>
                                 <input type="date" name="dob" class="form-control" required>
-                                
+
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="form-label text-dark">Current Location <span
                                         class="text-danger">*</span></label>
                                 <input type="text" name="location" class="form-control for_char"
                                     placeholder="Enter Your Current Location" required>
-                                <span class="error-message text-danger location"></span>
+                                <span class="error-message  location"></span>
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="form-label text-dark">Highest Education <span
                                         class="text-danger">*</span></label>
-                                <input type="text" name="education" class="form-control for_char"
+                                <input type="text" name="education" class="form-control"
                                     placeholder="Enter Your Education Details" required>
-                                <span class="error-message text-danger education"></span>
 
                             </div>
                             <div class="col-12 col-md-6">
@@ -79,13 +78,7 @@
                                     <span class="input-group-text bg-dark-subtle fw-bold" style="font-size: 65%;"
                                         id="basic-addon2">In Years</span>
 
-                                    <span class="error-message text-danger"></span>
-
-
-
-
                                 </div>
-
 
                             </div>
 
@@ -93,7 +86,7 @@
 
                                 <label class="form-label text-dark">Skills <span class="text-danger">*</span></label>
                                 <select name="skill[]" class="form-control js-example-basic-multiple"
-                                    multiple="multiple" id="skills_multiple" data-required="true" >
+                                    multiple="multiple" id="skills_multiple" required>
                                     <option value="Not Specified">Not Specified</option>
                                     @foreach ($skills as $skill)
                                     <option value="{{ $skill->skill }}">{{ $skill->skill }}</option>
@@ -103,18 +96,19 @@
                             </div>
                             <div class="col-12 col-md-6">
 
-                                <label class="form-label text-dark">Other skills <span class="text-danger">*</span></label>
+                                <label class="form-label text-dark">Other skills <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" name="other_skills" class="form-control"
-                                    placeholder="Enter Other Skills Seperated By Comma" data-required="true">
+                                    placeholder="Enter Other Skills Seperated By Comma" required>
                                 <span class="error-message text-danger"></span>
 
                             </div>
                             <div class="col-12 col-md-6">
 
                                 <label class="form-label text-dark">Email <span class="text-danger">*</span></label>
-                                <input type="text" name="email" class="form-control for_char" placeholder="Enter Your Email"
-                                    >
-                                <span class="error-message text-danger email"></span>
+                                <input type="text" name="email" class="form-control for_char"
+                                    placeholder="Enter Your Email" required>
+                                <span class="error-message  email"></span>
 
                             </div>
                             <div class="col-12 col-md-6">
@@ -123,16 +117,15 @@
                                         class="text-danger">*</span></label>
                                 <input type="text" name="phone" class="form-control for_char"
                                     placeholder="Enter Your Contact No." maxlength="10" required>
-                                <span class="error-message text-danger phone"></span>
+                                <span class="error-message  phone"></span>
 
                             </div>
 
                             <div class="col-12 col-md-6">
 
                                 <label class="form-label text-dark">Resume <span class="text-danger">*</span></label>
-                                <input type="file" name="resume" class="form-control" accept=".pdf"
-                                    required>
-                                <span class="error-message text-danger"></span>
+                                <input type="file" name="resume" class="form-control" accept=".pdf" required>
+
 
                             </div>
 
@@ -164,12 +157,4 @@
 @section('script')
 <script src="{{asset('assets/js/hr/recruitment.js') }}"></script>
 <script src="{{asset('assets/js/commonValidation.js')}}"></script>
-
-
-
-
-
-
-
-   
 @endsection

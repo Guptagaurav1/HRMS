@@ -1,11 +1,4 @@
 @extends('layouts.master', ['title' => 'Recruitment Report'])
-
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
-@endsection
-
 @section('contents')
     <div class="row">
         <div class="col-12">
@@ -14,13 +7,6 @@
                     <h2 class="mt-2">Recruitment Report</h2>
                 </div>
                 <div class="row px-3 mb-3">
-                    
-                    @if(auth()->user()->hasPermission('addnew-candidate'))
-                        <div class="col-md-12 d-flex justify-content-end mt-4">
-                            <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">Add New Candidate <i class="fa-solid fa-plus"></i></button></a>
-                        </div>
-                    @endif
-
                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -54,6 +40,31 @@
                             </div>
                         </div>
                         @endif
+
+                        <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-3 mt-5">
+                    <div class="">
+                        <form class="row g-3" method="get">
+                            <div class="col-auto mb-3">
+                                <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                    required>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
+                                        class="fa-solid fa-magnifying-glass"></i></button>
+                                <a href="{{ route('organizations.index') }}"><button type="button"
+                                        class="btn btn-primary btn-sm mb-3">Clear <i
+                                            class="fa-solid fa-eraser"></i></button></a>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    @if(auth()->user()->hasPermission('addnew-candidate'))
+                        <div>
+                            <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">Add New Candidate <i class="fa-solid fa-plus"></i></button></a>
+                        </div>
+                    @endif
+                </div>
 
                 </div>
                 
@@ -115,7 +126,7 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="col-md-12 d-flex justify-content-center my-3">
+                <div class="col-md-12 d-flex justify-content-start my-3">
                     {{$positions->links()}}
                 </div>
             </div>

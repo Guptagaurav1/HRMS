@@ -1,13 +1,5 @@
 @extends('layouts.master', ['title' => 'Leave Request Receipt'])
 
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-<style>
-  
-</style>
-
-@endsection
 @section('contents')
 
 <div class="fluid-container">

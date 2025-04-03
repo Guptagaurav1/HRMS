@@ -1,11 +1,5 @@
 @extends('layouts.master')
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -135,38 +129,38 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" name="checkAll"></th>
-                                    <th class="srno-column">Organisation Name</th>
-                                    <th class="rid-column">Work Order Number</th>
-                                    <th>Empanelment No.</th>
+                                    <th class="srno-column text-center">Organisation Name</th>
+                                    <th class="rid-column text-center">Work Order Number</th>
+                                    <th class="text-center">Empanelment No.</th>
                                     <th class="attributes-column">Issue Date</th>
-                                    <th>Project Number</th>
-                                    <th>Project Name</th>
-                                    <th>Project Coordinator Name</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Amount</th>
-                                    <th>Contact Details</th>
-                                    <th>Added On</th>
-                                    <th>Attachment</th>
-                                    <th>View</th>
+                                    <th class="text-center">Project Number</th>
+                                    <th class="text-center">Project Name</th>
+                                    <th class="text-center">Project Coordinator Name</th>
+                                    <th class="text-center">Start Date</th>
+                                    <th class="text-center">End Date</th>
+                                    <th class="text-center">Amount</th>
+                                    <th class="text-center">Contact Details</th>
+                                    <th class="text-center">Added On</th>
+                                    <th class="text-center">Attachment</th>
+                                    <th class="text-center">View</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($totalWorkOrders as $value)
                                 <tr>
                                     <td><input type="checkbox" name="checkbox[]" value="{{$value->id}}"></td>
-                                    <td class="srno-column">{{$value->project->organizations->name}}</td>
-                                    <td class="rid-column">{{$value->wo_number}}</td>
-                                    <td>{{$value->project->empanelment_reference}}</td>
-                                    <td class="attributes-column">{{$value->wo_date_of_issue}}</td>
-                                    <td>{{$value->project->project_number}}</td>
-                                    <td>{{$value->project->project_name}}</td>
-                                    <td>{{$value->wo_project_coordinator}}</td>
-                                    <td>{{$value->wo_start_date}}</td>
-                                    <td>{{$value->wo_end_date}}</td>
-                                    <td>{{$value->wo_amount}}</td>
-                                    <td>{{ $value->contacts_details }}</td>
-                                    <td>{{$value->created_at}}</td>
+                                    <td class="srno-column text-center">{{$value->project->organizations->name}}</td>
+                                    <td class="rid-column text-center attributes-column">{{$value->wo_number}}</td>
+                                    <td class="text-center">{{$value->project->empanelment_reference}}</td>
+                                    <td class="attributes-column text-center">{{$value->wo_date_of_issue}}</td>
+                                    <td class="text-center">{{$value->project->project_number}}</td>
+                                    <td class="text-center attributes-column">{{$value->project->project_name}}</td>
+                                    <td class="text-center">{{$value->wo_project_coordinator}}</td>
+                                    <td class="text-center">{{$value->wo_start_date}}</td>
+                                    <td class="text-center">{{$value->wo_end_date}}</td>
+                                    <td class="text-center">{{$value->wo_amount}}</td>
+                                    <td class="text-center attributes-column">{{ $value->contacts_details }}</td>
+                                    <td class="text-center">{{$value->created_at}}</td>
                                     <td>
                                         @if(!empty($value->wo_attached_file))
                                         <a href="{{ asset('storage/uploadWorkOrder/' . $value->wo_attached_file) }}"

@@ -1,7 +1,5 @@
 @extends('layouts.master')
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
+
 
 @section('contents')
 <div class="panel-header ">
@@ -34,7 +32,7 @@
                     <div class="row g-3">
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Employee PAN No<span class="text-danger">**</span></label>
-                            <select id="emp_id" class=" selectpicker form-select" name="emp_pan" value>
+                            <select id="emp_id" class=" selectpicker form-select" name="emp_pan" value required>
                                 <option value="">Select Employee</option>
                                 @foreach($empDetail as $key => $value)
                                 <option value="{{$value->id}}">{{$value->emp_pan}}</option>
@@ -47,19 +45,19 @@
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Employee Code </label>
                             <input type="hidden" name="pan_no" id="pan_no">
-                            <input type="text" class="form-control form-control-sm" readonly name="emp_code" id="emp_code">
+                            <input type="text" class="form-control form-control-sm" readonly name="emp_code" id="emp_code" placeholder="Enter Employee Code">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Employee Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-sm" readonly name="emp_name" id="emp_name">
+                            <input type="text" class="form-control form-control-sm" readonly name="emp_name" id="emp_name" placeholder="Enter Employee Name">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Work Order<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-sm" readonly name="wo_number" id="wo_number">
+                            <input type="text" class="form-control form-control-sm" readonly name="wo_number" id="wo_number" placeholder="Enter Work Order Number">
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Financial Year <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control form-control-sm" name="financial_year">
+                            <input type="number" class="form-control form-control-sm" name="financial_year" placeholder="Enter Finacial Yea" required>
                             @error('financial_year')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -74,8 +72,14 @@
             </div>
         </div>
         
-        <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary"> Submit <i class="fa-solid fa-arrow-right"></i></button>
+        <div class="col-12 d-flex justify-content-end gap-3 mt-2">
+            <div>
+          <a href="{{route('form16')}}" > <button type="button" class="btn btn-sm btn-secondary"> Cancel </button></a>
+            </div>
+            <div>
+            <button class="btn btn-sm btn-primary"> Submit </button>
+            </div>
+          
         </div>
     </form>
 </div>
@@ -102,8 +106,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 d-flex justify-content-end">
+        <div class="col-12 d-flex justify-content-end mt-3 px-1 gap-3">
+        <div>
+          <a href="{{route('form16')}}" > <button type="button" class="btn btn-sm btn-secondary"> Cancel </button></a>
+            </div>
+            <div>
             <button class="btn btn-sm btn-primary"> <i class="fa-solid fa-upload"></i> Upload CSV</button>
+            </div>
+           
         </div>
     </form>
 </div>
@@ -115,7 +125,7 @@
 <script src="{{asset('assets/js/tab-changes.js')}}"></script>
 <script>
     $(document).ready(function() {
-    //   $('#pan').parent().css('max-width','184px');
+    
 
     $('#emp_id').change(function(e) {
       var emp_id = document.getElementById("emp_id").value;
