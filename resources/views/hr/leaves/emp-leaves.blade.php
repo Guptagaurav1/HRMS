@@ -59,7 +59,7 @@
                             <tr class="group">
                                 <td class="text-center"> {{$key + 1}}</td>
                                 <td class="text-center"> {{$record->emp_code}}</td>
-                                <td class="text-center">{{$record->month_id}}</td>
+                                <td class="text-center">{{$record->month->month}}</td>
                                 <td class="text-center">{{$record->casual_leave}}</td>
                                 <td class="attributes-column"> {{$record->privilege_leave}}</td>
                                 <td class="text-center">{{$record->carry_forward_cl}}</td>

@@ -21,21 +21,9 @@ class LeaveController extends Controller
        
         $currentMonth = now()->month; 
         $currentYear = now()->year;   
-
-        // Get Active Employees with the specified work order
-        $employees = empDetail::where([
-            ['emp_current_working_status', '=', 'Active'],
-            ['emp_work_order', '=', 'PSSPL Internal Employees']
-        ])->get();
-
-        foreach ($employees as $employee) {
-            $empCode = $employee->emp_code;
-            // Store leave for each employee
-           $this->store_leave($empCode, $currentMonth, $currentYear);
-        }
-        $data =EmpLeave::where('year','=',$currentYear)->get();
-        // dd($data);
+        $data =EmpLeave::with('month')->where('year','=',$currentYear)->get();
         return view("hr.leaves.emp-leaves",compact('data'));
     }
 
+    
 }
