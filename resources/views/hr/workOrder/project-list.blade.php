@@ -1,11 +1,4 @@
 @extends('layouts.master')
-
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
-
-@endsection
-
 @section('contents')
     <div class="row">
         <div class="col-md-12">
@@ -56,6 +49,7 @@
                         </div>
                     @endif
                 </div>
+                
                  </div>
               
                 <div class="table-responsive">
@@ -63,13 +57,13 @@
                 id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="srno-column">S.No.</th>
-                                <th>Organisation Name</th>
-                                <th>Project Name</th>
-                                <th>Project Number</th>
-                                <th>Empanelment Reference</th>
-                                <th>Added on</th>
-                                <th>Action</th>
+                                <th class="srno-column text-center">S.No.</th>
+                                <th class="text-center">Organisation Name</th>
+                                <th class="text-center">Project Name</th>
+                                <th class="text-center">Project Number</th>
+                                <th class="text-center">Empanelment Reference</th>
+                                <th class="text-center">Added on</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,13 +71,12 @@
                                  @foreach($projects as $key => $value)
                                      <tr>
                                          <td class="srno-column">{{$key+1}}</td>
-                                         <td>{{$value->organizations->name}}</td>
-                                         <td>{{$value->project_name}}</td>
-                                         <td>{{$value->project_number}}</td>
-                                         <td>{{$value->empanelment_reference }}</td>
-                                         <td>{{$value->created_at }}</td>
-                                       
-                                         <td>
+                                         <td class="text-center">{{$value->organizations->name}}</td>
+                                         <td class="text-center">{{$value->project_name}}</td>
+                                         <td class="text-center">{{$value->project_number}}</td>
+                                         <td class="text-center">{{$value->empanelment_reference }}</td>
+                                         <td class="text-center">{{$value->created_at }}</td>
+                                         <td class="text-center">
                                          <a href="{{route('edit-project',$value->id)}}"><button type="submit" class="btn btn-primary"> Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                          <a href="{{route('add-work-order',$value->id)}}"><button class="btn btn-primary"><i class="fa-solid fa-plus"></i> WorkOrder</button></a>
                                          </td>
@@ -109,8 +102,6 @@
 @endsection
 
 @section('script')
-
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
 <script src="{{asset('assets/js/hr/project.js')}}"></script>
 @endsection
 

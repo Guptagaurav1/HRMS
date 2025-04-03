@@ -102,8 +102,7 @@ class UserController extends Controller
         }
         $user->save();
         // User::create($request->all());
-        return redirect()->route('users')
-        ->with('success', 'User Added Successfully !');
+        return redirect()->route('users')->with(['success' => true, 'message' => 'User Added  successfully.']); 
        
     }
 
@@ -163,7 +162,7 @@ class UserController extends Controller
             'dob' => $request->dob,
         ]);
 
-        return redirect()->route('users')->with('success','User Updated Successfully !');
+        return redirect()->route('users')->with(['success' => true, 'message' => 'User Updated successfully.']); 
     }
   
     // user active/deactive method

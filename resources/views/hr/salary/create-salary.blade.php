@@ -185,21 +185,21 @@
                             <div class="row g-3">
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">Basic <span class="text-danger">*</span></label>
-                                    <input type="number" name="sal_basic" id="sal_basic" onchange="cal_gross();" required class="form-control form-control-sm">
+                                    <input type="number" name="sal_basic" id="sal_basic" onchange="cal_gross();" required class="form-control form-control-sm" value="0">
                                     @error('sal_basic')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">DA <span class="text-danger">*</span></label>
-                                    <input type="number" name="sal_da" id="sal_da" required onchange="cal_gross();" class="form-control form-control-sm">
+                                    <input type="number" name="sal_da" id="sal_da" required onchange="cal_gross();" class="form-control form-control-sm" value="0">
                                     @error('sal_da')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">Conveyence <span class="text-danger">*</span></label>
-                                    <input type="number" name="sal_conveyance" id="sal_conveyance" onchange="cal_gross();" required class="form-control form-control-sm" min="0">
+                                    <input type="number" name="sal_conveyance" id="sal_conveyance" onchange="cal_gross();" required class="form-control form-control-sm" min="0" value="0">
                                     @error('sal_conveyance')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -207,7 +207,7 @@
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">HRA <span class="text-danger">*</span></label>
-                                    <input type="number" name="sal_hra" id="sal_hra" required onchange="cal_gross();" min="0" class="form-control form-control-sm">
+                                    <input type="number" name="sal_hra" id="sal_hra" required onchange="cal_gross();" min="0" class="form-control form-control-sm" value="0">
                                     @error('sal_hra')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -217,6 +217,14 @@
                                     <label class="form-label">Medical Allowance <span class="text-danger">*</span></label>
                                     <input type="number" name="medical_allowance" id="medical_allowance" onchange="cal_gross();" required  value="0" min="0" class="form-control form-control-sm">
                                     @error('medical_allowance')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+
+                                </div>
+                                <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                    <label class="form-label">Special Allowance<span style="color: red">*</span></label>
+                                    <input type="number" name="sal_special_allowance" id="sal_special_allowance" required onkeyup="cal_gross();" class="form-control form-control-sm" value="0">
+                                    @error('sal_special_allowance')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
 
@@ -232,21 +240,21 @@
                             <div class="row g-3">
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">PF Employer max(1950)</label>
-                                    <input type="number" name="sal_pf_employer" id="sal_pf_employer" onchange="cal_gross();" min="0" readonly  class="form-control form-control-sm">
+                                    <input type="number" name="sal_pf_employer" id="sal_pf_employer" onchange="cal_gross();" min="0" value="0" readonly  class="form-control form-control-sm">
                                     @error('sal_pf_employer')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">ESIC Employer </label>
-                                    <input type="number" name="sal_esi_employer" onchange="cal_gross();" min="0" id="sal_esi_employer" readonly class="form-control form-control-sm" placeholder="ESI">
+                                    <input type="number" name="sal_esi_employer" onchange="cal_gross();" min="0" id="sal_esi_employer" readonly value="0" class="form-control form-control-sm" placeholder="ESI">
                                     @error('sal_esi_employer')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">LWF Employer(Labour Welfare Fund)<span style="color: red">*</span></label>
-                                    <input type="number" name="sal_lwf_employer" onchange="cal_gross();" min="0" id="sal_lwf_employer" required class="form-control form-control-sm">
+                                    <label class="form-label">LWF Employer(Labour Welfare Fund)</label>
+                                    <input type="number" name="sal_lwf_employer" onchange="cal_gross();" min="0" id="sal_lwf_employer" value="0" class="form-control form-control-sm">
                                     @error('sal_lwf_employer')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -271,7 +279,7 @@
                                     <input type="number" name="sal_uniform" id="sal_uniform" onchange="cal_gross();" min="0" class="form-control form-control-sm" value="0">
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">School Fee<span style="color: red">*</span></label>
+                                    <label class="form-label">School Fee</label>
                                     <input type="number" name="sal_school_fee" id="sal_school_fee" class="form-control form-control-sm" onchange="cal_gross();" required min="0" value="0">
                                     @error('sal_school_fee')
                                         <div class="text-danger">{{ $message }}</div>
@@ -279,29 +287,22 @@
 
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">Car Allowance<span style="color: red">*</span></label>
-                                    <input type="number" name="sal_car_allow" id="sal_car_allow" class="form-control form-control-sm" onchange="cal_gross();" required min="0">
+                                    <label class="form-label">Car Allowance</label>
+                                    <input type="number" name="sal_car_allow" id="sal_car_allow" class="form-control form-control-sm" value="0" onchange="cal_gross();"  min="0">
                                     @error('sal_car_allow')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
 
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">Grade Pay<span style="color: red">*</span></label>
-                                    <input type="number" name="sal_grade_pay" required onkeyup="cal_gross();" id="sal_grade_pay" class="form-control form-control-sm">
+                                    <label class="form-label">Grade Pay</label>
+                                    <input type="number" name="sal_grade_pay" value="0" onkeyup="cal_gross();" id="sal_grade_pay" class="form-control form-control-sm">
                                     @error('sal_grade_pay')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
 
                                 </div>
-                                <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">Special Allowance<span style="color: red">*</span></label>
-                                    <input type="number" name="sal_special_allowance" id="sal_special_allowance" required onkeyup="cal_gross();" class="form-control form-control-sm">
-                                    @error('sal_special_allowance')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-
-                                </div>
+                                
 
                             </div>
                         </div>
@@ -319,22 +320,20 @@
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">ESIC </label>
-                                    <input type="number" name="sal_esi_employee" id="sal_esi" onkeyup="cal_gross();" readonly class="form-control form-control-sm">
+                                    <input type="number" name="sal_esi_employee" id="sal_esi" onkeyup="cal_gross();"  readonly class="form-control form-control-sm">
                                    
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">LWF Employee(labour Welfare Fund)<span class="text-danger">
-                                    *</span></label>
-                                    <input type="number" name="sal_lwf"  id="sal_lwf" required onkeyup="cal_gross();" class="form-control form-control-sm">
+                                    <label class="form-label">LWF Employee(labour Welfare Fund)</label>
+                                    <input type="number" name="sal_lwf"  id="sal_lwf" value="0" onkeyup="cal_gross();" class="form-control form-control-sm">
                                     @error('sal_lwf')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
 
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">Professional Tax<span class="text-danger">
-                                    *</span></label>
-                                    <input type="number" name="sal_prof_tax" id="sal_prof_tax" required onkeyup="cal_gross();" class="form-control form-control-sm">
+                                    <label class="form-label">Professional Tax</label>
+                                    <input type="number" name="sal_prof_tax" id="sal_prof_tax"  onkeyup="cal_gross();" value="0" class="form-control form-control-sm">
                                     @error('sal_prof_tax')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

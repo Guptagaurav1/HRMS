@@ -655,6 +655,10 @@
                                         class="sidebar-txt">Leave</span></a>
                                 <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
                                     @if (auth()->user()->hasPermission('holiday-list'))
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('emp-leaves') }}"
+                                                class="sidebar-link">Leave List</a></li>
+                                    @endif
+                                    @if (auth()->user()->hasPermission('holiday-list'))
                                         <li class="sidebar-dropdown-item"><a href="{{ route('holiday-list') }}"
                                                 class="sidebar-link">Holiday List</a></li>
                                     @endif
@@ -962,6 +966,10 @@
                                 @if (auth('employee')->user()->hasPermission('leave.leave-taken'))
                                 <li class="sidebar-dropdown-item"><a href="{{ route('leave.leave-taken') }}"
                                         class="sidebar-link">Leave Taken</a></li>
+                                @endif
+                                @if (auth('employee')->user()->hasPermission('emp-leaves'))
+                                <li class="sidebar-dropdown-item"><a href="{{ route('emp-leaves') }}"
+                                        class="sidebar-link">Leave Summary</a></li>
                                 @endif
                             </ul>
                         </li>

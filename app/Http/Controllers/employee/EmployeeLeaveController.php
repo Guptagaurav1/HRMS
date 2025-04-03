@@ -151,11 +151,23 @@ class EmployeeLeaveController extends Controller
     /**
      * Leave taken.
      */
-    public function leave_taken()
+    public function leave_taken(Request $request)
     {
-        $user = auth('employee')->user();
+        $user = auth('employee')->user(); // Get Current User
         $attandance = WoAttendance::selectRaw('emp_code, SUM(approve_leave) AS approve_leave, SUM(lwp_leave) AS lwp_leave, MAX(created_at) AS created_at')->where('emp_code', $user->emp_code)->groupBy('emp_code')->latest()->first();
-        $monthly_leaves = WoAttendance::where('emp_code', $user->emp_code)->orderByDesc('id')->paginate(25);
-        return view('employee.leave.leave-taken', compact('attandance', 'monthly_leaves'));
+        $monthly_leaves = WoAttendance::select('attendance_month', 'approve_leave', 'lwp_leave')->where('emp_code', $user->emp_code);
+
+        // Apply Filter.
+        $search = '';
+        if($request->search){
+            $search = $request->search;
+            $monthly_leaves = $monthly_leaves->where(function($query) use ($search){
+                $query->where('attendance_month', 'LIKE', "%$search%")
+                    ->orWhere('approve_leave', 'LIKE', "%$search%")
+                    ->orWhere('lwp_leave', 'LIKE', "%$search%");
+            });
+        }
+        $monthly_leaves = $monthly_leaves->orderByDesc('id')->paginate(25)->withQueryString();
+        return view('employee.leave.leave-taken', compact('attandance', 'monthly_leaves', 'search'));
     }
 }

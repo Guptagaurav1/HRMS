@@ -56,8 +56,8 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Preferred Job Location <span class="text-danger fw-bold">*</span></label>
-                                    <input type="text" name="preferred_location" class="form-control" placeholder="Enter preferred job location" data-required="true">
-                                    <span class="error-message text-danger"></span>
+                                    <input type="text" name="preferred_location" class="form-control for_char" placeholder="Enter preferred job location" required>
+                                    <span class="preferred_location"></span>
                                 </div>
     
                                 <div class="col-md-6">
@@ -138,16 +138,18 @@
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Father's Name <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="text" name="emp_father_name" class="form-control"
+                                    <input type="text" name="emp_father_name" class="form-control for_char"
                                         placeholder="Enter father's full name" required>
+                                        <span class="emp_father_name"></span>
                                 </div>
                                 <div class="col-md-6">
 
                                     <label class="form-label text-dark">Father's Contact No. <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="text" name="emp_father_mobile" class="form-control"
-                                        placeholder="Enter father's contact number" maxlength="10" minlength="10"
+                                    <input type="text" name="emp_father_mobile" class="form-control for_char "
+                                        placeholder="Enter father's contact number"   maxlength="10" minlength="10"
                                         oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
+                                        
 
                                 </div>
 
@@ -231,8 +233,8 @@
                     <div class="d-none">
                         <input type="hidden" name="rec_id" value="{{ $id }}">
                     </div>
-                    <div class="row px-5  mt-5">
-                        <div class="col-md-12 bg-white" style="padding-top: 20px; padding-bottom: 100px;">
+                    <div class="row px-5 mt-2">
+                        <div class="col-md-12 bg-white" style="padding-bottom: 100px;">
                             <h5 class="text-center px-3 pt-5 fw-bold">Recruitment Address Details Form</h5>
                             <p class="text-danger">Note : <u>Fields with "*" are mandatory to fill.</u></p>
                             <div class="row px-4 address_details">
@@ -274,7 +276,7 @@
                                     <label for="exampleTextarea" class="form-label text-dark">Correspondence
                                         Address <span class="text-danger fw-bold">*</span>
                                         <span>
-                                            <input class="form-check-input" type="checkbox" id="sameas">
+                                            <input class="form-check-input bg-dark" type="checkbox" id="sameas">
                                         </span>
                                         Check If Same as permanent</label>
                                     <textarea class="form-control" name="emp_local_address" placeholder="Enter Correspondence Address"
@@ -318,7 +320,7 @@
                         </div>
 
 
-                        <div class="col-md-12 text-end mt-3">
+                        <div class="col-md-12 text-end mt-4 py-2 mb-2">
                             <button type="submit" class="btn btn-primary login-btn user_submit">Save
                                 &
                                 Next
@@ -338,7 +340,7 @@
                     <div class="d-none">
                         <input type="hidden" name="rec_id" value="{{ $id }}">
                     </div>
-                    <div class="row px-5 py-3 mt-5">
+                    <div class="row px-5 py-3 mt-1">
 
                         <div class="col-md-12 bg-white" style="padding-top: 20px; padding-bottom: 100px;">
                             <h5 class="text-center px-3 pt-5 fw-bold">Recruitment Bank Details Form</h5>
@@ -366,14 +368,18 @@
                                     <label class="form-label text-dark">Bank Account No. <span
                                             class="text-danger fw-bold">*</span></label>
 
-                                    <input type="number" class="form-control" name="emp_account_no"
-                                        placeholder="Enter Bank Account No" required>
+                                    <input type="text" class="form-control for_char" name="emp_account_no" 
+                                        placeholder="Enter Bank Account No" maxlength="18" required>
+                                        <span class="emp_account_no"></span>
+
+                                     
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleTextarea" class="form-label text-dark">Bank IFSC
                                         No. <span class="text-danger fw-bold">*</span></label>
-                                    <input type="text" class="form-control" name="emp_ifsc"
-                                        placeholder="Enter Bank IFSC No" required>
+                                    <input type="text" class="form-control for_char" name="emp_ifsc"
+                                        placeholder="Enter Bank IFSC No" maxlength="11" required>
+                                        <span class="emp_ifsc"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">PF Number</label>
@@ -391,8 +397,9 @@
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">PAN Card No <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="text" class="form-control" name="emp_pan" required
+                                    <input type="text"  class="form-control for_char" name="emp_pan" required
                                         placeholder="Enter PAN  No" maxlength="10" minlength="10">
+                                        <span class="emp_pan"></span>
 
                                     <input type="file" name="pan_card_doc" accept=".pdf" class="form-control my-2"
                                         required>
@@ -403,7 +410,7 @@
 
                         </div>
 
-                        <div class="col-md-12 text-end">
+                        <div class="col-md-12 text-end mt-5">
                             <button type="submit" class="btn btn-primary login-btn user_submit"
                                 id="bank_details_save_btn">Save & Next <i class="fa-solid fa-arrow-right"></i></button>
 
@@ -587,11 +594,10 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12 text-end">
+                        <div class="col-md-12 text-end py-2 mt-1">
                             <button type="submit" class="btn btn-primary login-btn user_submit"
                                 id="save_next_education">Save &
                                 Next <i class="fa-solid fa-arrow-right"></i></button>
-
                         </div>
                     </div>
                 </form>
@@ -659,20 +665,19 @@
                             <h5 class="text-center px-3 py-5">Others Current Company Details Form</h5>
                             <div class="row px-4">
                                 <div class="col-md-6">
-                                    <label class="form-label text-dark text-wrap">Differnt Technologies you have
-                                        worked
+                                    <label class="form-label text-dark text-wrap">DifferentTechnologies you involved
                                         in <span class="text-danger fw-bold">*</span></label>
 
                                     <input type="text" class="form-control"
-                                        placeholder="Enter Differnt Technologies you have worked in"
+                                        placeholder="DifferentTechnologies you involved"
                                         name="technologies_worked_in" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="exampleTextarea" class="form-label text-dark">Differnt Project
+                                    <label for="exampleTextarea" class="form-label text-dark">Different Project
                                         you
-                                        have worked in <span class="text-danger fw-bold">*</span></label>
+                                         worked in <span class="text-danger fw-bold">*</span></label>
                                     <input type="text" class="form-control" name="projects_worked_in" required
-                                        placeholder="Enter Differnt Project you have worked in">
+                                        placeholder="Different Project you worked in ">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label text-dark"> Start Date <span
@@ -725,9 +730,9 @@
                             <p class="text-danger fw-bold">Note : <u>Fields with "*" are mandatory to fill.</u></p>
                             <div class="row px-4">
 
-                                <div class="col-md-6">
+                                <div class="">
                                     <div class="w-full d-flex gap-5">
-                                        <label class="form-label mt-2 text-dark"> <input class="form-check-input"
+                                        <label class="form-label mt-2 text-dark"> <input class="form-check-input bg-dark"
                                                 type="checkbox" name="has_esi" id="ESI_ceckbox">
                                             <span class="text-wrap">If you want to Opt for the ESI, Please Tick the
                                                 checkbox <br> and then write the previous ESI No. If you have
@@ -738,8 +743,9 @@
                                 <div class="ESI_Input-field">
                                     <label class="form-label mt-2 text-dark">ESI Number <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter ESI Number"
+                                    <input type="text" class="form-control for_char" placeholder="Enter ESI format Like 00-00-123456-000-0001 "
                                         name="emp_esi_no">
+                                        <span class="emp_esi_no"></span>
                                 </div>
 
 
@@ -783,7 +789,8 @@
                                         <label class="form-label">Family Member Name <span
                                                 class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="family_member_name[]" placeholder="Enter Name"
-                                            class="form-control bg-white" required>
+                                            class="form-control bg-white for_char" required>
+                                            <span class="family_member_name"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Relationship with Member <span
@@ -831,12 +838,13 @@
                         </div>
                         <div class="col-md-6" style="background-color:#F8FAFC;">
                             <h3 class="text-center fw-bold px-3 py-5">Nominee & Dispensary Details</h3>
-                            <div class="row px-2">
+                            <div class="row px-2 mt-4">
                                 <div class="col-md-6">
                                     <label class="form-label">Nominee Name <span
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="text" placeholder="Enter Nominee" name="nominee"
-                                        class="form-control" required>
+                                        class="form-control for_char" required>
+                                        <span class="nominee"></span>
                                 </div>
 
                                 <div class="col-md-6">
@@ -844,6 +852,7 @@
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="text" placeholder="Enter Dispensary That is near by you"
                                         class="form-control" name="dispensary_near_you" required>
+                                        
                                 </div>
                             </div>
                         </div>
@@ -858,9 +867,18 @@
 
         {{-- After Documents Submission --}}
         @if ($details->rec_form_status == 'relationship_stage')
-            <div class="col-md-12 border shadow-lg p-3 mb-5 rounded vh-100">
-                <h3 class="text-success text-center">Your Documents Submit Successfully.</h3>
+        <div class="col-md-6 offset-md-3 shadow-lg  rounded-sm vh-100 d-flex justify-content-center align-items-center">
+            <div class="card">
+                <div class="card-body text-center bg-white rounded-sm">
+                   
+                    <img src="https://img.icons8.com/ios/452/checked.png" alt="Success" class="mb-4" style="width: 50px; height: 50px;">
+                    
+                   <h1>Congratulations</h1>
+                    <h3 class="text-success mt-5 py-3">Your Documents Submitted Successfully.</h3>
+                </div>
             </div>
+        </div>
+        
         @endif
 
         <div class="text-center text-white border-top p-2 mt-2">

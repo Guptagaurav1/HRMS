@@ -41,6 +41,7 @@ use App\Http\Controllers\hr\EmployeeController;
 
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\hr\ProfileController;
+use App\Http\Controllers\hr\LeaveController;
 
 use App\Http\Controllers\vms\VendorController;
 use App\Http\Controllers\vms\ClientController;
@@ -124,6 +125,10 @@ Route::middleware('all')->prefix('user')->group(function () {
     });
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
         Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
+    });
+    
+    Route::controller(LeaveController::class)->prefix('leaves')->group(function () {
+        Route::get('emp-leaves', 'index')->name("emp-leaves");
     });
 
 });
@@ -423,6 +428,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('view-complaint', 'complaint_details');
         Route::post('complaint-response', 'response');
     });
+
+  
 
    
 

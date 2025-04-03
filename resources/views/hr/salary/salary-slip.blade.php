@@ -73,43 +73,43 @@
                         id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="srno-column">S.No.</th>
-                                <th class="rid-column">Employee Code</th>
-                                <th>Employee Name</th>
-                                <th class="attributes-column">Month Year</th>
-                                <th>Working Days</th>
-                                <th>Designation</th>
-                                <th>Wo Number</th>
-                                <th>CTC(Per Month)</th>
-                                <th>Gross Pay</th>
-                                <th>Net Pay</th>
-                                <th>Basic Pay</th>
-                                <th>Working Status</th>
-                                <th>Action</th>
+                                <th class="srno-column text-center">S.No.</th>
+                                <th class="rid-column text-center">Employee Code</th>
+                                <th class="text-center">Employee Name</th>
+                                <th class="attributes-column text-center">Month Year</th>
+                                <th class="text-center">Working Days</th>
+                                <th class="text-center">Designation</th>
+                                <th class="text-center">Wo Number</th>
+                                <th class="text-center">CTC(Per Month)</th>
+                                <th class="text-center">Gross Pay</th>
+                                <th class="text-center">Net Pay</th>
+                                <th class="text-center">Basic Pay</th>
+                                <th class="text-center">Working Status</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                              @forelse($slips as $slip)
                             <tr>
-                                <td class="srno-column">{{$loop->iteration}}</td>
-                                <td class="rid-column"><a href="{{route('employee-details-salary-retainer', ['salaryid' => $slip->emp_salary_id])}}" class="text-primary">{{$slip->sal_emp_code}}</a></td>
-                                <td>{{$slip->sal_emp_name}}</td>
-                                <td class="attributes-column">{{$slip->sal_month}}</td>
-                                <td>{{$slip->sal_working_days}}</td>
-                                <td>{{$slip->sal_designation}}</td>
-                                <td>{{$slip->work_order}}</td>
-                                <td>{{$slip->emp_sal_ctc}}</td>
-                                <td>{{$slip->sal_gross}}</td>
-                                <td>{{$slip->sal_net}}</td>
-                                <td>{{$slip->sal_basic}}</td>
-                                <td>
+                                <td class="srno-column text-center">{{$loop->iteration}}</td>
+                                <td class="rid-column text-center"><a href="{{route('employee-details-salary-retainer', ['salaryid' => $slip->emp_salary_id])}}" class="text-primary">{{$slip->sal_emp_code}}</a></td>
+                                <td class="text-center">{{$slip->sal_emp_name}}</td>
+                                <td class="attributes-column text-center">{{$slip->sal_month}}</td>
+                                <td class="text-center">{{$slip->sal_working_days}}</td>
+                                <td class="text-center">{{$slip->sal_designation}}</td>
+                                <td class="text-center">{{$slip->work_order}}</td>
+                                <td class="text-center">{{$slip->emp_sal_ctc}}</td>
+                                <td class="text-center">{{$slip->sal_gross}}</td>
+                                <td class="text-center">{{$slip->sal_net}}</td>
+                                <td class="text-center">{{$slip->sal_basic}}</td>
+                                <td class="text-center">
                                     @if($slip->status)
                                     <span class="badge text-bg-success">Active</span>
                                     @else
                                     <span class="badge text-bg-danger">In-Active</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="text-center">
     
                                     <a href="{{route('salary-slip-edit', ['id' => $slip->emp_salary_id])}}"><button class="btn btn-sm btn-primary" >Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                     <a href="{{route('preview-salary-slip', ['id' => $slip->emp_salary_id])}}"><button class="btn btn-sm btn-primary">View <i class="fa-solid fa-eye"></i></button></a>
@@ -123,7 +123,7 @@
                         </tbody>
                     </table>
                 </div>
-                 <div class="col-md-12 d-flex justify-content-center my-2">
+                 <div class="col-md-12 d-flex justify-content-start my-2">
                     {{$slips->links()}}
                 </div>
             </div>

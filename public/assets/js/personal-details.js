@@ -1,10 +1,5 @@
 $(document).ready(function () {
-    // $("#user_submit").click(function () {
-    //     $(".form_handleing").hide();
-    //     $("#details_form").hide();
-    //     $(".address_details").show();
-    // });
-
+    
     function saveDetails(page, btnclass, data) {
         $("." + btnclass).attr('disabled', 'disabled');
         Swal.fire({
@@ -208,15 +203,15 @@ $(document).ready(function () {
 
     // Add More items
 
-
     $("#add-more-btn-recr").click(function () {
         let newFamilyMember = `
             <div class="row px-3 family-member-section border-top p-3 mt-3">
                 <div class="col-md-6">
                     <label class="form-label">Family Member Name <span class="text-danger fw-bold">*</span></label>
-                    <input type="text" name="family_member_name[]" class="form-control bg-white" placeholder="Enter Name" required>
+                    <input type="text" name="family_member_name[]" class="form-control bg-white for_char" placeholder="Enter Name" required>
+                    <span class="family_member_name"></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 nearClass" >
                     <label class="form-label">Relationship with Member <span class="text-danger fw-bold">*</span></label>
                     <select name="relation_with_mem[]" class="form-control bg-white" required>
                         <option value="" selected="" disabled="">Select</option>
@@ -229,14 +224,17 @@ $(document).ready(function () {
                 <div class="col-md-6">
                     <label class="form-label">Aadhar Card Number <span class="text-danger fw-bold">*</span></label>
                     <input type="text" name="aadhar_card_no[]" class="form-control bg-white" maxlength="12"  placeholder="Enter Aadhar Number" required>
+                    <span class=""></span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Date of Birth <span class="text-danger fw-bold">*</span></label>
                     <input type="date" name="dob[]" class="form-control bg-white" required>
+                    <span class=""></span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Upload Aadhar Document <span class="text-danger fw-bold">*</span></label>
-                    <input type="file"  class="form-control bg-white" name="aadhar_card_doc[]"  accept=".pdf" required>
+                    <input type="file"  class="form-control bg-white" name="aadhar_card_doc[]" accept=".pdf" required>
+                    <span class=""></span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Stay with Member? <span class="text-danger fw-bold">*</span></label>
@@ -251,8 +249,11 @@ $(document).ready(function () {
                 </div>
             </div>
         `;
-        $("#family-member-container").append(newFamilyMember);
+        
+        $("#family-member-container").append(newFamilyMember); 
+      
     });
+    
 
 
     $(document).on("click", ".remove-family-member", function () {

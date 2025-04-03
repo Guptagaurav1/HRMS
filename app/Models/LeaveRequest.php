@@ -25,5 +25,5 @@ class LeaveRequest extends Model
     {
         return $this->belongsTo(EmpDetail::class, 'emp_code', 'emp_code')->select('emp_name');
     }
-
+    
 }

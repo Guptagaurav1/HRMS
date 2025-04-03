@@ -58,7 +58,7 @@
                     <div class="col-md-12 d-flex justify-content-start mx-3">
                         <form class="row g-3 mt-2">
                             <div class="col-auto">
-                                <input type="search" class="form-control" placeholder="Search" name="search" required>
+                                <input type="search" class="form-control" placeholder="Search" name="search" value="{{$search}}" required>
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary mb-3"> Search <i

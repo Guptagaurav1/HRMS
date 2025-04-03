@@ -40,4 +40,30 @@ $(document).ready(function (){
 		console.log(stateId);
 		get_cities(stateId, oldcity);
 	}
+
+
+
+	$("#placeholder").select2({
+		placeholder: "Select a Skillset"
+		 });
+	
+		//  Education Placeholder
+	
+	
+		 $("#education").select2({
+		placeholder: "Select a Education"
+		 });
+	
+	
+		//  Fucntional ROlle placeholder
+	
+		$("#functional-role-fields").select2({
+		placeholder: "Select a Functional Role"
+		 });
+
+
+		 $("#assign-to").select2({
+			placeholder: "Select Assign to"
+
+		 })
 })
