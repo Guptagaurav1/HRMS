@@ -227,7 +227,9 @@ class MenuSeeder extends Seeder
 
             ['mid' => 'M-118', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Credentials Logs', 'page' => 'employee.sent-credentials-logs', 'status' => '1', 'parent_id' => '18'],
 
-            ['mid' => 'M-119', 'section' => 'Leave', 'section_icon' => '', 'name' => 'Apply Leave', 'page' => 'leave.leave_request', 'status' => '1', 'parent_id' => '7'],
+            ['mid' => 'M-119', 'section' => 'Leave', 'section_icon' => '', 'name' => 'Leave Taken', 'page' => 'leave.leave-taken', 'status' => '1', 'parent_id' => '7'],
+
+            ['mid' => 'M-120', 'section' => 'Employee Details', 'section_icon' => '', 'name' => 'Employee Salary Slip', 'page' => 'details.employee-salary-slip', 'status' => '1', 'parent_id' => '29'],
         ];
 
         foreach ($data as $routeData) {
