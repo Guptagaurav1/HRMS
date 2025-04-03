@@ -953,12 +953,12 @@ class RecruitmentController extends Controller
             $footer_image = asset('recruitment/images/prakhar_footer.png');
             $html = '<div backimg="background.jpg" margin-top="10px" backtop="25mm" backleft="20mm" backright="20mm" backbottom="25mm">
                         <div>
-                            <div class="header">
+                            <div class="header" style="text-align:justify;">
                             <table>
                                 <tbody>
                                     <tr>
                                         <td>
-                                        <img src="' . $header_image . '" width="750" height="100" alt="header-image"/>                                    
+                                        <img src="images/prakhar header.png" width="750" height="100" alt="header-image"/>                                    
                                         </td>
                                     </tr>
                                 </tbody>
@@ -966,11 +966,11 @@ class RecruitmentController extends Controller
                             </div>
                         </div>
                          <div>
-                        <div class="footer">
+                        <div class="footer" style=" margin: bottom 0px; padding-bottom:0px; position: absolute;  bottom:-6; left:-21;">
                             <table>
                                 <tbody>
                                     <td>                                        
-                                        <img src="' . $footer_image . '" width="750" height="100" alt="footer-image"/>                                    
+                                        <img src="images/prakhar footer.png" width="750" height="100" alt="footer-image"/>                                    
                                     </td>
                                 </tbody>
                             </table>
@@ -1245,12 +1245,12 @@ class RecruitmentController extends Controller
             $footer_image = asset('recruitment/images/prakhar_footer.png');
             $html = '<div backimg="background.jpg" margin-top="10px" backtop="25mm" backleft="20mm" backright="20mm" backbottom="25mm">
                         <div>
-                            <div class="header">
+                            <div class="header" style="text-align:justify;" >
                             <table>
                                 <tbody>
                                     <tr>
                                         <td>
-                                        <img src="' . $header_image . '" width="750" height="100" alt="header-image"/>                                    
+                                        <img src="images/prakhar header.png" width="750" height="100" alt="header-image"/>                                    
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1258,11 +1258,11 @@ class RecruitmentController extends Controller
                             </div>
                         </div>
                          <div>
-                        <div class="footer">
+                        <div class="footer" style=" margin: bottom 0px; padding-bottom:0px; position: absolute;  bottom:-6; left:-21;">
                             <table>
                                 <tbody>
                                     <td>                                        
-                                        <img src="' . $footer_image . '" width="750" height="100" alt="footer-image"/>                                    
+                                        <img src="images/prakhar footer.png" width="750" height="100" alt="footer-image"/>                                    
                                     </td>
                                 </tbody>
                             </table>

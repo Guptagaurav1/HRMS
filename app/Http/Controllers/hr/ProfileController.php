@@ -79,7 +79,7 @@ class ProfileController extends Controller
                 // Save the request to the database.
                 $insertid = EmpProfileRequestLog::create([
                     'req_id' => $newid,
-                    'emp_code' => auth()->user()->id,
+                    'emp_code' => $loginuser->emp_code,
                     'description' => $request->description[$i],
                     'file' => $filename,
                     'changed_column' => $request->changed_column[$i],
@@ -91,7 +91,7 @@ class ProfileController extends Controller
                 $notification = new Notification;
                 $notification->title = $fieldname;
                 $notification->description = $request->description[$i];
-                $notification->send_by = auth()->user()->email;
+                $notification->send_by = $loginuser->emp_email_first;
                 $notification->received_to = '1,' . $queryuser->id;
                 $notification->user_type = get_role_name($queryuser->role_id);
                 $notification->notification_type = 'employee_req';
@@ -135,7 +135,7 @@ class ProfileController extends Controller
      */
     public function request_list(Request $request)
     {   
-        $requests = EmpProfileRequestLog::select('req_id', 'changed_column', 'assigned_to', 'description', 'status', 'created_at');
+        $requests = EmpProfileRequestLog::select('req_id', 'changed_column', 'assigned_to', 'description', 'status', 'created_at')->where('emp_code', auth('employee')->user()->emp_code);
         $search = '';
         if ($request->search) {
             $search = $request->search;

@@ -440,6 +440,24 @@
                             placeholder="Enter Spouse Name"
                             value="{{ !empty($employee_details->getPersonalDetail) ? $employee_details->getPersonalDetail->emp_husband_wife_name : '' }}">
                     </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6 photodiv">
+
+                        <label class="form-label text-dark">Add Signature photo <span class="fw-lighter small">(Max
+                            size :1mb)</span></label>
+                        <input type="file" name="emp_signature" class="form-control photo"
+                            accept=".jpg, .jpeg, .png">
+                        <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/sign').'/'.$employee_details->getPersonalDetail->emp_signature : '' }}" class="img-fluid preview_photo w-50 rounded my-2">
+
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6 photodiv">
+
+                        <label class="form-label text-dark">Add Passport size photo <span class="fw-lighter small">(Max
+                            size :1mb)</span></label>
+                        <input type="file" name="emp_photo" class="form-control photo"
+                            accept=".jpg, .jpeg, .png">
+                        <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/passport_size_photo'.'/'.$employee_details->getPersonalDetail->emp_photo) : '' }}" class="img-fluid preview_photo w-50 rounded my-2">
+
+                    </div>
 
                     @if (
                         $employee_details->emp_current_working_status == 'active' ||
@@ -1084,6 +1102,16 @@
                             required>
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
+                        <label for="formFile" class="form-label">Aadhar Card <span class="fw-lighter small">(Max
+                                size :1mb)</span>
+                            @if (!empty($employee_details->getIdProofDetail) && $employee_details->getIdProofDetail->aadhar_card_doc)
+                                <a href="{{ asset('recruitment/candidate_documents/aadhar_card') . '/' . $employee_details->getIdProofDetail->aadhar_card_doc }}"
+                                    target="_blank">View</a>
+                            @endif
+                        </label>
+                        <input class="form-control" type="file" name="aadhar_card_doc" accept=".pdf">
+                    </div>
+                    <div class="col-xxl-3 col-lg-6 col-sm-6">
                         <label class="form-label">Passport No</label>
                         <input type="text" class="form-control form-control-sm" name="emp_passport_no"
                             placeholder="Enter Passport Number"
@@ -1241,4 +1269,5 @@
 @section('script')
     <script src="{{ asset('assets/js/employeeTab.js') }}"></script>
     <script src="{{asset('assets/js/commonValidation.js')}}"></script>
+    <script src="{{ asset('assets/js/city.js') }}"></script>
 @endsection

@@ -1,7 +1,4 @@
 @extends('layouts.master')
-
-
-
 @section('contents')
     <div class="row">
         <div class="col-md-12">
@@ -65,6 +62,7 @@
                                 <th class="text-center">Project Name</th>
                                 <th class="text-center">Project Number</th>
                                 <th class="text-center">Empanelment Reference</th>
+                                <th class="text-center">Added on</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -72,14 +70,15 @@
                         @if(!empty($projects))
                                  @foreach($projects as $key => $value)
                                      <tr>
-                                         <td class="srno-column text-center">{{$key+1}}</td>
-                                         <td class="text-center attributes-column">{{$value->organizations->name}}</td>
-                                         <td class="text-center attributes-column">{{$value->project_name}}</td>
-                                         <td class="text-center attributes-column">{{$value->project_number}}</td>
-                                         <td class="text-center attributes-column">{{$value->empanelment_reference }}</td>
-                                       
+                                         <td class="srno-column">{{$key+1}}</td>
+                                         <td class="text-center">{{$value->organizations->name}}</td>
+                                         <td class="text-center">{{$value->project_name}}</td>
+                                         <td class="text-center">{{$value->project_number}}</td>
+                                         <td class="text-center">{{$value->empanelment_reference }}</td>
+                                         <td class="text-center">{{$value->created_at }}</td>
                                          <td class="text-center">
                                          <a href="{{route('edit-project',$value->id)}}"><button type="submit" class="btn btn-primary"> Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                         <a href="{{route('add-work-order',$value->id)}}"><button class="btn btn-primary"><i class="fa-solid fa-plus"></i> WorkOrder</button></a>
                                          </td>
                                      </tr>
                                    

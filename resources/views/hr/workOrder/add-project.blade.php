@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('contents')
-
 <div class="panel">
     <div class="panel-header heading-stripe">
         <h3 class="mt-2 text-center">Add Project</h3>
@@ -102,9 +101,6 @@
 
 </div>
 <form>
-    @endsection
+@endsection
 
-    @section('script')
-
-
-    @endsection
+   

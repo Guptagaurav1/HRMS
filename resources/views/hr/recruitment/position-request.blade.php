@@ -347,6 +347,6 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('assets/js/hr/position_request.js') }}"></script>
+<script src="{{ asset('assets/js/hr/position_request.js')}}"></script>
 <script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection

@@ -9,6 +9,6 @@
 </head>
 
 <body>
-    {{$mailData->body}}
+    {!! $mailData->body !!}
 </body>
 </html>

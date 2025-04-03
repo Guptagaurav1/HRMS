@@ -221,6 +221,5 @@
 </div>
 @endsection
 @section('script')
-
-<script src={{ asset('assets/js/hr/employee-list.js')}}></script>
+<script src="{{asset('assets/js/hr/employee-list.js')}}"></script>
 @endsection

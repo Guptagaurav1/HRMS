@@ -35,10 +35,10 @@
                     <span class="text-danger">{{ session()->get('message') }}</span>
                 @endif
                 @if (session()->has('success'))
-                    <span class="text-success">{{ session()->get('message') }}.. <span class="text-danger" id="countdown">5</span></span>
-                @endif
+                    <span class="text-success">{{session()->get('message')}}<span class="text-danger border rounded-circle p-1 border-danger"><span id="countdown" class="p-1">5</span></span></span>
+                    @endif 
                 <!-- Reset Form -->
-                <div>
+                <div class="my-2">
                     <form class="form send-reset-link" action="{{ route('guest.send-reset-link') }}" method="post">
                         @csrf
                         <div class="input-group mb-25">

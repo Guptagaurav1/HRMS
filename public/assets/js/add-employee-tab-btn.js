@@ -20,7 +20,7 @@ $(document).ready(function () {
                     if (callback) callback(saveEmpDetails);
                 }
             },
-            error: function(key, xhr) {
+            error: function(xhr) {
                 console.log("Error in " + key, xhr.responseText);
             }
         });
@@ -296,31 +296,7 @@ $(document).ready(function () {
                 });
     });
 
-    // Get Cities.
-    $("select[name=state]").change(function (){
-        $.ajax({
-            url : SITE_URL+ '/hr/recruitment/cities',
-            type : 'post',
-            dataType : 'json',
-            data : {
-                '_token' : $("meta[name=csrf-token]").attr('content'),
-               'stateid' : $(this).val()
-            },
-            success : function(response) {
-                if(response.success) {
-                    var html = '<option value="" selected>Select City</option>';
-                    $.each(response.cities, function(index, value) {
-                        html += '<option value="' + value.id + '">' + value.city_name + '</option>';
-                    });
-                    $('select[name=emp_city]').html(html);
-                } else {
-                    var html = '<option value="" selected>Select City</option>';
-                    $('select[name=emp_city]').html(html);
-                }
-            }
-        });
-    });
-
+   
 
     // Show preview Table.
     $("button.show_preview").click(function(){
@@ -416,6 +392,12 @@ $(document).ready(function () {
     // Disable submit on change of file upload.
     $("input[name=csv]").change(function(){
         reset_preview();
+    });
+
+     // Show preview of images.
+     $(".photo").change(function (e) {
+        imgURL = URL.createObjectURL(e.target.files[0]);
+        $(this).closest(".photodiv").find('.preview_photo').attr("src", imgURL);
     });
 
 });

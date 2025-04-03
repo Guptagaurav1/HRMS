@@ -33,7 +33,7 @@ class WoAttendance extends Model
     {
         return $this->belongsTo(EmpDetail::class, 'emp_id', 'id');
     }
-
+    
     public static function boot()
     {
         parent::boot();
@@ -52,6 +52,11 @@ class WoAttendance extends Model
             });
         }
         
+    }
+
+    public function salary()
+    {
+        return $this->belongsTo(Salary::class, 'emp_code', 'sl_emp_code');
     }
 
 }

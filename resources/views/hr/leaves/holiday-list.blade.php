@@ -1,11 +1,4 @@
 @extends('layouts.master', ['title' => 'Holidays'])
-
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -30,27 +23,36 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th class="text-center">Holiday Name</th>
-                                <th class="text-center">Date</th>
-                                <th class="text-center">Month</th>
-                                <th class="text-center">Day</th>
-                                <th class="text-center">Type</th>
+                                <th>Holiday Name</th>
+                                <th>Date</th>
+                                <th>Month</th>
+                                <th>Day</th>
+                                <th class="text-start">Type</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center">
+                        <tbody>
                             @forelse($holidays as $holiday)
                             <tr>
-                                <td class="text-center">{{$holiday->holiday_name}}</td>
-                                <td class="text-center">{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
-                                <td class="text-center">{{date('F', strtotime($holiday->holiday_date))}}</td>
-                                <td class="text-center">{{date('l', strtotime($holiday->holiday_date))}}</td>
-                                <td class="text-center">{{$holiday->holiday_type}}</td>
+                                <td>{{$holiday->holiday_name}}</td>
+                                <td>{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
+                                <td>{{date('F', strtotime($holiday->holiday_date))}}</td>
+                                <td>{{date('l', strtotime($holiday->holiday_date))}}</td>
+                                <td>{{$holiday->holiday_type}}</td>
                             </tr>
                             @empty
                             <tr>
                                 <td class="text-danger text-center" colspan="5">No Record Found</td>
                             </tr>
                             @endforelse
+                            @if($day)
+                                <tr>
+                                    <td>Birthaday Leave</td>
+                                    <td>{{$dob}}</td>
+                                    <td>{{$month}}</td>
+                                    <td>{{$day}}</td>
+                                    <td>Not Specify</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -63,8 +65,4 @@
 </div>
 @endsection
 
-@section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
-@endsection
+

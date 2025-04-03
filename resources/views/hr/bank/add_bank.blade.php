@@ -1,9 +1,4 @@
 @extends('layouts.master', ['title' => 'Add Bank'])
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -23,11 +18,23 @@
                                 @error('name_of_bank')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
+
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Bank Type<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="type_of_bank"
-                                    value="{{old('type_of_bank')}}" placeholder="Enter type of bank" required>
+                                <select class="form-select" name="type_of_bank" required>
+                                    <option value="">Select Bank Type</option>
+                                    <option value="Public Sector Bank" {{old('type_of_bank')=='Public Sector Bank'
+                                        ? 'selected' : '' }}>Public Sector Bank</option>
+                                    <option value="Private Sector Bank" {{old('type_of_bank')=='Private Sector Bank'
+                                        ? 'selected' : '' }}>Private Sector Bank</option>
+                                    <option value="Foreign Bank" {{old('type_of_bank')=='Foreign Bank' ? 'selected' : ''
+                                        }}>Foreign Bank</option>
+                                    <option value="Cooperative Bank" {{old('type_of_bank')=='Cooperative Bank'
+                                        ? 'selected' : '' }}>Cooperative Bank</option>
+                                    <option value="Regional Rural Bank" {{old('type_of_bank')=='Regional Rural Bank'
+                                        ? 'selected' : '' }}>Regional Rural Bank</option>
+                                </select>
                                 @error('type_of_bank')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror

@@ -8,11 +8,13 @@ use App\Models\WorkOrder;
 use App\Models\WoContactDetail;
 use App\Models\Organization;
 use App\Models\State;
+use App\Models\City;
 use App\Models\Project;
 use Throwable;
 use ZipArchive;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -106,7 +108,7 @@ class WorkOrderController extends Controller
                     });
             });
         }
-        $totalWorkOrders = $totalWorkOrders->orderBy('id', 'desc')->paginate(10);
+        $totalWorkOrders = $totalWorkOrders->orderBy('id', 'desc')->paginate(25);
     
         // Add contact details for each work order
         foreach ($totalWorkOrders as $key => $value) {
@@ -127,16 +129,21 @@ class WorkOrderController extends Controller
     
 
     
-    public function create(){
+    public function create(Request $request){
+        $project_id = $request->project_id??NULL;
+        $project = Project::where('id', $project_id)->first();
+        // dd($project);
+
         $organization = Organization::select('id','name')->orderBy('id','desc')->get();
-        $state = State::select('id','state')->orderBy('id','asc')->get();
-        return view("hr.workOrder.add-work-order",compact('organization','state'));
+        $states = State::select('id', 'state')->orderBy('state')->where('country_id', 1)->get();
+       
+        $projects = project::select('id','project_name')->orderBy('id','desc')->get();
+        return view("hr.workOrder.add-work-order",compact('organization','states','project','projects'));
     }
     public function store(Request $request){
             $request->validate([
                 'organisation' => 'required',
                 'project_name' => 'required',
-                // 'contacts.*.c_contact' => 'digits:10',
                 'attachment' => 'file|mimes:jpg,jpeg,png,pdf|max:2048', 
                 'wo_number' => ['required',Rule::unique('work_orders')->whereNull('deleted_at')],
 
@@ -152,7 +159,7 @@ class WorkOrderController extends Controller
         }
         
         try {   
-            
+            DB::beginTransaction();
             $workOrder = new WorkOrder();
             $workOrder->wo_internal_ref_no = $request->internal_reference;
             $workOrder->project_id = $request->project_name;
@@ -170,17 +177,20 @@ class WorkOrderController extends Controller
             $workOrder->wo_amount = $request->amount;
             $workOrder->wo_project_coordinator = $request->coordinator_name;
             $workOrder->wo_invoice_address = $request->invoice_address;
-
-        
             $workOrder->wo_invoice_name = $request->invoice_client_name;
 
-            $workOrder->wo_state = $request->invoice_state;
-            $workOrder->wo_pin = $request->invoice_pin;
+            $workOrder->wo_state = $request->state;
+            $workOrder->wo_pin = $request->pincode;
+
+            $workOrder->wo_invoice_state = $request->invoice_state;
+            $workOrder->wo_invoice_city = $request->invoice_city;
+            $workOrder->wo_invoice_pincode = $request->invoice_pin;
             $workOrder->amendment_number = $request->amendment_number;
             $workOrder->amendment_date = $request->amendment_date;
             $workOrder->previous_order_no = $request->prev_order_no;
             $workOrder->wo_remarks = $request->remarks;
             $workOrder->wo_attached_file = $fileName;
+            // dd($workOrder);
            
             $workOrder->save();
           
@@ -199,10 +209,11 @@ class WorkOrderController extends Controller
                     $woContactDetail->save();
                 }
             }
-
-            return redirect()->route('work-order-list')->with('success','WorkOrder created !');
+            DB::commit();
+            return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'WorkOrder created successfully.']); 
         }catch(Throwable $th){
-                return response()->json(['error' => true, 'message' => 'Server Error.']); 
+            DB::rollBack();
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
         }
 
        
@@ -212,8 +223,15 @@ class WorkOrderController extends Controller
        
         $workOrder = WorkOrder::with('project.organizations','contacts')->findOrFail($id);
         $organization = Organization::orderBy('id','desc')->get();
-        $state = State::select('id','state')->orderBy('id','asc')->get();
-        return view("hr.workOrder.edit-work-order",compact('workOrder','organization','state'));
+        $states = State::select('id', 'state')->orderBy('state')->where('country_id', 1)->get();
+        $wo_state =$workOrder->wo_state??NULL;
+        $cities=" ";
+        if(!empty($wo_state)){
+           $cities = City::select('id', 'city_name')->orderBy('city_name')->where('state_code',$wo_state)->get();
+        }
+        // dd($workOrder->wo_city);
+        $projects = project::select('id','project_name')->orderBy('id','desc')->get();
+        return view("hr.workOrder.edit-work-order",compact('workOrder','organization','states','projects','cities'));
     
     }
     public function update(Request $request,string $id){
@@ -225,6 +243,7 @@ class WorkOrderController extends Controller
             'wo_number' => ['required',Rule::unique('work_orders')->whereNull('deleted_at')->ignore($id)],
         ]);
         try {   
+            DB::beginTransaction();
             $workOrder= WorkOrder::find($id);
             
             // update attechment of workorder
@@ -255,17 +274,20 @@ class WorkOrderController extends Controller
             $workOrder->wo_amount = $request->amount;
             $workOrder->wo_project_coordinator = $request->coordinator_name;
             $workOrder->wo_invoice_address = $request->invoice_address;
-
-        
             $workOrder->wo_invoice_name = $request->invoice_client_name;
 
-            $workOrder->wo_state = $request->invoice_state;
-            $workOrder->wo_pin = $request->invoice_pin;
+            $workOrder->wo_state = $request->state;
+            $workOrder->wo_pin = $request->pincode;
+
+            $workOrder->wo_invoice_state = $request->invoice_state;
+            $workOrder->wo_invoice_city = $request->invoice_city;
+            $workOrder->wo_invoice_pincode = $request->invoice_pin;
             $workOrder->amendment_number = $request->amendment_number;
             $workOrder->amendment_date = $request->amendment_date;
             $workOrder->previous_order_no = $request->prev_order_no;
             $workOrder->wo_remarks = $request->remarks;
             $workOrder->wo_attached_file = $fileName??NULL;
+          
             $workOrder->save();
            
                 $contactsData = $request->c_person_name;
@@ -296,9 +318,15 @@ class WorkOrderController extends Controller
                  
                }
 
-            return redirect()->route('work-order-list')->with('success','WorkOrder updated !');
+        //     return redirect()->route('work-order-list')->with('success','WorkOrder updated !');
+        // }catch(Throwable $th){
+        //         return response()->json(['error' => true, 'message' => 'Server Error.']); 
+        // }
+            DB::commit();
+            return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'WorkOrder updated successfully.']); 
         }catch(Throwable $th){
-                return response()->json(['error' => true, 'message' => 'Server Error.']); 
+            DB::rollBack();
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
         }
     }
     public function show(String $id){
@@ -333,7 +361,6 @@ class WorkOrderController extends Controller
        
         $workOrder_id = $request->workOrder_id;
         $workOrder_details =  workOrder::with('project')->where('wo_number',$workOrder_id)->orderBy('id', 'desc')->first();
-        // dd($workOrder_details);
         if($workOrder_details){
             return response()->json([
                 'message' => 'workOrder Details retrieved successfully',
@@ -343,6 +370,8 @@ class WorkOrderController extends Controller
     }
      
     public function work_order_report(Request $request){
+        
+        $check_workOrders = $request->checkbox??NULL;
         if(empty($request->checkbox)){
             return redirect()->route('work-order-list')->with('success','Please check atleast one checkbox !');
         }
@@ -370,13 +399,13 @@ class WorkOrderController extends Controller
             }
         }
         $zipFilePath = null;
-        // if (count($wo_doc) > 0) {
-        //     // Call the helper function to create a zip of the work order documents
-        //     $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
-        // }
+        if (count($wo_doc) > 0) {
+            // Call the helper function to create a zip of the work order documents
+            $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
+        }
         // dd($wo_doc);
        
-        return view("hr.workOrder.work-order-report",compact('wo_details','overallSum','zipFilePath'));
+        return view("hr.workOrder.work-order-report",compact('wo_details','overallSum','zipFilePath','check_workOrders'));
     }
 
     
@@ -385,8 +414,9 @@ class WorkOrderController extends Controller
      */
     public function export_csv(Request $request)
     {
+
+        // dd($request->check_workOrders);
         $filename = 'work-order.csv';
-    
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => "attachment; filename=\"$filename\"",
@@ -394,84 +424,102 @@ class WorkOrderController extends Controller
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Expires' => '0',
         ];
-       
-        $totalWorkOrders = WorkOrder::select('wo_number', 'wo_start_date', 'wo_end_date','wo_date_of_issue','wo_location','wo_city','wo_amount','wo_project_coordinator','wo_no_of_resources','project_id') 
-        ->with([
-            'project' => function ($query) {
-                $query->select('id', 'project_name','organisation_id','project_number','empanelment_reference'); 
-            },
-            'project.organizations' => function ($query) {
-                $query->select('id', 'name'); 
-            }
-        ]);
-    
-        // Get search term from request
-        $searchValue = $request->search;
-        $woStart = $request->start_date;
-        $woEnd = $request->end_date;
-        $organisation = $request->organisation;
-        $project_name = $request->project_name;
-        // filter for workorder start and end date
-        if(!empty($woStart) && !empty($woStart) && empty($project_name) && empty($organisation)){
-            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($woStart,$woEnd) {
-                $query->whereDate('wo_start_date', '>=',$woStart)
-                ->whereDate('wo_end_date', '<=', $woEnd);
-            });
-        } 
-        elseif(empty($project_name) && (!empty($organisation) && empty($woStart) && empty($woStart))){
-            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation) {
-                $query->WhereHas('project.organizations', function ($query) use ($organisation) {
-                    $query->where('id', 'like', "%$organisation%");
+
+        
+        if(!empty($request->check_workOrders)){
+            $wo = explode(',',$request->check_workOrders);
+            $totalWorkOrders = WorkOrder::select('wo_number', 'wo_start_date', 'wo_end_date','wo_date_of_issue','wo_location','wo_city','wo_amount','wo_project_coordinator','wo_no_of_resources','project_id') 
+           ->with([
+               'project' => function ($query) {
+                   $query->select('id', 'project_name','organisation_id','project_number','empanelment_reference'); 
+               },
+               'project.organizations' => function ($query) {
+                   $query->select('id', 'name'); 
+               }
+           ])
+           ->whereIn('id',$wo);
+           $totalWorkOrders = $totalWorkOrders->get();
+          
+        }else{
+        
+            $totalWorkOrders = WorkOrder::select('wo_number', 'wo_start_date', 'wo_end_date','wo_date_of_issue','wo_location','wo_city','wo_amount','wo_project_coordinator','wo_no_of_resources','project_id') 
+            ->with([
+                'project' => function ($query) {
+                    $query->select('id', 'project_name','organisation_id','project_number','empanelment_reference'); 
+                },
+                'project.organizations' => function ($query) {
+                    $query->select('id', 'name'); 
+                }
+            ]);
+        
+            // Get search term from request
+            $searchValue = $request->search;
+            $woStart = $request->start_date;
+            $woEnd = $request->end_date;
+            $organisation = $request->organisation;
+            $project_name = $request->project_name;
+            // filter for workorder start and end date
+            if(!empty($woStart) && !empty($woStart) && empty($project_name) && empty($organisation)){
+                $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($woStart,$woEnd) {
+                    $query->whereDate('wo_start_date', '>=',$woStart)
+                    ->whereDate('wo_end_date', '<=', $woEnd);
                 });
-            });
-        }elseif(!empty($project_name) && (!empty($organisation)) && empty($woStart) && empty($woStart)){
-            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation,$project_name) {
-                $query->WhereHas('project.organizations', function ($query) use ($organisation,$project_name) {
-                    $query->where('id', 'like', "%$organisation%");
-                })
-                ->WhereHas('project', function ($query) use ($project_name) {
-                    $query->where('id', 'like', "%$project_name%");
-                    
-                });
-            });
-            
-        }elseif(!empty($project_name) && (!empty($organisation)) && !empty($woStart) && !empty($woStart)){
-            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation,$project_name,$woStart,$woEnd) {
-                $query->whereDate('wo_start_date', '>=',$woStart)
-                ->whereDate('wo_end_date', '<=', $woEnd);
-                $query->WhereHas('project.organizations', function ($query) use ($organisation) {
-                    $query->where('id', 'like', "%$organisation%");
-                })
-                ->WhereHas('project', function ($query) use ($project_name) {
-                    $query->where('id', 'like', "%$project_name%");
-                    
-                });
-            });
-        }
-        // Apply filters if search value is provided
-        if (!empty($searchValue)) {
-            $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($searchValue) {
-                $query->where('wo_internal_ref_no', 'like', '%' . $searchValue . '%')
-                    ->orWhere('wo_number', 'like', '%' . $searchValue . '%')
-                    ->orWhere('wo_date_of_issue', 'like', '%' . $searchValue . '%')
-                    ->orWhere('wo_project_coordinator', 'like', '%' . $searchValue . '%')
-                    ->orWhere('prev_wo_no', 'like', '%' . $searchValue . '%')
-                    ->orWhere('wo_amount', 'like', '%' . $searchValue . '%')
-                    ->orWhereHas('project', function ($query) use ($searchValue) {
-                        $query->where('project_name', 'like', "%$searchValue%")
-                            ->orWhere('empanelment_reference', 'like', '%' . $searchValue . '%')
-                            ->orWhere('project_number', 'like', '%' . $searchValue . '%');
-                    })
-                    ->orWhereHas('contacts', function ($query) use ($searchValue) {
-                        $query->where('wo_client_contact_person', 'like', '%' . $searchValue . '%')
-                            ->orWhere('wo_client_email', 'like', '%' . $searchValue . '%');
-                    })
-                    ->orWhereHas('project.organizations', function ($query) use ($searchValue) {
-                        $query->where('name', 'like', "%$searchValue%");
+            } 
+            elseif(empty($project_name) && (!empty($organisation) && empty($woStart) && empty($woStart))){
+                $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation) {
+                    $query->WhereHas('project.organizations', function ($query) use ($organisation) {
+                        $query->where('id', 'like', "%$organisation%");
                     });
-            });
+                });
+            }elseif(!empty($project_name) && (!empty($organisation)) && empty($woStart) && empty($woStart)){
+                $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation,$project_name) {
+                    $query->WhereHas('project.organizations', function ($query) use ($organisation,$project_name) {
+                        $query->where('id', 'like', "%$organisation%");
+                    })
+                    ->WhereHas('project', function ($query) use ($project_name) {
+                        $query->where('id', 'like', "%$project_name%");
+                        
+                    });
+                });
+                
+            }elseif(!empty($project_name) && (!empty($organisation)) && !empty($woStart) && !empty($woStart)){
+                $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($organisation,$project_name,$woStart,$woEnd) {
+                    $query->whereDate('wo_start_date', '>=',$woStart)
+                    ->whereDate('wo_end_date', '<=', $woEnd);
+                    $query->WhereHas('project.organizations', function ($query) use ($organisation) {
+                        $query->where('id', 'like', "%$organisation%");
+                    })
+                    ->WhereHas('project', function ($query) use ($project_name) {
+                        $query->where('id', 'like', "%$project_name%");
+                        
+                    });
+                });
+            }
+            // Apply filters if search value is provided
+            if (!empty($searchValue)) {
+                $totalWorkOrders = $totalWorkOrders->where(function ($query) use ($searchValue) {
+                    $query->where('wo_internal_ref_no', 'like', '%' . $searchValue . '%')
+                        ->orWhere('wo_number', 'like', '%' . $searchValue . '%')
+                        ->orWhere('wo_date_of_issue', 'like', '%' . $searchValue . '%')
+                        ->orWhere('wo_project_coordinator', 'like', '%' . $searchValue . '%')
+                        ->orWhere('prev_wo_no', 'like', '%' . $searchValue . '%')
+                        ->orWhere('wo_amount', 'like', '%' . $searchValue . '%')
+                        ->orWhereHas('project', function ($query) use ($searchValue) {
+                            $query->where('project_name', 'like', "%$searchValue%")
+                                ->orWhere('empanelment_reference', 'like', '%' . $searchValue . '%')
+                                ->orWhere('project_number', 'like', '%' . $searchValue . '%');
+                        })
+                        ->orWhereHas('contacts', function ($query) use ($searchValue) {
+                            $query->where('wo_client_contact_person', 'like', '%' . $searchValue . '%')
+                                ->orWhere('wo_client_email', 'like', '%' . $searchValue . '%');
+                        })
+                        ->orWhereHas('project.organizations', function ($query) use ($searchValue) {
+                            $query->where('name', 'like', "%$searchValue%");
+                        });
+                });
+            }
+            $totalWorkOrders = $totalWorkOrders->get();
         }
-        $totalWorkOrders = $totalWorkOrders->get();
         
         return response()->stream(function () use ($totalWorkOrders){
             $handle = fopen('php://output', 'w');

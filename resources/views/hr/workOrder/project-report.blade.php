@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Interactive Email Design</title>
+    <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -233,7 +233,7 @@
             <td align="center">
                 <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" class="email-card">
                     <tr>
-                        <td align="center" > <p style="margin-top: 10px;"><b>Dear John Doe</b></p></td>
+                        <td align="center" > <p style="margin-top: 10px;"><b>Dear {{$mailData->name}},</b></p></td>
                     </tr>
                     <tr>
                         <td align="center" bgcolor="#ffffff" valign="top" width="600">
@@ -246,31 +246,28 @@
                                     </tr>
                                     <tr>
                                         <td style="margin-top: 10px; padding: 10px;">
-                                            Thank you for signing up! We are excited to have you join our community.
+                                            
+                                            {!! $mailData->content !!}
                                         </td>
                                     </tr>
-                                    <tr style="margin-bottom: 20px;">
-                                        <td style="margin-top: 10px;">
-                                            Here are the details you requested:
-                                        </td>
-                                    </tr>
+                                    
                                 </table>
                                 <table class="info-table">
                                     <tr>
                                         <th>Email</th>
-                                        <td>support@prakharsoftwares.com</td>
+                                        <td>{{$mailData->comp_email}}</td>
                                     </tr>
                                     <tr>
                                         <th>Phone</th>
-                                        <td>+91 123 456 7890</td>
+                                        <td>+91 {{$mailData->comp_phone}}</td>
                                     </tr>
                                     <tr>
                                         <th>Website</th>
-                                        <td>www.prakharsoftwares.com</td>
+                                        <td>{{$mailData->comp_website}}</td>
                                     </tr>
                                     <tr>
                                         <th>Address</th>
-                                        <td>123 Software Lane, City, Country</td>
+                                        <td>{{$mailData->comp_address}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -302,7 +299,7 @@
                                 </tr>
                                 <tr>
                                     <td class="email-footer" align="center" style="padding: 15px; color: #333;">
-                                        <p style="margin: 0; font-weight: bold;">Copyright © {{date('Y')}} <a href="https://www.prakharsoftwares.com" style="color: #4CAF50;">Prakhar Software Solutions</a>. All rights reserved.</p>
+                                        <p style="margin: 0; font-weight: bold;">Copyright © {{date('Y')}} <a href="{{$mailData->url}}" style="color: #4CAF50;">Prakhar Software Solutions</a>. All rights reserved.</p>
                                     </td>
                                 </tr>
                             </table>

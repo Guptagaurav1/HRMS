@@ -54,6 +54,7 @@
                                 <th class="text-center">Role Name</th>
                                 <th class="text-center">Attributes</th>
                                 <th class="text-center">Time Added On</th>
+                                <th class="text-center">Time Updated On</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -67,6 +68,7 @@
                                 </td>
                               
                                 <td class="text-center">{{ $role->created_at}}</td>
+                                <td class="text-center">{{ $role->updated_at}}</td>
                                 <td class="text-center"> 
                                     {{-- @if(auth()->user()->hasPermission('edit-manage-role')) --}}
                                         <a href="{{route('edit-manage-role',$role->id)}}" title="Edit"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
@@ -77,7 +79,7 @@
                                 </td>
                             </tr>
                             @empty
-                            <tr >
+                            <tr>
                                 <td colspan="5" class="text-center"><span class="text-danger">No Record Found</span></td>
                             </tr> 
                             @endforelse

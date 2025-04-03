@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h3 class="mt-2">Employee Credenial Log</h3>
+                    <h3 class="mt-2">Employee Credential Log</h3>
                 </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3 mt-2">
