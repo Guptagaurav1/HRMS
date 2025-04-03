@@ -11,13 +11,13 @@
             <div class="panel-header">
                 <h2 class="mt-2">Employe Leave List</h2>
             </div>
-            <div class="col-md-12 text-center py-3">
+            <!-- <div class="col-md-12 text-center py-3">
             <form class="month">
                 <label>Select Month :</label><br>
                 <input name="month" class="date-picker" placeholder="mm-year" value="" required />
                 <button type="submit" class="btn btn-primary">Check</button>
             </form>
-            </div>
+            </div> -->
             
             <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
                 <symbol id="check-circle-fill" viewBox="0 0 16 16">
@@ -38,10 +38,11 @@
             </div>
             </div>
             @endif
-            <div class="table-responsive">
+            <div class="table-responsive py-3" >
                 <table class="table table-bordered table-hover digi-dataTable table-striped" id="allEmployeeTable">
                     <thead>
                         <tr>
+                            <th class="text-center">S No.</th>
                             <th class="text-center">S No.</th>
                             <th class="text-center">Month</th>
                             <th class="text-center">Alloted CLs</th>
@@ -54,37 +55,24 @@
                     </thead>
                     <tbody>
                          @if($data)
-                        @forelse($data as $record)
-                        <tr class="group">
-                            <td class="text-center">
-                                <a href="{{ route('employee-details', ['empid' => $record->id]) }}"
-                                    class="text-primary">{{$record->emp_code}}</a>
-                            </td>
-                            <td class="text-center">{{$record->emp_name}}</td>
-                            <td class="text-center">{{$record->emp_designation}}</td>
-                            <td class="attributes-column">
-                               {{$record->emp_phone_first."/".$record->emp_email_first}}
-                            </td>
-                            <td class="text-center">
-                                <div class="mbsc-form-group">
-                                    <input type="text" name="leave_dates"
-                                        class="btn btn-sm btn-primary multiDatePicker text-light" style="color: white;" placeholder="Select Date" autocomplete="off" value="">
-                                    <div class="d-none">
-                                    <input type="hidden" class="emp_id" value="{{$record->emp_code}}" />
-                                    <input type="hidden" class="current_month" value="{{$previous_month}}" />
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-primary send_mail">Send Mail</button>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td class="text-center text-danger" colspan="6">No Record Found</td>
-                        </tr>
-                        @endforelse
+                            @forelse($data as $key => $record)
+                            <tr class="group">
+                                <td class="text-center"> {{$key + 1}}</td>
+                                <td class="text-center"> {{$record->emp_code}}</td>
+                                <td class="text-center">{{$record->month_id}}</td>
+                                <td class="text-center">{{$record->casual_leave}}</td>
+                                <td class="attributes-column"> {{$record->privilege_leave}}</td>
+                                <td class="text-center">{{$record->carry_forward_cl}}</td>
+                                <td class="text-center">{{$record->carry_forward_pl}}</td>
+                                <td class="text-center">{{$record->leave_taken}}</td>
+                                <td class="text-center">
+                                {{ ($record->casual_leave + $record->privilege_leave + $record->carry_forward_cl + $record->carry_forward_pl) - $record->leave_taken }}</td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td class="text-center text-danger" colspan="6">No Record Found</td>
+                            </tr>
+                            @endforelse
                         @endif
                     </tbody>
                 </table>

@@ -80,7 +80,7 @@ class AttendanceController extends Controller
                         $query->select('at_emp')
                             ->from('wo_attendances')
                             ->where('wo_number', $wo_number)
-                            ->whereRaw("CONCAT(at_emp, '', ?) = emp_details.id", [$m_y]);
+                            ->whereRaw("CONCAT(emp_details.id, '', ?) = at_emp", [$m_y]);
                     })
                     ->when($search, function ($query, $search) {
                         // Add search conditions here
