@@ -1,6 +1,5 @@
 @extends('layouts.master', ['title' => 'Position Request Form'])
 @section('style')
-
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 @endsection
 
@@ -44,7 +43,8 @@
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Client Name <span style="color: red">*</span></label>
-                            <input type="text" class="form-control form-control-sm" name="client_name" value="{{$record->client_name}}" required>
+                            <input type="text" class="form-control form-control-sm  for_char" name="client_name" value="{{$record->client_name}}" placeholder="Enter Client Name" required>
+                            <span class="client_name"></span>
                             @error('client_name')
                             <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -261,6 +261,7 @@
 
 @section('script')
 <script src="{{asset('assets/js/hr/position_request.js')}}"></script>
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection
 
     

@@ -15,7 +15,7 @@
 }
 
 
-
+ 
 #bb
 {background: #2A3F54;
     color: white;
@@ -88,7 +88,7 @@ label{
 }
 
 
-
+/* modal */
 
 .modal-content {
     border-radius: 15px;
@@ -157,6 +157,9 @@ label{
     font-size: 13px;
 }
 
+
+
+/* Form control custom design  */
 
 .form-label {
     font-weight: bold;

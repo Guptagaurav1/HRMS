@@ -1935,11 +1935,11 @@ input[type=checkbox] {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+   justify-content: center;
 }
 .input-group-with-icon input {
   width: 100%;
@@ -1959,6 +1959,7 @@ input[type=checkbox] {
   color: #c8d4f0;
   opacity: 0.5;
 }
+
 .input-group-with-icon input:-ms-input-placeholder {
   color: #c8d4f0;
   opacity: 0.5;
@@ -1979,6 +1980,7 @@ input[type=checkbox] {
 .digi-dropdown {
   position: relative;
 }
+
 .digi-dropdown .dropdown-menu {
   background: #112143;
   border: 1px solid rgba(255, 255, 255, 0.2);

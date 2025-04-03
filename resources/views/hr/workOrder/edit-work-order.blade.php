@@ -514,29 +514,4 @@
 <script src="{{asset('assets/js/hr/work-order.js')}}"></script>
 <script src="{{ asset('assets/js/city.js') }}"></script>
 
-<script>
-    $(document).ready(function () {
-        $('.tab-btn').click(function () {
-
-            var tabId = $(this).attr('id');
-
-            console.log(` ${tabId}`)
-            var contentId = '#content' + tabId.replace('tab', '');
-
-
-            console.log(`${contentId}`)
-
-
-            $('.tab-btn').removeClass('active');
-            $('.tab-content').removeClass('active');
-
-
-            $(this).addClass('active');
-            $(contentId).addClass('active');
-        });
-
-    });
-
-</script>
-
 @endsection

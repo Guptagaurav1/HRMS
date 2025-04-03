@@ -1,10 +1,5 @@
 @extends('layouts.master')
 
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
-
 @section('contents')
 <div class="fluid-container">
     <div class="row">
@@ -12,11 +7,18 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2">Invoice Billing Structure</h3>
-    
-    
+                    <div class="text-end px-2">
+                <a href="{{ route('invoice-list') }}">
+                    <div class="back-button-box ">
+                        <button type="button" class="btn btn-back">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </a>
+            </div>
                 </div>
-                <p class="px-3 mt-2">Billing Structure</p>
-                <div class="col-md-12 d-flex justify-content-start px-2">
+              
+                <div class="col-md-12 d-flex justify-content-start px-2 mt-4">
                     <form class="row g-3" method="get">
                         <div class="col-auto mb-3">
                             <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
@@ -63,17 +65,17 @@
                             <tbody>
                                 @forelse($billing_strut as $key => $value)
                                 <tr>
-                                    <td>{{$value->organizations->name}}</td>
-                                    <td>{{$value->wo_number}}</td>
-                                    <td>{{$value->billing_to}}</td>
-                                    <td>{{$value->billing_sac_code}}</td>
-                                    <td>{{$value->billing_gst_no}}	</td>
-                                    <td>{{strtoupper($value->billing_tax_mode)}}</td>
-                                    <td>{{$value->billing_tax_rate}}</td>
-                                    <td>{{strtoupper($value->show_service_charge)}}</td>
-                                    <td>{{$value->service_charge_rate}}</td>
-                                    <td>{{$value->contact_person}}</td>
-                                    <td>{{$value->email_id}}</td>
+                                    <td class="text-center">{{$value->organizations->name}}</td>
+                                    <td class="text-center">{{$value->wo_number}}</td>
+                                    <td class="attributes-column text-center">{{$value->billing_to}}</td>
+                                    <td class="text-center">{{$value->billing_sac_code}}</td>
+                                    <td class="text-center">{{$value->billing_gst_no}}	</td>
+                                    <td class="text-center">{{strtoupper($value->billing_tax_mode)}}</td>
+                                    <td class="text-center">{{$value->billing_tax_rate}}</td>
+                                    <td class="text-center">{{strtoupper($value->show_service_charge)}}</td>
+                                    <td class="text-center">{{$value->service_charge_rate}}</td>
+                                    <td class="attributes-column text-center">{{$value->contact_person}}</td>
+                                    <td class="text-center">{{$value->email_id}}</td>
                                     
                                     <td><a href="{{route('edit-billing-structure',$value->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a></td>
                                 </tr>

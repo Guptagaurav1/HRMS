@@ -1,8 +1,4 @@
 @extends('layouts.master', ['title' => 'Edit Organization'])
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
 
 @section('contents')
 <div class="row">
@@ -12,18 +8,7 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h4 class="mt-2">Edit Organization</h4>
-
-                        <div class="text-start">
-                            <a href="{{ route('organizations.index') }}">
-                                <div class="back-button-box">
-                                    <button type="button" class="btn btn-back">
-                                        <i class="fa-solid fa-arrow-left"></i>
-                                    </button>
-                                </div>
-                            </a>
-                        </div>
-
+                        <h4 class="mt-2">Update Organization</h4>
                     </div>
                     <div class="panel-body">
                         <div class="row g-3">
@@ -136,22 +121,18 @@
                 </div>
             </div>
 
-            <div class="col-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-sm btn-primary">Submit <i
-                        class="fa-solid fa-arrow-right"></i></button>
+            <div class="col-12 d-flex justify-content-end gap-3">
+                <div>
+                    <a href="{{ route('organizations.index') }}">
+                        <button type="button" class="btn btn-sm btn-secondary">Cancel </button>
+                    </a>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-sm btn-primary">Submit </button>
+                </div>
+               
             </div>
         </div>
     </form>
 </div>
-
-
-@endsection
-
-@section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
-<script src="{{ asset('assets/js/masters/organization.js') }}"></script>
-
-
 @endsection

@@ -17,6 +17,7 @@
                     </div> -->
 
                     <div class="text-end px-4">
+                        @if(auth()->check())
                     <a href="{{ route('salary-slip') }}">
                         <div class="back-button-box">
                             <button type="button" class="btn btn-back">
@@ -24,6 +25,15 @@
                             </button>
                         </div>
                     </a>
+                    @else
+                    <a href="{{ route('details.employee-salary-slip') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                    @endif
                 </div>
                     </div>
                     

@@ -77,22 +77,23 @@
                         @endif
                     <div class="table-responsive">
                         <div class="">
-                            <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
+                            <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                            id="allEmployeeTable">
                                 <thead>
-                                    <tr style="background-color: #2A3F54">
-                                        <th class="text-white"><strong>Recruitment Id</strong></th>
-                                        <th class="text-white"><strong>Name</strong></th>
-                                        <th class="text-white"><strong>Contact Details</strong></th>
-                                        <th class="text-white"><strong>Job Position</strong></th>
-                                        <th class="text-white"><strong>Client Name</strong></th>
-                                        <th class="text-white"><strong>DOB</strong></th>
-                                        <th class="text-white"><strong>Location</strong></th>
-                                        <th class="text-white"><strong>Experience</strong></th>
-                                        <th class="text-white"><strong>Skills</strong></th>
-                                        <th class="text-white"><strong>Education</strong></th>
-                                        <th class="text-white"><strong>Status</strong></th>
-                                        <th class="text-white"><strong>Employee Status</strong></th>
-                                        <th class="text-white"><strong>Action</strong></th>
+                                    <tr>
+                                        <th class="text-center">Recruitment Id</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Contact Details</th>
+                                        <th class=" text-center">Job Position</th>
+                                        <th class=" text-center">Client Name</th>
+                                        <th class=" text-center">DOB</th>
+                                        <th class="text-center">Location</th>
+                                        <th class="text-center">Experience</th>
+                                        <th class="text-center">Skills</th>
+                                        <th class="text-center">Education</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Employee Status</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                     {{-- <tr>
                                         <th><input type="text" placeholder="Recruitment Id" class="rec-list_head"></th>
@@ -162,7 +163,7 @@
                                         
                                         
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             @if(auth()->user()->hasPermission('applicant-recruitment-details-summary'))
                                                 <a href="{{ route('applicant-recruitment-details-summary', ['rec_id' => $candidate->id]) }}">
                                                 <button class="btn btn-sm btn-primary">View <i
@@ -182,7 +183,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-12 d-flex justify-content-center my-2">
+                    <div class="col-md-12 d-flex justify-content-start my-2">
                         {{$candidates->links()}}
                     </div>
                 </div>

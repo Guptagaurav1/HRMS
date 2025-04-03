@@ -1,4 +1,4 @@
- @extends('layouts.master', ['title' => 'Employee Details'])
+@extends('layouts.master', ['title' => 'Employee Details'])
 @section('style')
 
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
@@ -8,12 +8,11 @@
 <div class="row">
     <div class="col-12">
         <div class="panel">
-            <div class="panel-header">
-                <h3 class="mt-2">Employee Details</h3>
-            </div>
-            <div class="col-md-12 d-flex justify-content-end my-2">
+
+            <div class="col-md-12 d-flex justify-content-end my-2 py-3 px-2">
                 <a href="{{route('employee.employee-list')}}" class="btn btn-primary mx-2">Employee List</a>
                 <a href="{{route('leave-regularization')}}" class="btn btn-primary">Back</a>
+
             </div>
 
             <div class="table-responsive">
@@ -43,7 +42,7 @@
                                     <td class="bold">Work Order No:</td>
                                     <td>{{$empdetails->emp_work_order}}</td>
                                 </tr>
-                               
+
                                 <tr>
                                     <td class="bold">Job Place:</td>
                                     <td>{{$empdetails->emp_place_of_posting}}</td>
@@ -66,11 +65,13 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">Skills:</td>
-                                    <td>{{!empty($empdetails->experience) ? $empdetails->experience->emp_skills : ''}}</td>
+                                    <td>{{!empty($empdetails->experience) ? $empdetails->experience->emp_skills : ''}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="bold">CTC:</td>
-                                    <td>{{!empty($empdetails->getBankDetail) ?$empdetails->getBankDetail->emp_salary : ''}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ?$empdetails->getBankDetail->emp_salary :
+                                        ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Reporting To:</td>
@@ -86,8 +87,9 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Permanent Address:</td>
-                                    <td class="attributes-column">{{$empdetails->getAddressDetail->emp_permanent_address}}</td>
-                                   
+                                    <td class="attributes-column">
+                                        {{$empdetails->getAddressDetail->emp_permanent_address}}</td>
+
                                 </tr>
                                 <tr>
                                     <td class="bold">Correspondence Address:</td>
@@ -290,31 +292,37 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">Bank Name :</td>
-                                    <td>{{!empty($empdetails->getBankDetail) && $empdetails->getBankDetail->getBankData ? $empdetails->getBankDetail->getBankData->name_of_bank : ''}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) && $empdetails->getBankDetail->getBankData
+                                        ? $empdetails->getBankDetail->getBankData->name_of_bank : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Branch Name :</td>
-                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_branch : ''}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_branch :
+                                        ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Ifsc code :</td>
-                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_ifsc : ''}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_ifsc :
+                                        ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Account No :</td>
-                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_account_no : ''}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ?
+                                        $empdetails->getBankDetail->emp_account_no : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Aadhar No :</td>
-                                    <td>{{!empty($empdetails->getIdProofDetail) ?$empdetails->getIdProofDetail->emp_aadhaar_no : ''}}</td>
+                                    <td>{{!empty($empdetails->getIdProofDetail)
+                                        ?$empdetails->getIdProofDetail->emp_aadhaar_no : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Pan No :</td>
-                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_pan : ''}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_pan :
+                                        ''}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>  
+                    </div>
                     <div class="col-sm-6 col-xs-12">
                         <h4 class="panel-header">Other Details</h4>
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
@@ -322,15 +330,18 @@
                             <tbody>
                                 <tr>
                                     <td class="bold">PF UIN No :</td>
-                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_pf_no : ''}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_pf_no :
+                                        ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">ESI No :</td>
-                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_esi_no : ''}}</td>
+                                    <td>{{!empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_esi_no :
+                                        ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Passport No. :</td>
-                                    <td>{{!empty($empdetails->getIdProofDetail) ?  $empdetails->getIdProofDetail->emp_passport_no : ''}}</td>
+                                    <td>{{!empty($empdetails->getIdProofDetail) ?
+                                        $empdetails->getIdProofDetail->emp_passport_no : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Departments Recommendation :</td>
@@ -338,11 +349,13 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">Working Status:</td>
-                                    <td><span class="badge text-bg-success text-capitalize">{{$empdetails->emp_current_working_status}}</span></td>
+                                    <td><span
+                                            class="badge text-bg-success text-capitalize">{{$empdetails->emp_current_working_status}}</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>  
+                    </div>
                 </div>
 
                 <div class="row">
@@ -354,16 +367,20 @@
                                 <tr>
                                     <td class="bold">Resume :</td>
                                     <td>
-                                        @if($empdetails->experience->resume_file && $empdetails->experience->resume_file)
-                                        <a href="{{asset('recruitment/candidate_documents/employee_resume').'/'.$empdetails->experience->resume_file}}">View</a>
+                                        @if($empdetails->experience->resume_file &&
+                                        $empdetails->experience->resume_file)
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/employee_resume').'/'.$empdetails->experience->resume_file}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Aadhar Card :</td>
                                     <td>
-                                        @if($empdetails->getIdProofDetail && $empdetails->getIdProofDetail->aadhar_card_doc)
-                                        <a href="{{asset('recruitment/candidate_documents/aadhar_card').'/'.$empdetails->getIdProofDetail->aadhar_card_doc}}">View</a>
+                                        @if($empdetails->getIdProofDetail &&
+                                        $empdetails->getIdProofDetail->aadhar_card_doc)
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/aadhar_card').'/'.$empdetails->getIdProofDetail->aadhar_card_doc}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -371,38 +388,45 @@
                                     <td class="bold">Bank Doc :</td>
                                     <td>
                                         @if($empdetails->getIdProofDetail && $empdetails->getIdProofDetail->bank_doc)
-                                        <a href="{{asset('recruitment/candidate_documents/bank_account').'/'.$empdetails->getIdProofDetail->bank_doc}}">View</a>
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/bank_account').'/'.$empdetails->getIdProofDetail->bank_doc}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Passport :</td>
                                     <td>
-                                        @if($empdetails->getIdProofDetail && $empdetails->getIdProofDetail->passport_file)
-                                        <a href="{{asset('recruitment/candidate_documents/passport').'/'.$empdetails->getIdProofDetail->passport_file}}">View</a>
+                                        @if($empdetails->getIdProofDetail &&
+                                        $empdetails->getIdProofDetail->passport_file)
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/passport').'/'.$empdetails->getIdProofDetail->passport_file}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Police Verification File :</td>
                                     <td>
-                                        @if($empdetails->getIdProofDetail && $empdetails->getIdProofDetail->police_verification_file)
-                                        <a  href="{{asset('recruitment/candidate_documents/police_verification').'/'.$empdetails->getIdProofDetail->police_verification_file}}">View</a>
+                                        @if($empdetails->getIdProofDetail &&
+                                        $empdetails->getIdProofDetail->police_verification_file)
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/police_verification').'/'.$empdetails->getIdProofDetail->police_verification_file}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Pan Card :</td>
                                     <td>
-                                        @if($empdetails->getIdProofDetail && $empdetails->getIdProofDetail->pan_card_doc)
-                                        <a href="{{asset('recruitment/candidate_documents/pancard').'/'.$empdetails->getIdProofDetail->pan_card_doc}}">View</a>
+                                        @if($empdetails->getIdProofDetail &&
+                                        $empdetails->getIdProofDetail->pan_card_doc)
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/pancard').'/'.$empdetails->getIdProofDetail->pan_card_doc}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
-                               
+
                             </tbody>
                         </table>
-                    </div> 
+                    </div>
                     <div class="col-sm-6 col-xs-12">
                         <h4 class="panel-header">Qualification Documents</h4>
                         <table class="table table-bordered table-hover  all-employee-table table-striped"
@@ -412,7 +436,8 @@
                                     <td class="bold">10th Certificate :</td>
                                     <td>
                                         @if($empdetails->education && $empdetails->education->emp_tenth_doc)
-                                        <a href="{{asset('recruitment/candidate_documents/10th').'/'.$empdetails->education->emp_tenth_doc}}">View</a>
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/10th').'/'.$empdetails->education->emp_tenth_doc}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -420,7 +445,8 @@
                                     <td class="bold">12th Certificate :</td>
                                     <td>
                                         @if($empdetails->education && $empdetails->education->emp_twelve_doc)
-                                        <a href="{{asset('recruitment/candidate_documents/12th').'/'.$empdetails->education->emp_twelve_doc}}">View</a>
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/12th').'/'.$empdetails->education->emp_twelve_doc}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -428,7 +454,8 @@
                                     <td class="bold">Diploma Certificate :</td>
                                     <td>
                                         @if($empdetails->education && $empdetails->education->diploma_doc)
-                                        <a href="{{asset('recruitment/candidate_documents/diploma').'/'.$empdetails->education->diploma_doc}}">View</a>
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/diploma').'/'.$empdetails->education->diploma_doc}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -436,7 +463,8 @@
                                     <td class="bold">Graduation Certificate :</td>
                                     <td>
                                         @if($empdetails->education && $empdetails->education->grad_doc)
-                                        <a href="{{asset('recruitment/candidate_documents/graduation').'/'.$empdetails->education->grad_doc}}">View</a>
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/graduation').'/'.$empdetails->education->grad_doc}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -444,17 +472,17 @@
                                     <td class="bold">Post Graduation Certificate :</td>
                                     <td>
                                         @if($empdetails->education && $empdetails->education->post_grad_doc)
-                                        <a href="{{asset('recruitment/candidate_documents/post_graduation').'/'.$empdetails->education->post_grad_doc}}">View</a>
+                                        <a
+                                            href="{{asset('recruitment/candidate_documents/post_graduation').'/'.$empdetails->education->post_grad_doc}}">View</a>
                                         @endif
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-

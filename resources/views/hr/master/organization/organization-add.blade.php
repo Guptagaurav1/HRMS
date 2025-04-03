@@ -133,6 +133,7 @@
 
 @section('script')
 <script src="{{ asset('assets/vendor/js/jquery-ui.min.js') }}"></script>
+<<<<<<< HEAD
 {{-- <script src="{{ asset('assets/vendor/js/select2.min.js') }}"></script> --}}
 {{-- <script src="{{ asset('assets/js/select2-init.js') }}"></script> --}}
 <script src="{{ asset('assets/js/masters/organization.js') }}"></script>
@@ -196,4 +197,7 @@
     //     });
     // });
 </script>
+=======
+<script src="{{ asset('assets/js/masters/organization.js') }}"></script>
+>>>>>>> 6dc9f391da22271b874615871b8447be61f29517
 @endsection

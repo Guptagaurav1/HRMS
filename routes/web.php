@@ -41,6 +41,7 @@ use App\Http\Controllers\hr\EmployeeController;
 
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\hr\ProfileController;
+use App\Http\Controllers\hr\LeaveController;
 
 use App\Http\Controllers\vms\VendorController;
 use App\Http\Controllers\vms\ClientController;
@@ -49,7 +50,7 @@ use App\Http\Controllers\master\CompanyController;
 // Define Employee Controllers
 use App\Http\Controllers\employee\ProfileController as EmployeeProfileController;
 use App\Http\Controllers\employee\EmployeeLeaveController;
-
+use App\Http\Controllers\employee\EmployeeDetailController;
 
 
 
@@ -117,7 +118,19 @@ Route::middleware('all')->prefix('user')->group(function () {
     });
     Route::controller(HolidayController::class)->prefix('leave')->group(function () {
         Route::get("holidays", 'index')->name("holiday-list");
+        Route::get("request-list", 'leave_requests')->name("applied-request-list");
+        Route::post('request-details', 'leave_details');
+        Route::get("leave-request-reciept/{id}", 'leave_receipt')->name("leave-request-reciept");
+
     });
+    Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
+        Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
+    });
+    
+    Route::controller(LeaveController::class)->prefix('leaves')->group(function () {
+        Route::get('emp-leaves', 'index')->name("emp-leaves");
+    });
+
 });
 
 // Department users routes.
@@ -191,10 +204,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(HolidayController::class)->prefix('leave')->group(function () {
         // Route::get("/", 'index')->name("holiday-list");
-        Route::get("request-list", 'leave_requests')->name("applied-request-list");
         Route::get("leave-regularization", 'leave_regularization')->name("leave-regularization");
-        Route::post('request-details', 'leave_details');
-        Route::get("leave-request-reciept/{id}", 'leave_receipt')->name("leave-request-reciept");
         Route::get("employee-details/{empid}", 'emp_details')->name("employee-details");
         Route::post("send_regularization", 'send_mail');
     });
@@ -296,7 +306,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
         Route::get('/', 'index')->name("salary-slip");
-        Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
         Route::post('send-mail/{id}', 'send_mail')->name('salary-slip.sendmail');
         Route::get('employee-details/{salaryid}', 'employee_details')->name("employee-details-salary-retainer");
         Route::post('export', 'export_csv')->name("export_csv");
@@ -423,6 +432,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('view-complaint', 'complaint_details');
         Route::post('complaint-response', 'response');
     });
+
+  
 
    
 
@@ -564,7 +575,16 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     
     Route::controller(EmployeeLeaveController::class)->prefix('leave')->group(function(){
         Route::get("leave-request", 'leave_request')->name("leave.leave_request");
+        Route::post("store-request", 'store_leave_request')->name("leave.store_request");
+        Route::get("leave-taken", 'leave_taken')->name("leave.leave-taken");
     });
+
+    Route::controller(EmployeeDetailController::class)->prefix('details')->group(function(){
+        Route::get("salary-slip", 'salary_slip')->name("details.employee-salary-slip");
+      
+    });
+
+
 
     // Route::get("employee-compose-email", function () {
     //     return view("employee.employee-compose-email");
@@ -593,21 +613,12 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         return view("employee.create-reimbursement");
     })->name("create-reimbursement");
 
-    Route::get("employee-applied-request-list", function () {
-        return view("employee.employee-applied-request-list");
-    })->name("employee-applied-request-list");
-
-    Route::get("leave-taken", function () {
-        return view("employee.leave-taken");
-    })->name("leave-taken");
 
     Route::get("reiembursement-list-employee", function () {
         return view("employee.reiembursement-list-employee");
     })->name("reiembursement-list-employee");
 
-    Route::get("employee-salary-slip", function () {
-        return view("employee.employee-salary-slip");
-    })->name("employee-salary-slip");
+ 
 });
 
 // $namedRoutes = collect(Route::getRoutes())->filter(function ($route) {

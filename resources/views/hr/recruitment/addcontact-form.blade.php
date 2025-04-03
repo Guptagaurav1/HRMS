@@ -1,12 +1,7 @@
 @extends('layouts.master', ['title' => 'Candidate Calling Data'])
-@section('style')
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
-
 @section('contents')
 <div class="dashboard-breadcrumb mb-25">
     <h2>Contact Candidate By Call Form</h2>
-
 </div>
 
 <form method="post" action="{{route('recruitment.store_call_detail')}}" enctype="multipart/form-data" class="form">
@@ -38,16 +33,16 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Full Name <span class="text-danger">**</span></label>
-                        <input type="text" class="form-control form-control-sm" name="name" id="fullname" value="{{old('name')}}" placeholder="Enter Candidate Name">
-                        <span class="error text-danger mt-2" id="error-fullname"></span>
+                        <input type="text" class="form-control form-control-sm for_char" name="name"  value="{{old('name')}}" placeholder="Enter Candidate Name">
+                        <span class="name"></span>
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Email <span class="text-danger">**</span></label>
-                        <input type="email" class="form-control form-control-sm" name="email" value="{{old('email')}}" placeholder="Enter A Email" required>
-                        <span class="error text-danger mt-2" id="error-email"></span>
+                        <input type="email" class="form-control form-control-sm for_char" name="email" value="{{old('email')}}" placeholder="Enter A Email" required>
+                        <span class="email"></span>
 
                         @error('email')
                             <span class="text-danger">{{$message}}</span>
@@ -56,8 +51,8 @@
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Contact No <span class="text-danger">**</span></label>
 
-                        <input type="text" class="form-control form-control-sm" name="phone_no" value="{{old('phone_no')}}" placeholder="Enter Your Contact No" maxlength="10">
-                        <span class="error text-danger mt-2" id="error-phone"></span>
+                        <input type="text" class="form-control form-control-sm for_char" name="phone_no" value="{{old('phone_no')}}" placeholder="Enter Your Contact No" maxlength="10">
+                        <span class="phone_no"></span>
                       
                         @error('phone_no')
                             <span class="text-danger">{{$message}}</span>
@@ -96,7 +91,7 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Education</label>
-                        <select class="form-select js-example-basic-multiple" name="qualification[]" multiple required>
+                        <select class="form-select js-example-basic-multiple" name="qualification[]" multiple>
                             <option value=""> Nothing Selected</option>
                             @foreach($qualification as $education)
                                 <option value="{{$education->qualification}}" {{old('qualification') && in_array($education->qualification, old('qualification')) ? 'selected' : ''}}>{{$education->qualification}}</option>
@@ -114,20 +109,19 @@
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label for="formFileSm" class="form-label">Resume</label>
+                        <label for="formFileSm" class="form-label">Resume <span class="text-danger">*</span></label>
                         <input class="form-control form-control-sm" name="resume" type="file" accept=".pdf" required>
                         @error('resume')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="col-xxl-3 col-lg-6 col-sm-6">
+                    <div class="col-sm-6 col-md-12">
                         <label for="exampleTextarea" class="form-label">Remarks </label>
                         <textarea class="form-control" name="remarks" placeholder="Enter Remarks Here">{{old('remarks')}}</textarea>
                         @error('remarks')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-
                 </div>
             </div>
         </div>
@@ -150,69 +144,5 @@
 @endsection
 
 @section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
-
-<script>
-
-
-    $(document).ready(function(){
-      $("#submit-btn").click(function(event){
-        event.preventDefault();  
-    
-        var isValid = true;
-    
-        
-        $(".error").text('');
-    
-       
-        var regexName = /^[a-zA-Z\s]+$/;
-        var regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  
-        var regexContact = /^[0-9]{10}$/;
-    
-        
-   
-
-        
-        if ($("select[name='job_position']").val() === "") {
-          $("#position-error").text("Job Position is required.");
-          isValid = false;
-        }
-
-        let firstname = $("#fullname").val().trim();
-    
-        
-        if (firstname === "" || !regexName.test(firstname)) {
-          $("#error-fullname").text("First Name is  must only contain letters.");
-          isValid = false;
-        }
-    
-      
-       
-        var email = $("input[name='email']").val().trim();
-        if (email === "" || !regexEmail.test(email)) {
-          $("#error-email").text("Please enter a valid email.");
-          isValid = false;
-        }
-    
-       
-        var contact = $("input[name='phone_no']").val().trim();
-        if (contact.length !== 10 || isNaN(contact)) {
-          $("#error-phone").text("Please enter a valid 10-digit contact number.");
-          isValid = false;
-        }
-    
-    
-       
-        if (isValid) {
-          $("form").submit();
-        }
-      });
-    });
-    
-
-</script>
-
-
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection
