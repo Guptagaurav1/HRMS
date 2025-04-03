@@ -44,7 +44,7 @@ class MenuSeeder extends Seeder
 
             // me Team list
 
-            ['mid' => 'M-18', 'section' => 'My Team', 'section_icon' => '', 'name' => 'My Team List', 'page' => ' my-team-list', 'status' => '1', 'parent_id' => '6'],
+            ['mid' => 'M-18', 'section' => 'My Team', 'section_icon' => '', 'name' => 'My Team List', 'page' => 'my-team-list', 'status' => '1', 'parent_id' => '6'],
 
             // Leave
 

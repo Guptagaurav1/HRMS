@@ -15,7 +15,7 @@ class TeamController extends Controller
     public function index(Request $request){
         $user_email = auth()->user()->email;
         $user_id = auth()->user()->id;
-        $employees = EmpDetail::select('emp_name', 'emp_email_first', 'emp_phone_first', 'department', 'user_type', 'adding_date')->where('reporting_email', $user_email);
+        $employees = EmpDetail::select('emp_name', 'emp_email_first', 'emp_phone_first', 'department', 'user_type', 'created_at AS adding_date')->where('reporting_email', $user_email);
             $search = '';
         if ($request->search) {
             $search = $request->search;
@@ -25,11 +25,10 @@ class TeamController extends Controller
                 'emp_phone_first',
                 'department',
                 'user_type',
-                'adding_date'
             ], 'LIKE', '%'.$request->search.'%');
         }
     
-        $employees = $employees->orderByDesc('emp_id')->paginate(10);
+        $employees = $employees->orderByDesc('id')->paginate(25);
         return view('hr.my-team-list', compact('employees', 'search'));
     }
 }

@@ -654,7 +654,7 @@
                                             class="fa-solid fa-business-time"></i></span> <span
                                         class="sidebar-txt">Leave</span></a>
                                 <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                    @if (auth()->user()->hasPermission('holiday-list'))
+                                    @if (auth()->user()->hasPermission('emp-leaves'))
                                         <li class="sidebar-dropdown-item"><a href="{{ route('emp-leaves') }}"
                                                 class="sidebar-link">Leave List</a></li>
                                     @endif
