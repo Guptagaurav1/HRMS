@@ -1,50 +1,19 @@
 @extends('layouts.master',['title' => 'Department Listing'])
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-<style>
-    
-.back-button-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 31px;
-    width: 43px;
-    background-color: #f8f9fa; 
-    border-radius: 35px;
-}
-
-
-
-.btn-back {
-    background-color: transparent;
-    border: none;
-    font-size: 20px; 
-    color: #007bff; 
-    transition: color 0.3s, transform 0.3s ease;
-    padding: 0;
-}
-
-/* Hover effect for the icon */
-.btn-back:hover {
-    color: gray; 
-    transform: scale(1.2); 
-    transform: rotate(-360deg); 
-    
-}
-
-</style>
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Department List</h3>
+                <div class="text-start">
+                    <a href="{{ route('hr_dashboard') }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-back">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="row px-3 mt-2">
                 @if($message = Session::get('success'))
@@ -71,8 +40,26 @@
                             </div>
                         </div>
                     @endif
+                
+            </div>
+
+
+            <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-2">
+                <div class="">
+                <form class="row g-3" method="get">
+                    <div class="col-auto mb-3">
+                        <input type="text" name="search" value="" class="form-control" placeholder="Search" required>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                        <a href="{{ route('organizations.index') }}"><button type="button" class="btn btn-primary btn-sm mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                    </div>
+                   
+                </form>
+                </div>
+
                 @if(auth()->user()->hasPermission('departments.create'))
-                <div class="text-end">
+                <div class="">
                     <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary">Add Department <i class="fa-solid fa-plus"></i></button></a>
                 </div>
                 @endif
@@ -128,12 +115,8 @@
         </div>
     </div>
 </div>
-
 @endsection
 @section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
 
 <script src={{asset('assets/js/masters/department.js')}}></script>
 

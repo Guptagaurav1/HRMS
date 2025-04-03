@@ -1,10 +1,4 @@
 @extends('layouts.master', ['title' => 'Employee Sent Documents'])
-
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -38,13 +32,13 @@
                     id="allEmployeeTable">
                     <thead>
                         <tr>
-                            <th>Emp Id</th>
-                            <th>Name</th>
-                            <th>Designation</th>
-                            <th>Document Type</th>
+                            <th class="text-center">Emp Id</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Designation</th>
+                            <th class="text-center">Document Type</th>
                             {{-- <th>Salary</th> --}}
-                            <th>Sended On</th>
-                            <th>Document</th>
+                            <th class="text-center">Sended On</th>
+                            <th class="text-center">Document</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,11 +60,11 @@
                                 } 
                             @endphp
                         <tr>
-                            <td>{{$document->emp_code}}</td>
-                            <td>{{$document->emp_name}}</td>
-                            <td>{{$document->emp_designation}}</td>
-                            <td>{{$document->doc_type}}</td>
-                            <td>{{date('jS F, Y', strtotime($document->created_at))}}</td>
+                            <td class="text-center">{{$document->emp_code}}</td>
+                            <td class="text-center">{{$document->emp_name}}</td>
+                            <td class="text-center">{{$document->emp_designation}}</td>
+                            <td class="text-center">{{$document->doc_type}}</td>
+                            <td class="text-center">{{date('jS F, Y', strtotime($document->created_at))}}</td>
                             <td class="text-center">
                                 @if($docurl)
                                 <a href="{{$docurl}}"><button class="btn btn-sm btn-primary">View Document  <i class="fa-solid fa-eye"></i></button></a> 
@@ -90,19 +84,10 @@
             </div>
 
             {{-- Show Pagination --}}
-            <div class="col-md-12 d-flex justify-content-center">
+            <div class="col-md-12 d-flex justify-content-start">
                 {{$documents->links()}}
             </div>
         </div>
     </div>
 </div>
-@endsection
-
-
-@section('script')
-<script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script>
-<script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script>
-
-
 @endsection

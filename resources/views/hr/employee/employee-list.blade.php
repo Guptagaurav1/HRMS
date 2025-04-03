@@ -1,9 +1,5 @@
 @extends('layouts.master', ['title' => 'Employees'])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
-
 @section('contents')
     <div class="row">
         <div class="col-12">
@@ -130,25 +126,25 @@
                                                 id="markAllEmployee">
                                         </div>
                                     </th>
-                                    <th>Emp Id</th>
-                                    <th>Name</th>
-                                    <th>Work Order No</th>
-                                    <th>Designation</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Date Of Joining</th>
-                                    <th>Job Place</th>
-                                    <th>Experience</th>
-                                    <th>Highest Qualification</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                    <th> Send Appointment Letter</th>
+                                    <th class='text-center'>Emp Id</th>
+                                    <th class='text-center'>Name</th>
+                                    <th class='text-center'>Work Order No</th>
+                                    <th class='text-center'>Designation</th>
+                                    <th class='text-center'>Phone</th>
+                                    <th class='text-center'>Email</th>
+                                    <th class='text-center'>Date Of Joining</th>
+                                    <th class='text-center'>Job Place</th>
+                                    <th class='text-center'>Experience</th>
+                                    <th class='text-center'>Highest Qualification</th>
+                                    <th class='text-center'>Status</th>
+                                    <th class='text-center'>Action</th>
+                                    <th class='text-center'> Send Appointment Letter</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($employees as $employee)
                                     <tr>
-                                        <td>
+                                        <td class='text-center'>
                                             <div class="form-check">
                                                 @if ($employee->getBankDetail && $employee->getBankDetail->emp_sal_structure_status == 'completed')
                                                     <input class="form-check-input emp_check" name="emp_ids[]"
@@ -157,7 +153,7 @@
                                             </div>
                                         </td>
 
-                                        <td>
+                                        <td class='text-center'>
                                             @if (
                                                 ($employee->getBankDetail &&
                                                     (empty($employee->getBankDetail->emp_sal_structure_status) ||
@@ -170,27 +166,27 @@
                                         </td>
 
 
-                                        <td>{{ $employee->emp_name }} </td>
-                                        <td>
+                                        <td class='text-center'>{{ $employee->emp_name }} </td>
+                                        <td class='text-center'>
                                             {{ $employee->emp_work_order }}
                                         </td>
-                                        <td>{{ $employee->emp_designation }}</td>
-                                        <td>{{ $employee->emp_phone_first }}</td>
-                                        <td>{{ $employee->emp_email_first }}</td>
-                                        <td>
+                                        <td class='text-center'>{{ $employee->emp_designation }}</td>
+                                        <td class='text-center'>{{ $employee->emp_phone_first }}</td>
+                                        <td class='text-center'>{{ $employee->emp_email_first }}</td>
+                                        <td class='text-center'>
                                             <span
                                                 class="address-txt">{{ date('jS F,Y', strtotime($employee->emp_doj)) }}</span>
                                         </td>
-                                        <td>{{ $employee->emp_place_of_posting }}</td>
-                                        <td>{{ $employee->experience ? $employee->experience->emp_experience . ' yr' : '-' }}
+                                        <td class='text-center'>{{ $employee->emp_place_of_posting }}</td>
+                                        <td class='text-center'>{{ $employee->experience ? $employee->experience->emp_experience . ' yr' : '-' }}
                                         </td>
-                                        <td>{{ $employee->education ? $employee->education->emp_highest_qualification : '-' }}
+                                        <td class='text-center'>{{ $employee->education ? $employee->education->emp_highest_qualification : '-' }}
                                         </td>
-                                        <td class="text-capitalize">{{ $employee->emp_current_working_status }}</td>
-                                        <td> <a href="{{ route('employee.edit-employee', ['id' => $employee->id]) }}"><button
+                                        <td class="text-capitalize text-center">{{ $employee->emp_current_working_status }}</td>
+                                        <td class='text-center'> <a href="{{ route('employee.edit-employee', ['id' => $employee->id]) }}"><button
                                                     class="btn btn-sm btn-primary"> <i
                                                         class="fa-solid fa-pen-to-square"></i> Edit</button></td></a>
-                                        <td class="my-3">
+                                        <td class="my-3 text-center">
                                             {{-- <a href="{{ route('employee.send-letter', ['id' => $employee->id]) }}"> --}}
                                             @if (Illuminate\Support\Str::lower($employee->emp_current_working_status) == 'active' &&
                                                     $employee->getBankDetail &&
@@ -225,8 +221,5 @@
 </div>
 @endsection
 @section('script')
-{{-- <script src={{asset('assets/vendor/js/jquery-ui.min.js')}}></script> --}}
-{{-- <script src={{asset('assets/vendor/js/select2.min.js')}}></script>
-<script src={{asset('assets/js/select2-init.js')}}></script> --}}
-<script src={{ asset('assets/js/hr/employee-list.js') }}></script>
+<script src="{{asset('assets/js/hr/employee-list.js')}}"></script>
 @endsection

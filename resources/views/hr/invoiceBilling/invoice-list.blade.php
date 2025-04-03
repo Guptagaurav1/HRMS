@@ -1,9 +1,6 @@
 @extends('layouts.master')
 
-@section('style')
 
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
 
 @section('contents')
 <div class="row">
@@ -12,8 +9,8 @@
             <div class="panel-header">
                 <h3 class="mt-2">Saved Invoice</h3>
             </div>
-            <p class="px-3 mt-2">Invoice History</p>
-            <div class="col-md-12 d-flex justify-content-start mx-3">
+            
+            <div class="col-md-12 d-flex justify-content-start mx-3 mt-5">
                <form class="row g-3" method="get">
                         <div class="col-auto mb-3">
                             <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
@@ -42,10 +39,10 @@
                         <tbody>
                             @forelse($invoices as $value)
                             <tr>
-                                <td>{{$value->ir_invoice_number}}</td>
-                                <td>{{$value->ir_wo}}</td>
-                                <td>{{$value->ir_month}}</td>
-                                <td>{{$value->created_at}}</td>
+                                <td class="text-center">{{$value->ir_invoice_number}}</td>
+                                <td class="text-center">{{$value->ir_wo}}</td>
+                                <td class="text-center">{{$value->ir_month}}</td>
+                                <td class="text-center">{{$value->created_at}}</td>
                                 <td class="text-ceter"><a href="{{route('tax-invoice',[$value->ir_wo,$value->ir_month])}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a><span class="text-danger px-2">Not Saved Invoice</span></span></td>
                             </tr>
                             @empty
