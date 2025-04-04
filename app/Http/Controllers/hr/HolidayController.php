@@ -7,12 +7,18 @@ use App\Models\Holiday;
 use App\Models\LeaveRequest;
 use App\Models\LeaveRegularization;
 use App\Models\EmpDetail;
+use App\Models\Company;
+use App\Models\LeaveRequestMailLog;
+use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 use DateTime;
 use Mail;
 use App\Mail\LeaveRegularization as LeaveMail;
+use App\Mail\ShortlistMail;
+use stdClass;
 
 class HolidayController extends Controller
 {
@@ -35,7 +41,7 @@ class HolidayController extends Controller
         $month = '';
         $day = '';
 
-        $holidays = $holidays->paginate(10);
+        $holidays = $holidays->paginate(10)->withQueryString();
 
         if (auth('employee')->check()) {
             $user = EmpDetail::where('emp_code', auth('employee')->user()->emp_code)->first();
@@ -63,17 +69,17 @@ class HolidayController extends Controller
         if ($request->search) {
             $search = $request->search;
             $leave_requests = $leave_requests->where(function ($query) use ($search) {
-                $query->where('leave_code', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_code', 'LIKE', '%'. $search. '%')
-                    ->orWhere('reason_for_absence', 'LIKE', '%'. $search. '%')
-                    ->orWhere('department_head_email', 'LIKE', '%'. $search. '%')
-                    ->orWhere('status', 'LIKE', '%'. $search. '%')
+                $query->where('leave_code', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_code', 'LIKE', '%' . $search . '%')
+                    ->orWhere('reason_for_absence', 'LIKE', '%' . $search . '%')
+                    ->orWhere('department_head_email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('status', 'LIKE', '%' . $search . '%')
                     ->orWhereHas('employee', function ($q) use ($search) {
-                        $q->where('emp_name', 'LIKE', '%'. $search. '%');
+                        $q->where('emp_name', 'LIKE', '%' . $search . '%');
                     });
             });
         }
-        
+
         $leave_requests = $leave_requests->OrderByDesc('id')->paginate(25)->withQueryString();
 
         return view("hr.leaves.applied-request-list", compact('leave_requests', 'search'));
@@ -196,6 +202,118 @@ class HolidayController extends Controller
 
             return response()->json(['success' => true, 'message' => 'Mail Sent Successfully.']);
         } catch (Throwable $th) {
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+
+    /**
+     * Response to leave request.
+     * @param Request $request
+     * @return Response $response
+     */
+    public function leave_response(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $this->validate($request, [
+                'request_id' => ['required'],
+                'response' => ['required'],
+            ]);
+            $request_response = ucfirst($request->response);
+            $request_detail = LeaveRequest::findOrFail($request->request_id);
+            $emp_detail = EmpDetail::select('emp_email_first', 'emp_name', 'id')->where('emp_code', $request_detail->emp_code)->firstOrFail();
+
+            $user = auth()->user(); // Get current user
+
+            // Get cc emails.
+            $cc = [];
+            if ($request_detail->cc) {
+                $cc = explode(',', $request_detail->cc);
+            }
+            if(!in_array($user->email, $cc)){
+                $cc[] = $user->email;
+            }
+            
+            $cc[] = 'leaves@prakharsoftwares.com';
+
+            // Define mail Subject.
+            $subject = "Leave Request $request_response || Employee Code:" . $request_detail->emp_code;
+
+            // Define HTML content.
+            $user_name = $user->first_name . " " . $user->last_name;
+            $user_head = $user->role->role_name && $user->role->role_name == 'admin' ? '(Admin)' : '';
+
+            $html = "<span>Dear $emp_detail->emp_name,</span><br><br>";
+            $html = "<span>Dear $emp_detail->emp_name,</span><br><br>";
+            $html .= "<span>Your leave has been $request_response by  $user_name" . $user_head . ", on date " . date('jS F, Y') . "</span><br>";
+            $html .= "<span style=`font-weight:bold`>Leave Id : $request_detail->leave_code </span><br>";
+            $html .= $request->{'response-text'};
+            $html .= "<br>" . $user_name . " " . $user_head . "<br><br>";
+
+            // Update leave request status.
+            $request_detail->status = $request_response;
+            $request_detail->approved_disapproved_by = $user->id;
+            $request_detail->approved_disapproved_comment = $request->{'response-text'};
+            $request_detail->save();
+
+            // Store mail Log.
+            LeaveRequestMailLog::create([
+                'leave_request_id' => $request_detail->id,
+                'to_email' => $emp_detail->emp_email_first,
+                'cc' => implode(',', $cc),
+                'from_email' => $user->email,
+                'subject' => $subject,
+                'message' => $html,
+                'status' => $request_response,
+            ]);
+
+            // Send notification to HR.
+            $cc_string = implode(', ', $cc);
+            $recievers = User::whereRaw('FIND_IN_SET(email, ? )', ["$cc_string"])->pluck('id')->join(',');
+
+            Notification::create([
+                'title' => 'Leave Request Revert',
+                'description' => "$subject by $user_name",
+                'send_by' => $user->email,
+                'received_to' => $recievers,
+                'user_type' => 'hr',
+                'notification_type' => 'leave_req_revert',
+                'reference_table_name' => 'leave_request',
+                'reference_table_id' => $request->request_id
+            ]);
+
+            // Send notification to employee.
+            Notification::create([
+                'title' => 'Leave Request Revert',
+                'description' => "$subject by $user_name",
+                'send_by' => $user->email,
+                'received_to' => $emp_detail->id,
+                'user_type' => 'employee',
+                'notification_type' => 'leave_req_revert',
+                'reference_table_name' => 'leave_request',
+                'reference_table_id' => $request->request_id
+            ]);
+
+            // Send response mail.
+
+            // Get Company Details.
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+
+            // Send mail.
+            $maildata = new stdClass();
+            $maildata->subject = $subject;
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $html;
+            $maildata->url = url('/');
+            Mail::to($emp_detail->emp_email_first)->cc($cc)->send(new ShortlistMail($maildata));
+
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Response sent successfully']);
+        } catch (Throwable $th) {
+            DB::rollBack();
             return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }

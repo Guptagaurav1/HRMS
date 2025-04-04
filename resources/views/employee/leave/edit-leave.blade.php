@@ -1,6 +1,5 @@
-@extends('layouts.master', ['title' => 'Leave Request Form'])
+@extends('layouts.master', ['title' => 'Edit Leave Request'])
 @section('style')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/jquery-ui.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
 @endsection
 
@@ -10,11 +9,14 @@
             <div class="col-lg-8 col-md-10">
                 <div class="card">
                     <div class="panel-header py-3 px-2 ">
-                        <h5 class="mb-0">Apply Leave</h5>
+                        <h5 class="mb-0">Edit Leave</h5>
                     </div>
 
-                    <form class="form apply-leave" action="{{ route('leave.store_request') }}" method="POST">
+                    <form class="form edit-leave" action="{{ route('leave.update_request') }}" method="POST">
                         @csrf
+                        <div class="d-none">
+                            <input type="hidden" name="leave_id" value="{{ $id }}">
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-1">
@@ -35,22 +37,22 @@
                                 <div class="col-md-6">
                                     <label for="cc" class="form-label">CC</label>
                                     <input type="text" class="form-control" name="cc"
-                                        placeholder="Enter comma seperated emails">
+                                        placeholder="Enter comma seperated emails" value="{{$leave->cc}}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" class="form-control">Reason for Absence: <span
                                             class="text-danger">*</span></label>
                                     <select class="form-control" name="reason_for_absence" required>
                                         <option value="">Select Any One</option>
-                                        <option value="Sick Leave">Sick Leave</option>
-                                        <option value="Casual Leave">Casual Leave</option>
-                                        <option value="Birthday Leave">Birthday Leave</option>
-                                        <option value="Anniversary Leave">Anniversary Leave</option>
-                                        <option value="Half Day Leave">Half Day Leave</option>
-                                        <option value="Short Day Leave">Short Day Leave</option>
-                                        <option value="Tour/Travel Leave">Official Tour/Travel </option>
-                                        <option value="Comp Off Leave">Comp Off</option>
-                                        <option value="Other Leave">Other</option>
+                                        <option value="Sick Leave" {{$leave->reason_for_absence == 'Sick Leave' ? 'selected' : ''}}>Sick Leave</option>
+                                        <option value="Casual Leave" {{$leave->reason_for_absence == 'Casual Leave' ? 'selected' : ''}}>Casual Leave</option>
+                                        <option value="Birthday Leave" {{$leave->reason_for_absence == 'Birthday Leave' ? 'selected' : ''}}>Birthday Leave</option>
+                                        <option value="Anniversary Leave" {{$leave->reason_for_absence == 'Anniversary Leave' ? 'selected' : ''}}>Anniversary Leave</option>
+                                        <option value="Half Day Leave" {{$leave->reason_for_absence == 'Half Day Leave' ? 'selected' : ''}}>Half Day Leave</option>
+                                        <option value="Short Day Leave" {{$leave->reason_for_absence == 'Short Day Leave' ? 'selected' : ''}}>Short Day Leave</option>
+                                        <option value="Tour/Travel Leave" {{$leave->reason_for_absence == 'Travel Leave' ? 'selected' : ''}}>Official Tour/Travel </option>
+                                        <option value="Comp Off Leave" {{$leave->reason_for_absence == 'Comp Off Leave' ? 'selected' : ''}}>Comp Off</option>
+                                        <option value="Other Leave" {{$leave->reason_for_absence == 'Other Leave' ? 'selected' : ''}}>Other</option>
                                     </select>
                                     @error('reason_for_absence')
                                         <span class="text-danger">{{ $message }}</span>
@@ -60,7 +62,7 @@
                                     <input type="text" name="absence_dates"
                                         class="btn btn-sm btn-primary multiDatePicker text-light"
                                         style="color: white; width: 100%;" placeholder="Select Date" autocomplete="off"
-                                        value="" required>
+                                        value="{{$leave->absence_dates}}" required>
                                     @error('absence_dates')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -69,7 +71,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="body" class="form-label">Message / Query</label>
-                                    <textarea class="form-control" id="comment" name="comment" rows="6" placeholder="Dear Sir,"></textarea>
+                                    <textarea class="form-control" id="comment" name="comment" rows="6" placeholder="Dear Sir,">
+                                        {{$leave->comment}}
+                                    </textarea>
                                     @error('comment')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -91,5 +95,5 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('assets/js/leave-request.js') }}"></script>
+    <script src="{{ asset('assets/js/edit-leave-request.js') }}"></script>
 @endsection

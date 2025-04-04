@@ -56,9 +56,9 @@ class AuthController extends Controller
         $response = Http::asForm()->post($url, $body);
         $result = json_decode($response);
 
-        if ($response->successful() && $result->success == true) {
+        if ($response->successful() && $result->success == true) {   // Validate captcha
             $remember = $request->remember ? $request->remember : false;
-            $user = User::where('email', $request->email)->first();
+            $user = User::where(['email' => $request->email, 'status' => '1'])->first();
             if ($user && $user->password === md5($request->password)) {
                 Auth::login($user);
                 return redirect()->route('hr_dashboard');
@@ -109,8 +109,14 @@ class AuthController extends Controller
 
         $response = Http::asForm()->post($url, $body);
         $result = json_decode($response);
-        if ($response->successful() && $result->success == true) {
-            $user = EmpDetail::where('emp_code', $request->emp_code)->first();
+        if ($response->successful() && $result->success == true) {    // Validate captcha
+
+            // Employee must be active or inactive for login.
+            $user = EmpDetail::where(['emp_code' => $request->emp_code])
+            ->where(function ($query) {
+                $query->where('emp_current_working_status', 'active')
+                    ->orWhere('emp_current_working_status', 'inactive');
+            })->first();
             if ($user && $user->emp_password === md5($request->emp_password)) {
                 Auth::guard('employee')->login($user);
                 if (Auth::guard('employee')->check()) {
