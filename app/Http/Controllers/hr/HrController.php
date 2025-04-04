@@ -12,6 +12,7 @@ class HrController extends Controller
      * Show HR Dashboard.
     */
     public function dashboard(Request $request){
+        
         return view("hr.dashboard");
     }
 
