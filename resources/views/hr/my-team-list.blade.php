@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'My Team'])
 
 @section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}"/>
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
 @endsection
 
@@ -11,11 +9,10 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h3 class="mt-2">My Team User List ( You Are {{auth()->user()->role->role_name}} Head )</h3>
+                <h3 class="mt-2">My Team User List ( You Are <span class="text-uppercase">{{auth()->user()->role->role_name}}</span> Head )</h3>
             </div>
-            <p class="px-3 mt-2">Your Team User Listed Below
-            </p>
-            <div class="col-md-12 d-flex justify-content-start mx-3">
+            
+            <div class="col-md-12 d-flex justify-content-start mx-3 my-2">
                 <form class="row g-3" method="get">
                     <div class="col-auto mb-3">
                         <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>

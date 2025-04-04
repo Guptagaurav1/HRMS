@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\CommonDataImportController;
 use App\Http\Controllers\hr\HrController;
 
 use App\Http\Controllers\hr\UserController;
@@ -74,8 +75,8 @@ Route::get('/testuser', function () {
 // External users routes.
 Route::middleware('guest')->group(function () {
 
-    Route::get('import-data', [HrController::class, 'import'])->name('import-data');
-    Route::post('import-data-save', [HrController::class, 'importDataSave'])->name('importDataSave');
+    Route::get('import-data', [CommonDataImportController::class, 'import'])->name('import-data');
+    Route::post('import-data-save', [CommonDataImportController::class, 'importDataSave'])->name('importDataSave');
 
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
