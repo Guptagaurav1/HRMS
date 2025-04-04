@@ -1,11 +1,4 @@
 @extends('layouts.master')
-
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -66,12 +59,11 @@
         </div>
     </div>
 </div>
-@endsection
 
 
+@section('modal')
 
-
-<div class="modal fade" id="leaveDetailsModal" tabindex="-1" aria-labelledby="leaveDetailsModalLabel"
+<div class="modal fade border" id="leaveDetailsModal" tabindex="-1" aria-labelledby="leaveDetailsModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content shadow-lg">
@@ -80,7 +72,7 @@
                 <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="container">
+                <div class="container ">
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="field-container shadow-sm">
@@ -102,12 +94,12 @@
                                 <span>Gaurav Gupta</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="field-container shadow-sm">
+                        <div class="col-md-6 h-auto">
+                            <div class="field-container shadow-sm d-flex align-items-center justify-content-center gap-3">
                                 <label class="fw-bold">CC Mail:</label>
-                                <span>
-                                    
-                                    example@example.com</span>
+                                
+                                <span>kusham.lata@prakhrarsoftwares.com kusham.lata@prakhrarsoftwares.com kusham.lata@prakhrarsoftwares.com</span>
+                               
                             </div>
                         </div>
                     </div>
@@ -119,9 +111,9 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="field-container shadow-sm">
+                            <div class="field-container shadow-sm d-flex align-items-center justify-content-center gap-3">
                                 <label class="fw-bold">Absence Dates:</label>
-                                <span>01/01/2025 - 04/01/2025</span>
+                                <span> 01/01/2025 - 04/01/2025 01/01/2025 - 04/01/2025 01/01/2025 - 04/01/2025</span>
                             </div>
                         </div>
                     </div>
@@ -190,7 +182,8 @@
                                 <span class="">I hope this email finds you well. I am writing to formally request a day of Half
                                     Day leave today, as I need to accompany my family to Sani Dev for a personal visit.
                                     This trip has been planned for some time, and it is important for me to be with my
-                                    .</span>
+                                    Day leave today, as I need to accompany my family to Sani Dev for a personal visit.
+                                    This trip has been planned for some time, and it is important for me to be with my</span>
                             </div>
                         </div>
                     </div>
@@ -202,3 +195,9 @@
     </div>
 </div>
 </div>
+@endsection
+@endsection
+
+
+
+

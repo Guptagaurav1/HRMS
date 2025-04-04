@@ -1009,5 +1009,14 @@ input::-webkit-input-placeholder{
 
 
 
+.alert-success {
+  color: #fff;
+  background-color: rgba(38, 185, 154, .88);
+  border-color: rgba(38, 185, 154, .88);
+}
+
+
+
+
  
 

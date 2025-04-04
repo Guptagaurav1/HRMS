@@ -410,7 +410,7 @@
                                             type="checkbox" id="same-as"></span>Same as
                                     permanent</label>
                                 <textarea class="form-control" id="local_address" name="emp_local_address"
-                                    placeholder="Enter Correspondence Address">{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->emp_local_address : '' }}</textarea>
+                                    placeholder="Enter Correspondence Address" required>{{ !empty($recruitment_details->getAddressDetail) ? $recruitment_details->getAddressDetail->emp_local_address : '' }}</textarea>
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6">
                                 <label for="exampleTextarea" class="form-label">ZIP Code<span

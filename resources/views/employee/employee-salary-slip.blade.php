@@ -1,9 +1,5 @@
 @extends('layouts.master')
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -39,5 +35,5 @@
 @endsection
 
 @section('script')
-<script src={{asset('assets/vendor/js/employeeSalarycalender.js')}}></script>
+<script src="{{asset('assets/vendor/js/employeeSalarycalender.js')}}"></script>
 @endsection
