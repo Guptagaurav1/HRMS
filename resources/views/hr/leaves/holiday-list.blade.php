@@ -40,9 +40,11 @@
                                 <td>{{$holiday->holiday_type}}</td>
                             </tr>
                             @empty
+                            @if (auth()->check())
                             <tr>
                                 <td class="text-danger text-center" colspan="5">No Record Found</td>
                             </tr>
+                            @endif
                             @endforelse
                             @if($day)
                                 <tr>

@@ -82,15 +82,21 @@
                                 <th class="text-center">S.No.</th>
                                 <th class="text-center">Position Title</th>
                                 <th class="text-center">Client Name</th>
-                                <th class="text-center">Total Contacted Person</th>
+                                @if(auth()->user()->hasPermission('show-assign-work-log'))
+                                    <th class="text-center">Total Contacted Person</th>
+                                @endif
                                 <th class="text-center">Date of Request</th>
                                 <th class="text-center">Date of Fulfillment</th>
                                 <th class="text-center">Location</th>
                                 <th class="text-center">Work Assigned</th>
                                 <th class="text-center">Completed/Required</th>
+                                @if(auth()->user()->hasPermission('preview-executive-description'))
                                 <th class="text-center">Action</th>
+                                @endif
                                 <th class="text-center">Current Status</th>
-                                <th class="text-center"></th>
+                                @if(auth()->user()->hasPermission('update_position_request'))
+                                    <th class="text-center">Edit Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -107,21 +113,27 @@
                                 <td class="text-center">{{$loop->iteration}}</td>
                                 <td class="text-center">{{$position->position_title}}</td>
                                 <td class="text-center">{{$position->client_name}}</td>
+                                @if(auth()->user()->hasPermission('show-assign-work-log'))
                                 <td class="attributes-column">
                                     <a href="{{route('show-assign-work-log', ['id' => $position->id])}}" class="text-primary">{{get_position_contacts($position->id)}} <span>Contacts</span></a>
                                 </td>
+                                @endif
                                 <td class="text-center">{{date('jS F, Y', strtotime($position->created_at))}}</td>
                                 <td class="text-center">{{$position->date_notified ? date('jS F, Y', strtotime($position->date_notified)) : ''}}</td>
                                 <td class="text-center">{{$position->getCity &&  $position->getState ? $position->getCity->city_name." - ".$position->getState->state : '-'}}</td>
                                 <td class="text-center">{{get_username($position->assigned_executive)}}</td>
                                 <td class="text-center">{{$position->no_of_completed_requirements." / ".$position->no_of_requirements}}</td>
+                                @if(auth()->user()->hasPermission('preview-executive-description'))
                                 <td class="text-center">
                                     <a href="{{route('preview-executive-description', ['id' => $position->id])}}">
                                         <button class="btn btn-sm btn-primary" >Share Job Description <i class="fa-solid fa-paper-plane"></i></button>
                                     </a>
                                 </td>
+                                @endif
                                 <td class="text-center"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
-                                <td><a class="btn btn-primary text-light text-decoration-none" href="{{route('update_position_request', ['id' => $position->id])}}">Edit</a></td>
+                                @if(auth()->user()->hasPermission('update_position_request'))
+                                    <td><a class="btn btn-primary text-light text-decoration-none" href="{{route('update_position_request', ['id' => $position->id])}}">Edit</a></td>
+                                @endif
                             </tr>
                             @empty
                             <tr>

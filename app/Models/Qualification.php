@@ -15,7 +15,7 @@ class Qualification extends Model
      *
      * @var array
      */
-    protected $fillable = ['qualification'];
+    protected $fillable = ['id','qualification','status','created_at'];
 
     /**
      * Save User id on CRUD operation.

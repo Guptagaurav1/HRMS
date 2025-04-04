@@ -15,6 +15,10 @@ use ZipArchive;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use App\Models\ReportLog;
+use PDF;
+use App;
+use stdClass;
 
 
 
@@ -369,48 +373,122 @@ class WorkOrderController extends Controller
         }
     }
      
-    public function work_order_report(Request $request){
+    // public function work_order_report(Request $request){
+    //     // dd($request);
+    //     $check_workOrders = $request->checkbox??NULL;
+    //     if(empty($request->checkbox)){
+    //         return redirect()->route('work-order-list')->with('success','Please check atleast one checkbox !');
+    //     }
+    //     $wo_details =  workOrder::with('project.organizations')->whereIn('id',$request->checkbox)->orderBy('id', 'desc')->get();
+    //     $wo_details =$wo_details->groupby('project_id');
         
-        $check_workOrders = $request->checkbox??NULL;
-        if(empty($request->checkbox)){
-            return redirect()->route('work-order-list')->with('success','Please check atleast one checkbox !');
+    //     $overallSum = 0;
+    //     // Array to store the project workorder sums
+    //     $projectSums = [];
+    //     foreach ($wo_details as $projectId => $workOrders) {
+    //         // Calculate the sum for each project workorder
+    //         $projectSum = $workOrders->sum('wo_amount');
+    //         $projectSums[$projectId] = $projectSum;
+    //         $wo_details[$projectId]->wo_pro_sum =$projectSums[$projectId];
+    //         // Add to the overall sum
+    //         $overallSum += $projectSum;
+    //         // $wo_doc =[];
+    //         foreach($workOrders as $value){
+    //             if(!empty( $value->wo_attached_file)){
+
+    //                 $wo_doc[] = $value->wo_attached_file;  
+    //             }else{
+    //                 $wo_doc =[];
+    //             }
+    //         }
+    //     }
+    //     $zipFilePath = null;
+    //     if (count($wo_doc) > 0) {
+    //         // Call the helper function to create a zip of the work order documents
+    //         $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
+    //     }
+    //     // dd($wo_details);
+       
+    //     return view("hr.workOrder.work-order-report",compact('wo_details','overallSum','zipFilePath','check_workOrders'));
+    // }
+    public function work_order_report(Request $request)
+{
+    $validatedData = $this->processWorkOrders($request);
+    return view("hr.workOrder.work-order-report", $validatedData);
+}
+
+    private function processWorkOrders(Request $request)
+    {
+        if($request->check_workOrders){
+            $check_workOrders = explode(',',$request->check_workOrders);
+        }else{
+
+            $check_workOrders = $request->checkbox ?? null;
         }
-        $wo_details =  workOrder::with('project.organizations')->whereIn('id',$request->checkbox)->orderBy('id', 'desc')->get();
-        $wo_details =$wo_details->groupby('project_id');
-        
+        if (empty($check_workOrders)) {
+            return redirect()->route('work-order-list')->with('success', 'Please check at least one checkbox!');
+        }
+        // dd($check_workOrders);
+        $wo_details = workOrder::with('project.organizations')
+            ->whereIn('id', $check_workOrders)
+            ->orderBy('id', 'desc')
+            ->get()
+            ->groupBy('project_id');
+
         $overallSum = 0;
-        // Array to store the project workorder sums
         $projectSums = [];
+        $wo_doc = [];
+
         foreach ($wo_details as $projectId => $workOrders) {
-            // Calculate the sum for each project workorder
             $projectSum = $workOrders->sum('wo_amount');
             $projectSums[$projectId] = $projectSum;
-            $wo_details[$projectId]->wo_pro_sum =$projectSums[$projectId];
-            // Add to the overall sum
-            $overallSum += $projectSum;
-            // $wo_doc =[];
-            foreach($workOrders as $value){
-                if(!empty( $value->wo_attached_file)){
+            $wo_details[$projectId]->wo_pro_sum = $projectSum;
 
-                    $wo_doc[] = $value->wo_attached_file;  
-                }else{
-                    $wo_doc =[];
+            $overallSum += $projectSum;
+
+            foreach ($workOrders as $value) {
+                if (!empty($value->wo_attached_file)) {
+                    $wo_doc[] = $value->wo_attached_file;
                 }
             }
         }
-        $zipFilePath = null;
-        if (count($wo_doc) > 0) {
-            // Call the helper function to create a zip of the work order documents
-            $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
-        }
-        // dd($wo_doc);
-       
-        return view("hr.workOrder.work-order-report",compact('wo_details','overallSum','zipFilePath','check_workOrders'));
+
+        $zipFilePath = count($wo_doc) > 0 ? downloadWorkOrderDocumentsAsZip($wo_doc) : null;
+
+        return compact('wo_details', 'overallSum', 'zipFilePath', 'check_workOrders');
+    }
+
+
+    public function save_wo_report(Request $request){
+        // try {
+            $workOrder = $this->processWorkOrders($request);
+            $wo_details =$workOrder['wo_details'];
+            $overallSum =$workOrder['overallSum'];
+            $message_new = view('hr/workOrder/work-order-report', [
+                'wo_details' => $wo_details,
+                'overallSum' => $overallSum,
+            ])->render(); 
+            // dd($message_new);
+            $unq_no = now()->format('Ymdhisa');
+            $file_name = "WorkOrderReport_{$unq_no}.pdf";
+
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadHTML($message_new);
+        
+            $pdf->save(public_path("work-order/wo-report/{$file_name}"));
+            ReportLog::create([
+                'doc' => $file_name
+            ]);
+            return redirect()->route('report-log')->with(['success' => true, 'message' => 'Report save Successfully.']);
+        // } catch (Throwable $th) {
+        //     return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
+        // }
+        
     }
 
     
      /**
-     * Export Salary Slip.
+     * Export work orders.
      */
     public function export_csv(Request $request)
     {
@@ -551,5 +629,11 @@ class WorkOrderController extends Controller
         }, 200, $headers);
     }
 
+    public function report_log(Request $request){
+        $report= ReportLog::with('user')->orderBy('id', 'desc')->paginate(25);
+        // dd($report);
+        return view("hr.workOrder.report-log", compact('report'));
+
+    }
 
 }

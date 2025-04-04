@@ -518,7 +518,7 @@
                                     id="same-as"></span>Same as
                             permanent</label>
                         <textarea class="form-control" id="local_address" name="emp_local_address"
-                            placeholder="Enter Correspondence Address">{{ !empty($employee_details->getAddressDetail) ? $employee_details->getAddressDetail->emp_local_address : '' }}</textarea>
+                            placeholder="Enter Correspondence Address" required>{{ !empty($employee_details->getAddressDetail) ? $employee_details->getAddressDetail->emp_local_address : '' }}</textarea>
 
                     </div>
 

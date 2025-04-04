@@ -141,7 +141,20 @@ class RecruitmentController extends Controller
      */
     public function recruitment_report()
     {
-        $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh')->orderByDesc('id')->paginate(10);
+        // to get current roles of the user
+
+        $user = auth()->user()->load('role'); 
+        $role = $user->role->role_name; 
+        if($role == 'hr_executive'){
+            $positions = PositionRequest::whereNotNull('assigned_executive')
+                        ->where('recruitment_type', 'fresh')
+                        ->where('assigned_executive',  $user->id)
+                        ->orderByDesc('id');
+                }else{
+                    $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh')->orderByDesc('id');
+                }
+
+        $positions =  $positions->paginate(20);
         return view("hr.recruitment.recruitment-report", compact('positions'));
     }
 
@@ -1045,7 +1058,7 @@ class RecruitmentController extends Controller
             return response()->json(['success' => true, 'message' => 'Mail Send Successfully!']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1563,7 +1576,9 @@ class RecruitmentController extends Controller
      */
     public function recruitment_list(Request $request)
     {
-        $candidates = RecruitmentForm::select('recruitment_forms.id', 'recruitment_forms.firstname', 'recruitment_forms.lastname', 'recruitment_forms.email', 'recruitment_forms.phone', 'recruitment_forms.job_position', 'recruitment_forms.dob', 'recruitment_forms.location', 'recruitment_forms.experience',  'recruitment_forms.skill', 'recruitment_forms.education', 'recruitment_forms.finally', 'recruitment_forms.status', 'emp_details.emp_current_working_status', 'emp_details.id AS empid', 'recruitment_forms.emp_code', 'emp_details.emp_dor')->leftJoin('emp_details', 'recruitment_forms.emp_code', '=', 'emp_details.emp_code');
+        $candidates = RecruitmentForm::select('recruitment_forms.id', 'recruitment_forms.firstname', 'recruitment_forms.lastname', 'recruitment_forms.email', 'recruitment_forms.phone', 'recruitment_forms.job_position', 'recruitment_forms.dob', 'recruitment_forms.location', 'recruitment_forms.experience',  'recruitment_forms.skill', 'recruitment_forms.education', 'recruitment_forms.finally', 'recruitment_forms.status', 'emp_details.emp_current_working_status', 'emp_details.id AS empid', 'recruitment_forms.emp_code', 'emp_details.emp_dor','position_requests.client_name')
+                    ->leftJoin('emp_details', 'recruitment_forms.emp_code', '=', 'emp_details.emp_code')
+                    ->leftJoin('position_requests', 'recruitment_forms.pos_req_id', '=', 'position_requests.req_id');
         $search = '';
         if ($request->search) {
             $search = $request->search;
@@ -1579,8 +1594,31 @@ class RecruitmentController extends Controller
                     ->orWhereRaw('CONCAT(recruitment_forms.firstname, " ", recruitment_forms.lastname) LIKE ?', [$filter]);
             });
         }
+        $user = auth()->user();
+        $roleNeme = get_role_name($user->role_id);
 
-        $candidates = $candidates->orderByDesc('id')->paginate(10)->withQueryString();
+        if($roleNeme == 'admin' || $roleNeme == 'hr'){
+            $candidates->where(function($q){
+                $q->whereNotNull('reference'); 
+                $q->where('recruitment_forms.recruitment_type','fresh'); 
+            });
+        }elseif($roleNeme == 'hr_operations'){
+            $candidates->where(function($q) use ($user){
+                $q->whereNotNull('reference'); 
+                $q->where('recruitment_forms.recruitment_type','fresh'); 
+                $q->where('position_requests.created_by', $user->id); 
+            });
+        }else{
+            $candidates->where(function($q) use($user){
+                $q->where('reference', $user->email); 
+                $q->where('recruitment_forms.recruitment_type','fresh'); 
+            });
+        }
+        $candidates =   $candidates->orderByDesc('id')
+                        ->paginate(10)
+                        ->withQueryString();
+
+                
         return view("hr.recruitment.recruitment-list", compact('candidates', 'search'));
     }
 
@@ -2504,17 +2542,10 @@ class RecruitmentController extends Controller
     {   
         $this->validate($request, [
             'job_position' => ['required'],
-            'remarks' => ['required'],
-            'resume' => ['required', File::types(['pdf'])->max('2mb')],
-            'location' => ['required'],
-            'qualification' => ['required'],
-            'notice_period' => ['required'],
-            'exp_ctc' => ['required'],
-            'curr_ctc' => ['required'],
-            'experience' => ['required'],
-            'phone_no' => ['required', 'digits:10'],
+            'resume' => [File::types(['pdf'])->max('2mb')],
+            'phone_no' => ['digits:10'],
             'name' => ['required'],
-            'email' => ['required', 'email']
+            'email' => ['email']
         ]);
         try{
             $user = auth()->user();
@@ -2552,7 +2583,8 @@ class RecruitmentController extends Controller
      */
     public function call_logs(Request $request)
     {   
-        $logs = ContactedByCallLog::select('contacted_by_call_logs.name', 'contacted_by_call_logs.email AS candidate_email', 'contacted_by_call_logs.resume', 'contacted_by_call_logs.client_name', 'contacted_by_call_logs.job_position', 'contacted_by_call_logs.remarks', 'contacted_by_call_logs.phone_no', 'contacted_by_call_logs.created_at','contacted_by_call_logs.id', 'users.first_name', 'users.last_name', 'users.email')->leftJoin('users', 'contacted_by_call_logs.rec_email', '=', 'users.email');
+        $logs = ContactedByCallLog::select('contacted_by_call_logs.name', 'contacted_by_call_logs.email AS candidate_email', 'contacted_by_call_logs.resume', 'contacted_by_call_logs.client_name', 'contacted_by_call_logs.job_position', 'contacted_by_call_logs.remarks', 'contacted_by_call_logs.phone_no', 'contacted_by_call_logs.created_at','contacted_by_call_logs.id', 'users.first_name', 'users.last_name', 'users.email')
+                                    ->leftJoin('users', 'contacted_by_call_logs.rec_email', '=', 'users.email');
         $searchvalue = '';
         if ($request->search) {
             $searchvalue = $request->search;
@@ -2641,7 +2673,20 @@ class RecruitmentController extends Controller
      */
     public function export_call_log(Request $request)
     {
-        $logs = ContactedByCallLog::select('contacted_by_call_logs.name', 'contacted_by_call_logs.email AS candidate_email', 'contacted_by_call_logs.resume', 'contacted_by_call_logs.client_name', 'contacted_by_call_logs.job_position', 'contacted_by_call_logs.experience', 'contacted_by_call_logs.curr_ctc', 'contacted_by_call_logs.exp_ctc', 'contacted_by_call_logs.notice_period', 'contacted_by_call_logs.qualification','contacted_by_call_logs.remarks', 'contacted_by_call_logs.location', 'contacted_by_call_logs.phone_no')->leftJoin('users', 'contacted_by_call_logs.rec_email', '=', 'users.email');
+        $user = auth()->user();
+        $roleName = get_role_name($user->role_id);
+
+        // export data by user
+        
+        if(!$roleName == "admin" || !$roleName="hr"){
+            $logs = ContactedByCallLog::select('contacted_by_call_logs.name', 'contacted_by_call_logs.email AS candidate_email', 'contacted_by_call_logs.resume', 'contacted_by_call_logs.client_name', 'contacted_by_call_logs.job_position', 'contacted_by_call_logs.experience', 'contacted_by_call_logs.curr_ctc', 'contacted_by_call_logs.exp_ctc', 'contacted_by_call_logs.notice_period', 'contacted_by_call_logs.qualification','contacted_by_call_logs.remarks', 'contacted_by_call_logs.location', 'contacted_by_call_logs.phone_no')
+            ->leftJoin('users', 'contacted_by_call_logs.rec_email', '=', 'users.email');
+        }else{
+            $logs = ContactedByCallLog::select('contacted_by_call_logs.name', 'contacted_by_call_logs.email AS candidate_email', 'contacted_by_call_logs.resume', 'contacted_by_call_logs.client_name', 'contacted_by_call_logs.job_position', 'contacted_by_call_logs.experience', 'contacted_by_call_logs.curr_ctc', 'contacted_by_call_logs.exp_ctc', 'contacted_by_call_logs.notice_period', 'contacted_by_call_logs.qualification','contacted_by_call_logs.remarks', 'contacted_by_call_logs.location', 'contacted_by_call_logs.phone_no')
+            ->leftJoin('users', 'contacted_by_call_logs.rec_email', '=', 'users.email')
+            ->where('contacted_by_call_logs.rec_email',$user->email);
+        }
+
         if ($request->searchvalue) {
             $search = '%' . $request->searchvalue . '%';
             $logs = $logs->where(function ($query) use ($search) {
@@ -2651,7 +2696,9 @@ class RecruitmentController extends Controller
                     ->orWhere('contacted_by_call_logs.remarks', 'LIKE', $search)
                     ->orWhere('contacted_by_call_logs.phone_no', 'LIKE', $search);
                 });
-        };
+        }
+ 
+
         $logs = $logs->orderByDesc('contacted_by_call_logs.id');
         $filename = 'call_logs.csv';
 
@@ -2714,12 +2761,44 @@ class RecruitmentController extends Controller
      */
     public function offer_letter_shared_list()
     {
-       $data = RecruitmentForm::select('id', 'firstname', 'lastname', 'email', 'phone', 'job_position', 'location', 'experience', 'recruitment_status', 'pos_req_id')->where('recruitment_type', 'fresh')
-            ->where(function ($query) {
-                $query->where('finally', 'offer-letter-sent')
-                    ->orWhere('finally', 'offer_accepted')
-                    ->orWhere('finally', 'docs_checked');
-            })->orderByDesc('id')->paginate(10);
+      
+        $data = RecruitmentForm::select('recruitment_forms.id', 'recruitment_forms.firstname', 'recruitment_forms.lastname', 'recruitment_forms.email', 'recruitment_forms.phone', 'recruitment_forms.job_position', 'recruitment_forms.location', 'recruitment_forms.experience', 'recruitment_forms.recruitment_status', 'recruitment_forms.pos_req_id')
+                ->leftJoin('position_requests','position_requests.id', '=', 'recruitment_forms.pos_req_id')
+                ->leftJoin('emp_details','emp_details.emp_code', '=', 'recruitment_forms.emp_code')
+                ->orderByDesc('id');
+                // to get role name
+            $user = auth()->user();
+            $roleName = get_role_name($user->role_id);
+
+            // to filter data user wise 
+      
+        if($roleName == 'admin' || $roleName == 'hr' || $roleName == 'it_admin'){
+            $data->where(function($q){
+                $q->whereNotNull('reference');
+                $q->where('recruitment_forms.recruitment_type','fresh');
+                $q->where('recruitment_forms.finally','offer-letter-sent');
+                $q->orWhere('recruitment_forms.finally','offer_accepted');
+                $q->orWhere('recruitment_forms.finally','docs_checked');
+            });
+        }elseif($roleName == 'hr_operations'){
+            $data->where(function($q) use($user){
+                $q->whereNotNull('reference');
+                $q->where('recruitment_forms.recruitment_type','fresh');
+                $q->where('recruitment_forms.finally','offer-letter-sent');
+                $q->orWhere('recruitment_forms.finally','offer_accepted');
+                $q->orWhere('recruitment_forms.finally','docs_checked');
+                $q->where('position_requests.created_by',$user->id);
+            });
+        }else{
+            $data->where(function($q) use($user){
+                $q->where('reference', $user->email);
+                $q->where('recruitment_forms.recruitment_type','fresh');
+                $q->where('recruitment_forms.finally','offer-letter-sent');
+                $q->orWhere('recruitment_forms.finally','offer_accepted');
+                $q->orWhere('recruitment_forms.finally','docs_checked');
+            });
+        }
+        $data = $data->paginate(10);
         return view("hr.recruitment.offerlettershared-list", compact('data'));
     }
 }

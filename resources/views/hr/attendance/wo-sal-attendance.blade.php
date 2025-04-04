@@ -180,14 +180,15 @@
                                             <td><input type="number" step="0.01" min="0" name="overtime_rate" readonly  value="{{ $wo_emp->overtime_rate }}"></td>
                                             <td><input type="number" step="0.01" min="0" name="total_working_hrs" readonly value="{{ $wo_emp->total_working_hrs }}"></td>
                                             
-                                            <input type="hidden" name="emp_medical_insurance" id="emp_medical_insurance" value="{{ $wo_emp->salary->medical_insurance }}">
-                                            <input type="hidden" name="emp_accidental_insurance" id="emp_accidental_insurance" value="{{ $wo_emp->salary->accident_insurance }}">
-                                            <input type="hidden" name="emp_pf_wages" id="emp_pf_wages" value="{{ $wo_emp->salary->pf_wages }}">
-                                            <input type="hidden" name="emp_esi_wages" id="emp_esi_wages" value="{{ $wo_emp->salary->sal_esi_employee }}">
-                                            <input type="hidden" name="medical_insurance_ctc" id="medical_insurance_ctc" value="{{ $wo_emp->salary->medical_insurance_ctc }}">
-                                            <input type="hidden" name="accident_insurance_ctc" id="accident_insurance_ctc" value="{{ $wo_emp->salary->accident_insurance_ctc }}">
+                                            <input type="hidden" name="emp_medical_insurance" id="emp_medical_insurance" value="{{ $wo_emp->salary->medical_insurance??NULL }}">
+                                            <input type="hidden" name="emp_accidental_insurance" id="emp_accidental_insurance" value="{{ $wo_emp->salary->accident_insurance??NULL }}">
+                                            <input type="hidden" name="emp_pf_wages" id="emp_pf_wages" value="{{ $wo_emp->salary->pf_wages??NULL }}">
+                                            <input type="hidden" name="emp_esi_wages" id="emp_esi_wages" value="{{ $wo_emp->salary->sal_esi_employee??NULL }}">
+                                            <input type="hidden" name="medical_insurance_ctc" id="medical_insurance_ctc" value="{{ $wo_emp->salary->medical_insurance_ctc??NULL }}">
+                                            <input type="hidden" name="accident_insurance_ctc" id="accident_insurance_ctc" value="{{ $wo_emp->salary->accident_insurance_ctc??NULL }}">
+                                            <input type="hidden" name="accident_insurance_ctc" id="accident_insurance_ctc" value="{{ $wo_emp->salary->accident_insurance_ctc??NULL }}">
                                            
-                                        
+                                           
                                         </tr>
                                     @endforeach
                                 @else
