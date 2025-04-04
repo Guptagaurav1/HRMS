@@ -20,8 +20,13 @@ class LeaveController extends Controller
     public function index(){
        
         $currentMonth = now()->month; 
-        $currentYear = now()->year;   
-        $data =EmpLeave::with('month')->where('year','=',$currentYear)->get();
+        $currentYear = now()->year; 
+
+        $data = EmpLeave::where('year','=',$currentYear);
+        if(auth('employee')->check()){
+            $data = $data->where('emp_code', auth('employee')->user()->emp_code);
+        }
+        $data = $data->get();
         return view("hr.leaves.emp-leaves",compact('data'));
     }
 

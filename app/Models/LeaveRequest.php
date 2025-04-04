@@ -5,17 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LeaveRequest extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'leave_requests';
-    public $timestamps = false; 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
-    protected $fillable = [
-        'emp_code', 'total_days', 'absence_dates',
-        'created_on', 'status', 'reason_for_absence','year',
-    ];
+    /**
+     * Get employee related to leave request.
+     */
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(EmpDetail::class, 'emp_code', 'emp_code')->select('emp_name');
+    }
     
 }

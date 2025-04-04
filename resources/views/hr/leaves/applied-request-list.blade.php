@@ -44,16 +44,25 @@
                     </thead>
                     <tbody>
                         @forelse($leave_requests as $leave_request)
+                        @php
+                        if ($leave_request->status == 'Approved' || $leave_request->status == 'Reapproved') {
+                            $color = 'success';
+                        } elseif ($leave_request->status == 'Disapproved' || $leave_request->status == 'Redisapproved') {
+                            $color = 'danger';
+                        } else {
+                            $color = 'warning';
+                        }
+                    @endphp
                         <tr>
                             <td class="text-center">{{$loop->iteration}}</td>
                             <td class="text-center">{{$leave_request->leave_code}}</td>
                             <td class="text-center">{{$leave_request->emp_code}}</td>
-                            <td class="text-center">{{$leave_request->emp_name}}</td>
+                            <td class="text-center">{{ $leave_request->employee->emp_name }}</td>
                             <td class="text-center">{{$leave_request->reason_for_absence}}</td>
-                            <td class="text-center">{{$leave_request->reporting_mail}}</td>
+                            <td class="text-center">{{$leave_request->department_head_email}}</td>
                             <td class="text-center">{{$leave_request->total_days}}</td>
-                            <td class="text-center"><span class="badge alert-success">{{$leave_request->status}}</span></td>
-                            <td class="text-center">{{date('d-M-Y', strtotime($leave_request->created_on))}}</td>
+                            <td class="text-center"><span class="badge alert-{{$color}}">{{$leave_request->status}}</span></td>
+                            <td class="text-center">{{date('d-M-Y', strtotime($leave_request->created_at))}}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#leaveDetailsModal" data-bs-whatever="{{$leave_request->id}}">View <i class="fa-solid fa-eye"></i></button>
@@ -80,10 +89,6 @@
 </div>
 
 @section('modal')
-
-@endsection
-
-
 <div class="modal fade" id="leaveDetailsModal" tabindex="1" aria-labelledby="leaveDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content shadow-lg">
@@ -208,6 +213,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+
 
 
 @endsection

@@ -7,7 +7,7 @@ if (leaveDetailsModal) {
     const requestId = button.getAttribute('data-bs-whatever');
 
     $.ajax({
-    	url : SITE_URL+'/hr/leave/request-details',
+    	url : SITE_URL+'/user/leave/request-details',
     	method : 'post',
     	dataType : 'json',
     	data : {
@@ -35,7 +35,7 @@ if (leaveDetailsModal) {
     			const leaveComment = leaveDetailsModal.querySelector('.leave_comment');
     			leaveCode.textContent = res.data.leave_code;
     			empCode.textContent = res.data.emp_code;
-    			empName.textContent = res.data.emp_name;
+    			empName.textContent = res.emp_name;
     			cc.textContent = res.data.cc;
     			reason.textContent = res.data.reason_for_absence;
     			absenceDate.textContent = res.data.absence_dates;
@@ -46,7 +46,7 @@ if (leaveDetailsModal) {
     			approvedBy.textContent = res.data.reapproved_by;
     			approvedComment.textContent = res.data.reapproved_redisapproved_comment;
     			status.textContent = res.data.status;
-    			applyDate.textContent = new Date(res.data.created_on).toLocaleDateString();
+    			applyDate.textContent = new Date(res.data.created_at).toLocaleDateString();
     			leaveComment.innerHTML = res.data.comment;
     		}
     	}

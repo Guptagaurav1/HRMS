@@ -232,9 +232,11 @@
         <tr>
             <td align="center">
                 <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" class="email-card">
+                    @if(isset($mailData->name))
                     <tr>
                         <td align="center" > <p style="margin-top: 10px;"><b>Dear {{$mailData->name}},</b></p></td>
                     </tr>
+                    @endif
                     <tr>
                         <td align="center" bgcolor="#ffffff" valign="top" width="600">
                             <div class="email-content">

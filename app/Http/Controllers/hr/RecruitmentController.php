@@ -2504,17 +2504,10 @@ class RecruitmentController extends Controller
     {   
         $this->validate($request, [
             'job_position' => ['required'],
-            'remarks' => ['required'],
-            'resume' => ['required', File::types(['pdf'])->max('2mb')],
-            'location' => ['required'],
-            'qualification' => ['required'],
-            'notice_period' => ['required'],
-            'exp_ctc' => ['required'],
-            'curr_ctc' => ['required'],
-            'experience' => ['required'],
-            'phone_no' => ['required', 'digits:10'],
+            'resume' => [File::types(['pdf'])->max('2mb')],
+            'phone_no' => ['digits:10'],
             'name' => ['required'],
-            'email' => ['required', 'email']
+            'email' => ['email']
         ]);
         try{
             $user = auth()->user();
