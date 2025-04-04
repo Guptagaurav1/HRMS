@@ -1,6 +1,5 @@
 $(function () {
     let counter = 2;
-
     $('#add-more-btn').click(function () {
         var fields = $(".fields").html();
         $('#table-body').append(`
@@ -17,7 +16,7 @@ $(function () {
         const row = $(this).closest('tr');
         if ($(this).hasClass('remove-btn')) row.remove();
         else row.find('select, textarea, input').val('');
-        $('#table-body tr').each((i, row) => $(row).find('td:first').text(i + 1)); // Update serial numbers
+        $('#table-body tr').each((i, row) => $(row).find('td:first').text(i + 1));
         counter--;
     });
 

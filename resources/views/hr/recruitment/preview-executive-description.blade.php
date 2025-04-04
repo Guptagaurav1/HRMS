@@ -1,7 +1,4 @@
 @extends('layouts.master', ['title' => 'Send Job Description'])
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
 
 @section('contents')
     <div class="dashboard-breadcrumb mb-25">
@@ -57,17 +54,19 @@
                                         value="{{ auth()->user()->email }}" readonly>
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label" class="text-dark">Job Seeker Email</span></label>
-                                    <input type="text" class="form-control form-control-sm" name="jobseeker_email"
+                                    <label class="form-label" class="text-dark ">Job Seeker Email <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-sm for_char" name="jobseeker_email"
                                         placeholder="Enter Job Seeker Email" required>
+                                        <span class="jobseeker_email"></span>
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">Job Seeker Name </label>
-                                    <input type="text" class="form-control form-control-sm"
+                                    <label class="form-label">Job Seeker Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-sm for_char"
                                         placeholder="Enter Job Seeker Name" name="jobseeker_name" required>
+                                        <span class="jobseeker_name"></span>
                                 </div>
                                 <div class="col-xxl-3 col-lg-12 col-sm-6">
-                                    <label class="form-label">Message</label>
+                                    <label class="form-label">Message <span class="text-danger">*</span></label>
                                     <textarea class="form-control" id="exampleTextarea" name="message" placeholder="Enter A Message" required></textarea>
                                 </div>
                             </div>
@@ -237,5 +236,7 @@
 @endsection
 
 @section('script')
-    <script src={{ asset('assets/js/tab-changes.js') }}></script>
+<script src="{{ asset('assets/js/tab-changes.js')}}"></script>    
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
+
 @endsection

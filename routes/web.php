@@ -138,6 +138,7 @@ Route::middleware('all')->prefix('user')->group(function () {
 Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
+        Route::get("/hr-operation-dashboard", 'hr_operation_dashboard')->name("hr_operations_dashboard");
     });
 
     // Masters
@@ -500,7 +501,7 @@ Route::get("position-review-dept", function () {
 })->name("position-review-dept");
 
 Route::get("reimbursement-list", function () {
-    return view(" hr.reimbursement-list");
+    return view("hr.reimbursement-list");
 })->name("reimbursement-list");
 
 

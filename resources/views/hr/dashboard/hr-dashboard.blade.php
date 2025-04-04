@@ -16,10 +16,10 @@
             <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
                 alt="Profile" />
             <div class="profile-info">
-                <h4>John Doe</h4>
-                <p>Software Engineer</p>
-                <p><i class="fas fa-envelope"></i> john.doe@example.com</p>
-                <p><i class="fas fa-phone"></i> +123 456 7890</p>
+                <h4>{{ auth()->user()->first_name." ".auth()->user()->last_name}}</h4>
+                <p><i class="fas fa-user"></i> {{ ucwords(str_replace("_", ' ',auth()->user()->role->role_name)) }}</p>
+                <p><i class="fas fa-envelope"></i> {{ auth()->user()->email }}</p>
+                <p><i class="fas fa-phone"></i> {{ auth()->user()->phone }}</p>
             </div>
         </div>
         <div class="card profile-card p-3">
@@ -36,34 +36,37 @@
    
 
     <ul class="custom-tabs" id="dashboardTabs">
-        <li class="tab-item active" data-id="dashboard"><i class="fas fa-home"></i> Dashboard</li>
-        <li class="tab-item" data-id="payslip"><i class="fas fa-file-invoice"></i> Payslip</li>
-        <li class="tab-item" data-id="leaves"><i class="fas fa-calendar-alt"></i> Leaves</li>
-        <li class="tab-item" data-id="letters"> <i class="fas fa-envelope"></i> Letters</li>
+        <li class="tab-item active" data-id="dashboard"><i class="fas fa-home"></i> Employee Birthday</li>
+        <li class="tab-item" data-id="payslip"><i class="fas fa-file-invoice"></i> Employee Marriage Anniversary</li>
+        <li class="tab-item" data-id="leaves"><i class="fas fa-calendar-alt"></i> Employee Work Anniversary</li>
+        <li class="tab-item" data-id="letters"> <i class="fas fa-envelope"></i> Leave Request</li>
     </ul>
 
     <div class="mt-4">
 
         <div class="tab-content-section active" id="dashboard">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card stats-card">
-                        <h4>322</h4>
-                        <p>Attendance</p>
-                    </div>
+                <div class="col-md-12">
+                    <table class="custom-table mt-3">
+                        <thead>
+                            <tr>
+                                <th>SNO.</th>
+                                <th>Employee Code</th>
+                                <th>Name</th>
+                                <th>Work Order</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>Email</th>
+                                <th>DOB</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                 </div>
-                <div class="col-md-4">
-                    <div class="card stats-card">
-                        <h4>23</h4>
-                        <p>Late</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card stats-card">
-                        <h4>77</h4>
-                        <p>Overtime</p>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
@@ -168,7 +171,5 @@
 @endsection
 
 @section('script')
-
 <script src="{{asset('assets/js/employee-tab-dashboard.js')}}"></script>
-
 @endsection
