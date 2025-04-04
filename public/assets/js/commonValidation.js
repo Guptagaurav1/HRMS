@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 
 
-        if (charregex.test(enteredVal) && result != 'phone' && result != 'email' && result != 'contact' && result != 'emp_account_no' && result!=="phone_no" && result != 'emp_ifsc' && result != 'emp_pan' && result != "emp_esi_no" && result !=="emp_email_first" && result!=='billing_email_id' ) {
+        if (charregex.test(enteredVal) && result != 'phone' && result != 'email' && result != 'contact' && result != 'emp_account_no' && result!=="phone_no" && result != 'emp_ifsc' && result != 'emp_pan' && result != "emp_esi_no" && result !=="emp_email_first" && result!=='billing_email_id' && result!=="jobseeker_email" && result!=='remark' && result!=='update_email') {
             errormessage = "";
             color = 'green';
         }
@@ -30,6 +30,7 @@ $(document).ready(function () {
         else if (result == 'emp_account_no' && enteredVal.match(bankregex) && result != 'phone' && result != 'emp_ifsc' && result != 'emp_pan') {
             errormessage = "";
             color = 'green';
+            
         }
 
         else if (result == 'emp_ifsc' && enteredVal.match(ifscregex) && result !== 'emp_pan') {
@@ -53,26 +54,26 @@ $(document).ready(function () {
 
         }
 
-        if (result.includes("[") && result.includes("]")) {
-            console.log("inside if condition");
-            result = result.replace("[", "");
-            result = result.replace("]", "");
-            console.log(result)
-        }
-        console.log(result, 'outside if result second');
+        // if (result.includes("[") && result.includes("]")) {
+        //     console.log("inside if condition");
+        //     result = result.replace("[", "");
+        //     result = result.replace("]", "");
+        //     console.log(result)
+        // }
+        // console.log(result, 'outside if result second');
 
 
 
 
-        if (result == 'emp_esi_no') {
-            $('.' + result).html(errormessage).css('color', color);
+        // if (result == 'emp_esi_no') {
+        //     $('.' + result).html(errormessage).css('color', color);
 
-        }
+        // }
         
-        else  {
-            $(this).closest('.col-md-6').find('.' + result).html(errormessage).css('color', color);
+        // else  {
+        //     $(this).closest('.col-md-6').find('.' + result).html(errormessage).css('color', color);
 
-        }
+        // }
 
         $('.' + result).html(errormessage).css('color', color);
 

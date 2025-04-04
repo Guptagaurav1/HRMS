@@ -17,4 +17,9 @@ class EmpLeave extends Model
         'carry_forward_cl', 'carry_forward_pl',
         'leave_taken'
     ];
+
+    public function month()
+    {
+        return $this->belongsTo(Month::class, 'month_id', 'id');
+    }
 }

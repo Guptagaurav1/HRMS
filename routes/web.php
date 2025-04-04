@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\CommonDataImportController;
 use App\Http\Controllers\hr\HrController;
 
 use App\Http\Controllers\hr\UserController;
@@ -74,8 +75,8 @@ Route::get('/testuser', function () {
 // External users routes.
 Route::middleware('guest')->group(function () {
 
-    Route::get('import-data', [HrController::class, 'import'])->name('import-data');
-    Route::post('import-data-save', [HrController::class, 'importDataSave'])->name('importDataSave');
+    Route::get('import-data', [CommonDataImportController::class, 'import'])->name('import-data');
+    Route::post('import-data-save', [CommonDataImportController::class, 'importDataSave'])->name('importDataSave');
 
     Route::controller(AuthController::class)->group(function () {
         Route::get('/', 'login')->name('login');
@@ -167,9 +168,13 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("/", 'index')->name("organizations.index");
         Route::get("/create", 'create')->name("organizations.create");
         Route::post("/store", 'store')->name("organizations.store");
+        Route::get("/show/{organization}", 'show')->name("organizations.show");
         Route::get("/edit/{organization}", 'edit')->name("organizations.edit");
         Route::post("/update/{organization}", 'update')->name("organizations.update");
         Route::get("/delete/{organization}", 'destroy')->name("organizations.destroy");
+        
+        Route::get("/get-city/{id}", 'GetCity')->name("organizations.GetCity");
+        
     });
 
     Route::controller(DesignationController::class)->prefix('designations')->group(function () {
@@ -261,7 +266,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/store", 'store')->name("store-functional-role");
         Route::get("/edit/{id}", 'edit')->name("edit-functional-role");
         Route::post("/update/{id}", 'update')->name("update-functional-role");
-        Route::get("/delete/{id}", 'destroy')->name("destroy-functional-role");;
+        Route::get("/delete/{id}", 'destroy')->name("destroy-functional-role");
     });
     Route::controller(QualificationController::class)->prefix('qualification')->group(function () {
         Route::get("/", 'index')->name("qualification");
@@ -297,6 +302,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("workOrder-details/{workOrder_id}", "workOrder_details")->name("workOrder-details");
         Route::post("work-order-report", "work_order_report")->name("work-order-report");
         Route::post('export', 'export_csv')->name("export-work-order");
+        Route::post('save-report', 'save_wo_report')->name("save-report");
+        Route::get('report-log', 'report_log')->name("report-log");
     });
 
     /////////// workorder routes end ///////

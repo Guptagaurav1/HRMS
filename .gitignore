@@ -22,3 +22,4 @@ yarn-error.log
 /public/resume/*
 /public/recruitment/candidate_documents/*
 /public/recruitment/offer-letter/*
+/public/work-order/*

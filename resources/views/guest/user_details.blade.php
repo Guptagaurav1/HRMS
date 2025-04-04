@@ -43,7 +43,7 @@
                                         </option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
-                                        <option value="other">Others</option>
+                                        <option value="others">Others</option>
                                     </select>
                                     <span class="error-message text-danger"></span>
 
@@ -785,7 +785,7 @@
                             <p class="text-danger my-2">Note : <u>Fields with "*" are mandatory to fill.</u></p>
                             <div id="family-member-container">
                                 <div class="row px-3 family-member-section  p-3 mt-4">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="closet">
                                         <label class="form-label">Family Member Name <span
                                                 class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="family_member_name[]" placeholder="Enter Name"
@@ -888,5 +888,5 @@
 @endsection
 @section('script')
     <script src={{ asset('assets/js/personal-details.js') }}></script>
-    {{-- <script src="{{asset('assets/js/commonValidation.js')}}"></script> --}}
+    <script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection

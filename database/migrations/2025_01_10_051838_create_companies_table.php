@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('bank_email');
             $table->string('twitter_link');
             $table->string('facebook_link');
-            $table->string('linkedin_link');
+            $table->string('linkedin_link')->nullable();
             $table->string('youtube_link');
             $table->string('instagram_link');
             $table->string('pinterest_link');

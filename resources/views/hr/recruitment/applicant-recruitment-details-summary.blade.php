@@ -1,8 +1,5 @@
 @extends('layouts.master', ['title' => 'Applicant Detail Summary'])
 
-@section('style')
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
 
 @section('contents')
 
@@ -305,13 +302,14 @@
                                                             <input type="hidden" name="first_shortlist" value="">
                                                         </div>
                                                         <tr>
-                                                            <td class="bold">Remarks For Mail</td>
-                                                            <td><input class="form-control" type="text" name="remark"/></td>
+                                                            <td class="bold">Remarks For Mail <span class='text-danger'>*</span></td>
+                                                            <td><input class="form-control for_char" type="text" name="remark" required/>
+                                                            <span class="remark"></span>
+                                                        </td>
                                                         </tr>
                                                         <tr>
                                                         <td class="bold">Action</td>
                                                         <td>
-                                                        
                                                         <input type="submit" name="shortlist" class="btn btn-sm btn-success mt-2 mail_btn first_stage shortlist_btn" value="shortlist">
                                                         <input type="submit" name="reject" class="btn btn-sm btn-danger mt-2 mail_btn first_stage shortlist_btn" value="reject">
                                                         </td>
@@ -435,14 +433,15 @@
                                             @if($data->stage4 == 'yes' && $data->finally != 'backout' && $data->finally != 'joining-formalities-completed')
                                             <!-- Update Email Form -->
                                             <tr>
-                                                <td class="bold">Update Email</td>
+                                                <td class="bold">Update Email <span class="text-danger">*</span></td>
                                                 <td>
                                                 <form class="form email_form">
                                                     @csrf
                                                     <div class="d-none">
                                                         <input type="hidden" name="recruitment" value="{{$data->id}}">
                                                     </div>
-                                                    <input type="email" class="form-control" name="update_email" placeholder="Update Email" required>
+                                                    <input type="email" class="form-control for_char" name="update_email" placeholder="Update Email" required>
+                                                    <span class="update_email"></span>
                                                     <button type="submit" class="btn btn-sm btn-primary mt-2 mail_btn">Update Mail <i class="fa-solid fa-envelope"></i>
                                                     </button>
                                                 </form>
@@ -674,6 +673,8 @@
 @endsection
 
 @section('script')
-<script src={{asset('assets/js/applicantform.js')}}></script>
+<script src="{{asset('assets/js/applicantform.js')}}"></script>
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
+
 
 @endsection

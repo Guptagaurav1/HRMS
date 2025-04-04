@@ -29,7 +29,7 @@
         <!-- Download ZIP Section -->
         <div class="text-end hide-text">
             @if(!empty($wo_details))
-                @if($zipFilePath)
+                @if(!empty($zipFilePath))
                     <a href="{{ asset('storage/' . basename($zipFilePath)) }}" class="btn btn-success mb-3" target="_blank">Download ZIP</a>
                 @else
                     <p>No files to download.</p>
@@ -111,7 +111,11 @@
                 <a href="{{route('work-order-list')}}">
                     <button class="btn btn-sm btn-primary hide-text">Cancel</button>
                 </a>
-                <button class="btn btn-sm btn-primary hide-text">Save</button>
+                <form action="{{route('save-report')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="check_workOrders" value="{{ implode(',', $check_workOrders ?? []) }}">
+                    <button class="btn btn-sm btn-primary hide-text">Save</button>
+                </form>
 
                 <!-- Print Button -->
                 <button class="btn btn-sm btn-primary hide-text" onclick="window.print()">Print Report</button>

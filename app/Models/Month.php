@@ -9,4 +9,9 @@ class Month extends Model
 {
     use HasFactory;
     protected $fillable = ['month'];
+
+    public function EmpLeave()
+    {
+        return $this->belongsTo(EmpLeave::class, 'id', 'month_id');
+    }
 }

@@ -16,4 +16,13 @@ class AppointmentFormat extends Model
      * @var string
      */
     protected $table = 'appointment_format';
+
+      /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+
+     protected $fillable = ['id','name','format','format_2','type','employment_type','status'];
+
 }

@@ -537,9 +537,9 @@
                                             class="fa-solid fa-user"></i></span> <span
                                         class="sidebar-txt">Profile</span></a>
                                 <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                    {{-- @if (auth()->user()->hasPermission('position-request'))
-                                <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">My Account</a></li>
-                            @endif --}}
+                                    @if (auth()->user()->hasPermission('position-request'))
+                                        <li class="sidebar-dropdown-item"><a href="{{route('position-request')}}" class="sidebar-link">My Account</a></li>
+                                    @endif
                                     @if (auth()->user()->hasPermission('profile.modify-profile-request'))
                                         <li class="sidebar-dropdown-item"><a
                                                 href="{{ route('profile.modify-profile-request') }}"
@@ -588,6 +588,11 @@
                                                 class="sidebar-link">Work Order List</a></li>
                                     @endif
 
+                                    @if (auth()->user()->hasPermission('report-log'))
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('report-log') }}"
+                                                class="sidebar-link">Report Logs</a></li>
+                                    @endif
+
                                     <!-- @if (auth()->user()->hasPermission('project-report'))
 <li class="sidebar-dropdown-item"><a href="{{ route('project-report') }}" class="sidebar-link">WorkOrder Project Report</a></li>
 @endif -->
@@ -628,24 +633,23 @@
                                 </ul>
                             </li>
                         @endif
-                        @if (auth()->user()->hasPermission('manage-roles'))
-                            <li class="sidebar-dropdown-item">
-                                <a role="button" class="sidebar-link has-sub"
-                                    data-dropdown="ecommerceDropdown"><span class="nav-icon"><i
-                                            class="fa-light fa-envelope-open-text"></i></span> <span
-                                        class="sidebar-txt">User & Role</span></a>
-                                <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                    {{-- @if (auth()->user()->hasPermission('add-user')) --}}
-                                    <li class="sidebar-dropdown-item"><a href="{{ route('add-user') }}"
-                                            class="sidebar-link">Add User</a></li>
-                                    {{-- @endif --}}
-                                    {{-- @if (auth()->user()->hasPermission('manage-roles')) --}}
-                                    <li class="sidebar-dropdown-item"><a href="{{ route('manage-roles') }}"
-                                            class="sidebar-link">Manage (Roles)</a></li>
-                                    {{-- @endif --}}
+                        @if (auth()->user()->hasPermission('manage-roles') || auth()->user()->hasPermission('add-user'))
+                        <li class="sidebar-dropdown-item">
+                            <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span
+                                    class="nav-icon"><i class="fa-light fa-envelope-open-text"></i></span> <span
+                                    class="sidebar-txt">User & Role</span></a>
+                            <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
+                                @if (auth()->user()->hasPermission('add-user'))
+                                <li class="sidebar-dropdown-item"><a href="{{ route('add-user') }}"
+                                        class="sidebar-link">Add User</a></li>
+                                @endif
+                                @if (auth()->user()->hasPermission('manage-roles'))
+                                <li class="sidebar-dropdown-item"><a href="{{ route('manage-roles') }}"
+                                        class="sidebar-link">Manage (Roles)</a></li>
+                                @endif
 
-                                </ul>
-                            </li>
+                            </ul>
+                        </li>
                         @endif
                         @if (auth()->user()->hasPermission('holiday-list'))
                             <li class="sidebar-dropdown-item">

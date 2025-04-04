@@ -217,6 +217,9 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-113', 'section' => 'Master', 'section_icon' => '', 'name' => 'Company List', 'page' => 'company.list', 'status' => '1', 'parent_id' => '28'],
             ['mid' => 'M-114', 'section' => 'Master', 'section_icon' => '', 'name' => 'Add Company', 'page' => 'company.create', 'status' => '1', 'parent_id' => '28'],
 
+            // organization 
+            ['mid' => 'M115', 'section' => 'Master', 'section_icon' => '', 'name' => 'Organizations Details', 'page' => 'organizations.show', 'status' => '1', 'parent_id' => '4'],
+
             // VMS Clients
 
             ['mid' => 'M-115', 'section' => 'VMS', 'section_icon' => '', 'name' => 'Clients', 'page' => 'clients.index', 'status' => '1', 'parent_id' => '27'],
@@ -232,6 +235,10 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-120', 'section' => 'Employee Details', 'section_icon' => '', 'name' => 'Employee Salary Slip', 'page' => 'details.employee-salary-slip', 'status' => '1', 'parent_id' => '29'],
 
             ['mid' => 'M-121', 'section' => 'Leave', 'section_icon' => '', 'name' => 'Leave Summary', 'page' => 'emp-leaves', 'status' => '1', 'parent_id' => '7'],
+            ['mid' => 'M-122', 'section' => 'Leave', 'section_icon' => '', 'name' => 'Apply Leave', 'page' => 'leave.leave_request', 'status' => '1', 'parent_id' => '7'],
+
+            ['mid' => 'M-123', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Report Log ', 'page' => 'report-log', 'status' => '1', 'parent_id' => '12'],
+            
         ];
 
         foreach ($data as $routeData) {

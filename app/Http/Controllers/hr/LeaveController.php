@@ -30,4 +30,5 @@ class LeaveController extends Controller
         return view("hr.leaves.emp-leaves",compact('data'));
     }
 
+    
 }
