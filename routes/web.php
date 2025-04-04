@@ -301,6 +301,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("workOrder-details/{workOrder_id}", "workOrder_details")->name("workOrder-details");
         Route::post("work-order-report", "work_order_report")->name("work-order-report");
         Route::post('export', 'export_csv')->name("export-work-order");
+        Route::post('save-report', 'save_wo_report')->name("save-report");
+        Route::get('report-log', 'report_log')->name("report-log");
     });
 
     /////////// workorder routes end ///////
