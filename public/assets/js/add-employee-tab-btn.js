@@ -4,12 +4,17 @@ $(document).ready(function () {
     $("input[type=file]").change(function (event) {
         var file = event.target.files[0];
         if (file.size > 1048576  ) {
+            $(this).closest('div').find('.fileerror').text('Invalid file size');
+            $(this).val(null);
             Swal.fire({
                 icon: "error",
                 title: "File too large!",
                 text: "Please upload a file less than 1MB.",
                 allowOutsideClick: false
             });
+        }
+        else {
+            $(this).closest('div').find('.fileerror').text('');
         }
     });
 
@@ -412,9 +417,12 @@ $(document).ready(function () {
      // Show preview of images.
      $(".photo").change(function (e) {
         var file = e.target.files[0];
-        if (file.size < 1048576  ) {
+        if (file && file.size < 1048576) {
             imgURL = URL.createObjectURL(file);
             $(this).closest(".photodiv").find('.preview_photo').attr("src", imgURL);
+        }
+        else {  
+            $(this).closest(".photodiv").find('.preview_photo').removeAttr("src");
         }
        
     });
