@@ -550,6 +550,10 @@ Route::get("company-master-edit", function () {
     return view("hr.company-master-edit");
 })->name("company-master-edit");
 
+Route::get("admin-user-profile", function () {
+    return view("hr.admin-user-profile");
+})->name("admin-user-profile");
+
 
 
 Route::get("temp-profile", function () {

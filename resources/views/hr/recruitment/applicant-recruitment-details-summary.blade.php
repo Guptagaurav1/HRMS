@@ -303,8 +303,8 @@
                                                         </div>
                                                         <tr>
                                                             <td class="bold">Remarks For Mail <span class='text-danger'>*</span></td>
-                                                            <td><input class="form-control for_char" type="text" name="remark" required/>
-                                                            <span class="remark"></span>
+                                                            <td><input class="form-control" type="text" name="remark" required/>
+                                                            
                                                         </td>
                                                         </tr>
                                                         <tr>
@@ -450,7 +450,7 @@
 
                                             <!-- Update Salary -->
                                             <tr>
-                                                <td class="bold">Update Salary</td>
+                                                <td class="bold">Update Salary <span class="text-danger">*</span></td>
                                                 <td>
                                                     <form class="form salary_form">
                                                         @csrf

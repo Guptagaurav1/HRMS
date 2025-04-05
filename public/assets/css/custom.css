@@ -1018,5 +1018,27 @@ input::-webkit-input-placeholder{
 
 
 
+/* Admin user profile css */
+
+
+.user-picture img {
+  border: 5px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  padding: 0.5rem 2rem;
+  font-weight: 500;
+}
+
+.info-pair {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+
+
  
 
