@@ -947,7 +947,7 @@ class RecruitmentController extends Controller
             $message_new = str_replace('{{emp_code}}', $details->emp_code, $message_new);
             $message_new = str_replace('{{ctc}}', $details->salary, $message_new);
             $message_new = str_replace('{{posting_location}}', $details->location, $message_new);
-            $message_new = str_replace('{{doj}}', $details->doj, $message_new);
+            $message_new = str_replace('{{doj}}', date('d-M-Y', strtotime($details->doj)), $message_new);
             $message_new = str_replace('{{img_sign}}', $details->img_sign, $message_new);
 
             $message_new = str_replace('{{id}}', $details->app_id, $message_new);
@@ -1107,7 +1107,7 @@ class RecruitmentController extends Controller
     {
         try {
             $recruitmentId = decrypt($id);
-            $details = RecruitmentForm::select('id', 'rec_form_status', 'firstname', 'lastname', 'email')->findOrFail($recruitmentId);
+            $details = RecruitmentForm::select('id', 'rec_form_status', 'firstname', 'lastname', 'email', 'dob')->findOrFail($recruitmentId);
             $states = State::select('id', 'state')->whereNull('deleted_at')->get();
             $banks = Bank::select('id', 'name_of_bank')->whereNull('deleted_at')->get();
             return view('guest.user_details', compact('id', 'details', 'banks', 'states'));
@@ -1239,7 +1239,7 @@ class RecruitmentController extends Controller
             $message_new = str_replace('{{emp_code}}', $details->emp_code, $message_new);
             $message_new = str_replace('{{ctc}}', $details->salary, $message_new);
             $message_new = str_replace('{{posting_location}}', $details->location, $message_new);
-            $message_new = str_replace('{{doj}}', $details->doj, $message_new);
+            $message_new = str_replace('{{doj}}', date('d-M-Y', strtotime($details->doj)), $message_new);
             $message_new = str_replace('{{img_sign}}', $details->img_sign, $message_new);
 
             $message_new = str_replace('{{id}}', $details->app_id, $message_new);
@@ -2309,7 +2309,7 @@ class RecruitmentController extends Controller
                 'send_mail_id' => ['required'],
                 'firstname' => ['required','string','max:255'],
                 'lastname' => ['required','string','max:255'],
-                'email' => ['required','email'],
+                'email' => ['required','email', 'unique:emp_details,emp_email_first', 'unique:recruitment_forms,email'],
                 'location' => ['required','string','max:255'],
                 'experience' => ['required'],
                 'dob' => ['required', 'date'],

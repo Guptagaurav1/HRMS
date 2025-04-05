@@ -254,7 +254,7 @@
                                         class="text-danger">*</span></label>
                                 <input type="date" class="form-control" name="emp_dob"
                                     value="{{ !empty($recruitment_details->dob) ? $recruitment_details->dob : '' }}"
-                                    max="{{ date('y-m-d', time()) }}" required>
+                                    max="{{ date('Y-m-d', strtotime('18 years ago')) }}" required>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Guardian Name(Parents/Others)</label>
@@ -339,7 +339,7 @@
                                 <input type="file" name="emp_signature" class="form-control photo"
                                     accept=".jpg, .jpeg, .png">
                                 <img src="{{ !empty($recruitment_details->getPersonalDetail) ? asset('recruitment/candidate_documents/sign').'/'.$recruitment_details->getPersonalDetail->emp_signature : '' }}" class="img-fluid preview_photo w-50 rounded my-2">
-
+                                <span class="fileerror"></span>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6 photodiv">
 
@@ -470,9 +470,9 @@
                                     placeholder="Enter Vendor Rate">
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Salary / CTC(Per Month)</label>
+                                <label class="form-label">Salary / CTC(Per Month) <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm" name="emp_salary"
-                                    placeholder="Enter CTC">
+                                    placeholder="Enter CTC" required>
                             </div>
 
                             <div class="col-xxl-3 col-lg-4 col-sm-6">

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'My Dashboard'])
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/employee-dashboard.css')}}"/>
@@ -11,8 +11,23 @@
         <p class="mt-2"><strong>Email: helpdesk@prakharsoftwares.com | Contact No : 7982363536</strong></p>
 
     </div>
-    <div class="d-flex justify-content-between align-items-center gap-3">
+    <div class="d-flex justify-content-center align-items-center gap-3">
         <div class="card profile-card p-3">
+                @if (!empty($details->getPersonalDetail) && $details->getPersonalDetail->emp_photo)
+                <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/' . $details->getPersonalDetail->emp_photo) }}"
+                    alt="{{ $details->emp_name }}" class="rounded-circle img-fluid">
+            @else
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
+                    alt="Profile">
+            @endif
+            <div class="profile-info">
+                <h4>{{auth('employee')->user()->emp_name}}</h4>
+                <p>{{auth('employee')->user()->emp_designation}}</p>
+                <p><i class="fas fa-envelope"></i> {{auth('employee')->user()->emp_email_first}}</p>
+                <p><i class="fas fa-phone"></i>{{auth('employee')->user()->emp_phone_first}}</p>
+            </div>
+        </div>
+        {{-- <div class="card profile-card p-3">
             <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
                 alt="Profile" />
             <div class="profile-info">
@@ -21,17 +36,7 @@
                 <p><i class="fas fa-envelope"></i> john.doe@example.com</p>
                 <p><i class="fas fa-phone"></i> +123 456 7890</p>
             </div>
-        </div>
-        <div class="card profile-card p-3">
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
-                alt="Profile" />
-            <div class="profile-info">
-                <h4>John Doe</h4>
-                <p>Software Engineer</p>
-                <p><i class="fas fa-envelope"></i> john.doe@example.com</p>
-                <p><i class="fas fa-phone"></i> +123 456 7890</p>
-            </div>
-        </div>
+        </div> --}}
     </div>
    
 
@@ -44,6 +49,7 @@
 
     <div class="mt-4">
 
+        {{-- Dashboard Section --}}
         <div class="tab-content-section active" id="dashboard">
             <div class="row">
                 <div class="col-md-4">
@@ -67,44 +73,32 @@
             </div>
         </div>
 
+        {{-- Payslip Section --}}
         <div class="tab-content-section" id="payslip">
             <div class="card p-4">
                 <h4 class="mb-3"><i class="fas fa-file-invoice-dollar"></i> Payslips (Last 5 Months)</h4>
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        January 2025
-                        <a href="#" class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i>
-                            Download</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        February 2025
-                        <a href="#" class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i>
-                            Download</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        March 2025
-                        <a href="#" class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i>
-                            Download</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        April 2025
-                        <a href="#" class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i>
-                            Download</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        May 2025
-                        <a href="#" class="btn btn-primary btn-sm download-btn"><i class="fas fa-download"></i>
-                            Download</a>
-                    </li>
+                    @forelse ($salary_slips as $slip)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{$slip->sal_month}}
+                            <a href="{{route('preview-salary-slip', ['id' => $slip->emp_salary_id])}}" class="btn btn-primary btn-sm download-btn" target="_blank">
+                                View</a>
+                        </li>
+                    @empty
+                    <li class="list-group-item text-center">No Salary Slips Found</li>
+                        
+                    @endforelse
+                    
                 </ul>
             </div>
         </div>
 
+        {{-- Leaves Section --}}
         <div class="tab-content-section" id="leaves">
             <div class="card p-4">
                 <h2 class="mb-3 text-center">Leave Records</h2>
-                <p><strong>Total Leaves Taken : </strong> 12 Days</p>
-                <p><strong>Remaining Leaves : </strong> 8 Days</p>
+                <p><strong>Total Leaves Taken : </strong> {{$total_leaves ? $total_leaves.' days' : '' }} </p>
+                <p><strong>Un-Approved Leaves : </strong> <span class="text-danger"> {{$pending_leaves ? $pending_leaves.' days' : '' }} </span></p>
 
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center fw-bold text-dark">
@@ -113,11 +107,11 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center text-dark fw-bold">
                         View Applied Leave
-                 <a href="{{route('profile.profile-detail-request-list')}}"><button class="download-btn-custom">View Applied Leave <i class="fa-solid fa-arrow-up-right-from-square"></i></button></a>   
+                 <a href="{{route('applied-request-list')}}"><button class="download-btn-custom">View Applied Leave <i class="fa-solid fa-arrow-up-right-from-square"></i></button></a>   
                     </li>
                 </ul>
 
-                <table class="custom-table mt-3">
+                {{-- <table class="custom-table mt-3">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -137,28 +131,42 @@
                             <td><span class="status-badge status-pending">Pending</span></td>
                         </tr>
                     </tbody>
-                </table>
+                </table> --}}
 
                 
             </div>
         </div>
 
+        {{-- Letters Section --}}
         <div class="tab-content-section" id="letters">
             <div class="card p-4">
                 <h4 class="mb-3"><i class="fas fa-envelope"></i> Letters</h4>
                 <ul class="list-group">
+                    @forelse($documents as $document)
+                    @php
+                        $url = '';
+                        if ($document->doc_type == 'Extension') {
+                            $url = asset('recruitment/candidate_documents/extension_letter').'/'.$document->document;
+                        }
+                        elseif ($document->doc_type == 'Releiving') {
+                            $url = asset('recruitment/candidate_documents/relieving_letter').'/'.$document->document;
+                        }
+                        elseif ($document->doc_type == 'Appointment') {
+                            $url = asset('recruitment/candidate_documents/appointment_letter').'/'.$document->document;
+                        }
+                    @endphp
+                    
                     <li class="list-group-item d-flex justify-content-between align-items-center fw-bold text-dark">
-                        Relieving Letter
-                        <button class="download-btn-custom"><i class="fas fa-download"></i> Download</button>
+                        {{$document->doc_type}}
+                        <a href="{{$url}}" class="download-btn-custom" download><i class="fas fa-download"></i> Download</a>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center fw-bold text-dark">
-                        Extension Letter
-                        <button class="download-btn-custom"><i class="fas fa-download"></i> Download</button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center fw-bold text-dark">
-                        Appointment Letter
-                        <button class="download-btn-custom"><i class="fas fa-download"></i> Download</button>
-                    </li>
+                   @empty
+                   <tr>
+                    <td class="text-center text-danger">No document found</td>
+                   </tr>
+                   @endforelse
+                  
+                  
                 </ul>
             </div>
         </div>

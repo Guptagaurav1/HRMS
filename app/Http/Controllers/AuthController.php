@@ -120,7 +120,7 @@ class AuthController extends Controller
             if ($user && $user->emp_password === md5($request->emp_password)) {
                 Auth::guard('employee')->login($user);
                 if (Auth::guard('employee')->check()) {
-                    return redirect()->route('employee_dashboard');
+                    return redirect()->route('employee.dashboard');
                 }
             } else {
                 return redirect()->route('login')->with(['emperror' => true, 'message' => 'Invalid Credentials.']);

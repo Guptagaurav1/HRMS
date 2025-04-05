@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\EmpDetail;
 use App\Models\EmpCertificateDetail;
 use App\Models\User;
+use App\Models\EmpSalarySlip;
+use App\Models\LeaveRequest;
 use App\Models\EmpPersonalDetail;
+use App\Models\EmpSendDoc;
 use App\Models\EmpUpdateHistory;
 use Throwable;
 use Illuminate\Support\Facades\DB;
@@ -84,7 +87,7 @@ class ProfileController extends Controller
                 $data['emp_photo'] = $photograph;
             }
             EmpPersonalDetail::where('emp_code', $empdetails->emp_code)->update($data);  // update record
-            
+
             // Save update history.
             EmpUpdateHistory::create([
                 'emp_code' => $empdetails->emp_code,
@@ -94,14 +97,14 @@ class ProfileController extends Controller
             ]);
 
             DB::commit();
-            return response()->json(['success' => true,'message' => 'Image updated successfully']);
+            return response()->json(['success' => true, 'message' => 'Image updated successfully']);
         } catch (Throwable $e) {
             DB::rollBack();
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 
-       /**
+    /**
      * Show the form for requesting to profile update
      */
     public function profile_update_request()
@@ -146,7 +149,7 @@ class ProfileController extends Controller
                 $filename = '';
                 $field_name =  EmpChangedColumnsReq::findOrFail($request->changed_column[$i])->value('name');
                 $queryuser = User::select('id', 'role_id')->where('email', $request->assigned_to[$i])->firstOrFail();
-              
+
                 $fieldname = Str::replace(' ', '_', $field_name);;
                 $fullpath = '';
                 if ($request->hasFile('file.' . $i)) {
@@ -216,7 +219,7 @@ class ProfileController extends Controller
      * Show the list of requests.
      */
     public function request_list(Request $request)
-    {   
+    {
         $requests = EmpProfileRequestLog::select('req_id', 'changed_column', 'assigned_to', 'description', 'status', 'created_at')->where('emp_code', auth('employee')->user()->emp_code);
         $search = '';
         if ($request->search) {
@@ -236,5 +239,25 @@ class ProfileController extends Controller
         $requests = $requests->orderByDesc('id')->paginate(10)->withQueryString();
 
         return view("hr.profile.update-detail-request-list", compact('requests', 'search'));
+    }
+
+    /**
+     * Employee Dashboard.
+     */
+    public function dashboard()
+    {
+        $user = auth('employee')->user();
+        $details = EmpDetail::findOrFail($user->id);
+        $salary_slips = EmpSalarySlip::select('sal_month', 'emp_salary_id')->where('sal_emp_code', $details->emp_code)->orderByDesc('time')->limit(5)->get();
+        $documents = EmpSendDoc::select('doc_type', 'document')->where('emp_code', $details->emp_code)->OrderByDesc('id')->get();
+        $total_leaves = LeaveRequest::where('emp_code', $details->emp_code)->sum('total_days');
+        $pending_leaves = LeaveRequest::where('emp_code', $details->emp_code)
+            ->where(function ($query) {
+                $query->where('status', 'Wait')
+                    ->orWhere('status', 'Modified')
+                    ->orWhere('status', 'Disapproved');
+            })
+            ->sum('total_days');
+        return view("employee.profile.dashboard", compact('details', 'salary_slips', 'documents', 'pending_leaves', 'total_leaves'));
     }
 }

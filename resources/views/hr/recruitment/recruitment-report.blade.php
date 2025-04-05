@@ -66,11 +66,11 @@
                         </form>
                     </div>
 
-                    @if(auth()->user()->hasPermission('addnew-candidate'))
+                    {{-- @if(auth()->user()->hasPermission('addnew-candidate'))
                         <div>
                             <a href="{{'addnew-candidate'}}"><button class="btn btn-sm btn-primary">Add New Candidate <i class="fa-solid fa-plus"></i></button></a>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
 
                 </div>

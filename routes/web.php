@@ -562,10 +562,8 @@ Route::get("temp-profile", function () {
 
 // Employee Routes
 Route::middleware('employee')->prefix('employee')->group(function () {
-    Route::get('/', function () {
-        return view('employee.dashboard');
-    })->name('employee_dashboard');
-
+    Route::get('/', [EmployeeProfileController::class, 'dashboard'])->name('employee.dashboard');
+ 
     Route::controller(EmployeeProfileController::class)->prefix('profile')->group(function (){
         Route::get("myprofile", 'show_profile')->name("employee.myprofile");
         Route::post("add-certificate", 'save_certificates');
