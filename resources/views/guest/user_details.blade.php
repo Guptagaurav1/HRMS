@@ -51,7 +51,7 @@
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Date of Birth <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="date" name="emp_dob" class="form-control" required>
+                                    <input type="date" name="emp_dob" class="form-control" max="{{date('Y-m-d', strtotime('18 years ago'))}}" value="{{$details->dob}}" readonly required>
                                 </div>
 
                                 <div class="col-md-6">
@@ -813,7 +813,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label">Date of Birth <span
                                                 class="text-danger fw-bold">*</span></label>
-                                        <input type="date" name="dob[]" class="form-control bg-white" max="{{date('Y-m-d',strtotime('18 years ago'))}}" required>
+                                        <input type="date" name="dob[]" class="form-control bg-white" max="{{date('Y-m-d')}}" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Upload Aadhar Document <span

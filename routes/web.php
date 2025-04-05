@@ -122,6 +122,7 @@ Route::middleware('all')->prefix('user')->group(function () {
         Route::get("request-list", 'leave_requests')->name("applied-request-list");
         Route::post('request-details', 'leave_details');
         Route::get("leave-request-reciept/{id}", 'leave_receipt')->name("leave-request-reciept");
+        Route::post('leave-response', 'leave_response');
 
     });
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
@@ -303,6 +304,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('export', 'export_csv')->name("export-work-order");
         Route::post('save-report', 'save_wo_report')->name("save-report");
         Route::get('report-log', 'report_log')->name("report-log");
+        Route::post('send-report-mail', 'send_report_mail')->name("send-report-mail");
     });
 
     /////////// workorder routes end ///////
@@ -565,16 +567,12 @@ Route::get("temp-profile", function () {
 
 // Employee Routes
 Route::middleware('employee')->prefix('employee')->group(function () {
-    Route::get('/', function () {
-        return view('employee.dashboard');
-    })->name('employee_dashboard');
-
+    Route::get('/', [EmployeeProfileController::class, 'dashboard'])->name('employee.dashboard');
+ 
     Route::controller(EmployeeProfileController::class)->prefix('profile')->group(function (){
         Route::get("myprofile", 'show_profile')->name("employee.myprofile");
         Route::post("add-certificate", 'save_certificates');
         Route::post("update-image", 'update_image');
-    });
-    Route::controller(ProfileController::class)->prefix('profile')->group(function () {
         Route::get('modify-profile', 'profile_update_request')->name("profile.modify-profile-request");
         Route::post('submit-profile-request', 'submit_update_request')->name("profile.submit-profile-request");
         Route::get("profile-update-request-list", 'request_list')->name("profile.profile-detail-request-list");
@@ -584,6 +582,8 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         Route::get("leave-request", 'leave_request')->name("leave.leave_request");
         Route::post("store-request", 'store_leave_request')->name("leave.store_request");
         Route::get("leave-taken", 'leave_taken')->name("leave.leave-taken");
+        Route::get("modify-leave/{id}", 'edit_leave')->name("leave.modify_leave");
+        Route::post("update-request", 'update_leave_request')->name("leave.update_request");
     });
 
     Route::controller(EmployeeDetailController::class)->prefix('details')->group(function(){

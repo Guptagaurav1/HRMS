@@ -92,7 +92,7 @@ class EmployeeController extends Controller
                 'emp_designation' => ['required'],
                 'department' => ['required'],
                 'emp_phone_first' => ['required', 'digits:10'],
-                'emp_email_first' => ['required', 'email'],
+                'emp_email_first' => ['required', 'email', 'unique:emp_details,emp_email_first'],
                 'emp_current_working_status' => ['required'],
             ]);
 

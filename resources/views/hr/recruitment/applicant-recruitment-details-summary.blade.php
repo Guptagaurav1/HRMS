@@ -433,7 +433,7 @@
                                             @if($data->stage4 == 'yes' && $data->finally != 'backout' && $data->finally != 'joining-formalities-completed')
                                             <!-- Update Email Form -->
                                             <tr>
-                                                <td class="bold">Update Email <span class="text-danger">*</span></td>
+                                                <td class="bold">Update Email</td>
                                                 <td>
                                                 <form class="form email_form">
                                                     @csrf
@@ -525,7 +525,7 @@
                                             <tr>
                                                 <td class="bold">Send Offer Letter</td>
                                                 <td>
-                                                    @if($data->rec_form_status == 'relationship_stage')
+                                                    @if($data->rec_form_status == 'relationship_stage' && $data->salary)
                                                     <form class="form send_offer_letter">
                                                         @csrf
                                                         <div class="d-none">
@@ -534,8 +534,9 @@
                                                         <button type="submit" class="btn btn-sm btn-primary mt-2 fourth_stage">Send Offer Letter<i class="fa-solid fa-check"></i>
                                                         </button>
                                                     </form>
+
                                                     @else
-                                                    <span class="text-danger">Recruitment Form not submitted yet</span>
+                                                    <span class="text-danger">{{empty($data->salary) ? 'Salary not updated yet' : 'Recruitment Form not submitted yet'}}</span>
                                                     @endif
                                                 
                                                 </td>
