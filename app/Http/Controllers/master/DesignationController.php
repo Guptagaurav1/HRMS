@@ -51,7 +51,7 @@ class DesignationController extends Controller
             $designation->status = '1';
             $designation->save();
             if($designation){
-                return redirect()->route('designations.index')->with('success','Added Successfully !');
+                return redirect()->route('designations.index')->with('success','Designation Added Successfully !');
             }
     }
 
@@ -79,7 +79,7 @@ class DesignationController extends Controller
         $designation->save();
 
         if($designation){
-            return redirect()->route('designations.index')->with('success','Updated Successfully !');
+            return redirect()->route('designations.index')->with('success','Designation Updated Successfully !');
         }
     }
 
@@ -87,7 +87,7 @@ class DesignationController extends Controller
 
     public function destroy(Designation $designation){
         $data = $designation->delete();
-        return redirect()->back()->with('success','Deleted Successfully !');
+        return redirect()->back()->with('success','Designation Deleted Successfully !');
     }
 
     /**

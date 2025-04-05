@@ -23,7 +23,9 @@
                             <button type="submit" class="btn btn-sm btn-primary mt-2"
                                >Export All  <i class="fa-solid fa-arrow-up-from-bracket"></i></button>
                         </form>
-                        <a href="{{route('addcontact-form')}}" class="btn btn-sm btn-primary mt-2 mx-2">Add Contact Detail</a>
+                        @if(auth()->user()->hasPermission('addcontact-form'))
+                            <a href="{{route('addcontact-form')}}" class="btn btn-sm btn-primary mt-2 mx-2">Add Contact Detail</a>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
@@ -35,11 +37,9 @@
                             <button type="submit" class="btn btn-primary mb-3"> Search <i
                                     class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
-                        @if(auth()->user()->hasPermission('recruitment.call_logs'))
-                            <div class="col-auto">
-                                <a href="{{route('recruitment.call_logs')}}" class="btn btn-primary mb-3">Reset</a>
-                            </div>
-                        @endif
+                        <div class="col-auto">
+                            <a href="{{route('recruitment.call_logs')}}" class="btn btn-primary mb-3">Reset</a>
+                        </div>
                     </form>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">

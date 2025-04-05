@@ -12,7 +12,7 @@ class Organization extends Model
     use HasFactory,SoftDeletes;
 
 
-    protected $fillable = ['name','address','contact','email'];
+    protected $fillable = ['name','address','contact','email','state_id','city_id','postal_code','psu','psu_name'];
     
     public function projects()
     {
@@ -46,6 +46,14 @@ class Organization extends Model
     public function BillingStructure()
     {
         return $this->hasMany(BillingStructure::class);
+    }
+
+    public function getState(){
+        return $this->hasOne(State::class,'id','state_id');
+    }
+
+    public function getCity(){
+        return $this->hasOne(City::class,'id','city_id');
     }
 
     

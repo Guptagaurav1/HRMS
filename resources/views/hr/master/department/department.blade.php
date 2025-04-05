@@ -15,53 +15,52 @@
                     </a>
                 </div>
             </div>
-            <div class="row px-3 mt-2">
-                @if($message = Session::get('success'))
-                        <div class="col-md-12">
-                            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                                <div>
-                                  {{ $message }}
-                                </div>
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </div>
-                        @endif
 
-                    @if($message = Session::get('error'))
-                        <div class="col-md-12">
-                            <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                                <div>
-                                    {{ $message }}
-                                </div>
-                             
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </div>
-                    @endif
-                
-            </div>
-
-
+            <div class="row mt-4">
             <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-2">
                 <div class="">
-                <form class="row g-3" method="get">
-                    <div class="col-auto mb-3">
-                        <input type="text" name="search" value="" class="form-control" placeholder="Search" required>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
-                        <a href="{{ route('organizations.index') }}"><button type="button" class="btn btn-primary btn-sm mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
-                    </div>
-                   
-                </form>
+                    <form class="row g-3" method="get">
+                        <div class="col-auto mb-3">
+                            <input type="text" name="search" value="" class="form-control" placeholder="Search" required>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                            <a href="{{ route('departments.index') }}"><button type="button" class="btn btn-primary btn-sm mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                        </div>
+                    
+                    </form>
                 </div>
 
                 @if(auth()->user()->hasPermission('departments.create'))
                 <div class="">
                     <a href="{{ route('departments.create') }}"><button type="button" class="btn btn-sm btn-primary">Add Department <i class="fa-solid fa-plus"></i></button></a>
                 </div>
+                @endif
+            </div>
+
+                @if($message = Session::get('success'))
+                <div class="col-md-12">
+                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                        <div>
+                          {{ $message }}
+                        </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                @endif
+
+                @if($message = Session::get('error'))
+                    <div class="col-md-12">
+                        <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <div>
+                                {{ $message }}
+                            </div>
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
                 @endif
             </div>
             <div class="table-responsive">
@@ -75,7 +74,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @forelse($departments as $key => $value)
                         <tr>
                             <td class="text-center">
@@ -90,7 +88,7 @@
                                 ?>
                                     {{ $skills1 }}
                             </td>
-                            <td class="text-center m-2 gap-2">
+                            <td class="text-center ">
                                 @if(auth()->user()->hasPermission('departments.edit'))
                                     <a href="{{ route('departments.edit', ['department' => $value->id ]) }}"><button class="btn btn-sm btn-primary">Edit  <i class="fa-solid fa-pen-to-square"></i></button></a>
                                 @endif
@@ -101,7 +99,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="3" class="text-center">
+                            <td colspan="4" class="text-center">
                                 <span class="text-danger">Record not found</span>
                             </td>
                         </tr>
@@ -117,7 +115,5 @@
 </div>
 @endsection
 @section('script')
-
 <script src={{asset('assets/js/masters/department.js')}}></script>
-
 @endsection

@@ -118,7 +118,7 @@
                         <input type="text" class="form-control form-control-sm for_char" name="emp_name"
                             placeholder="Enter Employee Name"
                             value="{{ !empty($employee_details->emp_name) ? $employee_details->emp_name : '' }}" required>
-                            <span class="emp_name"></span>
+                        <span class="emp_name"></span>
                         @error('emp_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -204,7 +204,7 @@
                             placeholder="Enter Email"
                             value="{{ !empty($employee_details->emp_email_first) ? $employee_details->emp_email_first : '' }}"
                             required>
-                            <span class="emp_email_first"></span>
+                        <span class="emp_email_first"></span>
                         @error('emp_email_first')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -301,13 +301,14 @@
                             $employee_details->emp_current_working_status == 'inactive')
                         <div class="col-12 d-flex justify-content-end px-2 py-3 gap-3">
                             <div>
-                          <a href="{{ route('hr_dashboard') }}">  <button type="button" class="btn btn-sm btn-secondary">Cancel </button></a>
+                                <a href="{{ route('hr_dashboard') }}"> <button type="button"
+                                        class="btn btn-sm btn-secondary">Cancel </button></a>
                             </div>
                             <div>
-                            <button type="submit" class="btn btn-sm btn-primary">Update </button>
+                                <button type="submit" class="btn btn-sm btn-primary">Update </button>
                             </div>
-                            
-                            
+
+
                         </div>
                     @endif
                 </div>
@@ -443,19 +444,23 @@
                     <div class="col-xxl-3 col-lg-4 col-sm-6 photodiv">
 
                         <label class="form-label text-dark">Add Signature photo <span class="fw-lighter small">(Max
-                            size :1mb)</span></label>
+                                size :1mb)</span></label>
                         <input type="file" name="emp_signature" class="form-control photo"
                             accept=".jpg, .jpeg, .png">
-                        <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/sign').'/'.$employee_details->getPersonalDetail->emp_signature : '' }}" class="img-fluid preview_photo w-50 rounded my-2">
+                        <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/sign') . '/' . $employee_details->getPersonalDetail->emp_signature : '' }}"
+                            class="img-fluid preview_photo w-50 rounded my-2">
+                        <span class="fileerror text-danger"></span>
 
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6 photodiv">
 
                         <label class="form-label text-dark">Add Passport size photo <span class="fw-lighter small">(Max
-                            size :1mb)</span></label>
-                        <input type="file" name="emp_photo" class="form-control photo"
-                            accept=".jpg, .jpeg, .png">
-                        <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/passport_size_photo'.'/'.$employee_details->getPersonalDetail->emp_photo) : '' }}" class="img-fluid preview_photo w-50 rounded my-2">
+                                size :1mb)</span></label>
+                        <input type="file" name="emp_photo" class="form-control photo" accept=".jpg, .jpeg, .png">
+                        <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/passport_size_photo' . '/' . $employee_details->getPersonalDetail->emp_photo) : '' }}"
+                            class="img-fluid preview_photo w-50 rounded my-2">
+                        <span class="fileerror text-danger"></span>
+
 
                     </div>
 
@@ -465,8 +470,8 @@
                         <div class="col-12 d-flex justify-content-end py-3 px-2">
 
                             <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
-                            <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn">Update <i class="fa-solid fa-check"></i></button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn">Update <i
+                                    class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
                 </div>
@@ -537,12 +542,12 @@
                             $employee_details->emp_current_working_status == 'inactive')
                         <div class="col-12 d-flex justify-content-end py-3 px-2">
 
-                            <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn2">Update <i class="fa-solid fa-check"></i></button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn2">Update <i
+                                    class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
                 </div>
-               
+
             </form>
         </div>
 
@@ -578,7 +583,7 @@
                             placeholder="Enter Bank Account Number"
                             value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_account_no : '' }}"
                             required>
-                            <span class="emp_account_no"></span>
+                        <span class="emp_account_no"></span>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Vendor Rate (Rs)</label>
@@ -587,10 +592,11 @@
                             value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_unit : '' }}">
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Salary / CTC(Per Month)</label>
+                        <label class="form-label">Salary / CTC(Per Month) <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm" name="emp_salary"
                             placeholder="Enter CTC"
-                            value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_salary : '' }}">
+                            value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_salary : '' }}"
+                            required>
                     </div>
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -599,16 +605,16 @@
                             placeholder="Enter IFSC Code" maxlength="11"
                             value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_ifsc : '' }}"
                             required>
-                            <span class="emp_ifsc"></span>
+                        <span class="emp_ifsc"></span>
                     </div>
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">PAN Number <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm for_char" name="emp_pan" maxlength="10"
-                            minlength="10" placeholder="Enter PAN Number"
+                        <input type="text" class="form-control form-control-sm for_char" name="emp_pan"
+                            maxlength="10" minlength="10" placeholder="Enter PAN Number"
                             value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_pan : '' }}"
                             required>
-                            <span class="emp_pan"></span>
+                        <span class="emp_pan"></span>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">PF UAN No</label>
@@ -628,8 +634,8 @@
                             $employee_details->emp_current_working_status == 'inactive')
                         <div class="col-12 d-flex justify-content-end px-2 py-3">
 
-                            <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn3">Update <i class="fa-solid fa-check"></i></button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Update <i
+                                    class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
                 </div>
@@ -710,6 +716,8 @@
                                     </label>
                                     <input type="file" accept=".pdf" class="form-control form-control-sm"
                                         name="emp_tenth_doc">
+                                    <span class="fileerror text-danger"></span>
+
                                 </div>
 
                             </div>
@@ -751,6 +759,8 @@
                                         </label>
                                         <input type="file" accept=".pdf" class="form-control form-control-sm"
                                             name="emp_twelve_doc">
+                                        <span class="fileerror text-danger"></span>
+
                                     </div>
                                 </div>
                             </div>
@@ -815,6 +825,8 @@
                                         </label>
                                         <input type="file" accept=".pdf" class="form-control form-control-sm"
                                             name="diploma_doc">
+                                        <span class="fileerror text-danger"></span>
+
                                     </div>
                                 </div>
                             </div>
@@ -866,7 +878,8 @@
                                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                                         <label class="form-label">Degree In (Stream Name)</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="Enter Degree Stream" name="emp_graduation_in" value="{{ !empty($employee_details->education) ? $employee_details->education->emp_graduation_in : '' }}">
+                                            placeholder="Enter Degree Stream" name="emp_graduation_in"
+                                            value="{{ !empty($employee_details->education) ? $employee_details->education->emp_graduation_in : '' }}">
                                     </div>
                                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                                         <label class="form-label">Upload Doc <span class="small">(Only
@@ -878,6 +891,8 @@
                                         </label>
                                         <input type="file" accept=".pdf" class="form-control form-control-sm"
                                             name="grad_doc">
+                                        <span class="fileerror text-danger"></span>
+
                                     </div>
                                 </div>
                             </div>
@@ -927,7 +942,8 @@
                                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                                         <label class="form-label">Degree In (Stream Name)</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="Enter Degree Stream" name="emp_postgraduation_in" value="{{ !empty($employee_details->education) ? $employee_details->education->emp_postgraduation_in : '' }}">
+                                            placeholder="Enter Degree Stream" name="emp_postgraduation_in"
+                                            value="{{ !empty($employee_details->education) ? $employee_details->education->emp_postgraduation_in : '' }}">
                                     </div>
                                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                                         <label class="form-label">Upload Doc <span class="small">(Only
@@ -939,6 +955,8 @@
                                         </label>
                                         <input type="file" accept=".pdf" class="form-control form-control-sm"
                                             name="post_grad_doc">
+                                        <span class="fileerror text-danger"></span>
+
                                     </div>
                                 </div>
                             </div>
@@ -1001,6 +1019,8 @@
                                         </label>
                                         <input type="file" accept=".pdf" class="form-control form-control-sm"
                                             name="doctorate_doc">
+                                        <span class="fileerror text-danger"></span>
+
                                     </div>
                                 </div>
                             </div>
@@ -1011,8 +1031,8 @@
                             $employee_details->emp_current_working_status == 'inactive')
                         <div class="col-12 d-flex justify-content-end px-2 py-3">
 
-                            <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn4">Update <i class="fa-solid fa-check"></i></button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Update <i
+                                    class="fa-solid fa-check"></i></button>
                         </div>
                     @endif
                 </div>
@@ -1053,6 +1073,8 @@
                             @endif
                         </label>
                         <input class="form-control form-control-sm" name="resume_file" type="file" accept=".pdf">
+                        <span class="fileerror text-danger"></span>
+
                     </div>
 
                     @if (
@@ -1060,10 +1082,9 @@
                             $employee_details->emp_current_working_status == 'inactive')
                         <div class="col-12 d-flex justify-content-end px-2 py-3">
 
-                            <button type="submit" class="btn btn-sm btn-primary"
-                                id="employee-details-btn3">Update <i class="fa-solid fa-check"></i></button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn3">Update <i
+                                    class="fa-solid fa-check"></i></button>
                         </div>
-                      
                     @endif
                 </div>
             </form>
@@ -1084,14 +1105,17 @@
                             value="{{ !empty($employee_details->getIdProofDetail) ? $employee_details->getIdProofDetail->police_verification_id : '' }}">
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
-                        <label for="formFile" class="form-label">Police Verification Attachment <span class="fw-lighter small">(Max
-                            size :1mb)</span>
-                        @if (!empty($employee_details->getIdProofDetail) && $employee_details->getIdProofDetail->police_verification_file)
-                            <a href="{{ asset('recruitment/candidate_documents/police_verification') . '/' . $employee_details->getIdProofDetail->police_verification_file }}"
-                                target="_blank">View</a>
-                        @endif
-                    </label>
+                        <label for="formFile" class="form-label">Police Verification Attachment <span
+                                class="fw-lighter small">(Max
+                                size :1mb)</span>
+                            @if (!empty($employee_details->getIdProofDetail) && $employee_details->getIdProofDetail->police_verification_file)
+                                <a href="{{ asset('recruitment/candidate_documents/police_verification') . '/' . $employee_details->getIdProofDetail->police_verification_file }}"
+                                    target="_blank">View</a>
+                            @endif
+                        </label>
                         <input class="form-control" type="file" name="police_verification_file" accept=".pdf">
+                        <span class="fileerror text-danger"></span>
+
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
                         <label class="form-label">Aadhar Number <span class="text-danger">*</span></label>
@@ -1110,6 +1134,8 @@
                             @endif
                         </label>
                         <input class="form-control" type="file" name="aadhar_card_doc" accept=".pdf">
+                        <span class="fileerror text-danger"></span>
+
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
                         <label class="form-label">Passport No</label>
@@ -1126,15 +1152,21 @@
                             @endif
                         </label>
                         <input class="form-control" type="file" name="passport_file" accept=".pdf">
+                        <span class="fileerror text-danger"></span>
+
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
-                        <label for="formFile" class="form-label">Permanent Address Proof Attachment <span class="fw-lighter small">(Max
-                            size :1mb)</span>
-                        @if (!empty($employee_details->getIdProofDetail) && $employee_details->getIdProofDetail->permanent_add_doc)
-                            <a href="{{ asset('recruitment/candidate_documents/permanent_address_proof') . '/' . $employee_details->getIdProofDetail->permanent_add_doc }}"
-                                target="_blank">View</a>
-                        @endif</label>
+                        <label for="formFile" class="form-label">Permanent Address Proof Attachment <span
+                                class="fw-lighter small">(Max
+                                size :1mb)</span>
+                            @if (!empty($employee_details->getIdProofDetail) && $employee_details->getIdProofDetail->permanent_add_doc)
+                                <a href="{{ asset('recruitment/candidate_documents/permanent_address_proof') . '/' . $employee_details->getIdProofDetail->permanent_add_doc }}"
+                                    target="_blank">View</a>
+                            @endif
+                        </label>
                         <input class="form-control" type="file" name="permanent_add_doc" accept=".pdf">
+                        <span class="fileerror text-danger"></span>
+
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
                         <label class="form-label">Nearest Police Station</label>
@@ -1150,6 +1182,8 @@
                             @endif
                         </label>
                         <input type="file" class="form-control form-control-sm" name="bank_doc" accept=".pdf">
+                        <span class="fileerror text-danger"></span>
+
                     </div>
                     <div class="col-xxl-3 col-lg-6 col-sm-6">
                         <label class="form-label">Category Document <span class="fw-lighter small">(Max size :1mb)</span>
@@ -1159,6 +1193,8 @@
                             @endif
                         </label>
                         <input type="file" class="form-control form-control-sm" name="category_doc" accept=".pdf">
+                        <span class="fileerror text-danger"></span>
+
                     </div>
 
                     @if (
@@ -1166,8 +1202,8 @@
                             $employee_details->emp_current_working_status == 'inactive')
                         <div class="row">
                             <div class="col-12 d-flex justify-content-end px-2 py-3">
-                                <button type="submit" class="btn btn-sm btn-primary"
-                                    id="employee-details-btn4">Update <i class="fa-solid fa-check"></i></button>
+                                <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn4">Update
+                                    <i class="fa-solid fa-check"></i></button>
                             </div>
                         </div>
                     @endif
@@ -1268,6 +1304,6 @@
 
 @section('script')
     <script src="{{ asset('assets/js/employeeTab.js') }}"></script>
-    <script src="{{asset('assets/js/commonValidation.js')}}"></script>
+    <script src="{{ asset('assets/js/commonValidation.js') }}"></script>
     <script src="{{ asset('assets/js/city.js') }}"></script>
 @endsection

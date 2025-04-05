@@ -15,7 +15,7 @@ class FunctionalRole extends Model
      *
      * @var array
      */
-    protected $fillable = ['role'];
+    protected $fillable = ['id','role','status','created_at'];
 
     /**
      * Save User id on CRUD operation.

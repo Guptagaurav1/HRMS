@@ -77,7 +77,7 @@ class EmployeeLeaveController extends Controller
                 return date('d-M-Y', strtotime($value));
             });
             $html = $request->comment;
-            $html .= "<span style='font-weight:bold'>Leave Apply Dates : ".implode(", ", $absence_dates)." </span><br>";
+            $html .= "<span style='font-weight:bold'>Leave Apply Dates : " . implode(", ", $absence_dates) . " </span><br>";
             $html .= "<span style='font-weight:bold'>Leave Id : " . $leave_code . "</span><br><br>";
             $html .= "<br> $user->emp_name <br> $user->emp_code ($user->emp_designation) <br><br>";
             $subject = $request->reason_for_absence . " Request";
@@ -107,7 +107,7 @@ class EmployeeLeaveController extends Controller
             $cc_string = implode(', ', $cc);
             $recievers = User::whereRaw('FIND_IN_SET(email, ? )', ["$cc_string"])->pluck('id')->join(',');
 
-              Notification::create([
+            Notification::create([
                 'title' => 'Leave request',
                 'description' => "$subject raised by $user->emp_name",
                 'send_by' => $user->emp_email_first,
@@ -132,10 +132,10 @@ class EmployeeLeaveController extends Controller
             Mail::to($request->to)->cc($cc)->send(new ShortlistMail($maildata));
 
             DB::commit();
-            return redirect()->route('leave.request_list')->with(['success' => true, 'message' => 'Leave application has been raised.']);
+            return redirect()->route('applied-request-list')->with(['success' => true, 'message' => 'Leave application has been raised.']);
         } catch (Throwable $e) {
             DB::rollBack();
-            return redirect()->route('leave.request_list')->with(['error' => true, 'message' => $e->getMessage()]);
+            return redirect()->route('applied-request-list')->with(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 
@@ -159,9 +159,9 @@ class EmployeeLeaveController extends Controller
 
         // Apply Filter.
         $search = '';
-        if($request->search){
+        if ($request->search) {
             $search = $request->search;
-            $monthly_leaves = $monthly_leaves->where(function($query) use ($search){
+            $monthly_leaves = $monthly_leaves->where(function ($query) use ($search) {
                 $query->where('attendance_month', 'LIKE', "%$search%")
                     ->orWhere('approve_leave', 'LIKE', "%$search%")
                     ->orWhere('lwp_leave', 'LIKE', "%$search%");
@@ -169,5 +169,121 @@ class EmployeeLeaveController extends Controller
         }
         $monthly_leaves = $monthly_leaves->orderByDesc('id')->paginate(25)->withQueryString();
         return view('employee.leave.leave-taken', compact('attandance', 'monthly_leaves', 'search'));
+    }
+
+    /**
+     * Show edit leave Page.
+     */
+    public function edit_leave($id)
+    {
+        try {
+            $leave = LeaveRequest::select('emp_code', 'cc', 'reason_for_absence', 'absence_dates', 'comment')->findOrFail($id);
+            // Check if leave request is made within 24 hours and verify current user.
+            if (strtotime($leave->created_at . ' +1 day') > time() && $leave->emp_code == auth('employee')->user()->emp_code) {
+                return view('employee.leave.edit-leave', compact('leave', 'id'));
+            }
+            return redirect()->route('applied-request-list')->with(['error' => true, 'message' => 'Sorry leave is not editable.']);
+        } catch (Throwable $e) {
+            return redirect()->route('applied-request-list')->with(['error' => true, 'message' => 'Invalid Leave Request.']);
+        }
+    }
+
+    /**
+     * Update leave request.
+     */
+    public function update_leave_request(Request $request)
+    {
+        $this->validate($request, [
+            'department_head_email' => 'required',
+            'reason_for_absence' => 'required',
+            'absence_dates' => 'required',
+            'leave_id' => 'required'
+        ]);
+        try {
+            DB::beginTransaction();
+            $user = auth('employee')->user();
+            $leave = LeaveRequest::findOrFail($request->leave_id);
+            if (strtotime($leave->created_at . ' +1 day') > time() && $leave->emp_code == $user->emp_code) {
+                // Get Total Days.
+                if ($request->absence_dates == 'Half Day leave') {
+                    $total_days = 'Half Day leave';
+                } elseif ($request->absence_dates == 'Short Day leave') {
+                    $total_days = 'Short Day leave';
+                } else {
+                    $total_days = count(explode(',', $request->absence_dates));
+                }
+
+                // Get cc emails.
+                $cc = [];
+                if ($request->cc) {
+                    $cc = explode(',', $request->cc);
+                }
+                $cc[] = $request->department_head_email;
+                $dates = explode(",", $request->absence_dates);
+                $absence_dates = Arr::map($dates, function (string $value, string $key) {
+                    return date('d-M-Y', strtotime($value));
+                });
+                $html = $request->comment;
+                $html .= "<span style='font-weight:bold'>Leave Apply Dates : " . implode(", ", $absence_dates) . " </span><br>";
+                $html .= "<span style='font-weight:bold'>Leave Id : " . $leave->leave_code . "</span><br><br>";
+                $html .= "<br> $user->emp_name <br> $user->emp_code ($user->emp_designation) <br><br>";
+                $subject = $request->reason_for_absence . " Request Modified";
+
+                // Update request.
+                $leave->reason_for_absence = $request->reason_for_absence;
+                $leave->absence_dates = $request->absence_dates;
+                $leave->comment = $request->comment;
+                $leave->total_days = $total_days;
+                $leave->status = 'Modified';
+                $leave->cc = implode(",", $cc);
+                $leave->save();
+
+                // Create Log.
+                LeaveRequestMailLog::create([
+                    'leave_request_id' => $request->leave_id,
+                    'to_email' => $request->to,
+                    'cc' => implode(",", $cc),
+                    'from_email' => $user->emp_email_first,
+                    'subject' => $subject,
+                    'message' => $html,
+                    'status' => 'Modified'
+                ]);
+
+                // Send Notifications.
+                $cc_string = implode(', ', $cc);
+                $recievers = User::whereRaw('FIND_IN_SET(email, ? )', ["$cc_string"])->pluck('id')->join(',');
+
+                Notification::create([
+                    'title' => 'Leave Request Modified',
+                    'description' => "$subject raised by $user->emp_name",
+                    'send_by' => $user->emp_email_first,
+                    'received_to' => $recievers,
+                    'user_type' => 'hr',
+                    'notification_type' => 'leave_req',
+                    'reference_table_name' => 'leave_request',
+                    'reference_table_id' => $request->leave_id
+                ]);
+
+                // Send mail.
+                $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail(1);
+
+                $maildata = new stdClass();
+                $maildata->subject = $subject;
+                $maildata->comp_email = $company->email;
+                $maildata->comp_phone = $company->mobile;
+                $maildata->comp_website = $company->website;
+                $maildata->comp_address = $company->address;
+                $maildata->content = $html;
+                $maildata->url = url('/');
+                Mail::to($request->to)->cc($cc)->send(new ShortlistMail($maildata));
+
+                DB::commit();
+                return redirect()->route('applied-request-list')->with(['success' => true, 'message' => 'Leave modified successfully']);
+            }
+            return redirect()->route('applied-request-list')->with(['error' => true, 'message' => 'Leave not editable.']);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            return redirect()->route('applied-request-list')->with(['error' => true, 'message' => $e->getMessage()]);
+        }
     }
 }

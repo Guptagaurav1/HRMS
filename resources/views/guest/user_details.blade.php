@@ -43,7 +43,7 @@
                                         </option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
-                                        <option value="other">Others</option>
+                                        <option value="others">Others</option>
                                     </select>
                                     <span class="error-message text-danger"></span>
 
@@ -51,7 +51,7 @@
                                 <div class="col-md-6">
                                     <label class="form-label mt-2 text-dark">Date of Birth <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="date" name="emp_dob" class="form-control" required>
+                                    <input type="date" name="emp_dob" class="form-control" max="{{date('Y-m-d', strtotime('18 years ago'))}}" value="{{$details->dob}}" readonly required>
                                 </div>
 
                                 <div class="col-md-6">
@@ -785,7 +785,7 @@
                             <p class="text-danger my-2">Note : <u>Fields with "*" are mandatory to fill.</u></p>
                             <div id="family-member-container">
                                 <div class="row px-3 family-member-section  p-3 mt-4">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="closet">
                                         <label class="form-label">Family Member Name <span
                                                 class="text-danger fw-bold">*</span></label>
                                         <input type="text" name="family_member_name[]" placeholder="Enter Name"
@@ -813,7 +813,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label">Date of Birth <span
                                                 class="text-danger fw-bold">*</span></label>
-                                        <input type="date" name="dob[]" class="form-control bg-white" max="{{date('Y-m-d',strtotime('18 years ago'))}}" required>
+                                        <input type="date" name="dob[]" class="form-control bg-white" max="{{date('Y-m-d')}}" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Upload Aadhar Document <span
@@ -888,5 +888,5 @@
 @endsection
 @section('script')
     <script src={{ asset('assets/js/personal-details.js') }}></script>
-    {{-- <script src="{{asset('assets/js/commonValidation.js')}}"></script> --}}
+    <script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection

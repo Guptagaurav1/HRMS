@@ -30,7 +30,7 @@ return new class extends Migration
             $table->date('date_notified')->nullable();
             $table->integer('no_of_requirements');
             $table->integer('no_of_completed_requirements')->default(0);
-            $table->string('jd_permission')->default('1');
+            $table->string('jd_permission')->default('1');  
             $table->string('requirement_status')->nullable();
             $table->longText('job_description')->nullable();
             $table->longText('remarks')->nullable();
