@@ -511,7 +511,8 @@
 <script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2-init.js')}}"></script>
 <script src="{{asset('assets/vendor/js/addmore.js')}}"></script>
-<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
+<script src="{{asset('assets/js/hr/workOrder/work-order.js')}}"></script>
+<script src="{{asset('assets/js/hr/workOrder/edit-workOrder-tabs.js')}}"></script>
 <script src="{{ asset('assets/js/city.js') }}"></script>
 
 @endsection

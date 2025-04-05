@@ -16,10 +16,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Models\ReportLog;
+use App\Models\EmailHistory;
 use PDF;
 use App;
 use stdClass;
-
+use Mail;
+use App\Mail\ReportMail;
 
 
 class WorkOrderController extends Controller
@@ -412,10 +414,15 @@ class WorkOrderController extends Controller
     //     return view("hr.workOrder.work-order-report",compact('wo_details','overallSum','zipFilePath','check_workOrders'));
     // }
     public function work_order_report(Request $request)
-{
-    $validatedData = $this->processWorkOrders($request);
-    return view("hr.workOrder.work-order-report", $validatedData);
-}
+    {
+        $validatedData = $this->processWorkOrders($request);
+
+        // dd($message_new);
+        $unq_no = now()->format('Ymdhisa');
+        $file_name = "WorkOrderReport_{$unq_no}.pdf";
+        
+        return view("hr.workOrder.work-order-report", $validatedData,compact('file_name'));
+    }
 
     private function processWorkOrders(Request $request)
     {
@@ -635,5 +642,65 @@ class WorkOrderController extends Controller
         return view("hr.workOrder.report-log", compact('report'));
 
     }
+    
+    public function send_report_mail(Request $request){
+        $this->validate($request, [
+            'to' => ['required', 'string'],
+            'subject' => ['required', 'string'],
+            'body' => ['string'],
+          
+        ]);
 
+        // save doc
+        $filename = $request->attachment??NULL;
+        $workOrder = $this->processWorkOrders($request);
+        $wo_details =$workOrder['wo_details'];
+        $overallSum =$workOrder['overallSum'];
+        $message_new = view('hr/workOrder/work-order-report', [
+            'wo_details' => $wo_details,
+            'overallSum' => $overallSum,
+        ])->render(); 
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($message_new);
+    
+        $pdf->save(public_path("work-order/wo-report/{$filename}"));
+        // save doc save here
+
+        try {
+            DB::beginTransaction();
+
+            $maildata = new stdclass();
+            $maildata->subject = $request->subject;
+            $maildata->body = $request->body;
+            // $maildata->attachment = public_path("work-order/wo-report/{$filename}");
+            $maildata->attachment = str_replace('\\', '/', public_path("work-order/wo-report/{$filename}"));
+            $cc = [];
+            if ($request->cc) {
+                $cc = explode(",", $request->cc);
+            }
+            if ($request->to) {
+                $to = explode(",", $request->to);
+            }
+            // dd($maildata);   
+            EmailHistory::create([
+                
+                'from_mail' => 'noreply@prakharsoftwares.com',
+                'to_mail' => $request->to,
+                'cc' => $request->cc,
+                'subject' => $request->subject,
+                'content' => $request->body,
+                'attatchment' => $filename ? $filename : ''
+            ]);
+            Mail::to($to)->cc($cc)->send(new ReportMail($maildata));
+            DB::commit();
+       
+        return response()->json(['success' => true, 'message' => 'Mail Sent Successfully']);
+        }
+        catch(Throwable $th){
+            DB::rollBack();
+            return response()->json(['error' => true, 'message' => 'Server Error']);
+
+        }
+  
+    } 
 }

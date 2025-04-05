@@ -462,6 +462,7 @@
 
 @section('script')
 <script src="{{asset('assets/vendor/js/addmore.js')}}"></script>
-<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
+<script src="{{asset('assets/js/hr/workOrder/work-order.js')}}"></script>
 <script src="{{ asset('assets/js/city.js') }}"></script>
+<script src="{{asset('assets/js/hr/workOrder/add-workOrder-tabs.js')}}"></script>
 @endsection
