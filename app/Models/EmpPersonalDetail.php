@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class EmpPersonalDetail extends Model
 {
     use HasFactory, SoftDeletes;
-
     
     /**
      * Save User id on CRUD operation.
