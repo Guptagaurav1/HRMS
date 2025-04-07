@@ -46,7 +46,7 @@
 
     <div class="tab-content active" id="content1">
         <div class="row g-3">
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
+            <div class="col-lg-4 col-sm-6">
                 <label class="form-label">Work Order Number <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm" placeholder="Enter Work Order Number">
             </div>

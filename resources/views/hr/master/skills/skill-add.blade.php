@@ -5,6 +5,14 @@
         <div class="panel">
             <div class="panel-header">
                 <h2 class="mt-2">Create Skill</h2>
+                <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
+                </div>
             </div>
             <div class="row my-4">
                 <!-- @if ($message = Session::get('success'))

@@ -5,6 +5,14 @@
         <div class="panel">
             <div class="panel-header">
                 <h2 class="mt-2">Update Skill</h2>
+                <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
+                </div>
             </div>
             <div class="row my-4">
                 @if ($message = Session::get('success'))
@@ -21,6 +29,7 @@
                     <div class="col-md-12 d-flex justify-content-start mx-3">
                         @csrf
                         <div class="col-md-6">
+                        <label class="form-label">Skills<span class="text-danger">*</span></label>
                             <input type="text" name="skill" value="{{ $skill->skill }}" class="form-control"
                                 placeholder="Enter Skill" required>
                             @error('skill')

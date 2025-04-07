@@ -22,6 +22,6 @@ class ProfileController extends Controller
      */
     public function profile()
     {
-        echo 'Admin Profile Page';
+        return view('hr.profile.admin-user-profile');
     }
 }

@@ -20,8 +20,8 @@
 </div>
 
 <div class="row">
-    <div class="col-xxl-8">
-        <div class="panel chart-panel-1">
+    <div class="col-md-12">
+        <div class="col-md-12 col-sm-6 panel chart-panel-1">
             <div class="d-flex  gap-3">
                 <div class="card profile-card border">
                     <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
@@ -302,7 +302,7 @@
       
     </div>
 
-    <div class="col-xxl-4 col-md-12">
+    <div class="col-md-12">
         <div class="panel">
             
                 <div class="panel-body">

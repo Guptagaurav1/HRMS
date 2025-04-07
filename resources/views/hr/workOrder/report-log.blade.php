@@ -64,7 +64,7 @@
                                      <tr>
                                          <td class="srno-column">{{$key+1}}</td>
                                          <td class="text-center">{{$value->doc}}</td>
-                                         <td class="text-center">{{$value->user->first_name??NULL}} {{$value->user->last_name??NULL}}</td>
+                                         <td class="text-center">{{$value->user->first_name??NULL }}</td>
                                          <td class="text-center">{{$value->created_at??NULL }}</td>
                                          <td class="text-center">
                                          <a href=""><button type="submit" class="btn btn-primary"> Share <i class="fa-solid fa-pen-to-square"></i></button></a>

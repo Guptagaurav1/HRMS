@@ -14,15 +14,14 @@
         <div class="panel">
             <div class="panel-header heading-stripe">
                 <h3 class="mt-2 text-center">Add Work Order</h3>
-                <div class="text-start">
-                    <a href="{{ route('hr_dashboard') }}">
-                        <div class="back-button-box">
-                            <button type="button" class="btn btn-back">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </button>
-                        </div>
-                    </a>
-                </div>
+                <div>
+            <ul class="breadcrumb">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Profile Details</a></li>
+                <li>Department List</li>
+            </ul>
+        </div>
             </div>
             @if(auth()->user()->hasPermission('work-order-list'))
 
@@ -462,6 +461,7 @@
 
 @section('script')
 <script src="{{asset('assets/vendor/js/addmore.js')}}"></script>
-<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
+<script src="{{asset('assets/js/hr/workOrder/work-order.js')}}"></script>
 <script src="{{ asset('assets/js/city.js') }}"></script>
+<script src="{{asset('assets/js/hr/workOrder/add-workOrder-tabs.js')}}"></script>
 @endsection

@@ -1,14 +1,6 @@
 @extends('layouts.master')
 
-@section('style')
 
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-<style>
-    .pera-design {
-        font-size: 13px
-    }
-</style>
-@endsection
 @section('contents')
 
 
@@ -51,7 +43,7 @@
 
 
                                                 <div class="shop-address">
-                                                    <div class="d-flex align-items-center justify-content-between border px-2 shadow-sm  p-3 mb-5 bg-body rounded">
+                                                    <div class="d-flex align-items-center justify-content-between  px-2   p-3 mb-5 bg-body rounded">
 
                                                         <img src="{{asset('assets\images\PrakharLimited-logo.png')}}"
                                                             alt="Logo" style="width:120px">

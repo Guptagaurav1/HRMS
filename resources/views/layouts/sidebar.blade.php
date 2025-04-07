@@ -605,6 +605,7 @@
                                         <li class="sidebar-dropdown-item"><a href="{{ route('report-log') }}"
                                                 class="sidebar-link">Report Logs</a></li>
                                     @endif
+                                    
 
                                     <!-- @if (auth()->user()->hasPermission('project-report'))
 <li class="sidebar-dropdown-item"><a href="{{ route('project-report') }}" class="sidebar-link">WorkOrder Project Report</a></li>
