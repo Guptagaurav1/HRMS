@@ -1,32 +1,34 @@
 @extends('layouts.master')
 
 @section('style')
-<style>
-    .user-picture img {
-        border: 5px solid #ffffff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
 
-    .btn-primary {
-        padding: 0.5rem 2rem;
-        font-weight: 500;
-    }
+<link rel="stylesheet" href="{{ asset('assets/css/breadcrumb.css')}}"/>
 
-    .info-pair {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid #e9ecef;
-    }
-</style>
 @endsection
 
 @section('contents')
 <div class="container-fluid profile-container shadow">
 
     <div class="panel">
-        <div class="panel-header mb-4">
+        <!-- <div class="panel-header mb-4 ">
             <h3 class="text-white">Profile Details</h3>
+            
+            
+        </div> -->
+
+        <div class="panel-header d-flex align-items-cenetr justify-content-between">
+            <div>
+                <h3 class="text-white mt-2">Profile Details</h3>
+
+            </div>
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Profile Details</a></li>
+                    <li>Italy</li>
+                </ul>
+            </div>
         </div>
 
         <div class="row g-4">
@@ -103,7 +105,11 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end mt-4">
+                    <div class="d-flex justify-content-end mt-4 gap-3">
+                        <div>
+                            <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">Change Password</button>
+
+                        </div>
                         <button type="button" class="btn btn-primary">Update</button>
                     </div>
                 </form>
@@ -112,4 +118,45 @@
     </div>
 
 </div>
+
+
+@section('modal')
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-white" id="staticBackdropLabel">Set New Password</h1>
+         
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="oldPassword" class="form-label">Old Password <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="oldPassword" placeholder="Enter Old Password">
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <label for="newPassword" class="form-label">New Password <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="newPassword" placeholder="Enter New Password">
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="confirmPassword" placeholder="Confirm New Password">
+                    </div>
+                </div>
+
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+@endsection
 @endsection
