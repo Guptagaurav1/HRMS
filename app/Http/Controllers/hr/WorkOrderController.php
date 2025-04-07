@@ -636,4 +636,12 @@ class WorkOrderController extends Controller
 
     }
 
+    /**
+     * Export salary sheet page.
+     */
+    public function salary_sheet(Request $request)
+    {
+        return view('hr.workOrder.export-salary-sheet');
+    }
+
 }
