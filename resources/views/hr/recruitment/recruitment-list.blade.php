@@ -1,9 +1,5 @@
 @extends('layouts.master', ['title' => 'Recruitment List'])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
-
 @section('contents')
     <div class="fluid-container">
         <div class="row">
@@ -134,18 +130,18 @@
                                       
                                     @endphp
                                     <tr>
-                                        <td class="srno-column">{{$candidate->id}}</td>
-                                        <td class="rid-column">{{$candidate->firstname." ".$candidate->lastname}}</td>
-                                        <td>{{$candidate->email." / ".$candidate->phone}}</td>
-                                        <td>{{$candidate->job_position}}</td>
-                                        <td>{{$candidate->client_name}}</td>
-                                        <td>{{$candidate->dob}}</td>
-                                        <td>{{$candidate->location}}</td>
-                                        <td>{{$candidate->experience}}</td>
-                                        <td>{{$candidate->skill}}</td>
-                                        <td>{{$candidate->education}}</td>
-                                        <td><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
-                                        <td> 
+                                        <td class="srno-column text-center">{{$candidate->id}}</td>
+                                        <td class="rid-column text-center">{{$candidate->firstname." ".$candidate->lastname}}</td>
+                                        <td class="text-center">{{$candidate->email." / ".$candidate->phone}}</td>
+                                        <td class="attributes-column text-center">{{$candidate->job_position}}</td>
+                                        <td class="text-center">{{$candidate->id}}</td>
+                                        <td class="text-center">{{$candidate->dob}}</td>
+                                        <td class="attributes-column text-center">{{$candidate->location}}</td>
+                                        <td class="text-center">{{$candidate->experience}}</td>
+                                        <td class="text-center attributes-column">{{$candidate->skill}}</td>
+                                        <td class="text-center">{{$candidate->education}}</td>
+                                        <td class="text-center"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
+                                        <td class="text-center"> 
                                             @if (!empty($candidate->emp_current_working_status))
                                                 @if ($candidate->emp_current_working_status == 'active')
                                                     @if(auth()->user()->hasPermission('employee-details'))

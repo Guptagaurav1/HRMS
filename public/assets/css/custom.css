@@ -1018,5 +1018,59 @@ input::-webkit-input-placeholder{
 
 
 
+/* Admin user profile css */
+
+
+.user-picture img {
+  border: 5px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.info-pair {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+
+
+
+
+/* Breadcrumb CSS */
+
+
+ul.breadcrumb {
+  padding: 6px 6px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  
+}
+ul.breadcrumb li {
+   
+    font-size: 16px;
+    color: yellow;
+}
+ul.breadcrumb li+li:before {
+  padding: 7px;
+  color: white;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: white;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: #f0f0f0;
+  text-decoration: underline;
+}
+
+
+
  
 

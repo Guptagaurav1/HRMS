@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Department <span class="text-danger">*</span> <i
-                                        class="fa fa-plus border rounded p-1 small border-primary text-light bg-primary"
+                                        class="fa fa-plus border rounded  small border-primary text-light bg-primary"
                                         role="button" data-bs-toggle="modal" data-bs-target="#departmentModal"
                                         aria-hidden="true"></i></label>
                                 <select name="department" class="form-select" required>
@@ -510,10 +510,9 @@
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">ESI No</label>
-                                <input type="text" class="form-control form-control-sm for_char" name="emp_esi_no"
+                                <input type="text" class="form-control form-control-sm" name="emp_esi_no"
                                     placeholder="Enter ESI Number" maxlength="17"
                                     value="{{ !empty($recruitment_details->getBankDetail) ? $recruitment_details->getBankDetail->emp_esi_no : '' }}">
-                                <span class="emp_esi_no"></span>
                             </div>
 
 

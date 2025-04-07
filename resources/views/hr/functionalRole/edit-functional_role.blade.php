@@ -6,6 +6,14 @@
             <div class="panel">
                 <div class="panel-header heading-stripe">
                    <h2 class="text-white mt-2">Update Functional Role</h2>
+                   <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
+                </div>
                 </div>
                 <div class="panel-body mt-4">
                     <form class="row g-3" method="post" action="{{route('update-functional-role', ['id' => $data->id])}}">
