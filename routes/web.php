@@ -305,6 +305,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('save-report', 'save_wo_report')->name("save-report");
         Route::get('report-log', 'report_log')->name("report-log");
         Route::post('send-report-mail', 'send_report_mail')->name("send-report-mail");
+        Route::get('get-exist-wo/{wo_number}', 'get_exist_wo')->name("get-exist-wo");
     });
 
     /////////// workorder routes end ///////

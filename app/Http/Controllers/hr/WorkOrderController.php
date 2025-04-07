@@ -296,14 +296,15 @@ class WorkOrderController extends Controller
           
             $workOrder->save();
            
-                $contactsData = $request->c_person_name;
-                
+            $contactsData = $request->c_person_name;
+            if(!empty($contactsData)){
                 foreach($contactsData as $key => $value){
                     $woContactDetail = WoContactDetail::where('work_order_id', $id)
                     ->where('id', $key)
                     ->first();
                  
                     if(!empty($woContactDetail)){
+                        // dd('stage 1');
                         $woContactDetail->wo_client_contact_person = $value;
                         $woContactDetail->wo_client_designation = $request->c_designation[$key];
                         $woContactDetail->wo_client_contact = $request->c_contact[$key];
@@ -312,17 +313,21 @@ class WorkOrderController extends Controller
                      
                         $woContactDetail->update();
                     }else{
+                        
                         $woContactDetail = new WoContactDetail();
-                        $woContactDetail->wo_client_contact_person = $value;
-                        $woContactDetail->wo_client_designation = $request->c_designation[$key];
-                        $woContactDetail->wo_client_contact = $request->c_contact[$key];
-                        $woContactDetail->wo_client_email = $request->c_email[$key];
-                        $woContactDetail->wo_client_remarks = $request->c_remarks[$key];
-                        $woContactDetail->work_order_id = $id;
-                        $woContactDetail->save();
+                        if(!empty($value)){
+                            $woContactDetail->wo_client_contact_person = $value;
+                            $woContactDetail->wo_client_designation = $request->c_designation[$key];
+                            $woContactDetail->wo_client_contact = $request->c_contact[$key];
+                            $woContactDetail->wo_client_email = $request->c_email[$key];
+                            $woContactDetail->wo_client_remarks = $request->c_remarks[$key];
+                            $woContactDetail->work_order_id = $id;
+                            $woContactDetail->save();
+                        }   
                     }
                  
                }
+            }
 
         //     return redirect()->route('work-order-list')->with('success','WorkOrder updated !');
         // }catch(Throwable $th){
@@ -703,4 +708,15 @@ class WorkOrderController extends Controller
         }
   
     } 
+
+    // check wo_order exist or not
+    public function  get_exist_wo(Request $request){
+        $exist_wo = $request->wo_number;
+        $get_wo = workOrder:: select('id','wo_number')->where('wo_number','=', $exist_wo)->first();
+        return response()->json([
+            'message' => 'Project Details retrieved successfully',
+            'data' => $get_wo
+        ], 200);
+       
+    }
 }
