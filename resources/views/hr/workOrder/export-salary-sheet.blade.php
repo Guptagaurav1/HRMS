@@ -1,0 +1,38 @@
+@extends('layouts.master', ['title' => 'Export Complete Salary Sheet'])
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+@endsection
+
+@section('contents')
+    <div class="fluid-container border">
+        <div class="row">
+            <div class="col-12">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="mt-2">Generate Complete Salary Sheet</h2>
+                    </div>
+
+                    <div class="panel-body">
+                    <div class="col-md-12 text-center my-2">
+                        <label>Select Month and Year :</label><br>
+                        <input name="month-salary" class="date-picker" id="month-salary" placeholder="mm-yyyy"/>
+                        <button type="button" class="btn btn-primary check">Check</button>
+                    </div>
+                    <div class="col-md-12 text-center p-4 d-none downloadSheet">
+
+                        <h5 class="fs-5>Selected Month">Selected Month : <span class="selected-month"></span></h5>
+
+                        <button type="submit" class="btn btn-primary">Download Complete Salary Sheet <i
+                                class="fa-solid fa-download"></i></button>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <script src="{{ asset('assets/js/hr/export-salary-sheet.js') }}"></script>
+@endsection

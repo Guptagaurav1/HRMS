@@ -6,12 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class EmpPersonalDetail extends Model
+class LeavePolicy extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     /**
-     * Save User id on CRUD operation.
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * Save user id on crud operation.
+     *
+     * @var array
      */
     public static function boot()
     {
@@ -20,7 +29,6 @@ class EmpPersonalDetail extends Model
             static::creating(function ($model) {
                 $model->created_by = auth()->user()->id;
             });
-
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
             });
@@ -31,11 +39,4 @@ class EmpPersonalDetail extends Model
             });
         }
     }
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
 }

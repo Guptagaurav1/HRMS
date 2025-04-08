@@ -273,5 +273,5 @@
 
 @section('script')
 
-<script src="{{asset('assets/js/hr/work-order.js')}}"></script>
+<script src="{{asset('assets/js/hr/workOrder/work-order.js')}}"></script>
 @endsection

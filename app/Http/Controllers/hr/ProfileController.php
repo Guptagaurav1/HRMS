@@ -11,13 +11,17 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use App\Mail\ShortlistMail;
 use stdClass;
-use Mail;
 use Throwable;
 
 
 class ProfileController extends Controller
 {
- 
+    /**
+     * Show admin profile page.
+     */
+    public function profile()
+    {
+        return view('hr.profile.admin-user-profile');
+    }
 }

@@ -23,7 +23,7 @@ class LeaveRequest extends Model
      */
     public function employee(): BelongsTo
     {
-        return $this->belongsTo(EmpDetail::class, 'emp_code', 'emp_code')->select('emp_name');
+        return $this->belongsTo(EmpDetail::class, 'emp_code', 'emp_code');
     }
     
 }

@@ -56,6 +56,7 @@ $('#organisation').on('change', function() {
         // If no organization is selected, reset the project 
         $('#project_name').empty().append('<option value="">Select Project</option>');
         $('#project_name').val('');
+        showError("project_name", "The Work Order has already been taken.");
 
     } else {
         // Load the projects based on the selected organization
@@ -75,7 +76,36 @@ $('#project_name').on('change', function() {
     }
 });
 
+function showError(fieldId, message) {
+    $("#" + fieldId + "_error").text(message).show();
+}
 
+function hideError(fieldId) {
+    $("#" + fieldId + "_error").hide();
+}
+// check work order duplicate or not
+$('#wo_number').on('input',function(){
+    var wo_number = $(this).val();
+    if(wo_number){
+        $.ajax({
+            url :SITE_URL +"/hr/get-exist-wo/"+ wo_number,
+            type:'GET',
+            success : function(response){
+                let ex_wo_number = response.data.wo_number;
+                // alert(ex_wo_number);
+                if (ex_wo_number !== " ") {
+                    showError("wo_number", "The Work Order has already been taken.");
+                    isValid = false;
+                } 
+            },
+            error: function(xhr, status, error) {
+                console.log("Error:", error);
+            }
+        });
+    }else {
+        hideError("wo_number");
+    }
+});
 
 
 

@@ -1,82 +1,5 @@
 @extends('layouts.master')
 
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-<style>
-    .employee-tab {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
-
-    .employee-tab ul {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        border-bottom: 2px solid #ddd;
-    }
-
-    .employee-tab li {
-        flex: 1;
-        text-align: center;
-    }
-
-    .tab-btn {
-        background: none;
-        border: none;
-        padding: 6px;
-        width: 100%;
-        font-size: 14px;
-        font-weight: bold;
-        color: #495057;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border-left: 3px solid #211919;
-    }
-
-    .tab-btn:hover {
-        color: slategrey;
-    }
-
-    .tab-btn.active {
-        color: #fff;
-        background-color: slategray;
-        border-radius: 4px;
-        box-shadow: 0 2px 6px slategrey;
-    }
-
-    .tab-content {
-        /* padding: 20px; */
-        display: none;
-    }
-
-    .tab-content.active {
-        display: block;
-    }
-
-    .tab-btn {
-        position: relative;
-    }
-
-
-
-    .tab-btn:hover:after {
-        width: 100%;
-    }
-
-    .tab-btn.active:after {
-        width: 100%;
-        left: 0;
-    }
-</style>
-@endsection
-
 @section('contents')
 
 <div class="row">
@@ -148,6 +71,7 @@
                                                 {{ $organization_data->name }}</option>
                                             @endforeach
                                         </select>
+                                        <span id="organisation_error" class="text-danger"></span>
                                         @error('organisation')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -164,6 +88,7 @@
                                             </option>
                                             @endforeach
                                         </select>
+                                        <span id="project_name_error" class="text-danger"></span>
                                         @error('project_name')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -188,6 +113,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 d-flex justify-content-end py-3">
+                            <button type="button" class="btn btn-sm btn-primary mx-3 next-btn">Save & Next <i
+                                    class="fa-solid fa-share"></i></button>
+                        </div>
                     </div>
 
                     <div class="tab-content" id="content2">
@@ -197,9 +126,11 @@
                                     <div class="col-sm-12 col-md-4">
                                         <label class="form-label">Work Order Number <span
                                                 class="text-danger">*</span></label>
-                                        <input name="wo_number" type="text" class="form-control form-control-sm"
+                                                <input name="wo_number" id="wo_number" type="text"
+                                            class="form-control form-control-sm"
                                             placeholder="Enter Work Order No"
                                             value="{{ old('wo_number',$workOrder->wo_number) }}">
+                                            <span id="wo_number_error" class="text-danger"></span>
                                         @error('wo_number')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -335,7 +266,7 @@
                                         <label class="form-label text-wrap"> City</label>
                                         <select class="form-select" id="cities" name="city">
                                             <option value="">Select City</option>
-                                            @if ($cities)
+                                            @if (!empty($cities) && is_array($cities) )
                                             @foreach ($cities as $city)
                                             <option value="{{ $city->id }}" {{ old('city',$workOrder->wo_city)==
                                                 $city->id ? 'selected' : '' }}>
@@ -403,6 +334,11 @@
 
                             </div>
                         </div>
+                        <div class="col-12 d-flex justify-content-between py-3">
+                            <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 prev-btn">Previous <i
+                                    class="fa-solid fa-arrow-left"></i></button>
+                            <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 next-btn">Save & Next <i class="fa-solid fa-share"></i></button>
+                        </div>
                     </div>
                     <div class="tab-content" id="content3">
                         <div class="panel-body">
@@ -410,47 +346,9 @@
                                 <button type="button" class="btn btn-sm btn-primary mx-3" id="addmorebtn">Add
                                     More</button>
                             </div>
-                            @if($workOrder->contacts->isEmpty())
-                            <div class="addMore">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 text-wrap">
-                                        <label class="form-label text-wrap">Person Name</label>
-                                        <input name="c_person_name[]" id="c_person_name" type="text"
-                                            class="form-control form-control-sm" placeholder="Person Name" value="">
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 text-wrap">
-                                        <label class="form-label text-wrap">Designation</label>
-                                        <input name="c_designation[]" id="c_designation" type="text"
-                                            class="form-control form-control-sm" placeholder="Designation" value="">
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-sm-12 col-md-6 text-wrap">
-                                        <label class="form-label text-wrap">Contact</label>
-                                        <input name="c_contact[]" id="c_contact" type="number"
-                                            class="form-control form-control-sm" placeholder="Contact" value="">
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 text-wrap">
-                                        <label class="form-label text-wrap">Email</label>
-                                        <input name="c_email[]" id="c_email" type="email"
-                                            class="form-control form-control-sm" placeholder="Email" value="">
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-sm-12 col-md-12 text-wrap">
-                                        <label for="exampleTextarea" class="form-label">Remarks</label>
-                                        <textarea name="c_remarks[]" id="c_remarks" class="form-control"
-                                            id="exampleTextarea" placeholder="Enter Remarks" value=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 delete-btn">Delete <i
-                                            class="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
-                            @else
+                            @if($workOrder->contacts->isNotEmpty())
                             @foreach ($workOrder->contacts as $contact)
-                            <div class="addMore">
+                            <div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 text-wrap">
                                         <label class="form-label text-wrap">Person Name</label>
@@ -494,6 +392,47 @@
                             </div>
                             @endforeach
                             @endif
+                           
+                            <div class="addMore">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 text-wrap">
+                                        <label class="form-label text-wrap">Person Name</label>
+                                        <input name="c_person_name[]" id="c_person_name" type="text" class="form-control form-control-sm" placeholder="Person Name" value="">
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 text-wrap">
+                                        <label class="form-label text-wrap">Designation</label>
+                                        <input name="c_designation[]" id="c_designation" type="text" class="form-control form-control-sm" placeholder="Designation" value="">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-6 text-wrap">
+                                        <label class="form-label text-wrap">Contact</label>
+                                        <input name="c_contact[]" id="c_contact" type="number" class="form-control form-control-sm" placeholder="Contact" value="">
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 text-wrap">
+                                        <label class="form-label text-wrap">Email</label>
+                                        <input name="c_email[]" id="c_email" type="email" class="form-control form-control-sm" placeholder="Email" value="">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-12 text-wrap">
+                                        <label for="exampleTextarea" class="form-label">Remarks</label>
+                                        <textarea name="c_remarks[]" id="c_remarks" class="form-control" id="exampleTextarea"
+                                placeholder="Enter Remarks" value=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 delete-btn">Delete <i
+                                            class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-12 d-flex justify-content-between py-3">
+                            <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 prev-btn">Previous <i
+                                    class="fa-solid fa-arrow-left"></i></button>
+                            <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 next-btn">Save & Next <i
+                                    class="fa-solid fa-share"></i></button>
                         </div>
                     </div>
                     <div class="tab-content" id="content4">
@@ -517,9 +456,11 @@
                                     <label class="form-label text-wrap"> Invoice State</label>
                                     <select class="form-select form-control" name="invoice_state">
                                         <option value=""> Select State</option>
+                                        @if(!empty($states))
                                         @foreach($states as $key => $value)
                                         <option value="{{$value->id}}">{{ $value->state }}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
@@ -547,7 +488,8 @@
                             </div>
 
                         </div>
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-between py-3 px-3">
+                            <button type="button" class="btn btn-sm btn-primary  prev-btn">Previous <i class="fa-solid fa-arrow-left"></i></button>
                             <button type="submit" class="btn btn-sm btn-primary"> Update Work Order <i
                                     class="fa-solid fa-arrow-right"></i></button>
                         </div>
@@ -563,12 +505,11 @@
 
 
 @section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
+
 <script src="{{asset('assets/vendor/js/addmore.js')}}"></script>
 <script src="{{asset('assets/js/hr/workOrder/work-order.js')}}"></script>
-<script src="{{asset('assets/js/hr/workOrder/edit-workOrder-tabs.js')}}"></script>
+<!-- <script src="{{asset('assets/js/hr/workOrder/edit-workOrder-tabs.js')}}"></script> -->
 <script src="{{ asset('assets/js/city.js') }}"></script>
+<script src="{{asset('assets/js/hr/workOrder/add-workOrder-tabs.js')}}"></script>
 
 @endsection

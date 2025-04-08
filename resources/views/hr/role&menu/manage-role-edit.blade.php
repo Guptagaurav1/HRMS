@@ -21,18 +21,21 @@
                             @foreach ($menus as $section => $menu)
                                 <div class="col-12">
                                     <div class="section-header">
-                                        <label class="form-check-label">{{ $section }}</label>
+                                        <label class="form-check-label">{{ $section }} - Check all 
+                                            <input class="form-check-input checkall"  name="checkall" value="" type="checkbox" data-section="{{ Str::slug($section) }}">
+                                            
+                                        </label>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
-                                    <div class="row">
+                                    <div class="row checkbox-group" data-section="{{ Str::slug($section) }}">
                                         @foreach ($menu as $sub_menu)
                                             <div class="col-md-4 mb-2">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" name="checkMenu[]" value="{{ $sub_menu->id }}" {{ in_array($sub_menu->id, $roles_assigned_arr) ? 'checked' : '' }} type="checkbox" id="gridCheck{{ $sub_menu->id }}">
+                                                    <input class="form-check-input checkallCheckbox" name="checkMenu[]" value="{{ $sub_menu->id }}" {{ in_array($sub_menu->id, $roles_assigned_arr) ? 'checked' : '' }} type="checkbox" id="gridCheck{{ $sub_menu->id }}" >
                                                     <label class="form-check-label" for="gridCheck{{ $sub_menu->id }}">
-                                                        {{$sub_menu->name}}
+                                                        {{$sub_menu->name}}   
                                                     </label>
                                                 </div>
                                             </div>
@@ -55,4 +58,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script src={{asset('assets/js/hr/manage-role.js')}}></script>
 @endsection
