@@ -41,18 +41,20 @@ class HrController extends Controller
                                         ->count();
 
         // to display today birthday of Employees
-
-        $employeesBirthday = EmpDetail::whereHas('getPersonalDetail', function($query){
-                            $query->whereRaw("DATE_FORMAT(emp_dob, '%m-%d') = ?", [date('m-d')]);
-                            })
-                            ->select('emp_code','emp_name','emp_work_order','department','emp_designation','emp_email_first')
-                            ->where('emp_current_working_status','active');
+        $current_date = date('m-d');
+        $addFiveDays = date('m-d', strtotime('+5 days'));
+        
+        $employeesBirthday = EmpDetail::whereHas('getPersonalDetail', function($query) use ($current_date, $addFiveDays) {
+                                $query->whereRaw("DATE_FORMAT(emp_dob, '%m-%d') BETWEEN ? AND ?", [$current_date, $addFiveDays]);
+                                })
+                            ->select('emp_code', 'emp_name', 'emp_work_order', 'department', 'emp_designation', 'emp_email_first')
+                            ->where('emp_current_working_status', 'active');
         $employeesBirthday = $employeesBirthday->paginate(10);
 
         // to display today marriage anniversary of Employees
 
-        $employeeMarriageAnni =  EmpDetail::whereHas('getPersonalDetail', function($query){
-                                        $query->whereRaw("DATE_FORMAT(emp_dom, '%m-%d') = ?", [date('m-d')]);
+        $employeeMarriageAnni =  EmpDetail::whereHas('getPersonalDetail', function($query) use ($current_date, $addFiveDays){
+                                            $query->whereRaw("DATE_FORMAT(emp_dom, '%m-%d') BETWEEN ? AND ?", [$current_date, $addFiveDays]);
                                         })
                                         ->select('emp_code','emp_name','emp_work_order','department','emp_designation','emp_email_first')
                                         ->where('emp_current_working_status','active');
@@ -64,15 +66,13 @@ class HrController extends Controller
         $employeeWorkAnniversary = EmpDetail::whereHas('getPersonalDetail')
                                     ->select('emp_code', 'emp_name', 'emp_work_order', 'department', 'emp_designation', 'emp_email_first', 'emp_doj')
                                     ->where('emp_current_working_status', 'active')
-                                    ->whereRaw("DATE_FORMAT(emp_doj, '%m-%d') = ?", [date('m-d')])
+                                    ->whereRaw("DATE_FORMAT(emp_doj, '%m-%d') BETWEEN ? AND ?", [$current_date, $addFiveDays])
                                     ->paginate(10);
 
-        $employeeLeaves = LeaveRequest::with('employee')->select('leave_code','emp_code','department_head_email','reason_for_absence','absence_start_date','absence_end_date','status','created_at')
+        $employeeLeaves = LeaveRequest::with('employee')->select('leave_code','emp_code','department_head_email','reason_for_absence','absence_dates','status','created_at')
                                     ->where('status', 'Wait')
                                     ->orWhere('status', 'Modified')
                                     ->orderByDesc('id');
-                                    
-
 
         $employeeLeaves = $employeeLeaves->paginate();
 

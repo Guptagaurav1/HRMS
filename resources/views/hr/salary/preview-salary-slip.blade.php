@@ -26,7 +26,7 @@
                         </div>
                     </a>
                     @else
-                    <a href="{{ route('details.employee-salary-slip') }}">
+                    <a href="{{ url()->previous() }}">
                         <div class="back-button-box">
                             <button type="button" class="btn btn-back">
                                 <i class="fa-solid fa-arrow-left"></i>

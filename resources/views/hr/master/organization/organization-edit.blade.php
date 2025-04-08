@@ -100,7 +100,7 @@
                                 <span class="error text-danger" id="error-state"></span>
                             </div>
 
-                            <div class="col-lg-4 col-sm-6 mt-3" style="display:{{ $organization->psu == 'yes'? 'block' : none}};" id="psu_name">
+                            <div class="col-lg-4 col-sm-6 mt-3" style="display:{{ $organization->psu == 'yes'? 'block' : 'none'}};" id="psu_name">
                                 <label for="postal_code" class="form-label"> Name Of PSU<span class="text-danger">
                                         **</span></label>
                                 <input type="text" name="psu_name" value="{{ $organization->psu_name }}" class="form-control form-control-sm"
@@ -130,9 +130,11 @@
                 <div>
                     <button type="submit" class="btn btn-sm btn-primary">Submit </button>
                 </div>
-               
             </div>
         </div>
     </form>
 </div>
+@endsection
+@section('script')
+<script src="{{ asset('assets/js/masters/organization.js') }}"></script>
 @endsection

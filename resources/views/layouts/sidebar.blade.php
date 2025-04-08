@@ -884,16 +884,18 @@
                         <li class="sidebar-dropdown-item">
 
                         </li>
+                        @if (auth('employee')->user()->hasPermission('employee.dashboard'))
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span
                                     class="nav-icon"><i class="fa-solid fa-magnifying-glass"></i></span> <span
                                     class="sidebar-txt">Home</span></a>
                             <ul class="sidebar-dropdown-menu" id="ecommerceDropdown">
-                                <li class="sidebar-dropdown-item"><a href="{{ route('employee_dashboard') }}"
+                                <li class="sidebar-dropdown-item"><a href="{{ route('employee.dashboard') }}"
                                         class="sidebar-link">Home</a></li>
 
                             </ul>
                         </li>
+                        @endif
 
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span

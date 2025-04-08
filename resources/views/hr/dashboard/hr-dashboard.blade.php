@@ -142,7 +142,10 @@
                                 <td class="text-center">{{ $value->emp_email_first }}</td>
                                 <td class="text-center">{{ \Carbon\Carbon::parse($value->getPersonalDetail->emp_dob)->format('d-m-Y') }}</td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-primary btn-sm">Send Email</button>
+                                    <a href="javascript:void(0);"><button type="button" data-bs-toggle="modal"
+                                        data-bs-target="#birthdayMailModal"
+                                        data-bs-whatever="{{ $value->emp_email_first }}"
+                                        class="btn btn-sm btn-primary">Send Email</button></a>
                                 </td>
                             </tr>
                             @empty
@@ -267,8 +270,7 @@
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Reporting Email</th>
                                     <th class="text-center">Reason For Absence</th>
-                                    <th class="text-center">Absence Start Date</th>
-                                    <th class="text-center">Absence End Date</th>
+                                    <th class="text-center">Absence Date</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Applied On</th>
                                     <th class="text-center">Action</th>
@@ -279,16 +281,15 @@
 
                                 @forelse($employeeLeaves as $key => $value)
                                 <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center attributes-column">PSSPL/2023-24/3593</td>
-                                    <td class="text-center">Daulat Sahu</td>
-                                    <td class="text-center">BECIL/ND/SCI/MAN/24</td>
-                                    <td class="text-center">ther</td>
-                                    <td class="text-center attributes-column">UI Designe</td>
-                                    <td class="text-center">arzoo.saifi@gmail.com</td>
-                                    <td class="text-center">4 april</td>
-                                    <td class="text-center"><span class="badge text-bg-primary">Wait</span></td>
-                                    <td class="text-center">4 april</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center attributes-column">{{ $value->leave_code }}</td>
+                                    <td class="text-center">{{ $value->employee->emp_code ? $value->employee->emp_code : ''  }}</td>
+                                    <td class="text-center">{{ $value->employee->emp_name ? $value->employee->emp_name : ''  }}</td>
+                                    <td class="text-center">{{ $value->employee->reporting_email ? $value->employee->reporting_email : ''  }}</td>
+                                    <td class="text-center attributes-column">{{ $value->reason_for_absence ? $value->reason_for_absence : ''  }}</td>
+                                    <td class="text-center">{{ $value->absence_dates ? $value->absence_dates : ''  }}</td>
+                                    <td class="text-center"><span class="badge text-bg-primary">{{ $value->status ? $value->status : ''  }}</span></td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($value->created_at)->format('d-m-Y') }}</td>
                                     <td class="text-center">
                                         <div>
                                             <button type="button" class="btn btn-primary btn-sm">View</button>
@@ -318,7 +319,6 @@
 
     <div class="col-lg-12">
         <div class="panel">
-            
                 <div class="panel-body">
                     <div id="audienceOverview" class="chart-dark"></div>
                 </div>
@@ -326,329 +326,43 @@
            
         </div>
     </div>
-
-<div class="col-xxl-4 col-md-6">
-    <div class="panel">
-        <div class="panel-header">
-            <h5 class="text-white">Recent Activity</h5>
-            <div class="btn-box">
-                <a href="#" class="btn btn-sm btn-primary">View All</a>
-            </div>
-        </div>
-        <div class="panel-body">
-            <ul class="hr-recent-activity">
-                <li>
-                    <div class="left">
-                        <span class="activity-name">Leave Approval Request</span>
-                        <span class="activity-short">From "RuthDyer" UiDesign Leave On Monday 12 Jan 2020.</span>
-                    </div>
-                    <div class="right">
-                        <span class="activity-time">6 min ago</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="left">
-                        <span class="activity-name">Work Update</span>
-                        <span class="activity-short">From "RuthDyer" UiDesign Leave On Monday 12 Jan 2020.</span>
-                    </div>
-                    <div class="right">
-                        <span class="activity-time">16 min ago</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="left">
-                        <span class="activity-name">Leave Approval Request</span>
-                        <span class="activity-short">From "RuthDyer" UiDesign Leave On Monday 12 Jan 2020.</span>
-                    </div>
-                    <div class="right">
-                        <span class="activity-time">6 min ago</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="left">
-                        <span class="activity-name">Work Update</span>
-                        <span class="activity-short">From "RuthDyer" UiDesign Leave On Monday 12 Jan 2020.</span>
-                    </div>
-                    <div class="right">
-                        <span class="activity-time">16 min ago</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="left">
-                        <span class="activity-name">Leave Approval Request</span>
-                        <span class="activity-short">From "RuthDyer" UiDesign Leave On Monday 12 Jan 2020.</span>
-                    </div>
-                    <div class="right">
-                        <span class="activity-time">6 min ago</span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="col-xxl-3 col-md-6">
-    <div class="panel">
-        <div class="panel-header">
-            <h5 class="text-white">Notice Board</h5>
-        </div>
-        <div class="panel-body">
-            <ul class="hr-notice-board">
-                <li>
-                    <div class="activity-box">
-                        <div class="date-box date-box-lg">
-                            <span>14</span>
-                            <span>Feb</span>
-                        </div>
-                        <div class="part-txt">
-                            <span>Meeting for campaign with sales team</span>
-                            <span class="text-muted">12:00am - 03:30pm</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="activity-box">
-                        <div class="date-box date-box-lg">
-                            <span>14</span>
-                            <span>Feb</span>
-                        </div>
-                        <div class="part-txt">
-                            <span>Meeting for campaign with sales team</span>
-                            <span class="text-muted">12:00am - 03:30pm</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="activity-box">
-                        <div class="date-box date-box-lg">
-                            <span>14</span>
-                            <span>Feb</span>
-                        </div>
-                        <div class="part-txt">
-                            <span>Meeting for campaign with sales team</span>
-                            <span class="text-muted">12:00am - 03:30pm</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="activity-box">
-                        <div class="date-box date-box-lg">
-                            <span>14</span>
-                            <span>Feb</span>
-                        </div>
-                        <div class="part-txt">
-                            <span>Meeting for campaign with sales team</span>
-                            <span class="text-muted">12:00am - 03:30pm</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="activity-box">
-                        <div class="date-box date-box-lg">
-                            <span>14</span>
-                            <span>Feb</span>
-                        </div>
-                        <div class="part-txt">
-                            <span>Meeting for campaign with sales team</span>
-                            <span class="text-muted">12:00am - 03:30pm</span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="col-xxl-6 col-md-8">
-    <div class="panel">
-        <div class="panel-header">
-            <h5 class="text-white">Attendance</h5>
-            <div id="tableSearch"></div>
-        </div>
-        <div class="panel-body">
-            <table class="table table-hover attendance-table digi-dataTable" id="myTable">
-                <thead>
-                    <tr>
-                        <th>S.No</th>
-                        <th>Employee</th>
-                        <th>Status</th>
-                        <th>Check In</th>
-                        <th>Check Out</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>01</td>
-                        <td>Diane Nolan</td>
-                        <td>
-                            <span class="badge bg-primary rounded px-2">Present</span>
-                        </td>
-                        <td>09:30 am</td>
-                        <td>06:30 pm</td>
-                        <td>
-                            <div class="btn-box">
-                                <button><i class="fa-light fa-eye"></i></button>
-                                <button><i class="fa-light fa-pen"></i></button>
-                                <button><i class="fa-light fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>02</td>
-                        <td>Paul Reynolds</td>
-                        <td>
-                            <span class="badge bg-danger rounded px-2">Absent</span>
-                        </td>
-                        <td>09:30 am</td>
-                        <td>06:30 pm</td>
-                        <td>
-                            <div class="btn-box">
-                                <button><i class="fa-light fa-eye"></i></button>
-                                <button><i class="fa-light fa-pen"></i></button>
-                                <button><i class="fa-light fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>03</td>
-                        <td>Adela Perez</td>
-                        <td>
-                            <span class="badge bg-primary rounded px-2">Present</span>
-                        </td>
-                        <td>09:30 am</td>
-                        <td>06:30 pm</td>
-                        <td>
-                            <div class="btn-box">
-                                <button><i class="fa-light fa-eye"></i></button>
-                                <button><i class="fa-light fa-pen"></i></button>
-                                <button><i class="fa-light fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>04</td>
-                        <td>Logan van</td>
-                        <td>
-                            <span class="badge bg-primary rounded px-2">Present</span>
-                        </td>
-                        <td>09:30 am</td>
-                        <td>06:30 pm</td>
-                        <td>
-                            <div class="btn-box">
-                                <button><i class="fa-light fa-eye"></i></button>
-                                <button><i class="fa-light fa-pen"></i></button>
-                                <button><i class="fa-light fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>05</td>
-                        <td>Diane Nolan</td>
-                        <td>
-                            <span class="badge bg-primary rounded px-2">Present</span>
-                        </td>
-                        <td>09:30 am</td>
-                        <td>06:30 pm</td>
-                        <td>
-                            <div class="btn-box">
-                                <button><i class="fa-light fa-eye"></i></button>
-                                <button><i class="fa-light fa-pen"></i></button>
-                                <button><i class="fa-light fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>06</td>
-                        <td>Diane Nolan</td>
-                        <td>
-                            <span class="badge bg-primary rounded px-2">Present</span>
-                        </td>
-                        <td>09:30 am</td>
-                        <td>06:30 pm</td>
-                        <td>
-                            <div class="btn-box">
-                                <button><i class="fa-light fa-eye"></i></button>
-                                <button><i class="fa-light fa-pen"></i></button>
-                                <button><i class="fa-light fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="table-bottom-control"></div>
-        </div>
-    </div>
-</div>
-<div class="col-xxl-3 col-md-4">
-    <div class="panel">
-        <div class="panel-header">
-            <h5 class="text-white">Upcoming Interviews</h5>
-            <div class="btn-box">
-                <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
-            </div>
-        </div>
-        <div class="panel-body">
-            <ul class="upcoming-interview">
-                <li>
-                    <div class="avatar avatar-lg">
-                        <img src="{{asset('assets/images/avatar-2.png')}}" class="rounded" alt="user">
-                    </div>
-                    <div class="part-txt">
-                        <span class="applicant-name">Natalie Gibson</span>
-                        <span class="applicant-role">
-                            <small><span class="text-muted">Ui/UX Designer</span></small>
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="avatar avatar-lg">
-                        <img src="{{asset('assets/images/avatar-3.png')}}" class="rounded" alt="user">
-                    </div>
-                    <div class="part-txt">
-                        <span class="applicant-name">Natalie Gibson</span>
-                        <span class="applicant-role">
-                            <small><span class="text-muted">Ui/UX Designer</span></small>
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="avatar avatar-lg">
-                        <img src="{{asset('assets/images/avatar-4.png')}}" class="rounded" alt="user">
-                    </div>
-                    <div class="part-txt">
-                        <span class="applicant-name">Natalie Gibson</span>
-                        <span class="applicant-role">
-                            <small><span class="text-muted">Ui/UX Designer</span></small>
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="avatar avatar-lg">
-                        <img src="{{asset('assets/images/avatar-5.png')}}" class="rounded" alt="user">
-                    </div>
-                    <div class="part-txt">
-                        <span class="applicant-name">Natalie Gibson</span>
-                        <span class="applicant-role">
-                            <small><span class="text-muted">Ui/UX Designer</span></small>
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="avatar avatar-lg">
-                        <img src="{{asset('assets/images/avatar-6.png')}}" class="rounded" alt="user">
-                    </div>
-                    <div class="part-txt">
-                        <span class="applicant-name">Natalie Gibson</span>
-                        <span class="applicant-role">
-                            <small><span class="text-muted">Ui/UX Designer</span></small>
-                        </span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
 </div>
 @endsection
+
+{{-- Modal employee birthday --}}
+
+@section('modal')
+    <div class="modal fade" id="birthdayMailModal" tabindex="-1" aria-labelledby="birthdayMailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-light">Employee Wish Email</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="send-greeting form" enctype="multipart/form-data" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">To</label>
+                            <input type="email" class="form-control" name="emp_mail" value="" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Attach Greeting <span
+                                    class="text-danger fw-bold">*</span></label>
+                            <input type="file" class="form-control" name="greeting" accept=".jpg, .png, .jpeg" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary sendbutton">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('script')
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
 <script src="{{asset('assets/js/employee-tab-dashboard.js')}}"></script>

@@ -238,6 +238,8 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-122', 'section' => 'Leave', 'section_icon' => '', 'name' => 'Apply Leave', 'page' => 'leave.leave_request', 'status' => '1', 'parent_id' => '7'],
 
             ['mid' => 'M-123', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Report Log ', 'page' => 'report-log', 'status' => '1', 'parent_id' => '12'],
+
+            ['mid' => 'M-124', 'section' => 'Employee Details', 'section_icon' => '', 'name' => 'Employee Dashboard', 'page' => 'employee.dashboard', 'status' => '1', 'parent_id' => '29'],
             
         ];
 
