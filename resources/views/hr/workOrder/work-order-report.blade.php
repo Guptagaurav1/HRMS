@@ -28,7 +28,7 @@
         </div>
 
 
-        <div class="row px-3 mt-2">
+        <!-- <div class="row px-3 mt-2">
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ $message }}</strong>
@@ -38,7 +38,7 @@
                 <strong>{{ $message }}</strong>
             </div>
             @endif
-        </div>
+        </div> -->
 
         <!-- Download ZIP Section -->
         <div class="text-end hide-text">
@@ -113,7 +113,7 @@
             <tbody>
                 <tr>
                     <td class="text-dark fw-bold">Total Amount</td>
-                    <td colspan="6"></td>
+                    <td colspan="5"></td>
                     <td class="text-dark fw-bold">INR {{number_format($overallSum, 2)}}</td>
                 </tr>
             </tbody>

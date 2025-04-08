@@ -11,7 +11,7 @@ $(document).ready(function () {
         let esiregex = /^([0-9]{2})[\–\-]([0-9]{2})[\–\-]([0-9]{6})[\–\-]([0-9]{3})[\–\-]([0-9]{4})$/;
       
 
-        if (charregex.test(enteredVal) && result != 'phone' && result != 'email' && result != 'contact' && result != 'emp_account_no' && result!=="phone_no" && result != 'emp_ifsc' && result != 'emp_pan' && result != "emp_esi_no" && result !=="emp_email_first" && result!=='billing_email_id' && result!=="jobseeker_email" && result!=='remark' && result!=='update_email' && result !=='postal_code') {
+        if (charregex.test(enteredVal) && result != 'phone' && result != 'email' && result != 'contact' && result != 'emp_account_no' && result!=="phone_no" && result != 'emp_ifsc' && result != 'emp_pan' && result != "emp_esi_no" && result !=="emp_email_first" && result!=='billing_email_id' && result!=="jobseeker_email" && result!=='remark' && result!=='update_email' && result!=='mobile' && result!=='bank_email' ) {
             errormessage = "";
             color = 'green';
         }
@@ -41,6 +41,8 @@ $(document).ready(function () {
             errormessage = "";
             color = 'green';
         }
+
+        
 
         else if (result == 'emp_esi_no' && enteredVal.match(esiregex)) {
             errormessage = "";

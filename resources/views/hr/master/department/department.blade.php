@@ -18,7 +18,7 @@
             </div>
 
             <div class="row mt-4">
-                <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-2">
+                <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-4">
                     <div class="">
                         <form class="row g-3" method="get">
                             <div class="col-auto mb-3">

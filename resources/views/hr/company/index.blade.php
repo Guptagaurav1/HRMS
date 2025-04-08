@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'Companies'])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
+
 
 @section('contents')
     <div class="row">
@@ -10,14 +8,13 @@
             <div class="panel">
                 <div class="panel-header">
                     <h2 class="mt-2">Company List</h2>
-                    <div class="text-start">
-                    <a href="{{ route('hr_dashboard') }}">
-                        <div class="back-button-box">
-                            <button type="button" class="btn btn-back">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </button>
-                        </div>
-                    </a>
+                    <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
                 </div>
                 </div>
                 
@@ -37,7 +34,8 @@
                                         </div>
                                         <div class="col-auto">
                                             <a href="{{ route('company.list') }}"
-                                                class="btn btn-primary mb-3">Reset <i class="fa-solid fa-rotate-left"></i></a>
+                                                class="btn btn-secondary mb-3">Clear <i
+                                                class="fa-solid fa-eraser"></i> </a>
                                         </div>
                                     </form>
                                 </div>
@@ -103,25 +101,25 @@
                             id="allEmployeeTable">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Company Name</th>
-                                    <th>Mobile</th>
-                                    <th>Email</th>
-                                    <th>Address</th>
-                                    <th>Registration No.</th>
-                                    <th>Action</th>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Company Name</th>
+                                    <th class="text-center">Mobile</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Address</th>
+                                    <th class="text-center">Registration No.</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($companies as $company)
                                    <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$company->name}}</td>
-                                    <td>{{$company->mobile}}</td>
-                                    <td>{{$company->email}}</td>
-                                    <td>{{$company->address}}</td>
-                                    <td>{{$company->registration_no}}</td>
-                                    <td><a href="{{route('company.view', ['id' => $company->id])}}" class="btn btn-primary text-light text-decoration-none">View</a></td>
+                                    <td class="text-center">{{$loop->iteration}}</td>
+                                    <td class="text-center">{{$company->name}}</td>
+                                    <td class="text-center">{{$company->mobile}}</td>
+                                    <td class="text-center">{{$company->email}}</td>
+                                    <td class="text-center">{{$company->address}}</td>
+                                    <td class="text-center">{{$company->registration_no}}</td>
+                                    <td class="text-center"><a href="{{route('company.view', ['id' => $company->id])}}" class="btn btn-primary text-light text-decoration-none">View</a></td>
                                    </tr>
                                 @empty
                                     <tr>
