@@ -17,6 +17,7 @@
 .custom-tabs {
     display: flex;
     border-bottom: 2px solid #ddd;
+    flex-wrap: wrap;
     margin-top: 20px;
     background-color: white;
 }

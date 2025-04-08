@@ -114,10 +114,10 @@
                                 @forelse($companies as $company)
                                    <tr>
                                     <td class="text-center">{{$loop->iteration}}</td>
-                                    <td class="text-center">{{$company->name}}</td>
+                                    <td class="text-center attributes-column">{{$company->name}}</td>
                                     <td class="text-center">{{$company->mobile}}</td>
                                     <td class="text-center">{{$company->email}}</td>
-                                    <td class="text-center">{{$company->address}}</td>
+                                    <td class="text-center attributes-column">{{$company->address}}</td>
                                     <td class="text-center">{{$company->registration_no}}</td>
                                     <td class="text-center"><a href="{{route('company.view', ['id' => $company->id])}}" class="btn btn-primary text-light text-decoration-none">View</a></td>
                                    </tr>
