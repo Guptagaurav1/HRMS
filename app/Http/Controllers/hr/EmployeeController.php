@@ -811,7 +811,7 @@ class EmployeeController extends Controller
             }
             return view("hr.employee.edit-employee", compact('banks', 'skills', 'reporting_managers', 'designations', 'departments', 'functional_roles', 'employee_id', 'employee_details', 'recruitment_id', 'workorders', 'id', 'states', 'cities'));
         } catch (Throwable $th) {
-            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1033,7 +1033,7 @@ class EmployeeController extends Controller
             $designations = Designation::select('name')->get();
             return view("hr.employee.send-letter", compact('empdetails', 'designations'));
         } catch (Throwable $th) {
-            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1060,7 +1060,7 @@ class EmployeeController extends Controller
             $documents = $documents->orderByDesc('emp_send_doc.id')->paginate(10)->withQueryString();
             return view("hr.employee.view-letter", compact('documents', 'id', 'search'));
         } catch (Throwable $th) {
-            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1655,7 +1655,7 @@ class EmployeeController extends Controller
             }
             return response()->json(['success' => true, 'data' => $required_data]);
         } catch (Throwable $e) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 }

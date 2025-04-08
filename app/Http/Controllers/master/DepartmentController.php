@@ -55,6 +55,7 @@ class DepartmentController extends Controller
             $departments = new Department();
             $departments->department = $request->department;
             $departments->reporting_manager_id = $request->reporting_manager_id;
+            $departments->status = '1';
             $departments->save();
 
             $skill = $request->skill;
@@ -68,7 +69,7 @@ class DepartmentController extends Controller
             }
             return redirect()->route('departments.index')->with('success', 'Department created !');
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error.']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -166,17 +167,18 @@ class DepartmentController extends Controller
                     Rule::unique('departments')->whereNull('deleted_at'),
                     'max:255'
                 ],
-                'reporting_manager_id' => [
+                'reporting_manager' => [
                     'required',
                     'integer',
-                    Rule::unique('departments')->whereNull('deleted_at')
+                    Rule::unique('departments', 'reporting_manager_id')->whereNull('deleted_at')
                 ],
                 'skill' => 'required|max:255'
             ]);
 
             $departments = new Department();
             $departments->department = $request->department;
-            $departments->reporting_manager_id = $request->reporting_manager_id;
+            $departments->reporting_manager_id = $request->reporting_manager;
+            $departments->status = '1';
             $departments->save();
 
             $skill = $request->skill;
@@ -193,7 +195,7 @@ class DepartmentController extends Controller
             return response()->json(['success' => true, 'message' => 'Department created successfully!']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => 'Server Error.']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
