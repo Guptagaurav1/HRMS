@@ -36,7 +36,8 @@
                                         </div>
                                         <div class="col-auto">
                                             <a href="{{ route('employee.employee-list') }}"
-                                                class="btn btn-primary mb-3">Reset <i class="fa-solid fa-rotate-left"></i></a>
+                                                class="btn btn-secondary mb-3">Clear <i
+                                                class="fa-solid fa-eraser"></i></a>
                                         </div>
                                     </form>
                                 </div>
