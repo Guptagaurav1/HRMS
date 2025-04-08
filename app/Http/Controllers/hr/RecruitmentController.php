@@ -168,7 +168,7 @@ class RecruitmentController extends Controller
             $request = PositionRequest::findOrFail($id);
             return view("hr.recruitment.preview-executive-description", compact('request'));
         } catch (Throwable $th) {
-            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -359,7 +359,7 @@ class RecruitmentController extends Controller
 
             return view("hr.recruitment.show-assign-work-log", compact('position', 'contacts', 'search', 'id'));
         } catch (Throwable $th) {
-            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -372,7 +372,7 @@ class RecruitmentController extends Controller
             $position = PositionRequest::findOrFail($id);
             return view("hr.recruitment.preview-job-description", compact('position', 'id'));
         } catch (Throwable $th) {
-            return redirect()->route('show-assign-work-log', ['id' => $id])->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('show-assign-work-log', ['id' => $id])->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -386,7 +386,7 @@ class RecruitmentController extends Controller
             $data = RecruitmentForm::findOrFail($rec_id);
             return view("hr.recruitment.applicant-recruitment-details-summary", compact('data'));
         } catch (Throwable $th) {
-            return redirect()->route('show-assign-work-log', ['id' => $position])->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('show-assign-work-log', ['id' => $position])->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -425,7 +425,7 @@ class RecruitmentController extends Controller
             $details->save();
             return response()->json(['success' => true, 'message' => 'Salary Update Successfully.']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -444,7 +444,7 @@ class RecruitmentController extends Controller
             $details->save();
             return response()->json(['success' => true, 'message' => 'Date of Joining Update Successfully.']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -463,7 +463,7 @@ class RecruitmentController extends Controller
             $details->save();
             return response()->json(['success' => true, 'message' => 'Location Update Successfully.']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -483,7 +483,7 @@ class RecruitmentController extends Controller
             $details->save();
             return response()->json(['success' => true, 'message' => 'Scope of Work Update Successfully.']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -574,7 +574,7 @@ class RecruitmentController extends Controller
             }
         } catch (Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -595,7 +595,7 @@ class RecruitmentController extends Controller
     //         return response()->json(['success' => true, 'message' => 'Candidate Rejected!']);
     //     }
     //     catch(Throwable $th) {
-    //         return response()->json(['error' => true, 'message' => 'Server Error']);
+    //         return response()->json(['error' => true, 'message' => $th->getMessage()]);
     //     }
     // }  
 
@@ -650,7 +650,7 @@ class RecruitmentController extends Controller
             return response()->json(['success' => true, 'message' => 'Interview details send to candidate successfully!']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -755,7 +755,7 @@ class RecruitmentController extends Controller
             }
         } catch (Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -851,7 +851,7 @@ class RecruitmentController extends Controller
                 return response()->json(['success' => true, 'message' => 'Candidate 2nd round skipped successfully!']);
             }
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -913,7 +913,7 @@ class RecruitmentController extends Controller
             Mail::to($details->email)->cc($this->cc)->send(new ShortlistMail($maildata));
             return response()->json(['success' => true, 'message' => 'Candidate has been selected and confirmation mail sent successfully!']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1088,7 +1088,7 @@ class RecruitmentController extends Controller
             if(!update_employee_code($request->recruitment, $request->emp_code))
             {
                 DB::rollBack();
-                return response()->json(['error' => true, 'message' => 'Server Error']);   
+                return response()->json(['error' => true, 'message' => 'Record not saved']);   
             }
             
             DB::commit();
@@ -1168,7 +1168,7 @@ class RecruitmentController extends Controller
             $banks = Bank::select('id', 'name_of_bank')->whereNull('deleted_at')->get();
             return view("hr.recruitment.verify-documents", compact('details', 'skills', 'banks'));
         } catch (Throwable $th) {
-            return redirect()->route('applicant-recruitment-details-summary', ['rec_id' => $id, 'position' => $position])->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('applicant-recruitment-details-summary', ['rec_id' => $id, 'position' => $position])->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1186,7 +1186,7 @@ class RecruitmentController extends Controller
             $details->save();
             return response()->json(['success' => true, 'message' => 'Documents Checked Successfully!']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1205,7 +1205,7 @@ class RecruitmentController extends Controller
             $details->save();
             return response()->json(['success' => true, 'message' => 'Document Verified Successfully!']);
         } catch (Throwable $th) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -2254,7 +2254,7 @@ class RecruitmentController extends Controller
             return redirect()->route('guest.acceptance_form', ['id' => $request->rec_id])->with(['success' => true,'message' => 'Offer Letter Accepted Successfully..']);
        }
        catch (Throwable $th) {
-            return redirect()->route('guest.acceptance_form', ['id' => $request->rec_id])->with(['error' => true,'message' => 'Server Error']);
+            return redirect()->route('guest.acceptance_form', ['id' => $request->rec_id])->with(['error' => true,'message' => $th->getMessage()]);
        }
     }
 
@@ -2465,7 +2465,7 @@ class RecruitmentController extends Controller
             return view("hr.recruitment.update-position", compact('record', 'departments', 'states', 'functional_role', 'qualification', 'skills', 'hr_executives'));
         }
         catch (Throwable $th) {
-            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -2520,7 +2520,7 @@ class RecruitmentController extends Controller
             return redirect()->route('recruitment-report')->with(['success' => true, 'message' => 'Position Updated Successfully.']);
         }
         catch (Throwable $e) {
-            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('recruitment-report')->with(['error' => true, 'message' => $e->getMessage()]);
         }
     
     } 
@@ -2574,7 +2574,7 @@ class RecruitmentController extends Controller
             return redirect()->route("recruitment.call_logs")->with(['success' => true, 'message' => 'Details Saved Successfully.']);
         }
         catch (Throwable $e) {
-            return redirect()->route("recruitment.call_logs")->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route("recruitment.call_logs")->with(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 
@@ -2616,7 +2616,7 @@ class RecruitmentController extends Controller
             return view("hr.recruitment.editcontact-form", compact('positions', 'qualification', 'id', 'log'));
         }
         catch (Throwable $e) {
-            return redirect()->route("recruitment.call_logs")->with(['error' => true,'message' => 'Server Error']);
+            return redirect()->route("recruitment.call_logs")->with(['error' => true,'message' => $e->getMessage()]);
         }
     }
 
@@ -2664,7 +2664,7 @@ class RecruitmentController extends Controller
             return redirect()->route("recruitment.call_logs")->with(['success' => true, 'message' => 'Details Updated Successfully.']);
         }
         catch (Throwable $e) {
-            return redirect()->route("recruitment.call_logs")->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route("recruitment.call_logs")->with(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 

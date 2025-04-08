@@ -1156,10 +1156,10 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Reporting Manager<span class="text-danger">*</span></label>
-                                <select name="reporting_manager_id" class="form-select" required>
+                                <select name="reporting_manager" class="form-select" required>
                                     <option value="">Select Reporting Manager</option>
                                     @foreach ($reporting_managers as $manager)
-                                        <option value="{{ $manager->id }}">
+                                        <option value="{{ $manager->id }}"
                                             {{ old('reporting_manager_id') == $manager->id ? 'selected' : '' }}>
                                             {{ $manager->name }}
                                         </option>
