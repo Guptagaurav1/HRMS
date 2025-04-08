@@ -11,14 +11,13 @@
 
     <div class="panel-header">
         <h2 class="">Update Project</h2>
-        <div class="text-start">
-            <a href="{{ route('hr_dashboard') }}">
-                <div class="back-button-box">
-                    <button type="button" class="btn btn-back">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </button>
-                </div>
-            </a>
+        <div>
+            <ul class="breadcrumb">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Profile Details</a></li>
+                <li>Department List</li>
+            </ul>
         </div>
     </div>
     <div class="row">
@@ -86,9 +85,15 @@
                 </div>
             </div>
     </div>
-    <div class="col-12 d-flex justify-content-end  px-3 py-3">
-        <button type="submit" class="btn btn-sm btn-primary"> Register Project <i
-                class="fa-solid fa-arrow-right"></i></button>
+    <div class="col-12 d-flex justify-content-end  px-3 py-3 gap-3">
+        <div class="button">
+            <button type="button" class="btn btn-sm btn-secondary">Cancel </button>
+
+        </div>
+        <div class="">
+            <button type="submit" class="btn btn-sm btn-primary"> Submit </button>
+        </div>
+       
     </div>
 
     <form>

@@ -136,9 +136,9 @@ class MenuSeeder extends Seeder
 
             //Logs
 
-            ['mid' => 'M-75', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Anniversary Wish Logs', 'page' => 'events.marriage-anniversary-list', 'status' => '1', 'parent_id' => '17'],
-            ['mid' => 'M-76', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Birthday Wish Log', 'page' => 'events.birthday-list', 'status' => '1', 'parent_id' => '17'],
-            ['mid' => 'M-77', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Work Anniversary Wish Log', 'page' => 'events.work-anniversary-list', 'status' => '1', 'parent_id' => '17'],
+            ['mid' => 'M-75', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Anniversary Wish Logs', 'page' => 'anniversary-wish-log', 'status' => '1', 'parent_id' => '17'],
+            ['mid' => 'M-76', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Birthday Wish Log', 'page' => 'birthday-wish-log', 'status' => '1', 'parent_id' => '17'],
+            ['mid' => 'M-77', 'section' => 'Logs', 'section_icon' => '', 'name' => 'Work Anniversary Wish Log', 'page' => 'work-anniversary-wish-log', 'status' => '1', 'parent_id' => '17'],
 
 
             //Logs
@@ -202,6 +202,7 @@ class MenuSeeder extends Seeder
             // Profile
             ['mid' => 'M-108', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Modify Profile Request', 'page' => 'profile.modify-profile-request', 'status' => '1', 'parent_id' => '25'],
             ['mid' => 'M-109', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Profile Request Log', 'page' => 'profile.profile-detail-request-list', 'status' => '1', 'parent_id' => '25'],
+            ['mid' => 'M-110', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Admin Profile', 'page' => 'profile.admin-profile', 'status' => '1', 'parent_id' => '25'],
 
             // Posh Structure
 
@@ -240,6 +241,18 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-123', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Report Log ', 'page' => 'report-log', 'status' => '1', 'parent_id' => '12'],
 
             ['mid' => 'M-124', 'section' => 'Employee Details', 'section_icon' => '', 'name' => 'Employee Dashboard', 'page' => 'employee.dashboard', 'status' => '1', 'parent_id' => '29'],
+
+            ['mid' => 'M-125', 'section' => 'Master', 'section_icon' => '', 'name' => 'Holidays', 'page' => 'holiday.list', 'status' => '1', 'parent_id' => '28'],
+
+            ['mid' => 'M-126', 'section' => 'Master', 'section_icon' => '', 'name' => 'Leave Policy', 'page' => 'leave-policy.list', 'status' => '1', 'parent_id' => '28'],
+
+            //Upcoming Events
+
+            ['mid' => 'M-127', 'section' => 'Upcoming Events', 'section_icon' => '', 'name' => 'Anniversary Wish List', 'page' => 'events.marriage-anniversary-list', 'status' => '1', 'parent_id' => '30'],
+            ['mid' => 'M-128', 'section' => 'Upcoming Events', 'section_icon' => '', 'name' => 'Birthday Wish List', 'page' => 'events.birthday-list', 'status' => '1', 'parent_id' => '30'],
+            ['mid' => 'M-129', 'section' => 'Upcoming Events', 'section_icon' => '', 'name' => 'Work Anniversary Wish List', 'page' => 'events.work-anniversary-list', 'status' => '1', 'parent_id' => '30'],
+            
+            ['mid' => 'M-130', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Export Salary Sheet', 'page' => 'salary-sheet', 'status' => '1', 'parent_id' => '12'],
             
         ];
 

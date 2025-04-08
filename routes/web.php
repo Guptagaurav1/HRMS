@@ -47,6 +47,8 @@ use App\Http\Controllers\hr\LeaveController;
 use App\Http\Controllers\vms\VendorController;
 use App\Http\Controllers\vms\ClientController;
 use App\Http\Controllers\master\CompanyController;
+use App\Http\Controllers\master\HolidayController as MasterHolidayController; 
+use App\Http\Controllers\master\LeavePolicyController; 
 
 // Define Employee Controllers
 use App\Http\Controllers\employee\ProfileController as EmployeeProfileController;
@@ -201,6 +203,27 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         });
     });
 
+    Route::controller(MasterHolidayController::class)->prefix('holiday')->group(function () {
+        Route::get("/", 'index')->name("holiday.list");
+        Route::post("store", 'store');
+        Route::post("edit", 'edit');
+        Route::post("update", 'update');
+        Route::post("deactive", 'deactive');
+        Route::post("active", 'active');
+    });
+
+    Route::controller(LeavePolicyController::class)->prefix('leave-policy')->group(function () {
+        Route::get("/", 'index')->name("leave-policy.list");
+        Route::post("edit", 'edit');
+        Route::post("update", 'update');
+        Route::post("deactive", 'deactive');
+        Route::post("active", 'active');
+    });
+
+    Route::controller(ProfileController::class)->prefix('profile')->group(function () {
+        Route::get("/", 'profile')->name("profile.admin-profile");
+    });
+
     Route::controller(TeamController::class)->prefix('teams')->group(function () {
         Route::get("/", 'index')->name("my-team-list");
     });
@@ -305,6 +328,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('export', 'export_csv')->name("export-work-order");
         Route::post('save-report', 'save_wo_report')->name("save-report");
         Route::get('report-log', 'report_log')->name("report-log");
+        Route::get('complete-salary-sheet', 'salary_sheet')->name("salary-sheet");
+        Route::post('send-report-mail', 'send_report_mail')->name("send-report-mail");
+        Route::get('get-exist-wo/{wo_number}', 'get_exist_wo')->name("get-exist-wo");
     });
 
     /////////// workorder routes end ///////
@@ -551,6 +577,8 @@ Route::get("work-anniversary-list-template", function () {
 Route::get("company-master-edit", function () {
     return view("hr.company-master-edit");
 })->name("company-master-edit");
+
+
 
 
 

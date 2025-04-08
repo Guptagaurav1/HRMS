@@ -4,15 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ReportLog extends Model
+class LeavePolicy extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $table = 'report_logs';
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
-    protected $fillable = ['doc'];
-    
+    /**
+     * Save user id on crud operation.
+     *
+     * @var array
+     */
     public static function boot()
     {
         parent::boot();
@@ -20,7 +29,6 @@ class ReportLog extends Model
             static::creating(function ($model) {
                 $model->created_by = auth()->user()->id;
             });
-
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
             });
@@ -30,10 +38,5 @@ class ReportLog extends Model
                 $model->save();
             });
         }
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id', 'created_by');
     }
 }
