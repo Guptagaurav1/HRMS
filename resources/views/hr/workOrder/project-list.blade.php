@@ -39,7 +39,7 @@
                         <button type="submit" class="btn btn-primary mb-3"> Search <i
                                 class="fa-solid fa-magnifying-glass"></i></button>
                         <a href="{{ route('project-list') }}">
-                            <button type="button" class="btn btn-secondary mb-3">Clear <i
+                            <button type="button" class="btn btn-primary mb-3">Clear <i
                                     class="fa-solid fa-eraser"></i></button></a>
                     </div>
                 </form>
@@ -74,9 +74,9 @@
                         <tr>
                             <td class="srno-column">{{$key+1}}</td>
                             <td class="text-center">{{$value->organizations->name}}</td>
-                            <td class="text-center">{{$value->project_name}}</td>
+                            <td class="text-center attributes-column">{{$value->project_name}}</td>
                             <td class="text-center">{{$value->project_number}}</td>
-                            <td class="text-center">{{$value->empanelment_reference }}</td>
+                            <td class="text-center attributes-column">{{$value->empanelment_reference }}</td>
                             <td class="text-center">{{$value->created_at }}</td>
                             <td class="text-center">
                                 <a href="{{route('edit-project',$value->id)}}"><button type="submit"

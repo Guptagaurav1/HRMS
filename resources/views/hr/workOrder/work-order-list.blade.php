@@ -34,7 +34,7 @@
                                     class="fa-solid fa-magnifying-glass"></i></button>
                             @if(auth()->user()->hasPermission('work-order-list'))
                             <a href="{{ route('work-order-list') }}">
-                                <button type="button" class="btn btn-secondary mb-3">Clear <i
+                                <button type="button" class="btn btn-primary mb-3">Clear <i
                                         class="fa-solid fa-eraser"></i></button>
                             </a>
                             @endif

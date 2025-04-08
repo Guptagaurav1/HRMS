@@ -4,7 +4,7 @@
         //------------------------------------------------------------------------------------------------------------------
         // Sales Analytics Chart
         //------------------------------------------------------------------------------------------------------------------
-        if($('#saleAnalytics').length) {
+        if ($('#saleAnalytics').length) {
             var saleAnalyticsoptions = {
                 series: [{
                     name: 'Stock',
@@ -67,7 +67,7 @@
             var saleAnalytics = new ApexCharts(document.querySelector("#saleAnalytics"), saleAnalyticsoptions);
             saleAnalytics.render();
         }
-        if($('#balanceOverview').length) {
+        if ($('#balanceOverview').length) {
             var balanceOverviewoptions = {
                 series: [{
                     name: 'Stock',
@@ -128,14 +128,14 @@
                             height: 365,
                         },
                     },
-                },{
+                }, {
                     breakpoint: 991,
                     options: {
                         chart: {
                             height: 300,
                         },
                     },
-                },{
+                }, {
                     breakpoint: 479,
                     options: {
                         chart: {
@@ -147,7 +147,7 @@
             var balanceOverview = new ApexCharts(document.querySelector("#balanceOverview"), balanceOverviewoptions);
             balanceOverview.render();
         }
-        if($('#audienceOverview').length) {
+        if ($('#audienceOverview').length) {
             var audienceOverviewoptions = {
                 series: [{
                     name: 'Stock',
@@ -212,14 +212,14 @@
                             height: 365,
                         },
                     },
-                },{
+                }, {
                     breakpoint: 991,
                     options: {
                         chart: {
                             height: 300,
                         },
                     },
-                },{
+                }, {
                     breakpoint: 479,
                     options: {
                         chart: {
@@ -234,7 +234,7 @@
 
 
 
-        
+
         //------------------------------------------------------------------------------------------------------------------
         // Dashboard Breadcrumb Date Picker
         //------------------------------------------------------------------------------------------------------------------
@@ -247,7 +247,7 @@
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
-            opens:'left',
+            opens: 'left',
         });
 
 
@@ -255,7 +255,7 @@
         //------------------------------------------------------------------------------------------------------------------
         // Recent Order Data Table
         //------------------------------------------------------------------------------------------------------------------
-        if($('#myTable').length) {
+        if ($('#myTable').length) {
             var dataTable = $('#myTable').DataTable({
                 dom: 'lfrtip',
                 responsive: true,
@@ -266,10 +266,13 @@
             $('.dataTables_length').hide();
             $('.dataTables_filter').prependTo('#tableSearch');
             $('.dataTables_info, .paging_simple_numbers').prependTo('.table-bottom-control');
-            $('#myTable tr').on('click', function () {
+            $('#myTable tr').on('click', function() {
                 $(this).toggleClass('selected');
                 $(this).siblings().removeClass('selected');
             })
         }
     });
 })(jQuery);
+
+
+// employee birthday

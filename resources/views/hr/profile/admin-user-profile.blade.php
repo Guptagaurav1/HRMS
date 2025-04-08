@@ -10,11 +10,7 @@
 <div class="container-fluid profile-container shadow">
 
     <div class="panel">
-        <!-- <div class="panel-header mb-4 ">
-            <h3 class="text-white">Profile Details</h3>
-            
-            
-        </div> -->
+      
 
         <div class="panel-header d-flex align-items-cenetr justify-content-between">
             <div>
