@@ -2,11 +2,12 @@
 /* HR Dashboard CSS */
 
 .card {
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     background: #fff;
     border: 1px solid;
+    margin-top: 10px;
 }
 
 .card:hover {
@@ -17,6 +18,7 @@
 .custom-tabs {
     display: flex;
     border-bottom: 2px solid #ddd;
+    flex-wrap: wrap;
     margin-top: 20px;
     background-color: white;
 }
@@ -69,7 +71,35 @@
     background: #fff;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 50%;
+    width: 40%;
+}
+
+
+@media(max-width:426px){
+
+    .profile-card {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 75%;
+    }
+
+    .hr-dashboard-heading{
+        font-size: 15px !important;
+        font-weight: bold !important;
+    
+      }
+    
+
+
+
 }
 
 .profile-card img {

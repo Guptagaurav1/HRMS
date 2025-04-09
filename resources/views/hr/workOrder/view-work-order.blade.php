@@ -1,16 +1,11 @@
 @extends('layouts.master')
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
 
-@endsection
 
 @section('contents')
 
 <div class="fluid-container">
 
-    <div class="row">
+    <div class="panel-header">
         <h2>View Work Order</h2>
 
     </div>
@@ -18,7 +13,12 @@
     <div class="row" id="tab-1">
         <div class="col-12">
             <div class="panel p-2">
-                <h6><strong>Work Order :</strong> {{ $workOrder->wo_number }} <strong> Added On : </strong> {{ $workOrder->created_at }}</h6>
+                <div class="dashboard-breadcrumb">
+                <h6><strong>Work Order :</strong> {{ $workOrder->wo_number }} <strong></h6>
+
+                <p> Added On : <strong> {{ $workOrder->created_at }}</strong></p>
+                </div>
+              
 
                 <div class="panel-header py-3 px-2 d-flex align-items-center justify-content-between mt-5">
                     <h5 class="mb-0 text-white" >Work Order Details</h5>

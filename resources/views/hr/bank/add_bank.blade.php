@@ -5,6 +5,14 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="text-white mt-2">Add Bank</h3>
+                <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
+                </div>
             </div>
             <div class="panel-body">
                 <div class="row">

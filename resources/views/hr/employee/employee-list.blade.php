@@ -6,15 +6,14 @@
             <div class="panel">
                 <div class="panel-header">
                     <h2 class="mt-2">Employee List</h2>
-                    <div class="text-start">
-                    <a href="{{ route('hr_dashboard') }}">
-                        <div class="back-button-box">
-                            <button type="button" class="btn btn-back">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </button>
+                    <div>
+                            <ul class="breadcrumb">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Profile Details</a></li>
+                                <li>Department List</li>
+                            </ul>
                         </div>
-                    </a>
-                </div>
                 </div>
                 <div class="row" class="mt-5">
                     <p class="text-danger " id="search-applicable"> <strong class="fw-bold text-dark">Note :</strong> Search applicable on Emp Id/Name/Work Order
@@ -24,7 +23,7 @@
                     <div class="table-filter-option">
                         <div class="row g-3">
                             <div class="col-xl-10 col-9 col-xs-12">
-                                <div class="col-md-12 d-flex justify-content-start">
+                                <div class="col-md-12">
                                     <form class="row g-3">
                                         <div class="col-auto">
                                             <input type="search" class="form-control" placeholder="Search" name="search"
@@ -34,15 +33,15 @@
                                             <button type="submit" class="btn btn-primary mb-3"> Search <i
                                                     class="fa-solid fa-magnifying-glass"></i></button>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-auto col-xs-12">
                                             <a href="{{ route('employee.employee-list') }}"
-                                                class="btn btn-secondary mb-3">Clear <i
+                                                class="btn btn-primary mb-3">Clear <i
                                                 class="fa-solid fa-eraser"></i></a>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="row g-3">
-                                    <div class="col-auto flex-1">
+                                    <div class="col-auto col-xs-12 flex-1">
                                        
                                         <form class="export-csv" action="{{route('employee.export')}}" method="post">
                                             @csrf
@@ -53,7 +52,7 @@
                                                     class="fa-solid fa-download"></i></button>
                                         </form>
                                     </div>
-                                    <div class="col-auto">
+                                    <div class="col-auto col-xs-12">
                                         <button class="btn btn-sm btn-primary" id="send-credential" disabled>
                                             <i class="fa-solid fa-key"></i> Send Credential
                                         </button>
@@ -61,7 +60,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-xl-2 col-3 text-end">
+                            <div class="col-xl-2 col-3 col-xs-12 text-end ">
                                 <a href="{{route('employee.add-employee')}}" class="btn btn-primary">Add Employee</a>
                             </div>
                         </div>

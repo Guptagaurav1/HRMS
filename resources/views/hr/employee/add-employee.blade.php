@@ -1,18 +1,20 @@
 @extends('layouts.master', ['title' => 'Add Employee'])
 @section('contents')
-    <div class="dashboard-breadcrumb mb-25 gap-4">
-        <h2 class="sw-bold text-dark">Create Employee details</h2>
-        <div class="text-start">
-            <a href="{{ route('hr_dashboard') }}">
-                <div class="back-button-box">
-                    <button type="button" class="btn btn-back">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </button>
-                </div>
-            </a>
-        </div>
+<div class="panel">
+<div class="panel-header">
+        <h3 class="text-white">Create Employee details</h3>
+        <div>
+                            <ul class="breadcrumb">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Profile Details</a></li>
+                                <li>Department List</li>
+                            </ul>
+                        </div>
 
     </div>
+</div>
+    
 
     @if (!empty($recruitment_details->finally) && $recruitment_details->finally == 'joined')
         <div class="alert alert-success text-center">
