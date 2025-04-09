@@ -23,7 +23,7 @@
                     <div class="table-filter-option">
                         <div class="row g-3">
                             <div class="col-xl-10 col-9 col-xs-12">
-                                <div class="col-md-12 d-flex justify-content-start">
+                                <div class="col-md-12">
                                     <form class="row g-3">
                                         <div class="col-auto">
                                             <input type="search" class="form-control" placeholder="Search" name="search"
@@ -33,7 +33,7 @@
                                             <button type="submit" class="btn btn-primary mb-3"> Search <i
                                                     class="fa-solid fa-magnifying-glass"></i></button>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-auto col-xs-12">
                                             <a href="{{ route('employee.employee-list') }}"
                                                 class="btn btn-primary mb-3">Clear <i
                                                 class="fa-solid fa-eraser"></i></a>
@@ -41,7 +41,7 @@
                                     </form>
                                 </div>
                                 <div class="row g-3">
-                                    <div class="col-auto flex-1">
+                                    <div class="col-auto col-xs-12 flex-1">
                                        
                                         <form class="export-csv" action="{{route('employee.export')}}" method="post">
                                             @csrf
@@ -52,7 +52,7 @@
                                                     class="fa-solid fa-download"></i></button>
                                         </form>
                                     </div>
-                                    <div class="col-auto">
+                                    <div class="col-auto col-xs-12">
                                         <button class="btn btn-sm btn-primary" id="send-credential" disabled>
                                             <i class="fa-solid fa-key"></i> Send Credential
                                         </button>
@@ -60,7 +60,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-xl-2 col-3 text-end">
+                            <div class="col-xl-2 col-3 col-xs-12 text-end ">
                                 <a href="{{route('employee.add-employee')}}" class="btn btn-primary">Add Employee</a>
                             </div>
                         </div>

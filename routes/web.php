@@ -579,6 +579,14 @@ Route::get("company-master-edit", function () {
 })->name("company-master-edit");
 
 
+// Change Password
+
+
+Route::get("change-password", function () {
+    return view("hr.change-password");
+})->name("change-password");
+
+
 
 
 

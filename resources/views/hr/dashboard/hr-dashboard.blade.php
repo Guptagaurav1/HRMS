@@ -7,7 +7,7 @@
 
 @section('contents')
 <div class="dashboard-breadcrumb mb-25">
-    <h2> Welcome Prakhar Softwares HRMS Dashboard</h2>
+    <h2 class="hr-dashboard-heading"> Welcome Prakhar Softwares HRMS Dashboard</h2>
     <div class="input-group dashboard-filter">
         <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
         <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
@@ -22,8 +22,8 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel chart-panel-1">
-            <div class="d-flex align-items-center">
-                <div class="card profile-card border">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="card profile-card ">
                     <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
                         alt="Profile" />
                     <div class="profile-info">
@@ -112,7 +112,6 @@
             <div class="panel">
                 <div class="panel-header">
                     <h5 class="text-white fw-bold">Today Marriage Work Anniversary</h5>
-                    
                 </div>
                 <div class="panel-body">
                     <ul class="upcoming-interview">

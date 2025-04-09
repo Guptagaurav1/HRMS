@@ -38,7 +38,7 @@
 
                     @if(auth()->user()->hasPermission('departments.create'))
                     <div class="d-flex flex-wrap">
-                        <div>
+                        <div class="col-auto col-xs-12">
                             <a href="{{ route('departments.create') }}"><button type="button"
                                 class="btn btn-sm btn-primary">Add Department <i
                                     class="fa-solid fa-plus"></i></button></a>
@@ -47,6 +47,7 @@
                     </div>
                     @endif
                 </div>
+                
 
                 @if($message = Session::get('success'))
                 <div class="col-md-12">
