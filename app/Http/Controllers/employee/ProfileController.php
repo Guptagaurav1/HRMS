@@ -247,11 +247,12 @@ class ProfileController extends Controller
     public function dashboard()
     {
         $user = auth('employee')->user();
+        $current_year = date('Y');
         $details = EmpDetail::findOrFail($user->id);
         $salary_slips = EmpSalarySlip::select('sal_month', 'emp_salary_id')->where('sal_emp_code', $details->emp_code)->orderByDesc('time')->limit(5)->get();
         $documents = EmpSendDoc::select('doc_type', 'document')->where('emp_code', $details->emp_code)->OrderByDesc('id')->get();
-        $total_leaves = LeaveRequest::where('emp_code', $details->emp_code)->sum('total_days');
-        $pending_leaves = LeaveRequest::where('emp_code', $details->emp_code)
+        $total_leaves = LeaveRequest::where('emp_code', $details->emp_code)->whereYear('created_at', $current_year)->sum('total_days');
+        $pending_leaves = LeaveRequest::where('emp_code', $details->emp_code)->whereYear('created_at', $current_year)
             ->where(function ($query) {
                 $query->where('status', 'Wait')
                     ->orWhere('status', 'Modified')

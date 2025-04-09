@@ -13,7 +13,7 @@
 </div>
 <div class="row" id="tab-1">
     <div class="col-md-12 text-end">
-        <a href="{{route('applicant-recruitment-details-summary', ['rec_id' => $details->id, 'position' => $details->pos_req_id])}}" class="btn btn-primary">Recruitment Form</a>
+        <a href="{{route('applicant-recruitment-details-summary', ['rec_id' => $details->id, 'position' => $details->pos_req_id])}}" class="btn btn-primary recruitment-form-link">Recruitment Form</a>
     </div>
 <form class="form verify_document">
     @csrf
@@ -149,11 +149,13 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">Passport Size Photo<span class="text-danger">*</span></label>
-                            <img src="{{asset('recruitment/candidate_documents/passport_size_photo/'.$details->getPersonalDetail->emp_photo.'')}}" alt="no-photo-found"  class="img-fluid img-thumbnail w-50" />
+                            <div class="">
+                            <img src="{{asset('recruitment/candidate_documents/passport_size_photo/'.$details->getPersonalDetail->emp_photo.'')}}" alt="no-photo-found"  class="img-fluid rounded preview" />
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">E-Signature<span class="text-danger">*</span></label>
-                            <img src="{{asset('recruitment/candidate_documents/sign/'.$details->getPersonalDetail->emp_signature.'')}}" alt="signature-not-found" width="170px" />
+                            <img src="{{asset('recruitment/candidate_documents/sign/'.$details->getPersonalDetail->emp_signature.'')}}" alt="signature-not-found" class="img-fluid preview rounded" />
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label for="formFileSm" class="form-label">Candidate Resume <span class="text-danger">*</span></label>        
@@ -190,6 +192,15 @@
                         <label for="formFile" class="form-label">Police Verification Id</label>
                         <input type="text" class="form-control form-control-sm"
                             placeholder="Enter Police Verification ID" value="{{$details->getIdProofDetail->police_verification_id}}" name="police_verification_id" />
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                        <label class="form-label">Address Proof<span class="text-danger">*</span></label>
+                        @if($details->getIdProofDetail && $details->getIdProofDetail->permanent_add_doc)
+                        <a href="{{asset('recruitment/candidate_documents/permanent_address_proof').'/'.$details->getIdProofDetail->permanent_add_doc}}" class="btn btn-primary" download>View <i
+                            class="fa-solid fa-download"></i></a>
+                            @else
+                            <span class="text-danger">Not Uploaded</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -234,6 +245,15 @@
                         <label class="form-label">PAN Number <span class="text-danger">*</span></label>
                         <input type="text" class="form-control form-control-sm" placeholder="Enter PAN Number" value="{{$details->getBankDetail->emp_pan}}" name="pan_no" required>
                     </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                        <label class="form-label">Bank Document<span class="text-danger">*</span></label>
+                        @if($details->getIdProofDetail && $details->getIdProofDetail->bank_doc)
+                        <a href="{{asset('recruitment/candidate_documents/bank_account').'/'.$details->getIdProofDetail->bank_doc}}" class="btn btn-primary" download>View <i
+                            class="fa-solid fa-download"></i></a>
+                            @else
+                            <span class="text-danger">Not Uploaded</span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -261,7 +281,14 @@
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Board Name</label>
                             <input type="text" class="form-control form-control-sm" placeholder="Enter Board Name" value="{{$details->getEducationDetail['emp_tenth_board_name']}}">
-
+                        </div>
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                            <label class="form-label">Document</label>
+                            @if($details->getEducationDetail && $details->getEducationDetail->emp_tenth_doc)
+                           <a href="{{asset('recruitment/candidate_documents/10th').'/'.$details->getEducationDetail->emp_tenth_doc}}" class="btn btn-primary">View <i class="fa-solid fa-download"></i></a>
+                           @else
+                           <span class="text-danger">Not Uploaded</span>
+                           @endif
                         </div>
 
                     </div>
@@ -286,6 +313,14 @@
                             <label class="form-label">Board Name</label>
                             <input type="text" class="form-control form-control-sm" placeholder="Enter Board Name" value="{{$details->getEducationDetail['emp_twelve_board_name']}}" name="twelth_board" >
 
+                        </div>
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                            <label class="form-label">Document</label>
+                            @if($details->getEducationDetail && $details->getEducationDetail->emp_twelve_doc)
+                            <a href="{{asset('recruitment/candidate_documents/12th').'/'.$details->getEducationDetail->emp_twelve_doc}}" class="btn btn-primary">View <i class="fa-solid fa-download"></i></a>
+                            @else
+                            <span class="text-danger">Not Uploaded</span>
+                            @endif
                         </div>
 
                     </div>
@@ -322,7 +357,14 @@
 
                         </div>
 
-
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                            <label class="form-label">Document</label>
+                            @if($details->getEducationDetail && $details->getEducationDetail->grad_doc)
+                            <a href="{{asset('recruitment/candidate_documents/graduation').'/'.$details->getEducationDetail->grad_doc}}" class="btn btn-primary">View <i class="fa-solid fa-download"></i></a>
+                            @else
+                            <span class="text-danger">Not Uploaded</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -352,6 +394,14 @@
                         <div class="col-xxl-3 col-lg-3 col-sm-6">
                             <label class="form-label">Degree Name</label>
                             <input type="text" class="form-control form-control-sm" placeholder="Enter Degree Name" value="{{$details->getEducationDetail->emp_postgradqualification}}">
+                        </div>
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                            <label class="form-label">Document</label>
+                            @if($details->getEducationDetail && $details->getEducationDetail->post_grad_doc)
+                            <a href="{{asset('recruitment/candidate_documents/post_graduation').'/'.$details->getEducationDetail->post_grad_doc}}" class="btn btn-primary">View <i class="fa-solid fa-download"></i></a>
+                            @else
+                            <span class="text-danger">Not Uploaded</span>
+                            @endif
                         </div>
                     </div>
                 </div>

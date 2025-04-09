@@ -337,4 +337,43 @@ $(document).ready(function () {
     }
 
   });
+
+  function showQualification(qualification) {
+    var count = 0;
+    if (qualification == '10th') {
+      count = 1;
+    }
+    else if (qualification == '12th') {
+      count = 2;
+    }
+    else if (qualification == 'Diploma') {
+      count = 3;
+    }
+    else if (qualification == 'Bachelor') {
+      count = 4;
+    }
+    else if (qualification == 'Master') {
+      count = 5;
+    }
+    else if (qualification == 'PhD') {
+      count = 6;
+    }
+
+    $(".education-card").each(function (index) {
+      if (qualification && index < count) {
+        $(this).removeClass('d-none');
+      }
+      else {
+        $(this).addClass('d-none');
+      }
+    });
+  }
+  // Show qualification on basis of highest qualification
+  $("select[name=emp_highest_qualification]").change(function () {
+    var qualification = $(this).val();
+    showQualification(qualification);
+  });
+
+  // Show qualification on load.
+  showQualification($("select[name=emp_highest_qualification]").val());
 });

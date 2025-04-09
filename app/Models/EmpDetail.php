@@ -99,7 +99,7 @@ class EmpDetail extends Authenticatable
      * Get Personal Details.
      */ 
     public function getPersonalDetail(): HasOne{
-        return $this->hasOne(EmpPersonalDetail::class, 'emp_code', 'emp_code')->select('emp_code','emp_dob','emp_dom');
+        return $this->hasOne(EmpPersonalDetail::class, 'emp_code', 'emp_code');
     }
 
     /**

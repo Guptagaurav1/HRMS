@@ -398,12 +398,18 @@ class RecruitmentController extends Controller
         try {
             $this->validate($request, [
                 'recruitment' => ['required', 'integer'],
-                'update_email' => ['required', 'email:filter']
+                'update_email' => ['required', 'email:filter'],
+                'update_salary' => ['required'],
+                'update_doj' => ['required'],
+                'update_location' => ['required'],
             ]);
             $details = RecruitmentForm::findOrFail($request->recruitment);
             $details->email = $request->update_email;
+            $details->salary = $request->update_salary;
+            $details->doj = $request->update_doj;
+            $details->location = $request->update_location;
             $details->save();
-            return response()->json(['success' => true, 'message' => 'Email Update Successfully.']);
+            return response()->json(['success' => true, 'message' => 'Details Updated Successfully.']);
         } catch (Throwable $th) {
             return response()->json(['error' => true, 'message' => 'Server Error.']);
         }
@@ -1182,7 +1188,8 @@ class RecruitmentController extends Controller
                 'recruitment' => ['required', 'integer'],
             ]);
             $details = RecruitmentForm::findOrFail($request->recruitment);
-            $details->finally = 'docs_checked';
+            // $details->finally = 'docs_checked'; // directly completed formalities.
+            $details->finally = 'joining-formalities-completed';
             $details->save();
             return response()->json(['success' => true, 'message' => 'Documents Checked Successfully!']);
         } catch (Throwable $th) {

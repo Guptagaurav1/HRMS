@@ -42,7 +42,7 @@ $(document).ready(function () {
                     })
                     .then((result) => {
                         if (result.isConfirmed) {
-                          window.location.reload();
+                          window.location.href = $(".recruitment-form-link").attr('href');
                         }
                     });
                 }
