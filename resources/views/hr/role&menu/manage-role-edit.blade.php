@@ -21,8 +21,8 @@
                             @foreach ($menus as $section => $menu)
                                 <div class="col-12">
                                     <div class="section-header">
-                                        <label class="form-check-label">{{ $section }} - Check all 
-                                            <input class="form-check-input checkall"  name="checkall" value="" type="checkbox" data-section="{{ Str::slug($section) }}">
+                                        <label class="form-check-label">{{ $section }}  
+                                            nbsp<input class="form-check-input checkall"  name="checkall" value="" type="checkbox" data-section="{{ Str::slug($section) }}">
                                             
                                         </label>
                                     </div>

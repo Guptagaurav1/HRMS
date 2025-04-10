@@ -20,13 +20,13 @@
                 <div class="">
                     <form class="row g-3" method="get">
                         <div class="col-auto mb-3">
-                            <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                            <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search"
                                 required>
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
                                     class="fa-solid fa-magnifying-glass"></i></button>
-                            <a href="{{ route('organizations.index') }}"><button type="button"
+                            <a href="{{ route('designations.index') }}"><button type="button"
                                     class="btn btn-primary btn-sm mb-3">Clear <i
                                         class="fa-solid fa-eraser"></i></button></a>
                         </div>

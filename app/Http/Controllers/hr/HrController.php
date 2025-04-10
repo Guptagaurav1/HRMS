@@ -8,6 +8,12 @@ use App\Models\PositionRequest;
 use App\Models\EmpDetail;
 use App\Models\WorkOrder;
 use App\Models\LeaveRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailBirthDay;
+use App\Mail\EmpMarriageAnniversaryMail;
+use App\Mail\EmpWorkingAnniversaryMailWishSend;
+use Carbon\Carbon;
+use Throwable;
 
 class HrController extends Controller
 {
@@ -69,7 +75,7 @@ class HrController extends Controller
                                     ->whereRaw("DATE_FORMAT(emp_doj, '%m-%d') BETWEEN ? AND ?", [$current_date, $addFiveDays])
                                     ->paginate(10);
 
-        $employeeLeaves = LeaveRequest::with('employee')->select('leave_code','emp_code','department_head_email','reason_for_absence','absence_dates','status','created_at')
+        $employeeLeaves = LeaveRequest::with('employee')->select('id','leave_code','emp_code','department_head_email','reason_for_absence','absence_dates','status','created_at')
                                     ->where('status', 'Wait')
                                     ->orWhere('status', 'Modified')
                                     ->orderByDesc('id');
@@ -99,4 +105,85 @@ class HrController extends Controller
         return view("hr.dashboard.hr-operation-dashboard",compact('countPositions'));
     }
 
+
+    public function templateBirthday(){
+        return view('SendMail.event.birthday-wish');
+    }
+
+
+    // send birthday Mail
+
+    public function sendBirthdayMail(Request $request)
+    {
+
+        try{
+        $validate = $request->validate([
+            'message' => 'required|max:255',
+        ]);
+
+        $employee = EmpDetail::select('id','emp_name','emp_email_first')->where('emp_email_first',$request->emp_mail)->first();
+        $mailData = [
+            'message' => $request->message,
+            'name' =>    $employee->emp_name
+        ];
+        Mail::to($employee->emp_email_first)->send(new SendMailBirthDay($mailData));
+        return response()->json(['success' => true,'message' => 'Birthday wish sent !']);
+    } catch(Throwable $e) {
+        return response()->json(['error' => true, 'message' => $e->getMessage()]);
+    }
+
+
+    }
+
+    public function sendMarriageAnniversaryMail(Request $request){
+        try{
+            $employee = EmpDetail::select('id','emp_name','emp_email_first')->where('emp_email_first',$request->emp_mail)->first();
+            $mailData = [
+                'name' =>    $employee->emp_name,
+                'message' => $request->message
+            ];
+            Mail::to($employee->emp_email_first)->send(new EmpMarriageAnniversaryMail($mailData));
+            return response()->json(['success' => true,'message' => 'Marriage Anniversary wishes sent !']);
+        }catch(Throwable $e){
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function sendWorkAnniversaryMail(Request $request){
+            try{
+                $employee = EmpDetail::select('id','emp_name','emp_email_first','emp_designation','emp_doj')->where('emp_email_first',$request->emp_mail)->first();
+                $date = Carbon::parse($employee->emp_doj);
+                $diffYear = Carbon::now()->diffInYears($date);
+                
+                $mailData = [
+                    'name' =>    $employee->emp_name,
+                    'message' => $request->message,
+                    'designation' => $employee->emp_designation,
+                    'year' =>  $diffYear
+                ];
+                Mail::to($employee->emp_email_first)->send(new EmpWorkingAnniversaryMailWishSend($mailData));
+                return response()->json(['success' => true,'message' => 'Work Anniversary wishes sent !']);
+            }catch(Throwable $e){
+                return response()->json(['error' => true, 'message' => $e->getMessage()]);
+            }
+    }
+
+    // show leave details
+    
+    public function leaveDetails($id){
+
+        $employeeLeaves = LeaveRequest::with('employee')->select('leave_requests.id','leave_code','emp_code','cc','total_days','reason_for_absence','absence_dates','status','created_at','comment')
+        ->where('status', 'Wait')
+        ->where('id',$id)
+        ->orWhere('status', 'Modified')
+        ->orderByDesc('id')
+        ->first();
+
+        return response()->json([
+            'success' => true,
+            'data' =>  $employeeLeaves,
+            'message' => 'data fetches'
+        ]);
+
+    }
 }

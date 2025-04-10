@@ -24,8 +24,7 @@
         <div class="panel chart-panel-1">
             <div class="d-flex  gap-3">
                 <div class="card profile-card border">
-                    <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
-                        alt="Profile" />
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg" alt="Profile" />
                     <div class="profile-info">
                         <h4 class="text-center">{{ auth()->user()->first_name." ".auth()->user()->last_name}}</h4>
                         <p><i class="fas fa-user"></i> {{ ucwords(str_replace("_", ' ',auth()->user()->role->role_name)) }}</p>
@@ -34,7 +33,7 @@
                     </div>
                 </div>
                 <div class="card profile-card p-3">
-                        <div id="pieChart"></div>
+                    <div id="pieChart"></div>
                 </div>
             </div>
         </div>
@@ -113,16 +112,15 @@
                 <div class="card p-4">
                     <h4 class="text-center">Employee Birthday List</h4>
                     <div class="table-responsive mt-3">
-                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
-                            id="allEmployeeTable">
+                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                             <thead>
                                 <tr>
                                     <th class="text-center">S No.</th>
-                                    <th class="text-center">Employee Code</th>
+                                    {{-- <th class="text-center">Employee Code</th> --}}
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Work Order</th>
                                     <th class="text-center">Department</th>
-                                    <th class="text-center">Designation</th>
+                                    {{-- <th class="text-center">Designation</th> --}}
                                     <th class="text-center">Email</th>
                                     <th class="text-center">DOB</th>
                                     <th class="text-center">Action</th>
@@ -131,29 +129,26 @@
                             </thead>
                             <tbody>
 
-                            @forelse ($employees as $key => $value)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center attributes-column">{{ $value->emp_code }}</td>
-                                <td class="text-center">{{ $value->emp_name }}</td>
-                                <td class="text-center">{{ $value->emp_work_order }}</td>
-                                <td class="text-center">{{ $value->department }}</td>
-                                <td class="text-center">{{ $value->emp_designation }}</td>
-                                <td class="text-center">{{ $value->emp_email_first }}</td>
-                                <td class="text-center">{{ \Carbon\Carbon::parse($value->getPersonalDetail->emp_dob)->format('d-m-Y') }}</td>
-                                <td class="text-center">
-                                    <a href="javascript:void(0);"><button type="button" data-bs-toggle="modal"
-                                        data-bs-target="#birthdayMailModal"
-                                        data-bs-whatever="{{ $value->emp_email_first }}"
-                                        class="btn btn-sm btn-primary">Send Email</button></a>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td class="text-center" colspan="9"><span class="text-danger"> Record not found</span></td>
-                            </tr>
-                            @endforelse
-                              
+                                @forelse ($employees as $key => $value)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    {{-- <td class="text-center attributes-column">{{ $value->emp_code }}</td> --}}
+                                    <td class="text-center">{{ $value->emp_name }}</td>
+                                    <td class="text-center">{{ $value->emp_work_order }}</td>
+                                    <td class="text-center">{{ $value->department }}</td>
+                                    {{-- <td class="text-center">{{ $value->emp_designation }}</td> --}}
+                                    <td class="text-center">{{ $value->emp_email_first }}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($value->getPersonalDetail->emp_dob)->format('d-m-Y') }}</td>
+                                    <td class="text-center">
+                                        <button type="button" data-bs-target="#birthdayMailModal" data-bs-whatever="{{ $value->emp_email_first }}" data-bs-name="{{ $value->emp_name }}" class="btn btn-sm btn-primary modal-happy-birthday">Send Email</button>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-center" colspan="9"><span class="text-danger"> Record not found</span></td>
+                                </tr>
+                                @endforelse
+
 
 
                             </tbody>
@@ -166,35 +161,33 @@
                 <div class="card p-4">
                     <h4 class="text-center">Employee Marriage Anniversary List</h4>
                     <div class="table-responsive mt-3">
-                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
-                            id="allEmployeeTable">
+                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                             <thead>
                                 <tr>
                                     <th class="text-center">S No.</th>
-                                    <th class="text-center">Employee Code</th>
+                                    {{-- <th class="text-center">Employee Code</th> --}}
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Work Order</th>
                                     <th class="text-center">Department</th>
-                                    <th class="text-center">Designation</th>
+                                    {{-- <th class="text-center">Designation</th> --}}
                                     <th class="text-center">Email</th>
                                     <th class="text-center">DOM</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse ($employeeMarriageAnni as $key => $value)
+                                @forelse ($employeeMarriageAnni as $key => $value)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center attributes-column">{{ $value->emp_code }}</td>
+                                    {{-- <td class="text-center attributes-column">{{ $value->emp_code }}</td> --}}
                                     <td class="text-center">{{ $value->emp_name }}</td>
                                     <td class="text-center">{{ $value->emp_work_order }}</td>
                                     <td class="text-center">{{ $value->department }}</td>
-                                    <td class="text-center">{{ $value->emp_designation }}</td>
+                                    {{-- <td class="text-center">{{ $value->emp_designation }}</td> --}}
                                     <td class="text-center">{{ $value->emp_email_first }}</td>
                                     <td class="text-center">{{ \Carbon\Carbon::parse($value->getPersonalDetail->emp_dom)->format('d-m-Y') }}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-primary btn-sm">Send Email</button>
-                                    </td>
+                                        <button type="button" data-bs-target="#MarriageMailModal" data-bs-whatever="{{ $value->emp_email_first }}" data-bs-name="{{ $value->emp_name }}" class="btn btn-sm btn-primary modal-marriage-anniversary">Send Email</button> </td>
                                 </tr>
                                 @empty
                                 <tr>
@@ -211,8 +204,7 @@
                 <div class="card p-4">
                     <h4 class="text-center">Employee Work Anniversary List</h4>
                     <div class="table-responsive mt-3">
-                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
-                            id="allEmployeeTable">
+                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                             <thead>
                                 <tr>
                                     <th class="text-center">S No.</th>
@@ -240,7 +232,7 @@
                                     <td class="text-center">{{ $value->emp_email_first }}</td>
                                     <td class="text-center">{{ \Carbon\Carbon::parse($value->getPersonalDetail->emp_doj)->format('d-m-Y') }}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-primary btn-sm">Send Email</button>
+                                        <button type="button" data-bs-target="#WorkAnniversaryMailModal" data-bs-whatever="{{ $value->emp_email_first }}" data-bs-name="{{ $value->emp_name }}" class="btn btn-sm btn-primary modal-work-anniversary">Send Email</button>
                                     </td>
                                 </tr>
                                 @empty
@@ -260,8 +252,7 @@
                 <div class="card p-4">
                     <h4 class="text-center">Leave Request List</h4>
                     <div class="table-responsive mt-3">
-                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
-                            id="allEmployeeTable">
+                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                             <thead>
                                 <tr>
                                     <th class="text-center">S No.</th>
@@ -282,7 +273,7 @@
                                 @forelse($employeeLeaves as $key => $value)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center attributes-column">{{ $value->leave_code }}</td>
+                                    <td class="text-center attributes-column">{{ $value->leave_code }} ddfsdfsdf {{$value->id}}</td>
                                     <td class="text-center">{{ $value->employee->emp_code ? $value->employee->emp_code : ''  }}</td>
                                     <td class="text-center">{{ $value->employee->emp_name ? $value->employee->emp_name : ''  }}</td>
                                     <td class="text-center">{{ $value->employee->reporting_email ? $value->employee->reporting_email : ''  }}</td>
@@ -292,9 +283,10 @@
                                     <td class="text-center">{{ \Carbon\Carbon::parse($value->created_at)->format('d-m-Y') }}</td>
                                     <td class="text-center">
                                         <div>
-                                            <button type="button" class="btn btn-primary btn-sm">View</button>
-                                            <button type="button" class="btn btn-primary btn-sm">Response</button>
-
+                                            <a href="javascript:void(0)" class="modal-leave-details" data-url="{{ route('leaveDetails', $value->id) }}">
+                                                <button type="button" class="btn btn-sm btn-primary">Show</button>
+                                            </a>
+                                            <button type="button" data-bs-target="#LeaveApproveDisapproveModal" data-bs-id="{{ $value->id }}" class="btn btn-sm btn-primary modal-leave-approve">Response</button>
                                         </div>
 
                                     </td>
@@ -314,16 +306,16 @@
             </div>
 
         </div>
-      
+
     </div>
 
     <div class="col-lg-12">
         <div class="panel">
-                <div class="panel-body">
-                    <div id="audienceOverview" class="chart-dark"></div>
-                </div>
-               
-           
+            <div class="panel-body">
+                <div id="audienceOverview" class="chart-dark"></div>
+            </div>
+
+
         </div>
     </div>
 </div>
@@ -332,39 +324,230 @@
 {{-- Modal employee birthday --}}
 
 @section('modal')
-    <div class="modal fade" id="birthdayMailModal" tabindex="-1" aria-labelledby="birthdayMailModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-light">Employee Wish Email</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="birthdayMailModal" tabindex="-1" aria-labelledby="birthdayMailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-light">Employee Birthday Wish Email</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="send-birthday form" enctype="multipart/form-data" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">To</label>
+                        <input type="email" class="form-control" name="emp_mail" id="emp_mail" value="" readonly required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Message / Query</label>
+                        <textarea class="form-control" id="employeebirthday" value="" name="message" rows="6" placeholder="Write your message here"></textarea>
+                    </div>
                 </div>
-                <form class="send-greeting form" enctype="multipart/form-data" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">To</label>
-                            <input type="email" class="form-control" name="emp_mail" value="" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Attach Greeting <span
-                                    class="text-danger fw-bold">*</span></label>
-                            <input type="file" class="form-control" name="greeting" accept=".jpg, .png, .jpeg" required>
-                        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary sendbutton">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- send Marriage Anniversary mail --}}
+
+
+<div class="modal fade" id="MarriageMailModal" tabindex="-1" aria-labelledby="MarriageMailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-light">Employee Marriage Anniversary Wish Email</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="send-marriage-anniversery form" enctype="multipart/form-data" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">To</label>
+                        <input type="email" class="form-control" name="emp_mail" id="emp_mail_marriage" value="" readonly required>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary sendbutton">Send</button>
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Message / Query</label>
+                        <textarea class="form-control" id="employeemarriage" value="" name="message" rows="6" placeholder="Write your message here"></textarea>
                     </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary sendbutton">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+{{-- send work Anniversary mail --}}
+
+
+<div class="modal fade" id="WorkAnniversaryMailModal" tabindex="-1" aria-labelledby="WorkAnniversaryMailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-light">Employee Work Anniversary Wish Email</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="send-work-anniversery form" enctype="multipart/form-data" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">To</label>
+                        <input type="email" class="form-control" name="emp_mail" id="emp_mail_work" value="" readonly required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Message / Query</label>
+                        <textarea class="form-control" id="employeeworkanniversary" value="" name="message" rows="6" placeholder="Write your message here"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary sendbutton">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{{-- Leave Details Show --}}
+
+
+<div class="modal fade" id="leaveDetailsModal" tabindex="-1" aria-labelledby="leaveDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-light">Leave Request Detail</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">Leave Code</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="leave_code"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">Employee Code</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="employee_code"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">Employee Name</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="employee_name"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">CC Email</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="cc_email"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">Reason of Absence</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="reason_of_absence"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">Absent Dates</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="leave_start_date"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">No. of Days</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="no_of_days"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">Employee comment</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="employee_comment"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">Status</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="status"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="leavCode" class="col-form-label">Apply Date</label>
+                    </div>
+                    <div class="col-md-7">
+                        <span id="apply_date"></span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+</div>
+
+
+{{-- // Leave approve disapprove modal --}}
+
+
+<div class="modal fade" id="LeaveApproveDisapproveModal" tabindex="-1" aria-labelledby="LeaveApproveDisapproveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-light">Leave Response</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="leave-approve form" enctype="multipart/form-data" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Reply</label>
+                        <textarea class="form-control" id="replyLeave" value="" name="message" rows="6" placeholder="Write your message here"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary sendbutton">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
+<script src="{{ asset('assets/js/hr/hr-dashboard.js') }}"></script>
 <script src="{{asset('assets/js/employee-tab-dashboard.js')}}"></script>
 <script src="assets/js/chart-page.js"></script>
 @endsection

@@ -17,12 +17,12 @@
 
             </div>
 
-            <div class="row mt-4">
+            <div class="row mt-4 ml-2">
                 <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-2">
                     <div class="">
-                        <form class="row g-3" method="get">
+                        <form class="row" method="get">
                             <div class="col-auto mb-3">
-                                <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search"
                                     required>
                             </div>
                             <div class="col-auto">
