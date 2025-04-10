@@ -579,6 +579,14 @@ Route::get("company-master-edit", function () {
 })->name("company-master-edit");
 
 
+Route::get("acceptance-form", function () {
+    return view("hr.acceptance-form");
+})->name("acceptance-form");
+
+
+
+
+ 
 // Change Password
 
 
