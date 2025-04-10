@@ -1094,6 +1094,11 @@ ul.breadcrumb li a:hover {
   text-decoration: underline;
 }
 
+/* Fix size for preview image */
+img.preview{
+  width:200px;
+  height:135px;
+}
 
 /* Media Query on Breadcrumb */
 

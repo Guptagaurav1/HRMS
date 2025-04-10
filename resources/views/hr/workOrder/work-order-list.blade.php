@@ -165,16 +165,15 @@
             </form>
 
             @endif
-            <form method="post" action="{{ route('work-order-report') }}">
+            <form method="get" action="{{ route('work-order-report') }}">
                 <div class="table-responsive mt-4">
 
-                    @csrf
                     <div class="col-sm-12">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                             id="allEmployeeTable">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" name="checkAll"></th>
+                                    <th><input type="checkbox" name="checkAll" id="all"></th>
                                     <th class="srno-column text-center">Organisation Name</th>
                                     <th class="rid-column text-center">Work Order Number</th>
                                     <th class="text-center">Empanelment No.</th>
@@ -274,4 +273,9 @@
 @section('script')
 
 <script src="{{asset('assets/js/hr/workOrder/work-order.js')}}"></script>
+<script>
+    $("#all").click(function() {
+    $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+</script>
 @endsection

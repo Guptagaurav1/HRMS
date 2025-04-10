@@ -367,7 +367,7 @@
                                 <tr>
                                     <td class="bold">Resume :</td>
                                     <td>
-                                        @if($empdetails->experience->resume_file &&
+                                        @if($empdetails->experience &&
                                         $empdetails->experience->resume_file)
                                         <a
                                             href="{{asset('recruitment/candidate_documents/employee_resume').'/'.$empdetails->experience->resume_file}}">View</a>

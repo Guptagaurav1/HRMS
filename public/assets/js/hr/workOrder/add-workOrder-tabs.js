@@ -46,20 +46,24 @@ $(document).ready(function () {
         let isValid = true;
         if(currentTab === 0){
             // Validate Organisation
-            if ($("#organisation").val() === "") {
-                showError("organisation", "Please select an organisation.");
-                isValid = false;
-            } else {
-                hideError("organisation");
-            }
-
+            var organisation = $("#organisation").val();
+                if (organisation === "" || organisation === null) {
+                    showError("organisation", "Please select an organisation.");
+                    isValid = false;
+                } else {
+                    hideError("organisation");
+                }
+           
             // Validate Project Name
-            if ($("#project_name").val() === "") {
+            var project = $("#project_name").val();
+            if (project === "" || project === null) {
                 showError("project_name", "Please select a project.");
                 isValid = false;
             } else {
                 hideError("project_name");
             }
+            
+           
         }else if(currentTab === 1){
             // Validate workorder Number
             if ($("#wo_number").val() === "") {
@@ -68,6 +72,29 @@ $(document).ready(function () {
             } else {
                 hideError("wo_number");
             }
+
+            $('#wo_number').on('input',function(){
+                var wo_number = $(this).val();
+                if(wo_number){
+                    $.ajax({
+                        url :SITE_URL +"/hr/get-exist-wo/"+ wo_number,
+                        type:'GET',
+                        success : function(response){
+                            let ex_wo_number = response.data.wo_number;
+                            // alert(ex_wo_number);
+                            if (ex_wo_number !== " ") {
+                                showError("wo_number", "The Work Order has already been taken.");
+                                isValid = false;
+                            } 
+                        },
+                        error: function(xhr, status, error) {
+                            console.log("Error:", error);
+                        }
+                    });
+                }else {
+                    hideError("wo_number");
+                }
+            });
         }
             if (isValid) {
                 $(".next-btn").prop("disabled", false);  // Enable next button if valid

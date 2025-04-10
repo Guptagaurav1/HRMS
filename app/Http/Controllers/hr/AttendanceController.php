@@ -179,8 +179,9 @@ class AttendanceController extends Controller
                 $exit_wo_attendance_id->update($data);
                 
             }
+             
             // update employee working status
-            if(!empty($date_of_resign) || $date_of_resign != ' '){
+            if(!empty($date_of_resign) || $date_of_resign != null){
                 $employee = EmpDetail::where('id', $check_emp)->first();
                 if ($employee) {
                   
@@ -266,7 +267,7 @@ class AttendanceController extends Controller
         // dd($request);
         $check_emps = $request->check;
         if(empty($check_emps)){
-            return redirect()->route('wo-sal-attendance')->with('error','Please checked the checkbox before submit attendance.');
+            return redirect()->route('wo-sal-attendance')->with('error','Please checked the checkbox before submit attendance salary.');
         }
         try{
             DB::beginTransaction();
@@ -427,7 +428,7 @@ class AttendanceController extends Controller
      
             // return redirect()->route('wo-generate-salary',compact('attendance_month','workOrder'))->with('success','Salary Slip Calculated Successfully');
             DB::commit();
-            return redirect()->route('salary-slip')->with(['success' => true, 'message' => 'WorkOrder created successfully.']); 
+            return redirect()->route('salary-slip')->with(['success' => true, 'message' => 'Salary Slip Calculated Successfully.']); 
         }catch(Throwable $th){
             DB::rollBack();
             return redirect()->route('wo-sal-attendance')->with(['error' => true, 'message' => 'Server Error.']);
@@ -565,7 +566,7 @@ class AttendanceController extends Controller
                 }
 
                 DB::commit(); 
-                return redirect()->route('upload-attendance')->with('success','Total ' . ($counter - 1) . ' Attendance Added');
+                return redirect()->route('attendance-list')->with('success','Total ' . ($counter - 1) . ' Attendance Added');
 
             } catch (Exception $e) {
                 DB::rollBack(); 
