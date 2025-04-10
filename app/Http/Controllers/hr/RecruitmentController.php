@@ -143,7 +143,7 @@ class RecruitmentController extends Controller
     {
         // to get current roles of the user
 
-        $user = auth()->user()->load('role'); 
+        $user = auth()->user(); 
         $role = $user->role->role_name; 
         if($role == 'hr_executive'){
             $positions = PositionRequest::whereNotNull('assigned_executive')
