@@ -22,6 +22,9 @@ use App;
 use stdClass;
 use Mail;
 use App\Mail\ReportMail;
+use App\Models\User;
+use Illuminate\Support\Facades\File;
+
 
 
 class WorkOrderController extends Controller
@@ -379,54 +382,23 @@ class WorkOrderController extends Controller
             ], 200);
         }
     }
-     
-    // public function work_order_report(Request $request){
-    //     // dd($request);
-    //     $check_workOrders = $request->checkbox??NULL;
-    //     if(empty($request->checkbox)){
-    //         return redirect()->route('work-order-list')->with('success','Please check atleast one checkbox !');
-    //     }
-    //     $wo_details =  workOrder::with('project.organizations')->whereIn('id',$request->checkbox)->orderBy('id', 'desc')->get();
-    //     $wo_details =$wo_details->groupby('project_id');
-        
-    //     $overallSum = 0;
-    //     // Array to store the project workorder sums
-    //     $projectSums = [];
-    //     foreach ($wo_details as $projectId => $workOrders) {
-    //         // Calculate the sum for each project workorder
-    //         $projectSum = $workOrders->sum('wo_amount');
-    //         $projectSums[$projectId] = $projectSum;
-    //         $wo_details[$projectId]->wo_pro_sum =$projectSums[$projectId];
-    //         // Add to the overall sum
-    //         $overallSum += $projectSum;
-    //         // $wo_doc =[];
-    //         foreach($workOrders as $value){
-    //             if(!empty( $value->wo_attached_file)){
-
-    //                 $wo_doc[] = $value->wo_attached_file;  
-    //             }else{
-    //                 $wo_doc =[];
-    //             }
-    //         }
-    //     }
-    //     $zipFilePath = null;
-    //     if (count($wo_doc) > 0) {
-    //         // Call the helper function to create a zip of the work order documents
-    //         $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
-    //     }
-    //     // dd($wo_details);
-       
-    //     return view("hr.workOrder.work-order-report",compact('wo_details','overallSum','zipFilePath','check_workOrders'));
-    // }
+    
     public function work_order_report(Request $request)
     {
-        $validatedData = $this->processWorkOrders($request);
-
-        // dd($message_new);
-        $unq_no = now()->format('Ymdhisa');
-        $file_name = "WorkOrderReport_{$unq_no}.pdf";
+        try{
+            if(empty($request->checkbox)){
+                return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Please check at least one checkbox!']);
+            }
         
-        return view("hr.workOrder.work-order-report", $validatedData,compact('file_name'));
+            $validatedData = $this->processWorkOrders($request);
+            $unq_no = now()->format('Ymdhisa');
+            $file_name = "WorkOrderReport_{$unq_no}.pdf";
+            
+            return view("hr.workOrder.work-order-report", $validatedData,compact('file_name'));
+        }
+        catch (Throwable $e){
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error']);
+        }
     }
 
     private function processWorkOrders(Request $request)
@@ -438,7 +410,7 @@ class WorkOrderController extends Controller
             $check_workOrders = $request->checkbox ?? null;
         }
         if (empty($check_workOrders)) {
-            return redirect()->route('work-order-list')->with('success', 'Please check at least one checkbox!');
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Please check at least one checkbox!']);
         }
         // dd($check_workOrders);
         $wo_details = workOrder::with('project.organizations')
@@ -465,14 +437,20 @@ class WorkOrderController extends Controller
             }
         }
 
-        $zipFilePath = count($wo_doc) > 0 ? downloadWorkOrderDocumentsAsZip($wo_doc) : null;
-
-        return compact('wo_details', 'overallSum', 'zipFilePath', 'check_workOrders');
+        // $zipFilePath = count($wo_doc) > 0 ? downloadWorkOrderDocumentsAsZip($wo_doc) : null;
+        $zipFilePath = null;
+            if (count($wo_doc) > 0) {
+                // Call the helper function to create a zip of the work order documents
+                $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
+            }
+        $show_report = "showReport";
+        return compact('wo_details', 'overallSum', 'zipFilePath', 'check_workOrders','show_report');
     }
 
 
     public function save_wo_report(Request $request){
-        // try {
+        
+        try {
             $workOrder = $this->processWorkOrders($request);
             $wo_details =$workOrder['wo_details'];
             $overallSum =$workOrder['overallSum'];
@@ -482,8 +460,13 @@ class WorkOrderController extends Controller
             ])->render(); 
             // dd($message_new);
             $unq_no = now()->format('Ymdhisa');
-            $file_name = "WorkOrderReport_{$unq_no}.pdf";
+            if($request->report_name){
+               
+                $file_name = $request->report_name . "_" . $unq_no . ".pdf";
 
+            }else{
+                $file_name = "WorkOrderReport_{$unq_no}.pdf";
+            }
             $pdf = App::make('dompdf.wrapper');
             $pdf->loadHTML($message_new);
         
@@ -492,11 +475,59 @@ class WorkOrderController extends Controller
                 'doc' => $file_name
             ]);
             return redirect()->route('report-log')->with(['success' => true, 'message' => 'Report save Successfully.']);
-        // } catch (Throwable $th) {
-        //     return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
-        // }
+        } catch (Throwable $th) {
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
+        }
         
     }
+    
+//     public function save_wo_report(Request $request)
+// {
+//     try {
+//         // Process the work orders
+//         $workOrder = $this->processWorkOrders($request);
+//         $wo_details = $workOrder['wo_details'];
+//         $overallSum = $workOrder['overallSum'];
+
+//         // Render the report view
+//         $message_new = view('hr.workOrder.work-order-report', [
+//             'wo_details' => $wo_details,
+//             'overallSum' => $overallSum,
+//         ])->render();
+
+//         // Generate unique report filename
+//         $unq_no = now()->format('Ymdhisa');
+//         $file_name = $request->report_name 
+//             ? $request->report_name . "_" . $unq_no . ".pdf"
+//             : "WorkOrderReport_{$unq_no}.pdf";
+
+//         // Generate PDF from the HTML content
+//         $pdf = App::make('dompdf.wrapper');
+//         $pdf->loadHTML($message_new);
+
+//         // Save PDF to a specific location
+//         $pdf->save(public_path("work-order/wo-report/{$file_name}"));
+
+//         // Log the report in the database
+//         ReportLog::create([
+//             'doc' => $file_name
+//         ]);
+
+//         // Return success message
+//         return redirect()->route('report-log')->with([
+//             'success' => true, 
+//             'message' => 'Report saved successfully.',
+//             'pdf_file' => asset("work-order/wo-report/{$file_name}")
+//         ]);
+        
+//     } catch (Throwable $th) {
+//         // Handle any errors
+//         return redirect()->route('work-order-list')->with([
+//             'error' => true, 
+//             'message' => 'Server Error.'
+//         ]);
+//     }
+// }
 
     
      /**
@@ -642,7 +673,12 @@ class WorkOrderController extends Controller
     }
 
     public function report_log(Request $request){
-        $report= ReportLog::with('user')->orderBy('id', 'desc')->paginate(25);
+        // $report= ReportLog::with('user')->orderBy('id', 'desc')->paginate(25);
+        $report = DB::table('report_logs')
+        ->leftJoin('users', 'report_logs.created_by', '=', 'users.id')
+        ->select('report_logs.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
+        ->orderByDesc('report_logs.id')
+        ->paginate(25);
         // dd($report);
         return view("hr.workOrder.report-log", compact('report'));
 
@@ -699,11 +735,14 @@ class WorkOrderController extends Controller
             Mail::to($to)->cc($cc)->send(new ReportMail($maildata));
             DB::commit();
        
-        return response()->json(['success' => true, 'message' => 'Mail Sent Successfully']);
+        // return response()->json(['success' => true, 'message' => 'Mail Sent Successfully']);
+        return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'Report Mail Sent Successfully.']);
+        // return redirect()->route('work-order-list')->with('success', 'Report Mail Sent Successfully');
         }
         catch(Throwable $th){
             DB::rollBack();
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            // return response()->json(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'Server Error.']);
 
         }
   
@@ -727,6 +766,6 @@ class WorkOrderController extends Controller
         ], 200);
        
     }
-
+    
    
 }
