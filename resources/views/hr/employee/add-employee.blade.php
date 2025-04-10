@@ -86,6 +86,7 @@
                                 <label class="form-label">Employee Code <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm" name="emp_code"
                                     placeholder="Enter Employee Code" required>
+                                <span class="code_status"></span>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label" class="text-dark">Employee Name <span
@@ -160,7 +161,8 @@
                                     name="emp_email_first" placeholder="Enter Email"
                                     value="{{ !empty($recruitment_details->email) ? $recruitment_details->email : '' }}"
                                     required>
-                                <span class="emp_email_first"></span>
+                                {{-- <span class="emp_email_first"></span> --}}
+                                <span class="emp_email"></span>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Contact (Office)</label>
@@ -498,7 +500,7 @@
                                 <label class="form-label">Salary / CTC(Per Month) <span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm" name="emp_salary"
-                                    placeholder="Enter CTC" value="{{$recruitment_details->salary}}" required>
+                                    placeholder="Enter CTC" value="{{!empty($recruitment_details->salary) ? $recruitment_details->salary : ''}}" required>
                             </div>
 
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
