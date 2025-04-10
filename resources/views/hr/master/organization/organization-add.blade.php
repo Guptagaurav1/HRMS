@@ -81,11 +81,12 @@
 
                             <div class="col-lg-4 col-sm-6 mt-3">
                                 <label for="postal_code" class="form-label">Postal Code <span class="text-danger">
-                                    </span></label>
+                                    **</span></label>
                                 <input type="text" name="postal_code" class="form-control form-control-sm"
                                     placeholder="Enter a Postal Code" pattern="^[1-9]{1}[0-9]{2}\s?[0-9]{3}$"
-                                    maxlength="6" title="Please enter a 6-digit Postal Code like 000 000">
-                                <span class="error text-danger" id="error-postalCode"></span>
+                                    maxlength="6" title="Please enter a 6-digit Postal Code like 000 000"
+                                    onkeyup="if (!/^[1-9]{1}[0-9]{2}\s?[0-9]{3}$/.test(this.value)) this.value = this.value.replace(/[^\d\s]/g, '')" required>
+                                
                                 @error('postal_code')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -148,4 +149,6 @@
 @section('script')
 <script src="{{ asset('assets/vendor/js/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('assets/js/masters/organization.js') }}"></script>
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
+
 @endsection

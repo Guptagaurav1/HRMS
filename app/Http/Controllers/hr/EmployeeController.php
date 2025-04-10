@@ -46,7 +46,10 @@ class EmployeeController extends Controller
     public function create($recruitment_id = null)
     {
         try {
-            $reporting_managers = ReportingManager::select('id', 'name', 'email')->get();
+            $reporting_manager_id =  Department::select('reporting_manager_id')->get();
+            $repo_id = $reporting_manager_id->pluck('reporting_manager_id');
+            $reporting_managers = ReportingManager::select('id', 'name', 'email')->whereNotIn('id', $repo_id)->get();
+        
             $designations = Designation::select('name')->orderByDesc('id')->get();
             $departments = Department::select('department')->get();
             $functional_roles = FunctionalRole::select('role')->get();

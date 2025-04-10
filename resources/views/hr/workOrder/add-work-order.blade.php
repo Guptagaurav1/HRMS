@@ -82,7 +82,7 @@
 
                 <div class="panel">
                     <div class="employee-tab">
-                        <ul class="d-flex align-items-center justify-content-between  flex-wrap">
+                        <ul class="d-flex align-items-center justify-content-between flex-nowrap">
                             <li>
                                 <button type="button" class="tab-btn active" id="tab1">Project Details</button>
                             </li>

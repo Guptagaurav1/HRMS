@@ -447,8 +447,10 @@
                                 size :1mb)</span></label>
                         <input type="file" name="emp_signature" class="form-control photo"
                             accept=".jpg, .jpeg, .png">
-                        <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/sign') . '/' . $employee_details->getPersonalDetail->emp_signature : '' }}"
-                            class="img-fluid preview_photo w-50 rounded my-2">
+                        <div class="text-center mt-2">
+                            <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/sign') . '/' . $employee_details->getPersonalDetail->emp_signature : '' }}"
+                                class="img-fluid preview_photo preview rounded">
+                        </div>
                         <span class="fileerror text-danger"></span>
 
                     </div>
@@ -457,10 +459,12 @@
                         <label class="form-label text-dark">Add Passport size photo <span class="fw-lighter small">(Max
                                 size :1mb)</span></label>
                         <input type="file" name="emp_photo" class="form-control photo" accept=".jpg, .jpeg, .png">
-                        <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/passport_size_photo' . '/' . $employee_details->getPersonalDetail->emp_photo) : '' }}"
-                            class="img-fluid preview_photo w-50 rounded my-2">
-                        <span class="fileerror text-danger"></span>
 
+                        <div class="text-center mt-2">
+                            <img src="{{ !empty($employee_details->getPersonalDetail) ? asset('recruitment/candidate_documents/passport_size_photo') . '/' . $employee_details->getPersonalDetail->emp_photo : '' }}"
+                                class="img-fluid preview_photo preview rounded">
+                        </div>
+                        <span class="fileerror text-danger"></span>
 
                     </div>
 
@@ -662,79 +666,82 @@
                                     <option value="">Select</option>
                                     <option value="10th"
                                         {{ !empty($employee_details->education) && $employee_details->education->emp_highest_qualification == '10th' ? 'selected' : '' }}>
-                                        10th</option>
+                                        High School</option>
                                     <option value="12th"
                                         {{ !empty($employee_details->education) && $employee_details->education->emp_highest_qualification == '12th' ? 'selected' : '' }}>
-                                        12th</option>
+                                        Intermediate</option>
                                     <option value="Diploma"
                                         {{ !empty($employee_details->education) && $employee_details->education->emp_highest_qualification == 'Diploma' ? 'selected' : '' }}>
                                         Diploma</option>
                                     <option value="Bachelor"
                                         {{ !empty($employee_details->education) && $employee_details->education->emp_highest_qualification == 'Bachelor' ? 'selected' : '' }}>
-                                        Bachelor</option>
+                                        Graduation</option>
                                     <option value="Master"
                                         {{ !empty($employee_details->education) && $employee_details->education->emp_highest_qualification == 'Master' ? 'selected' : '' }}>
-                                        Master</option>
+                                        Post Graduate</option>
                                     <option value="PhD"
                                         {{ !empty($employee_details->education) && $employee_details->education->emp_highest_qualification == 'PhD' ? 'selected' : '' }}>
-                                        PhD</option>
+                                        Doctorate</option>
                                 </select>
                             </div>
                         </div>
 
                         {{-- 10th Section --}}
-                        <div class="card-header">
-                            10th Qualification
-                        </div>
-                        <div class="card-body">
-                            <div class="row g-3">
-                                <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">10th Passing Year</label>
-                                    <input type="number" class="form-control form-control-sm" name="emp_tenth_year"
-                                        min="0" max="{{ date('Y') }}" placeholder="Enter 10th Passing Year"
-                                        value="{{ !empty($employee_details->education) ? $employee_details->education->emp_tenth_year : '' }}">
-                                </div>
-                                <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">Percentage/Grade</label>
-                                    <input type="text" class="form-control form-control-sm"
-                                        name="emp_tenth_percentage" placeholder="Enter Percentage"
-                                        value="{{ !empty($employee_details->education) ? $employee_details->education->emp_tenth_percentage : '' }}">
-                                </div>
-                                <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">Board Name</label>
-                                    <input type="text" class="form-control form-control-sm"
-                                        name="emp_tenth_board_name" placeholder="Enter Board Name"
-                                        value="{{ !empty($employee_details->education) ? $employee_details->education->emp_tenth_board_name : '' }}">
-                                </div>
-                                <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                    <label class="form-label">Upload Doc <span class="small">(Only Pdf)</span>
-                                        <span class="fw-lighter small">(Max size :1mb)</span>
-                                        @if (!empty($employee_details->education) && $employee_details->education->emp_tenth_doc)
-                                            <a href="{{ asset('recruitment/candidate_documents/10th') . '/' . $employee_details->education->emp_tenth_doc }}"
-                                                target="_blank">View</a>
-                                        @endif
-                                    </label>
-                                    <input type="file" accept=".pdf" class="form-control form-control-sm"
-                                        name="emp_tenth_doc">
-                                    <span class="fileerror text-danger"></span>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        {{-- 12th section --}}
-                        <div class="card mb-20">
+                        <div class="card mb-20 education-card d-none">
                             <div class="card-header">
-                                12th Qualification
+                                High School
                             </div>
                             <div class="card-body">
                                 <div class="row g-3">
                                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                        <label class="form-label">12th Passing Year</label>
+                                        <label class="form-label">Passing Year</label>
+                                        <input type="number" class="form-control form-control-sm" name="emp_tenth_year"
+                                            min="0" max="{{ date('Y') }}"
+                                            placeholder="Enter Passing Year"
+                                            value="{{ !empty($employee_details->education) ? $employee_details->education->emp_tenth_year : '' }}">
+                                    </div>
+                                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                        <label class="form-label">Percentage/Grade</label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            name="emp_tenth_percentage" placeholder="Enter Percentage"
+                                            value="{{ !empty($employee_details->education) ? $employee_details->education->emp_tenth_percentage : '' }}">
+                                    </div>
+                                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                        <label class="form-label">Board Name</label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            name="emp_tenth_board_name" placeholder="Enter Board Name"
+                                            value="{{ !empty($employee_details->education) ? $employee_details->education->emp_tenth_board_name : '' }}">
+                                    </div>
+                                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                        <label class="form-label">Upload Doc <span class="small">(Only Pdf)</span>
+                                            <span class="fw-lighter small">(Max size :1mb)</span>
+                                            @if (!empty($employee_details->education) && $employee_details->education->emp_tenth_doc)
+                                                <a href="{{ asset('recruitment/candidate_documents/10th') . '/' . $employee_details->education->emp_tenth_doc }}"
+                                                    target="_blank">View</a>
+                                            @endif
+                                        </label>
+                                        <input type="file" accept=".pdf" class="form-control form-control-sm"
+                                            name="emp_tenth_doc">
+                                        <span class="fileerror text-danger"></span>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- 12th section --}}
+                        <div class="card mb-20 education-card d-none">
+                            <div class="card-header">
+                                Intermediate
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                        <label class="form-label">Passing Year</label>
                                         <input type="number" class="form-control form-control-sm" name="emp_twelve_year"
                                             min="0" max="{{ date('Y') }}"
-                                            placeholder="Enter 12th Passing Year"
+                                            placeholder="Enter Passing Year"
                                             value="{{ !empty($employee_details->education) ? $employee_details->education->emp_twelve_year : '' }}">
                                     </div>
                                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -767,7 +774,7 @@
                         </div>
 
                         {{-- Diploma Section --}}
-                        <div class="card mb-20">
+                        <div class="card mb-20 education-card d-none">
                             <div class="card-header">
                                 Diploma
                             </div>
@@ -833,7 +840,7 @@
                         </div>
 
                         {{-- Graduation Section --}}
-                        <div class="card mb-20">
+                        <div class="card mb-20 education-card d-none">
                             <div class="card-header">
                                 Graduation
                             </div>
@@ -899,7 +906,7 @@
                         </div>
 
                         {{-- Post Graduation Section --}}
-                        <div class="card mb-20">
+                        <div class="card mb-20 education-card d-none">
                             <div class="card-header">
                                 Post Graduation
                             </div>
@@ -963,7 +970,7 @@
                         </div>
 
                         {{-- Doctorate Details --}}
-                        <div class="card mb-20">
+                        <div class="card mb-20 education-card d-none">
                             <div class="card-header">
                                 Doctorate
                             </div>

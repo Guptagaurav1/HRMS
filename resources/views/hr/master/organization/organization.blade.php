@@ -83,7 +83,7 @@
                                 <td class="text-center attributes-column">{{ $value->email }}</td>
                                 <td class="text-center">{{ $value->contact }}</td>
                                 <td class="text-center attributes-column">{{ $value->address }}</td>
-                                <td class="">
+                                <td class="text-center">
                                     @if(auth()->user()->hasPermission('organizations.edit'))
                                     <a href="{{ route('organizations.edit',['organization' => $value->id ]) }}"><button type="button" class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                     @endif

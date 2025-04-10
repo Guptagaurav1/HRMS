@@ -331,6 +331,9 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get('complete-salary-sheet', 'salary_sheet')->name("salary-sheet");
         Route::post('send-report-mail', 'send_report_mail')->name("send-report-mail");
         Route::get('get-exist-wo/{wo_number}', 'get_exist_wo')->name("get-exist-wo");
+        Route::post('work-order/check-salary', 'check_salary');
+        Route::post('download-salary-sheet', 'download_salary_sheet')->name('download-salary-sheet');
+
     });
 
     /////////// workorder routes end ///////
@@ -577,6 +580,14 @@ Route::get("work-anniversary-list-template", function () {
 Route::get("company-master-edit", function () {
     return view("hr.company-master-edit");
 })->name("company-master-edit");
+
+
+// Change Password
+
+
+Route::get("change-password", function () {
+    return view("hr.change-password");
+})->name("change-password");
 
 
 

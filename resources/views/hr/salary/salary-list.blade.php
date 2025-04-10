@@ -1,20 +1,20 @@
 @extends('layouts.master', ['title' => 'Salary Slip'])
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
-
 @section('contents')
 <div class="fluid-container">
     <div class="row">
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-3">Salary Details</h2>
-    
-    
+                    <h2 class="mt-1">Salary Details</h2>
+                    <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
+                </div>
                 </div>
                 <p class="text-danger px-3">** Seacrh applicable on Emp Id/Name/Work Order Number/Designation</p>
                 <div class="col-md-12 text-end p-2">
@@ -84,34 +84,34 @@
                             <tbody>
                                 @forelse($salary as $key => $value)
                                     <tr>
-                                        <td title="Emp. Code">{{$value->sl_emp_code}}</td>
-                                        <td title="Work Order">{{$value->empDetail->emp_work_order}}</td>
-                                        <td title="D.O.J">{{$value->sa_emp_doj}}</td>
-                                        <td title="EMp. Name">{{$value->sal_emp_name}}</td>
-                                        <td title="Dessination">{{$value->sal_emp_designation}}	</td>
-                                        <td title="CTC">{{$value->sal_ctc}}</td>
-                                        <td title="Gross">{{$value->sal_gross}}</td>
-                                        <td title="Net Salary">{{$value->sal_net}}</td>
-                                        <td title="Basic Salary">{{$value->sal_basic}}</td>
-                                        <td title="HRA">{{$value->sal_hra}}</td>
-                                        <td title="Salary DA">{{$value->sal_da}}</td>
-                                        <td title="Salary Conveyance">{{$value->sal_conveyance}}</td>
-                                        <td title="Salary Special allowance">{{$value->sal_special_allowance}}</td>
-                                        <td title="Medical Allowance">{{$value->medical_allowance}}</td>
-                                        <td title="Salary PF Employer">{{$value->sal_pf_employer}}</td>
-                                        <td title="ESI Employer">{{$value->sal_esi_employer}}</td>
+                                        <td title="Emp. Code" class="text-center">{{$value->sl_emp_code}}</td>
+                                        <td title="Work Order" class="text-center">{{$value->empDetail->emp_work_order}}</td>
+                                        <td title="D.O.J" class="text-center">{{$value->sa_emp_doj}}</td>
+                                        <td title="EMp. Name" class="text-center">{{$value->sal_emp_name}}</td>
+                                        <td title="Dessination" class="text-center">{{$value->sal_emp_designation}}	</td>
+                                        <td title="CTC" class="text-center">{{$value->sal_ctc}}</td>
+                                        <td title="Gross" class="text-center">{{$value->sal_gross}}</td>
+                                        <td title="Net Salary" class="text-center">{{$value->sal_net}}</td>
+                                        <td title="Basic Salary" class="text-center">{{$value->sal_basic}}</td>
+                                        <td title="HRA" class="text-center">{{$value->sal_hra}}</td>
+                                        <td title="Salary DA" class="text-center">{{$value->sal_da}}</td>
+                                        <td title="Salary Conveyance" class="text-center">{{$value->sal_conveyance}}</td>
+                                        <td title="Salary Special allowance" class="text-center">{{$value->sal_special_allowance}}</td>
+                                        <td title="Medical Allowance" class="text-center">{{$value->medical_allowance}}</td>
+                                        <td title="Salary PF Employer" class="text-center">{{$value->sal_pf_employer}}</td>
+                                        <td title="ESI Employer" class="text-center">{{$value->sal_esi_employer}}</td>
                                         <td title="TDS Tax Amount">{{$value->tds_tax_amount}}</td>
 
-                                        <td title="TDS Deduction">{{$value->tds_deduction}}</td>
-                                        <td title="PF No.">{{$value->empDetail->getBankDetail->emp_pf_no??NULL}}</td>
-                                        <td title="ESI No.">{{$value->empDetail->getBankDetail->emp_esi_no??NULL}}</td>
-                                        <td title="Bank No.">{{$value->empDetail->getBankDetail->getBankData->name_of_bank??NULL}}</td>
-                                        <td title="Account No.">{{$value->empDetail->getBankDetail->emp_account_no??NULL}}</td>
-                                        <td>{{$value->empDetail->getBankDetail->emp_ifsc}}</td>
-                                        <td title="Phone">{{$value->empDetail->emp_phone_first}}</td>
-                                        <td title="Email">{{$value->empDetail->emp_email_first}}</td>
-                                        <td title="Remark" >{{$value->sal_remark}}</td>
-                                        <td><a href="{{route('edit-salary',$value->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        <td title="TDS Deduction" class="text-center">{{$value->tds_deduction}}</td>
+                                        <td title="PF No." class="text-center">{{$value->empDetail->getBankDetail->emp_pf_no??NULL}}</td>
+                                        <td title="ESI No." class="text-center">{{$value->empDetail->getBankDetail->emp_esi_no??NULL}}</td>
+                                        <td title="Bank No." class="text-center">{{$value->empDetail->getBankDetail->getBankData->name_of_bank??NULL}}</td>
+                                        <td title="Account No." class="text-center">{{$value->empDetail->getBankDetail->emp_account_no??NULL}}</td>
+                                        <td class="text-center">{{$value->empDetail->getBankDetail->emp_ifsc}}</td>
+                                        <td title="Phone" class="text-center">{{$value->empDetail->emp_phone_first}}</td>
+                                        <td title="Email" class="text-center">{{$value->empDetail->emp_email_first}}</td>
+                                        <td title="Remark" class="text-center">{{$value->sal_remark}}</td>
+                                        <td class="text-center"><a href="{{route('edit-salary',$value->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                         <a data-id="{{ $value->id }}"  class="delete-salary"><button class="btn btn-sm btn-danger"  title="Delete">Delete <i class="fa-solid fa-trash"></i></button></a>
                                         </td>
                                     </tr>

@@ -1070,6 +1070,44 @@ ul.breadcrumb li a:hover {
   text-decoration: underline;
 }
 
+/* Fix size for preview image */
+img.preview{
+  width:200px;
+  height:135px;
+}
+
+/* Custom css Media Query */
+
+@media (max-width: 426px){
+  .panel-header h2,h3{
+    margin-left: 97px;
+    font-size:22px;
+  }
+
+  .hr-dashboard-heading{
+    font-size: 15px !important;
+    font-weight: bold !important;
+
+  }
+}
+
+
+/* Overflow change password */
+
+#overflow{
+  position: relative;
+  left: 100;
+  z-index: 100;
+  
+}
+
+
+
+
+
+
+
+
 
 
  

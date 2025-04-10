@@ -96,7 +96,7 @@
         {{-- Leaves Section --}}
         <div class="tab-content-section" id="leaves">
             <div class="card p-4">
-                <h2 class="mb-3 text-center">Leave Records</h2>
+                <h2 class="mb-3 text-center">Leave Records <span class="fw-lighter">(Year : 2025)</span></h2>
                 <p><strong>Total Leaves Taken : </strong> {{$total_leaves ? $total_leaves.' days' : '' }} </p>
                 <p><strong>Un-Approved Leaves : </strong> <span class="text-danger"> {{$pending_leaves ? $pending_leaves.' days' : '' }} </span></p>
 

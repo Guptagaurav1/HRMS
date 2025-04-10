@@ -89,7 +89,7 @@
 
                             <div class="col-lg-4 col-sm-6 mt-3">
                                 <label for="postal_code" class="form-label">Postal Code <span class="text-danger">
-                                    </span></label>
+                                    **</span></label>
                                 <input type="text" value="{{ $organization->postal_code }}" name="postal_code"
                                     class="form-control form-control-sm" placeholder="Enter a Postal Code" maxlength="6"
                                     title="Follow the format"
@@ -152,4 +152,5 @@
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/masters/organization.js') }}"></script>
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection
