@@ -458,6 +458,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('get-reporting-managers', 'get_reporting_managers');
         Route::get("credential_log_list", 'sent_credential_logs')->name("employee.sent-credentials-logs");
         Route::post('preview-csv', 'preview_csv');
+        Route::post('validate-emp-code', 'validate_emp_code');
+        Route::post('validate-emp-email', 'validate_emp_email');
     });
 
 

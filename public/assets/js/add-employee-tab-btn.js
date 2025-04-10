@@ -135,7 +135,7 @@ $(document).ready(function () {
     //     next($(this));
     // });
 
-    $("form").submit(function(event) {
+    $("form").submit(function (event) {
         var element = $(this);
         if (!element.hasClass("bulk-upload") && !element.hasClass("add-department") && !element.hasClass("add-designation")) {
             event.preventDefault();
@@ -425,7 +425,7 @@ $(document).ready(function () {
 
     });
 
-    function showQualification (qualification){
+    function showQualification(qualification) {
         var count = 0;
         if (qualification == '10th') {
             count = 1;
@@ -464,5 +464,82 @@ $(document).ready(function () {
     // Show qualification on load.
     showQualification($("select[name=emp_highest_qualification]").val());
 
+    var empCodeRequest;
+    // Check availability of employee code.
+    $("input[name=emp_code]").keyup(function () {
+        var element = $(this);
+        var code = element.val();
 
+        // Abort previous request if still running
+        if (empCodeRequest) {
+            empCodeRequest.abort();
+        }
+
+        if (code) {
+            empCodeRequest = $.ajax({
+                url: SITE_URL + '/hr/employee/validate-emp-code',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'code': code,
+                    '_token': $("meta[name=csrf-token]").attr('content')
+                },
+                success: function (response) {
+                    if (response.success) {
+                        if (response.available) {
+                            element.closest('div').find('span.code_status').removeClass('text-success').addClass('text-danger').text('Already Exists');
+                        }
+                        else {
+                            element.closest('div').find('span.code_status').removeClass('text-danger').addClass('text-success').text('Available');
+                        }
+                    }
+                    else if (response.error) {
+                        element.closest('div').find('span.code_status').addClass('text-danger').text(response.message);
+                    }
+                }
+            });
+        }
+        else {
+            element.closest('div').removeClass('text-success text-danger').find('span.code_status').text('');
+        }
+    });
+
+    // Check availability of email.
+    $("input[name=emp_email_first]").keyup(function () {
+        var element = $(this);
+        var email = element.val();
+
+        // Abort previous request if still running
+        if (empCodeRequest) {
+            empCodeRequest.abort();
+        }
+
+        if (email) {
+            empCodeRequest = $.ajax({
+                url: SITE_URL + '/hr/employee/validate-emp-email',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'email': email,
+                    '_token': $("meta[name=csrf-token]").attr('content')
+                },
+                success: function (response) {
+                    if (response.success) {
+                        if (response.available) {
+                            element.closest('div').find('span.emp_email').removeClass('text-success').addClass('text-danger').text('Already Exists');
+                        }
+                        else {
+                            element.closest('div').find('span.emp_email').removeClass('text-danger').addClass('text-success').text('Available');
+                        }
+                    }
+                    else if (response.error) {
+                        element.closest('div').find('span.emp_email').addClass('text-danger').text(response.message);
+                    }
+                }
+            });
+        }
+        else {
+            element.closest('div').removeClass('text-success text-danger').find('span.emp_email').text('');
+        }
+    });
 });
