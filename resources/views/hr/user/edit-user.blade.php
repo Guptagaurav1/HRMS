@@ -23,6 +23,14 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h4 class="mt-1">User Details</h4>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Profile Details</a></li>
+                                <li>Department List</li>
+                            </ul>
+                        </div>
                     </div>
                 
                         <div class="panel-body">

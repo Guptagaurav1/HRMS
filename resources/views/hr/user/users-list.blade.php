@@ -5,22 +5,31 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="text-white mt-2">Users List</h3>
+                    <div>
+                            <ul class="breadcrumb">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Profile Details</a></li>
+                                <li>Department List</li>
+                            </ul>
+                        </div>
 
                     
                 </div>
-                <div class="text-end px-2 mt-3">
-                    <a href="{{route('add-user')}}"><button type="button" class="btn btn-primary mb-3">Add User <i class="fa-solid fa-plus"></i></button></a>
-                </div>
-                <div class="col-md-12 d-flex justify-content-start px-2">
-                    <form class="row g-3" method="get">
+                
+                <div class="col-md-12 d-flex justify-content-between align-items-center px-2">
+                    <form class="row g-3 mt-2" method="get">
                         <div class="col-auto mb-3">
                             <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                             <a href="{{ route('users') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
                         </div>
                     </form>
+                    <div class="col-xs-12">
+                    <a href="{{route('add-user')}}"><button type="button" class="btn btn-primary mb-3">Add User <i class="fa-solid fa-plus"></i></button></a>
+                </div>
                 </div>
                 <div class="row">
                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -75,7 +84,7 @@
                                 <tr>
                                     <td class="srno-column text-center">{{$key+1}}</td>
                                     <td class="rid-column text-center">{{$user->role->role_name??NULL}}</td>
-                                    <td class="text-center">{{$user->first_name}} {{$user->last_name}} / {{$user->email}} / {{$user->phone}}</td>
+                                    <td class="text-center attributes-column">{{$user->first_name}} {{$user->last_name}} / {{$user->email}} / {{$user->phone}}</td>
                                     <td class="attributes-column text-center">{{$user->created_at}}</td>
                                     <td class="text-center">{{$user->updated_at}}</td>
                                     <td data-id="{{ $user->id }}" class="status-text text-center">

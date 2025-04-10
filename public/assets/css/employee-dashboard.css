@@ -19,6 +19,7 @@
     border-bottom: 2px solid #ddd;
     margin-top: 20px;
     background-color: white;
+    flex-wrap: wrap;
 }
 
 .custom-tabs .tab-item {
@@ -29,6 +30,8 @@
     transition: background-color 0.3s ease;
     border-radius: 10px 10px 0 0;
     margin-right: 5px;
+    border-right: 4px solid black;
+
 }
 
 .custom-tabs .tab-item.active {
@@ -64,10 +67,60 @@
     gap: 20px;
     background: #fff;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
     width: 50%;
 }
 
+
+
+@media(min-width:427px) and (max-width:800px){
+
+    .profile-card {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+
+    .email-no{
+        font-size: 12px;
+    }
+
+}
+
+
+@media(max-width:426px){
+
+    .profile-card {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+
+    .email-no{
+        font-size: 15px;
+    }
+    
+    
+
+
+
+}
 .profile-card img {
     width: 120px;
     height: 120px;

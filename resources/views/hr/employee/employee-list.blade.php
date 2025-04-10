@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-2">Employee List</h2>
+                    <h2 class="mt-2 text-center">Employee List</h2>
                     <div>
                             <ul class="breadcrumb">
                                 <li>

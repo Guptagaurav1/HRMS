@@ -22,10 +22,10 @@
                 </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3">
-                        <div class="col-auto mb-3">
+                        <div class="col-auto col-xs-12 mb-3">
                             <input type="text" name="search" class="form-control" placeholder="Search" value="{{$search}}" required>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3">Search</button>
                             <a href="{{ route('salary-list') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
                         </div>

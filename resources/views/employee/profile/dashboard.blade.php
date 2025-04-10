@@ -7,8 +7,8 @@
 @section('contents')
 <div class="container dashboard-container">
     <div class="dashboard-breadcrumb mb-3 d-flex justify-content-between align-items-center">
-        <h4 class="text-dark">Helpdesk for query <i class="fa-solid fa-arrow-right fs-6"></i></h4>
-        <p class="mt-2"><strong>Email: helpdesk@prakharsoftwares.com | Contact No : 7982363536</strong></p>
+        <h4 class="text-dark fw-bold">Helpdesk for query <i class="fa-solid fa-arrow-right fs-6"></i></h4>
+        <p class="mt-2 text-dark fw-bold email-no">Email: helpdesk@prakharsoftwares.com | Contact No : 7982363536</p>
 
     </div>
     <div class="d-flex justify-content-center align-items-center gap-3">
@@ -21,10 +21,10 @@
                     alt="Profile">
             @endif
             <div class="profile-info">
-                <h4>{{auth('employee')->user()->emp_name}}</h4>
-                <p>{{auth('employee')->user()->emp_designation}}</p>
-                <p><i class="fas fa-envelope"></i> {{auth('employee')->user()->emp_email_first}}</p>
-                <p><i class="fas fa-phone"></i>{{auth('employee')->user()->emp_phone_first}}</p>
+                <h4 class="text-center">{{auth('employee')->user()->emp_name}}</h4>
+                <p class="text-center">{{auth('employee')->user()->emp_designation}}</p>
+                <p class="text-center"><i class="fas fa-envelope"></i> {{auth('employee')->user()->emp_email_first}}</p>
+                <p class="text-center"><i class="fas fa-phone"></i>{{auth('employee')->user()->emp_phone_first}}</p>
             </div>
         </div>
         {{-- <div class="card profile-card p-3">
