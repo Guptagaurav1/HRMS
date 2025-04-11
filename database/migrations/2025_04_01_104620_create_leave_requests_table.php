@@ -25,11 +25,11 @@ return new class extends Migration
             $table->string('total_days')->nullable();
             $table->text('comment')->nullable();
             $table->enum('status', ['Wait','Approved','Disapproved','Reapproved','Redisapproved','Modified'])->nullable()->default('Wait');
-            $table->unsignedBigInteger('approved_disapproved_by')->nullable();
-            $table->foreign('approved_disapproved_by')->references('id')->on('emp_details');
+            $table->integer('approved_disapproved_by')->nullable();
+            $table->foreign('approved_disapproved_by')->references('id')->on('users');
             $table->text('approved_disapproved_comment')->nullable();
-            $table->unsignedBigInteger('reapproved_redisapproved_by')->nullable();
-            $table->foreign('reapproved_redisapproved_by')->references('id')->on('emp_details');
+            $table->integer('reapproved_redisapproved_by')->nullable();
+            $table->foreign('reapproved_redisapproved_by')->references('id')->on('users');
             $table->text('reapproved_redisapproved_comment')->nullable();
             $table->softDeletes();
             $table->timestamps();
