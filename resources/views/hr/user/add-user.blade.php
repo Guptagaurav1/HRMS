@@ -15,7 +15,7 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h4 class="mt-1">User Details</h4>
+                        <h2 class="mt-1">User Details</h2>
                         <div>
                             <ul class="breadcrumb">
                                 <li><a href="#">Dashboard</a></li>

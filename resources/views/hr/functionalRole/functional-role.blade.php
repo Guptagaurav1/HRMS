@@ -4,7 +4,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h4 class="text-white mt-2">Functional Role</h4>
+                <h3 class="text-white mt-2">Functional Role</h3>
                 <div>
                     <ul class="breadcrumb">
                         <li><a href="#">Dashboard</a></li>
@@ -60,31 +60,40 @@
                     @endif
                 </div>
 
+                <div class="row  mt-4">
+                    <div class="col-md-10">
+                        <form method="get">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                        required>
 
-                <div class="col-md-12 d-flex align-items-cenetr justify-content-between mt-4">
-                    <div class="">
-                        <form class="row g-3" method="get">
-                            <div class="col-auto mb-3">
-                                <input type="text" name="search" value="" class="form-control" placeholder="Search"
-                                    required>
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
-                                        class="fa-solid fa-magnifying-glass"></i></button>
-                                <a href="{{ route('organizations.index') }}"><button type="button"
-                                        class="btn btn-primary btn-sm mb-3">Clear <i
-                                            class="fa-solid fa-eraser"></i></button></a>
-                            </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn  btn-primary btn-sm mb-3">Search </button>
 
+                                </div>
+                                <div class="col-md-6">
+
+                                    <a href="#" class="col-xs-12"><button type="button"
+                                            class="btn btn-primary btn-sm mb-3">Clear <i
+                                                class="fa-solid fa-eraser"></i></button></a>
+                                </div>
+                            </div>
                         </form>
-                    </div>
 
-                    @if(auth()->user()->hasPermission('add-functional-role'))
-                    <div">
-                        <a href="{{route('add-functional-role')}}"><button class="btn btn-sm btn-primary">Add Functional
+                    </div>
+                    <div class="col-md-2">
+                        @if(auth()->user()->hasPermission('add-functional-role'))
+
+                        <a href="{{route('add-functional-role')}}" class="col-xs-12"><button
+                                class="btn btn-sm btn-primary">Add Functional
                                 Role <i class="fa-solid fa-plus"></i></button></a>
+
+                        @endif
+
+                    </div>
                 </div>
-                @endif
             </div>
 
 
@@ -106,15 +115,21 @@
                             <td class='text-center'>{{ $role->role }}</td>
 
                             <td class="text-center">
+                                <div class="d-flex align-items-center justify-content-center gap-3 flex-xs-column">
+                                <div>
                                 @if(auth()->user()->hasPermission('edit-functional-role'))
                                 <a href="{{route('edit-functional-role', ['id' => $role->id])}}"><button
                                         class="btn btn-sm btn-primary">Edit <i
                                             class="fa-solid fa-pen-to-square"></i></button></a>
                                 @endif
+                                </div>
+                                <div>
                                 @if(auth()->user()->hasPermission('edit-functional-role'))
                                 <button class="btn btn-sm btn-primary delete" data-id="{{$role->id}}">Delete <i
                                         class="fa-solid fa-trash"></i></button>
                                 @endif
+                                </div>
+                                </div>
                             </td>
 
                         </tr>
@@ -126,7 +141,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 mt-3">
                 {{$roles->links()}}
             </div>
 

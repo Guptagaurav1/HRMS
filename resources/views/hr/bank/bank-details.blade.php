@@ -64,34 +64,44 @@
                     </div>
                     @endif
 
+                    <div class="row  mt-4">
+                        <div class="col-md-10">
+                            <form method="get">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input type="text" name="search" value="" class="form-control"
+                                            placeholder="Search" required>
 
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search</button>
 
-                    <div class="col-md-12 d-flex align-items-cenetr justify-content-between mt-4">
-                        <div class="">
-                            <form class="row g-3" method="get">
-                                <div class="col-auto mb-3">
-                                    <input type="text" name="search" value="" class="form-control" placeholder="Search"
-                                        required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="{{ route('organizations.index')}}" class="col-xs-12"><button
+                                                type="button" class="btn btn-primary btn-sm mb-3">Clear <i
+                                                    class="fa-solid fa-eraser"></i></button></a>
+
+                                    </div>
                                 </div>
-                                <div class="col-auto">
-                                    <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
-                                            class="fa-solid fa-magnifying-glass"></i></button>
-                                    <a href="{{ route('organizations.index') }}"><button type="button"
-                                            class="btn btn-primary btn-sm mb-3">Clear <i
-                                                class="fa-solid fa-eraser"></i></button></a>
-                                </div>
-
                             </form>
-                        </div>
 
-                        @if(auth()->user()->hasPermission('add-bank'))
-                        <div>
-                            <a href="{{route('add-bank')}}"><button class="btn btn-sm btn-primary">Add Bank <i
+
+                        </div>
+                        <div class="col-md-2 ">
+                            @if(auth()->user()->hasPermission('add-bank'))
+
+                            <a href="{{route('add-bank')}}" class="col-xs-12 mx-md-4"><button
+                                    class="btn btn-sm btn-primary">Add Bank <i
                                         class="fa-solid fa-plus"></i></button></a>
-                        </div>
-                        @endif
 
+                            @endif
+
+                        </div>
                     </div>
+
+
+
 
 
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"

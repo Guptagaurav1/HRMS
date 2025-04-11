@@ -951,25 +951,7 @@ input::-webkit-input-placeholder{
 }
 
 
-/* Acceptance Form layouts Fix CSS */
 
-.acceptance-form-layouts{
-  width: 98%;
-  background-color:#034d48;
-  position: fixed;
-   z-index: 10000 !important;
-}
-
-@media(max-width:767px){
-
-  .acceptance-form-layouts{
-    background-color:#034d48;
-    position: relative;
-    z-index: 2;
-    
-  }
-
-}
 
 
 
@@ -1094,11 +1076,6 @@ ul.breadcrumb li a:hover {
   text-decoration: underline;
 }
 
-/* Fix size for preview image */
-img.preview{
-  width:200px;
-  height:135px;
-}
 
 /* Media Query on Breadcrumb */
 
@@ -1110,12 +1087,12 @@ img.preview{
     align-items: center;
     justify-content: center;
     margin-top: 5px;
-    margin-left: 55px;
+    margin-left: -12px;
     
   }
   ul.breadcrumb li {
      
-      font-size: 13px;
+      font-size: 14px;
       color: yellow;
   }
   ul.breadcrumb li+li:before {
@@ -1133,8 +1110,14 @@ img.preview{
 
 @media (max-width: 426px){
   .panel-header h2,h3{
-    margin-left: 97px;
-    font-size:14px;
+   
+    font-size:30px;
+  }
+
+  .hr-dashboard-heading{
+    font-size: 15px !important;
+    font-weight: bold !important;
+
   }
 
   
