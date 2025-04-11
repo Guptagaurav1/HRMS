@@ -4,15 +4,14 @@
 <div class="panel">
     <div class="panel-header heading-stripe">
         <h3 class="mt-2 text-center">Add Project</h3>
-        <div class="text-start">
-            <a href="{{route('hr_dashboard') }}">
-                <div class="back-button-box">
-                    <button type="button" class="btn btn-back">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </button>
+        <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
                 </div>
-            </a>
-        </div>
     </div>
     <div class="row" id="tab-1">
         <div class="col-12 d-flex justify-content-end">

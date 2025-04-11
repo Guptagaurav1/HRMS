@@ -1,9 +1,6 @@
 @extends('layouts.master')
 
-@section('style')
 
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}"/>
-<style>
    
 </style>
 @endsection

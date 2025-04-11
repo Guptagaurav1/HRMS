@@ -303,7 +303,7 @@ $(document).ready(function () {
     // Show preview image.
     $(".photo").change(function (e) {
         imgURL = URL.createObjectURL(e.target.files[0]);
-        $(this).closest(".col-md-6").find('.preview_photo').attr("src", imgURL);
+        $(this).closest(".col-md-6").find('.preview_photo').removeClass('d-none').attr("src", imgURL);
     });
 
      // Get Cities.

@@ -13,10 +13,24 @@ class MonthSeeder extends Seeder
      */
     public function run(): void
     {
-        $months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        $months = ['Jan' => 'January',
+        'Feb' => 'February',
+        'Mar' => 'March', 
+        'Apr' => 'April',
+        'May' => 'May',
+        'Jun' => 'June',
+        'Jul' => 'July',
+        'Aug' => 'August',
+        'Sep' => 'September',
+        'Oct' => 'October',
+        'Nov' => 'November',
+        'Dec' => 'December'];
 
-            foreach ($months as $month) {
-                Month::create(['month' => $month]);
+            foreach ($months as $key => $value) {
+                Month::updateOrCreate(
+                    ['month' => $key],
+                    ['month' => $key, 'fullname' => $value]
+                );
             }
     }
 }

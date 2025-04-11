@@ -333,13 +333,16 @@ Route::middleware('auth')->prefix('hr')->group(function () {
 
         Route::get("organisation-workOrder/{or_id}", "organisation_workOrder")->name("organisation-workOrder");
         Route::get("workOrder-details/{workOrder_id}", "workOrder_details")->name("workOrder-details");
-        Route::post("work-order-report", "work_order_report")->name("work-order-report");
+        Route::get("work-order-report/{wo_id?}", "work_order_report")->name("work-order-report");
         Route::post('export', 'export_csv')->name("export-work-order");
         Route::post('save-report', 'save_wo_report')->name("save-report");
         Route::get('report-log', 'report_log')->name("report-log");
         Route::get('complete-salary-sheet', 'salary_sheet')->name("salary-sheet");
         Route::post('send-report-mail', 'send_report_mail')->name("send-report-mail");
         Route::get('get-exist-wo/{wo_number}', 'get_exist_wo')->name("get-exist-wo");
+        Route::post('work-order/check-salary', 'check_salary');
+        Route::post('download-salary-sheet', 'download_salary_sheet')->name('download-salary-sheet');
+
     });
 
     /////////// workorder routes end ///////
@@ -464,6 +467,8 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('get-reporting-managers', 'get_reporting_managers');
         Route::get("credential_log_list", 'sent_credential_logs')->name("employee.sent-credentials-logs");
         Route::post('preview-csv', 'preview_csv');
+        Route::post('validate-emp-code', 'validate_emp_code');
+        Route::post('validate-emp-email', 'validate_emp_email');
     });
 
 
@@ -586,6 +591,14 @@ Route::get("work-anniversary-list-template", function () {
 Route::get("company-master-edit", function () {
     return view("hr.company-master-edit");
 })->name("company-master-edit");
+
+
+// Change Password
+
+
+Route::get("change-password", function () {
+    return view("hr.change-password");
+})->name("change-password");
 
 
 

@@ -1,12 +1,5 @@
 @extends('layouts.master')
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
-
-
-
 @section('contents')
 <div class="fluid-container">
 
@@ -16,6 +9,18 @@
             @csrf
             <div class="col-12">
                 <div class="panel">
+                    <div class="panel-header">
+                       <h2> Update Salary </h2>
+
+                        <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
+                </div>
+                    </div>
                     <div class="col-md-12 py-3 px-3">
                         <span class="text-danger">All Fields are Mandatory. Those Fields are not in Used Set as 0 (Zero)
                             value</span>
@@ -403,7 +408,10 @@
                             <label for="exampleTextarea" class="form-label">Remarks</label>
                             <textarea class="form-control" name="sal_remark" id="sal_remark" placeholder="Enter Remarks" value="">{{$salary->sal_remark}}</textarea>
                         </div>
-                        <div class="d-flex align-items-center justify-content-end mt-3">
+                        <div class="d-flex align-items-center justify-content-end mt-3 gap-3">
+                        <div class="">
+                            <a href="{{route('salary-list')}}"><button type="button" class="btn btn-sm btn-secondary">Cancel</button></a>
+                            </div>
                             <div>
                                 <button class="btn btn-sm btn-primary">Add Salary Breakup</button>
                             </div>

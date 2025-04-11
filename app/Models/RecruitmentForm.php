@@ -69,7 +69,7 @@ class RecruitmentForm extends Model
      */ 
     public function getBankDetail(): HasOne{
         // return $this->hasOne(RecBankDetail::class, 'rec_id', 'id')->select('bank_name_id', 'account_no', 'branch', 'ifsc_code', 'pan_card_no')->with('getBankData');
-        return $this->hasOne(EmpAccountDetail::class, 'rec_id', 'id')->select('bank_id', 'emp_account_no', 'emp_branch', 'emp_ifsc', 'emp_pan', 'emp_esi_no', 'emp_pf_no')->with('getBankData');
+        return $this->hasOne(EmpAccountDetail::class, 'rec_id', 'id')->select('bank_id', 'emp_account_no', 'emp_branch', 'emp_ifsc', 'emp_pan', 'emp_esi_no', 'emp_pf_no', 'emp_salary')->with('getBankData');
     }
 
     /**
@@ -119,7 +119,7 @@ class RecruitmentForm extends Model
      * Get ID Proofs Details.
      */ 
     public function getIdProofDetail(): HasOne{
-        return $this->hasOne(EmpIdProof::class, 'rec_id', 'id')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station', 'police_verification_id', 'permanent_add_doc', 'category_doc', 'passport_file', 'police_verification_file');
+        return $this->hasOne(EmpIdProof::class, 'rec_id', 'id')->select('emp_passport_no', 'emp_aadhaar_no', 'bank_doc', 'nearest_police_station', 'police_verification_id', 'permanent_add_doc', 'category_doc', 'passport_file', 'police_verification_file', 'aadhar_card_doc');
     }
     
 }

@@ -46,7 +46,10 @@ class EmployeeController extends Controller
     public function create($recruitment_id = null)
     {
         try {
-            $reporting_managers = ReportingManager::select('id', 'name', 'email')->get();
+            $reporting_manager_id =  Department::select('reporting_manager_id')->get();
+            $repo_id = $reporting_manager_id->pluck('reporting_manager_id');
+            $reporting_managers = ReportingManager::select('id', 'name', 'email')->whereNotIn('id', $repo_id)->get();
+        
             $designations = Designation::select('name')->orderByDesc('id')->get();
             $departments = Department::select('department')->get();
             $functional_roles = FunctionalRole::select('role')->get();
@@ -811,14 +814,15 @@ class EmployeeController extends Controller
             }
             return view("hr.employee.edit-employee", compact('banks', 'skills', 'reporting_managers', 'designations', 'departments', 'functional_roles', 'employee_id', 'employee_details', 'recruitment_id', 'workorders', 'id', 'states', 'cities'));
         } catch (Throwable $th) {
-            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
     /**
      * Update employee details.
+     * Format is static, using db
      */
-    public function update_emp_details(Request $request)
+    public function update_old_emp_details(Request $request)
     {
         $this->validate($request, [
             'emp_work_order' => ['required'],
@@ -1023,6 +1027,218 @@ class EmployeeController extends Controller
         }
     }
 
+    
+    /**
+     * Update employee details.
+     * Format is dynamic, using blade
+     */
+    public function update_emp_details(Request $request)
+    {
+        $this->validate($request, [
+            'emp_work_order' => ['required'],
+            'emp_name' => ['required'],
+            'reporting_email' => ['required', 'email'],
+            'emp_doj' => ['required'],
+            'emp_dor' => ['required_if:emp_current_working_status,resign'],
+            'emp_designation' => ['required'],
+            'department' => ['required'],
+            'emp_phone_first' => ['required', 'digits:10'],
+            'emp_email_first' => ['required', 'email'],
+            'emp_current_working_status' => ['required'],
+            'emp_id' => ['required'],
+        ], [
+            'emp_dor.required_if' => 'Date of resigning field is required when employee current working status is resign'
+        ]);
+        try {
+            DB::beginTransaction();
+            $data = $request->all();
+            unset($data['emp_id']);
+            $empdetails = EmpDetail::findOrFail($request->emp_id);
+            $oldDetails = $empdetails->getOriginal();
+
+            $workorder = WorkOrder::select('id', 'wo_start_date', 'wo_end_date', 'project_id')->where('wo_number', $data['emp_work_order'])->firstOrFail();
+            // If work order is changed.
+            if ($data['emp_work_order'] != $empdetails->emp_work_order) {
+                // $extension_format = AppointmentFormat::select('format')->where(['type' => 'extention', 'name' => 'Text'])->firstOrFail();
+                $blade = 'hr.templates.extension-letter.internal';
+                $start_date = date("d/M/Y", strtotime($workorder->wo_start_date));
+                $end_date = date("d/M/Y", strtotime($workorder->wo_end_date));
+                // $message  = $extension_format->format;
+                $today_date = date("d/M/Y");
+
+                $extension_obj = new stdClass();
+                $extension_obj->today_date = $today_date;
+                $extension_obj->candidate_name = $empdetails->emp_name;
+                $extension_obj->designation = $empdetails->designation;
+                $extension_obj->emp_code = $empdetails->emp_code;
+                $extension_obj->work_order = $data['emp_work_order'];
+                $extension_obj->ctc = !empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_salary : '';
+                $extension_obj->start_date = $start_date;
+                $extension_obj->end_date = $end_date;
+
+                $unq_no = date("Ymdhisa");
+                $fileName = "extension_" . $unq_no . ".pdf";
+
+                // Store extension letter.
+                $pdf = App::make('dompdf.wrapper');
+                $pdf->loadView($blade, ['empdetails' => $extension_obj]);
+                $path = public_path('recruitment/candidate_documents/extension_letter');
+                $fullPath = $path . '/' . $fileName;
+                file_put_contents($fullPath, $pdf->output());
+
+                // Save document to send_doc table
+                $doc =  EmpSendDoc::create([
+                    'emp_code' => $empdetails->emp_code,
+                    'doc_type' => 'Extension',
+                    'document' => $fileName,
+                ]);
+
+                // Save Log of change work order.
+                EmpChangeLog::create([
+                    'emp_code' => $empdetails->emp_code,
+                    'emp_designation' => $request->emp_designation,
+                    'emp_salary' => !empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_salary : '',
+                    'emp_doc' => $doc->id,
+                ]);
+
+                // Update designation in salary table.
+                $salary = Salary::where('sl_emp_code', $empdetails->emp_code)->first();
+                if ($salary) {
+                    $salary->sal_emp_designation = $request->emp_designation;
+                    $salary->save();
+                }
+            }
+
+
+            // If date of resigning is came
+            if ($data['emp_current_working_status'] == 'resign') {
+                $obj = new stdClass();
+                if ($workorder->project->organizations->name == 'GNGPL (Goa Natural Gas Pvt.Ltd )') {
+                    $blade = 'hr.templates.relieving-letter.gng';
+                    $doj = date("d-M-Y", strtotime($empdetails->emp_doj));
+                    $dol = date("d-M-Y", strtotime($request->emp_dor));
+
+                    $today_date = date("d-M-Y");
+                    if ($empdetails->getPersonalDetail->emp_gender == 'Female') {
+                        $gen1 = 'her';
+                        $gen2 = 'her';
+                    } else {
+                        $gen1 = 'him';
+                        $gen2 = 'his';
+                    }
+
+                    $obj->today_date = $today_date;
+                    $obj->candidate_name = $empdetails->emp_name;
+                    $obj->designation = $empdetails->designation;
+                    $obj->emp_code = $empdetails->emp_code;
+                    $obj->gen1 = $gen1;
+                    $obj->gen2 = $gen2;
+                    $obj->doj = $doj;
+                    $obj->dol = $dol;
+                } else {
+                    $blade = 'hr.templates.relieving-letter.becil';
+                    $doj = date("d-M-Y", strtotime($empdetails->emp_doj));
+                    $dol = date("d-M-Y", strtotime($request->emp_dor));
+
+                    $today_date = date("d-M-Y");
+                    if ($empdetails->getPersonalDetail->emp_gender == 'Female') {
+                        $gen = 'her';
+                    } else {
+                        $gen = 'him';
+                    }
+                    $obj->today_date = $today_date;
+                    $obj->candidate_name = $empdetails->emp_name;
+                    $obj->designation = $empdetails->designation;
+                    $obj->emp_code = $empdetails->emp_code;
+                    $obj->gen = $gen;
+                    $obj->doj = $doj;
+                    $obj->dol = $dol;
+                }
+
+                $unq_no = date("Ymdhisa");
+                $fileName = "relieving_" . $unq_no . ".pdf";
+
+                // Store releiving letter.
+                $pdf = App::make('dompdf.wrapper');
+                $pdf->loadView($blade, ['empdetails' => $obj]);
+                $path = public_path('recruitment/candidate_documents/relieving_letter');
+                $fullPath = $path . '/' . $fileName;
+                file_put_contents($fullPath, $pdf->output());
+
+                // Save document to send_doc table
+                $doc =  EmpSendDoc::create([
+                    'emp_code' => $empdetails->emp_code,
+                    'doc_type' => 'Releiving',
+                    'document' => $fileName,
+                ]);
+
+                // Save Log of change work order.
+                EmpChangeLog::create([
+                    'emp_code' => $empdetails->emp_code,
+                    'emp_designation' => $request->emp_designation,
+                    'emp_salary' => !empty($empdetails->getBankDetail) ? $empdetails->getBankDetail->emp_salary : '',
+                    'emp_doc' => $doc->id,
+                ]);
+
+                // Send Mail.
+                $user = auth()->user();
+                $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+                $mail_html = "<h4>Greetings from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+               
+                <h4>Please find the attached Releiving Letter</h4></br>
+                 
+                <h4>Kindly Acknowledge the receipt of this mail </h4></br> 
+                 
+                <h4>Best of luck.
+                </h4></br>
+                </br></br>
+                <h4 style='text-align: left;
+                margin-left: 30px;'>Regards,</h4></br>
+                <h4 style='text-align: left;
+                margin-left: 30px;'>HR Team</h4></br>
+                <h4 style='text-align: left;
+                margin-left: 30px;'>Email:- hr@prakharsoftwares.com</h4></br>
+                <h4>Note: If you have any query just reply to this email. </h4>";
+
+                $maildata = new stdClass();
+                $maildata->subject = "Relieving Letter";
+                $maildata->name = $empdetails->emp_name;
+                $maildata->comp_email = $company->email;
+                $maildata->comp_phone = $company->mobile;
+                $maildata->comp_website = $company->website;
+                $maildata->comp_address = $company->address;
+                $maildata->content = $mail_html;
+                $maildata->url = url('/');
+                $maildata->file = $fullPath;
+
+                Mail::to($empdetails->emp_email_first)->send(new ShortlistMail($maildata));
+            }
+            $empdetails->fill($data);
+            $empdetails->emp_functional_role = $request->emp_functional_role ? implode(',', $request->emp_functional_role) : '';
+            $empdetails->save();
+
+            // Get Only changed values.
+            $changed_values = $empdetails->getChanges();
+
+            if (count($changed_values) > 0) {
+                unset($changed_values['updated_at']);
+                foreach ($changed_values as $key => $value) {
+                    EmpUpdateHistory::create([
+                        'emp_code' => $empdetails->emp_code,
+                        'column_name' => $key,
+                        'old_value' => $oldDetails[$key],
+                        'new_value' => $value,
+                    ]);
+                }
+            }
+
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Details Updated successfully']);
+        } catch (Throwable $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
     /**
      * Send Letter form.
      */
@@ -1033,7 +1249,7 @@ class EmployeeController extends Controller
             $designations = Designation::select('name')->get();
             return view("hr.employee.send-letter", compact('empdetails', 'designations'));
         } catch (Throwable $th) {
-            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1060,7 +1276,7 @@ class EmployeeController extends Controller
             $documents = $documents->orderByDesc('emp_send_doc.id')->paginate(10)->withQueryString();
             return view("hr.employee.view-letter", compact('documents', 'id', 'search'));
         } catch (Throwable $th) {
-            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => 'Server Error']);
+            return redirect()->route('employee.employee-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
 
@@ -1655,7 +1871,54 @@ class EmployeeController extends Controller
             }
             return response()->json(['success' => true, 'data' => $required_data]);
         } catch (Throwable $e) {
-            return response()->json(['error' => true, 'message' => 'Server Error']);
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
+
+    /**
+     * Check employee code is validate or not
+     * @param $code, string
+     * @return boolean true if available, false otherwise
+     */
+    public function validate_emp_code(Request $request)
+    {
+        try{
+            $this->validate($request, [
+                'code' => ['required', 'string']
+            ]);
+            $status = false;
+            if (EmpDetail::where('emp_code', $request->code)->exists()){
+                $status = true;
+            }
+            return response()->json(['success' => true, 'available' => $status]);
+        }
+        catch (Throwable $th){
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+
+    
+    /**
+     * Check employee email is validate or not
+     * @param $email, string
+     * @return boolean true if available, false otherwise
+     */
+    public function validate_emp_email(Request $request)
+    {
+        try{
+            $this->validate($request, [
+                'email' => ['required', 'email:filter']
+            ]);
+            $status = false;
+            if (EmpDetail::where('emp_email_first', $request->email)->exists()){
+                $status = true;
+            }
+            return response()->json(['success' => true, 'available' => $status]);
+        }
+        catch (Throwable $th){
+            return response()->json(['error' => true, 'message' => $th->getMessage()]);
+        }
+    }
+
+
 }

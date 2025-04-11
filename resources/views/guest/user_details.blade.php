@@ -39,7 +39,7 @@
                                     <label class="form-label mt-2 text-dark">Gender <span
                                             class="text-danger fw-bold">*</span></label>
                                     <select name="emp_gender" class="form-control" id="skills_multiple" required>
-                                        <option value="" selected="" disabled="">Select Gender
+                                        <option value="">Select Gender
                                         </option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -117,7 +117,9 @@
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="file" name="emp_signature" class="form-control photo"
                                         accept=".jpg, .jpeg, .png" required>
-                                    <img class="img-fluid preview_photo w-50 rounded my-2">
+                                    <div class="text-center mt-2">
+                                        <img class="img-fluid preview_photo d-none rounded preview">
+                                    </div>
 
 
                                 </div>
@@ -127,7 +129,9 @@
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="file" name="emp_photo" class="form-control photo"
                                         accept=".jpg, .jpeg, .png" required>
-                                    <img class="img-fluid preview_photo w-50 rounded my-2">
+                                    <div class="text-center mt-2">
+                                        <img class="img-fluid preview_photo d-none rounded preview">
+                                    </div>
                                 </div>
 
                             </div>
@@ -190,7 +194,7 @@
 
                                     <label class="form-label text-dark">Language Known <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="text" name="language_known" class="form-control" required>
+                                    <input type="text" name="language_known" class="form-control" placeholder="Enter comma seperated languages" required>
                                 </div>
                                 <div class="col-md-6">
 

@@ -172,7 +172,7 @@ class HrController extends Controller
     
     public function leaveDetails($id){
 
-        $employeeLeaves = LeaveRequest::with('employee')->select('leave_requests.id','leave_code','emp_code','cc','total_days','reason_for_absence','absence_dates','status','created_at','comment')
+        $employeeLeaves = LeaveRequest::with('employee')->select('leave_requests.id','department_head_email','leave_code','emp_code','cc','total_days','reason_for_absence','absence_dates','status','created_at','comment')
         ->where('status', 'Wait')
         ->where('id',$id)
         ->orWhere('status', 'Modified')
@@ -186,4 +186,7 @@ class HrController extends Controller
         ]);
 
     }
+
+    // update status
+    // public function leaveDetailsStatus
 }

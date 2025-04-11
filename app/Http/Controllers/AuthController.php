@@ -63,13 +63,12 @@ class AuthController extends Controller
                 Auth::login($user);
                 $user = auth()->user();
                 $roleName = get_role_name($user->role_id);
-                
-                if($roleName == 'hr_operations'){
+
+                if ($roleName == 'hr_operations') {
                     return redirect()->route('hr_operations_dashboard');
-                }elseif($roleName == 'hr'){
+                } else {
                     return redirect()->route('hr_dashboard');
                 }
-
             } else {
                 return redirect()->route('login')->with(['error' => true, 'message' => 'Invalid Credentials.']);
             }
@@ -119,12 +118,12 @@ class AuthController extends Controller
         $result = json_decode($response);
         if ($response->successful() && $result->success == true) {    // Validate captcha
 
-            // Employee must be active or inactive for login.
+            // Employee must be active or resign for login.
             $user = EmpDetail::where(['emp_code' => $request->emp_code])
-            ->where(function ($query) {
-                $query->where('emp_current_working_status', 'active')
-                    ->orWhere('emp_current_working_status', 'inactive');
-            })->first();
+                ->where(function ($query) {
+                    $query->where('emp_current_working_status', 'active')
+                        ->orWhere('emp_current_working_status', 'resign');
+                })->first();
             if ($user && $user->emp_password === md5($request->emp_password)) {
                 Auth::guard('employee')->login($user);
                 if (Auth::guard('employee')->check()) {
@@ -249,9 +248,9 @@ class AuthController extends Controller
         $this->validate($request, [
             'token' => ['required'],
             'password' => ['required', 'confirmed', Password::min(8)
-            ->mixedCase()
-            ->numbers()
-            ->symbols()],
+                ->mixedCase()
+                ->numbers()
+                ->symbols()],
             'g-recaptcha-response' => ['required']
         ], [
             'password.required' => 'This field is required',

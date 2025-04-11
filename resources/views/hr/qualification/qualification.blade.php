@@ -1,8 +1,5 @@
 @extends('layouts.master', ['title' => 'Qualifications'])
-@section('style')
 
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
         
 @section('contents')
     <div class="row">
@@ -10,15 +7,44 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2">Qualifications</h3>
+                    <div>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
+                    </ul>
+                </div>
                 </div>
             
                 <div class="panel-body">
                     <div class="row">
-                        @if(auth()->user()->hasPermission('add-qualification'))
-                            <div class="col-md-12 d-flex justify-content-end">
+
+                    <div class="col-md-12 d-flex align-items-cenetr justify-content-between mt-4 px-3">
+                <div class="">
+                    <form class="row g-3" method="get">
+                        <div class="col-auto mb-3">
+                            <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                required>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
+                            <a href="{{ route('organizations.index') }}"><button type="button"
+                                    class="btn btn-primary btn-sm mb-3">Clear <i
+                                        class="fa-solid fa-eraser"></i></button></a>
+                        </div>
+
+                    </form>
+                </div>
+
+                @if(auth()->user()->hasPermission('add-qualification'))
+                            <div class="">
                                 <a href="{{route('add-qualification')}}"><button class="btn btn-sm btn-primary">Add Qualification <i class="fa-solid fa-plus"></i></button></a>  
                             </div>
                         @endif 
+            </div>
+                       
 
                         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                           <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -54,6 +80,10 @@
                         </div>
                         @endif
                     </div>
+
+
+
+                    
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">

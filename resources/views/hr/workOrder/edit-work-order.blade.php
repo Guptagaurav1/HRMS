@@ -62,7 +62,7 @@
                                                 class="text-danger">*</span></label>
                                         <select name="organisation" id="organisation" class="form-select"
                                             value="{{$workOrder->project->organizations->id}}">
-                                            <option selected>--Select Organisation--</option>
+                                            <option value="">--Select Organisation--</option>
                                             @foreach($organization as $key => $organization_data)
                                             <option value="{{$organization_data->id}}" @if ($organization_data->
                                                 id ==

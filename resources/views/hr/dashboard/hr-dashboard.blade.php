@@ -18,8 +18,11 @@
     <p class="mt-2"><strong>Email: helpdesk@prakharsoftwares.com | Contact No : 7982363536</strong></p>
 
 </div>
+<div class="container">
+
 
 <div class="row">
+
     <div class="col-md-12">
         <div class="panel chart-panel-1">
             <div class="d-flex  gap-3">
@@ -32,11 +35,214 @@
                         <p><i class="fas fa-phone"></i> {{ auth()->user()->phone }}</p>
                     </div>
                 </div>
-                <div class="card profile-card p-3">
-                    <div id="pieChart"></div>
-                </div>
             </div>
         </div>
+
+        <div class="row">
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h5 class="text-white fw-bold">Today Birthday</h5>
+
+                        </div>
+                        <div class="panel-body">
+                            <ul class="upcoming-interview">
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-2.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-3.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-4.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-5.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-6.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h5 class="text-white fw-bold">Today Marriage Work Anniversary</h5>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="upcoming-interview">
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-2.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-3.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-4.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-5.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-6.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h5 class="text-white fw-bold">Today Marriage Anniversary</h5>
+
+                        </div>
+                        <div class="panel-body">
+                            <ul class="upcoming-interview">
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-2.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-3.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-4.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-5.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="avatar avatar-lg">
+                                        <img src="assets/images/avatar-6.png" class="rounded" alt="user">
+                                    </div>
+                                    <div class="part-txt">
+                                        <span class="applicant-name">Natalie Gibson</span>
+                                        <span class="applicant-role">
+                                            <small><span class="text-muted">Ui/UX Designer</span></small>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
 
         <ul class="custom-tabs" id="dashboardTabs">
@@ -273,7 +479,7 @@
                                 @forelse($employeeLeaves as $key => $value)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td class="text-center attributes-column">{{ $value->leave_code }} ddfsdfsdf {{$value->id}}</td>
+                                    <td class="text-center attributes-column">{{ $value->leave_code }}</td>
                                     <td class="text-center">{{ $value->employee->emp_code ? $value->employee->emp_code : ''  }}</td>
                                     <td class="text-center">{{ $value->employee->emp_name ? $value->employee->emp_name : ''  }}</td>
                                     <td class="text-center">{{ $value->employee->reporting_email ? $value->employee->reporting_email : ''  }}</td>
@@ -286,8 +492,16 @@
                                             <a href="javascript:void(0)" class="modal-leave-details" data-url="{{ route('leaveDetails', $value->id) }}">
                                                 <button type="button" class="btn btn-sm btn-primary">Show</button>
                                             </a>
-                                            <button type="button" data-bs-target="#LeaveApproveDisapproveModal" data-bs-id="{{ $value->id }}" class="btn btn-sm btn-primary modal-leave-approve">Response</button>
-                                        </div>
+
+                                            @if (
+                                                ($value->status == 'Wait' || $value->status == 'Modified') &&
+                                                    auth()->check() &&
+                                                    $value->department_head_email == auth()->user()->email)
+                                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#responseModal"
+                                                    data-bs-whatever="{{ $value->id }}">Response</button>
+                                            @endif                                        
+                                    </div>
 
                                     </td>
                                 </tr>
@@ -318,6 +532,8 @@
 
         </div>
     </div>
+</div>
+
 </div>
 @endsection
 
@@ -517,27 +733,31 @@
 </div>
 
 
-{{-- // Leave approve disapprove modal --}}
+ {{-- Response Modal --}}
 
-
-<div class="modal fade" id="LeaveApproveDisapproveModal" tabindex="-1" aria-labelledby="LeaveApproveDisapproveModal" aria-hidden="true">
+ <div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 text-light">Leave Response</h1>
+                <h1 class="modal-title fs-5 text-light" id="responseModalLabel">Leave Response</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="leave-approve form" enctype="multipart/form-data" method="POST">
+            <form class="form leave-response">
                 @csrf
+                <div class="d-none">
+                    <input type="hidden" name="request_id" value="">
+                    <input type="hidden" name="response" value="">
+                </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="body" class="form-label">Reply</label>
-                        <textarea class="form-control" id="replyLeave" value="" name="message" rows="6" placeholder="Write your message here"></textarea>
+                        <label for="response-message" class="col-form-label">Reply:</label>
+                        <textarea class="form-control" name="response-text" id="response-message" placeholder="Enter Reply Message"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary sendbutton">Send</button>
+                    <button type="submit" class="btn btn-primary response" data-id="approved">Approve</button>
+                    <button type="submit" class="btn btn-danger response" data-id="disapproved">Disapproved</button>
                 </div>
             </form>
         </div>
@@ -547,6 +767,7 @@
 
 @section('script')
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
+<script src="{{ asset('assets/js/hr/leave_request.js') }}"></script>
 <script src="{{ asset('assets/js/hr/hr-dashboard.js') }}"></script>
 <script src="{{asset('assets/js/employee-tab-dashboard.js')}}"></script>
 <script src="assets/js/chart-page.js"></script>
