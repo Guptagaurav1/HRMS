@@ -583,9 +583,9 @@ label{
   max-width: 800px;
 }
 @media (max-width: 768px) {
-  form {
+  /* form {
       padding: 1.5rem;
-  }
+  } */
   .btn {
       width: 100%;
   }
@@ -950,6 +950,30 @@ input::-webkit-input-placeholder{
   background-color: #0056b3;
 }
 
+
+/* Acceptance Form layouts Fix CSS */
+
+.acceptance-form-layouts{
+  width: 98%;
+  background-color:#034d48;
+  position: fixed;
+   z-index: 10000 !important;
+}
+
+@media(max-width:767px){
+
+  .acceptance-form-layouts{
+    background-color:#034d48;
+    position: relative;
+    z-index: 2;
+    
+  }
+
+}
+
+
+
+
 /* Centering the card */
 .center-card {
   display: flex;
@@ -1076,19 +1100,44 @@ img.preview{
   height:135px;
 }
 
+/* Media Query on Breadcrumb */
+
+@media(max-width:426px){
+  ul.breadcrumb {
+    padding: 6px 6px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-left: 55px;
+    
+  }
+  ul.breadcrumb li {
+     
+      font-size: 13px;
+      color: yellow;
+  }
+  ul.breadcrumb li+li:before {
+    padding: 5px;
+    color: white;
+    content: "/\00a0";
+  }
+
+}
+
+
+
+
 /* Custom css Media Query */
 
 @media (max-width: 426px){
   .panel-header h2,h3{
     margin-left: 97px;
-    font-size:22px;
+    font-size:14px;
   }
 
-  .hr-dashboard-heading{
-    font-size: 15px !important;
-    font-weight: bold !important;
-
-  }
+  
 }
 
 
@@ -1100,6 +1149,11 @@ img.preview{
   z-index: 100;
   
 }
+
+
+
+
+
 
 
 

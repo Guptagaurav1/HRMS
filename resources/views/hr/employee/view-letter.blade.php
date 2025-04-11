@@ -5,6 +5,20 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="text-white mt-2">View Letter</h3>
+                <div>
+                    <ul class="breadcrumb">
+                        <li>
+                            @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @elseif(auth()->user()->role->role_name="hr_operations")
+                                <a href="{{route('hr_operations_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                
+                        <li><a href="{{route('employee.employee-list')}}">Employee List</a></li>
+                        <li>View Letter </li>
+                    </ul>
+        </div>
             </div>
             <div class="col-md-12">
                 <div class="row  d-flex my-2 mx-3">

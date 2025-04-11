@@ -10,10 +10,13 @@
                     <h3 class="mt-2 text-center">Add Functional Role</h3>
                     <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                        </li>
+                        <li><a href="{{route('functional-role')}}">Functional Role List</a></li>
+                        <li>Add Functional Role</li>
                     </ul>
                 </div>
                 </div>

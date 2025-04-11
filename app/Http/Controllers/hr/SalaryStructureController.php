@@ -186,7 +186,7 @@ class SalaryStructureController extends Controller
            
             // get wo end date
             $wo_order= WorkOrder::where('wo_number',$work_or_no)->orderby('id','desc')->first();
-             $wo_end_date = $wo_order->wo_end_date;
+             $wo_end_date = $wo_order->wo_end_date??NULL;
           
            
             if(!empty($emp_salary->sl_emp_code)){
@@ -259,7 +259,7 @@ class SalaryStructureController extends Controller
                         ]);
                     }
                 }
-                elseif ("GNGPL (Goa Natural Gas Pvt.Ltd )" == ($wo_order->wo_oraganisation_name)) {
+                elseif ("GNGPL (Goa Natural Gas Pvt.Ltd )" == ($wo_order->wo_oraganisation_name??NULL)) {
                     // Fetch appointment format
                     $appointmentFormat = AppointmentFormat::where('type', 'appointment')
                     ->where('name', 'GNGPL')

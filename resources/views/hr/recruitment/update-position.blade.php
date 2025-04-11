@@ -1,11 +1,20 @@
 @extends('layouts.master', ['title' => 'Position Request Form'])
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
+
 
 @section('contents')
-    <div class="dashboard-breadcrumb mb-25">
+    <div class="panel">
+        <div class="panel-header">
         <h2>New Position Request</h2>
+        <div>
+                            <ul class="breadcrumb">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Profile Details</a></li>
+                                <li>Department List</li>
+                            </ul>
+                        </div>
+        </div>
+       
         
     </div>
     <div class="dashboard-breadcrumb mb-25">
@@ -17,9 +26,7 @@
 
     </div>
     <div class="row">
-        <div class="col-md-12 text-end">
-            <a class="btn btn-primary" href="{{route('recruitment-report')}}">Back</a>
-        </div>
+        
         <form class="form" method="post" action="{{route('recruitment.update_position')}}" enctype="multipart/form-data">
         @csrf
         <div class="d-none">
@@ -249,11 +256,19 @@
                 </div>
             </div>
         </div>
+
+        <!-- <p  class=" me-3 mb-0 text-danger">* For Final PR click Final Submit Button.</p> -->
        
-        <div class="col-12 d-flex justify-content-end align-items-center">
-            <p  class=" me-3 mb-0 text-danger">* For Final PR click Final Submit Button.</p>
+        <div class="d-flex align-items-center justify-content-end gap-3 mt-2">
+           
+            <div class="">
+              <a href="{{route('recruitment-report')}}"> <button type="button" class="btn btn-sm btn-secondary">Cancel</button></a>
+            </div>
+            <div>
             <button type="submit" class="btn btn-sm btn-primary">Update <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
         </div>
+
         </form>        
     </div>
 
