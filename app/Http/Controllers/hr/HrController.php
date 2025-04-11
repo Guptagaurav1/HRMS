@@ -73,6 +73,7 @@ class HrController extends Controller
                                     ->select('emp_code', 'emp_name', 'emp_work_order', 'department', 'emp_designation', 'emp_email_first', 'emp_doj')
                                     ->where('emp_current_working_status', 'active')
                                     ->whereRaw("DATE_FORMAT(emp_doj, '%m-%d') BETWEEN ? AND ?", [$current_date, $addFiveDays])
+                                    ->orderByRaw('DATE_FORMAT(emp_doj,"%m-%d")')
                                     ->paginate(10);
 
         $employeeLeaves = LeaveRequest::with('employee')->select('id','leave_code','emp_code','department_head_email','reason_for_absence','absence_dates','status','created_at')
@@ -80,7 +81,52 @@ class HrController extends Controller
                                     ->orWhere('status', 'Modified')
                                     ->orderByDesc('id');
 
-        $employeeLeaves = $employeeLeaves->paginate();
+        $employeeLeaves = $employeeLeaves->paginate(10);
+
+
+
+        // today birthday
+
+        $currentdate = date('Y-m-d');
+        $employeesBirthday = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first','emp_details.emp_designation')
+                            ->where('emp_current_working_status', 'Active')
+                            ->whereHas('getPersonalDetail', function ($query) use ($currentdate) {
+                                $query->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') = DATE_FORMAT(? ,'%m-%d')", [$currentdate])
+                                ->orderByRaw('DATE_FORMAT(emp_dob,"%m-%d")');
+                            });
+
+        $todayBirthday =  $employeesBirthday->paginate(10);
+
+        // dd($todayBirthday);
+
+
+        // today anniversary list
+
+         
+            $employeesAnniversary = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first','emp_details.emp_designation')
+                            ->where('emp_current_working_status', 'Active')
+                            ->whereHas('getPersonalDetail', function ($query) use ($currentdate) {
+                                $query->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') = DATE_FORMAT(? ,'%m-%d')", [$currentdate])
+                                ->orderByRaw('DATE_FORMAT(emp_dom,"%m-%d")');
+                            });
+
+            $todayAnniversary =  $employeesAnniversary->paginate(10);
+
+         // today Work Anniversary
+
+
+         $employeesWork = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first', 'emp_details.emp_doj','emp_details.emp_designation')
+                     ->where('emp_current_working_status', 'Active')
+                     ->whereRaw("DATE_FORMAT(emp_doj,'%m-%d') = DATE_FORMAT(? ,'%m-%d')", [$currentdate])
+                     ->orderByRaw('DATE_FORMAT(emp_doj,"%m-%d")');
+
+        $todayWorkAnniversary =  $employeesWork->paginate(10);
+
+            
+
+
+
+
 
         return view("hr.dashboard.hr-dashboard",
         [
@@ -92,6 +138,10 @@ class HrController extends Controller
             'employeeMarriageAnni' => $employeeMarriageAnni,
             'employeeWorkAnniversary' => $employeeWorkAnniversary,
             'employeeLeaves' =>  $employeeLeaves,
+            'todayBirthdays' => $todayBirthday,
+            'todayAnniversary' =>  $todayAnniversary,
+            'todayWorkAnniversarys' =>  $todayWorkAnniversary,
+
         ]);
     }
 

@@ -11,10 +11,13 @@
 					<h3 class="text-center">Add Qualification</h3>
 					<div>
 						<ul class="breadcrumb">
-							<li><a href="#">Dashboard</a></li>
-							<li><a href="#">Profile</a></li>
-							<li><a href="#">Profile Details</a></li>
-							<li>Department List</li>
+							<li>
+							@if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+						    </li>
+							<li><a href="{{route('qualification')}}">Qualification</a></li>
+							<li>Add Qualification</li>
 						</ul>
 					</div>
 				</div>

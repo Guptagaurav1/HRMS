@@ -5,6 +5,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h2 class="mt-2">Recruitment Report</h2>
+                    <div>
+                            <ul class="breadcrumb">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Profile Details</a></li>
+                                <li>Department List</li>
+                            </ul>
+                        </div>
+
                 </div>
                 <div class="row px-3 mb-3">
                     {{-- Need to remove candidate section --commented by vikas --}}

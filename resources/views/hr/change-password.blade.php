@@ -39,8 +39,3 @@
 </div>
 @endsection
 
-
-@section('script')
-
-<script src="{{asset('assets/js/dummy-validation.js')}}"></script>
-@endsection

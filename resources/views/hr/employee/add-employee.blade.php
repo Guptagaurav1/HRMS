@@ -1,16 +1,21 @@
 @extends('layouts.master', ['title' => 'Add Employee'])
 @section('contents')
 <div class="panel">
-<div class="panel-header">
+    <div class="panel-header">
         <h3 class="text-white">Create Employee details</h3>
         <div>
-                            <ul class="breadcrumb">
-                                <li><a href="#">Dashboard</a></li>
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Profile Details</a></li>
-                                <li>Department List</li>
-                            </ul>
-                        </div>
+            <ul class="breadcrumb">
+                <li>
+                    @if (auth()->user()->role->role_name="hr")
+                        <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                    @elseif(auth()->user()->role->role_name="hr_operations")
+                        <a href="{{route('hr_operations_dashboard')}}">Dashboard</a>
+                    @endif
+                </li>
+           
+                <li>Create Employee </li>
+            </ul>
+        </div>
 
     </div>
 </div>

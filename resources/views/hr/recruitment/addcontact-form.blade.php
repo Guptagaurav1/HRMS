@@ -1,20 +1,34 @@
 @extends('layouts.master', ['title' => 'Candidate Calling Data'])
 @section('contents')
-<div class="dashboard-breadcrumb mb-25">
+<div class="panel">
+    <div class="panel-header">
     <h2>Contact Candidate By Call Form</h2>
+    <div>
+                            <ul class="breadcrumb">
+                                <li><a href="#">Dashboard</a></li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Profile Details</a></li>
+                                <li>Department List</li>
+                            </ul>
+                        </div>
+
+
+    </div>
+    
 </div>
 
 <form method="post" action="{{route('recruitment.store_call_detail')}}" enctype="multipart/form-data" class="form">
 @csrf
-<div class="row">
+<div class="row mt-2">
     <div class="col-12">
         <div class="panel">
-            <div class="panel-header">
-                <h5 class="text-white">Add Details</h5>
-            </div>
-            <div class="text-end mt-2 px-2">
+            <div class="dashboard-breadcrumb mb-25 border border-b-0">
+                <h5 class="text-dark ">Add Details</h5>
+                <div class="">
                 <a href="{{ route('recruitment.call_logs')}}"><button type="button" class="btn btn-sm btn-primary">Contacted Candidate List <i class="fa-solid fa-list"></i></button></a>
+                </div>
             </div>
+            
             <div class="panel-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
