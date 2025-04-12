@@ -23,10 +23,13 @@ class DepartmentController extends Controller
         $search = $request->search;
         if($search){
             $departments->where(function($query) use ($search){
-                    $query->where('department','like', '%'.$search.'%');
+                        $query->where('department','like', '%'.$search.'%')
+                        ->orWhereHas('skills', function ($query) use ($search) {
+                            $query->where('skill', 'like', "%$search%");
+                        });
             });
         }
-        $departments = $departments->paginate(10);
+        $departments = $departments->paginate(10)->withQueryString();;
         return view('hr.master.department.department', compact('departments','search'));
     }
 

@@ -19,10 +19,12 @@ class OrganizationController extends Controller
         if($search){
             $organizations->where(function($q) use($search){
                 $q->where('name', 'like','%'.$search.'%');
+                $q->orWhere('email', 'like','%'.$search.'%');
+                $q->orWhere('contact', 'like','%'.$search.'%');
             });
         }
         
-        $organizations = $organizations->paginate(20);
+        $organizations = $organizations->paginate(20)->withQueryString();
         return view("hr.master.organization.organization", compact('organizations','search'));
     }
 
