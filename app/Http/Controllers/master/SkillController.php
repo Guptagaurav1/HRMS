@@ -24,7 +24,7 @@ class SkillController extends Controller
             });
         }
         
-        $skills = $skills->paginate(10);
+        $skills = $skills->paginate(10)->withQueryString();
         return view("hr.master.skills.skill", compact('skills','search'));
     }
 

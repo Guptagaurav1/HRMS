@@ -22,7 +22,7 @@ class DesignationController extends Controller
             });
         }
         
-        $designations = $designations->paginate(10);
+        $designations = $designations->paginate(10)->withQueryString();;
         return view("hr.master.designation.designation", compact('designations','search'));
     }
 

@@ -32,15 +32,16 @@
                                 <div class="col-12">
                                     <div class="section-header">
                                         <label class="form-check-label">{{ $section }}</label>
+                                        &nbsp;<input class="form-check-input checkall"  name="checkall" value="" type="checkbox" data-section="{{ Str::slug($section) }}">
                                     </div>
                                 </div>
 
                                 <div class="col-12">
-                                    <div class="row">
+                                    <div class="row checkbox-group" data-section="{{ Str::slug($section) }}">
                                         @foreach ($menu as $sub_menu)
                                         <div class="col-md-4 mb-2">
                                             <div class="form-check">
-                                                <input class="form-check-input" name="checkMenu[]"
+                                                <input class="form-check-input checkallCheckbox" name="checkMenu[]"
                                                     value="{{ $sub_menu->id}}" type="checkbox" id="gridCheck"> <label
                                                     class="form-check-label" for="gridCheck{{ $sub_menu->id }}">
                                                     {{$sub_menu->name}}
@@ -62,4 +63,7 @@
         </div>
     </form>
 </div>
+@endsection
+@section('script')
+<script src={{asset('assets/js/hr/manage-role.js')}}></script>
 @endsection

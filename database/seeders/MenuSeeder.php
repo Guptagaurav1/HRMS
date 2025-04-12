@@ -16,31 +16,31 @@ class MenuSeeder extends Seeder
         $data = [
             // Course
             ['mid' => 'M-1', 'section' => 'Home', 'section_icon' => '', 'name' => 'Dashboard', 'page' => 'hr_dashboard', 'status' => '1', 'parent_id' => '1'],
-            ['mid' => 'M-2', 'section' => 'Master', 'section_icon' => '', 'name' => 'Skill Listing', 'page' => 'skills.index', 'status' => '1', 'parent_id' => '2'],
-            ['mid' => 'M-3', 'section' => 'Master', 'section_icon' => '', 'name' => 'Skill Create', 'page' => 'skills.create', 'status' => '1', 'parent_id' => '2'],
-            ['mid' => 'M-4', 'section' => 'Master', 'section_icon' => '', 'name' => 'Skill Edit', 'page' => 'skills.edit', 'status' => '1', 'parent_id' => '2'],
-            ['mid' => 'M-5', 'section' => 'Master', 'section_icon' => '', 'name' => 'Skill Delete', 'page' => 'skills.destroy', 'status' => '1', 'parent_id' => '2'],
+            ['mid' => 'M-2', 'section' => 'Master - Skill', 'section_icon' => '', 'name' => 'Skill Listing', 'page' => 'skills.index', 'status' => '1', 'parent_id' => '2'],
+            ['mid' => 'M-3', 'section' => 'Master - Skill', 'section_icon' => '', 'name' => 'Skill Create', 'page' => 'skills.create', 'status' => '1', 'parent_id' => '2'],
+            ['mid' => 'M-4', 'section' => 'Master - Skill', 'section_icon' => '', 'name' => 'Skill Edit', 'page' => 'skills.edit', 'status' => '1', 'parent_id' => '2'],
+            ['mid' => 'M-5', 'section' => 'Master - Skill', 'section_icon' => '', 'name' => 'Skill Delete', 'page' => 'skills.destroy', 'status' => '1', 'parent_id' => '2'],
 
             // Departments
 
-            ['mid' => 'M-6', 'section' => 'Master', 'section_icon' => '', 'name' => 'Department List', 'page' => 'departments.index', 'status' => '1', 'parent_id' => '3'],
-            ['mid' => 'M-7', 'section' => 'Master', 'section_icon' => '', 'name' => 'Department Create', 'page' => 'departments.create', 'status' => '1', 'parent_id' => '3'],
-            ['mid' => 'M-8', 'section' => 'Master', 'section_icon' => '', 'name' => 'Department Edit', 'page' => 'departments.edit', 'status' => '1', 'parent_id' => '3'],
-            ['mid' => 'M-9', 'section' => 'Master', 'section_icon' => '', 'name' => 'Department Delete', 'page' => 'departments.destroy', 'status' => '1', 'parent_id' => '3'],
+            ['mid' => 'M-6', 'section' => 'Master - Department', 'section_icon' => '', 'name' => 'Department List', 'page' => 'departments.index', 'status' => '1', 'parent_id' => '3'],
+            ['mid' => 'M-7', 'section' => 'Master - Department', 'section_icon' => '', 'name' => 'Department Create', 'page' => 'departments.create', 'status' => '1', 'parent_id' => '3'],
+            ['mid' => 'M-8', 'section' => 'Master - Department', 'section_icon' => '', 'name' => 'Department Edit', 'page' => 'departments.edit', 'status' => '1', 'parent_id' => '3'],
+            ['mid' => 'M-9', 'section' => 'Master - Department', 'section_icon' => '', 'name' => 'Department Delete', 'page' => 'departments.destroy', 'status' => '1', 'parent_id' => '3'],
 
             // Organizations
 
-            ['mid' => 'M-10', 'section' => 'Master', 'section_icon' => '', 'name' => 'Organizations List', 'page' => 'organizations.index', 'status' => '1', 'parent_id' => '4'],
-            ['mid' => 'M-11', 'section' => 'Master', 'section_icon' => '', 'name' => 'Organizations Create', 'page' => 'organizations.create', 'status' => '1', 'parent_id' => '4'],
-            ['mid' => 'M-12', 'section' => 'Master', 'section_icon' => '', 'name' => 'Organizations Edit', 'page' => 'organizations.edit', 'status' => '1', 'parent_id' => '4'],
-            ['mid' => 'M-13', 'section' => 'Master', 'section_icon' => '', 'name' => 'Organizations Delete', 'page' => 'organizations.destroy', 'status' => '1', 'parent_id' => '4'],
+            ['mid' => 'M-10', 'section' => 'Master - Organizations', 'section_icon' => '', 'name' => 'Organizations List', 'page' => 'organizations.index', 'status' => '1', 'parent_id' => '4'],
+            ['mid' => 'M-11', 'section' => 'Master - Organizations', 'section_icon' => '', 'name' => 'Organizations Create', 'page' => 'organizations.create', 'status' => '1', 'parent_id' => '4'],
+            ['mid' => 'M-12', 'section' => 'Master - Organizations', 'section_icon' => '', 'name' => 'Organizations Edit', 'page' => 'organizations.edit', 'status' => '1', 'parent_id' => '4'],
+            ['mid' => 'M-13', 'section' => 'Master - Organizations', 'section_icon' => '', 'name' => 'Organizations Delete', 'page' => 'organizations.destroy', 'status' => '1', 'parent_id' => '4'],
 
             // designations
 
-            ['mid' => 'M-14', 'section' => 'Master', 'section_icon' => '', 'name' => 'Designations List', 'page' => 'designations.index', 'status' => '1', 'parent_id' => '5'],
-            ['mid' => 'M-15', 'section' => 'Master', 'section_icon' => '', 'name' => 'Designations Create', 'page' => 'designations.create', 'status' => '1', 'parent_id' => '5'],
-            ['mid' => 'M-16', 'section' => 'Master', 'section_icon' => '', 'name' => 'Designations Edit', 'page' => 'designations.edit', 'status' => '1', 'parent_id' => '5'],
-            ['mid' => 'M-17', 'section' => 'Master', 'section_icon' => '', 'name' => 'Designations Delete', 'page' => 'designations.destroy', 'status' => '1', 'parent_id' => '5'],
+            ['mid' => 'M-14', 'section' => 'Master - Designations', 'section_icon' => '', 'name' => 'Designations List', 'page' => 'designations.index', 'status' => '1', 'parent_id' => '5'],
+            ['mid' => 'M-15', 'section' => 'Master - Designations', 'section_icon' => '', 'name' => 'Designations Create', 'page' => 'designations.create', 'status' => '1', 'parent_id' => '5'],
+            ['mid' => 'M-16', 'section' => 'Master - Designations', 'section_icon' => '', 'name' => 'Designations Edit', 'page' => 'designations.edit', 'status' => '1', 'parent_id' => '5'],
+            ['mid' => 'M-17', 'section' => 'Master - Designations', 'section_icon' => '', 'name' => 'Designations Delete', 'page' => 'designations.destroy', 'status' => '1', 'parent_id' => '5'],
 
             // me Team list
 
@@ -78,22 +78,22 @@ class MenuSeeder extends Seeder
 
             // Functional Role
 
-            ['mid' => 'M-41', 'section' => 'Master', 'section_icon' => '', 'name' => 'Functional List', 'page' => 'functional-role', 'status' => '1', 'parent_id' => '9'],
-            ['mid' => 'M-42', 'section' => 'Master', 'section_icon' => '', 'name' => 'Functional Add', 'page' => 'add-functional-role', 'status' => '1', 'parent_id' => '9'],
-            ['mid' => 'M-43', 'section' => 'Master', 'section_icon' => '', 'name' => 'Functional Edit', 'page' => 'edit-functional-role', 'status' => '1', 'parent_id' => '9'],
-            ['mid' => 'M-44', 'section' => 'Master', 'section_icon' => '', 'name' => 'Functional Delete', 'page' => 'destroy-functional-role', 'status' => '1', 'parent_id' => '9'],
+            ['mid' => 'M-41', 'section' => 'Master - Functional Role', 'section_icon' => '', 'name' => 'Functional List', 'page' => 'functional-role', 'status' => '1', 'parent_id' => '9'],
+            ['mid' => 'M-42', 'section' => 'Master - Functional Role', 'section_icon' => '', 'name' => 'Functional Add', 'page' => 'add-functional-role', 'status' => '1', 'parent_id' => '9'],
+            ['mid' => 'M-43', 'section' => 'Master - Functional Role', 'section_icon' => '', 'name' => 'Functional Edit', 'page' => 'edit-functional-role', 'status' => '1', 'parent_id' => '9'],
+            ['mid' => 'M-44', 'section' => 'Master - Functional Role', 'section_icon' => '', 'name' => 'Functional Delete', 'page' => 'destroy-functional-role', 'status' => '1', 'parent_id' => '9'],
 
             // Functional Role
 
-            ['mid' => 'M-45', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification List', 'page' => 'qualification', 'status' => '1', 'parent_id' => '10'],
-            ['mid' => 'M-46', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification Add', 'page' => 'add-qualification', 'status' => '1', 'parent_id' => '10'],
-            ['mid' => 'M-47', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification Edit', 'page' => 'edit-qualification', 'status' => '1', 'parent_id' => '10'],
-            ['mid' => 'M-48', 'section' => 'Master', 'section_icon' => '', 'name' => 'Qualification Delete', 'page' => 'destroy-qualification', 'status' => '1', 'parent_id' => '10'],
+            ['mid' => 'M-45', 'section' => 'Master - Qualification', 'section_icon' => '', 'name' => 'Qualification List', 'page' => 'qualification', 'status' => '1', 'parent_id' => '10'],
+            ['mid' => 'M-46', 'section' => 'Master - Qualification', 'section_icon' => '', 'name' => 'Qualification Add', 'page' => 'add-qualification', 'status' => '1', 'parent_id' => '10'],
+            ['mid' => 'M-47', 'section' => 'Master - Qualification', 'section_icon' => '', 'name' => 'Qualification Edit', 'page' => 'edit-qualification', 'status' => '1', 'parent_id' => '10'],
+            ['mid' => 'M-48', 'section' => 'Master - Qualification', 'section_icon' => '', 'name' => 'Qualification Delete', 'page' => 'destroy-qualification', 'status' => '1', 'parent_id' => '10'],
 
             // Bank Details
 
-            ['mid' => 'M-49', 'section' => 'Master', 'section_icon' => '', 'name' => 'Bank Details List', 'page' => 'bank-details', 'status' => '1', 'parent_id' => '11'],
-            ['mid' => 'M-50', 'section' => 'Master', 'section_icon' => '', 'name' => 'Bank Details Add', 'page' => 'add-bank', 'status' => '1', 'parent_id' => '11'],
+            ['mid' => 'M-49', 'section' => 'Master - Bank Details', 'section_icon' => '', 'name' => 'Bank Details List', 'page' => 'bank-details', 'status' => '1', 'parent_id' => '11'],
+            ['mid' => 'M-50', 'section' => 'Master - Bank Details', 'section_icon' => '', 'name' => 'Bank Details Add', 'page' => 'add-bank', 'status' => '1', 'parent_id' => '11'],
 
             // Work Order
 
@@ -215,11 +215,11 @@ class MenuSeeder extends Seeder
 
             // Company Master
 
-            ['mid' => 'M-113', 'section' => 'Master', 'section_icon' => '', 'name' => 'Company List', 'page' => 'company.list', 'status' => '1', 'parent_id' => '28'],
-            ['mid' => 'M-114', 'section' => 'Master', 'section_icon' => '', 'name' => 'Add Company', 'page' => 'company.create', 'status' => '1', 'parent_id' => '28'],
+            ['mid' => 'M-113', 'section' => 'Master - Company', 'section_icon' => '', 'name' => 'Company List', 'page' => 'company.list', 'status' => '1', 'parent_id' => '28'],
+            ['mid' => 'M-114', 'section' => 'Master - Company', 'section_icon' => '', 'name' => 'Add Company', 'page' => 'company.create', 'status' => '1', 'parent_id' => '28'],
 
             // organization 
-            ['mid' => 'M115', 'section' => 'Master', 'section_icon' => '', 'name' => 'Organizations Details', 'page' => 'organizations.show', 'status' => '1', 'parent_id' => '4'],
+            ['mid' => 'M115', 'section' => 'Master - Organizations', 'section_icon' => '', 'name' => 'Organizations Details', 'page' => 'organizations.show', 'status' => '1', 'parent_id' => '4'],
 
             // VMS Clients
 
@@ -242,9 +242,9 @@ class MenuSeeder extends Seeder
 
             ['mid' => 'M-124', 'section' => 'Employee Details', 'section_icon' => '', 'name' => 'Employee Dashboard', 'page' => 'employee.dashboard', 'status' => '1', 'parent_id' => '29'],
 
-            ['mid' => 'M-125', 'section' => 'Master', 'section_icon' => '', 'name' => 'Holidays', 'page' => 'holiday.list', 'status' => '1', 'parent_id' => '28'],
+            ['mid' => 'M-125', 'section' => 'Master - Holidays', 'section_icon' => '', 'name' => 'Holidays', 'page' => 'holiday.list', 'status' => '1', 'parent_id' => '28'],
 
-            ['mid' => 'M-126', 'section' => 'Master', 'section_icon' => '', 'name' => 'Leave Policy', 'page' => 'leave-policy.list', 'status' => '1', 'parent_id' => '28'],
+            ['mid' => 'M-126', 'section' => 'Master - Leave Policy', 'section_icon' => '', 'name' => 'Leave Policy', 'page' => 'leave-policy.list', 'status' => '1', 'parent_id' => '28'],
 
             //Upcoming Events
 
@@ -253,6 +253,7 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-129', 'section' => 'Upcoming Events', 'section_icon' => '', 'name' => 'Work Anniversary Wish List', 'page' => 'events.work-anniversary-list', 'status' => '1', 'parent_id' => '30'],
             
             ['mid' => 'M-130', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Export Salary Sheet', 'page' => 'salary-sheet', 'status' => '1', 'parent_id' => '12'],
+            ['mid' => 'M-131', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Change Password', 'page' => 'user.change-password', 'status' => '1', 'parent_id' => '25'],
             
         ];
 

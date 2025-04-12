@@ -22,7 +22,7 @@
                                 <div class="col-12">
                                     <div class="section-header">
                                         <label class="form-check-label">{{ $section }}  
-                                            nbsp<input class="form-check-input checkall"  name="checkall" value="" type="checkbox" data-section="{{ Str::slug($section) }}">
+                                            &nbsp;<input class="form-check-input checkall"  name="checkall" value="" type="checkbox" data-section="{{ Str::slug($section) }}">
                                             
                                         </label>
                                     </div>

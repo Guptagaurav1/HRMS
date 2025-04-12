@@ -15,30 +15,50 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\FunctionalRole;
 use App\Models\AppointmentFormat;
+use App\Models\EmpDetail;
+use App\Models\EmpPersonalDetail;
+use App\Models\EmpAccountDetail;
+use App\Models\EmpAddressDetail;
+use App\Models\EmpIdProof;
+use App\Models\EmpEducationDetail;
+use App\Models\EmpExperienceDetail;
+use DB;
+use Throwable;
 
 class CommonDataImportController extends Controller
 {
-    
-    public function import(){
+
+    public function import()
+    {
         return view('import-table');
     }
 
-    public function importDataSave(Request $request){
-        // dd('ljlj');
-
-        // $request->validate([
-        //     'file' => 'required|mimes:csv'
-        // ]);
-
+    public function importDataSave(Request $request)
+    {
+      
         $file = $request->file('import_csv');
         $handle = fopen($file, 'r');
+
+        // Add employee details.
+        $status =  $this->import_employee_data($handle);
+        if(isset($status['error'])){
+            return $status['message'];
+        }
+        else {
+            return back()->with('success', 'CSV Imported Successfully!');
+        }
+        die;
+
+
+
         $headers = fgetcsv($handle); // Read and store header row
 
+        // import employee data.
         while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
             $row = array_combine($headers, $data); // Map headers to values
 
+            // Store user record.
             // $dob = date_create($row['dob']);
-
             // User::create([
             //     'id' => $row['id'] ?? null,
             //     'first_name' => $row['first_name'] ?? null,
@@ -50,24 +70,41 @@ class CommonDataImportController extends Controller
             //     'gender' => $row['gender'] ?? null,
             //     'phone' => $row['phone'] ?? null,
             //     'dob' => date_format($dob,'Y-m-d') ?? null,
-            //     'role_id' => $row['role_id'] ?? null,
-            //     'department_id' => $row['department_id'] === "NULL" ?  : $row['department_id'],
+            //     'role_id' => get_role_id($row['user_type']),
+            //     'department_id' => $row['department_id'] == NULL ? null : $row['department_id'],
             //     'status' => $row['status'] ?? null,
             //     'created_at' => $row['created'] ?? null,
             //     'updated_at' => $row['created'] ?? null,
-            //     // 'company_id' => $row['company_id'] === "NULL" ?  : $row['company_id'],
+            //     'company_id' => $row['company_id'] ? $row['company_id'] : '1',
             // ]);
-
 
 
             // department
-
             // Department::create([
             //     'id' => $row['id'],
             //     'department' => $row['department'],
-            //     // 'reporting_manager_id' => $row['status'],
+            //     'reporting_manager_id' =>  null,
             //     'status' => $row['status'],
             // ]);
+
+                // skill
+
+            // $skill = new Skill();
+            // $skill->id = $row['id'];
+            // $skill->skill = $row['skill'];
+            // $skill->status = $row['status'];
+            // $skill->save();
+
+
+
+            // department skill
+
+            DepartmentSkill::create([
+                'id' => $row['id'],
+                'department_id' => $row['dept_id'],
+                'skill_id' => $row['skill_id'],
+                'status' => '1'
+            ]);
 
             //reporting Manager
 
@@ -112,7 +149,7 @@ class CommonDataImportController extends Controller
             //     'instagram_link' => $row['instagram_link'],
             //     'pinterest_link' => $row['pinterest_link'],
             //     'status' => $row['status'],
-            //     'user_id' => $row['user_id']
+            //     // 'user_id' => $row['user_id']
             // ]);
 
             // add record in roles table 
@@ -137,26 +174,26 @@ class CommonDataImportController extends Controller
 
             // Import State data
 
-                // State::create([
-                //     'id' => $row['id'],
-                //     'country_id ' => $row['country_id'],
-                //     'state' => $row['state'],
-                //     'state_code' => $row['state_code'],
-                //     'slug' => $row['slug'],
-                //     // 'created_at' =>  Carbon::parse($row['created_at']),
-                //     // 'updated_at' =>  Carbon::parse($row['updated_at']),
-                //     // 'deleted_at' =>  Carbon::parse($row['deleted_at']) ?? NULL
-                // ]);
+            // State::create([
+            //     'id' => $row['id'],
+            //     'country_id ' => $row['country_id'],
+            //     'state' => $row['state'],
+            //     'state_code' => $row['state_code'],
+            //     'slug' => $row['slug'],
+            //     // 'created_at' =>  Carbon::parse($row['created_at']),
+            //     // 'updated_at' =>  Carbon::parse($row['updated_at']),
+            //     // 'deleted_at' =>  Carbon::parse($row['deleted_at']) ?? NULL
+            // ]);
 
 
             // Import City
 
-                // City::create([
-                //     'id' => $row['id'],
-                //     'city_name' => $row['city_name'],
-                //     'city_code' => $row['city_code'],
-                //     'state_code' => $row['state_code']
-                // ]);
+            // City::create([
+            //     'id' => $row['id'],
+            //     'city_name' => $row['city_name'],
+            //     'city_code' => $row['city_code'],
+            //     'state_code' => $row['state_code']
+            // ]);
 
             //   import functional role
 
@@ -181,5 +218,137 @@ class CommonDataImportController extends Controller
         }
         fclose($handle);
         return back()->with('success', 'CSV Imported Successfully!');
+    }
+
+    /**
+     * Import employee data.
+     */
+    public function import_employee_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data); // Map headers to values
+
+                // Save Employee Details
+                $empdetails = new EmpDetail();
+                $empdetails->id = $row['emp_id'];
+                $empdetails->emp_work_order = $row['emp_work_order'];
+                $empdetails->emp_password = $row['emp_password'];
+                $empdetails->emp_code = $row['emp_code'];
+                $empdetails->role_id = get_role_id('employee');
+                $empdetails->emp_name = $row['emp_name'];
+                $empdetails->emp_place_of_posting = $row['emp_place_of_posting'];
+                $empdetails->emp_designation = $row['emp_designation'];
+                $empdetails->department = $row['department'];
+                $empdetails->emp_doj = date('Y-m-d', strtotime($row['emp_doj']));
+                $empdetails->emp_phone_first = $row['emp_phone_first'];
+                $empdetails->emp_phone_second = $row['emp_phone_second'];
+                $empdetails->emp_email_first = $row['emp_email_first'];
+                $empdetails->emp_email_second = $row['emp_email_second'];
+                $empdetails->emp_functional_role = $row['emp_functional_role'];
+                $empdetails->emp_remark = $row['emp_remark'];
+                $empdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $empdetails->created_at = $row['adding_date'];
+                $empdetails->reporting_email = $row['reporting_email'];
+                $empdetails->emp_current_working_status = $row['emp_current_working_status'];
+                $empdetails->save();
+
+                // Save Personal Details
+                $personaldetails = new EmpPersonalDetail();
+                $personaldetails->emp_code = $row['emp_code'];
+                $personaldetails->emp_gender = $row['emp_gender'];
+                $personaldetails->emp_category = $row['emp_category'] ? $row['emp_category'] : 'general';
+                $personaldetails->emp_dob = date('Y-m-d', strtotime($row['emp_dob']));
+                $personaldetails->emp_blood_group = $row['emp_blood_group'];
+                $personaldetails->emp_father_mobile = $row['emp_emergency_contact'];
+                $personaldetails->emp_father_name = $row['emp_father_name'];
+                $personaldetails->emp_marital_status = $row['emp_martial_status'];
+                $personaldetails->emp_dom = $row['emp_dom'];
+                $personaldetails->emp_husband_wife_name = $row['emp_husband_wife_name'];
+                $personaldetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $personaldetails->created_at = $row['adding_date'];
+                $personaldetails->save();
+
+                // Save Account Details
+                $accountdetails = new EmpAccountDetail();
+                $accountdetails->emp_code = $row['emp_code'];
+                $accountdetails->emp_unit = $row['emp_unit'];
+                $accountdetails->emp_salary = $row['emp_salary'];
+                $accountdetails->emp_branch = $row['emp_branch'];  // leave 13 for bank name
+                $accountdetails->emp_account_no = $row['emp_account_no'];
+                $accountdetails->emp_ifsc = $row['emp_ifsc'];
+                $accountdetails->emp_pan = $row['emp_pan'];
+                $accountdetails->emp_pf_no = $row['emp_pf_no'];  // Leave 48 for pf no.
+                $accountdetails->emp_esi_no = $row['emp_esi_no'];
+                $accountdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $accountdetails->created_at = $row['adding_date'];
+                $accountdetails->save();
+
+                // Save Address Details
+                $addressdetails = new EmpAddressDetail();
+                $addressdetails->emp_code = $row['emp_code'];
+                $addressdetails->emp_permanent_address = $row['emp_permanent_address'];
+                $addressdetails->emp_local_address = $row['emp_local_address'];
+                $addressdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $addressdetails->created_at = $row['adding_date'];
+                $addressdetails->save();
+
+                // Save Id Proof Details
+                $idproofdetails = new EmpIdProof();
+                $idproofdetails->emp_code = $row['emp_code'];;
+                $idproofdetails->emp_aadhaar_no = $row['emp_aadhaar_no'];
+                $idproofdetails->emp_passport_no = $row['emp_passport_no'];
+                $idproofdetails->passport_file = $row['passport_file'];
+                $idproofdetails->nearest_police_station = $row['nearest_police_station'];
+                $idproofdetails->police_verification_id = $row['police_verification_id'];
+                $idproofdetails->police_verification_file = $row['police_verification_file'];
+                $idproofdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $idproofdetails->created_at = $row['adding_date'];
+                $idproofdetails->save();
+
+                // Save Education Details
+                $educationdetails = new EmpEducationDetail();
+                $educationdetails->emp_code = $row['emp_code'];
+                $educationdetails->emp_postgradqualification = $row['emp_postgradqualification'];
+                $educationdetails->emp_gradqualification = $row['emp_gradqualification'];
+                $educationdetails->emp_highest_qualification = $row['emp_highest_qualification'];
+                $educationdetails->emp_tenth_year = $row['emp_tenth_year'];
+                $educationdetails->emp_tenth_percentage = $row['emp_tenth_percentage'];
+                $educationdetails->emp_tenth_board_name = $row['emp_tenth_board_name'];
+                $educationdetails->emp_twelve_year = $row['emp_twelve_year'];
+                $educationdetails->emp_twelve_percentage = $row['emp_twelve_percentage'];
+                $educationdetails->emp_twelve_board_name = $row['emp_twelve_board_name'];
+                $educationdetails->emp_graduation_year = $row['emp_graduation_year'];
+                $educationdetails->emp_graduation_percentage = $row['emp_graduation_percentage'];
+                $educationdetails->emp_graduation_mode = $row['emp_graduation_mode'];
+                $educationdetails->emp_graduation_in = $row['emp_graduation_in'];
+                $educationdetails->emp_postgraduation_year = $row['emp_postgraduation_year'];
+                $educationdetails->emp_postgraduation_percentage = $row['emp_postgraduation_percentage'];
+                $educationdetails->emp_postgraduation_mode = $row['emp_postgraduation_mode'];
+                $educationdetails->emp_postgraduation_in = $row['emp_postgraduation_in'];
+                $educationdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $educationdetails->created_at = $row['adding_date'];
+                $educationdetails->save();
+
+                // Save Experience Details
+                $expdetails = new EmpExperienceDetail();
+                $expdetails->emp_code = $row['emp_code'];
+                $expdetails->emp_experience = $row['emp_experience'];
+                $expdetails->emp_skills = $row['emp_skills'];
+                $expdetails->resume_file = $row['resume_file'];
+                $expdetails->emp_experience = $row['emp_experience'];
+                $expdetails->created_at = $row['adding_date'];
+                $expdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $expdetails->save();
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
     }
 }
