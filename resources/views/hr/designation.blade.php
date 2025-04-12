@@ -16,7 +16,7 @@
                 <div class="row px-3 mt-2">
                     <div class="col-md-3">
                         <label class="form-label">Designation<span style="color: red">*</span></label>
-                            <input type="text" class="form-control form-control-sm">
+                            <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm">
                        
                         
 
