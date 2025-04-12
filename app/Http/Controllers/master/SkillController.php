@@ -15,8 +15,17 @@ class SkillController extends Controller
     // display latest skill lists
 
     public function index(Request $request){
-        $skills = Skill::orderBy('id','desc')->paginate(10);
-        return view("hr.master.skills.skill", compact('skills'));
+        $skills = Skill::select('id','skill')->orderBy('id','desc');
+        $search = $request->search; 
+
+        if($request->search){
+            $skills->where(function($query) use ($search){
+                $query->where('skill', 'like', '%'.$search.'%');
+            });
+        }
+        
+        $skills = $skills->paginate(10);
+        return view("hr.master.skills.skill", compact('skills','search'));
     }
 
     // create form of skills
