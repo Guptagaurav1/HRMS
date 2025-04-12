@@ -72,8 +72,6 @@ Route::get('/testuser', function () {
     return view('user-details-multistep');
 });
 
-
-
 // External users routes.
 Route::middleware('guest')->group(function () {
 
@@ -134,6 +132,11 @@ Route::middleware('all')->prefix('user')->group(function () {
     Route::controller(LeaveController::class)->prefix('leaves')->group(function () {
         Route::get('emp-leaves', 'index')->name("emp-leaves");
     });
+
+    Route::controller(AuthController::class)->group(function () {
+    Route::get("change-password", 'change_password')->name("user.change-password");
+    Route::post("update-password", 'update_password')->name("user.update-password");
+});
 
 });
 
@@ -589,25 +592,9 @@ Route::get("acceptance-form", function () {
 })->name("acceptance-form");
 
 
-
-
- 
-// Change Password
-
-
-Route::get("change-password", function () {
-    return view("hr.change-password");
-})->name("change-password");
-
-
-
-
-
 Route::get("temp-profile", function () {
     return view("hr.temp-profile");
 })->name("temp-profile");
-
-
 
 
 // Employee Routes

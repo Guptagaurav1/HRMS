@@ -253,6 +253,7 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-129', 'section' => 'Upcoming Events', 'section_icon' => '', 'name' => 'Work Anniversary Wish List', 'page' => 'events.work-anniversary-list', 'status' => '1', 'parent_id' => '30'],
             
             ['mid' => 'M-130', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Export Salary Sheet', 'page' => 'salary-sheet', 'status' => '1', 'parent_id' => '12'],
+            ['mid' => 'M-131', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Change Password', 'page' => 'user.change-password', 'status' => '1', 'parent_id' => '25'],
             
         ];
 

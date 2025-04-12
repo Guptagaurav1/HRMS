@@ -11,6 +11,7 @@ use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\ReCaptcha;
 use App\Mail\ShortlistMail;
+use App\Models\EmpUpdateHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
@@ -318,6 +319,84 @@ class AuthController extends Controller
         } catch (Throwable $e) {
             DB::rollBack();
             return redirect()->route('guest.forgot-password')->with(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Change password form.
+     */
+    public function change_password()
+    {
+        return view("all.change-password");
+    }
+
+    /**
+     * Update password from profile page. 
+     */
+    public function update_password(Request $request)
+    {
+        $this->validate($request, [
+            'password' => ['required', 'confirmed', Password::min(8)
+                ->mixedCase()
+                ->numbers()
+                ->symbols()],
+            'password_confirmation' => ['required']
+        ], [
+            'password.required' => 'This field is required',
+            'password.min' => 'Password must be at least 8 characters long',
+            'password.confirmed' => 'Password and Confirm Password do not match',
+        ]);
+        try {
+            DB::beginTransaction();
+
+            if (auth('employee')->check()) {
+                $empdetails = auth('employee')->user();
+                $user = EmpDetail::where('emp_email_first', $empdetails->emp_email_first)->firstOrFail();
+                $user->emp_password = md5($request->password);
+                $name = $user->emp_name;
+                $email = $empdetails->emp_email_first;
+                // Save change log of employee.
+                EmpUpdateHistory::create([
+                    'emp_code' => $empdetails->emp_code,
+                    'column_name' => 'password',
+                    'old_value' => '',
+                    'new_value' => md5($request->password),
+                ]);
+
+            } else {
+                $user = User::where('email', auth()->user()->email)->firstOrFail();
+                $user->password = md5($request->password);
+                $name = $user->first_name . " " . $user->last_name;
+                $email = $user->email;
+
+            }
+            // Update user password.
+            $user->save();
+
+            // Send mail to user.
+            $url_link = route('login');
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail(1);
+            $html = "<h4>Your password changed successfully.</h4></br>
+                    <h4>Your New Password is $request->password </h4></br>
+                    <h4>Click Below Button to login your account</h4></br>
+                    <h4><a href='" . $url_link . "'>Click Here</a></h4>";
+
+                $maildata = new stdClass();
+                $maildata->subject = "Password Changed";
+                $maildata->name = $name;
+                $maildata->comp_email = $company->email;
+                $maildata->comp_phone = $company->mobile;
+                $maildata->comp_website = $company->website;
+                $maildata->comp_address = $company->address;
+                $maildata->content = $html;
+                $maildata->url = url('/');
+                Mail::to($email)->send(new ShortlistMail($maildata));
+
+            DB::commit();
+            return redirect()->route('user.change-password')->with(['success' => true, 'message' => 'Password changed successfully.']);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            return redirect()->route('user.change-password')->with(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 }

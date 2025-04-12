@@ -237,7 +237,10 @@
                             <li><a class="dropdown-item" href="#"><span class="dropdown-icon"><i class="fa-regular fa-circle-question"></i></span> Help</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="edit-profile.html"><span class="dropdown-icon"><i class="fa-regular fa-gear"></i></span> Settings</a></li> --}}
-                            <li><a class="dropdown-item data-logout"><span class="dropdown-icon"><i class="fa-regular fa-arrow-right-from-bracket"></i></span> Logout</a></li>
+                            @if((auth('employee')->check() && auth('employee')->user()->hasPermission('user.change-password')) || (auth()->check() && auth()->user()->hasPermission('user.change-password')))
+                            <li><a href="{{route('user.change-password')}}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-regular fa-lock"></i></span> Change Password</a></li>
+                            @endif
+                            <li><a class="dropdown-item data-logout" role="button"><span class="dropdown-icon"><i class="fa-regular fa-arrow-right-from-bracket"></i></span> Logout</a></li>
                         </ul>
                     </div>
                 </div>
