@@ -65,9 +65,28 @@ class CommonDataImportController extends Controller
             // Department::create([
             //     'id' => $row['id'],
             //     'department' => $row['department'],
-            //     // 'reporting_manager_id' => $row['status'],
+            //     'reporting_manager_id' =>  null,
             //     'status' => $row['status'],
             // ]);
+
+                // skill
+
+            // $skill = new Skill();
+            // $skill->id = $row['id'];
+            // $skill->skill = $row['skill'];
+            // $skill->status = $row['status'];
+            // $skill->save();
+
+
+
+            // department skill
+
+            DepartmentSkill::create([
+                'id' => $row['id'],
+                'department_id' => $row['dept_id'],
+                'skill_id' => $row['skill_id'],
+                'status' => '1'
+            ]);
 
             //reporting Manager
 
