@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('emp_send_doc', function (Blueprint $table) {
             $table->id();
             $table->string('emp_code')->nullable();
+            $table->foreign('emp_code')->references('emp_code')->on('emp_details');
             $table->string('doc_type')->nullable();
             $table->longText('document')->nullable();
             $table->integer('status')->default(1);

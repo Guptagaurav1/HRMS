@@ -9,13 +9,26 @@
     <div class="col-12">
         <div class="panel">
 
-            <div class="col-md-12 d-flex justify-content-end my-2 py-3 px-2">
-                <a href="{{route('employee.employee-list')}}" class="btn btn-primary mx-2">Employee List</a>
-                <a href="{{route('leave-regularization')}}" class="btn btn-primary">Back</a>
-
+        <div class="panel-header">
+            <h3 class="text-white">Updating Employee Details</h3>
+            <div>
+                <ul class="breadcrumb">
+                    <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @elseif(auth()->user()->role->role_name="hr_operations")
+                            <a href="{{route('hr_operations_dashboard')}}">Dashboard</a>
+                        @endif
+                    </li>
+                    <li><a href="{{route('employee.employee-list')}}">Employee List</a></li>
+                    <li> Employee Details</li>
+                </ul>
             </div>
 
-            <div class="table-responsive">
+        </div>
+
+
+            <div class="table-responsive mt-4">
                 <div class="row px-2">
                     <div class="col-sm-6 col-xs-12">
                         <h4 class="panel-header">Employee Details</h4>

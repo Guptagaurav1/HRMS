@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -73,13 +74,11 @@ class User extends Authenticatable
     /**
      * Get role name.
     */
-    public function role(){
-        return $this->belongsTo(Role::class, 'role_id');
+   
+    public function role(): HasOne
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id')->select('role_name');
     }
-
-    // public function role(){
-    //     return $this->hasOne(Role::class, 'id', 'role_id');
-    // }
 
     public function hasPermission($routeName)
     {

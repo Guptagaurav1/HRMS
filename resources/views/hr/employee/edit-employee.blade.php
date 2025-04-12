@@ -1,15 +1,27 @@
 @extends('layouts.master', ['title' => 'Update Employee'])
 
 @section('contents')
-    <div class="dashboard-breadcrumb mb-25">
-        <h2 class="">Updating Employee Details</h2>
+<div class="panel">
+    <div class="panel-header">
+        <h3 class="text-white">Updating Employee Details</h3>
         <div>
-            <a href="{{ route('employee.employee-list') }}"><button class="btn btn-sm btn-primary"> Employee List <i
-                        class="fa-solid fa-list"></i></button></a>
+            <ul class="breadcrumb">
+                <li>
+                    @if (auth()->user()->role->role_name="hr")
+                        <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                    @elseif(auth()->user()->role->role_name="hr_operations")
+                        <a href="{{route('hr_operations_dashboard')}}">Dashboard</a>
+                    @endif
+                </li>
+                <li><a href="{{route('employee.employee-list')}}">Employee List</a></li>
+                <li>Update Employee </li>
+            </ul>
         </div>
-    </div>
 
-    <div class="dashboard-breadcrumb mb-25">
+    </div>
+</div>
+
+    <div class="dashboard-breadcrumb mb-25 mt-3">
         <p>Emp Code<strong>: {{ $employee_details->emp_code }} </strong></p>
         <p>Employee Name <strong>: {{ $employee_details->emp_name }} </strong></p>
     </div>

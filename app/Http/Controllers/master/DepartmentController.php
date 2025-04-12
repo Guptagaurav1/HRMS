@@ -20,8 +20,14 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         $departments = Department::whereHas('skills')->orderBy('id', 'desc');
+        $search = $request->search;
+        if($search){
+            $departments->where(function($query) use ($search){
+                    $query->where('department','like', '%'.$search.'%');
+            });
+        }
         $departments = $departments->paginate(10);
-        return view('hr.master.department.department', compact('departments'));
+        return view('hr.master.department.department', compact('departments','search'));
     }
 
     // display skill list on department-add form

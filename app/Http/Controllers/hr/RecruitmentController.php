@@ -19,6 +19,7 @@ use App\Models\RecruitmentForm;
 use App\Models\Bank;
 use App\Models\AppointmentFormat;
 use App\Models\UserRequestLog;
+use App\Models\EmpSendDoc;
 use App\Models\Notification;
 use App\Models\RecPersonalDetail;
 use App\Models\RecAddressDetail;
@@ -143,7 +144,7 @@ class RecruitmentController extends Controller
     {
         // to get current roles of the user
 
-        $user = auth()->user()->load('role'); 
+        $user = auth()->user(); 
         $role = $user->role->role_name; 
         if($role == 'hr_executive'){
             $positions = PositionRequest::whereNotNull('assigned_executive')
@@ -1008,6 +1009,13 @@ class RecruitmentController extends Controller
 
             $pdf->save($fullPath)->stream('invoice.pdf');
 
+            // Store offer letter.
+            EmpSendDoc::create([
+                'rec_id' => $request->recruitment,
+                'doc_type' => 'Offer Letter',
+                'document' => $fileName,
+            ]);
+            
             // Permission problem.
             // if (file_exists($fullPath)) {
             //     unlink($fullPath);
@@ -2221,8 +2229,9 @@ class RecruitmentController extends Controller
         ]);
 
         try{
+            DB::beginTransaction();
             $recruitment_id = decrypt($request->rec_id);
-            $details = RecruitmentForm::select('id', 'job_position', 'firstname', 'lastname', 'email', 'reference')->findOrFail($recruitment_id);
+            $details = RecruitmentForm::findOrFail($recruitment_id);
             // Update recuruitment form.
             RecruitmentForm::where('id', $recruitment_id)->update(['finally' => 'offer_accepted']);   
             
@@ -2241,6 +2250,22 @@ class RecruitmentController extends Controller
             // Send Mail.
             $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($reference->company_id);
 
+            // Create hr form file.
+            $unq_no = date("Ymdhisa");
+            $fileName = "hr_form" . $unq_no . ".pdf";
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadView('guest.template.hr-form', ['details' => $details]);
+            $path = public_path('recruitment/candidate_documents/acceptance_form');
+            $fullPath = $path . '/' . $fileName;
+            file_put_contents($fullPath, $pdf->output());
+
+            // Save doc
+            EmpSendDoc::create([
+                'rec_id' => $recruitment_id,
+                'doc_type' => 'HR Form',
+                'document' => $fileName,
+            ]);
+
             $mail_html = "<h4>Offer Letter Accepted Successfully for $details->job_position </h4></br>
                   <h4>Please wait for further process.</h4></br>
                   </br></br>
@@ -2256,11 +2281,14 @@ class RecruitmentController extends Controller
             $maildata->comp_address = $company->address;
             $maildata->content = $mail_html;
             $maildata->url = url('/');
-            Mail::to($details->email)->send(new ShortlistMail($maildata));
+            // $maildata->file = $fullPath;
 
+            Mail::to($details->email)->cc($this->cc)->send(new ShortlistMail($maildata));
+            DB::commit();
             return redirect()->route('guest.acceptance_form', ['id' => $request->rec_id])->with(['success' => true,'message' => 'Offer Letter Accepted Successfully..']);
        }
        catch (Throwable $th) {
+            DB::rollBack();
             return redirect()->route('guest.acceptance_form', ['id' => $request->rec_id])->with(['error' => true,'message' => $th->getMessage()]);
        }
     }

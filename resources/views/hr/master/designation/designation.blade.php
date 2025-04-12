@@ -8,17 +8,20 @@
                 <h3 class="mt-2">Designation Lists</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Italy</li>
+                        <li>
+                            @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Designation Lists</li>
                     </ul>
                 </div>
 
             </div>
 
 
-            <form method="get" class="mt-3">
+            
+            <form method="get">
                 <div class="row d-flex align-items-center justify-content-end">
                     <div class="col-md-10 col-xs-12 d-flex align-items-center px-4 gap-3 py-4">
                         <div>
@@ -32,8 +35,11 @@
                         </div>
 
                         <div>
-                            <a href=""><button type="button" class="btn btn-primary btn-sm ">Clear <i
-                                        class="fa-solid fa-eraser"></i></button></a>
+                            <a href="{{ route('designations.index') }}">
+                                <button type="button" class="btn btn-primary btn-sm ">Clear <i
+                                        class="fa-solid fa-eraser"></i>
+                                    </button>
+                            </a>
                         </div>
                         
 

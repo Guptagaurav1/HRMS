@@ -7,10 +7,13 @@
                 <h3 class="text-white mt-2">Add Bank</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li>
+                            @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li><a href="{{route('bank-details')}}">Banks Details</a></li>
+                        <li>Add Bank</li>
                     </ul>
                 </div>
             </div>

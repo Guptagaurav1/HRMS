@@ -10,9 +10,11 @@
 
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
+                        <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                        </li>
                         <li>Department List</li>
                     </ul>
                 </div>
@@ -27,7 +29,7 @@
                         <form  method="get">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                    <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search"
                                         required>
 
                                 </div>
