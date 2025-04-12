@@ -4,6 +4,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
+                
                 <h3 class="mt-2">Designation Lists</h3>
                 <div>
                     <ul class="breadcrumb">
@@ -18,38 +19,11 @@
 
             </div>
 
-            <!-- <div class="col-md-12 col-xs-12 d-flex align-items-cenetr justify-content-between flex-wrap mt-4 px-3">
-                <div class="">
-                    <form class="row g-3" method="get">
-                        <div class="col-auto mb-3">
-                            <input type="text" name="search" value="" class="form-control" placeholder="Search"
-                                required>
-                        </div>
-                        <div class="col-auto col-xs-12">
-                            <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                            <a href="{{ route('organizations.index') }}"><button type="button"
-                                    class="btn btn-primary btn-sm mb-3">Clear <i
-                                        class="fa-solid fa-eraser"></i></button></a>
-                        </div>
 
-                    </form>
-                </div>
-
-                @if(auth()->user()->hasPermission('designations.create'))
-                <div class="col-xs-12">
-                    <a href="{{ route('designations.create') }}"><button type="button" class="btn btn-primary btn-sm mb-3">Add
-                            Designation <i class="fa-solid fa-plus"></i></button></a>
-                </div>
-                @endif
-            </div> -->
-
-
-
-
+            
             <form method="get">
                 <div class="row d-flex align-items-center justify-content-end">
-                    <div class="col-md-10 col-xs-12 d-flex align-items-center px-3 gap-3 py-4">
+                    <div class="col-md-10 col-xs-12 d-flex align-items-center px-4 gap-3 py-4">
                         <div>
                             <input type="text" name="search" value="" class="form-control" placeholder="Search"
                                 required>
@@ -61,11 +35,15 @@
                         </div>
 
                         <div>
-                            <a href=""><button type="button" class="btn btn-primary btn-sm ">Clear <i
-                                        class="fa-solid fa-eraser"></i></button></a>
+                            <a href="{{ route('designations.index') }}">
+                                <button type="button" class="btn btn-primary btn-sm ">Clear <i
+                                        class="fa-solid fa-eraser"></i>
+                                    </button>
+                            </a>
                         </div>
-
                         
+
+
 
             </form>
 
@@ -73,7 +51,7 @@
 
 
         @if(auth()->user()->hasPermission('designations.create'))
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-11 col-md-2">
             <a href="{{ route('designations.create') }}"><button type="button" class="btn btn-primary btn-sm mb-3">Add
                     Designation <i class="fa-solid fa-plus"></i></button></a>
         </div>

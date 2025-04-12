@@ -72,8 +72,6 @@ Route::get('/testuser', function () {
     return view('user-details-multistep');
 });
 
-
-
 // External users routes.
 Route::middleware('guest')->group(function () {
 
@@ -135,6 +133,11 @@ Route::middleware('all')->prefix('user')->group(function () {
         Route::get('emp-leaves', 'index')->name("emp-leaves");
     });
 
+    Route::controller(AuthController::class)->group(function () {
+    Route::get("change-password", 'change_password')->name("user.change-password");
+    Route::post("update-password", 'update_password')->name("user.update-password");
+});
+
 });
 
 // Department users routes.
@@ -142,6 +145,15 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
         Route::get("/hr-operation-dashboard", 'hr_operation_dashboard')->name("hr_operations_dashboard");
+
+        // send mail wishes 
+        Route::get("/birthday-wishes-mail-template", 'templateBirthday')->name("sendBirthdayMail");
+        Route::post("/birthday-wishes-mail", 'sendBirthdayMail')->name("sendBirthdayMail");
+        Route::post("/anniversary-wishes-mail", 'sendMarriageAnniversaryMail')->name("sendMarriageAnniversaryMail");
+        Route::post("/work-anniversary-wishes-mail", 'sendWorkAnniversaryMail')->name("sendWorkAnniversaryMail");
+        
+        Route::get("/leave-details/{id}", 'leaveDetails')->name("leaveDetails");
+        Route::get("/leave-details-status/{id}", 'leaveDetailsStatus')->name("leaveDetailsStatus");
     });
 
     // Masters
@@ -589,25 +601,9 @@ Route::get("acceptance-form", function () {
 })->name("acceptance-form");
 
 
-
-
- 
-// Change Password
-
-
-Route::get("change-password", function () {
-    return view("hr.change-password");
-})->name("change-password");
-
-
-
-
-
 Route::get("temp-profile", function () {
     return view("hr.temp-profile");
 })->name("temp-profile");
-
-
 
 
 // Employee Routes

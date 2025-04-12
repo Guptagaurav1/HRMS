@@ -17,7 +17,7 @@
                     </ul>
                 </div>
                 </div>
-                <p class="text-danger px-3">** Seacrh applicable on Emp Id/Name/Work Order Number/Designation</p>
+                <p class="text-danger px-3 py-3">** Seacrh applicable on Emp Id/Name/Work Order Number/Designation</p>
                 <div class="col-md-12 text-end p-2">
                     <button type="submit" class="btn btn-primary ">CSV</button>
                 </div>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3">Search</button>
-                            <a href="{{ route('salary-list') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                            <a href="{{ route('salary-list') }}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
                         </div>
     
                     </form>

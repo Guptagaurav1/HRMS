@@ -169,7 +169,7 @@
                         <div class="card-header">
                             Structure
                         </div>
-                        <div class="col-6 px-2 m-3">
+                        <div class="col-6 col-xs-12 px-2 m-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="exception_esi" name="exception_esi" onchange="cal_gross();">
                                 <label class="form-check-label text-danger" for="gridCheck">

@@ -8,9 +8,9 @@
                 <div>
                     <ul class="breadcrumb">
                         <li>
-                        @if (auth()->user()->role->role_name="hr")
+                            @if (auth()->user()->role->role_name="hr")
                             <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                        @endif
+                            @endif
                         </li>
                         <li>Skills List</li>
                     </ul>
@@ -30,33 +30,46 @@
             </div>
             <div class="row">
 
-                <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-3 mt-5">
-                    <div class="">
-                        <form class="row g-3" method="get">
-                            <div class="col-auto mb-3">
-                                <input type="text" name="search" value="" class="form-control" placeholder="Search"
-                                    required>
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
-                                        class="fa-solid fa-magnifying-glass"></i></button>
-                                <a href="{{ route('organizations.index') }}"><button type="button"
-                                        class="btn btn-primary btn-sm mb-3">Clear <i
-                                            class="fa-solid fa-eraser"></i></button></a>
-                            </div>
 
+
+                <div class="row mt-5 px-4">
+                    <div class="col-md-10">
+                        <form method="get">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                        required>
+
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn  btn-primary btn-sm mb-3">Search </button>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="{{ route('skills.index') }}" class="col-xs-12"><button type="button"
+                                            class="btn btn-primary btn-sm mb-3">Clear <i
+                                                class="fa-solid fa-eraser"></i></button></a>
+
+                                </div>
+                            </div>
                         </form>
-                    </div>
 
-                    <div class="">
-                        <a href="{{ route('skills.create') }}"><button type="button" class="btn btn-sm btn-primary">Add
+
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{ route('skills.create') }}" class="col-xs-12 mx-md-4"><button type="button"
+                                class="btn btn-sm btn-primary">Add
                                 Skills <i class="fa-solid fa-plus"></i></button></a>
+
                     </div>
                 </div>
+
+
                 {{-- <div class="row"> --}}
                     @if($message = Session::get('success'))
                     <div class="col-md-12 mt-2">
-                        <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                        <div class="alert alert-success d-flex align-items-center alert-dismissible fade show"
+                            role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:">
                                 <use xlink:href="#check-circle-fill" />
                             </svg>
@@ -69,19 +82,21 @@
                     @endif
                     @if($message = Session::get('error'))
                     <div class="col-md-12">
-                        <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                        <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show"
+                            role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:">
                                 <use xlink:href="#exclamation-triangle-fill" />
                             </svg>
                             <div>
                                 {{$message}}
                             </div>
-    
+
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
                     @endif
-                {{-- </div> --}}
+                    {{--
+                </div> --}}
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                         id="allEmployeeTable">

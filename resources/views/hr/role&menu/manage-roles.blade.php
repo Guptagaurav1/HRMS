@@ -61,7 +61,6 @@
                                 <th class="srno-column text-center">Sr No.</th>
                                 <!-- <th class="rid-column">RID</th> -->
                                 <th class="text-center">Role Name</th>
-                                <th class="text-center">Attributes</th>
                                 <th class="text-center">Time Added On</th>
                                 <th class="text-center">Time Updated On</th>
                                 <th class="text-center">Action</th>
@@ -72,10 +71,6 @@
                             <tr>
                                 <td class="srno-column text-center"> {{ $key +1 }} </td>
                                 <td class="text-center">{{ $role->role_name}}</td>
-                                <td class="attributes-column text-center">
-                                    <span>{{ $role->menu_names }}</span><br>
-                                </td>
-                              
                                 <td class="text-center">{{ $role->created_at}}</td>
                                 <td class="text-center">{{ $role->updated_at}}</td>
                                 <td class="text-center"> 

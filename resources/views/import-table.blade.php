@@ -23,7 +23,7 @@
         @csrf
         <div class="row">
             <div class="col-md-6">
-                <input type="file" name="import_csv">
+                <input type="file" name="import_csv" accept=".csv">
             </div>
             <div class="col-md-6">
                 <button type="submit" name="submit">Submit</button>

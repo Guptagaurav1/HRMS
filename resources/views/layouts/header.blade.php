@@ -15,6 +15,9 @@
                             <img src="{{asset('assets/images/PrakharNEWLogo.png')}}" alt="Logo" width="105px" class="mt-1">
                         </a>
                     </div>
+                    <div>
+                    
+                    </div>
                 </div>
                 <div class="nav-close-btn">
                     <button id="navClose"><i class="fa-light fa-bars-sort"></i></button>
@@ -92,7 +95,20 @@
                                         </li>
                                     </ul>
                                 </div> -->
+
+                                <!-- Date And Time Current -->
+
+                                <!-- <div>
+                                    <span>
+                                        Date : 04/11/2025
+                                    </span>
+                                    <span>Time : 4:51:1 AM</span>
+
+                                </div> -->
+
+                               
                                 <div class="header-btn-box">
+                                
                                     <button class="header-btn" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-light fa-bell"></i>
                                         <span class="badge bg-danger">9+</span>
@@ -108,6 +124,7 @@
                                                 </div>
                                             </a>
                                         </li>
+                                       
                                         <li>
                                             <a href="#" class="d-flex align-items-center">
                                                 <div class="avatar">
@@ -148,6 +165,7 @@
                                                 </div>
                                             </a>
                                         </li>
+                                        
                                         <li>
                                             <a href="#" class="d-flex align-items-center">
                                                 <div class="avatar">
@@ -213,6 +231,7 @@
                             </div>
                         </div>
                     </div>
+                   
                     <button class="header-btn header-collapse-group-btn d-lg-none"><i class="fa-light fa-ellipsis-vertical"></i></button>
                     <button class="header-btn theme-settings-btn d-lg-none"><i class="fa-light fa-gear"></i></button>
                     <div class="header-btn-box profile-btn-box">
@@ -237,7 +256,10 @@
                             <li><a class="dropdown-item" href="#"><span class="dropdown-icon"><i class="fa-regular fa-circle-question"></i></span> Help</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="edit-profile.html"><span class="dropdown-icon"><i class="fa-regular fa-gear"></i></span> Settings</a></li> --}}
-                            <li><a class="dropdown-item data-logout"><span class="dropdown-icon"><i class="fa-regular fa-arrow-right-from-bracket"></i></span> Logout</a></li>
+                            @if((auth('employee')->check() && auth('employee')->user()->hasPermission('user.change-password')) || (auth()->check() && auth()->user()->hasPermission('user.change-password')))
+                            <li><a href="{{route('user.change-password')}}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-regular fa-lock"></i></span> Change Password</a></li>
+                            @endif
+                            <li><a class="dropdown-item data-logout" role="button"><span class="dropdown-icon"><i class="fa-regular fa-arrow-right-from-bracket"></i></span> Logout</a></li>
                         </ul>
                     </div>
                 </div>

@@ -61,14 +61,14 @@
                         <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-3 mt-5">
                     <div class="">
                         <form class="row g-3" method="get">
-                            <div class="col-auto mb-3">
+                            <div class="col-auto  col-xs-12 mb-3">
                                 <input type="text" name="search" value="" class="form-control" placeholder="Search"
                                     required>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-auto col-xs-12">
                                 <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
-                                        class="fa-solid fa-magnifying-glass"></i></button>
-                                <a href="{{ route('organizations.index') }}"><button type="button"
+                                        class="fa-solid fa-magnifying-glass" class="col-xs-12"></i></button>
+                                <a href="{{ route('organizations.index') }}"  class="col-xs-12"><button type="button"
                                         class="btn btn-primary btn-sm mb-3">Clear <i
                                             class="fa-solid fa-eraser"></i></button></a>
                             </div>

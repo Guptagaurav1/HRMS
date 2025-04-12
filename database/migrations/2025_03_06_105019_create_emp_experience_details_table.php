@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('rec_id')->references('id')->on('recruitment_forms');
             $table->string('emp_code')->nullable();
             $table->foreign('emp_code')->references('emp_code')->on('emp_details');
-            $table->string('emp_skills')->nullable();
+            $table->text('emp_skills')->nullable();
             $table->string('other_skills')->nullable();
             $table->string('resume_file')->nullable();
             $table->string('emp_experience')->nullable();
