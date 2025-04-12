@@ -45,7 +45,7 @@
 
                                 </div>
                                 <div class="col-md-6">
-
+                                  <a href="{{ route('project-list')}}">
                                 <button type="button" class="btn btn-sm btn-primary mb-3">Clear <i
                                 class="fa-solid fa-eraser"></i></button></a>
                                 </div>
