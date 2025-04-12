@@ -4,12 +4,7 @@
 @endsection
 
 @section('contents')
-    <div class="dashboard-breadcrumb mb-25">
-        <h2>Edit Vendor</h2>
-        <div class="btn-box">
-            <a href="{{ route('vendors.index') }}" class="btn btn-sm btn-primary">Vendor List</a>
-        </div>
-    </div>
+   
     <form action="{{ route('vendors.update') }}" method="post">
         @csrf
         <div class="d-none">
@@ -21,6 +16,16 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h4 class="mt-1">Vendor Details</h4>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li> @if (auth()->user()->role->role_name="hr")
+                                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                    @endif
+                                </li>
+                                <li><a href="{{ route('vendors.index') }}" >Vendor List</a></li>
+                                <li>Edit Vendor </li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="panel-body">

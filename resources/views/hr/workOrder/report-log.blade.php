@@ -5,15 +5,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h2 class="mt-2">Report Logs</h2>
-                    <div class="text-start">
-                    <a href="{{ route('hr_dashboard') }}">
-                        <div class="back-button-box">
-                            <button type="button" class="btn btn-back">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </button>
-                        </div>
-                    </a>
-                </div>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>Report Logs</li>
+                        </ul>
+                    </div>
                 </div>
                 
 

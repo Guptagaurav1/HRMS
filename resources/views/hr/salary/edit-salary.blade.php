@@ -11,15 +11,16 @@
                 <div class="panel">
                     <div class="panel-header">
                        <h2> Update Salary </h2>
-
                         <div>
-                    <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
-                    </ul>
-                </div>
+                            <ul class="breadcrumb">
+                                <li> @if (auth()->user()->role->role_name="hr")
+                                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                    @endif
+                                </li>
+                                <li><a href="{{route('salary-list')}}">Salary List</a></li>
+                                <li>Update Salary</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-md-12 py-3 px-3">
                         <span class="text-danger">All Fields are Mandatory. Those Fields are not in Used Set as 0 (Zero)

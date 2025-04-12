@@ -10,6 +10,15 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h2 class="mt-2">Generate Complete Salary Sheet</h2>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li> @if (auth()->user()->role->role_name="hr")
+                                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                    @endif
+                                </li>
+                                <li>Report Logs</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="panel-body">

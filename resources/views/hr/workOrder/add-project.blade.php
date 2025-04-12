@@ -5,13 +5,15 @@
     <div class="panel-header heading-stripe">
         <h3 class="mt-2 text-center">Add Project</h3>
         <div>
-                    <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
-                    </ul>
-                </div>
+            <ul class="breadcrumb">
+                <li> @if (auth()->user()->role->role_name="hr")
+                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                    @endif
+                </li>
+                <li><a href="{{route('project-list')}}">Project List</a></li>
+                <li>Add Project</li>
+            </ul>
+        </div>
     </div>
     <div class="row" id="tab-1">
         <div class="col-12 d-flex justify-content-end">
@@ -91,7 +93,9 @@
 </div>
 <div class="col-12 d-flex justify-content-end  px-3 mb-3 gap-3">
     <div>
-       <a href="{{route('projectlist')}}"> <button type="button" class="btn btn-sm btn-secondary"> Cancel </button></a>
+        <a href="{{route('project-list')}}">
+            <button type="button" class="btn btn-sm btn-secondary">Cancel </button>
+        </a>
     </div>
     <div>
         <button type="submit" class="btn btn-sm btn-primary"> Submit </button>

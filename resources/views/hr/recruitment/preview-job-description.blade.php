@@ -13,12 +13,19 @@
                         <div class="panel  text-center" id="card">
                             <div class="panel-header">
                                 <h4 class="mt-2 px-2">Preview Summary</h4>
-                            </div>
-                            @if(auth()->user()->hasPermission('show-assign-work-log'))
-                                <div class="text-end">
-                                    <a href="{{route('show-assign-work-log', ['id' => $id])}}" class="btn btn-primary m-2">Back</a>
+                                <div>
+                                    <ul class="breadcrumb">
+                                        <li> @if (auth()->user()->role->role_name="hr")
+                                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                            @endif
+                                        </li>
+                                        <li> <a href="{{route('recruitment-report')}}">Recruitment Report</a></li>
+                                        <li><a href="{{route('show-assign-work-log',$position->id)}}">Position Report Log</a></li>
+                                        <li>Preview Summary</li>
+                                    </ul>
                                 </div>
-                            @endif
+                            </div>
+                           
                             <div class="card-body table-responsive">
                                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                                     <tbody>

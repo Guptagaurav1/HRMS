@@ -65,7 +65,16 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-2">BIRTHDAY TEMPLATE PREVIEW OF {{ $employee->emp_code }}</h2>
+                    <h4 class="mt-2">BIRTHDAY TEMPLATE PREVIEW OF {{ $employee->emp_code }}</h4>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>BIRTHDAY TEMPLATE PREVIEW</li>
+                        </ul>
+                    </div>
 
                 </div>
                 <div class="col-md-12 text-end py-3 px-2">

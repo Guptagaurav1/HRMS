@@ -6,13 +6,14 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-1">Salary Details</h2>
+                    <h2 class="mt-1">Salary List</h2>
                     <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Salary List</li>
                     </ul>
                 </div>
                 </div>

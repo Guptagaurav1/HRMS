@@ -13,10 +13,12 @@
         <h2 class="">Update Project</h2>
         <div>
             <ul class="breadcrumb">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Profile Details</a></li>
-                <li>Department List</li>
+                <li> @if (auth()->user()->role->role_name="hr")
+                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                    @endif
+                </li>
+                <li><a href="{{route('project-list')}}">Project List</a></li>
+                <li>Update Project</li>
             </ul>
         </div>
     </div>
@@ -87,7 +89,9 @@
     </div>
     <div class="col-12 d-flex justify-content-end  px-3 py-3 gap-3">
         <div class="button">
-            <button type="button" class="btn btn-sm btn-secondary">Cancel </button>
+            <a href="{{route('project-list')}}">
+               <button type="button" class="btn btn-sm btn-secondary">Cancel </button>
+            </a>
 
         </div>
         <div class="">

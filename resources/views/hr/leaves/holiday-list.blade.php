@@ -5,6 +5,21 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Holiday List</h3>
+                <div>
+                    <ul class="breadcrumb">
+                        <li>
+                        @if (auth('employee')->check())
+                            <a href="{{route('employee.dashboard')}}">Dashboard</a>
+                        @elseif (auth()->check())
+                            @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        @endif
+                       
+                        </li>
+                        <li>Holiday List</li>
+                    </ul>
+                </div>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
                 <form class="row g-3">
