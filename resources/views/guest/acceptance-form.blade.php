@@ -1,15 +1,7 @@
 @extends('layouts.guest.master', ['title' => 'Acceptance Form'])
-@section('style')
-    <style>
-        @media print {
-            .noPrint {
-                display: none !important;
-            }
-        }
-    </style>
-@endsection
+
 @section('content')
-    <div style="background-color:#034d48;height:100vh;position: fixed; width: 100%;">
+    <div class="acceptance-form-layouts">
         <div class="container mt-3">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-10 col-12">
