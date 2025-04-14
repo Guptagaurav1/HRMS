@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Industry extends Model
+class CompanyRoleMapping extends Model
 {
     use HasFactory;
 
@@ -16,8 +16,11 @@ class Industry extends Model
      */
     protected $guarded = [];
 
-    /**
-     * Save the user id on crud operation.     *
+
+     /**
+     * Store user id details on crud.
+     *
+     * @var array
      */
     public static function boot()
     {
@@ -36,5 +39,4 @@ class Industry extends Model
             });
         }
     }
-
 }
