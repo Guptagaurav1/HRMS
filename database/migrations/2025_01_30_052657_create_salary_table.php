@@ -60,9 +60,9 @@ return new class extends Migration
             $table->integer('pf_wages')->nullable();
             $table->integer('sal_tax')->nullable();
             $table->string('sal_remark')->nullable();
-            $table->integer('sal_add_date')->nullable();
-            $table->integer('sal_entry_by')->nullable();
-           
+            $table->dateTime('sal_add_date')->nullable()->useCurrent();
+            $table->string('sal_entry_by')->nullable();
+    
             $table->enum('source', ['normal upload', 'bulk upload'])->default('normal upload');
 
             $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');

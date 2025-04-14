@@ -82,9 +82,6 @@ Route::middleware('guest')->group(function () {
         Route::get('/', 'login')->name('login');
         Route::post('d-login', 'd_login')->name('department_login');
         Route::post('emp-login', 'emp_login')->name('employee_login');
-
-
-
         Route::get("forgot-password", 'forget_password')->name("guest.forgot-password");
         Route::post("send-reset-link", 'send_reset_link')->name("guest.send-reset-link");
         Route::get("password-reset-form/{token}", 'reset_password')->name("guest.reset-password-form");

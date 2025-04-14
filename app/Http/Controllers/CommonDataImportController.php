@@ -22,6 +22,13 @@ use App\Models\EmpAddressDetail;
 use App\Models\EmpIdProof;
 use App\Models\EmpEducationDetail;
 use App\Models\EmpExperienceDetail;
+use App\Models\Salary;
+use App\Models\EmpSendDoc;
+use App\Models\LeaveRequest;
+use App\Models\EmpCertificateDetail;
+use App\Models\EmpChangeLog;
+use App\Models\EmpCredentialLog;
+use App\Models\LeaveRegularization;
 use DB;
 use Throwable;
 
@@ -35,16 +42,37 @@ class CommonDataImportController extends Controller
 
     public function importDataSave(Request $request)
     {
-      
+
         $file = $request->file('import_csv');
         $handle = fopen($file, 'r');
 
         // Add employee details.
-        $status =  $this->import_employee_data($handle);
-        if(isset($status['error'])){
+        // $status =  $this->import_employee_data($handle);
+
+        // Add salary details.
+        // $status =  $this->import_salary_data($handle);
+
+        // Add Leave Request details.
+        // $status =  $this->import_leave_request_data($handle);
+
+        // Add Employee send documents details.
+        // $status =  $this->import_emp_send_doc_data($handle);
+
+        // Add Employee certificate data details.
+        // $status =  $this->import_emp_certificates_data($handle);
+
+        // Add Employee change log details.
+        // $status =  $this->import_emp_change_log_data($handle);
+        
+        // Add Employee credential log details.
+        // $status =  $this->import_emp_credential_log_data($handle);
+
+        // Add leave regularisation details.
+        $status =  $this->import_leave_regularisation_data($handle);
+
+        if (isset($status['error'])) {
             return $status['message'];
-        }
-        else {
+        } else {
             return back()->with('success', 'CSV Imported Successfully!');
         }
         die;
@@ -87,7 +115,7 @@ class CommonDataImportController extends Controller
             //     'status' => $row['status'],
             // ]);
 
-                // skill
+            // skill
 
             // $skill = new Skill();
             // $skill->id = $row['id'];
@@ -99,12 +127,12 @@ class CommonDataImportController extends Controller
 
             // department skill
 
-            DepartmentSkill::create([
-                'id' => $row['id'],
-                'department_id' => $row['dept_id'],
-                'skill_id' => $row['skill_id'],
-                'status' => '1'
-            ]);
+            // DepartmentSkill::create([
+            //     'id' => $row['id'],
+            //     'department_id' => $row['dept_id'],
+            //     'skill_id' => $row['skill_id'],
+            //     'status' => '1'
+            // ]);
 
             //reporting Manager
 
@@ -220,6 +248,198 @@ class CommonDataImportController extends Controller
         return back()->with('success', 'CSV Imported Successfully!');
     }
 
+    
+    /**
+    * Import Employee credential log data.
+    */
+    public function import_leave_regularisation_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
+                $row['created_by'] = $row['added_by'];
+
+                unset($row['added_by']);
+                LeaveRegularization::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+    * Import Employee credential log data.
+    */
+    public function import_emp_credential_log_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
+
+                EmpCredentialLog::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+    * Import Employee change log data.
+    */
+    public function import_emp_change_log_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['start_date'] = date('Y-m-d', strtotime($row['start_date']));
+
+                unset($row['created_on']);
+                EmpChangeLog::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+    * Import Employee certificates documents data.
+    */
+    public function import_emp_certificates_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                EmpCertificateDetail::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+    * Import Employee send documents data.
+    */
+    public function import_emp_send_doc_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+
+                unset($row['created_on']);
+                EmpSendDoc::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+    * Import Leave Request data.
+    */
+    public function import_leave_request_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['updated_at'] = date('Y-m-d', strtotime($row['updated_on']));
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['deleted_at'] = date('Y-m-d h:i:s', strtotime($row['deleted_on']));
+                $row['approved_disapproved_by'] = $row['approved_disapproved_by'] ? $row['approved_disapproved_by'] : null;
+                $row['reapproved_redisapproved_by'] = $row['reapproved_redisapproved_by'] ? $row['reapproved_redisapproved_by'] : null;
+
+                unset($row['updated_on']);
+                unset($row['created_on']);
+                unset($row['deleted_on']);
+                LeaveRequest::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+    
+
+    /**
+     * Import salary data.
+     */
+    public function import_salary_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['id'] = $row['salary_id'];
+                $row['sa_emp_doj'] = date('Y-m-d', strtotime($row['sa_emp_doj']));
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['sal_add_date']));
+                $row['sal_add_date'] = date('Y-m-d h:i:s', strtotime($row['sal_add_date']));
+                $row['taxable_salary'] = $row['taxable_salary'] ? $row['taxable_salary'] : 0;
+                $row['tds_tax_amount'] = $row['tds_tax_amount'] ? $row['tds_tax_amount'] : 0;
+                $row['tax_credit'] = $row['tax_credit'] ? $row['tax_credit'] : 0;
+                $row['e_cess'] = $row['e_cess'] ? $row['e_cess'] : 0;
+                $row['pf_wages'] = $row['pf_wages'] ? $row['pf_wages'] : 0;
+                $row['medical_insurance'] = $row['medical_insurance'] ? $row['medical_insurance'] : 0;
+                $row['accident_insurance'] = $row['accident_insurance'] ? $row['accident_insurance'] : 0;
+
+                unset($row['salary_id']);
+                unset($row['source']);
+                Salary::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
     /**
      * Import employee data.
      */
@@ -243,6 +463,7 @@ class CommonDataImportController extends Controller
                 $empdetails->emp_designation = $row['emp_designation'];
                 $empdetails->department = $row['department'];
                 $empdetails->emp_doj = date('Y-m-d', strtotime($row['emp_doj']));
+                $empdetails->emp_dor = date('Y-m-d', strtotime($row['emp_dor']));
                 $empdetails->emp_phone_first = $row['emp_phone_first'];
                 $empdetails->emp_phone_second = $row['emp_phone_second'];
                 $empdetails->emp_email_first = $row['emp_email_first'];
@@ -255,7 +476,7 @@ class CommonDataImportController extends Controller
                 $empdetails->emp_current_working_status = $row['emp_current_working_status'];
                 $empdetails->save();
 
-                // Save Personal Details
+                // // Save Personal Details
                 $personaldetails = new EmpPersonalDetail();
                 $personaldetails->emp_code = $row['emp_code'];
                 $personaldetails->emp_gender = $row['emp_gender'];
@@ -271,7 +492,7 @@ class CommonDataImportController extends Controller
                 $personaldetails->created_at = $row['adding_date'];
                 $personaldetails->save();
 
-                // Save Account Details
+                // // Save Account Details
                 $accountdetails = new EmpAccountDetail();
                 $accountdetails->emp_code = $row['emp_code'];
                 $accountdetails->emp_unit = $row['emp_unit'];
@@ -297,8 +518,8 @@ class CommonDataImportController extends Controller
 
                 // Save Id Proof Details
                 $idproofdetails = new EmpIdProof();
-                $idproofdetails->emp_code = $row['emp_code'];;
-                $idproofdetails->emp_aadhaar_no = $row['emp_aadhaar_no'];
+                $idproofdetails->emp_code = $row['emp_code'];
+                $idproofdetails->emp_aadhaar_no = $row['emp_aadhaar_no'] == 'string' ? '' :  str_replace("string", "", $row['emp_aadhaar_no']);
                 $idproofdetails->emp_passport_no = $row['emp_passport_no'];
                 $idproofdetails->passport_file = $row['passport_file'];
                 $idproofdetails->nearest_police_station = $row['nearest_police_station'];
@@ -332,7 +553,7 @@ class CommonDataImportController extends Controller
                 $educationdetails->created_at = $row['adding_date'];
                 $educationdetails->save();
 
-                // Save Experience Details
+                // // Save Experience Details
                 $expdetails = new EmpExperienceDetail();
                 $expdetails->emp_code = $row['emp_code'];
                 $expdetails->emp_experience = $row['emp_experience'];
@@ -342,6 +563,7 @@ class CommonDataImportController extends Controller
                 $expdetails->created_at = $row['adding_date'];
                 $expdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
                 $expdetails->save();
+                print_r($row['emp_code']);
             }
             fclose($handle);
             DB::commit();
