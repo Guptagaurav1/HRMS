@@ -21,7 +21,7 @@ class WoAttendance extends Model
      *
      * @var array
      */
-    protected $fillable = ['wo_number', 'at_emp', 'emp_id', 'emp_code', 'attendance_month', 'approve_leave', 'lwp_leave', 'recovery', 'advance', 'overtime_rate', 'total_working_hrs', 'emp_vendor_rate', 'designation', 'ctc', 'remarks', 'attendance_status', 'status', 'user_id', 'updated_by'];
+    // protected $fillable = ['wo_number', 'at_emp', 'emp_id', 'emp_code', 'attendance_month', 'approve_leave', 'lwp_leave', 'recovery', 'advance', 'overtime_rate', 'total_working_hrs', 'emp_vendor_rate', 'designation', 'ctc', 'remarks', 'attendance_status', 'status', 'user_id', 'updated_by'];
 
     /**
      * Indicates if the model should be timestamped.
@@ -58,5 +58,12 @@ class WoAttendance extends Model
     {
         return $this->belongsTo(Salary::class, 'emp_code', 'sl_emp_code');
     }
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
 }

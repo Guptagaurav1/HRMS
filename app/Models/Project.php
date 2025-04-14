@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['name'];
+    // protected $fillable = ['name'];
     public function organizations()
     {
         return $this->belongsTo(Organization::class,'organisation_id'); // Assuming 'organization_name' is a foreign key
@@ -33,5 +33,12 @@ class Project extends Model
         }
         
     }
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
 }

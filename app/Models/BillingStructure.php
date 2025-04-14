@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BillingStructure extends Model
 {
     use HasFactory;
-    protected $fillable = ['billing_to','billing_address','billing_gst_no','billing_state','contact_person','email_id','billing_sac_code','billing_tax_model','billing_tax_rate','show_service_charge','service_charge_rate'
-    ];
+    // protected $fillable = ['billing_to','billing_address','billing_gst_no','billing_state','contact_person','email_id','billing_sac_code','billing_tax_model','billing_tax_rate','show_service_charge','service_charge_rate'
+    // ];
     protected $table = 'wo_billing_structure';
 
     public function organizations()
@@ -35,4 +35,11 @@ class BillingStructure extends Model
             });
         }
     }
+
+       /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 }

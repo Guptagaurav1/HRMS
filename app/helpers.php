@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\City;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
 use App\Models\User;
@@ -14,6 +15,9 @@ use App\Models\EmpAddressDetail;
 use App\Models\EmpIdProof;
 use App\Models\EmpEducationDetail;
 use App\Models\EmpExperienceDetail;
+use App\Models\Organization;
+use App\Models\Project;
+use App\Models\State;
 
 /**
  * Get role id from role name.
@@ -278,3 +282,70 @@ if (!function_exists('check_department_role_assignment')) {
     }
 }
  
+/**
+ * Get organization_id from organization name.
+ * @param string $organization
+ * @return integer organization_id
+ */ 
+if(!function_exists('get_organization_id')){
+    function get_organization_id($name)
+    {
+        try {
+            return Organization::where('name', $name)->value('id');
+        }
+        catch(Throwable $th){
+            return '';
+        }
+    }
+}
+ 
+/**
+ * Get project_id from project number.
+ * @param string $project_number
+ * @return integer project_id
+ */ 
+if(!function_exists('get_project_id')){
+    function get_project_id($project_number)
+    {
+        try {
+            return Project::where('project_number', $project_number)->value('id');
+        }
+        catch(Throwable $th){
+            return '';
+        }
+    }
+}
+
+/**
+ * Get city_id from city name.
+ * @param string $city_name
+ * @return integer city_id
+ */ 
+if(!function_exists('get_city_id')){
+    function get_city_id($city_name)
+    {
+        try {
+            return City::where('city_name', $city_name)->value('id');
+        }
+        catch(Throwable $th){
+            return '';
+        }
+    }
+}
+
+/**
+ * Get state_id from state name.
+ * @param string $state
+ * @return integer state_id
+ */ 
+if(!function_exists('get_state_id')){
+    function get_state_id($state)
+    {
+        try {
+            return State::where('state', $state)->value('id');
+        }
+        catch(Throwable $th){
+            return '';
+        }
+    }
+}
