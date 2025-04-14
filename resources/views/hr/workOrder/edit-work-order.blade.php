@@ -130,7 +130,7 @@
                                                 class="text-danger">*</span></label>
                                                 <input name="wo_number" id="wo_number" type="text"
                                             class="form-control form-control-sm"
-                                            placeholder="Enter Work Order No"
+                                            placeholder="Enter Work Order No" readonly
                                             value="{{ old('wo_number',$workOrder->wo_number) }}">
                                             <span id="wo_number_error" class="text-danger"></span>
                                         @error('wo_number')

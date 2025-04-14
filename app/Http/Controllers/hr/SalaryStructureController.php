@@ -560,4 +560,87 @@ class SalaryStructureController extends Controller
         return redirect()->route('salary-list')->with(['success' =>'Salary Deleted Successfully !']);
     }
 
+     /**
+     * Export Salary structure list.
+     */
+    public function export_csv(Request $request)
+    {
+        $filename = 'salary_structure.csv';
+    
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+        $search = $request->search;
+        $salarys = Salary::with(['empDetail'])
+        ->when($search, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                // Condition for empDetail fields
+                $query->whereHas('empDetail', function ($q) use ($search) {
+                    $q->where('emp_code', 'like', '%' . $search . '%')
+                    ->orWhere('emp_name', 'like', '%' . $search . '%')
+                    ->orWhere('emp_place_of_posting', 'like', '%' . $search . '%')
+                    ->orWhere('emp_designation', 'like', '%' . $search . '%')
+                    ->orWhere('emp_work_order', 'like', '%' . $search . '%');
+                });
+                
+                // OR condition for bank details
+                $query->orWhereHas('empDetail.getBankDetail', function ($q) use ($search) {
+                    $q->where('emp_account_no', 'like', '%' . $search . '%')
+                    ->orWhereHas('getBankData', function ($q) use ($search) {
+                        $q->where('name_of_bank', 'like', '%' . $search . '%');
+                    });
+                });
+            });
+        })
+        ->orderBy('salary.id', 'desc')
+        ->get();
+
+        return response()->stream(function () use ($salarys){
+            $handle = fopen('php://output', 'w');
+            $headers = array( 'Employee Code', 'Employee Name', 'Work Order' , 'Designation','Date of Joining','CTC','Gross Pay','Net pay','Basic Pay','HRA','DA','Conveyance','Special Allowance','Medical Allowance','PF Employer','PF Employee','ESI Employer','ESI Employee','TAX','TDS Deduction','Medical Insurance','PF No.','ESI No.','Bank Name','Account No.','Ifsc code','Contact no.','Email','Remarks');
+            fputcsv($handle, $headers);
+
+            foreach($salarys as $salary){
+                 $data = [
+                        $salary->sl_emp_code,
+                        $salary->sal_emp_name,
+                        $salary->empDetail->emp_work_order,
+                        $salary->sal_emp_designation,
+                        $salary->sa_emp_doj,
+                        $salary->sal_ctc,
+                        $salary->sal_gross,
+                        $salary->sal_net,
+                        $salary->sal_basic,
+                        $salary->sal_hra,
+                        $salary->sal_da,
+                        $salary->sal_conveyance,
+                        $salary->sal_special_allowance,
+                        $salary->medical_allowance,
+                        $salary->sal_pf_employer,
+                        $salary->sal_pf_employee,
+                        $salary->sal_esi_employer,
+                        $salary->sal_esi_employee,
+                        $salary->sal_tax,
+                        $salary->tds_deduction,
+                        $salary->empDetail->getBankDetail->emp_pf_no,
+                        $salary->empDetail->getBankDetail->emp_esi_no,
+                        $salary->empDetail->getBankDetail->getBankData->name_of_bank,
+                        $salary->empDetail->getBankDetail->emp_account_no,
+                        $salary->empDetail->getBankDetail->emp_ifsc,
+                        $salary->empDetail->emp_phone_first,
+                        $salary->empDetail->emp_email_first,
+                        $salary->empDetail->sal_remark,
+                    ];
+                fputcsv($handle, $data);
+            }
+    
+            // Close CSV file handle
+            fclose($handle);
+        }, 200, $headers);
+    }
+
 }

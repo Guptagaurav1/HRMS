@@ -14,9 +14,18 @@ class ProjectController extends Controller
     public function index(Request $request){
         $search = $request->search;
         $workOrder='';
-        $projects = Project::with(['organizations']) 
-        ->orderBy('id', 'desc')
-        ->paginate(10);
+        $projects = Project::with(['organizations']); 
+        if($search){
+            $projects= $projects->where(function($query) use($search){
+             $query->where('project_name','Like','%'. $search .'%')
+             ->orwhere('project_number','Like','%'. $search .'%')
+             ->orwhere('empanelment_reference','Like','%'. $search .'%')
+             ->orwhereHas('organizations',function($query) use($search){
+                 $query->where('name','Like','%'.$search.'%');
+             });
+            });
+        }
+        $projects = $projects->orderByDesc('id')->paginate(25)->withQueryString();;
             // dd($projects);
         return view("hr.workOrder.project-list",compact('projects','search'));
     }
@@ -27,7 +36,7 @@ class ProjectController extends Controller
         ->groupBy('project_id')
         ->with(['project.organizations']) 
         ->orderBy('project_id', 'desc')
-        ->paginate(10);
+        ->paginate(25);
         return view("hr.workOrder.project-report",compact('woProjects'));
     }
 

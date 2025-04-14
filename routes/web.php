@@ -428,6 +428,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("edit-salary/{id}", 'edit_salary')->name('edit-salary');
         Route::post("update-salary/{id}", 'update_salary')->name('update-salary');
         Route::get("/delete/{id}", 'destroy')->name("delete-salary");
+        Route::get("/export-salary", 'export_csv')->name("export-salary");
     });
 
     Route::controller(EventController::class)->prefix('events')->group(function () {

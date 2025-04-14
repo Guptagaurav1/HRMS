@@ -480,6 +480,8 @@ class AttendanceController extends Controller
 
             $counter = 0;
             DB::beginTransaction(); // Start a database transaction
+            $update =0;
+            $add = 0;
 
             try {
                 while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -490,7 +492,7 @@ class AttendanceController extends Controller
                         $emp_at_month = $data[2]??NULL;
                         $emp_at_year = $data[3]??NULL;
                         $emp_working_days = $data[4]??NULL;
-                        $emp_dor = $data[5]??NULL;
+                        // $emp_dor = $data[5]??NULL;
                         $emp_recovery = $data[6]??NULL;
                         $emp_advance = $data[7]??NULL;
                         $emp_remarks = $data[8]??NULL;
@@ -499,7 +501,7 @@ class AttendanceController extends Controller
                         $emp = EmpDetail::where('emp_code', $emp_code)->first();
 
                         if ($emp) {
-                            $empID = $emp->emp_id;
+                            $empID = $emp->id;
                             $emp_designation = $emp->emp_designation;
                             $emp_unit = $emp->emp_unit;
                             $emp_salary = $emp->emp_salary;
@@ -537,36 +539,23 @@ class AttendanceController extends Controller
                             $existingAttendance = WoAttendance::where('at_emp', $at_emp)->first();
 
                             if (!$existingAttendance) {
+                                $add++;
                                 // Insert new record if it doesn't exist
                                 WoAttendance::create($attendanceData);
+
                             } else {
+                                $update++;
                                 // Update the existing record
                                 $existingAttendance->update($attendanceData);
                             }
 
-                            // If date of resignation is present, update the employee record
-                            // if (!empty($emp_dor)) {
-                            //     $emp_dor = Carbon::parse($emp_dor)->format('Y-m-d');
-                            //     $emp->update(['emp_dor' => $emp_dor]);
-                            // }
-                             // update employee working status
-                            if(!empty($emp_dor) || $emp_dor != ' '){
-                                $employee = EmpDetail::where('id', $empID)->first();
-                                if ($employee) {
-                                
-                                    $employee->emp_current_working_status = 'resign';
-                                    $employee->emp_dor = $emp_dor;
-                                    // dd($employee);
-                                    $employee->save();
-                                }
-                            }
                         }
                     }
                     $counter++;
                 }
 
                 DB::commit(); 
-                return redirect()->route('attendance-list')->with('success','Total ' . ($counter - 1) . ' Attendance Added');
+                return redirect()->route('attendance-list')->with('success',' Attendance Added records-' .($add).', Updated Records-'.($update). ', Failed Records - ' . (($counter - 1) - ($add + $update)));
 
             } catch (Exception $e) {
                 DB::rollBack(); 
