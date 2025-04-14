@@ -38,6 +38,9 @@ use App\Models\EmpProfileRequestLog;
 use App\Models\EmpChangedColumnsReq;
 use App\Models\WoAttendance;
 use App\Models\Notification;
+use App\Models\UserRequestLog;
+use App\Models\PositionRequest;
+use App\Models\InvoiceRecord;
 use DB;
 use Throwable;
 
@@ -78,9 +81,26 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_emp_credential_log_data($handle);
 
         // Add leave regularisation details.
-        $status =  $this->import_leave_regularisation_data($handle);
+     
 
         // $status =  $this->notification($handle);
+
+        // Add Recruiter Detail Change Response Log
+
+        // $status =  $this->user_request_log($handle);
+
+        // Add cities
+        //  $status =  $this->cities($handle);
+
+        // // Add Position Request 
+
+        // $status =  $this->position_requests($handle);
+
+        // Add Invoice Records 
+
+        $status =  $this->invoice_records($handle);
+        
+
         
         if(isset($status['error'])){
             return $status['message'];
@@ -725,11 +745,40 @@ class CommonDataImportController extends Controller
            
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = array_combine($headers, $data); // Map headers to values
-                State::create([
-                    'id' => $row['id'],
-                    'name' => $row['position'] ? $row['position'] : null,
-                    'status' => '1',
-                ]);
+               
+            State::create([
+                'id' => $row['id'],
+                'country_id ' => $row['country_id'],
+                'state' => $row['state'],
+                'state_code' => $row['state_code'],
+                'slug' => $row['slug'],
+                'created_at' =>  Carbon::parse($row['created_at']),
+                'updated_at' =>  Carbon::parse($row['updated_at']),
+                'deleted_at' =>  Carbon::parse($row['deleted_at']) ?? NULL
+            ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    // cities
+
+    public function cities($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['city_code'] = empty($row['city_code']) ||  $row['city_code'] == 'NULL' ? null : $row['city_code']; 
+                City::create($row);
             }
             fclose($handle);
             DB::commit();
@@ -930,6 +979,89 @@ class CommonDataImportController extends Controller
             return ['error' => true, 'message' => $th->getMessage()];
         }
     }
+
+    // Recruiter Detail Change Response Log
+    //table user_request_log
+
+    public function user_request_log($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
+                $row['id']= $row['id'];
+                $row['created_at'] = $row['created_on'];
+                $row['updated_at'] = $row['updated_on'];
+                UserRequestLog::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    // position_requests //
+
+    public function position_requests($handle){
+
+        $headers = fgetcsv($handle);
+        try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['created_by'] = $row['requested_by'];
+            $row['hiring_budget'] = empty($row['hiring_budget'])  || $row['hiring_budget'] == "NULL" ? null : $row['hiring_budget'];
+            $row['city'] = $row['city'] ==  empty($row['city']) || $row['city'] == 'Select City' || $row['city'] == '' ? null : $row['city'];
+            $row['state'] = empty($row['state'])  || $row['state'] == "NULL" ? null : $row['state'];
+            $row['department'] = $row['department'] == 'Select Department' ? null : $row['department'];
+            PositionRequest::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+
+    }
+
+
+
+        // invoice & Records //
+
+    public function invoice_records($handle){
+
+        $headers = fgetcsv($handle);
+        try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['created_at'] = $row['ir_add_datetime'];
+            $row['id'] = $row['ir_id'];
+            InvoiceRecord::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+
+    }
+
+
+
+
 
 
 
