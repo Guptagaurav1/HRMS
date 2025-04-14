@@ -8,10 +8,12 @@
                     <h2 class="mt-2">Attendance Salary</h2>
                     <div>
                         <ul class="breadcrumb">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Profile Details</a></li>
-                            <li>Department List</li>
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li><a href="{{route('work-order-list')}}">Work Order List</a></li>
+                            <li>Attendance Salary</li>
                         </ul>
                     </div>
                 </div>

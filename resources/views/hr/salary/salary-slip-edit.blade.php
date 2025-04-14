@@ -8,6 +8,16 @@
             <div class="panel">
                 <div class="panel-header  heading-stripe">
                     <h3 class="mt-2 text-center" >Salary Slip Edit</h3>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li><a href="{{route('salary-slip')}}">Salary Slip</a></li>
+                            <li>Salary Slip Edit</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-md-12 d-flex justify-content-end px-2 py-3">
                 <a href="{{route('salary-slip')}}"><button type="submit" class="btn btn-primary mb-3"> Salary Slip List </button></a>

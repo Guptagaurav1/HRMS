@@ -632,8 +632,6 @@ Route::middleware('employee')->prefix('employee')->group(function () {
       
     });
 
-
-
     // Route::get("employee-compose-email", function () {
     //     return view("employee.employee-compose-email");
     // })->name("employee-compose-email");
@@ -641,8 +639,6 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     // Route::get("employee-holiday-list", function () {
     //     return view("employee.employee-holiday-list");
     // })->name("employee-holiday-list");
-
-
 
     Route::get("employee-reimbursement-list", function () {
         return view("employee.employee-reimbursement-list");

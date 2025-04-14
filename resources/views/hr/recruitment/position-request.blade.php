@@ -7,25 +7,19 @@
 <div class="panel-header">
         <h2 class="text-white">New Position Request</h2>
         <div>
-                            <ul class="breadcrumb">
-                                <li><a href="#">Dashboard</a></li>
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Profile Details</a></li>
-                                <li>Department List</li>
-                            </ul>
-                        </div>
+            <ul class="breadcrumb">
+                <li> @if (auth()->user()->role->role_name="hr")
+                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                    @endif
+                </li>
+                <li>Position Request</li>
+            </ul>
+        </div>
 
     </div>
 </div>
 
-<div class="dashboard-breadcrumb mb-25">
-    <div class="d-flex gap-2 justify-items-center align-items-center">
-        <input type="radio" id="html" name="fav_language" value="HTML">
-        <label for="html">Single Entry</label><br>
-    </div>
-</div>
-
-<div class="row">
+<div class="row mt-3">
     <form class="form" method="post" action="{{route('save-position-request')}}" enctype="multipart/form-data">
         @csrf
         <div class="d-none">

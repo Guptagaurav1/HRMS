@@ -6,6 +6,8 @@
             <div class="panel-header">
                 <h3 class="mt-2">Department List</h3>
 
+                <!-- Breadcrumb Start -->
+
                 <div>
                     <ul class="breadcrumb">
                         <li>
@@ -19,37 +21,46 @@
 
             </div>
 
-            <div class="row mt-4">
-                <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-4">
-                    <div class="">
-                        <form class="row" method="get">
-                            <div class="col-auto mb-3">
-                                <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search"
-                                    required>
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
-                                        class="fa-solid fa-magnifying-glass"></i></button>
-                                <a href="{{ route('departments.index') }}"><button type="button"
-                                        class="btn btn-primary btn-sm mb-3">Clear <i
-                                            class="fa-solid fa-eraser"></i></button></a>
-                            </div>
+            <!-- Form Search and button -->
 
+            <div class="row mt-2 px-3">
+                <div class="row px-2">
+                    <div class="col-md-10">
+                        <form  method="get">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search"
+                                        required>
+
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn  btn-primary btn-sm mb-3">Search</button>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="{{ route('departments.index') }}" class="col-xs-12"><button type="button"
+                                            class="btn btn-primary btn-sm mb-3">Clear <i
+                                                class="fa-solid fa-eraser"></i></button></a>
+
+                                </div>
+                            </div>
                         </form>
-                    </div>
 
-                    @if(auth()->user()->hasPermission('departments.create'))
-                    <div class="d-flex flex-wrap">
-                        <div class="col-auto col-xs-12">
-                            <a href="{{ route('departments.create') }}"><button type="button"
+
+                    </div>
+                    <div class="col-md-2 ">
+                        @if(auth()->user()->hasPermission('departments.create'))
+
+                        <a href="{{ route('departments.create') }}" class="col-xs-12 mx-md-2"><button type="button"
                                 class="btn btn-sm btn-primary">Add Department <i
                                     class="fa-solid fa-plus"></i></button></a>
-                        </div>
-                       
+
+                        @endif
+
                     </div>
-                    @endif
                 </div>
-                
+
+                <!-- Error Message -->
 
                 @if($message = Session::get('success'))
                 <div class="col-md-12">
@@ -64,6 +75,8 @@
                     </div>
                 </div>
                 @endif
+
+
 
                 @if($message = Session::get('error'))
                 <div class="col-md-12">
@@ -80,6 +93,9 @@
                 </div>
                 @endif
             </div>
+
+            <!-- Table Start -->
+
             <div class="table-responsive">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                     id="allEmployeeTable">
@@ -132,6 +148,8 @@
                     {{ $departments->links() }}
                 </div>
             </div>
+
+            <!-- Table End -->
         </div>
     </div>
 </div>

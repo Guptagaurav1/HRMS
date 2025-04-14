@@ -25,8 +25,15 @@ use App\Models\EmpExperienceDetail;
 use App\Models\Bank;
 use App\Models\Organization;
 use App\Models\Designation;
+use App\Models\EmailHistory;
+use App\Models\EmpSalarySlip;
+use App\Models\EmpProfileRequestLog;
+use App\Models\EmpChangedColumnsReq;
+use App\Models\WoAttendance;
+use App\Models\Notification;
 use DB;
 use Throwable;
+
 
 class CommonDataImportController extends Controller
 {
@@ -43,7 +50,7 @@ class CommonDataImportController extends Controller
         $handle = fopen($file, 'r');
 
         // Add employee details.
-        $status =  $this->state($handle);
+        $status =  $this->notification($handle);
         if(isset($status['error'])){
             return $status['message'];
         }
@@ -226,261 +233,262 @@ class CommonDataImportController extends Controller
     /**
      * Import employee data.
      */
-    // public function import_employee_data($handle)
-    // {
-    //     $headers = fgetcsv($handle);
-    //     try {
-    //         DB::beginTransaction();
-    //         while (($data = fgetcsv($handle)) !== FALSE) {
-    //             $row = array_combine($headers, $data); // Map headers to values
+    public function import_employee_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data); // Map headers to values
 
-    //             // // Save Employee Details
-    //             // $empdetails = new EmpDetail();
-    //             // $empdetails->id = $row['emp_id'];
-    //             // $empdetails->emp_work_order = $row['emp_work_order'];
-    //             // $empdetails->emp_password = $row['emp_password'];
-    //             // $empdetails->emp_code = $row['emp_code'];
-    //             // $empdetails->role_id = get_role_id('employee');
-    //             // $empdetails->emp_name = $row['emp_name'];
-    //             // $empdetails->emp_place_of_posting = $row['emp_place_of_posting'];
-    //             // $empdetails->emp_designation = $row['emp_designation'];
-    //             // $empdetails->department = $row['department'];
-    //             // $empdetails->emp_doj = date('Y-m-d', strtotime($row['emp_doj']));
-    //             // $empdetails->emp_phone_first = $row['emp_phone_first'];
-    //             // $empdetails->emp_phone_second = $row['emp_phone_second'];
-    //             // $empdetails->emp_email_first = $row['emp_email_first'];
-    //             // $empdetails->emp_email_second = $row['emp_email_second'];
-    //             // $empdetails->emp_functional_role = $row['emp_functional_role'];
-    //             // $empdetails->emp_remark = $row['emp_remark'];
-    //             // $empdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
-    //             // $empdetails->created_at = $row['adding_date'];
-    //             // $empdetails->reporting_email = $row['reporting_email'];
-    //             // $empdetails->emp_current_working_status = $row['emp_current_working_status'];
-    //             // $empdetails->save();
+                // Save Employee Details
+                $empdetails = new EmpDetail();
+                $empdetails->id = $row['emp_id'];
+                $empdetails->emp_work_order = $row['emp_work_order'];
+                $empdetails->emp_password = $row['emp_password'];
+                $empdetails->emp_code = $row['emp_code'];
+                $empdetails->role_id = get_role_id('employee');
+                $empdetails->emp_name = $row['emp_name'];
+                $empdetails->emp_place_of_posting = $row['emp_place_of_posting'];
+                $empdetails->emp_designation = $row['emp_designation'];
+                $empdetails->department = $row['department'];
+                $empdetails->emp_doj = date('Y-m-d', strtotime($row['emp_doj']));
+                $empdetails->emp_phone_first = $row['emp_phone_first'];
+                $empdetails->emp_phone_second = $row['emp_phone_second'];
+                $empdetails->emp_email_first = $row['emp_email_first'];
+                $empdetails->emp_email_second = $row['emp_email_second'];
+                $empdetails->emp_functional_role = $row['emp_functional_role'];
+                $empdetails->emp_remark = $row['emp_remark'];
+                $empdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $empdetails->created_at = $row['adding_date'];
+                $empdetails->reporting_email = $row['reporting_email'];
+                $empdetails->emp_current_working_status = $row['emp_current_working_status'];
+                $empdetails->save();
 
-    //             // // Save Personal Details
-    //             // $personaldetails = new EmpPersonalDetail();
-    //             // $personaldetails->emp_code = $row['emp_code'];
-    //             // $personaldetails->emp_gender = $row['emp_gender'];
-    //             // $personaldetails->emp_category = $row['emp_category'] ? $row['emp_category'] : 'general';
-    //             // $personaldetails->emp_dob = date('Y-m-d', strtotime($row['emp_dob']));
-    //             // $personaldetails->emp_blood_group = $row['emp_blood_group'];
-    //             // $personaldetails->emp_father_mobile = $row['emp_emergency_contact'];
-    //             // $personaldetails->emp_father_name = $row['emp_father_name'];
-    //             // $personaldetails->emp_marital_status = $row['emp_martial_status'];
-    //             // $personaldetails->emp_dom = $row['emp_dom'];
-    //             // $personaldetails->emp_husband_wife_name = $row['emp_husband_wife_name'];
-    //             // $personaldetails->created_by = $row['added_by'] ? $row['added_by'] : null;
-    //             // $personaldetails->created_at = $row['adding_date'];
-    //             // $personaldetails->save();
+                // // Save Personal Details
+                $personaldetails = new EmpPersonalDetail();
+                $personaldetails->emp_code = $row['emp_code'];
+                $personaldetails->emp_gender = $row['emp_gender'];
+                $personaldetails->emp_category = $row['emp_category'] ? $row['emp_category'] : 'general';
+                $personaldetails->emp_dob = date('Y-m-d', strtotime($row['emp_dob']));
+                $personaldetails->emp_blood_group = $row['emp_blood_group'];
+                $personaldetails->emp_father_mobile = $row['emp_emergency_contact'];
+                $personaldetails->emp_father_name = $row['emp_father_name'];
+                $personaldetails->emp_marital_status = $row['emp_martial_status'];
+                $personaldetails->emp_dom = $row['emp_dom'];
+                $personaldetails->emp_husband_wife_name = $row['emp_husband_wife_name'];
+                $personaldetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $personaldetails->created_at = $row['adding_date'];
+                $personaldetails->save();
 
-    //             // // Save Account Details
-    //             // $accountdetails = new EmpAccountDetail();
-    //             // $accountdetails->emp_code = $row['emp_code'];
-    //             // $accountdetails->emp_unit = $row['emp_unit'];
-    //             // $accountdetails->emp_salary = $row['emp_salary'];
-    //             // $accountdetails->emp_branch = $row['emp_branch'];  // leave 13 for bank name
-    //             // $accountdetails->emp_account_no = $row['emp_account_no'];
-    //             // $accountdetails->emp_ifsc = $row['emp_ifsc'];
-    //             // $accountdetails->emp_pan = $row['emp_pan'];
-    //             // $accountdetails->emp_pf_no = $row['emp_pf_no'];  // Leave 48 for pf no.
-    //             // $accountdetails->emp_esi_no = $row['emp_esi_no'];
-    //             // $accountdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
-    //             // $accountdetails->created_at = $row['adding_date'];
-    //             // $accountdetails->save();
+                // // Save Account Details
+                $accountdetails = new EmpAccountDetail();
+                $accountdetails->emp_code = $row['emp_code'];
+                $accountdetails->emp_unit = $row['emp_unit'];
+                $accountdetails->emp_salary = $row['emp_salary'];
+                $accountdetails->emp_branch = $row['emp_branch'];  // leave 13 for bank name
+                $accountdetails->emp_account_no = $row['emp_account_no'];
+                $accountdetails->emp_ifsc = $row['emp_ifsc'];
+                $accountdetails->emp_pan = $row['emp_pan'];
+                $accountdetails->emp_pf_no = $row['emp_pf_no'];  // Leave 48 for pf no.
+                $accountdetails->emp_esi_no = $row['emp_esi_no'];
+                $accountdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $accountdetails->created_at = $row['adding_date'];
+                $accountdetails->save();
 
-    //             // // Save Address Details
-    //             // $addressdetails = new EmpAddressDetail();
-    //             // $addressdetails->emp_code = $row['emp_code'];
-    //             // $addressdetails->emp_permanent_address = $row['emp_permanent_address'];
-    //             // $addressdetails->emp_local_address = $row['emp_local_address'];
-    //             // $addressdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
-    //             // $addressdetails->created_at = $row['adding_date'];
-    //             // $addressdetails->save();
+                // // Save Address Details
+                $addressdetails = new EmpAddressDetail();
+                $addressdetails->emp_code = $row['emp_code'];
+                $addressdetails->emp_permanent_address = $row['emp_permanent_address'];
+                $addressdetails->emp_local_address = $row['emp_local_address'];
+                $addressdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $addressdetails->created_at = $row['adding_date'];
+                $addressdetails->save();
 
-    //             // // Save Id Proof Details
-    //             // $idproofdetails = new EmpIdProof();
-    //             // $idproofdetails->emp_code = $row['emp_code'];;
-    //             // $idproofdetails->emp_aadhaar_no = $row['emp_aadhaar_no'];
-    //             // $idproofdetails->emp_passport_no = $row['emp_passport_no'];
-    //             // $idproofdetails->passport_file = $row['passport_file'];
-    //             // $idproofdetails->nearest_police_station = $row['nearest_police_station'];
-    //             // $idproofdetails->police_verification_id = $row['police_verification_id'];
-    //             // $idproofdetails->police_verification_file = $row['police_verification_file'];
-    //             // $idproofdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
-    //             // $idproofdetails->created_at = $row['adding_date'];
-    //             // $idproofdetails->save();
+                // // Save Id Proof Details
+                $idproofdetails = new EmpIdProof();
+                $idproofdetails->emp_code = $row['emp_code'];
+                $idproofdetails->emp_aadhaar_no = (string) $row['emp_aadhaar_no'];
+                $idproofdetails->emp_passport_no = $row['emp_passport_no'];
+                $idproofdetails->passport_file = $row['passport_file'];
+                $idproofdetails->nearest_police_station = $row['nearest_police_station'];
+                $idproofdetails->police_verification_id = $row['police_verification_id'];
+                $idproofdetails->police_verification_file = $row['police_verification_file'];
+                $idproofdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $idproofdetails->created_at = $row['adding_date'];
+                $idproofdetails->save();
 
-    //             // // Save Education Details
-    //             // $educationdetails = new EmpEducationDetail();
-    //             // $educationdetails->emp_code = $row['emp_code'];
-    //             // $educationdetails->emp_postgradqualification = $row['emp_postgradqualification'];
-    //             // $educationdetails->emp_gradqualification = $row['emp_gradqualification'];
-    //             // $educationdetails->emp_highest_qualification = $row['emp_highest_qualification'];
-    //             // $educationdetails->emp_tenth_year = $row['emp_tenth_year'];
-    //             // $educationdetails->emp_tenth_percentage = $row['emp_tenth_percentage'];
-    //             // $educationdetails->emp_tenth_board_name = $row['emp_tenth_board_name'];
-    //             // $educationdetails->emp_twelve_year = $row['emp_twelve_year'];
-    //             // $educationdetails->emp_twelve_percentage = $row['emp_twelve_percentage'];
-    //             // $educationdetails->emp_twelve_board_name = $row['emp_twelve_board_name'];
-    //             // $educationdetails->emp_graduation_year = $row['emp_graduation_year'];
-    //             // $educationdetails->emp_graduation_percentage = $row['emp_graduation_percentage'];
-    //             // $educationdetails->emp_graduation_mode = $row['emp_graduation_mode'];
-    //             // $educationdetails->emp_graduation_in = $row['emp_graduation_in'];
-    //             // $educationdetails->emp_postgraduation_year = $row['emp_postgraduation_year'];
-    //             // $educationdetails->emp_postgraduation_percentage = $row['emp_postgraduation_percentage'];
-    //             // $educationdetails->emp_postgraduation_mode = $row['emp_postgraduation_mode'];
-    //             // $educationdetails->emp_postgraduation_in = $row['emp_postgraduation_in'];
-    //             // $educationdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
-    //             // $educationdetails->created_at = $row['adding_date'];
-    //             // $educationdetails->save();
+                // // Save Education Details
+                $educationdetails = new EmpEducationDetail();
+                $educationdetails->emp_code = $row['emp_code'];
+                $educationdetails->emp_postgradqualification = $row['emp_postgradqualification'];
+                $educationdetails->emp_gradqualification = $row['emp_gradqualification'];
+                $educationdetails->emp_highest_qualification = $row['emp_highest_qualification'];
+                $educationdetails->emp_tenth_year = $row['emp_tenth_year'];
+                $educationdetails->emp_tenth_percentage = $row['emp_tenth_percentage'];
+                $educationdetails->emp_tenth_board_name = $row['emp_tenth_board_name'];
+                $educationdetails->emp_twelve_year = $row['emp_twelve_year'];
+                $educationdetails->emp_twelve_percentage = $row['emp_twelve_percentage'];
+                $educationdetails->emp_twelve_board_name = $row['emp_twelve_board_name'];
+                $educationdetails->emp_graduation_year = $row['emp_graduation_year'];
+                $educationdetails->emp_graduation_percentage = $row['emp_graduation_percentage'];
+                $educationdetails->emp_graduation_mode = $row['emp_graduation_mode'];
+                $educationdetails->emp_graduation_in = $row['emp_graduation_in'];
+                $educationdetails->emp_postgraduation_year = $row['emp_postgraduation_year'];
+                $educationdetails->emp_postgraduation_percentage = $row['emp_postgraduation_percentage'];
+                $educationdetails->emp_postgraduation_mode = $row['emp_postgraduation_mode'];
+                $educationdetails->emp_postgraduation_in = $row['emp_postgraduation_in'];
+                $educationdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $educationdetails->created_at = $row['adding_date'];
+                $educationdetails->save();
 
-    //             // // Save Experience Details
-    //             // $expdetails = new EmpExperienceDetail();
-    //             // $expdetails->emp_code = $row['emp_code'];
-    //             // $expdetails->emp_experience = $row['emp_experience'];
-    //             // $expdetails->emp_skills = $row['emp_skills'];
-    //             // $expdetails->resume_file = $row['resume_file'];
-    //             // $expdetails->emp_experience = $row['emp_experience'];
-    //             // $expdetails->created_at = $row['adding_date'];
-    //             // $expdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
-    //             // $expdetails->save();
-    //         }
-    //         fclose($handle);
-    //         DB::commit();
-    //         return ['success' => true];
-    //     } catch (Throwable $th) {
-    //         DB::rollback();
-    //         return ['error' => true, 'message' => $th->getMessage()];
-    //     }
-    // }
+                // // Save Experience Details
+                $expdetails = new EmpExperienceDetail();
+                $expdetails->emp_code = $row['emp_code'];
+                $expdetails->emp_experience = $row['emp_experience'];
+                $expdetails->emp_skills = $row['emp_skills'];
+                $expdetails->resume_file = $row['resume_file'];
+                $expdetails->emp_experience = $row['emp_experience'];
+                $expdetails->created_at = $row['adding_date'];
+                $expdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
+                $expdetails->save();
+                print_r($row['emp_code']);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
 
 
-    //   public function bank_details($handle)
-    // {
-    //     $headers = fgetcsv($handle);
-    //     try {
-    //         DB::beginTransaction();
-    //         while (($data = fgetcsv($handle)) !== FALSE) {
-    //             $row = array_combine($headers, $data); // Map headers to values
-    //             Bank::create([
-    //                 'id' =>  $row['id'],
-    //                 'name_of_bank' => $row['Name_of_Banks'],
-    //                 'type_of_bank' => $row['Type_of_Bank'],
-    //                 'status' => $row['status'],
-    //                 ]);
-    //         }
-    //         fclose($handle);
-    //         DB::commit();
-    //         return ['success' => true];
-    //     } catch (Throwable $th) {
-    //         DB::rollback();
-    //         return ['error' => true, 'message' => $th->getMessage()];
-    //     }
-    // }
+      public function bank_details($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data); // Map headers to values
+                Bank::create([
+                    'id' =>  $row['id'],
+                    'name_of_bank' => $row['Name_of_Banks'],
+                    'type_of_bank' => $row['Type_of_Bank'],
+                    'status' => $row['status'],
+                    ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
 
 
     // users table
     
     
-    //  public function users($handle)
-    // {
-    //     $headers = fgetcsv($handle);
-    //     try {
-    //         DB::beginTransaction();
+     public function users($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
            
-    //         while (($data = fgetcsv($handle)) !== FALSE) {
-    //             $row = array_combine($headers, $data); // Map headers to values
-    //             $dob = date_create($row['dob']);
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data); // Map headers to values
+                $dob = date_create($row['dob']);
 
-    //             // var_dump($row['department_id']);
+                // var_dump($row['department_id']);
 
-    //             User::create([
-    //                 'id' => $row['id'] ?? null,
-    //                 'first_name' => $row['first_name'] ?? null,
-    //                 'last_name' => $row['last_name'] ?? null,
-    //                 'email' => $row['email'] ?? null,
-    //                 'remember_token' => $row['remember_token'] ?? null,
-    //                 'email_verified_at' => $row['email_verified_at'] ?? null,
-    //                 'password' => $row['password'] ?? null,
-    //                 'gender' => $row['gender'] ?? null,
-    //                 'phone' => $row['phone'] ?? null,
-    //                 'dob' => date_format($dob,'Y-m-d') ?? null,
-    //                 'role_id' => get_role_id($row['user_type']),
-    //                 'department_id' => empty($row['department_id'])  || $row['department_id'] == "NULL" ? null : $row['department_id'],
-    //                 'status' => $row['status'] ?? null,
-    //                 'created_at' => $row['created'] ?? null,
-    //                 'updated_at' => $row['created'] ?? null,
-    //                 'company_id' =>  empty($row['company_id'])  || $row['company_id'] == "NULL" ? '1' : $row['company_id']
-    //             ]);
-    //         }
-    //         fclose($handle);
-    //         DB::commit();
-    //         return ['success' => true];
-    //     } catch (Throwable $th) {
-    //         DB::rollback();
-    //         return ['error' => true, 'message' => $th->getMessage()];
-    //     }
-    // }
+                User::create([
+                    'id' => $row['id'] ?? null,
+                    'first_name' => $row['first_name'] ?? null,
+                    'last_name' => $row['last_name'] ?? null,
+                    'email' => $row['email'] ?? null,
+                    'remember_token' => $row['remember_token'] ?? null,
+                    'email_verified_at' => $row['email_verified_at'] ?? null,
+                    'password' => $row['password'] ?? null,
+                    'gender' => $row['gender'] ?? null,
+                    'phone' => $row['phone'] ?? null,
+                    'dob' => date_format($dob,'Y-m-d') ?? null,
+                    'role_id' => get_role_id($row['user_type']),
+                    'department_id' => empty($row['department_id'])  || $row['department_id'] == "NULL" ? null : $row['department_id'],
+                    'status' => $row['status'] ?? null,
+                    'created_at' => $row['created'] ?? null,
+                    'updated_at' => $row['created'] ?? null,
+                    'company_id' =>  empty($row['company_id'])  || $row['company_id'] == "NULL" ? '1' : $row['company_id']
+                ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
 
     // organizations table
 
-    // public function oranizations($handle)
-    // {
-    //     $headers = fgetcsv($handle);
-    //     try {
-    //         DB::beginTransaction();
+    public function oranizations($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
            
-    //         while (($data = fgetcsv($handle)) !== FALSE) {
-    //             $row = array_combine($headers, $data); // Map headers to values
-    //             Organization::create([
-    //                 'id' => $row['id'],
-    //                 'name' => $row['organisation_name'] ? $row['organisation_name'] : null, 
-    //                 'address' => $row['address'] ? $row['address'] : null, 
-    //                 'email' => $row['email'] ? $row['email'] : null, 
-    //                 'contact' => $row['contact'] ? $row['contact'] : null, 
-    //                 'state_id' => null,
-    //                 'city_id' => null,
-    //                 'postal_code' => null,
-    //                 'psu' => null,
-    //                 'psu_name' => null,
-    //                 'status' => '1',
-    //                 // 'company_id' =>  empty($row['company_id'])  || $row['company_id'] == "NULL" ? '1' : $row['company_id']
-    //             ]);
-    //         }
-    //         fclose($handle);
-    //         DB::commit();
-    //         return ['success' => true];
-    //     } catch (Throwable $th) {
-    //         DB::rollback();
-    //         return ['error' => true, 'message' => $th->getMessage()];
-    //     }
-    // }
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data); // Map headers to values
+                Organization::create([
+                    'id' => $row['id'],
+                    'name' => $row['organisation_name'] ? $row['organisation_name'] : null, 
+                    'address' => $row['address'] ? $row['address'] : null, 
+                    'email' => $row['email'] ? $row['email'] : null, 
+                    'contact' => $row['contact'] ? $row['contact'] : null, 
+                    'state_id' => null,
+                    'city_id' => null,
+                    'postal_code' => null,
+                    'psu' => null,
+                    'psu_name' => null,
+                    'status' => '1',
+                    // 'company_id' =>  empty($row['company_id'])  || $row['company_id'] == "NULL" ? '1' : $row['company_id']
+                ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
 
     //designation
 
-    // public function designation($handle)
-    // {
-    //     $headers = fgetcsv($handle);
-    //     try {
-    //         DB::beginTransaction();
+    public function designation($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
            
-    //         while (($data = fgetcsv($handle)) !== FALSE) {
-    //             $row = array_combine($headers, $data); // Map headers to values
-    //             Designation::create([
-    //                 'id' => $row['id'],
-    //                 'name' => $row['position'] ? $row['position'] : null,
-    //                 'status' => '1',
-    //             ]);
-    //         }
-    //         fclose($handle);
-    //         DB::commit();
-    //         return ['success' => true];
-    //     } catch (Throwable $th) {
-    //         DB::rollback();
-    //         return ['error' => true, 'message' => $th->getMessage()];
-    //     }
-    // }
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data); // Map headers to values
+                Designation::create([
+                    'id' => $row['id'],
+                    'name' => $row['position'] ? $row['position'] : null,
+                    'status' => '1',
+                ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
 
 
     // state
@@ -508,6 +516,209 @@ class CommonDataImportController extends Controller
             return ['error' => true, 'message' => $th->getMessage()];
         }
     }
+
+
+    // email history
+
+    
+      public function emailHistory($handle)
+        {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data); // Map headers to values
+                EmailHistory::create([
+                    'id' => $row['id'],
+                    'from_mail' => $row['from_mail'],
+                    'to_mail' => $row['to_mail'],
+                    'sender_id' => $row['sender_id'] ? $row['sender_id'] : '',
+                    'cc' => $row['cc'] ? $row['cc'] : null,
+                    'subject' => $row['subject'],
+                    'content' => $row['content'],
+                    'attatchment' => $row['attatchment'],
+                    'status' => $row['status']
+                ]);
+            
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    // work order
+
+
+    public function workOrder($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data); // Map headers to values
+                EmailHistory::create([
+                    'id' => $row['id'],
+                    'from_mail' => $row['from_mail'],
+                    'to_mail' => $row['to_mail'],
+                    'sender_id' => $row['sender_id'] ? $row['sender_id'] : '',
+                    'cc' => $row['cc'] ? $row['cc'] : null,
+                    'subject' => $row['subject'],
+                    'content' => $row['content'],
+                    'attatchment' => $row['attatchment'],
+                    'status' => $row['status']
+                ]);
+            
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+
+    // salary slip
+
+    public function salary($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
+                $row['status']=     $row['status'];
+                EmpSalarySlip::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+
+    // emp_changed_columns_reqs
+
+    public function emp_changed_columns_req($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
+                $row['status']= $row['status'];
+                EmpChangedColumnsReq::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    // emp_profile_request_log
+
+    public function emp_profile_request_log($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
+                $row['status']= $row['status'];
+                EmpProfileRequestLog::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+
+    //attendat
+
+    public function wo_attendance($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
+                $row['id']= $row['id'];
+                $row['status']= $row['status'];
+                $row['updated_by'] = null;
+                $row['created_at'] = $row['created_date'];
+                WoAttendance::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+
+    // notification
+
+
+    public function notification($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+           
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
+                $row['id']= $row['id'];
+                $row['created_at'] = $row['time'];
+                Notification::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

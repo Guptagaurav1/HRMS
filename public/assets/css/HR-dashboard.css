@@ -35,6 +35,22 @@
     border-right: 4px solid black;
 }
 
+
+@media(min-width:1024px) and (max-width:1332px){
+    .custom-tabs .tab-item {
+        padding: 16px 7px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #333;
+        transition: background-color 0.3s ease;
+        border-radius: 8px 9px 0 0;
+        margin-right:12px;
+        font-size: 13px;
+        border-right: 4px solid black;
+    }
+
+}
+
 .custom-tabs .tab-item.active {
     background-color: #007bff;
     color: #fff;

@@ -4,10 +4,21 @@
 @section('contents')
 
 <div class="fluid-container">
+    <div class="panel">
+        <div class="panel-header">
+            <h3>View Work Order</h3>
+            <div>
+                <ul class="breadcrumb">
+                    <li> @if (auth()->user()->role->role_name="hr")
+                        <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                    </li>
+                    <li><a href="{{route('work-order-list')}}">Work Order List</a></li>
+                    <li>View Work Order</li>
+                </ul>
+            </div>
 
-    <div class="panel-header">
-        <h2>View Work Order</h2>
-
+        </div>
     </div>
    
     <div class="row" id="tab-1">
@@ -20,14 +31,9 @@
                 </div>
               
 
-                <div class="panel-header py-3 px-2 d-flex align-items-center justify-content-between mt-5">
+                <div class="panel-header py-3 px-2 d-flex align-items-center justify-content-between mt-2">
                     <h5 class="mb-0 text-white" >Work Order Details</h5>
-                    <div>
-                        <div class="d-flex justify-content-end px-2">
-                            <a href="{{route('work-order-list')}}"><button class="btn btn-sm btn-primary mx-3 "> Work Order List</button></a>  
-                        </div>
-                    </div>
-                   
+                    
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">

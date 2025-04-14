@@ -1,6 +1,21 @@
 @extends('layouts.master', ['title' => 'Send Job Description'])
 
 @section('contents')
+<div class="panel">
+    <div class="panel-header  heading-stripe">
+        <h3 class="mt-2 text-center">Preview Description</h3>
+        <div>
+            <ul class="breadcrumb">
+                <li> @if (auth()->user()->role->role_name="hr")
+                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                    @endif
+                </li>
+                <li> <a href="{{route('recruitment-report')}}">Recruitment Report</a></li>
+                <li>Preview Description</li>
+            </ul>
+        </div>
+    </div>
+</div>
     <div class="dashboard-breadcrumb mb-25">
         <div class="d-flex gap-2 justify-items-center align-items-center">
             <input type="radio" class="tab-links active" name="fav_language" value="HTML" data-tab="1" checked>
@@ -10,10 +25,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 d-flex justify-content-end">
-            <a href="{{ route('recruitment-report') }}" class="btn btn-primary">Back</a>
-        </div>
-
+      
         <!-- Single Mail Form -->
         <div class="row" id="tab-1">
             <form class="single_form" method="post">

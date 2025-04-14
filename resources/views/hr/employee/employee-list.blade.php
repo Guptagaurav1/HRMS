@@ -190,20 +190,31 @@
                                         <td class='text-center'> <a href="{{ route('employee.edit-employee', ['id' => $employee->id]) }}"><button
                                                     class="btn btn-sm btn-primary"> <i
                                                         class="fa-solid fa-pen-to-square"></i> Edit</button></td></a>
-                                        <td class="my-3 text-center">
-                                            {{-- <a href="{{ route('employee.send-letter', ['id' => $employee->id]) }}"> --}}
-                                            @if (Illuminate\Support\Str::lower($employee->emp_current_working_status) == 'active' &&
+                                        <td class=" text-center">
+                                            
+                                                <div class="d-flex align-items-center justify-content-center gap-3">
+                                                    <div>
+                                                    {{-- <a href="{{ route('employee.send-letter', ['id' => $employee->id]) }}"> --}}
+                                                    @if (Illuminate\Support\Str::lower($employee->emp_current_working_status) == 'active' &&
                                                     $employee->getBankDetail &&
                                                     $employee->getBankDetail->emp_sal_structure_status == 'completed')
                                                 <button class="btn btn-sm btn-primary send-letter"
                                                     data-id={{ $employee->id }}>Send Letter <i
                                                         class="fa-solid fa-paper-plane"></i></button>
                                             @endif
-                                            {{-- </a> --}}
+                                                    </div> 
+                                                    <div>
+                                                    {{-- </a> --}}
                                             <a href="{{ route('employee.view-letter', ['id' => $employee->id]) }}"><button
                                                     class="btn btn-sm btn-primary">View Letter <i
                                                         class="fa-solid fa-eye"></i></button>
                                             </a>
+
+                                                    </div>
+                                                    
+                                                </div>
+                                          
+                                           
                                         </td>
                                     </tr>
                                 @empty

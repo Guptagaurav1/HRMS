@@ -10,6 +10,21 @@
             <div class="panel">
                 <div class="panel-header">
                     <h2 class="mt-2">Employee Leave List</h2>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li>
+                            @if (auth('employee')->check())
+                                <a href="{{route('employee.dashboard')}}">Dashboard</a>
+                            @elseif (auth()->check())
+                                @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            @endif
+                        
+                            </li>
+                            <li>Employee Leave List</li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- <div class="col-md-12 text-center py-3">
                 <form class="month">

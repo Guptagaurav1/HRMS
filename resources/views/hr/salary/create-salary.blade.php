@@ -13,21 +13,18 @@
                         <h2 class="mt-2">Create Salary</h2>
                         <div>
                             <ul class="breadcrumb">
-                                <li><a href="#">Dashboard</a></li>
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Profile Details</a></li>
-                                <li>Department List</li>
+                                <li> @if (auth()->user()->role->role_name="hr")
+                                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                    @endif
+                                </li>
+                                <li>Create Salary</li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-12 py-3 px-3">
+                    <div class="col-md-12 py-2 px-2">
                         <span class="text-danger">All Fields are Mandatory. Those Fields are not in Used Set as 0 (Zero)
                             value</span>
-                        <input class="" type="radio" id="gridCheck">
-                        <label class="" for="gridCheck">
-                            Single Entry
-                        </label>
-
+                        
                     </div>
                     <div class="row">
                     @if ($message = Session::get('success'))
@@ -172,7 +169,7 @@
                         <div class="card-header">
                             Structure
                         </div>
-                        <div class="col-6 px-2 m-3">
+                        <div class="col-6 col-xs-12 px-2 m-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="exception_esi" name="exception_esi" onchange="cal_gross();">
                                 <label class="form-check-label text-danger" for="gridCheck">

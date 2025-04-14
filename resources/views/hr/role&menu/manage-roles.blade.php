@@ -6,6 +6,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2 ">Manage Roles</h3>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>Manage Role</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="text-end px-2 mt-3">
                     <a href="{{route('add-manage-role')}}"><button type="button" class="btn btn-primary mb-3">Add Roles <i class="fa-solid fa-plus"></i></button></a>
