@@ -11,6 +11,16 @@
             <div class="panel">
                 <div class="panel-header  heading-stripe">
                     <h3 class="mt-2 text-center">{{$position->position_title}} Position Report Log</h3>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li> <a href="{{route('recruitment-report')}}">Recruitment Report</a></li>
+                            <li>Position Report Log</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="row my-2 mx-2">
@@ -27,9 +37,7 @@
                             </div>
                         </form>
                         </div>
-                            <div class="col-md-6 text-end">
-                                <a href="{{route('recruitment-report')}}" class="btn btn-primary float-right">Back</a>
-                            </div>
+                            
                     </div>                  
                 </div>
                 

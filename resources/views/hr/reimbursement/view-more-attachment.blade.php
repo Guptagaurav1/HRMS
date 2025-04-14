@@ -11,7 +11,16 @@ $reimberstatus = $reimbursement->get_status()->orderByDesc('id')->first();
 <div class="fluid-container">
     <div class="dashboard-breadcrumb">
        
-            <h4>Details Of {{$reimbursement->rem_id}}</h4>
+            <h3>Details Of {{$reimbursement->rem_id}}</h3>
+            <div>
+                <ul class="breadcrumb">
+                    <li> @if (auth()->user()->role->role_name="hr")
+                        <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                    </li>
+                    <li>Details Of Reimbursement</li>
+                </ul>
+            </div>
     </div>
 
     <div class="row mt-3">

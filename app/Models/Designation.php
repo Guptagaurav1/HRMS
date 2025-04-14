@@ -10,7 +10,7 @@ class Designation extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['id','name','status'];
 
     public static function boot()
     {

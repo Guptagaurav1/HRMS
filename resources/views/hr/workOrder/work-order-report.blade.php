@@ -146,7 +146,7 @@
                         @csrf
                         <input type="hidden" name="check_workOrders" value="{{ implode(',', $check_workOrders ?? []) }}">
                         <div class="mt-2">
-                            <button type="submit"id="csvButton"  class="btn btn-sm btn-primary hide-text">Download CSV</button>
+                            <button type="submit"id="csvButton"  class="btn btn-sm btn-primary hide-text cursor-pointer">Download CSV</button>
                         </div>
                     </form>
                 

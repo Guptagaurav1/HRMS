@@ -8,8 +8,15 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h3 class="mt-2">Add Role</h3>
-                        <div class="btn-box">
-                            <a href="{{route('manage-roles')}}" class="btn btn-sm btn-primary">Manage(role) List</a>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li> @if (auth()->user()->role->role_name="hr")
+                                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                    @endif
+                                </li>
+                                <li><a href="{{route('manage-roles')}}">Manage Roles</a></li>
+                                <li>Add Role</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="panel-body">

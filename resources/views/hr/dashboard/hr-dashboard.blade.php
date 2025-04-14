@@ -25,7 +25,7 @@
 
         <div class="col-md-12">
             <div class="panel chart-panel-1">
-                <div class="d-flex  gap-3">
+                <div class="d-flex align-itms-center justify-content-center gap-3">
                     <div class="card profile-card border">
                         <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg" alt="Profile" />
                         <div class="profile-info">

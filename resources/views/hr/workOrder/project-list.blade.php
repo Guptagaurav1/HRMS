@@ -7,10 +7,11 @@
                 <h2 class="mt-2">Project List</h2>
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Project List</li>
                     </ul>
                 </div>
             </div>
@@ -28,31 +29,40 @@
                 @endif
             </div>
 
-            <div class="col-md-12 d-flex justify-content-between mx-3">
+        
+            <div class="row  px-3">
+                    <div class="col-md-10">
+                        <form method="get">
+                            <div class="row">
+                                <div class="col-md-3">
+                                <input type="text" name="search" class="form-control" value="{{$search}}" placeholder="Search"
+                                required>
 
-                <form class="row g-3" method="get" action="{{route('project-list')}}">
-                    <div class="col-auto">
-                        <input type="text" name="search" class="form-control" value="{{$search}}" placeholder="Search"
-                            required>
+                                </div>
+                                <div class="col-md-1">
+                                <button type="submit" class="btn btn-sm btn-primary mb-3"> Search 
+                                </button>
+
+                                </div>
+                                <div class="col-md-6">
+                                  <a href="{{ route('project-list')}}">
+                                <button type="button" class="btn btn-sm btn-primary mb-3">Clear <i
+                                class="fa-solid fa-eraser"></i></button></a>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3"> Search <i
-                                class="fa-solid fa-magnifying-glass"></i></button>
-                        <a href="{{ route('project-list') }}">
-                            <button type="button" class="btn btn-primary mb-3">Clear <i
-                                    class="fa-solid fa-eraser"></i></button></a>
-                    </div>
-                </form>
-                <div class="">
+                    <div class="col-md-2">
                     @if(auth()->user()->hasPermission('add-project'))
-                    <div class="col-md-12 d-flex justify-content-end px-4">
-                        <a href="{{route('add-project')}}"><button class="btn btn-sm btn-primary">Add Project <i
+                    
+                        <a href="{{route('add-project')}}" class="col-xs-12"><button class="btn btn-sm btn-primary">Add Project <i
                                     class="fa-solid fa-plus"></i></button></a>
-                    </div>
+                    
                     @endif
-                </div>
 
-            </div>
+                    </div>
+                </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
@@ -80,9 +90,9 @@
                             <td class="text-center">{{$value->created_at }}</td>
                             <td class="text-center">
                                 <a href="{{route('edit-project',$value->id)}}"><button type="submit"
-                                        class="btn btn-primary"> Edit <i
+                                        class="btn btn-sm btn-primary"> Edit <i
                                             class="fa-solid fa-pen-to-square"></i></button></a>
-                                <a href="{{route('add-work-order',$value->id)}}"><button class="btn btn-primary"><i
+                                <a href="{{route('add-work-order',$value->id)}}"><button class="btn btn-sm btn-primary"><i
                                             class="fa-solid fa-plus"></i> WorkOrder</button></a>
                             </td>
                         </tr>

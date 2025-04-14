@@ -12,7 +12,18 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h2 class="mt-2">Employee Profile Detail Change Response Log</h2>
+                <h2 class="mt-2">Employee Profile Response Log</h2>
+                
+                <div>
+                    <ul class="breadcrumb">
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Employee Profile Response Log</li>
+                    </ul>
+                </div>
+            </div>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3">
                 <form class="row g-3 py-2 mt-2">

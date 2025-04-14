@@ -10,10 +10,12 @@
 
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li><a href="{{route('work-order-list')}}">Work Order List</a></li>
+                        <li>Update Work Order</li>
                     </ul>
                 </div>
             </div>
@@ -128,7 +130,7 @@
                                                 class="text-danger">*</span></label>
                                                 <input name="wo_number" id="wo_number" type="text"
                                             class="form-control form-control-sm"
-                                            placeholder="Enter Work Order No"
+                                            placeholder="Enter Work Order No" readonly
                                             value="{{ old('wo_number',$workOrder->wo_number) }}">
                                             <span id="wo_number_error" class="text-danger"></span>
                                         @error('wo_number')

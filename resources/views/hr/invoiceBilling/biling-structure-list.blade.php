@@ -7,15 +7,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2">Invoice Billing Structure</h3>
-                    <div class="text-end px-2">
-                <a href="{{ route('invoice-list') }}">
-                    <div class="back-button-box ">
-                        <button type="button" class="btn btn-back">
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </button>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>Invoice Billing Structure</li>
+                        </ul>
                     </div>
-                </a>
-            </div>
                 </div>
               
                 <div class="col-md-12 d-flex justify-content-start px-2 mt-4">

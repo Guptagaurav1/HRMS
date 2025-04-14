@@ -4,6 +4,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
+                
                 <h3 class="mt-2">Designation Lists</h3>
                 <div>
                     <ul class="breadcrumb">
@@ -17,11 +18,14 @@
                 </div>
 
             </div>
+
+
+            
             <form method="get">
                 <div class="row d-flex align-items-center justify-content-end">
-                    <div class="col-md-10 col-xs-12 d-flex align-items-center px-3 gap-3 py-4">
+                    <div class="col-md-10 col-xs-12 d-flex align-items-center px-4 gap-3 py-4">
                         <div>
-                            <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                            <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search"
                                 required>
                         </div>
                         <div>
@@ -37,8 +41,9 @@
                                     </button>
                             </a>
                         </div>
-
                         
+
+
 
             </form>
 
@@ -46,7 +51,7 @@
 
 
         @if(auth()->user()->hasPermission('designations.create'))
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-11 col-md-2">
             <a href="{{ route('designations.create') }}"><button type="button" class="btn btn-primary btn-sm mb-3">Add
                     Designation <i class="fa-solid fa-plus"></i></button></a>
         </div>

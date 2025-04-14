@@ -2,8 +2,20 @@
 
 
 @section('contents')
-<div class="panel-header ">
-    <h2 class="px-2 mt-2">Form 16</h2>
+<div class="panel">
+    <div class="panel-header ">
+        <h2 class="px-2 mt-2">Form 16</h2>
+        <div>
+            <ul class="breadcrumb">
+                <li> @if (auth()->user()->role->role_name="hr")
+                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                    @endif
+                </li>
+                <li><a href="{{route('form16')}}">Form 16 List</a></li>
+                <li>Add Form 16</li>
+            </ul>
+        </div>
+    </div>
 </div>
 <div class="dashboard-breadcrumb mb-25">
 
@@ -14,9 +26,7 @@
             <input type="radio" class="tab-links " id="html1" name="fav_language" value="HTML" data-tab="2">
             <label for="html">Bulk Entry</label><br>
         </div>
-        <div>
-            <a href="{{route('form16')}}"><button class="btn btn-sm btn-primary ml-5"> Form 16 List <i class="fa-solid fa-list"></i></button></a>
-        </div>
+        
     </div>
     
 </div>
