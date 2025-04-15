@@ -48,6 +48,13 @@ use App\Models\BillingStructure;
 use App\Models\Holiday;
 use App\Models\Form16;
 use App\Models\EmpWishMailLog;
+use App\Models\Industry;
+use App\Models\ClientList;
+use App\Models\ClientReference;
+use App\Models\ClientAttachment;
+use App\Models\ClientAttachType;
+use App\Models\CompanyType;
+use App\Models\CompanyRoleMapping;
 // use App\Models\Client;
 use DB;
 use Throwable;
@@ -130,6 +137,29 @@ class CommonDataImportController extends Controller
 
         // Add Work Order attendance details.
         // $status =  $this->import_holiday_data($handle);
+        // Add Holiday details.
+        // $status =  $this->import_holiday_data($handle);
+
+        // Add Industry details.
+        // $status =  $this->import_industry_data($handle);
+
+        // Add Industry details.
+        // $status =  $this->import_client_data($handle);
+
+        // Add client reference details.
+        // $status =  $this->import_client_reference_data($handle);
+
+        // Add client attachment details.
+        // $status =  $this->import_client_attachment_data($handle);
+
+        // Add client attachment type details.
+        // $status =  $this->import_client_attachment_type_data($handle);
+
+        // Add company type details.
+        // $status =  $this->import_company_type_data($handle);
+
+        // Add company type details.
+        $status =  $this->import_company_role_mapping_data($handle);
 
         // $status =  $this->import_city_data($handle);
 
@@ -139,7 +169,7 @@ class CommonDataImportController extends Controller
 
             // Employee Wish log
 
-        $status =  $this->emp_wish_mail_log($handle);
+        // $status =  $this->emp_wish_mail_log($handle);
             
 
         if (isset($status['error'])) {
@@ -320,8 +350,138 @@ class CommonDataImportController extends Controller
         return back()->with('success', 'CSV Imported Successfully!');
     }
 
-    
-     /**
+    /**
+     * Import company role mapping details.
+     */
+    public function import_company_role_mapping_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_at']));
+
+                CompanyRoleMapping::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import company type details.
+     */
+    public function import_company_type_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_at']));
+                unset($row['added_by']);
+                CompanyType::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import client attachment type.
+     */
+    public function import_client_attachment_type_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
+
+                unset($row['created_on']);
+                unset($row['updated_on']);
+                ClientAttachType::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import client attachments.
+     */
+    public function import_client_attachment_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
+
+                unset($row['created_on']);
+                unset($row['updated_on']);
+                ClientAttachment::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import client reference.
+     */
+    public function import_client_reference_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
+
+                unset($row['created_on']);
+                unset($row['updated_on']);
+                ClientReference::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
      * Import Industry data.
      */
     public function import_industry_data($handle)
@@ -332,7 +492,10 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-                // Client::create($row);
+                $row['created_by'] = $row['add_by'];
+
+                unset($row['add_by']);
+                Industry::create($row);
             }
             fclose($handle);
             DB::commit();
@@ -346,24 +509,33 @@ class CommonDataImportController extends Controller
      /**
      * Import clients data.
      */
-    // public function import_client_data($handle)
-    // {
-    //     $headers = fgetcsv($handle);
-    //     try {
-    //         DB::beginTransaction();
-    //         while (($data = fgetcsv($handle)) !== FALSE) {
-    //             $row = [];
-    //             $row = array_combine($headers, $data); // Map headers to values
-    //             Client::create($row);
-    //         }
-    //         fclose($handle);
-    //         DB::commit();
-    //         return ['success' => true];
-    //     } catch (Throwable $th) {
-    //         DB::rollback();
-    //         return ['error' => true, 'message' => $th->getMessage()];
-    //     }
-    // }
+    public function import_client_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_by'] = $row['added_by'];
+                $row['company_industry'] = $row['company_industry'] == 'not_specify' || empty($row['company_industry'])? null : $row['company_industry'];
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['added_time']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_time']));
+                $row['company_city'] = get_city_id($row['company_city']) ? get_city_id($row['company_city']) : null;
+                $row['company_state'] = get_state_id($row['company_state']) ? get_state_id($row['company_state']) : null;
+                unset($row['added_time']);
+                unset($row['updated_time']);
+                unset($row['added_by']);
+                ClientList::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
 
     /**
      * Import Holiday data.

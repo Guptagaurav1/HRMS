@@ -5,19 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Industry extends Model
+class ClientAttachment extends Model
 {
     use HasFactory;
 
-    /**
+      /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
     protected $guarded = [];
 
-    /**
-     * Save the user id on crud operation.     *
+
+     /**
+     * Store user id details on crud.
+     *
+     * @var array
      */
     public static function boot()
     {
@@ -36,5 +39,4 @@ class Industry extends Model
             });
         }
     }
-
 }
