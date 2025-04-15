@@ -29,7 +29,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-12 col-md-12 mt-4">
-                                <label class="form-label">Work Order <span class="text-danger">*</span> <span class="text-danger">(Show Only Billing
+                                <label class="form-label">Work Order <span class="text-danger">*</span> <span class="text-danger text-wrap">(Show Only Billing
                                         Structure
                                         completed Work Order)</span></label>
                                 <select id="workOrder" name="workOrder" class="form-select" required>

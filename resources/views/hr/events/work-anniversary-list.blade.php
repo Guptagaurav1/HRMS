@@ -16,14 +16,14 @@
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
                 <form class="row g-3 py-2 mt-2">
-                    <div class="col-auto ">
+                    <div class="col-auto col-xs-12">
                         <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" name="search" >
                     </div>
-                    <div class="col-auto">
+                    <div class="col-auto col-xs-12">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{route('events.work-anniversary-list')}}" class="btn btn-primary mb-3">Reset</a>
+                    <div class="col-auto col-xs-12">
+                        <a href="{{route('events.work-anniversary-list')}}" class="btn btn-primary mb-3">Clear</a>
                     </div>
                     
                 </form>

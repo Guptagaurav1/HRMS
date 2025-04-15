@@ -172,7 +172,11 @@
                     <a href=""> <button type="button" class="btn btn-sm btn-secondary"> Cancel
                         </button></a>
                 </div>
-                <button class="btn btn-sm btn-primary"> Create Billing Structure </button>
+                <div>
+                    <button class="btn btn-sm btn-primary"> Create Billing Structure </button>
+
+                </div>
+               
             </div>
         </div>
     </form>

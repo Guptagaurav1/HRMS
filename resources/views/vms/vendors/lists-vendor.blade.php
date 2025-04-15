@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'Vendors'])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
+
 
 @section('contents')
     <div class="row">
@@ -13,24 +11,33 @@
 
                 </div>
                 <div class="text-end px-2 mt-3">
-                    <a href="{{ route('vendors.create') }}">
-                        <button type="button" class="btn btn-primary mb-3">Add Vendor <i
-                                class="fa-solid fa-plus"></i></button>
-                    </a>
+                   
                 </div>
-                <div class="col-md-12 d-flex justify-content-start px-2">
-                    <form class="row g-3" method="get">
-                        <div class="col-auto mb-3">
+                <div class="col-md-12 d-flex justify-content-between flex-wrap px-3 mt-5">
+                    <form class="row g-3 " method="get">
+                        <div class="col-auto col-xs-12 mb-3">
                             <input type="text" name="search" value="{{ $search }}" class="form-control"
                                 placeholder="Search" required>
                         </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search <i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                            <a href="{{ route('vendors.index') }}"><button type="button" class="btn btn-primary mb-3">Clear <i
-                                        class="fa-solid fa-eraser"></i></button></a>
+                        <div class="col-auto col-xs-12">
+                            <button type="submit" class="btn btn-primary mb-3 ">Search </button>
+
+                            
+                        </div>
+                        <div class="col-auto col-xs-12">
+                        <a href="{{ route('vendors.index') }}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Clear <i
+                        class="fa-solid fa-eraser"></i></button></a>
+
                         </div>
                     </form>
+
+                    <div class="col-auto  col-xs-12">
+                    <a href="{{ route('vendors.create') }}" class="col-xs-12">
+                        <button type="button" class="btn btn-primary mb-3 ">Add Vendor <i
+                                class="fa-solid fa-plus"></i></button>
+                    </a>
+
+                    </div>
                 </div>
                 {{-- Show Messages --}}
 

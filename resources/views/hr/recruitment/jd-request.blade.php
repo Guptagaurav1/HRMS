@@ -1,8 +1,5 @@
 @extends('layouts.master', ['title' => 'JD Request'])
 
-@section('style')
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
 
 @section('contents')
 <div class="row">

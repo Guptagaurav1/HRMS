@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('role_name')->nullable();
             $table->text('menu_id')->nullable();
             // $table->foreign('menu_id')->references('id')->on('menus')->onDelete('NO ACTION');
-            
             $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');

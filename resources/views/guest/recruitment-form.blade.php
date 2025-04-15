@@ -13,7 +13,7 @@
                         <img src="{{ asset('assets/images/11years.png') }}" alt="logo right" style="width: 60%;" />
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
         <div class="row">
             <div class="personal-details-form mt-3">

@@ -1,590 +1,586 @@
  /* Adjust table layout to auto, so content-based widths will be applied */
  
  .table {
-     table-layout: auto;
- }
- /* Allow large content to wrap inside table cells */
- 
- .table td {
-     word-wrap: break-word;
-     white-space: normal;
- }
- /* Optionally, set column width for specific columns (for example, the "Attributes" column) */
- 
- .table td.attributes-column {
-     max-width: 300px;
-     /* Adjust this width as needed */
-     word-wrap: break-word;
-     white-space: normal;
- }
- 
- #bb {
-     background: #2A3F54;
-     color: white;
-     width: 150px;
- }
- 
- .table-responsive {
-     overflow-x: auto;
-     -webkit-overflow-scrolling: touch;
- }
- 
- @media (max-width: 768px) {
-     table {
-         font-size: 12px;
-     }
-     th,
-     td {
-         padding: 8px;
-     }
-     th {
-         white-space: nowrap;
-     }
- }
- 
- #send-letter {
-     font-size: 14px;
- }
- 
- .alert-success {
-     color: #fff;
-     background-color: rgba(38, 185, 154, .88);
-     border-color: rgba(38, 185, 154, .88);
- }
- 
- .alert-warning {
-     background-color: #997404;
-     color: #fff;
- }
- 
- span.alert-danger {
-     background-color: #f1aeb5;
-     color: #b02a37;
- }
- /* Additional styling for the table */
- 
- .table th,
- .table td {
-     text-align: center;
-     vertical-align: middle;
- }
- 
- .rec-list_head {
-     background-color: white;
- }
- 
- label {
-     color: black;
-     font-weight: bold;
- }
- 
- @media(max-width:767px) {
-     .workcenter {
-         text-align: center;
-     }
-     .work-order-No {
-         font-size: 15px !important;
-     }
-     .note {
-         margin: 12px !important;
-     }
- }
- /* modal */
- 
- .modal-content {
-     border-radius: 15px;
-     background-color: #ffffff;
-     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-     border: none;
- }
- 
- .modal-header {
-     background-color: #2f80ed;
-     color: white;
- }
- 
- .panel-header {
-     border: 1px solid;
-     background-color: slategray;
-     color: white;
-     border-radius: 5px;
-     align-items: center;
-     color: white;
- }
- 
- .modal-content {
-     border-radius: 10px;
-     overflow: hidden;
-     background-color: #f9f9f9;
- }
- 
- .modal-header {
-     background-color: #007bff;
-     border-bottom: none;
- }
- 
- .field-container {
-     padding: 10px 15px;
-     border-radius: 5px;
-     background-color: #ffffff;
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
- }
- 
- .field-container label {
-     margin: 0;
-     font-size: 0.9rem;
-     color: #333;
- }
- 
- .field-container span {
-     font-size: 0.9rem;
-     color: #555;
- }
- 
- .modal-body {
-     padding: 20px;
- }
- 
- .row {
-     margin-bottom: 15px;
- }
- 
- .calculation-criteria {
-     font-size: 13px;
- }
- /* Form control custom design  */
- 
- .form-label {
-     font-weight: bold;
- }
- 
- .form-control {
-     background-color: white !important;
- }
- 
- .form-control:focus {
-     box-shadow: 0 0 5px rgba(210, 216, 221, 0.5);
-     border-color: #007bff;
- }
- 
- .card {
-     background: #ffffff;
-     border: none;
-     border-radius: 8px;
-     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-     ;
- }
- 
- .form-control {
-     background-color: whitesmoke;
-     border: 1px solid #dcdcdc;
-     border-radius: 5px;
-     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-     transition: all 0.3s ease;
- }
- 
- #remove-btn {
-     display: none;
- }
- 
- .panel_1 {
-     background-color: whitesmoke;
-     /* border-radius: 8px; */
-     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-     padding: 15px;
-     /* margin-top: 30px; */
-     width: 100%;
-     border: 1px solid white;
-     margin-bottom: 20px;
- }
- 
- .leave-box {
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     border-radius: 10px;
-     padding: 20px;
-     transition: transform 0.3s ease, box-shadow 0.3s ease;
-     background: #fff;
- }
- 
- .leave-box:hover {
-     transform: translateY(-5px);
-     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
- }
- 
- .leave-box p {
-     margin: 0;
-     font-size: 1rem;
-     color: #333;
- }
- 
- .leave-box span {
-     font-size: 1.25rem;
-     font-weight: bold;
-     color: #007bff;
- }
- 
- .leave-title {
-     font-weight: bold;
-     margin-bottom: 10px;
-     color: #555;
- }
- 
- .row-divider {
-     margin: 15px 0;
- }
- 
- .styled-list {
-     list-style: none;
-     margin: 0;
-     padding: 0;
- }
- 
- .styled-list li {
-     margin-bottom: 8px;
-     padding: 8px 12px;
-     display: flex;
-     justify-content: space-between;
- }
- 
- .styled-list li span {
-     font-weight: 900;
-     font-size: 15px;
-     color: black;
- }
- 
- .payment li {
-     font-weight: 900;
-     font-size: 15px;
-     color: black;
-     padding-top: 5px;
- }
- 
- .payment p {
-     font-weight: 900;
-     font-size: 15px;
-     color: black;
-     padding-top: 5px;
- }
- 
- @media(max-width:426px) {
-     #invoice-center {
-         padding: 0px 20px 0px 30px
-     }
-     .prakhrar-heading {
-         font-size: 17px;
-     }
- }
- /* Multisetep Form  Applicant Form */
- 
- #msform {
-     text-align: center;
-     position: relative;
-     margin-top: 20px;
- }
- 
- #msform fieldset {
-     position: relative;
- }
- 
- #msform fieldset:not(:first-of-type) {
-     display: none;
- }
- /*Next Buttons*/
- 
- #msform .action-button {
-     width: 100px;
-     background: #0D99FF;
-     font-weight: bold;
-     color: white;
-     border: 0 none;
-     border-radius: 0px;
-     cursor: pointer;
-     padding: 10px 5px;
-     margin: 10px 12px 10px 5px;
-     float: right;
- }
- 
- #msform .action-button:hover,
- #msform .action-button:focus {
-     background-color: #0b5ed7;
- }
- /*Previous Buttons*/
- 
- #msform .action-button-previous {
-     width: 100px;
-     background: #616161;
-     font-weight: bold;
-     color: white;
-     border: 0 none;
-     border-radius: 0px;
-     cursor: pointer;
-     padding: 10px 5px;
-     margin: 10px 5px 10px 0px;
-     float: right;
- }
- 
- #msform .action-button-previous:hover,
- #msform .action-button-previous:focus {
-     background-color: #000000;
- }
- /*The background card*/
- 
- .card {
-     z-index: 0;
-     border: none;
-     position: relative;
- }
- /*FieldSet headings*/
- 
- .fs-title {
-     font-size: 25px;
-     color: slategray;
-     margin-bottom: 15px;
-     font-weight: normal;
-     text-align: left;
- }
- 
- .purple-text {
-     color: slategray;
-     font-weight: normal;
- }
- /*Step Count*/
- 
- .steps {
-     font-size: 25px;
-     color: gray;
-     margin-bottom: 10px;
-     font-weight: normal;
-     text-align: right;
- }
- /*Field names*/
- 
- .fieldlabels {
-     color: gray;
-     text-align: left;
- }
- 
- #progressbar {
-     margin-bottom: 30px;
-     overflow: hidden;
-     color: lightgrey;
- }
- 
- #progressbar .active {
-     color: slategray;
- }
- 
- #progressbar li {
-     list-style-type: none;
-     font-size: 10px;
-     width: 16%;
-     float: left;
-     position: relative;
-     font-weight: 400;
- }
- 
- #progressbar #account:before {
-     font-family: FontAwesome;
-     content: "\f058";
- }
- 
- #progressbar #personal:before {
-     font-family: FontAwesome;
-     content: "\f007";
- }
- 
- #progressbar #payment:before {
-     font-family: FontAwesome;
-     content: "\f2b5";
- }
- 
- #progressbar #confirm:before {
-     font-family: FontAwesome;
-     content: "\f00c";
- }
- 
- #progressbar #confirm:before {
-     font-family: FontAwesome;
-     content: "\f00c";
- }
- /* Employee Code */
- 
- #progressbar .employee-code:before {
-     font-family: FontAwesome;
-     content: "\f15b";
- }
- 
- #progressbar li:before {
-     width: 34px;
-     height: 38px;
-     line-height: 36px;
-     display: block;
-     font-size: 15px;
-     color: #ffffff;
-     background: lightgray;
-     border-radius: 50%;
-     margin: 2px auto 5px auto;
-     padding: 1px;
- }
- 
- #progressbar li:after {
-     content: '';
-     width: 100%;
-     height: 2px;
-     background: lightgray;
-     position: absolute;
-     left: 0;
-     top: 25px;
-     z-index: -1;
- }
- 
- #progressbar li.active:before,
- #progressbar li.active:after {
-     background: slategray;
- }
- 
- #progressbar li.reject:before,
- #progressbar li.reject:after {
-     background: red;
- }
- 
- .progress {
-     height: 20px;
- }
- 
- .progress-bar {
-     background-color: slategray;
- }
- 
- .fit-image {
-     width: 100%;
-     object-fit: cover;
- }
- 
- .parent-id {
-     position: relative;
- }
- 
- #shortlisted {
-     position: absolute;
-     top: 190px;
-     left: 120px;
-     z-index: 2;
- }
- 
- #confirmationOfferLetter {
-     display: none;
- }
- 
- #NICSI-case {
-     display: none;
- }
- 
- .pera-design {
-     font-size: 13px
- }
- 
- .position-status-column {
-     display: none;
- }
- 
- .offer-letter-column {
-     display: none;
- }
- 
- .position-status-column {
-     display: none;
- }
- 
- #position-coloumn {
-     display: none;
- }
- 
- #background_image {
-     background-image: url('../images/background_image.jpg');
-     width: 100%;
-     height: 100vh;
-     background-repeat: repeat;
-     background-position: center;
- }
- 
- .both-status-column {
-     display: none;
- }
- /* .bb
+    table-layout: auto;
+}
+/* Allow large content to wrap inside table cells */
+
+.table td {
+    word-wrap: break-word;
+    white-space: normal;
+}
+/* Optionally, set column width for specific columns (for example, the "Attributes" column) */
+
+.table td.attributes-column {
+    max-width: 300px;
+    /* Adjust this width as needed */
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+#bb {
+    background: #2A3F54;
+    color: white;
+    width: 150px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+    th,
+    td {
+        padding: 8px;
+    }
+    th {
+        white-space: nowrap;
+    }
+}
+
+#send-letter {
+    font-size: 14px;
+}
+
+.alert-success {
+    color: #fff;
+    background-color: rgba(38, 185, 154, .88);
+    border-color: rgba(38, 185, 154, .88);
+}
+
+.alert-warning {
+    background-color: #997404;
+    color: #fff;
+}
+
+span.alert-danger {
+    background-color: #f1aeb5;
+    color: #b02a37;
+}
+/* Additional styling for the table */
+
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.rec-list_head {
+    background-color: white;
+}
+
+label {
+    color: black;
+    font-weight: bold;
+}
+
+@media(max-width:767px) {
+    .workcenter {
+        text-align: center;
+    }
+    .work-order-No {
+        font-size: 15px !important;
+    }
+    .note {
+        margin: 12px !important;
+    }
+}
+/* modal */
+
+.modal-content {
+    border-radius: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.modal-header {
+    background-color: #2f80ed;
+    color: white;
+}
+
+.panel-header {
+    border: 1px solid;
+    background-color: slategray;
+    color: white;
+    border-radius: 5px;
+    align-items: center;
+    color: white;
+}
+
+.modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.modal-header {
+    background-color: #007bff;
+    border-bottom: none;
+}
+
+.field-container {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.field-container label {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.field-container span {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.row {
+    margin-bottom: 15px;
+}
+
+.calculation-criteria {
+    font-size: 13px;
+}
+/* Form control custom design  */
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    background-color: white !important;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 5px rgba(210, 216, 221, 0.5);
+    border-color: #007bff;
+}
+
+.card {
+    background: #ffffff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    ;
+}
+
+.form-control {
+    background-color: whitesmoke;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#remove-btn {
+    display: none;
+}
+
+.panel_1 {
+    background-color: whitesmoke;
+    /* border-radius: 8px; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    /* margin-top: 30px; */
+    width: 100%;
+    border: 1px solid white;
+    margin-bottom: 20px;
+}
+
+.leave-box {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
+}
+
+.leave-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.leave-box p {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.leave-box span {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.leave-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.row-divider {
+    margin: 15px 0;
+}
+
+.styled-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.styled-list li {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.styled-list li span {
+    font-weight: 900;
+    font-size: 15px;
+    color: black;
+}
+
+.payment li {
+    font-weight: 900;
+    font-size: 15px;
+    color: black;
+    padding-top: 5px;
+}
+
+.payment p {
+    font-weight: 900;
+    font-size: 15px;
+    color: black;
+    padding-top: 5px;
+}
+
+@media(max-width:426px) {
+    #invoice-center {
+        padding: 0px 20px 0px 30px
+    }
+    .prakhrar-heading {
+        font-size: 17px;
+    }
+}
+/* Multisetep Form  Applicant Form */
+
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+#msform fieldset {
+    position: relative;
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+/*Next Buttons*/
+
+#msform .action-button {
+    width: 100px;
+    background: #0D99FF;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 12px 10px 5px;
+    float: right;
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    background-color: #0b5ed7;
+}
+/*Previous Buttons*/
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px 10px 0px;
+    float: right;
+}
+
+#msform .action-button-previous:hover,
+#msform .action-button-previous:focus {
+    background-color: #000000;
+}
+/*The background card*/
+
+.card {
+    z-index: 0;
+    border: none;
+    position: relative;
+}
+/*FieldSet headings*/
+
+.fs-title {
+    font-size: 25px;
+    color: slategray;
+    margin-bottom: 15px;
+    font-weight: normal;
+    text-align: left;
+}
+
+.purple-text {
+    color: slategray;
+    font-weight: normal;
+}
+/*Step Count*/
+
+.steps {
+    font-size: 25px;
+    color: gray;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-align: right;
+}
+/*Field names*/
+
+.fieldlabels {
+    color: gray;
+    text-align: left;
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+}
+
+#progressbar .active {
+    color: slategray;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 10px;
+    width: 16%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+}
+
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "\f058";
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "\f007";
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "\f2b5";
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+}
+/* Employee Code */
+
+#progressbar .employee-code:before {
+    font-family: FontAwesome;
+    content: "\f15b";
+}
+
+#progressbar li:before {
+    width: 34px;
+    height: 38px;
+    line-height: 36px;
+    display: block;
+    font-size: 15px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 2px auto 5px auto;
+    padding: 1px;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: slategray;
+}
+
+#progressbar li.reject:before,
+#progressbar li.reject:after {
+    background: red;
+}
+
+.progress {
+    height: 20px;
+}
+
+.progress-bar {
+    background-color: slategray;
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.parent-id {
+    position: relative;
+}
+
+#shortlisted {
+    position: absolute;
+    top: 190px;
+    left: 120px;
+    z-index: 2;
+}
+
+#confirmationOfferLetter {
+    display: none;
+}
+
+#NICSI-case {
+    display: none;
+}
+
+.pera-design {
+    font-size: 13px
+}
+
+.position-status-column {
+    display: none;
+}
+
+.offer-letter-column {
+    display: none;
+}
+
+.position-status-column {
+    display: none;
+}
+
+#position-coloumn {
+    display: none;
+}
+
+#background_image {
+    background-image: url('../images/background_image.jpg');
+    width: 100%;
+    height: 100vh;
+    background-repeat: repeat;
+    background-position: center;
+}
+
+.both-status-column {
+    display: none;
+}
+/* .bb
 {
-  background-color: #2A3F54;
-  color: white;
-  width: 150px;
+ background-color: #2A3F54;
+ color: white;
+ width: 150px;
 } */
- 
- #background_image_1 {
-     background-image: url('../images/background_image.jpg');
-     width: 100%;
-     height: auto;
-     /* background-repeat: no-repeat;
-  background-position: center; */
- }
- 
- .form-group {
-     margin-bottom: 1.25rem;
- }
- 
- #background_image {
-     background-color: #F4F4F9;
-     min-height: 100vh;
-     display: flex;
-     align-items: center;
-     justify-content: center;
- }
- 
- #form_design {
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     border-radius: 8px;
-     background-color: #fff;
-     padding: 2rem;
-     transition: all 0.3s ease;
-     width: 100%;
-     max-width: 800px;
- }
- 
- @media (max-width: 768px) {
-     /* form {
-      padding: 1.5rem;
-  } */
-<<<<<<< HEAD
-  .btn {
-      width: 100%;
-  }
+
+#background_image_1 {
+    background-image: url('../images/background_image.jpg');
+    width: 100%;
+    height: auto;
+    /* background-repeat: no-repeat;
+ background-position: center; */
 }
 
-#twelthe_showing{
-  display: none;
+.form-group {
+    margin-bottom: 1.25rem;
 }
 
-#graduation_showing{
-  display: none;
-}
-#postgraduation_showing{
-  display: none;
-}
-
-.ESI_Input-field{
-  display: none;
+#background_image {
+    background-color: #F4F4F9;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.relation_nominee{
-  /* display: none; */
-  height: 100vh;
+#form_design {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 800px;
 }
 
+@media (max-width: 768px) {
+    /* form {
+     padding: 1.5rem;
+ } */
+    .btn {
+        width: 100%;
+    }
+}
 
+#twelthe_showing {
+    display: none;
+}
+
+#graduation_showing {
+    display: none;
+}
+
+#postgraduation_showing {
+    display: none;
+}
+
+.ESI_Input-field {
+    display: none;
+}
+
+.relation_nominee {
+    /* display: none; */
+    height: 100vh;
+}
 /* Acceptance Form  Modal css Terms and Condtions  */
-
-
 
 input:focus,
 select:focus,
@@ -592,7 +588,8 @@ textarea:focus,
 button:focus {
   outline: none;
 }
-.termsAndConditions{
+
+.termsAndConditions {
   z-index: 1000;
   border-radius: 3px;
   position: absolute;
@@ -600,7 +597,7 @@ button:focus {
   left: 50%;
   height: 100%;
   width: 100%;
-  background-color:rgb(255,255,255);
+  background-color: rgb(255, 255, 255);
   transform: translate(-50%, -50%);
   max-width: 900px;
   display: flex;
@@ -609,110 +606,128 @@ button:focus {
   transform: all .2s;
   backface-visibility: hidden;
 }
-.termsAndConditionsHeading{
+
+.termsAndConditionsHeading {
   margin-top: 10px;
   margin-bottom: 30px;
   font-size: 32px;
 }
-.termsParagraphIntro{
+
+.termsParagraphIntro {
   margin-left: 15px;
   margin-right: 15px;
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
-.serviceLeadingSection{
+.serviceLeadingSection {
   width: 80%;
   margin-top: 15px;
-  margin-bottom:15px;
+  margin-bottom: 15px;
 }
-.sn{
+
+.sn {
   font-size: 32px;
   padding-right: 5px;
 }
-.st{
+
+.st {
   font-size: 32px;
 }
-.spl{
+
+.spl {
   margin-top: 15px;
   margin-bottom: 15px;
 
 }
-.serviceInfoContainer{
-  position:relative;
-  width: 100%;    
+
+.serviceInfoContainer {
+  position: relative;
+  width: 100%;
 }
-.serviceLead{
+
+.serviceLead {
   font-weight: 700;
-  margin-left: 15px;  
+  margin-left: 15px;
   margin-top: 15px;
-  margin-block-end: 5px;  
+  margin-block-end: 5px;
 
 }
-.serviceDetails{
+
+.serviceDetails {
   margin-left: 15px;
 }
 
-.displayNone{
-  display:none;
+.displayNone {
+  display: none;
 }
-.secionLine{
-  height: 40px;
-  width:5px;
 
-  position:absolute;
-  top:7px;
+.secionLine {
+  height: 40px;
+  width: 5px;
+
+  position: absolute;
+  top: 7px;
 }
 
 /*Font Colours below*/
 
-.lightGreen{
+.lightGreen {
   color: rgb(85, 189, 134);
 }
-.blue{
+
+.blue {
   color: #2998ff;
 }
-.orange{
+
+.orange {
   color: #ff7730;
 }
-.purple{
+
+.purple {
   color: #2a0073
 }
 
 /*Set the colours for the lines*/
 
-.lineColorGreen{
+.lineColorGreen {
   background-image: linear-gradient(to right bottom, rgb(85, 189, 134), rgb(11, 103, 92));
 }
-.lineColorBlue{
+
+.lineColorBlue {
   background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
 }
-.lineColorOrange{
+
+.lineColorOrange {
   background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
 }
-.lineColorPurple{
+
+.lineColorPurple {
   background-image: linear-gradient(to bottom right, #b25f88, #2a0073)
 }
-.closeTerms{
+
+.closeTerms {
   border-bottom: 1px solid black;
   margin-top: 15px;
   margin-bottom: 15px;
   padding-bottom: 5px;
-  
+
 }
-.fadeIn{
+
+.fadeIn {
   animation-name: fadeIn;
   animation-duration: .8s;
   animation-timing-function: ease-out;
   z-index: 1001;
 }
 
-@keyframes fadeIn{
+@keyframes fadeIn {
   0% {
 
-    opacity: 0;  
+    opacity: 0;
   }
-  100%{
+
+  100% {
 
     opacity: 1;
   }
@@ -721,7 +736,7 @@ button:focus {
 
 /* Tabs Button Design CSS */
 
-  
+
 .employee-tab {
   background-color: #fff;
   border-radius: 8px;
@@ -793,7 +808,7 @@ button:focus {
 /* Back button css */
 
 
-    
+
 .back-button-box {
   display: flex;
   align-items: center;
@@ -802,7 +817,7 @@ button:focus {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 31px;
   width: 43px;
-  background-color: #f8f9fa; 
+  background-color: #f8f9fa;
   border-radius: 35px;
 }
 
@@ -811,26 +826,26 @@ button:focus {
 .btn-back {
   background-color: transparent;
   border: none;
-  font-size: 20px; 
-  color: #007bff; 
+  font-size: 20px;
+  color: #007bff;
   transition: color 0.3s, transform 0.3s ease;
   padding: 0;
 }
 
 /* Hover effect for the icon */
 .btn-back:hover {
-  color: gray; 
-  transform: scale(1.2); 
-  transform: rotate(-360deg); 
-  
+  color: gray;
+  transform: scale(1.2);
+  transform: rotate(-360deg);
+
 }
 
 
 
 /* Search Applicable pera Employee List */
 
-#search-applicable{
-  
+#search-applicable {
+
   padding-top: 20px !important;
   text-align: start;
   padding-left: 20px;
@@ -844,13 +859,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-radius: 4px;
   margin-right: 2px;
   filter: invert(0.1);
-  color:  black;
+  color: black;
 }
 
 
 /* Placeholder Color */
-input::-webkit-input-placeholder{
-  color:#4C4646 !important;
+input::-webkit-input-placeholder {
+  color: #4C4646 !important;
   font-weight: 500;
 }
 
@@ -877,7 +892,7 @@ input::-webkit-input-placeholder{
 }
 
 .invoice-header h1 {
-  
+
   font-weight: 700;
   color: white;
 }
@@ -905,7 +920,8 @@ input::-webkit-input-placeholder{
   color: #007bff;
 }
 
-.invoice-footer .download-btn, .invoice-footer .btn-print {
+.invoice-footer .download-btn,
+.invoice-footer .btn-print {
   background-color: #007bff;
   color: #fff;
   padding: 12px 25px;
@@ -916,12 +932,31 @@ input::-webkit-input-placeholder{
   transition: background-color 0.3s ease;
 }
 
-.invoice-footer .download-btn:hover, .invoice-footer .btn-print:hover {
+.invoice-footer .download-btn:hover,
+.invoice-footer .btn-print:hover {
   background-color: #0056b3;
 }
 
 
+/* Acceptance Form layouts Fix CSS */
 
+.acceptance-form-layouts {
+  width: 98%;
+  background-color: #034d48;
+  position: fixed;
+  z-index: 10000 !important;
+}
+
+@media(max-width:767px) {
+
+  .acceptance-form-layouts {
+    background-color: #034d48;
+    position: relative;
+    z-index: 2;
+
+  }
+
+}
 
 
 
@@ -959,27 +994,29 @@ input::-webkit-input-placeholder{
 /* Responsive styling */
 @media (max-width: 768px) {
   .invoice-header h1 {
-      font-size: 28px;
+    font-size: 28px;
   }
 
   .invoice-header .logo {
-      width: 60px;
+    width: 60px;
   }
 
   .invoice-footer {
-      flex-direction: column;
-      align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .invoice-footer .total-amount {
-      margin-bottom: 10px;
+    margin-bottom: 10px;
   }
+
   @media print {
     .hide-text {
-        display: none;
+      display: none;
+    }
   }
 }
-}
+
 /* work-order report css end here */
 
 
@@ -1025,31 +1062,40 @@ ul.breadcrumb {
   align-items: center;
   justify-content: center;
   margin-top: 12px;
-  
+
 }
+
 ul.breadcrumb li {
-   
-    font-size: 16px;
-    color: yellow;
+
+  font-size: 16px;
+  color: yellow;
 }
+
 ul.breadcrumb li+li:before {
   padding: 7px;
   color: white;
   content: "/\00a0";
 }
+
 ul.breadcrumb li a {
   color: white;
   text-decoration: none;
 }
+
 ul.breadcrumb li a:hover {
   color: #f0f0f0;
   text-decoration: underline;
 }
 
+/* Fix size for preview image */
+img.preview {
+  width: 200px;
+  height: 135px;
+}
 
 /* Media Query on Breadcrumb */
 
-@media(max-width:426px){
+@media(max-width:426px) {
   ul.breadcrumb {
     padding: 6px 6px;
     list-style: none;
@@ -1057,14 +1103,16 @@ ul.breadcrumb li a:hover {
     align-items: center;
     justify-content: center;
     margin-top: 5px;
-    margin-left: -12px;
-    
+    margin-left: 55px;
+
   }
+
   ul.breadcrumb li {
-     
-      font-size: 14px;
-      color: yellow;
+
+    font-size: 13px;
+    color: yellow;
   }
+
   ul.breadcrumb li+li:before {
     padding: 5px;
     color: white;
@@ -1078,658 +1126,39 @@ ul.breadcrumb li a:hover {
 
 /* Custom css Media Query */
 
-@media (max-width: 426px){
-  .panel-header h2,h3{
-   
-    font-size:30px;
-  }
 
-  .hr-dashboard-heading{
-    font-size: 15px !important;
-    font-weight: bold !important;
-
-  }
-
-  
-}
 
 
 /* Overflow change password */
 
-#overflow{
+#overflow {
   position: relative;
   left: 100;
   z-index: 100;
-  
+
+}
+
+/* Hide elements on print */
+@media print {
+  .noPrint {
+    display: none !important;
+  }
+}
+
+/* Acceptance form css */
+.acceptance-form-layouts {
+  width: 98%;
+  background-color: #034d48;
+  position: fixed;
+  z-index: 10000 !important;
+}
+
+@media(max-width:767px) {
+  .acceptance-form-layouts {
+    background-color: #034d48;
+    position: relative;
+    z-index: 2;
+  }
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-     .btn {
-         width: 100%;
-     }
- }
->>>>>>> 0f86c45585655d2b1b755710a97b77252b6b409e
- 
- #twelthe_showing {
-     display: none;
- }
- 
- #graduation_showing {
-     display: none;
- }
- 
- #postgraduation_showing {
-     display: none;
- }
- 
- .ESI_Input-field {
-     display: none;
- }
- 
- .relation_nominee {
-     /* display: none; */
-     height: 100vh;
- }
- /* Acceptance Form  Modal css Terms and Condtions  */
- 
- input:focus,
- select:focus,
- textarea:focus,
- button:focus {
-   outline: none;
- }
-
- .termsAndConditions {
-   z-index: 1000;
-   border-radius: 3px;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   height: 100%;
-   width: 100%;
-   background-color: rgb(255, 255, 255);
-   transform: translate(-50%, -50%);
-   max-width: 900px;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   transform: all .2s;
-   backface-visibility: hidden;
- }
-
- .termsAndConditionsHeading {
-   margin-top: 10px;
-   margin-bottom: 30px;
-   font-size: 32px;
- }
-
- .termsParagraphIntro {
-   margin-left: 15px;
-   margin-right: 15px;
-   margin-top: 15px;
-   margin-bottom: 15px;
- }
-
- .serviceLeadingSection {
-   width: 80%;
-   margin-top: 15px;
-   margin-bottom: 15px;
- }
-
- .sn {
-   font-size: 32px;
-   padding-right: 5px;
- }
-
- .st {
-   font-size: 32px;
- }
-
- .spl {
-   margin-top: 15px;
-   margin-bottom: 15px;
-
- }
-
- .serviceInfoContainer {
-   position: relative;
-   width: 100%;
- }
-
- .serviceLead {
-   font-weight: 700;
-   margin-left: 15px;
-   margin-top: 15px;
-   margin-block-end: 5px;
-
- }
-
- .serviceDetails {
-   margin-left: 15px;
- }
-
- .displayNone {
-   display: none;
- }
-
- .secionLine {
-   height: 40px;
-   width: 5px;
-
-   position: absolute;
-   top: 7px;
- }
-
- /*Font Colours below*/
-
- .lightGreen {
-   color: rgb(85, 189, 134);
- }
-
- .blue {
-   color: #2998ff;
- }
-
- .orange {
-   color: #ff7730;
- }
-
- .purple {
-   color: #2a0073
- }
-
- /*Set the colours for the lines*/
-
- .lineColorGreen {
-   background-image: linear-gradient(to right bottom, rgb(85, 189, 134), rgb(11, 103, 92));
- }
-
- .lineColorBlue {
-   background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
- }
-
- .lineColorOrange {
-   background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
- }
-
- .lineColorPurple {
-   background-image: linear-gradient(to bottom right, #b25f88, #2a0073)
- }
-
- .closeTerms {
-   border-bottom: 1px solid black;
-   margin-top: 15px;
-   margin-bottom: 15px;
-   padding-bottom: 5px;
-
- }
-
- .fadeIn {
-   animation-name: fadeIn;
-   animation-duration: .8s;
-   animation-timing-function: ease-out;
-   z-index: 1001;
- }
-
- @keyframes fadeIn {
-   0% {
-
-     opacity: 0;
-   }
-
-   100% {
-
-     opacity: 1;
-   }
- }
-
-
- /* Tabs Button Design CSS */
-
-
- .employee-tab {
-   background-color: #fff;
-   border-radius: 8px;
-   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-   overflow: hidden;
- }
-
- .employee-tab ul {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   padding: 0;
-   margin: 0;
-   list-style: none;
-   border-bottom: 2px solid #ddd;
- }
-
- .employee-tab li {
-   flex: 1;
-   text-align: center;
- }
-
- .tab-btn {
-   background: none;
-   border: none;
-   padding: 6px;
-   width: 100%;
-   font-size: 14px;
-   font-weight: bold;
-   color: #495057;
-   cursor: pointer;
-   transition: all 0.3s ease;
-   border-left: 3px solid #211919;
- }
-
- .tab-btn:hover {
-   color: slategrey;
- }
-
- .tab-btn.active {
-   color: #fff;
-   background-color: slategray;
-   border-radius: 4px;
-   box-shadow: 0 2px 6px slategrey;
- }
-
- .tab-content {
-   display: none;
- }
-
- .tab-content.active {
-   display: block;
- }
-
- .tab-btn {
-   position: relative;
- }
-
- .tab-btn:hover:after {
-   width: 100%;
- }
-
- .tab-btn.active:after {
-   width: 100%;
-   left: 0;
- }
-
-
- /* Back button css */
-
-
-
- .back-button-box {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-   transition: transform 0.3s ease, box-shadow 0.3s ease;
-   height: 31px;
-   width: 43px;
-   background-color: #f8f9fa;
-   border-radius: 35px;
- }
-
-
-
- .btn-back {
-   background-color: transparent;
-   border: none;
-   font-size: 20px;
-   color: #007bff;
-   transition: color 0.3s, transform 0.3s ease;
-   padding: 0;
- }
-
- /* Hover effect for the icon */
- .btn-back:hover {
-   color: gray;
-   transform: scale(1.2);
-   transform: rotate(-360deg);
-
- }
-
-
-
- /* Search Applicable pera Employee List */
-
- #search-applicable {
-
-   padding-top: 20px !important;
-   text-align: start;
-   padding-left: 20px;
- }
-
-
- /* Calender Icon Color  */
-
- input[type="date"]::-webkit-calendar-picker-indicator {
-   cursor: pointer;
-   border-radius: 4px;
-   margin-right: 2px;
-   filter: invert(0.1);
-   color: black;
- }
-
-
- /* Placeholder Color */
- input::-webkit-input-placeholder {
-   color: #4C4646 !important;
-   font-weight: 500;
- }
-
- /* For edit employee page  */
- #activestatus:checked+.activelabel:hover {
-   color: white !important;
- }
-
- #activestatus:not(:checked)+.activelabel:hover {
-   color: blue !important;
- }
-
- .inactiveradio:checked+.inactivelabel {
-   color: white !important;
- }
-
- /* work-order report css start here */
- .invoice-container {
-   padding: 30px;
- }
-
- .card {
-   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
- }
-
- .invoice-header h1 {
-
-   font-weight: 700;
-   color: white;
- }
-
- .invoice-header .logo {
-   width: 80px;
-   height: auto;
- }
-
- /* Footer styles */
- .invoice-footer {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   background-color: #e0e0e0;
-   padding: 20px;
-   border-top: 1px solid #ddd;
-   margin-top: 20px;
-   border-radius: 0 0 5px 5px;
- }
-
- .invoice-footer .total-amount {
-   font-size: 20px;
-   font-weight: bold;
-   color: #007bff;
- }
-
- .invoice-footer .download-btn,
- .invoice-footer .btn-print {
-   background-color: #007bff;
-   color: #fff;
-   padding: 12px 25px;
-   font-size: 16px;
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
-   transition: background-color 0.3s ease;
- }
-
- .invoice-footer .download-btn:hover,
- .invoice-footer .btn-print:hover {
-   background-color: #0056b3;
- }
-
-
- /* Acceptance Form layouts Fix CSS */
-
- .acceptance-form-layouts {
-   width: 98%;
-   background-color: #034d48;
-   position: fixed;
-   z-index: 10000 !important;
- }
-
- @media(max-width:767px) {
-
-   .acceptance-form-layouts {
-     background-color: #034d48;
-     position: relative;
-     z-index: 2;
-
-   }
-
- }
-
-
-
-
- /* Centering the card */
- .center-card {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   min-height: 100vh;
- }
-
- /* Table styles */
- .invoice-items table {
-   width: 100%;
-   border-collapse: collapse;
- }
-
- .invoice-items th,
- .invoice-items td {
-   padding: 12px;
-   text-align: left;
-   border: 1px solid #ddd;
- }
-
- .invoice-items th {
-   background-color: #f8f9fa;
- }
-
- .invoice-items tbody tr:hover {
-   background-color: #f1f1f1;
-   cursor: pointer;
- }
-
- /* Responsive styling */
- @media (max-width: 768px) {
-   .invoice-header h1 {
-     font-size: 28px;
-   }
-
-   .invoice-header .logo {
-     width: 60px;
-   }
-
-   .invoice-footer {
-     flex-direction: column;
-     align-items: flex-start;
-   }
-
-   .invoice-footer .total-amount {
-     margin-bottom: 10px;
-   }
-
-   @media print {
-     .hide-text {
-       display: none;
-     }
-   }
- }
-
- /* work-order report css end here */
-
-
-
-
- .alert-success {
-   color: #fff;
-   background-color: rgba(38, 185, 154, .88);
-   border-color: rgba(38, 185, 154, .88);
- }
-
-
-
-
- /* Admin user profile css */
-
-
- .user-picture img {
-   border: 5px solid #ffffff;
-   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
- }
-
-
-
- .info-pair {
-   display: flex;
-   justify-content: space-between;
-   padding: 0.5rem 0;
-   border-bottom: 1px solid #e9ecef;
- }
-
-
-
-
-
- /* Breadcrumb CSS */
-
-
- ul.breadcrumb {
-   padding: 6px 6px;
-   list-style: none;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   margin-top: 12px;
-
- }
-
- ul.breadcrumb li {
-
-   font-size: 16px;
-   color: yellow;
- }
-
- ul.breadcrumb li+li:before {
-   padding: 7px;
-   color: white;
-   content: "/\00a0";
- }
-
- ul.breadcrumb li a {
-   color: white;
-   text-decoration: none;
- }
-
- ul.breadcrumb li a:hover {
-   color: #f0f0f0;
-   text-decoration: underline;
- }
-
- /* Fix size for preview image */
- img.preview {
-   width: 200px;
-   height: 135px;
- }
-
- /* Media Query on Breadcrumb */
-
- @media(max-width:426px) {
-   ul.breadcrumb {
-     padding: 6px 6px;
-     list-style: none;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin-top: 5px;
-     margin-left: 55px;
-
-   }
-
-   ul.breadcrumb li {
-
-     font-size: 13px;
-     color: yellow;
-   }
-
-   ul.breadcrumb li+li:before {
-     padding: 5px;
-     color: white;
-     content: "/\00a0";
-   }
-
- }
-
-
-
-
- /* Custom css Media Query */
-
- @media (max-width: 426px) {
-
-   .panel-header h2,
-   h3 {
-     margin-left: 97px;
-     font-size: 14px;
-   }
-
-
- }
-
-
- /* Overflow change password */
-
- #overflow {
-   position: relative;
-   left: 100;
-   z-index: 100;
-
- }
-
- /* Hide elements on print */
- @media print {
-   .noPrint {
-     display: none !important;
-   }
- }
-
- /* Acceptance form css */
- .acceptance-form-layouts {
-   width: 98%;
-   background-color: #034d48;
-   position: fixed;
-   z-index: 10000 !important;
- }
-
- @media(max-width:767px) {
-   .acceptance-form-layouts {
-     background-color: #034d48;
-     position: relative;
-     z-index: 2;
-   }
- }

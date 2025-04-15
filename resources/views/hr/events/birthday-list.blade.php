@@ -12,19 +12,22 @@
                 </div>
 
                 <div class="col-md-12 d-flex justify-content-start mx-3">
-                    <form class="row g-3 mt-2">
-                        <div class="col-auto">
+                    <form class="row g-3 mt-4">
+                        <div class="col-auto col-xs-12">
                             <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" required>
                         </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3"> Search <i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
+                        <div class="col-auto col-xs-12">
+                            <button type="submit" class="btn btn-primary mb-3"> Search</button>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <a href="{{ route('events.birthday-list') }}" class="btn btn-primary mb-3"> Reset</a>
                         </div>
                     </form>
                 </div>
+
+
+
+                
                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                         <path

@@ -48,19 +48,7 @@
                 </div>
 
                 <form method="get" action="{{ route('go-to-attendance',$wo_id)}}">
-                    <!-- <div class="col-md-12 text-center py-3 ">
-                        <label>Select Month :</label><br>
-                        
-                            <input name="month" class="date-picker date-picker" placeholder="mm-year" value="{{$month}}" />
-                            <label>Status</label>
-                            <select name="emp_status" id="emp_status">
-                                <option value="">-- All --</option>
-                                <option value="active" {{ request('emp_status') == 'active' ? 'selected' : '' }}>Active</option>
-                                <option value="resign" {{ request('emp_status') == 'resign' ? 'selected' : '' }}>Resign</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">Check <i class="fa-solid fa-square-check"></i></button>
-                        
-                    </div> -->
+                
                     <div class="row  mx-3 pt-2">
                         <div class="col-md-3 col-12">
                         </div>
@@ -101,10 +89,13 @@
                             <input name="search" type="text" class="form-control" placeholder="Search">
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search <i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                            <a href="{{route('go-to-attendance',$wo_id)}}" class="btn btn-primary mb-3">Reset <i
-                                    class="fa-solid fa-rotate-right"></i></a>
+                            <button type="submit" class="btn btn-primary mb-3">Search </button>
+                           
+                        </div>
+
+                        <div class="col-auto">
+                            <a href="{{route('go-to-attendance',$wo_id)}}" class="btn btn-primary mb-3">Clear </a>
+
                         </div>
                     </div>
                 </form>

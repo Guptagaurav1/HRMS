@@ -6,19 +6,22 @@
             <div class="panel-header">
                 <h3 class="mt-2">Holiday List</h3>
             </div>
-            <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
+            <div class="col-md-12 d-flex justify-content-start mx-4 mt-5">
                 <form class="row g-3">
-                    <div class="col-auto mb-3">
+                    <div class="col-auto  col-xs-12 mb-3 ">
                         <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-auto col-xs-12">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
-                        <a href="{{route('holiday-list')}}" class="btn btn-primary mb-3">Reset</a>
+                        
+                    </div>
+                    <div class="col-auto col-xs-12">
+                    <a href="{{route('holiday-list')}}" class="btn btn-primary mb-3">Clear</a>
                     </div>
                 </form>
             </div>
             
-            <div class="table-responsive vh-100">
+            <div class="table-responsive mt-4">
                 <div class="col-sm-12">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
