@@ -55,6 +55,9 @@ use App\Models\ClientAttachment;
 use App\Models\ClientAttachType;
 use App\Models\CompanyType;
 use App\Models\CompanyRoleMapping;
+use App\Models\LeadSourceList;
+use App\Models\LeadCategoryList;
+use App\Models\CrmProjectList;
 // use App\Models\Client;
 use DB;
 use Throwable;
@@ -159,7 +162,7 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_company_type_data($handle);
 
         // Add company type details.
-        $status =  $this->import_company_role_mapping_data($handle);
+        // $status =  $this->import_company_role_mapping_data($handle);
 
         // $status =  $this->import_city_data($handle);
 
@@ -170,6 +173,15 @@ class CommonDataImportController extends Controller
             // Employee Wish log
 
         // $status =  $this->emp_wish_mail_log($handle);
+
+        // Add lead source list.
+        // $status =  $this->import_lead_source_data($handle);
+
+        // Add lead category list.
+        // $status =  $this->import_lead_category_data($handle);
+
+        // Add crm project list.
+        $status =  $this->import_crm_project_list_data($handle);
             
 
         if (isset($status['error'])) {
@@ -350,6 +362,95 @@ class CommonDataImportController extends Controller
         return back()->with('success', 'CSV Imported Successfully!');
     }
 
+    
+    /**
+     * Import crm project details.
+     */
+    public function import_crm_project_list_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_by'] = $row['added_by'];
+                $row['per_inv_date'] = !empty($row['per_inv_date']) ? date('Y-m-d', strtotime($row['per_inv_date'])) : null;
+                $row['letter_ref_date'] = !empty($row['letter_ref_date']) ? date('Y-m-d', strtotime($row['letter_ref_date'])) : null;
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['added_time']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_time']));
+
+                unset($row['added_time']);
+                unset($row['updated_time']);
+                unset($row['added_by']);
+                CrmProjectList::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import company role mapping details.
+     */
+    public function import_lead_category_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_by'] = $row['added_by'];
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['added_at']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_at']));
+
+                unset($row['added_at']);
+                unset($row['added_by']);
+                LeadCategoryList::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import company role mapping details.
+     */
+    public function import_lead_source_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_by'] = $row['added_by'];
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['added_at']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_at']));
+
+                unset($row['added_at']);
+                unset($row['added_by']);
+                LeadSourceList::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    
     /**
      * Import company role mapping details.
      */

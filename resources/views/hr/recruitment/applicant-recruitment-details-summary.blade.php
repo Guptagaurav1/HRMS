@@ -343,7 +343,7 @@
                                                 <tr>
                                                     <td class="bold">Salary</td>
                                                     <td class="text-wrap">
-                                                        {{ Illuminate\Support\Number::currency($data->salary,in: 'INR') }}
+                                                        {{ $data->salary ? Illuminate\Support\Number::currency($data->salary,in: 'INR') : 0 }}
 
                                                     </td>
                                                 </tr>
