@@ -10,8 +10,6 @@ class EmpSendDoc extends Model
     use HasFactory;
     protected $table = 'emp_send_doc';
 
-    protected $fillable = ['emp_code', 'doc_type', 'document', 'status'];
-
     public static function boot()
     {
         parent::boot();
@@ -30,4 +28,11 @@ class EmpSendDoc extends Model
             });
         }
     }
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 }

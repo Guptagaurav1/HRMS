@@ -6,19 +6,21 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="mt-1">Salary Details</h2>
+                    <h2 class="mt-1">Salary List</h2>
                     <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Salary List</li>
                     </ul>
                 </div>
                 </div>
                 <p class="text-danger px-3 py-3">** Seacrh applicable on Emp Id/Name/Work Order Number/Designation</p>
                 <div class="col-md-12 text-end p-2">
-                    <button type="submit" class="btn btn-primary ">CSV</button>
+                    <a href="{{route('export-salary')}}">
+                    <button type="submit" class="btn btn-primary ">CSV</button></a>
                 </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3">

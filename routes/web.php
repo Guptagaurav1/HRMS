@@ -82,9 +82,6 @@ Route::middleware('guest')->group(function () {
         Route::get('/', 'login')->name('login');
         Route::post('d-login', 'd_login')->name('department_login');
         Route::post('emp-login', 'emp_login')->name('employee_login');
-
-
-
         Route::get("forgot-password", 'forget_password')->name("guest.forgot-password");
         Route::post("send-reset-link", 'send_reset_link')->name("guest.send-reset-link");
         Route::get("password-reset-form/{token}", 'reset_password')->name("guest.reset-password-form");
@@ -428,6 +425,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::get("edit-salary/{id}", 'edit_salary')->name('edit-salary');
         Route::post("update-salary/{id}", 'update_salary')->name('update-salary');
         Route::get("/delete/{id}", 'destroy')->name("delete-salary");
+        Route::get("/export-salary", 'export_csv')->name("export-salary");
     });
 
     Route::controller(EventController::class)->prefix('events')->group(function () {
@@ -632,8 +630,6 @@ Route::middleware('employee')->prefix('employee')->group(function () {
       
     });
 
-
-
     // Route::get("employee-compose-email", function () {
     //     return view("employee.employee-compose-email");
     // })->name("employee-compose-email");
@@ -641,8 +637,6 @@ Route::middleware('employee')->prefix('employee')->group(function () {
     // Route::get("employee-holiday-list", function () {
     //     return view("employee.employee-holiday-list");
     // })->name("employee-holiday-list");
-
-
 
     Route::get("employee-reimbursement-list", function () {
         return view("employee.employee-reimbursement-list");

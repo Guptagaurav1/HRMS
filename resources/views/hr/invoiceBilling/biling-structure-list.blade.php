@@ -7,7 +7,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2">Invoice Billing Structure</h3>
-                    
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>Invoice Billing Structure</li>
+                        </ul>
+                    </div>
                 </div>
               
                 <div class="col-md-12 d-flex justify-content-start px-3 mt-5">

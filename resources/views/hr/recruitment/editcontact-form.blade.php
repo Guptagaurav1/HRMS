@@ -15,6 +15,16 @@
         <div class="panel">
             <div class="panel-header">
                 <h5 class="text-white">Edit Details</h5>
+                <div>
+                    <ul class="breadcrumb">
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li><a href="{{route('recruitment.call_logs')}}">Edit Contact Candidate By List</a></li>
+                        <li>Edit Contact Candidate By Call</li>
+                    </ul>
+                </div>
             </div>
             @if(auth()->user()->hasPermission('recruitment.call_logs'))
                 <div class="text-end mt-2 px-2">

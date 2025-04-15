@@ -45,4 +45,11 @@ class Salary extends Model
         return $this->belongsTo(WoAttendance::class, 'sl_emp_code', 'emp_code');
     }
 
+     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
 }

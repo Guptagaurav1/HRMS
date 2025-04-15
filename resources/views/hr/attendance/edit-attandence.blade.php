@@ -18,6 +18,16 @@
                 
                 <div class="panel-header">
                     <h5 class="text-white">Attendance Edit</h5>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li><a href="{{route('attendance-list')}}">Attendance List</a></li>
+                            <li>Attendance Edit</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="text-end px-4 ">
                     <a href="{{route('attendance-list')}}"> <button class="btn btn-sm btn-primary my-2">Attendance List <i class="fa-solid fa-list"></i></button></a>

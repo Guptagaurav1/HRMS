@@ -18,10 +18,10 @@ class ResponseLogController extends Controller
      */
     public function profile_change_log(Request $request){
         $email = auth()->user()->email;
-        $logs = EmpProfileRequestLog::select('emp_profile_request_logs.changed_column', 'emp_profile_request_logs.req_id', 'emp_profile_request_logs.emp_code', 'emp_profile_request_logs.description', 'emp_profile_request_logs.status', 'notification.time', 'notification.send_by')
-            ->leftJoin('notification', 'emp_profile_request_logs.id', '=', 'notification.reference_table_id')
-            ->where('notification.notification_type', 'employee_resp')
-            ->where('notification.send_by', $email);
+        $logs = EmpProfileRequestLog::select('emp_profile_request_logs.changed_column', 'emp_profile_request_logs.req_id', 'emp_profile_request_logs.emp_code', 'emp_profile_request_logs.description', 'emp_profile_request_logs.status', 'notifications.created_at', 'notifications.send_by')
+            ->leftJoin('notifications', 'emp_profile_request_logs.id', '=', 'notifications.reference_table_id')
+            ->where('notifications.notification_type', 'employee_resp')
+            ->where('notifications.send_by', $email);
 
         $search = '';
         if ($request->search) {
@@ -30,7 +30,7 @@ class ResponseLogController extends Controller
                 'emp_profile_request_logs.req_id',
                 'emp_profile_request_logs.emp_code',
                 'emp_profile_request_logs.description',
-                'notification.send_by',
+                'notifications.send_by',
                 'emp_profile_request_logs.status',
             ], 'LIKE', '%'.$request->search.'%');
         }
@@ -42,9 +42,9 @@ class ResponseLogController extends Controller
      * Show the listing of Recruiter Detail Change Response Log.
      */
     public function detail_change_log(Request $request){
-        $logs = UserRequestLog::select('user_request_logs.user_id', 'user_request_logs.req_id', 'user_request_logs.query_type', 'user_request_logs.job_position', 'user_request_logs.description', 'user_request_logs.status', 'notification.time', 'notification.received_to')
-            ->join('notification', 'user_request_logs.id', '=', 'notification.reference_table_id')
-            ->where('notification.notification_type', 'user_resp'); // user_req
+        $logs = UserRequestLog::select('user_request_logs.user_id', 'user_request_logs.req_id', 'user_request_logs.query_type', 'user_request_logs.job_position', 'user_request_logs.description', 'user_request_logs.status', 'notifications.time', 'notifications.received_to')
+            ->join('notifications', 'user_request_logs.id', '=', 'notifications.reference_table_id')
+            ->where('notifications.notification_type', 'user_resp'); // user_req
         $search = '';
         if ($request->search) {
             $search = $request->search;

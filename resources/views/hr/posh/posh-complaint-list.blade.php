@@ -8,6 +8,15 @@
                 <div class="panel">
                     <div class="panel-header  heading-stripe">
                         <h3 class="mt-2 text-center">POSH Complaint List</h3>
+                        <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>POSH Complaint List</li>
+                        </ul>
+                    </div>
                     </div>
                     <div class="col-md-12 d-flex justify-content-start mx-3">
                         <form class="row g-3 mt-2">

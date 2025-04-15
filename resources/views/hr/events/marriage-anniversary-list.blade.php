@@ -8,7 +8,16 @@
         <div class="panel">
             {{-- Heading --}}
             <div class="panel-header">
-                <h2 class="mt-2">UPCOMING 15 DAYS MARRIAGE ANNIVERSARY LIST</h2>
+                <h4>UPCOMING 15 DAYS MARRIAGE ANNIVERSARY LIST</h4>
+                <div>
+                    <ul class="breadcrumb">
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>MARRIAGE ANNIVERSARY LIST</li>
+                    </ul>
+                </div>
             </div>
 
             {{-- Filters --}}

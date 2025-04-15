@@ -8,6 +8,15 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Saved Invoice</h3>
+                <div>
+                    <ul class="breadcrumb">
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Save Invoice</li>
+                    </ul>
+                </div>
             </div>
             
             <div class="col-md-12 d-flex justify-content-start mx-3 mt-5">

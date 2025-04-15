@@ -2,12 +2,6 @@
 @extends('layouts.master')
 
 @section('contents')
-    <div class="dashboard-breadcrumb mb-25">
-        <h2>Create User</h2>
-        <div class="btn-box">
-            <a href="{{route('users')}}" class="btn btn-sm btn-primary">User List</a>
-        </div>
-    </div>
     
     <form action="{{ route('store-user') }}" method="post">
         @csrf
@@ -15,18 +9,20 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h2 class="mt-1">User Details</h2>
+                        <h4 class="mt-1">Add User</h4>
                         <div>
                             <ul class="breadcrumb">
-                                <li><a href="#">Dashboard</a></li>
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Profile Details</a></li>
-                                <li>Department List</li>
+                                <li> @if (auth()->user()->role->role_name="hr")
+                                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                    @endif
+                                </li>
+                                <li><a href="{{route('users')}}">Users List</a></li>
+                                <li>Add Users</li>
                             </ul>
                         </div>
                     </div>
                 
-                        <div class="panel-body">
+                        <div class="panel-body mt-5">
                             <div class="row g-3">
                                 <div class="col-lg-4 col-sm-6">
                                     <label for="company_id" class="form-label">Select Comapny Name <span class="text-danger"> ** </span></label>

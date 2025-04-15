@@ -4,28 +4,23 @@
 @section('contents')
     <div class="panel">
         <div class="panel-header">
-        <h2>New Position Request</h2>
-        <div>
-                            <ul class="breadcrumb">
-                                <li><a href="#">Dashboard</a></li>
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Profile Details</a></li>
-                                <li>Department List</li>
-                            </ul>
-                        </div>
+            <h2>Update Position Request</h2>
+            <div>
+                <ul class="breadcrumb">
+                    <li> @if (auth()->user()->role->role_name="hr")
+                        <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                    </li>
+                    <li> <a href="{{route('recruitment-report')}}">Recruitment Report</a></li>
+                    <li>Update Position Request</li>
+                </ul>
+            </div>
         </div>
        
         
     </div>
-    <div class="dashboard-breadcrumb mb-25">
-        
-        <div class="d-flex gap-2 justify-items-center align-items-center">
-            <input type="radio" id="html" name="fav_language" value="HTML">
-            <label for="html">Single Entry</label><br>
-        </div>
-
-    </div>
-    <div class="row">
+    
+    <div class="row mt-3">
         
         <form class="form" method="post" action="{{route('recruitment.update_position')}}" enctype="multipart/form-data">
         @csrf

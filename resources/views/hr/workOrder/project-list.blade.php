@@ -7,10 +7,11 @@
                 <h2 class="mt-2">Project List</h2>
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Project List</li>
                     </ul>
                 </div>
             </div>
@@ -44,7 +45,7 @@
 
                                 </div>
                                 <div class="col-md-6">
-
+                                  <a href="{{ route('project-list')}}">
                                 <button type="button" class="btn btn-sm btn-primary mb-3">Clear <i
                                 class="fa-solid fa-eraser"></i></button></a>
                                 </div>

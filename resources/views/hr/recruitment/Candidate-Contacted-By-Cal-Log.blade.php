@@ -10,7 +10,16 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h2 class="text-white mt-2">Contact Candidate By Call Form</h2>
+                    <h2 class="text-white mt-2">Contact Candidate By Call List</h2>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>Contact Candidate By Call List</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="row px-3 ">
 

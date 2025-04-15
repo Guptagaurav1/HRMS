@@ -8,6 +8,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="text-white mt-2">Vendor List</h3>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>Vendor List</li>
+                        </ul>
+                    </div>
 
                 </div>
                 <div class="text-end px-2 mt-3">

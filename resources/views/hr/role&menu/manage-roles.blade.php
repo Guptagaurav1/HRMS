@@ -6,20 +6,36 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2 ">Manage Roles</h3>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>Manage Role</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="text-end px-2 mt-3">
-                    <a href="{{route('add-manage-role')}}"><button type="button" class="btn btn-primary mb-3">Add Roles <i class="fa-solid fa-plus"></i></button></a>
+                   
                 </div>
-                <div class="col-md-12 d-flex justify-content-start px-2">
+                <div class="col-md-12 d-flex justify-content-between flex-wrap px-4 mt-5">
                     <form class="row g-3" method="get">
-                        <div class="col-auto mb-3">
+                        <div class="col-auto col-xs-12 mb-3">
                             <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
-                            <a href="{{ route('manage-roles') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                           
+                        </div>
+                        <div  class="col-auto col-xs-12">
+                        <a href="{{ route('manage-roles') }}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
                         </div>
                     </form>
+                    <div class="col-auto col-xs-12">
+                    <a href="{{route('add-manage-role')}}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Add Roles <i class="fa-solid fa-plus"></i></button></a>
+
+                    </div>
                 </div>
                 <div class="row px-3">
                     @if($message = Session::get('success'))

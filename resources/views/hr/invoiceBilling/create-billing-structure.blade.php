@@ -12,6 +12,15 @@
 
                 <div class="panel-header mt-2">
                     <h5 class="text-white">Create Billing Structure</h5>
+                    <div>
+                    <ul class="breadcrumb">
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Create Billing Structure</li>
+                    </ul>
+                </div>
                 </div>
                 <div class="panel-body">
                     <div class="row g-3">

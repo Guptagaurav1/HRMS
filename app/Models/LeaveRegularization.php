@@ -10,13 +10,6 @@ class LeaveRegularization extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['wo_number', 'at_emp', 'emp_id', 'emp_code', 'leave_month', 'leave_dates'];
-
     public static function boot()
     {
         parent::boot();
@@ -36,4 +29,11 @@ class LeaveRegularization extends Model
         }
         
     }
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 }

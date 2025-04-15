@@ -12,7 +12,7 @@ class Organization extends Model
     use HasFactory,SoftDeletes;
 
 
-    protected $fillable = ['name','address','contact','email','state_id','city_id','postal_code','psu','psu_name'];
+    protected $fillable = ['name','address','contact','email','state_id','city_id','postal_code','psu','psu_name','status'];
     
     public function projects()
     {

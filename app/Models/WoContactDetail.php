@@ -9,10 +9,6 @@ class WoContactDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'wo_client_contact_person', 'wo_client_designation', 'wo_client_contact', 'wo_client_email', 'wo_client_remarks', 'work_order_id'
-    ];
-
     public function workOrder()
     {
         return $this->belongsTo(WorkOrder::class);
@@ -36,4 +32,11 @@ class WoContactDetail extends Model
         }
         
     }
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 }

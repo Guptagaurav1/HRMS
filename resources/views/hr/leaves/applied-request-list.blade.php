@@ -8,6 +8,21 @@
             <div class="panel">
                 <div class="panel-header">
                     <h2 class="mt-2">Leave Request List</h2>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li>
+                            @if (auth('employee')->check())
+                                <a href="{{route('employee.dashboard')}}">Dashboard</a>
+                            @elseif (auth()->check())
+                                @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            @endif
+                        
+                            </li>
+                            <li>Leave Request List</li>
+                        </ul>
+                    </div>
                 </div>
 
                 {{-- Show filter form. --}}

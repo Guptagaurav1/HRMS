@@ -11,7 +11,16 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header">
-                    <h5 class="text-white">Create Invoice</h5>
+                    <h3 class="text-white">Create Invoice</h3>
+                    <div>
+                    <ul class="breadcrumb">
+                        <li> @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Create Invoice</li>
+                    </ul>
+                </div>
                 </div>
 
                 <div class="panel-body">
