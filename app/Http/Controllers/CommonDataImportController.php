@@ -64,6 +64,7 @@ use App\Models\LeadAssignUser;
 use App\Models\LeadFollowUpList;
 use App\Models\LeadSpocPerson;
 use App\Models\CrmActionLog;
+use App\Models\TenderList;
 // use App\Models\Client;
 use DB;
 use Throwable;
@@ -203,7 +204,10 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_lead_spoc_person_data($handle);
 
         // Add crm lead spoke person list.
-        $status =  $this->import_crm_action_logs_data($handle);
+        // $status =  $this->import_crm_action_logs_data($handle);
+
+        // Add tender list.
+        $status =  $this->import_tender_list_data($handle);
             
 
         if (isset($status['error'])) {
@@ -385,6 +389,33 @@ class CommonDataImportController extends Controller
     }
 
     
+    /**
+     * Import tender list details.
+     */
+    public function import_tender_list_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
+                $row['updated_at'] = $row['updated_at'] ? date('Y-m-d h:i:s', strtotime($row['updated_at'])) : null;
+                $row['date'] = date('Y-m-d', strtotime($row['date']));
+                $row['submission_date'] = date('Y-m-d', strtotime($row['submission_date']));
+
+                TenderList::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
     /**
      * Import crm action logs details.
      */
