@@ -36,10 +36,10 @@ return new class extends Migration
 
             $table->string('wo_invoice_name')->nullable();
 
-            $table->string('wo_invoice_address')->nullable();
+            $table->text('wo_invoice_address')->nullable();
             $table->string('wo_state')->nullable();
             $table->string('wo_pin')->nullable();
-            $table->string('wo_remarks')->nullable();
+            $table->text('wo_remarks')->nullable();
             $table->string('wo_status')->nullable();;
             $table->date('wo_created_date')->nullable();;
             $table->string('wo_entry_by')->nullable();;

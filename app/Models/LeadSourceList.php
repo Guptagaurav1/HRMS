@@ -5,14 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WoContactDetail extends Model
+class LeadSourceList extends Model
 {
     use HasFactory;
+    
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
-    public function workOrder()
-    {
-        return $this->belongsTo(WorkOrder::class);
-    }
+    /**
+     * Store record of user on default events.
+     */
     public static function boot()
     {
         parent::boot();
@@ -20,7 +26,6 @@ class WoContactDetail extends Model
             static::creating(function ($model) {
                 $model->created_by = auth()->user()->id;
             });
-
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
             });
@@ -30,13 +35,5 @@ class WoContactDetail extends Model
                 $model->save();
             });
         }
-        
     }
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
 }

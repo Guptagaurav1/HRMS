@@ -13,6 +13,8 @@ class Notification extends Model
     /**
      * Save User id on CRUD operation.
      */
+    // protected $fillable = ['id','title','description','send_by','received_to','user_type','notification_type','reference_table_name','reference_table_id','read_status','read_time','created_at'];
+    
     public static function boot()
     {
         parent::boot();

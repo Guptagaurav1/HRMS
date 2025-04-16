@@ -24,7 +24,7 @@ class OrganizationController extends Controller
             });
         }
         
-        $organizations = $organizations->paginate(20)->withQueryString();
+        $organizations = $organizations->paginate(10)->withQueryString();
         return view("hr.master.organization.organization", compact('organizations','search'));
     }
 

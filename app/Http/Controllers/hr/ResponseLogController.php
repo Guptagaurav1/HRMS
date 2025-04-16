@@ -18,7 +18,7 @@ class ResponseLogController extends Controller
      */
     public function profile_change_log(Request $request){
         $email = auth()->user()->email;
-        $logs = EmpProfileRequestLog::select('emp_profile_request_logs.changed_column', 'emp_profile_request_logs.req_id', 'emp_profile_request_logs.emp_code', 'emp_profile_request_logs.description', 'emp_profile_request_logs.status', 'notifications.time', 'notifications.send_by')
+        $logs = EmpProfileRequestLog::select('emp_profile_request_logs.changed_column', 'emp_profile_request_logs.req_id', 'emp_profile_request_logs.emp_code', 'emp_profile_request_logs.description', 'emp_profile_request_logs.status', 'notifications.created_at', 'notifications.send_by')
             ->leftJoin('notifications', 'emp_profile_request_logs.id', '=', 'notifications.reference_table_id')
             ->where('notifications.notification_type', 'employee_resp')
             ->where('notifications.send_by', $email);
