@@ -12,6 +12,7 @@ class RecruitmentForm extends Model
 {
     use HasFactory, SoftDeletes;
 
+// protected $fillable = ['id','send_mail_id','pos_req_id','department','recruitment_type','employment_type','gender','relative_name','relation','district','state','pincode','scope_of_work','candidate_address','firstname','lastname','job_position','dob','location','education','experience','skill','email','phone','resume','status','stage1','stage2','stage3','stage4','stage5','stage6','finally','reference','reference_name','salary','fixed','variable','emp_code','others','read_status','remarks_first_round','remarks_second_round','remarks_for_backout','offer_letter','doj','other_skills','rec_form_status','	recruitment_status','created_at','updated_at'];
     /**
      * Save User id on CRUD operation.
      */

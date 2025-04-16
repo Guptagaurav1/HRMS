@@ -5,27 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SendMailLog extends Model
+class LeadSpocPerson extends Model
 {
     use HasFactory;
-
+    
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'send_mail_log';
-
+    protected $table = 'lead_spoc_person';
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id','uni_id', 'receiver_name', 'receiver_email', 'job_position', 'department', 'sender_email', 'message'];
+    protected $guarded = [];
 
     /**
-     * Save User id on CRUD operation.
-     *
+     * Save record of login user on default events of model.
      */
     public static function boot()
     {
@@ -34,7 +32,6 @@ class SendMailLog extends Model
             static::creating(function ($model) {
                 $model->created_by = auth()->user()->id;
             });
-
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
             });
@@ -44,6 +41,6 @@ class SendMailLog extends Model
                 $model->save();
             });
         }
-        
     }
+
 }
