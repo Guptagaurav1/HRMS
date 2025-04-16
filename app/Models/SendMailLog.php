@@ -21,7 +21,7 @@ class SendMailLog extends Model
      *
      * @var array
      */
-    protected $fillable = ['uni_id', 'receiver_name', 'receiver_email', 'job_position', 'department', 'sender_email', 'message'];
+    protected $fillable = ['id','uni_id', 'receiver_name', 'receiver_email', 'job_position', 'department', 'sender_email', 'message'];
 
     /**
      * Save User id on CRUD operation.

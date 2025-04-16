@@ -174,7 +174,7 @@
                                         <td class='text-center'>
                                             {{ $employee->emp_work_order }}
                                         </td>
-                                        <td class='text-center'>{{ $employee->emp_designation }}</td>
+                                        <td class='text-center attributes-column'>{{ $employee->emp_designation }}</td>
                                         <td class='text-center'>{{ $employee->emp_phone_first }}</td>
                                         <td class='text-center'>{{ $employee->emp_email_first }}</td>
                                         <td class='text-center'>

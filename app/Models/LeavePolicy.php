@@ -10,6 +10,7 @@ class LeavePolicy extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['id','period','paid_leave','casual_leave','status','duration','leave_carry_forward','per_month_leave'];
     /**
      * The attributes that aren't mass assignable.
      *
