@@ -1,16 +1,9 @@
 @extends('layouts.master')
 
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
         <div class="panel">
-   
             <div class="row mt-3" id="tab-2" >
                 <form action="{{route('create-attendance')}}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -76,8 +69,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-primary mb-3 mx-2"> <i class="fa-solid fa-upload"></i> Upload CSV</button>
+                    <div class="col-md-12 text-end">
+                        <button type="submit" class="btn btn-sm btn-primary "> <i class="fa-solid fa-upload"></i> Upload CSV</button>
                     </div>
                 </form>
             </div>

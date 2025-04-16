@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'POSH Complaints'])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
+
 @section('contents')
     <div class="fluid-container">
         <div class="row">
@@ -22,19 +20,22 @@
                     </div>
                     <div class="col-md-12 d-flex justify-content-start mx-3">
                         <form class="row g-3 mt-2">
-                            <div class="col-auto">
+                            <div class="col-auto col-xs-12">
                                 <input type="search" class="form-control" placeholder="Search" name="search" value="{{$search}}" required>
                             </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn btn-primary mb-3"> Search <i
+                            <div class="col-auto col-xs-12">
+                                <button type="submit" class="btn btn-primary  mb-3"> Search <i
                                         class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
-                            <div class="col-auto">
-                                <a href="{{route('posh.complaint-list')}}" class="btn btn-primary mb-3"> Reset <i class="fa-solid fa-rotate-left"></i></a>
+                            <div class="col-auto col-xs-12">
+                                <a href="{{route('posh.complaint-list')}}" class="btn btn-primary  mb-3"> Clear </a>
                                         
                             </div>
                         </form>
                     </div>
+
+
+                    
                     <div class="table-responsive mt-3 ">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                             id="allEmployeeTable">

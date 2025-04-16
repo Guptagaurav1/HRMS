@@ -70,8 +70,10 @@
                             <input name="search" type="text" class="form-control" placeholder="Search">
                         </div>
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search <i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
+                            <button type="submit" class="btn btn-primary mb-3">Search</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-primary mb-3">Clear</button>
                         </div>
                     </div>
                 </form>

@@ -65,8 +65,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 d-flex justify-content-end ">
+        <div class="col-12 d-flex justify-content-end gap-3">
+            <div>
+            <button class="btn btn-sm btn-secondary">Cancel </button>
+
+            </div>
+            <div>
             <button class="btn btn-sm btn-primary">Submit <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+           
         </div>
     </form>
 </div>

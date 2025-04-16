@@ -1,11 +1,6 @@
 @extends('layouts.master', ['title' => 'Recruiter Response Log'])
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
-@endsection
 
 @section('contents')
 <div class="row">
@@ -65,14 +60,14 @@
                         }
                         @endphp
                         <tr>
-                            <td>{{$log->req_id}}</td>
-                            <td>{{$log->user->first_name." ".$log->user->last_name}}</td>
-                            <td>{{$log->query_type}}</td>
-                            <td>{{$log->job_position}}</td>
-                            <td>{{$log->description}}</td>
-                            <td>{{$log->user->email}}</td>
-                            <td>{{date('jS F, Y', strtotime($log->time))}}</td>
-                            <td><span class="badge text-bg-{{$color}}">{{$log->status}}</span></td>
+                            <td class="text-center">{{$log->req_id}}</td>
+                            <td class="text-center">{{$log->user->first_name." ".$log->user->last_name}}</td>
+                            <td class="text-center">{{$log->query_type}}</td>
+                            <td class="text-center">{{$log->job_position}}</td>
+                            <td class="text-center">{{$log->description}}</td>
+                            <td class="text-center">{{$log->user->email}}</td>
+                            <td class="text-center">{{date('jS F, Y', strtotime($log->time))}}</td>
+                            <td class="text-center"><span class="badge text-bg-{{$color}}">{{$log->status}}</span></td>
                         </tr>
                         @empty
                         <tr>

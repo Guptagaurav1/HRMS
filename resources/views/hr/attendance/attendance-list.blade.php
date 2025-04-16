@@ -1,15 +1,5 @@
 
-
-
-
-
 @extends('layouts.master')
-
-@section('style')
-
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
 
 @section('contents')
 <div class="row">
@@ -65,12 +55,16 @@
                 </div>
             <div class="col-md-12 d-flex justify-content-start mx-3">
                 <form method="get" class="row g-3 py-2 mt-2">
-                    <div class="col-auto ">
+                    <div class="col-auto col-xs-12">
                         <input type="text" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-auto col-xs-12">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
-                        <a href="{{ route('attendance-list') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                       
+                    </div>
+                    <div class="col-auto col-xs-12">
+                    <a href="{{ route('attendance-list') }}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+
                     </div>
                 </form>
             </div>
