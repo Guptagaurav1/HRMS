@@ -30,7 +30,7 @@ class Form16 extends Model
 
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
-            });
+            });reasonsStrugglingToHireITTalent
 
             static::deleting(function ($model) {
                 $model->deleted_by = auth()->user()->id;

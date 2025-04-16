@@ -55,14 +55,14 @@
                     </div>
                     <div class="col-md-12 d-flex justify-content-start mx-3">
                         <form class="row g-3">
-                            <div class="col-auto">
+                            <div class="col-auto col-xs-12">
                                 <input type="search" class="form-control" placeholder="Search" name="search" value="{{$search}}" required>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-auto col-xs-12">
                                 <button type="submit" class="btn btn-primary mb-3"> Search <i
                                         class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-auto col-xs-12">
                                 <a href="{{route('recruitment-list')}}" class="btn btn-primary mb-3">Clear <i
                                 class="fa-solid fa-eraser"></i></a>
                             </div>

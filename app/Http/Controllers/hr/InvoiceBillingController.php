@@ -472,6 +472,7 @@ class InvoiceBillingController extends Controller
         return view("hr.invoiceBilling.add-new-form16",compact('empDetail'));
     }
     public function create(Request $request){
+        
         $request->validate([
               'emp_pan'=>'required',
               'financial_year'=>'required'

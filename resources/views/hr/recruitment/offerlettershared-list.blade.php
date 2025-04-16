@@ -16,10 +16,26 @@
                                 </li>
                                 <li>Offer Letter Shared List</li>
                             </ul>
-                        </div>
+                    </div>
 
                 </div>
-                <div class="row px-3 mt-2">
+
+                <div class="col-md-12 d-flex justify-content-start mx-3">
+                        <form class="row g-3 mt-4">
+                            <div class="col-auto col-xs-12">
+                                <input type="search" class="form-control" placeholder="Search" name="search" value="" required>
+                            </div>
+                            <div class="col-auto col-xs-12">
+                                <button type="submit" class="btn btn-primary  mb-3"> Search <i
+                                        class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                            <div class="col-auto col-xs-12">
+                                <a href="" class="btn btn-primary  mb-3"> Clear </a>
+                                        
+                            </div>
+                        </form>
+                    </div>
+                <div class="row px-3 mt-1">
                     <div class="col-md-3">
                         {{-- <label class="form-label">Skills <span style="color: red">*</span></label>
                             <input type="text" class="form-control form-control-sm"> --}}
@@ -59,7 +75,7 @@
                             <tr>
                                 <td class="srno-column text-center">{{$loop->iteration}}</td>
                                 <td class="rid-column text-center">{{$record->firstname." ".$record->lastname}}</td>
-                                <td class="text-center">{{$record->email." / ".$record->phone}}</td>
+                                <td class="text-center attributes-column">{{$record->email." / ".$record->phone}}</td>
                                 <td class="text-center">{{$record->job_position}}</td>
                                 <td class="text-center">{{$record->getPositionDetail ? $record->getPositionDetail->client_name : ''}}</td>
                                 <td class="text-center"> 

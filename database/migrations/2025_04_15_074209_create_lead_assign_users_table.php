@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('lead_assign_users', function (Blueprint $table) {
             $table->id();
-            $table->string('rid')->nullable();
-            $table->string('role_name')->nullable();
-            $table->text('menu_id')->nullable();
-            // $table->foreign('menu_id')->references('id')->on('menus')->onDelete('NO ACTION');
-            $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+            $table->unsignedBigInteger('lead_id');
+            $table->foreign('lead_id')->references('id')->on('lead_lists');
+            $table->integer('assigned_user_id');
+            $table->foreign('assigned_user_id')->references('id')->on('users');
+            $table->enum('follow_up_status', ['enabled','disabled'])->default('enabled');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->integer('updated_by')->nullable();
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('lead_assign_users');
     }
 };

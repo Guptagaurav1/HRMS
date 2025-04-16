@@ -55,9 +55,29 @@ use App\Models\ClientAttachment;
 use App\Models\ClientAttachType;
 use App\Models\CompanyType;
 use App\Models\CompanyRoleMapping;
+use App\Models\ContactedByCallLog;
+use App\Models\District;
+use App\Models\RecruitmentForm;
+use Illuminate\Support\Carbon;
+use App\Models\RecAddressDetail;
+use App\Models\RecBankDetail;
+use App\Models\RecEducationalDetail;
+use App\Models\RecEsiDetail;
+use App\Models\RecNomineeDetail;
+use App\Models\RecPersonalDetail;
+use App\Models\RecPreviousCompany;
+use App\Models\LeavePolicy;
+use App\Models\SendMailLog;
 use App\Models\LeadSourceList;
 use App\Models\LeadCategoryList;
 use App\Models\CrmProjectList;
+use App\Models\LeadList;
+use App\Models\LeadAttachment;
+use App\Models\LeadAssignUser;
+use App\Models\LeadFollowUpList;
+use App\Models\LeadSpocPerson;
+use App\Models\CrmActionLog;
+use App\Models\TenderList;
 // use App\Models\Client;
 use DB;
 use Throwable;
@@ -118,8 +138,6 @@ class CommonDataImportController extends Controller
 
         // $status =  $this->invoice_records($handle);
         
-
-        
         // if(isset($status['error'])){
         // $status =  $this->import_leave_regularisation_data($handle);
 
@@ -174,6 +192,50 @@ class CommonDataImportController extends Controller
 
         // $status =  $this->emp_wish_mail_log($handle);
 
+
+        // Add contacted by call logs
+
+        // $status =  $this->contacted_by_call_logs($handle);
+
+        // add district
+        // 
+        // $status =  $this->district($handle);
+
+        // Add Recruitment form
+        // $status =  $this->recruitment_forms($handle);
+
+        // Add rec_address_details
+
+        //  $status =  $this->rec_address_details($handle);
+
+        // Add rec_bank_details
+        // $status =  $this->rec_bank_details($handle);
+
+    //    // Add rec_educational_details
+    //     $status =  $this->rec_educational_details($handle);
+
+    // Add rec_esi_details
+    // $status =  $this->rec_esi_details($handle);
+
+    // Add rec_nominee_details
+    // $status =  $this->rec_nominee_details($handle);
+
+    // // Add rec_personal_details
+    // $status =  $this->rec_personal_details($handle);
+
+    // Add rec_previous_companies
+    // $status =  $this->rec_previous_companies($handle);
+
+    // Add leave_policies
+    // $status =  $this->leave_policies($handle);
+    
+    // Add send_mail_log
+    $status =  $this->send_mail_log($handle);
+    
+
+
+
+
         // Add lead source list.
         // $status =  $this->import_lead_source_data($handle);
 
@@ -181,7 +243,28 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_lead_category_data($handle);
 
         // Add crm project list.
-        $status =  $this->import_crm_project_list_data($handle);
+        // $status =  $this->import_crm_project_list_data($handle);
+
+        // Add crm lead list.
+        // $status =  $this->import_lead_list_data($handle);
+
+        // Add crm lead attachments list.
+        // $status =  $this->import_lead_attachment_data($handle);
+
+        // Add crm lead assigned users list.
+        // $status =  $this->import_lead_assign_user_data($handle);
+
+        // Add crm lead follow up list.
+        // $status =  $this->import_lead_follow_up_list_data($handle);
+
+        // Add crm lead spoke person list.
+        // $status =  $this->import_lead_spoc_person_data($handle);
+
+        // Add crm lead spoke person list.
+        // $status =  $this->import_crm_action_logs_data($handle);
+
+        // Add tender list.
+        $status =  $this->import_tender_list_data($handle);
             
 
         if (isset($status['error'])) {
@@ -363,6 +446,209 @@ class CommonDataImportController extends Controller
     }
 
     
+    /**
+     * Import tender list details.
+     */
+    public function import_tender_list_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
+                $row['updated_at'] = $row['updated_at'] ? date('Y-m-d h:i:s', strtotime($row['updated_at'])) : null;
+                $row['date'] = date('Y-m-d', strtotime($row['date']));
+                $row['submission_date'] = date('Y-m-d', strtotime($row['submission_date']));
+
+                TenderList::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import crm action logs details.
+     */
+    public function import_crm_action_logs_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['lead_id'] = get_lead_id($row['lead_id']) ? get_lead_id($row['lead_id']) : null;
+                $row['assigned_user_id'] = $row['assigned_user_id'] ? $row['assigned_user_id'] : null;
+                $row['follow_up_id'] = $row['follow_up_id'] ? $row['follow_up_id'] : null;
+                $row['updated_by'] = $row['changed_by'] ? $row['changed_by'] : null;
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_time']));
+
+                unset($row['created_time']);
+                unset($row['changed_by']);
+                CrmActionLog::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import crm lead spoc person details.
+     */
+    public function import_lead_spoc_person_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['added_on']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
+
+                unset($row['added_on']);
+                unset($row['updated_on']);
+                LeadSpocPerson::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import crm lead follow up list details.
+     */
+    public function import_lead_follow_up_list_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['lead_id'] = get_lead_id($row['lead_id']);
+                $row['created_by'] = $row['added_by'] ? $row['added_by'] : null;
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['next_follow_up'] = date('Y-m-d', strtotime($row['date']));
+
+                unset($row['added_by']);
+                unset($row['created_on']);
+                unset($row['date']);
+                LeadFollowUpList::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import crm lead assigned users details.
+     */
+    public function import_lead_assign_user_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+             
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
+
+                unset($row['created_on']);
+                unset($row['updated_on']);
+                LeadAssignUser::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import crm lead attachment details.
+     */
+    public function import_lead_attachment_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+             
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
+
+                unset($row['created_on']);
+                unset($row['updated_on']);
+                LeadAttachment::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+
+    /**
+     * Import crm lead list details.
+     */
+    public function import_lead_list_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+                $row['created_by'] = $row['added_by'];
+                $row['category_id'] = $row['category_id'] ? $row['category_id'] : null;
+                $row['closing_amount'] = $row['closing_amount'] ? $row['closing_amount'] : 0;
+                $row['deadline'] = !empty($row['deadline']) ? date('Y-m-d', strtotime($row['deadline'])) : null;
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
+
+                unset($row['created_on']);
+                unset($row['updated_on']);
+                unset($row['added_by']);
+                LeadList::create($row);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
     /**
      * Import crm project details.
      */
@@ -1611,27 +1897,304 @@ public function emp_wish_mail_log($handle){
 
 }
 
+//add data contacted by call logs
+
+public function contacted_by_call_logs($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            ContactedByCallLog::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+
+}
+
+
+// add data district
+
+
+public function district($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['id'] = $row['id'];
+            District::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+
+}
+
+//recruitment_forms
+
+public function recruitment_forms($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['id'] = $row['id'];
+            $row['created_at'] = empty($row['add_time']) || $row['add_time'] == 'NULL' ? null : Carbon::parse($row['add_time']);
+            $row['gender'] = empty($row['gender']) || $row['gender'] == 'NULL' ? null :  $row['gender'];
+            $row['district'] = empty($row['district']) || $row['district'] == 'NULL' ? null :  $row['district'];
+            $row['state'] = empty($row['state']) || $row['state'] == 'NULL' ? null :  $row['state'];
+            if(empty($row['dob']) || $row['dob'] == 'NULL'){
+                $row['dob'] =  null;
+            }else{
+                $dob = Carbon::parse($row['dob']);
+                $row['dob'] = $dob->format('Y-m-d');
+            }
+          
+            $row['salary'] =   empty($row['salary']) || $row['salary'] == 'NULL' ?  null :  $row['salary'];
+            $row['fixed'] =   empty($row['fixed']) || $row['fixed'] == 'NULL' ?  null :  $row['fixed'];
+            $row['variable'] =   empty($row['variable']) || $row['variable'] == 'NULL' ?  null :  $row['variable'];
+            $row['doj'] =   empty($row['doj']) || $row['doj'] == 'NULL' ?  null :  Carbon::parse($row['doj']);
+            $row['finally'] =   empty($row['finally']) || $row['finally'] == 'NULL' ?  null :  $row['finally'];
+            $row['read_status'] =   empty($row['read_status']) || $row['read_status'] == 'NULL' ?  null :  $row['read_status'];
+
+            RecruitmentForm::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+
+}
+
+
+// rec rec_address_details
+
+public function rec_address_details($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['id'] = $row['id'];
+            $row['created_at'] = $row['created_on'];
+            $row['updated_at'] = $row['updated_on'];
+            RecAddressDetail::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+
+}
+
+// bank Details 
+
+public function rec_bank_details($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['created_at'] = $row['created_on'];
+            $row['updated_at'] = $row['updated_on'];
+            $account = $row['account_no'] ;
+            $row['account_no'] = intval($account);
+            RecBankDetail::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+
+}
+
+// rec_educational_details
 
 
 
+public function rec_educational_details($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['created_at'] = $row['created_on'];
+            $row['updated_at'] = $row['updated_on'];
+            RecEducationalDetail::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
 
+}
 
+//Add rec_esi_details
+public function rec_esi_details($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['created_at'] = $row['created_on'];
+            $row['updated_at'] = $row['updated_on'];
+            RecEsiDetail::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
 
+}
 
+// Add rec_nominee_details
 
+public function rec_nominee_details($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['created_at'] = $row['created_on'];
+            $row['updated_at'] = $row['updated_on'];
+            if(empty($row['dob']) || $row['dob'] == 'NULL'){
+                $row['dob'] =  null;
+            }else{
+                $dob = Carbon::parse($row['dob']);
+                $row['dob'] = $dob->format('Y-m-d');
+            }
+            RecNomineeDetail::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
 
+}
 
+// Add rec_personal_details
 
+public function rec_personal_details($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['created_at'] = $row['created_on'];
+            $row['updated_at'] = $row['updated_on'];
+            RecPersonalDetail::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
 
+}
 
+// Add rec_previous_companies
 
+public function rec_previous_companies($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            $row['created_at'] = $row['created_on'];
+            $row['updated_at'] = $row['updated_on'];
+            RecPreviousCompany::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
 
+}
 
+// Add Leave Policy
 
+public function leave_policies($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            LeavePolicy::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+}
 
+// Add send_mail_log
 
+public function send_mail_log($handle){
+    
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = [];
+            $row = array_combine($headers, $data);
+            SendMailLog::create($row);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+    }
 
-
+}
 
     
 }

@@ -24,20 +24,18 @@
                 <div class="row  d-flex my-2 mx-3">
                     <div class="col-md-6">
                         <form class="row">
-                            <div class="col-auto">
+                            <div class="col-auto col-xs-12">
                                 <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-auto col-xs-12">
                                 <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
-                            <div class="col-auto">
-                                <a href="{{route('employee.view-letter', ['id' => $id])}}" class="btn btn-primary mb-3"> Reset</a>
+                            <div class="col-auto col-xs-12">
+                                <a href="{{route('employee.view-letter', ['id' => $id])}}" class="btn btn-primary mb-3">Clear</a>
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-6 text-end">
-                        <a href="{{route('employee.employee-list')}}" class="btn btn-primary">Back</a>
-                    </div>
+                   
                 </div>
 
             </div>

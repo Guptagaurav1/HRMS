@@ -10,6 +10,8 @@ class ContactedByCallLog extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['id','job_position','client_name','name','email','phone_no','experience','curr_ctc','exp_ctc','notice_period','qualification','location','resume','rec_email','rec_type','remarks','created_at','updated_at']; 
+
     /**
      * Save User id on CRUD operation.
      */

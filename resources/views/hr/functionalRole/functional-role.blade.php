@@ -7,12 +7,10 @@
                 <h3 class="text-white mt-2">Functional Role</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li>
-                            @if (auth()->user()->role->role_name="hr")
-                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                            @endif
-                        </li>
-                        <li>Functional Role</li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Profile Details</a></li>
+                        <li>Department List</li>
                     </ul>
                 </div>
             </div>
@@ -62,40 +60,40 @@
                     @endif
                 </div>
 
-                <div class="row  mt-4">
-                    <div class="col-md-10">
-                        <form method="get">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <input type="text" name="search" value="" class="form-control" placeholder="Search"
-                                        required>
+                    <div class="row  mt-4">
+                        <div class="col-md-10">
+                            <form method="get">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                            required>
 
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search </button>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <a href="#" class="col-xs-12"><button type="button"
+                                                class="btn btn-primary btn-sm mb-3">Clear <i
+                                                    class="fa-solid fa-eraser"></i></button></a>
+                                    </div>
                                 </div>
-                                <div class="col-md-1">
-                                    <button type="submit" class="btn  btn-primary btn-sm mb-3">Search </button>
+                            </form>
 
-                                </div>
-                                <div class="col-md-6">
+                        </div>
+                        <div class="col-md-2">
+                            @if(auth()->user()->hasPermission('add-functional-role'))
 
-                                    <a href="#" class="col-xs-12"><button type="button"
-                                            class="btn btn-primary btn-sm mb-3">Clear <i
-                                                class="fa-solid fa-eraser"></i></button></a>
-                                </div>
-                            </div>
-                        </form>
+                            <a href="{{route('add-functional-role')}}" class="col-xs-12"><button
+                                    class="btn btn-sm btn-primary">Add Functional
+                                    Role <i class="fa-solid fa-plus"></i></button></a>
 
+                            @endif
+
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        @if(auth()->user()->hasPermission('add-functional-role'))
-
-                        <a href="{{route('add-functional-role')}}" class="col-xs-12"><button
-                                class="btn btn-sm btn-primary">Add Functional
-                                Role <i class="fa-solid fa-plus"></i></button></a>
-
-                        @endif
-
-                    </div>
-                </div>
             </div>
 
 
