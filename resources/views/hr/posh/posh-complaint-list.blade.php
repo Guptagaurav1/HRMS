@@ -18,7 +18,7 @@
                         </ul>
                     </div>
                     </div>
-                    <div class="col-md-12 d-flex justify-content-start mx-3">
+                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-4">
                         <form class="row g-3 mt-2">
                             <div class="col-auto col-xs-12">
                                 <input type="search" class="form-control" placeholder="Search" name="search" value="{{$search}}" required>
@@ -33,8 +33,6 @@
                             </div>
                         </form>
                     </div>
-
-
                     
                     <div class="table-responsive mt-3 ">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"

@@ -27,7 +27,7 @@
 
                 {{-- Show filter form. --}}
                 <div class="col-md-12 my-3">
-                    <div class="row mx-2">
+                    <div class="row d-flex align-items-center justify-content-between px-3">
                         <div class="col-md-6">
                             <form class="row g-3 mt-3">
                                 <div class="col-auto col-xs-12 mb-3">
@@ -43,7 +43,7 @@
                             </form>
                         </div>
                         @if (auth('employee')->check())
-                            <div class="col-md-6 text-end">
+                            <div class="col-auto col-xs-12">
                                 <a href="{{ route('leave.leave_request') }}" class="btn btn-primary">Apply Leave</a>
                             </div>
                         @endif
@@ -145,8 +145,8 @@
                                     </td>
                                     <td class="text-center">{{ date('d-M-Y', strtotime($leave_request->created_at)) }}
                                     </td>
-                                    <td class="text-center">
-
+                                    <td class="text-center ">
+                                        
                                         {{-- View Requested Leave --}}
                                         <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#leaveDetailsModal"
@@ -155,7 +155,7 @@
 
                                         {{-- Print the requested leave --}}
                                         <a href="{{ route('leave-request-reciept', ['id' => $leave_request->id]) }}">
-                                            <button class="btn btn-sm btn-primary">Print <i
+                                            <button class="btn btn-sm btn-primary mx-3">Print <i
                                                     class="fa-solid fa-print"></i></button>
                                         </a>
 
@@ -187,7 +187,7 @@
                     </table>
                 </div>
 
-                <div class="col-md-12 d-flex justify-content-center my-3">
+                <div class="col-md-12 d-flex justify-content-start my-3">
                     {{ $leave_requests->links() }}
                 </div>
             </div>
@@ -238,7 +238,7 @@
                                 <div class="col-md-6">
                                     <div class="field-container shadow-sm">
                                         <label class="fw-bold">Reason Of Absence:</label>
-                                        <span class="reason"></span>
+                                        <span class="reason attr"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

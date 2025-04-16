@@ -62,7 +62,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                    
-                                    <p class="text-danger mx-1 mt-2" style="font-size: 12px">Note : Please Input Month only Given Format in CSV File (January, February, March, April, May, June, July, August, September, October, November, December)</p>
+                                    <p class="mx-1 mt-2 fs-6">Note : Please Input Month only Given Format in CSV File (January, February, March, April, May, June, July, August, September, October, November, December)</p>
                                     </div>
                             
                                 </div>
