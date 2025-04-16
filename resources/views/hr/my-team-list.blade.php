@@ -49,7 +49,7 @@
                             @forelse($employees as $employee)
                             <tr>
                                 <td class="text-center">{{$employee->emp_name}}</td>
-                                <td class="text-center">{{$employee->emp_email_first."/".$employee->emp_phone_first}}</td>
+                                <td class="text-center attributes-column">{{$employee->emp_email_first."/".$employee->emp_phone_first}}</td>
                                 <td class="text-center">{{$employee->department}}</td>
                                 <td class="text-center">{{$employee->user_type}}</td>
                                 <td class="text-center">{{date('d-M-Y', strtotime($employee->adding_date))}}</td>

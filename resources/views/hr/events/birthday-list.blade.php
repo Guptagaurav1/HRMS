@@ -29,14 +29,11 @@
                             <button type="submit" class="btn btn-primary mb-3"> Search</button>
                         </div>
                         <div class="col-auto col-xs-12">
-                            <a href="{{ route('events.birthday-list') }}" class="btn btn-primary mb-3"> Reset</a>
+                            <a href="{{ route('events.birthday-list') }}" class="btn btn-primary mb-3"> Clear</a>
                         </div>
                     </form>
                 </div>
 
-
-
-                
                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                         <path

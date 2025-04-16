@@ -9,7 +9,6 @@ class Project extends Model
 {
     use HasFactory;
     
-    // protected $fillable = ['name'];
     public function organizations()
     {
         return $this->belongsTo(Organization::class,'organisation_id'); // Assuming 'organization_name' is a foreign key

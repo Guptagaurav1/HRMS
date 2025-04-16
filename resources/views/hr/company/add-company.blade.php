@@ -1,8 +1,5 @@
 @extends('layouts.master', ['title' => 'Add Company'])
 
-@section('style')
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
 
 @section('contents')
 <div class="container-fluid">
@@ -20,6 +17,7 @@
                     <li>Add Company</li>
                 </ul>
             </div>
+            
     
     
         </div>
