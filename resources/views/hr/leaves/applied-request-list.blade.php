@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'Leave Requests'])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
+
 
 @section('contents')
     <div class="row">
@@ -31,16 +29,16 @@
                 <div class="col-md-12 my-3">
                     <div class="row mx-2">
                         <div class="col-md-6">
-                            <form class="row g-3">
-                                <div class="col-auto mb-3">
+                            <form class="row g-3 mt-3">
+                                <div class="col-auto col-xs-12 mb-3">
                                     <input type="search" class="form-control" name="search" placeholder="Search"
                                         value="{{ $search }}" required>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto col-xs-12">
                                     <button type="submit" class="btn btn-primary mb-3">Search</button>
                                 </div>
-                                <div class="col-auto">
-                                    <a href="{{ route('applied-request-list') }}" class="btn btn-primary mb-3">Reset</a>
+                                <div class="col-auto col-xs-12">
+                                    <a href="{{ route('applied-request-list') }}" class="btn btn-primary mb-3">Clear</a>
                                 </div>
                             </form>
                         </div>

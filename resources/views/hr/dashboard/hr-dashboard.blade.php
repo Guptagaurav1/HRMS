@@ -18,14 +18,11 @@
     <p class="mt-2"><strong>Email: helpdesk@prakharsoftwares.com | Contact No : 7982363536</strong></p>
 
 </div>
-<div class="container">
-
-
+<div class="fluid-container">
     <div class="row">
-
         <div class="col-md-12">
             <div class="panel chart-panel-1">
-                <div class="d-flex align-itms-center justify-content-center gap-3">
+                <div class="d-flex justify-content-center flex-wrap gap-5 px-5">
                     <div class="card profile-card border">
                         <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg" alt="Profile" />
                         <div class="profile-info">
@@ -35,6 +32,11 @@
                             <p><i class="fas fa-phone"></i> {{ auth()->user()->phone }}</p>
                         </div>
                     </div>
+                    <div class="card profile-card ">
+                        <div class="panel-body">
+                            <div id="pieChart"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -42,7 +44,7 @@
                 <div class="col-md-4">
                     <div class="panel">
                         <div class="panel-header">
-                            <h5 class="text-white fw-bold">Today Birthday </h5>
+                            <h5 class="text-white fw-bold text-center">Today Birthday </h5>
 
                         </div>
                         <div class="panel-body">
@@ -682,4 +684,5 @@
 <script src="{{ asset('assets/js/hr/leave_request.js') }}"></script>
 <script src="{{ asset('assets/js/hr/hr-dashboard.js') }}"></script>
 <script src="{{asset('assets/js/employee-tab-dashboard.js')}}"></script>
+<script src="assets/js/chart-page.js"></script>
 @endsection

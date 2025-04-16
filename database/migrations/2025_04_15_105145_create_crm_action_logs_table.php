@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('crm_action_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('rid')->nullable();
-            $table->string('role_name')->nullable();
-            $table->text('menu_id')->nullable();
-            // $table->foreign('menu_id')->references('id')->on('menus')->onDelete('NO ACTION');
-            $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+            $table->unsignedBigInteger('lead_id');
+            $table->foreign('lead_id')->references('id')->on('lead_lists');
+            $table->enum('action_type', ['open','win','lose','reopened','follow_up']);
+            $table->unsignedBigInteger('follow_up_id')->nullable();
+            $table->foreign('follow_up_id')->references('id')->on('lead_follow_up_lists');
+            $table->integer('assigned_user_id')->nullable();
+            $table->foreign('assigned_user_id')->references('id')->on('users');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->integer('updated_by')->nullable();
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('crm_action_logs');
     }
 };

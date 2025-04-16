@@ -18,9 +18,6 @@
                 </div>
 
             </div>
-
-
-            
             <form method="get">
                 <div class="row d-flex align-items-center justify-content-end">
                     <div class="col-md-10 col-xs-12 d-flex align-items-center px-4 gap-3 py-4">

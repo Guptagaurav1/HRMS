@@ -14,7 +14,7 @@
                                         class="fa-solid fa-envelope"></i></button></a>
                         </div>
                     </div>
-                   
+                    
                 </div>
                 
                 <div class="card-body">
@@ -73,8 +73,13 @@
                         </div>
                 </div>
 
-                <div class="d-flex justify-content-end pb-3 px-3">
-                    <button type="submit" class="btn btn-primary ">Send <i class="fa-solid fa-paper-plane"></i></button>
+                <div class="d-flex justify-content-end pb-3 px-3 gap-3">
+                    <div>
+                   <a href="{{route('hr_dashboard')}}"><button type="button" class="btn btn-secondary btn-sm">Cancel </button></a>
+                    </div>
+                    <div>
+                    <button type="submit" class="btn btn-primary btn-sm">Send <i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
                 </div>
                 </form>
             </div>

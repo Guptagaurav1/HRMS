@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('lead_source_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('rid')->nullable();
-            $table->string('role_name')->nullable();
-            $table->text('menu_id')->nullable();
-            // $table->foreign('menu_id')->references('id')->on('menus')->onDelete('NO ACTION');
-            $table->enum('status', [0,1])->default(1)->comment('1 for active, 0 for inactive');
+            $table->string('source_name')->nullable();
+            $table->enum('status', ['1','0'])->default('1');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('NO ACTION');
             $table->integer('updated_by')->nullable();
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('lead_source_lists');
     }
 };

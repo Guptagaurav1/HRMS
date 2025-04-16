@@ -29,8 +29,13 @@
                         </div>
                         <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3">Search</button>
-                            <a href="{{ route('salary-list') }}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                            
                         </div>
+                        <div class="col-auto col-xs-12">
+                        <a href="{{ route('salary-list') }}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+
+                        </div>
+                       
     
                     </form>
                 </div>

@@ -1,10 +1,6 @@
 @extends('layouts.master', ['title' => 'Upcoming Marriage Anniversary'])
 
-@section('style')
 
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
 
 @section('contents')
 <div class="row">
@@ -26,18 +22,24 @@
 
             {{-- Filters --}}
             <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
-                <form class="row g-3">
-                    <div class="col-auto mb-3">
+                <form class="row g-3 mt-3">
+                    <div class="col-auto mb-3 col-xs-12">
                         <input type="search" name="search" class="form-control" placeholder="Search" value="{{$search}}" required>
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                    <div class="col-auto col-xs-12">
+                        <button type="submit" class="btn  btn-primary mb-3 px-2">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{route('events.marriage-anniversary-list')}}" class="btn btn-primary mb-3">Reset</a>
+                    <div class="col-auto col-xs-12">
+                        <a href="{{route('events.marriage-anniversary-list')}}" class="btn  btn-primary mb-3 col-xs-12">Clear</a>
                     </div>
                 </form>
             </div>
+
+
+            
+
+
+            
 
             {{-- Show errors --}}
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

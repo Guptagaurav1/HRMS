@@ -3,15 +3,16 @@
 @section('content')
 <div class="center-card">
     <div class="card invoice-container">
+        <!-- Work-Order Report Header -->
         <div class="row">
             <div class="col-md-12 mt-3">
                 <div class="d-flex bg-white py-3 px-2 rounded-3 bg-white p-0">
                     <div>
                         <img src="{{ asset('assets/images/PrakharLimited-logo.png') }}" alt="logo left"
-                            style="width: 15%;">
+                            style="width: 15%;" class="prakhrar-logo">
                     </div>
                     <div>
-                        <img src="{{ asset('assets/images/11years.png') }}" alt="logo right" style="width: 60%;" />
+                        <img src="{{ asset('assets/images/11years.png') }}" alt="logo right" style="width: 60%;" class="11years"/>
                     </div>
                 </div>
             </div>
@@ -19,22 +20,11 @@
         <hr class="border">
 
         <div class="text-center mt-1">
-            <h4>Work Order Report</h4>
+            <h4 class="text-dark fw-bold">Work Order Report</h4>
         </div>
 
 
-        <!-- <div class="row px-3 mt-2">
-            @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ $message }}</strong>
-            </div>
-            @else
-            <div class="alert alert-error alert-dismissible fade show" role="alert">
-                <strong>{{ $message }}</strong>
-            </div>
-            @endif
-        </div> -->
-
+    
         <!-- Download ZIP Section -->
         <div class="text-end hide-text">
             @if(!empty($wo_details))
@@ -62,16 +52,16 @@
 
         <!-- Table for Work Orders -->
         <div class="table-responsive mb-3">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover text-dark fw-bold">
                 <thead>
                     <tr>
-                        <th>Work Order No.</th>
-                        <th>Coordinator</th>
-                        <th>No. of Resources</th>
-                        <th>Location</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Amount (INR)</th>
+                        <th class="text-dark fw-bold">Work Order No.</th>
+                        <th class="text-dark fw-bold">Coordinator</th>
+                        <th class="text-dark fw-bold">No. of Resources</th>
+                        <th class="text-dark fw-bold">Location</th>
+                        <th class="text-dark fw-bold">Start Date</th>
+                        <th class="text-dark fw-bold">End Date</th>
+                        <th class="text-dark fw-bold">Amount (INR)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,17 +107,21 @@
             <div class="total-amount">Total Amount: INR {{number_format($overallSum, 2) }}</div>
             @if(!empty($show_report))
                 <div class="">
-                    <div class="d-flex align-items-center justify-content-center  gap-3">
-                        <div style="margin-left: 25px;">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                        <div>
                             <form action="{{route('save-report')}}" method="post">
                                 @csrf
-                                <input type="text" class="forn-control hide-text" id="report_name" name="report_name" required>
+                                <label class="form-label text-wrap text-dark fw-bold"> Check Work Order <span class="text-danger">*</span>
+                                        </label> </label>
+                                <input type="text" class="forn-control hide-text" id="report_name" name="report_name" placeholder="Check Your Workorder" required>
                                 <input type="hidden" name="check_workOrders"
                                     value="{{ implode(',', $check_workOrders ?? []) }}">
-                                <button type="submit" id ="save_report" class="btn btn-sm btn-primary report hide-text">Save</button>
+                                    
+                                <button type="submit" id ="save_report" class="btn btn-sm btn-primary report hide-text mx-1">Save</button>
                             </form>
+                            
                         </div>
-                        <div class="row">
+                        <div class="row mt-4">
                             
                             <a href="{{route('work-order-list')}}">
                                 <button class="btn btn-sm btn-primary hide-text" id="cancelForm">Cancel</button>
@@ -137,10 +131,10 @@
                     </div>
                     <!-- Print Button -->
                     <div class="d-flex align-items-center justify-content-center mt-2 gap-3">
-                        <div>
+                        <div class="mt-2">
                             <button class="btn btn-sm btn-primary hide-text" id="printButton" onclick="window.print()">Print Report</button>
                         </div>
-                    
+
                     <!-- Export CSV Form -->
                     <form action="{{route('export-work-order')}}" method="post">
                         @csrf
@@ -150,7 +144,6 @@
                         </div>
                     </form>
                 
-
                 </div>
             @endif
         </div>
@@ -158,9 +151,6 @@
 
     </div>
 </div>
-
-
-
 
 @endsection
 @section('script')
