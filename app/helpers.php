@@ -15,6 +15,7 @@ use App\Models\EmpAddressDetail;
 use App\Models\EmpIdProof;
 use App\Models\EmpEducationDetail;
 use App\Models\EmpExperienceDetail;
+use App\Models\LeadList;
 use App\Models\Organization;
 use App\Models\Project;
 use App\Models\State;
@@ -343,6 +344,23 @@ if(!function_exists('get_state_id')){
     {
         try {
             return State::where('state', $state)->value('id');
+        }
+        catch(Throwable $th){
+            return '';
+        }
+    }
+}
+
+/**
+ * Get lead_id from lead_uni_id.
+ * @param string $lead
+ * @return integer lead_id
+ */ 
+if(!function_exists('get_lead_id')){
+    function get_lead_id($lead)
+    {
+        try {
+            return LeadList::where('lead_uni_id', $lead)->value('id');
         }
         catch(Throwable $th){
             return '';
