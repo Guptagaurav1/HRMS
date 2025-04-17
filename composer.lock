@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92cb096026d41273c1087840111bb4ed",
+    "content-hash": "50a9cf43c3c522104b200bfdbe2e0e54",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -741,59 +741,6 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
-        },
-        {
-            "name": "facade/ignition-contracts",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/facade/ignition-contracts.git",
-                "reference": "3c921a1cdba35b68a7f0ccffc6dffc1995b18267"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition-contracts/zipball/3c921a1cdba35b68a7f0ccffc6dffc1995b18267",
-                "reference": "3c921a1cdba35b68a7f0ccffc6dffc1995b18267",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^v2.15.8",
-                "phpunit/phpunit": "^9.3.11",
-                "vimeo/psalm": "^3.17.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Facade\\IgnitionContracts\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://flareapp.io",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Solution contracts for Ignition",
-            "homepage": "https://github.com/facade/ignition-contracts",
-            "keywords": [
-                "contracts",
-                "flare",
-                "ignition"
-            ],
-            "support": {
-                "issues": "https://github.com/facade/ignition-contracts/issues",
-                "source": "https://github.com/facade/ignition-contracts/tree/1.0.2"
-            },
-            "time": "2020-10-16T08:27:54+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -2515,16 +2462,16 @@
         },
         {
             "name": "nette/utils",
-            "version": "v4.0.5",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "736c567e257dbe0fcf6ce81b4d6dbe05c6899f96"
+                "reference": "ce708655043c7050eb050df361c5e313cf708309"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/736c567e257dbe0fcf6ce81b4d6dbe05c6899f96",
-                "reference": "736c567e257dbe0fcf6ce81b4d6dbe05c6899f96",
+                "url": "https://api.github.com/repos/nette/utils/zipball/ce708655043c7050eb050df361c5e313cf708309",
+                "reference": "ce708655043c7050eb050df361c5e313cf708309",
                 "shasum": ""
             },
             "require": {
@@ -2595,9 +2542,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.0.5"
+                "source": "https://github.com/nette/utils/tree/v4.0.6"
             },
-            "time": "2024-08-07T15:39:19+00:00"
+            "time": "2025-03-30T21:06:30+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -3584,96 +3531,6 @@
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.8.0"
             },
             "time": "2025-03-23T17:59:05+00:00"
-        },
-        {
-            "name": "stancl/jobpipeline",
-            "version": "v1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/archtechx/jobpipeline.git",
-                "reference": "a987f8ff698456bb807937225b1a98fd92ce3124"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/archtechx/jobpipeline/zipball/a987f8ff698456bb807937225b1a98fd92ce3124",
-                "reference": "a987f8ff698456bb807937225b1a98fd92ce3124",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^10.0|^11.0|^12.0",
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "ext-redis": "*",
-                "orchestra/testbench": "^8.0|^9.0|^10.0",
-                "spatie/valuestore": "^1.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Stancl\\JobPipeline\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Samuel Štancl",
-                    "email": "samuel.stancl@gmail.com"
-                }
-            ],
-            "description": "Turn any series of jobs into Laravel listeners.",
-            "support": {
-                "issues": "https://github.com/archtechx/jobpipeline/issues",
-                "source": "https://github.com/archtechx/jobpipeline/tree/v1.8.0"
-            },
-            "time": "2025-02-25T11:59:50+00:00"
-        },
-        {
-            "name": "stancl/virtualcolumn",
-            "version": "v1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/archtechx/virtualcolumn.git",
-                "reference": "75718edcfeeb19abc1970f5395043f7d43cce5bc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/archtechx/virtualcolumn/zipball/75718edcfeeb19abc1970f5395043f7d43cce5bc",
-                "reference": "75718edcfeeb19abc1970f5395043f7d43cce5bc",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": ">=10.0",
-                "illuminate/support": ">=10.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": ">=8.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Stancl\\VirtualColumn\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Samuel Štancl",
-                    "email": "samuel.stancl@gmail.com"
-                }
-            ],
-            "description": "Eloquent virtual column.",
-            "support": {
-                "issues": "https://github.com/archtechx/virtualcolumn/issues",
-                "source": "https://github.com/archtechx/virtualcolumn/tree/v1.5.0"
-            },
-            "time": "2025-02-25T13:12:44+00:00"
         },
         {
             "name": "symfony/console",
@@ -6294,16 +6151,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.21.2",
+            "version": "v1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "370772e7d9e9da087678a0edf2b11b6960e40558"
+                "reference": "7ddfaa6523a675fae5c4123ee38fc6bfb8ee4f36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/370772e7d9e9da087678a0edf2b11b6960e40558",
-                "reference": "370772e7d9e9da087678a0edf2b11b6960e40558",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/7ddfaa6523a675fae5c4123ee38fc6bfb8ee4f36",
+                "reference": "7ddfaa6523a675fae5c4123ee38fc6bfb8ee4f36",
                 "shasum": ""
             },
             "require": {
@@ -6314,9 +6171,9 @@
                 "php": "^8.2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.72.0",
+                "friendsofphp/php-cs-fixer": "^3.75.0",
                 "illuminate/view": "^11.44.2",
-                "larastan/larastan": "^3.2.0",
+                "larastan/larastan": "^3.3.1",
                 "laravel-zero/framework": "^11.36.1",
                 "mockery/mockery": "^1.6.12",
                 "nunomaduro/termwind": "^2.3",
@@ -6356,7 +6213,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2025-03-14T22:31:42+00:00"
+            "time": "2025-04-08T22:11:45+00:00"
         },
         {
             "name": "laravel/sail",
