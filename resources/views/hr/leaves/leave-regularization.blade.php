@@ -26,7 +26,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-12 text-center py-3">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center py-3">
             <form class="month">
                 <label>Select Month :</label><br>
                 <input name="month" class="date-picker" placeholder="mm-year" value="{{$previous_month}}" required />
@@ -42,7 +42,7 @@
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
                     </div>
                      <div class="col-auto">
-                        <a href="{{route('leave-regularization')}}" class="btn btn-primary mb-3">Reset</a>
+                        <a href="{{route('leave-regularization')}}" class="btn btn-primary mb-3">Clear</a>
                     </div>
                 </form>
             </div>

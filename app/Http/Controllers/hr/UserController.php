@@ -24,8 +24,7 @@ class UserController extends Controller
     {
       
         // $users = user::with('department') // Eager load the related department data
-        $users = user::with('role') 
-        ->orderBy('id', 'desc');
+        $users = user::orderBy('id', 'desc');
         $search = $request->search;
         if($search){
             $users->where(function($q) use($search){
@@ -39,8 +38,8 @@ class UserController extends Controller
                 });
             });
         }
-        
-        $users = $users->paginate(10); 
+        $users = $users->paginate(25); 
+        // dd($users);
       
         return view(" hr.user.users-list",compact('users','search'));
     }

@@ -4,9 +4,7 @@
 @section('contents')
     <div class="fluid-container">
         <div class="row">
-            <div class="col-md-12 d-flex justify-content-end bg-light py-2">
-                <a href="{{ route('applied-request-list') }}" class="btn btn-primary float-right">Back</a>
-            </div>
+           
             <div class="col-md-12">
                 <div class="panel printarea">
                     <div class="d-flex align-items-center justify-content-center">
@@ -182,9 +180,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 d-flex justify-content-end">
+            <div class="col-12 d-flex justify-content-end gap-2">
+                <div>
+                <a href="{{ route('applied-request-list') }}" class="btn btn-sm btn-secondary">Cancel</a>
+
+                </div>
+                <div>
                 <button class="btn btn-sm btn-primary" onclick="printmydoc()"> Print <i
                         class="fa-solid fa-print"></i></button>
+                </div>
             </div>
         </div>
     </div>

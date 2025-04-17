@@ -17,18 +17,21 @@
                     
                 </div>
                 
-                <div class="col-md-12 d-flex justify-content-between align-items-center px-2">
+                <div class="col-md-12 col-xs-12 d-flex justify-content-between flex-wrap align-items-center px-2 mt-4">
                     <form class="row g-3 mt-2" method="get">
-                        <div class="col-auto mb-3">
+                        <div class="col-auto col-xs-12 mb-3">
                             <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search" required>
                         </div>
                         <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
-                            <a href="{{ route('users') }}"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
+                           
+                        </div>
+                        <div class="col-auto col-xs-12">
+                        <a href="{{ route('users') }}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></button></a>
                         </div>
                     </form>
-                    <div class="col-xs-12">
-                    <a href="{{route('add-user')}}"><button type="button" class="btn btn-primary mb-3">Add User <i class="fa-solid fa-plus"></i></button></a>
+                    <div class="col-auto col-xs-12">
+                    <a href="{{route('add-user')}}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Add User <i class="fa-solid fa-plus"></i></button></a>
                 </div>
                 </div>
                 <div class="row">
@@ -66,7 +69,7 @@
                         </div>
                         @endif
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive mt-5">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
@@ -173,9 +176,6 @@
         });
     });
 </script>
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
 <script src="{{asset('assets/js/users/user.js')}}"></script>
 
 @endsection

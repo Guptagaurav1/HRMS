@@ -5,14 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class PcgLeadList extends Model
 {
     use HasFactory;
     
-    public function organizations()
-    {
-        return $this->belongsTo(Organization::class,'organisation_id'); // Assuming 'organization_name' is a foreign key
-    }
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * Save record of login user on default events of model.
+     */
     public static function boot()
     {
         parent::boot();
@@ -20,7 +26,6 @@ class Project extends Model
             static::creating(function ($model) {
                 $model->created_by = auth()->user()->id;
             });
-
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
             });
@@ -30,14 +35,5 @@ class Project extends Model
                 $model->save();
             });
         }
-        
     }
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
 }

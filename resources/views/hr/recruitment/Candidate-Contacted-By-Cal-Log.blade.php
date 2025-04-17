@@ -1,9 +1,5 @@
 @extends('layouts.master', ['title' => 'Candidate Calling Logs'])
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
-
 @section('contents')
 <div class="fluid-container">
     <div class="row">
@@ -23,31 +19,34 @@
                 </div>
                 <div class="row px-3 ">
 
-                    <div class="col-md-12 d-flex justify-content-end">
+                    <div class="col-md-12 col-xs-12 d-flex justify-content-end flex-wrap">
                         <form action="{{route('recruitment.export_call_log')}}" method="POST" class="form">
                             @csrf
                             <div class="d-none">
                                 <input type="hidden" name="searchvalue" value="{{$searchvalue}}" />
                             </div>
-                            <button type="submit" class="btn btn-sm btn-primary mt-2"
+                            <div class="col-auto col-xs-12">
+                            <button type="submit" class="btn btn-sm btn-primary mt-2 col-xs-12"
                                >Export All  <i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+                            </div>
                         </form>
                         @if(auth()->user()->hasPermission('addcontact-form'))
                             <a href="{{route('addcontact-form')}}" class="btn btn-sm btn-primary mt-2 mx-2">Add Contact Detail</a>
                         @endif
                     </div>
                 </div>
+                
                 <div class="col-md-12 d-flex justify-content-start mx-3">
                     <form class="row g-3">
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <input type="search" class="form-control" placeholder="Search" name="search" value="{{$searchvalue}}" required>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3"> Search <i
                                     class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
-                        <div class="col-auto">
-                            <a href="{{route('recruitment.call_logs')}}" class="btn btn-primary mb-3">Reset</a>
+                        <div class="col-auto col-xs-12">
+                            <a href="{{route('recruitment.call_logs')}}" class="btn btn-primary mb-3">Clear</a>
                         </div>
                     </form>
                 </div>
@@ -97,35 +96,35 @@
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                             id="allEmployeeTable">
                             <thead>
-                                <tr style="background-color: #2A3F54">
-                                    <th class="text-white"><strong>S.NO.</strong></th>
-                                    <th class="text-white"><strong>Client Name</strong></th>
-                                    <th class="text-white"><strong>Position Title</strong></th>
-                                    <th class="text-white"><strong>Name</strong></th>
-                                    <th class="text-white"><strong>Email</strong></th>
-                                    <th class="text-white"><strong>Contact Number</strong></th>
-                                    <th class="text-white"><strong>Recruiter Name/Email</strong></th>
-                                    <th class="text-white"><strong>Remarks</strong></th>
-                                    <th class="text-white"><strong>Contacted On</strong></th>
-                                    <th class="text-white"><strong>Resume</strong></th>
-                                    <th class="text-white"><strong>Action</strong></th>
+                                <tr >
+                                    <th class="text-center">S.NO.</th>
+                                    <th class="text-center">Client Name</th>
+                                    <th class="text-center">Position Title</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Contact Number</th>
+                                    <th class="text-center">Recruiter Name/Email</th>
+                                    <th class="text-center">Remarks</th>
+                                    <th class="text-center">Contacted On</th>
+                                    <th class="text-center">Resume</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($logs as $log)
                                     <tr>
-                                        <td class="srno-column">{{$loop->iteration}}</td>
-                                        <td class="rid-column">{{$log->client_name}}</td>
-                                        <td class="rid-column">{{$log->job_position}}</td>
-                                        <td class="rid-column">{{$log->name}}</td>
-                                        <td class="rid-column">{{$log->candidate_email}}</td>
-                                        <td class="rid-column">{{$log->phone_no}}</td>
-                                        <td class="rid-column">{{$log->first_name." ".$log->last_name." / ".$log->email}}</td>
-                                        <td class="rid-column">{{$log->remarks}}</td>
-                                        <td class="rid-column">{{date('jS M, Y', strtotime($log->created_at))}}</td>
-                                        <td class="rid-column">
+                                        <td class="srno-columntext-center">{{$loop->iteration}}</td>
+                                        <td class="rid-column text-center">{{$log->client_name}}</td>
+                                        <td class="rid-column text-center">{{$log->job_position}}</td>
+                                        <td class="rid-column text-center">{{$log->name}}</td>
+                                        <td class="rid-column text-center">{{$log->candidate_email}}</td>
+                                        <td class="rid-column text-center">{{$log->phone_no}}</td>
+                                        <td class="rid-column text-center">{{$log->first_name." ".$log->last_name." / ".$log->email}}</td>
+                                        <td class="rid-column text-center">{{$log->remarks}}</td>
+                                        <td class="rid-column text-center">{{date('jS M, Y', strtotime($log->created_at))}}</td>
+                                        <td class="rid-column text-center">
                                             <a href="{{asset('resume').'/'.$log->resume}}" download><span class="badge text-bg-success">Download <i class="fa-solid fa-download"></i></span></a></td>
-                                        <td class="rid-column">
+                                        <td class="rid-column ">
                                             @if(auth()->user()->hasPermission('recruitment.edit-call_log'))
                                                 <a href="{{route('recruitment.edit-call_log', ['id' => $log->id])}}"> <button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                             @endif
