@@ -462,6 +462,145 @@ class CommonDataImportController extends Controller
     }
 
     /**
+     * Import department details.
+     */
+    public function import_department_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+               
+            Department::create([
+                'id' => $row['id'],
+                'department' => $row['department'],
+                'reporting_manager_id' =>  null,
+                'status' => $row['status'],
+            ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import role details.
+     */
+    public function import_role_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+               
+                Role::create([
+                     'id' => $row['id'],
+                     'rid' => $row['rid'],
+                     'role_name' => $row['role_name'],
+                     'menu_id' => $row['roles_assigned'],
+                     'status' => $row['status'],
+                     'created_at' => $row['time_stamp']
+                 ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import cities details.
+     */
+    public function import_company_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+               
+             CompanyMaster::create([
+                'id' => $row['id'],
+                'name' => $row['company_name'],
+                'mobile' => $row['company_contact'],
+                'email' => $row['company_email'],
+                'address' => $row['company_address'],
+                'registration_no' => $row['registration_no'],
+                'gstin_no' => $row['gstin_no'],
+                'sac_code' => $row['sac_code'],
+                'service_tax_registration_no' => $row['service_tax_registration_no'],
+                'pan_no' => $row['pan_no'],
+                'website' => $row['website'],
+                'bank_payee_name' => $row['bank_payee_name'],
+                'bank_name' => $row['bank_name'],
+                'account_no' => $row['account_no'],
+                'ifsc_code' => $row['ifsc_code'],
+                'branch_name' => $row['branch_name'],
+                'branch_address' => $row['branch_address'],
+                'company_city' => $row['company_city'],
+                'payment_type' => $row['payment_type'],
+                'bank_email' => $row['bank_email'],
+                'twitter_link' => $row['twitter_link'],
+                'facebook_link' => $row['facebook_link'],
+                'facebook_link' => $row['facebook_link'],
+                'linkedin_link' => $row['linkedin_link'],
+                'youtube_link' => $row['youtube_link'],
+                'instagram_link' => $row['instagram_link'],
+                'pinterest_link' => $row['pinterest_link'],
+                'status' => $row['status'],
+                'user_id' => $row['user_id'] ? $row['user_id'] : null 
+            ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import cities details.
+     */
+    public function import_cities_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+               
+                 City::create([
+                'id' => $row['id'],
+                'city_name' => $row['city_name'],
+                'city_code' => $row['city_code'] ? $row['city_code'] : null,
+                'state_code' => $row['state_code']
+            ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
      * Import Pcg client List details.
      */
     public function import_crm_project_attachment_data($handle)
