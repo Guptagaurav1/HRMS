@@ -151,11 +151,11 @@
                                     value="{{ auth()->user()->email }}" readonly>
                             </div>
                             <div class="col-xxl-3 col-lg-12 col-sm-6">
-                                <label class="form-label">Message</label>
+                                <label class="form-label">Message <span class="text-danger">*</span></label>
                                 <textarea class="form-control" name="message" placeholder="Enter A Message" required></textarea>
                             </div>
                             <div class="col-xxl-3 col-lg-12 col-sm-6">
-                                <label for="file" class="form-label">Upload Csv</label>
+                                <label for="file" class="form-label">Upload Csv <span class="text-danger">*</span></label>
                                 <input class="form-control" type="file" name="file" accept=".csv" required>
                                 <a href="{{ asset('sample/bulk_uploading.csv') }}" class="text-primary"
                                     download><span>Download CSV File Format</span></a>

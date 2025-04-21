@@ -16,16 +16,16 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-12 d-flex justify-content-start mx-3">
+                <div class="col-md-12 d-flex justify-content-start flex-wrap mx-3 mt-4">
                     <form class="row g-3 mt-2">
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <input type="search" name="search" class="form-control" value="{{$search}}" placeholder="Search" required>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3"> Search</button>
                         </div>
-                        <div class="col-auto">
-                            <a href="{{route('employee.sent-credentials-logs')}}" class="btn btn-primary mb-3"> Reset</a>
+                        <div class="col-auto col-xs-12">
+                            <a href="{{route('employee.sent-credentials-logs')}}" class="btn btn-primary mb-3"> Clear</a>
                         </div>
                     </form>
                 </div>

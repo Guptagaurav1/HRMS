@@ -10,28 +10,27 @@
                     <h5 class="mb-0">Compose Email</h5>
                     <div>
                         <div class="d-flex justify-content-end px-2">
-                            <a href="{{route('email-list')}}"> <button type="submit" class="btn btn-primary ">Email List <i
-                                        class="fa-solid fa-envelope"></i></button></a>
+                            <a href="{{route('email-list')}}"> <button type="submit" class="btn btn-primary ">Email List
+                                    <i class="fa-solid fa-envelope"></i></button></a>
                         </div>
                     </div>
-                    
                 </div>
-                
+
                 <div class="card-body">
                     <form class="form compose-email">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 mb-1">
                                 <label for="recipient" class="form-label">From</label>
-                                <input type="text" class="form-control"  name="from"
-                                    placeholder="Enter sender email" value="{{$email}}" readonly>
+                                <input type="text" class="form-control" name="from" placeholder="Enter sender email"
+                                    value="{{$email}}" readonly>
                                 @error('from')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-1">
                                 <label for="to" class="form-label">To</label>
-                                <input type="text" class="form-control"  name="to"
+                                <input type="text" class="form-control" name="to"
                                     placeholder="Enter comma seperated recipient email" value="{{old('to')}}" required>
                                 @error('to')
                                 <span class="text-danger">{{$message}}</span>
@@ -41,12 +40,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="cc" class="form-label">CC</label>
-                                <input type="text" class="form-control" name="cc" placeholder="Enter comma seperated emails" value="{{old('cc')}}">
+                                <input type="text" class="form-control" name="cc"
+                                    placeholder="Enter comma seperated emails" value="{{old('cc')}}">
                             </div>
                             <div class="col-md-6">
                                 <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" name="subject"
-                                    placeholder="Enter email subject" value="{{old('subject')}}" required>
+                                <input type="text" class="form-control" name="subject" placeholder="Enter email subject"
+                                    value="{{old('subject')}}" required>
                                 @error('subject')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
@@ -64,24 +64,27 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="attachments" class="form-label">Attachments <span class="fw-lighter text-small text-danger">(only pdf and doc file are allowed)</span></label>
+                                <label for="attachments" class="form-label">Attachments <span
+                                        class="fw-lighter text-small text-danger">(only pdf and doc file are
+                                        allowed)</span></label>
                                 <input type="file" class="form-control" name="attachment" accept=".pdf, .docx, .doc">
                                 @error('attachment')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </div>
                         </div>
+                        <div class="d-flex justify-content-end pb-3 px-3 gap-3">
+                            <div>
+                                <a href="{{route('hr_dashboard')}}"><button type="button"
+                                        class="btn btn-secondary btn-sm">Cancel </button></a>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-sm">Send <i
+                                        class="fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="d-flex justify-content-end pb-3 px-3 gap-3">
-                    <div>
-                   <a href="{{route('hr_dashboard')}}"><button type="button" class="btn btn-secondary btn-sm">Cancel </button></a>
-                    </div>
-                    <div>
-                    <button type="submit" class="btn btn-primary btn-sm">Send <i class="fa-solid fa-paper-plane"></i></button>
-                    </div>
-                </div>
-                </form>
             </div>
         </div>
     </div>

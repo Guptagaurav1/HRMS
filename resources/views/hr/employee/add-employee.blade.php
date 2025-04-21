@@ -380,11 +380,18 @@
                             </div>
 
                             <div class="col-12 d-flex justify-content-between py-3">
+                                <div>
                                 <button type="button" class="btn btn-sm btn-secondary" id="previous-btn2">Previous <i
-                                        class="fa-solid fa-arrow-left"></i></button>
-                                <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
+                                class="fa-solid fa-arrow-left"></i></button>
+                                </div>
+
+                                <div>
                                 <button type="submit" class="btn btn-sm btn-primary" id="employee-details-btn">Save &
-                                    Next <i class="fa-solid fa-arrow-right"></i></button>
+                                Next <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                               
+                                <!-- <button class="btn btn-sm btn-secondary" id="previous-btn" style="display: none;">Previous <i class="fa-solid fa-arrow-left"></i></button> -->
+                                
                             </div>
                         </div>
                     </form>
