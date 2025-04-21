@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Form16Failed extends Model
 {
     use HasFactory;
-    protected $table = 'form16_failed';
+    protected $table = 'form_16_fails';
 
     public function empDetail()
     {
         return $this->belongsTo(EmpDetail::class, 'emp_id', 'id');
     }
     protected $fillable = [
-        'emp_id', 'pan_no', 'financial_year', 'attachment', 'source'
+      'id',  'emp_id', 'pan_no', 'financial_year', 'attachment', 'source', 'created_at'
     ];
 
     public static function boot()

@@ -85,6 +85,7 @@ use App\Models\PcgLeadContact;
 use App\Models\PcgClientList;
 use App\Models\PcgClientContact;
 use App\Models\CrmProjectAttachment;
+use App\Models\Form16Failed;
 // use App\Models\Client;
 use DB;
 use Throwable;
@@ -302,6 +303,8 @@ class CommonDataImportController extends Controller
 
         // Add CRM project attachments.
         // $status =  $this->import_crm_project_attachment_data($handle);
+
+        $status =  $this->form16_failed($handle);
 
 
         if (isset($status['error'])) {
@@ -2726,7 +2729,10 @@ public function imp_email_lists($handle){
         while (($data = fgetcsv($handle)) !== FALSE) {
             $row = [];
             $row = array_combine($headers, $data);
-            $row['role_id'] = get_role_id($row['access_to_role']);
+            $roleid = get_role_id($row['access_to_role']);
+            $row['role_id'] = $roleid ? $roleid : null;
+
+            unset($row['access_to_role']);
             ImpEmailList::create($row);
         }
         fclose($handle);
@@ -2776,8 +2782,6 @@ public function form16_failed($handle){
         while (($data = fgetcsv($handle)) !== FALSE) {
             $row = [];
             $row = array_combine($headers, $data);
-            
-         
             Form16Failed::create($row);
         }
         fclose($handle);
