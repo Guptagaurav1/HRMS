@@ -298,7 +298,7 @@ class CommonDataImportController extends Controller
 
         // Add PCG client contacts.
         // $status =  $this->import_pcg_client_contact_data($handle);
-        
+
         // Add CRM project attachments.
         // $status =  $this->import_crm_project_attachment_data($handle);
 
@@ -483,6 +483,145 @@ class CommonDataImportController extends Controller
         fclose($handle);
         return back()->with('success', 'CSV Imported Successfully!');
     }
+    /**
+     * Import qualification details.
+     */
+    public function import_qualification_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+
+                Qualification::create([
+                    'id' => $row['id'],
+                    'qualification' => $row['qualification'],
+                    'status' => $row['status'],
+                    'created_at' => $row['add_time']
+                ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import reporting manager details.
+     */
+    public function import_reporting_manager_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+
+                ReportingManager::create([
+                    'email' =>  $row['email'],
+                    'name' =>  $row['name'],
+                    'designation' =>  $row['designation'],
+                    'access_emp_code' =>  $row['access_emp_code'],
+                    'status' =>  $row['status']
+                ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import functional role details.
+     */
+    public function import_functional_role_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+
+                FunctionalRole::create([
+                    'id' => $row['id'],
+                    'role' => $row['role'],
+                    'status' => $row['status'],
+                    'created_at' => $row['add_time']
+                ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import department skill details.
+     */
+    public function import_department_skill_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+
+                DepartmentSkill::create([
+                    'id' => $row['id'],
+                    'department_id' => $row['dept_id'],
+                    'skill_id' => $row['skill_id'],
+                    'status' => '1'
+                ]);
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
+
+    /**
+     * Import skill details.
+     */
+    public function import_skill_data($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data); // Map headers to values
+
+                $skill = new Skill();
+                $skill->id = $row['id'];
+                $skill->skill = $row['skill'];
+                $skill->status = $row['status'];
+                $skill->save();
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
+            DB::rollback();
+            return ['error' => true, 'message' => $th->getMessage()];
+        }
+    }
 
     /**
      * Import department details.
@@ -495,13 +634,13 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-               
-            Department::create([
-                'id' => $row['id'],
-                'department' => $row['department'],
-                'reporting_manager_id' =>  null,
-                'status' => $row['status'],
-            ]);
+
+                Department::create([
+                    'id' => $row['id'],
+                    'department' => $row['department'],
+                    'reporting_manager_id' =>  null,
+                    'status' => $row['status'],
+                ]);
             }
             fclose($handle);
             DB::commit();
@@ -523,15 +662,15 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-               
+
                 Role::create([
-                     'id' => $row['id'],
-                     'rid' => $row['rid'],
-                     'role_name' => $row['role_name'],
-                     'menu_id' => $row['roles_assigned'],
-                     'status' => $row['status'],
-                     'created_at' => $row['time_stamp']
-                 ]);
+                    'id' => $row['id'],
+                    'rid' => $row['rid'],
+                    'role_name' => $row['role_name'],
+                    'menu_id' => $row['roles_assigned'],
+                    'status' => $row['status'],
+                    'created_at' => $row['time_stamp']
+                ]);
             }
             fclose($handle);
             DB::commit();
@@ -553,38 +692,38 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-               
-             CompanyMaster::create([
-                'id' => $row['id'],
-                'name' => $row['company_name'],
-                'mobile' => $row['company_contact'],
-                'email' => $row['company_email'],
-                'address' => $row['company_address'],
-                'registration_no' => $row['registration_no'],
-                'gstin_no' => $row['gstin_no'],
-                'sac_code' => $row['sac_code'],
-                'service_tax_registration_no' => $row['service_tax_registration_no'],
-                'pan_no' => $row['pan_no'],
-                'website' => $row['website'],
-                'bank_payee_name' => $row['bank_payee_name'],
-                'bank_name' => $row['bank_name'],
-                'account_no' => $row['account_no'],
-                'ifsc_code' => $row['ifsc_code'],
-                'branch_name' => $row['branch_name'],
-                'branch_address' => $row['branch_address'],
-                'company_city' => $row['company_city'],
-                'payment_type' => $row['payment_type'],
-                'bank_email' => $row['bank_email'],
-                'twitter_link' => $row['twitter_link'],
-                'facebook_link' => $row['facebook_link'],
-                'facebook_link' => $row['facebook_link'],
-                'linkedin_link' => $row['linkedin_link'],
-                'youtube_link' => $row['youtube_link'],
-                'instagram_link' => $row['instagram_link'],
-                'pinterest_link' => $row['pinterest_link'],
-                'status' => $row['status'],
-                'user_id' => $row['user_id'] ? $row['user_id'] : null 
-            ]);
+
+                CompanyMaster::create([
+                    'id' => $row['id'],
+                    'name' => $row['company_name'],
+                    'mobile' => $row['company_contact'],
+                    'email' => $row['company_email'],
+                    'address' => $row['company_address'],
+                    'registration_no' => $row['registration_no'],
+                    'gstin_no' => $row['gstin_no'],
+                    'sac_code' => $row['sac_code'],
+                    'service_tax_registration_no' => $row['service_tax_registration_no'],
+                    'pan_no' => $row['pan_no'],
+                    'website' => $row['website'],
+                    'bank_payee_name' => $row['bank_payee_name'],
+                    'bank_name' => $row['bank_name'],
+                    'account_no' => $row['account_no'],
+                    'ifsc_code' => $row['ifsc_code'],
+                    'branch_name' => $row['branch_name'],
+                    'branch_address' => $row['branch_address'],
+                    'company_city' => $row['company_city'],
+                    'payment_type' => $row['payment_type'],
+                    'bank_email' => $row['bank_email'],
+                    'twitter_link' => $row['twitter_link'],
+                    'facebook_link' => $row['facebook_link'],
+                    'facebook_link' => $row['facebook_link'],
+                    'linkedin_link' => $row['linkedin_link'],
+                    'youtube_link' => $row['youtube_link'],
+                    'instagram_link' => $row['instagram_link'],
+                    'pinterest_link' => $row['pinterest_link'],
+                    'status' => $row['status'],
+                    'user_id' => $row['user_id'] ? $row['user_id'] : null
+                ]);
             }
             fclose($handle);
             DB::commit();
@@ -606,13 +745,13 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-               
-                 City::create([
-                'id' => $row['id'],
-                'city_name' => $row['city_name'],
-                'city_code' => $row['city_code'] ? $row['city_code'] : null,
-                'state_code' => $row['state_code']
-            ]);
+
+                City::create([
+                    'id' => $row['id'],
+                    'city_name' => $row['city_name'],
+                    'city_code' => $row['city_code'] ? $row['city_code'] : null,
+                    'state_code' => $row['state_code']
+                ]);
             }
             fclose($handle);
             DB::commit();
@@ -639,7 +778,9 @@ class CommonDataImportController extends Controller
 
                 unset($row['added_on']);
                 unset($row['updated_on']);
-                CrmProjectAttachment::create($row);
+                if (CrmProjectList::where('id', $row['project_id'])->exists()) {
+                    CrmProjectAttachment::create($row);
+                }
             }
             fclose($handle);
             DB::commit();
@@ -796,7 +937,9 @@ class CommonDataImportController extends Controller
 
                 unset($row['created_time']);
                 unset($row['changed_by']);
-                CrmActionLog::create($row);
+                if (LeadList::where('id', $row['lead_id'])->exists()) {
+                    CrmActionLog::create($row);
+                }
             }
             fclose($handle);
             DB::commit();
@@ -823,7 +966,9 @@ class CommonDataImportController extends Controller
 
                 unset($row['added_on']);
                 unset($row['updated_on']);
-                LeadSpocPerson::create($row);
+                if (LeadList::where('id', $row['lead_id'])->exists()) {
+                    LeadSpocPerson::create($row);
+                }
             }
             fclose($handle);
             DB::commit();
@@ -881,7 +1026,9 @@ class CommonDataImportController extends Controller
 
                 unset($row['created_on']);
                 unset($row['updated_on']);
-                LeadAssignUser::create($row);
+                if (LeadList::where('id', $row['lead_id'])->exists()) {
+                    LeadAssignUser::create($row);
+                }
             }
             fclose($handle);
             DB::commit();
@@ -909,7 +1056,9 @@ class CommonDataImportController extends Controller
 
                 unset($row['created_on']);
                 unset($row['updated_on']);
-                LeadAttachment::create($row);
+                if (LeadList::where('id', $row['lead_id'])->exists()) {
+                    LeadAttachment::create($row);
+                }
             }
             fclose($handle);
             DB::commit();
@@ -1134,7 +1283,9 @@ class CommonDataImportController extends Controller
 
                 unset($row['created_on']);
                 unset($row['updated_on']);
-                ClientAttachment::create($row);
+                if (ClientList::where('id', $row['client_id'])->exists()) {
+                    ClientAttachment::create($row);
+                }
             }
             fclose($handle);
             DB::commit();
@@ -1405,7 +1556,7 @@ class CommonDataImportController extends Controller
     }
 
     /**
-     * Import Employee credential log data.
+     * Import Project data.
      */
     public function import_project_data($handle)
     {
@@ -1473,8 +1624,8 @@ class CommonDataImportController extends Controller
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
-
-                EmpCredentialLog::create($row);
+                if (EmpDetail::where('emp_code', $row['emp_code'])->exists())
+                    EmpCredentialLog::create($row);
             }
             fclose($handle);
             DB::commit();
@@ -1571,7 +1722,6 @@ class CommonDataImportController extends Controller
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['updated_at'] = date('Y-m-d', strtotime($row['updated_on']));
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
-                $row['deleted_at'] = date('Y-m-d h:i:s', strtotime($row['deleted_on']));
                 $row['approved_disapproved_by'] = $row['approved_disapproved_by'] ? $row['approved_disapproved_by'] : null;
                 $row['reapproved_redisapproved_by'] = $row['reapproved_redisapproved_by'] ? $row['reapproved_redisapproved_by'] : null;
 
@@ -1685,6 +1835,7 @@ class CommonDataImportController extends Controller
                 $accountdetails->emp_salary = $row['emp_salary'];
                 $accountdetails->emp_branch = $row['emp_branch'];  // leave 13 for bank name
                 $accountdetails->emp_account_no = $row['emp_account_no'];
+                $accountdetails->emp_sal_structure_status = $row['emp_sal_structure_status'];
                 $accountdetails->emp_ifsc = $row['emp_ifsc'];
                 $accountdetails->emp_pan = $row['emp_pan'];
                 $accountdetails->emp_pf_no = $row['emp_pf_no'];  // Leave 48 for pf no.
@@ -2119,6 +2270,9 @@ class CommonDataImportController extends Controller
                 $row['city'] = $row['city'] ==  empty($row['city']) || $row['city'] == 'Select City' || $row['city'] == '' ? null : $row['city'];
                 $row['state'] = empty($row['state'])  || $row['state'] == "NULL" ? null : $row['state'];
                 $row['department'] = $row['department'] == 'Select Department' ? null : $row['department'];
+                if ($row['department'] == '15' || $row['department'] == '22') {
+                    $row['department'] = null;
+                }
                 PositionRequest::create($row);
             }
             fclose($handle);
@@ -2615,8 +2769,12 @@ public function imp_email_lists($handle){
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data);
-                $row['role_id'] = get_role_id($row['access_to_role']);
-                ImpEmailList::create($row);
+                $row['created_by'] = $row['added_by'];
+                $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
+
+                unset($row['added_by']);
+
+                Form16::create($row);
             }
             fclose($handle);
             DB::commit();
