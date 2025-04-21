@@ -16,7 +16,7 @@ class UserRequestLog extends Model
      *
      * @var array
      */
-    protected $fillable = ['req_id', 'user_id', 'query_type', 'description', 'job_position', 'status', 'ref_table_name', 'ref_table_id', 'status_changed_to', 'change_offer_letter'];
+    protected $fillable = ['id','req_id', 'user_id', 'query_type', 'description', 'job_position', 'status', 'ref_table_name', 'ref_table_id', 'status_changed_to', 'change_offer_letter'];
 
     /**
      * Save User id on CRUD operation.

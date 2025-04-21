@@ -12,6 +12,8 @@ class EmpAddressDetail extends Model
     use HasFactory, SoftDeletes;
 
     
+
+    
     /**
      * Save User id on CRUD operation.
      */
