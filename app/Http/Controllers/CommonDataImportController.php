@@ -85,6 +85,7 @@ use App\Models\PcgLeadContact;
 use App\Models\PcgClientList;
 use App\Models\PcgClientContact;
 use App\Models\CrmProjectAttachment;
+use App\Models\Form16Failed;
 // use App\Models\Client;
 use DB;
 use Throwable;
@@ -213,7 +214,7 @@ class CommonDataImportController extends Controller
 
         // Add rec_address_details
 
-        //  $status =  $this->rec_address_details($handle);
+         $status =  $this->rec_address_details($handle);
 
         // Add rec_bank_details
         // $status =  $this->rec_bank_details($handle);
@@ -243,8 +244,6 @@ class CommonDataImportController extends Controller
 
         //Add  imp_email_lists
         // $status =  $this->imp_email_lists($handle);
-    
-        // $status =  $this->rec_personal_details($handle);
 
         // Add rec_previous_companies
         // $status =  $this->rec_previous_companies($handle);
@@ -301,7 +300,10 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_pcg_client_contact_data($handle);
         
         // Add CRM project attachments.
-        $status =  $this->import_crm_project_attachment_data($handle);
+        // $status =  $this->import_crm_project_attachment_data($handle);
+
+        // Add form_16_fails
+        // $status =  $this->form_16_fails($handle);
 
 
         if (isset($status['error'])) {
@@ -2189,8 +2191,25 @@ public function rec_address_details($handle){
                     $empIdProof->save();
 
                 }else{
-                    $updateEmpAdd = EmpAddressDetail::where('emp_code', $reqForm->emp_code)->update(['rec_id' => $row['rec_id']]);
-                    $empIdProofUpdate= EmpIdProof::where('emp_code', $reqForm->emp_code)->update(['rec_id' => $row['rec_id']]);
+                    $updateEmpAdd = EmpAddressDetail::where('emp_code', $reqForm->emp_code)->first();
+                    if($updateEmpAdd){
+                        $updateEmpAddress->rec_id = $row['rec_id'];
+                        $updateEmpAddress->emp_permanent_address = $row['permanent_add'];
+                        $updateEmpAddress->emp_local_address = $row['correspondence_add'];
+                        $updateEmpAddress->created_at = $row['created_on'];
+                        $updateEmpAddress->updated_at = $row['updated_on'];
+                        $updateEmpAddress->save();
+                    }
+                    $empIdProofUpdate= EmpIdProof::where('emp_code', $reqForm->emp_code)->first();
+                    if($empIdProofUpdate){
+                        $empIdProofUpdate->rec_id = $row['rec_id'];
+                        $empIdProofUpdate->permanent_doc_type = $row['per_doc_type'];
+                        $empIdProofUpdate->permanent_add_doc = $row['permanent_add_doc'];
+                        $empIdProofUpdate->correspondence_doc_type = $row['corres_doc_type'];
+                        $empIdProofUpdate->correspondence_add_doc = $row['correspondence_add_doc'];
+                        $empIdProofUpdate->created_at = $row['created_on'];
+                        $empIdProofUpdate->updated_at = $row['updated_on'];
+                    }
                 }
         }
         fclose($handle);
@@ -2387,7 +2406,7 @@ public function rec_personal_details($handle){
                 if($reqForm->emp_code == 'NULL' ||  empty($reqForm->emp_code)){
                     $empPersonalDetail = new EmpPersonalDetail();
                     $empPersonalDetail->rec_id = $row['rec_id'];
-                    $empPersonalDetail->emp_code = $row['emp_code'];
+                    $empPersonalDetail->emp_code = empty($row['emp_code']) || $row['emp_code'] == 'NULL' ? null :  $row['emp_code'];
                     $empPersonalDetail->emp_gender = $row['gender'];
                     $empPersonalDetail->preferred_location = $row['preferred_location'];
                     $empPersonalDetail->emp_father_name = $row['father_name'];
@@ -2408,7 +2427,7 @@ public function rec_personal_details($handle){
 
                     $empIdProof = new EmpIdProof();
                     $empIdProof->rec_id = $row['rec_id'];
-                    $empIdProof->emp_code = $row['emp_code'];
+                    $empIdProof->emp_code =  empty($row['emp_code']) || $row['emp_code'] == 'NULL' ? null :  $row['emp_code'];
                     $empIdProof->emp_aadhaar_no = $row['aadhar_card_no'];
                     $empIdProof->aadhar_card_doc = $row['aadhar_card_doc'];
                     $empIdProof->emp_passport_no = $row['passport_no'];
@@ -2425,66 +2444,66 @@ public function rec_personal_details($handle){
 
                     $empAccountDetail = new EmpAccountDetail();
                     $empAccountDetail->rec_id = $row['rec_id'];
-                    $empAccountDetail->emp_code = $row['emp_code'];
+                    $empAccountDetail->emp_code = empty($row['emp_code']) || $row['emp_code'] == 'NULL' ? null :  $row['emp_code'];
                     $empAccountDetail->emp_pf_no = $row['pf_no'];
                     $empAccountDetail->created_at = $row['created_on'];
                     $empAccountDetail->updated_at = $row['updated_on'];
                     $empAccountDetail->save();
                 }else{
                     
-                    $empPersonalDetail = EmpPersonalDetail::where('emp_code', $reqForm->emp_code)->first();
+                    $empPersonalDetails = EmpPersonalDetail::where('emp_code', $reqForm->emp_code)->first();
                 
-                    if($empPersonalDetail){
-                        $empPersonalDetail->rec_id = $row['rec_id'];
-                        $empPersonalDetail->emp_code =  $empPersonalDetail->emp_code;
-                        $empPersonalDetail->emp_gender = $row['gender'];
-                        $empPersonalDetail->preferred_location = $row['preferred_location'];
-                        $empPersonalDetail->emp_father_name = $row['father_name'];
-                        $empPersonalDetail->emp_father_mobile = $row['father_mobile'];
-                        $empPersonalDetail->emp_marital_status = $row['marital_status'];
-                        $empPersonalDetail->emp_husband_wife_name = $row['spouse_name'];
-                        $empPersonalDetail->emp_dom = $row['date_of_marriage'];
-                        $empPersonalDetail->emp_blood_group = $row['blood_group'];
-                        $empPersonalDetail->emp_photo = $row['photograph'];
-                        $empPersonalDetail->emp_signature = $row['signature'];
-                        $empPersonalDetail->language_known = $row['language_known'];
-                        $empPersonalDetail->emp_category = $row['category'];
-                        $empPersonalDetail->created_at = $row['created_on'];
-                        $empPersonalDetail->updated_at = $row['updated_on'];
-                        $empPersonalDetail->save();    
+                    if($empPersonalDetails){
+                        $empPersonalDetails->rec_id = $row['rec_id'];
+                        $empPersonalDetails->emp_code =  $empPersonalDetails->emp_code;
+                        $empPersonalDetails->emp_gender = $row['gender'];
+                        $empPersonalDetails->preferred_location = $row['preferred_location'];
+                        $empPersonalDetails->emp_father_name = $row['father_name'];
+                        $empPersonalDetails->emp_father_mobile = $row['father_mobile'];
+                        $empPersonalDetails->emp_marital_status = $row['marital_status'];
+                        $empPersonalDetails->emp_husband_wife_name = $row['spouse_name'];
+                        $empPersonalDetails->emp_dom = $row['date_of_marriage'];
+                        $empPersonalDetails->emp_blood_group = $row['blood_group'];
+                        $empPersonalDetails->emp_photo = $row['photograph'];
+                        $empPersonalDetails->emp_signature = $row['signature'];
+                        $empPersonalDetails->language_known = $row['language_known'];
+                        $empPersonalDetails->emp_category = $row['category'];
+                        $empPersonalDetails->created_at = $row['created_on'];
+                        $empPersonalDetails->updated_at = $row['updated_on'];
+                        $empPersonalDetails->save();    
                     }
 
                     // update id proof
 
-                    $empIdProof = EmpIdProof::where('emp_code', $reqForm->emp_code)->first();
+                    $empIdProofs = EmpIdProof::where('emp_code', $reqForm->emp_code)->first();
 
-                    if($empIdProof){
-                        $empIdProof->rec_id = $row['rec_id'];
-                        $empIdProof->emp_code = $empIdProof->emp_code;
-                        $empIdProof->emp_aadhaar_no = $row['aadhar_card_no'];
-                        $empIdProof->aadhar_card_doc = $row['aadhar_card_doc'];
-                        $empIdProof->emp_passport_no = $row['passport_no'];
-                        $empIdProof->passport_file = $row['passport_doc'];
-                        $empIdProof->category_doc = $row['category_doc'];
-                        $empIdProof->police_verification_id = $row['police_verification_id'];
-                        $empIdProof->police_verification_file = $row['police_verification_doc'];
-                        $empIdProof->nearest_police_station = $row['nearest_police_station'];
-                        $empIdProof->created_at = $row['created_on'];
-                        $empIdProof->updated_at = $row['updated_on'];
-                        $empIdProof->save();    
+                    if($empIdProofs){
+                        $empIdProofs->rec_id = $row['rec_id'];
+                        $empIdProofs->emp_code = $empIdProofs->emp_code;
+                        $empIdProofs->emp_aadhaar_no = $row['aadhar_card_no'];
+                        $empIdProofs->aadhar_card_doc = $row['aadhar_card_doc'];
+                        $empIdProofs->emp_passport_no = $row['passport_no'];
+                        $empIdProofs->passport_file = $row['passport_doc'];
+                        $empIdProofs->category_doc = $row['category_doc'];
+                        $empIdProofs->police_verification_id = $row['police_verification_id'];
+                        $empIdProofs->police_verification_file = $row['police_verification_doc'];
+                        $empIdProofs->nearest_police_station = $row['nearest_police_station'];
+                        $empIdProofs->created_at = $row['created_on'];
+                        $empIdProofs->updated_at = $row['updated_on'];
+                        $empIdProofs->save();    
                     }
 
 
                     // update pf No
 
-                    $empAccountDetail = EmpAccountDetail::where('emp_code', $reqForm->emp_code)->first();
-                    if($empAccountDetail){
-                        $empAccountDetail->rec_id = $row['rec_id'];
-                        $empAccountDetail->emp_code =  $empAccountDetail->emp_code;
-                        $empAccountDetail->emp_pf_no = $row['pf_no'];
-                        $empAccountDetail->created_at = $row['created_on'];
-                        $empAccountDetail->updated_at = $row['updated_on'];
-                        $empAccountDetail->save();
+                    $empAccountDetails = EmpAccountDetail::where('emp_code', $reqForm->emp_code)->first();
+                    if($empAccountDetails){
+                        $empAccountDetails->rec_id = $row['rec_id'];
+                        $empAccountDetails->emp_code =  $empAccountDetails->emp_code;
+                        $empAccountDetails->emp_pf_no = $row['pf_no'];
+                        $empAccountDetails->created_at = $row['created_on'];
+                        $empAccountDetails->updated_at = $row['updated_on'];
+                        $empAccountDetails->save();
                     }
 
                 }
@@ -2617,9 +2636,9 @@ public function form16_failed($handle){
         DB::beginTransaction();
         while (($data = fgetcsv($handle)) !== FALSE) {
             $row = [];
-            $row = array_combine($headers, $data);
             
-         
+            $row = array_combine($headers, $data);
+            $row['id'] = 
             Form16Failed::create($row);
         }
         fclose($handle);
@@ -2740,6 +2759,54 @@ public function form16_failed($handle){
             return ['error' => true, 'message' => $th->getMessage()];
         }
     }
+
+
+    // add form_16_fails
+
+    public function form_16_fails($handle){
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
+                $row['created_by'] =  $row['added_by'];
+                Form16Failed::create($row);
+            }
+                fclose($handle);
+                DB::commit();
+                return ['success' => true];
+            }catch (Throwable $th) {
+                DB::rollback();
+                return ['error' => true, 'message' => $th->getMessage()];
+            }
+
+    }
+
+    //add recruitment_form_contractual
+    public function recruitment_form_contractual($handle){
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
+                $row['id'] =  $row['id'];
+                $row['created_by'] =  $row['added_by'];
+                Form16Failed::create($row);
+            }
+                fclose($handle);
+                DB::commit();
+                return ['success' => true];
+            }catch (Throwable $th) {
+                DB::rollback();
+                return ['error' => true, 'message' => $th->getMessage()];
+            }
+
+    }
+
+
+
    
 
 
