@@ -1,8 +1,5 @@
 @extends('layouts.master')
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
 
 @section('contents')
 <div class="row">
@@ -24,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row px-4 ">
+            <div class="row px-4">
                 <div class="col-md-12">
                     <label><strong>Working days : </strong> <span class="text-danger">Attendance need to
                             insert.</span></label><br>

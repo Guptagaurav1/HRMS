@@ -227,7 +227,7 @@
                 </div>
 
                 {{-- Pagination --}}
-                <div class="col-md-12 d-flex justify-content-center my-2">
+                <div class="col-md-12 d-flex justify-content-start my-2 mt-3">
                     {{ $employees->links() }}
                 </div>
             </div>

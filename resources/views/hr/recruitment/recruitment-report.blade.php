@@ -59,7 +59,7 @@
                         @endif
 
                         <div class="col-md-12 d-flex align-items-cenetr justify-content-between px-3 mt-5">
-                    <div class="">
+                    <div class="mt-3">
                         <form class="row g-3" method="get">
                             <div class="col-auto  col-xs-12 mb-3">
                                 <input type="text" name="search" value="" class="form-control" placeholder="Search"
@@ -142,7 +142,7 @@
                                 @endif
                                 <td class="text-center"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
                                 @if(auth()->user()->hasPermission('update_position_request'))
-                                    <td><a class="btn btn-primary text-light text-decoration-none" href="{{route('update_position_request', ['id' => $position->id])}}">Edit</a></td>
+                                    <td><a class="btn  btn-sm btn-primary text-light text-decoration-none" href="{{route('update_position_request', ['id' => $position->id])}}">Edit <i class="fa-solid fa-pen-to-square"></i></a></td>
                                 @endif
                             </tr>
                             @empty

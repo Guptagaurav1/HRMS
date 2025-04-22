@@ -24,9 +24,7 @@
                     <li> Employee Details</li>
                 </ul>
             </div>
-
         </div>
-
 
             <div class="table-responsive mt-4">
                 <div class="row px-2">

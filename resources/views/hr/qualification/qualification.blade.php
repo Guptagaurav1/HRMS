@@ -24,16 +24,16 @@
                         <div class="col-md-10">
                             <form  method="get">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-auto col-xs-12">
                                         <input type="text" name="search" value="" class="form-control" placeholder="Search"
                                         required>
     
                                     </div>
-                                    <div class="col-md-1">
-                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search</button>
+                                    <div class="col-auto col-xs-12">
+                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
     
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-auto col-xs-12">
                                         <a href="{{ route('organizations.index')}}" class="col-xs-12"><button type="button"
                                                 class="btn btn-primary btn-sm mb-3">Clear <i
                                                     class="fa-solid fa-eraser"></i></button></a>
@@ -44,7 +44,7 @@
     
     
                         </div>
-                        <div class="col-md-2 ">
+                        <div class="col-auto col-xs-12">
                             @if(auth()->user()->hasPermission('add-qualification'))
                         
                             <a href="{{route('add-qualification')}}" class="col-xs-12"><button class="btn btn-sm btn-primary">Add

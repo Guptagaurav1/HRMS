@@ -1,7 +1,4 @@
 @extends('layouts.master', ['title' => 'Companies'])
-
-
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -20,24 +17,22 @@
                 </div>
             </div>
 
-
             <div class="table-filter-option">
                 <div class="row g-3">
-
                     <div class="row px-3 mt-5">
                         <div class="col-md-10">
                             <form method="get">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-auto col-xs-12">
                                         <input type="search" class="form-control" placeholder="Search" name="search"
                                             value="{{ $search }}" required>
 
                                     </div>
-                                    <div class="col-md-1">
-                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search </button>
+                                    <div class="col-auto col-xs-12">
+                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-auto col-xs-12">
 
                                         <a href="#" class="col-xs-12"><button type="button"
                                                 class="btn btn-primary btn-sm mb-3">Clear <i
@@ -46,19 +41,14 @@
                                     </div>
                                 </div>
                             </form>
-
-
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-auto col-xs-12">
                             <a href="{{route('company.create')}}" class="col-xs-12 mx-md-2"><button type="button"
                                     class="btn btn-sm btn-primary">Add Company
                                     <i class="fa-solid fa-plus"></i></button></a>
 
                         </div>
                     </div>
-
-                    
-
                 </div>
             </div>
 

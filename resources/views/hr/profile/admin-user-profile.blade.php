@@ -1,7 +1,4 @@
 @extends('layouts.master')
-
-
-
 @section('contents')
 <div class="container-fluid profile-container shadow">
 
