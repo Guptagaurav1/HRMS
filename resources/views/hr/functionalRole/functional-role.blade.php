@@ -16,7 +16,6 @@
                     </ul>
                 </div>
             </div>
-
             <div class="panel-body">
                 <div class="row ">
                     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -66,16 +65,16 @@
                         <div class="col-md-10">
                             <form method="get">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-auto col-xs-12">
                                         <input type="search" name="search" value="{{$search}}" class="form-control" placeholder="Search"
                                             required>
 
                                     </div>
-                                    <div class="col-md-1">
-                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search </button>
+                                    <div class="col-auto col-xs-12">
+                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-auto col-xs-12">
 
                                         <a href="{{route('functional-role')}}" class="col-xs-12"><button type="button"
                                                 class="btn btn-primary btn-sm mb-3">Clear <i
@@ -85,7 +84,7 @@
                             </form>
 
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-auto col-xs-12">
                             @if(auth()->user()->hasPermission('add-functional-role'))
 
                             <a href="{{route('add-functional-role')}}" class="col-xs-12"><button
@@ -97,9 +96,6 @@
                         </div>
                     </div>
             </div>
-
-
-
             <div class="table-responsive">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                     id="allEmployeeTable">
@@ -133,7 +129,6 @@
                                 </div>
                                 </div>
                             </td>
-
                         </tr>
                         @empty
                         <tr>
@@ -151,7 +146,6 @@
     </div>
 </div>
 </div>
-
 
 @endsection
 @section('script')

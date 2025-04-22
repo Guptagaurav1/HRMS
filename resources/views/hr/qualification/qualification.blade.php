@@ -24,17 +24,27 @@
                         <div class="col-md-10">
                             <form  method="get">
                                 <div class="row">
+<<<<<<< HEAD
+                                    <div class="col-auto col-xs-12">
+                                        <input type="text" name="search" value="" class="form-control" placeholder="Search"
+=======
                                     <div class="col-md-3">
                                         <input type="text" name="search" value="{{$search}}" class="form-control" placeholder="Search"
+>>>>>>> 3ca76a86dd6b9bcee98f129801e46d20859e4140
                                         required>
     
                                     </div>
-                                    <div class="col-md-1">
-                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search</button>
+                                    <div class="col-auto col-xs-12">
+                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
     
                                     </div>
+<<<<<<< HEAD
+                                    <div class="col-auto col-xs-12">
+                                        <a href="{{ route('organizations.index')}}" class="col-xs-12"><button type="button"
+=======
                                     <div class="col-md-6">
                                         <a href="{{ route('qualification')}}" class="col-xs-12"><button type="button"
+>>>>>>> 3ca76a86dd6b9bcee98f129801e46d20859e4140
                                                 class="btn btn-primary btn-sm mb-3">Clear <i
                                                     class="fa-solid fa-eraser"></i></button></a>
     
@@ -44,7 +54,7 @@
     
     
                         </div>
-                        <div class="col-md-2 ">
+                        <div class="col-auto col-xs-12">
                             @if(auth()->user()->hasPermission('add-qualification'))
                         
                             <a href="{{route('add-qualification')}}" class="col-xs-12"><button class="btn btn-sm btn-primary">Add

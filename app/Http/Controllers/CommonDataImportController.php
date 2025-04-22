@@ -109,7 +109,12 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_employee_data($handle);
 
         // Add salary details.
+        
         // $status =  $this->import_salary_data($handle);
+
+        // Add emp Salary
+
+        $status =  $this->emp_salary_slip($handle);
 
         // Add Leave Request details.
         // $status =  $this->import_leave_request_data($handle);
@@ -1858,7 +1863,7 @@ class CommonDataImportController extends Controller
                 // // Save Id Proof Details
                 $idproofdetails = new EmpIdProof();
                 $idproofdetails->emp_code = $row['emp_code'];
-                $idproofdetails->emp_aadhaar_no = $row['emp_aadhaar_no'] == 'string' ? '' :  str_replace("string", "", $row['emp_aadhaar_no']);
+                $idproofdetails->emp_aadhaar_no = $row['emp_aadhaar_no'];
                 $idproofdetails->emp_passport_no = $row['emp_passport_no'];
                 $idproofdetails->passport_file = $row['passport_file'];
                 $idproofdetails->nearest_police_station = $row['nearest_police_station'];
@@ -1902,7 +1907,6 @@ class CommonDataImportController extends Controller
                 $expdetails->created_at = $row['adding_date'];
                 $expdetails->created_by = $row['added_by'] ? $row['added_by'] : null;
                 $expdetails->save();
-                print_r($row['emp_code']);
             }
             fclose($handle);
             DB::commit();
@@ -2137,8 +2141,9 @@ class CommonDataImportController extends Controller
 
     // salary slip
 
-    public function salary($handle)
+    public function emp_salary_slip($handle)
     {
+
         $headers = fgetcsv($handle);
         try {
             DB::beginTransaction();
@@ -2146,7 +2151,8 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data);
-                $row['status'] =     $row['status'];
+                $row['status'] = $row['status'];
+                $row['emp_salary_id'] = $row['emp_salary_id'];
                 EmpSalarySlip::create($row);
             }
             fclose($handle);
@@ -2315,21 +2321,16 @@ class CommonDataImportController extends Controller
 
     // rec rec_address_details
 
-    public function rec_address_details($handle)
-    {
-        $headers = fgetcsv($handle);
-        try {
-            DB::beginTransaction();
-            while (($data = fgetcsv($handle)) !== FALSE) {
-                $row = [];
-                $row = array_combine($headers, $data);
-                $reqForm = RecruitmentForm::where('id', $row['rec_id'])->first();
-
-                // var_dump($reqForm->emp_code);
-
-                if ($reqForm->emp_code == 'NULL' ||  empty($reqForm->emp_code)) {
+public function rec_address_details($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row = array_combine($headers, $data);
+                $reqForm = RecruitmentForm::where('id',  $row['rec_id'])->first();
+                if($reqForm->emp_code == 'NULL' ||  empty($reqForm->emp_code)){
                     $empAddress = new EmpAddressDetail();
-                    $empAddress->rec_id = $row['rec_id'];
+                    $empAddress->rec_id = empty($row['rec_id'])  || $row['rec_id'] == "NULL" ? null : $row['rec_id'];
                     $empAddress->emp_permanent_address = $row['permanent_add'];
                     $empAddress->emp_local_address = $row['correspondence_add'];
                     $empAddress->created_at = $row['created_on'];
@@ -2337,7 +2338,7 @@ class CommonDataImportController extends Controller
                     $empAddress->save();
                     // id proof
                     $empIdProof = new EmpIdProof();
-                    $empIdProof->rec_id = $row['rec_id'];
+                    $empIdProof->rec_id =  empty($row['rec_id'])  || $row['rec_id'] == "NULL" ? null : $row['rec_id'];
                     $empIdProof->permanent_doc_type = $row['per_doc_type'];
                     $empIdProof->permanent_add_doc = $row['permanent_add_doc'];
                     $empIdProof->correspondence_doc_type = $row['corres_doc_type'];
@@ -2347,32 +2348,39 @@ class CommonDataImportController extends Controller
                     $empIdProof->save();
                 } else {
                     $updateEmpAdd = EmpAddressDetail::where('emp_code', $reqForm->emp_code)->first();
-                    if ($updateEmpAdd) {
-                        $updateEmpAddress->rec_id = $row['rec_id'];
-                        $updateEmpAddress->emp_permanent_address = $row['permanent_add'];
-                        $updateEmpAddress->emp_local_address = $row['correspondence_add'];
-                        $updateEmpAddress->created_at = $row['created_on'];
-                        $updateEmpAddress->updated_at = $row['updated_on'];
-                        $updateEmpAddress->save();
+                    // dd($row['permanent_add']);  
+                 
+                    if($updateEmpAdd){         
+                        $updateEmpAdd->rec_id = empty($row['rec_id'])  || $row['rec_id'] == "NULL" ? null : $row['rec_id'];
+                        $updateEmpAdd->emp_permanent_address = $row['permanent_add'];
+                        $updateEmpAdd->emp_local_address = $row['correspondence_add'];
+                        $updateEmpAdd->created_at = $row['created_on'];
+                        $updateEmpAdd->updated_at = $row['updated_on'];
+                        $updateEmpAdd->save();
                     }
-                    $empIdProofUpdate = EmpIdProof::where('emp_code', $reqForm->emp_code)->first();
-                    if ($empIdProofUpdate) {
-                        $empIdProofUpdate->rec_id = $row['rec_id'];
+                    $empIdProofUpdate= EmpIdProof::where('emp_code', $reqForm->emp_code)->first();
+                    if($empIdProofUpdate){
+                        $empIdProofUpdate->rec_id = empty($row['rec_id'])  || $row['rec_id'] == "NULL" ? null : $row['rec_id'];
                         $empIdProofUpdate->permanent_doc_type = $row['per_doc_type'];
                         $empIdProofUpdate->permanent_add_doc = $row['permanent_add_doc'];
                         $empIdProofUpdate->correspondence_doc_type = $row['corres_doc_type'];
                         $empIdProofUpdate->correspondence_add_doc = $row['correspondence_add_doc'];
                         $empIdProofUpdate->created_at = $row['created_on'];
                         $empIdProofUpdate->updated_at = $row['updated_on'];
+                        $empIdProofUpdate->save();
                     }
+
                 }
-            }
-            fclose($handle);
-            DB::commit();
-            return ['success' => true];
-        } catch (Throwable $th) {
+
+                // echo "<pre>";
+                // print_r($row['rec_id']);
+        }
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
             DB::rollback();
-            return ['error' => true, 'message' => $th->getMessage()];
+            return ['error' => true, 'message' => $th->getMessage().$th->getLine()];
         }
     }
 
@@ -2549,18 +2557,16 @@ class CommonDataImportController extends Controller
         }
     }
 
-    // Add rec_personal_details
+public function rec_personal_details($handle){
+    $headers = fgetcsv($handle);
+    try {
+        DB::beginTransaction();
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $row =[];
+            $row = array_combine($headers, $data);
 
-    public function rec_personal_details($handle)
-    {
-        $headers = fgetcsv($handle);
-        try {
-            DB::beginTransaction();
-            while (($data = fgetcsv($handle)) !== FALSE) {
-                $row = [];
-                $row = array_combine($headers, $data);
-                $reqForm = RecruitmentForm::where('id', $row['rec_id'])->first();
-                if ($reqForm->emp_code == 'NULL' ||  empty($reqForm->emp_code)) {
+                $reqForm = RecruitmentForm::where('emp_code', $row['emp_code'])->first();
+                if($reqForm){
                     $empPersonalDetail = new EmpPersonalDetail();
                     $empPersonalDetail->rec_id = $row['rec_id'];
                     $empPersonalDetail->emp_code = empty($row['emp_code']) || $row['emp_code'] == 'NULL' ? null :  $row['emp_code'];
@@ -2606,13 +2612,12 @@ class CommonDataImportController extends Controller
                     $empAccountDetail->created_at = $row['created_on'];
                     $empAccountDetail->updated_at = $row['updated_on'];
                     $empAccountDetail->save();
-                } else {
-
-                    $empPersonalDetails = EmpPersonalDetail::where('emp_code', $reqForm->emp_code)->first();
-
-                    if ($empPersonalDetails) {
-                        $empPersonalDetails->rec_id = $row['rec_id'];
-                        $empPersonalDetails->emp_code =  $empPersonalDetails->emp_code;
+                }else{
+                    
+                    $empPersonalDetails = EmpPersonalDetail::where('emp_code', $row['emp_code'])->first();
+                
+                    if($empPersonalDetails){
+                        $empPersonalDetails->rec_id = empty($row['rec_id']) || $row['rec_id'] == 'NULL' ? null :  $row['rec_id'];
                         $empPersonalDetails->emp_gender = $row['gender'];
                         $empPersonalDetails->preferred_location = $row['preferred_location'];
                         $empPersonalDetails->emp_father_name = $row['father_name'];
@@ -2632,12 +2637,11 @@ class CommonDataImportController extends Controller
 
                     // update id proof
 
-                    $empIdProofs = EmpIdProof::where('emp_code', $reqForm->emp_code)->first();
+                    $empIdProofs = EmpIdProof::where('emp_code', $row['emp_code'])->first();
 
-                    if ($empIdProofs) {
-                        $empIdProofs->rec_id = $row['rec_id'];
-                        $empIdProofs->emp_code = $empIdProofs->emp_code;
-                        $empIdProofs->emp_aadhaar_no = $row['aadhar_card_no'];
+                    if($empIdProofs){
+                        $empIdProofs->rec_id =empty($row['rec_id']) || $row['rec_id'] == 'NULL' ? null :  $row['rec_id'];
+                        $empIdProofs->emp_aadhaar_no =  $row['emp_aadhaar_no'];
                         $empIdProofs->aadhar_card_doc = $row['aadhar_card_doc'];
                         $empIdProofs->emp_passport_no = $row['passport_no'];
                         $empIdProofs->passport_file = $row['passport_doc'];
@@ -2653,10 +2657,8 @@ class CommonDataImportController extends Controller
 
                     // update pf No
 
-                    $empAccountDetails = EmpAccountDetail::where('emp_code', $reqForm->emp_code)->first();
-                    if ($empAccountDetails) {
-                        $empAccountDetails->rec_id = $row['rec_id'];
-                        $empAccountDetails->emp_code =  $empAccountDetails->emp_code;
+                    $empAccountDetails = EmpAccountDetail::where('emp_code', $row['emp_code'])->first();
+                    if($empAccountDetails){
                         $empAccountDetails->emp_pf_no = $row['pf_no'];
                         $empAccountDetails->created_at = $row['created_on'];
                         $empAccountDetails->updated_at = $row['updated_on'];
@@ -2664,12 +2666,12 @@ class CommonDataImportController extends Controller
                     }
                 }
             }
-            fclose($handle);
-            DB::commit();
-            return ['success' => true];
-        } catch (Throwable $th) {
+        fclose($handle);
+        DB::commit();
+        return ['success' => true];
+    }catch (Throwable $th) {
             DB::rollback();
-            return ['error' => true, 'message' => $th->getMessage()];
+            return ['error' => true, 'message' => $th->getMessage().$th->getLine()];
         }
     }
 
@@ -2789,9 +2791,8 @@ class CommonDataImportController extends Controller
             DB::rollback();
             return ['error' => true, 'message' => $th->getMessage()];
         }
-    }
 
-
+}
 
 
     public function emp_wish_mail_log($handle)
@@ -2924,25 +2925,5 @@ class CommonDataImportController extends Controller
         }
     }
 
-    //add recruitment_form_contractual
-    public function recruitment_form_contractual($handle)
-    {
-        $headers = fgetcsv($handle);
-        try {
-            DB::beginTransaction();
-            while (($data = fgetcsv($handle)) !== FALSE) {
-                $row = [];
-                $row = array_combine($headers, $data);
-                $row['id'] =  $row['id'];
-                $row['created_by'] =  $row['added_by'];
-                Form16Failed::create($row);
-            }
-            fclose($handle);
-            DB::commit();
-            return ['success' => true];
-        } catch (Throwable $th) {
-            DB::rollback();
-            return ['error' => true, 'message' => $th->getMessage()];
-        }
-    }
+
 }

@@ -1,8 +1,4 @@
 @extends('layouts.master', ['title' => 'Bank Details'])
-
-
-
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -13,7 +9,7 @@
                     <ul class="breadcrumb">
                         <li>
                             @if (auth()->user()->role->role_name="hr")
-                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
                             @endif
                         </li>
                         <li>Banks Details</li>
@@ -23,7 +19,6 @@
 
             <div class="panel-body">
                 <div class="row ">
-
                     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                             <path
@@ -70,16 +65,17 @@
                         <div class="col-md-10">
                             <form method="get">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <input type="search" name="search" value="{{$search}}" class="form-control"
+                                    <div class="col-auto col-xs-12">
+                                        <input type="text" name="search" value="{{$search}}" class="form-control"
                                             placeholder="Search" required>
 
                                     </div>
-                                    <div class="col-md-1">
-                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search</button>
+                                    <div class="col-auto col-xs-12">
+                                        <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
+                                                class="fa-solid fa-magnifying-glass"></i></button>
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-auto col-xs-12">
                                         <a href="{{ route('bank-details')}}" class="col-xs-12"><button
                                                 type="button" class="btn btn-primary btn-sm mb-3">Clear <i
                                                     class="fa-solid fa-eraser"></i></button></a>
@@ -87,10 +83,8 @@
                                     </div>
                                 </div>
                             </form>
-
-
                         </div>
-                        <div class="col-md-2 ">
+                        <div class="col-auto col-xs-12">
                             @if(auth()->user()->hasPermission('add-bank'))
 
                             <a href="{{route('add-bank')}}" class="col-xs-12 mx-md-4"><button
@@ -102,48 +96,45 @@
                         </div>
                     </div>
 
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                            id="allEmployeeTable">
+                            <thead>
+                                <tr>
+                                    <th class='text-center'>Sr No.</th>
+                                    <th class='text-center'>Bank Name</th>
+                                    <th class='text-center'>Type Of Bank</th>
+                                    <th class='text-center'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($banks as $bank)
+                                <tr>
+                                    <td class='text-center'>{{ $loop->iteration }}</td>
+                                    <td class='text-center'>{{ $bank->name_of_bank }}</td>
+                                    <td class='text-center'>{{ $bank->type_of_bank }}</td>
+                                    <td class='text-center'>
+                                        @if($bank->status)
+                                        <button class="btn btn-sm btn-danger deactivate"
+                                            data-id="{{$bank->id}}">DeActivate</button>
+                                        @else
+                                        <button class="btn btn-sm btn-primary activate"
+                                            data-id="{{$bank->id}}">Activate</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-danger text-center" colspan="4">No Record Found</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
 
-
-
-
-                    <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
-                        id="allEmployeeTable">
-                        <thead>
-                            <tr>
-                                <th class='text-center'>Sr No.</th>
-                                <th class='text-center'>Bank Name</th>
-                                <th class='text-center'>Type Of Bank</th>
-                                <th class='text-center'>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($banks as $bank)
-                            <tr>
-                                <td class='text-center'>{{ $loop->iteration }}</td>
-                                <td class='text-center'>{{ $bank->name_of_bank }}</td>
-                                <td class='text-center'>{{ $bank->type_of_bank }}</td>
-                                <td class='text-center'>
-                                    @if($bank->status)
-                                    <button class="btn btn-sm btn-danger deactivate"
-                                        data-id="{{$bank->id}}">DeActivate</button>
-                                    @else
-                                    <button class="btn btn-sm btn-primary activate"
-                                        data-id="{{$bank->id}}">Activate</button>
-                                    @endif
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td class="text-danger text-center" colspan="4">No Record Found</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-
-                    <div class="col-md-12">
-                        {{$banks->links()}}
+                        <div class="col-md-12">
+                            {{$banks->links()}}
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>

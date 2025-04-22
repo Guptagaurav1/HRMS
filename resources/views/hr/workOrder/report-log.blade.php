@@ -68,7 +68,7 @@
                          </div>
                          <div class="col-auto">
                              <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
-                             <a href="{{ route('project-list') }}">
+                             <a href="{{ route('report-log') }}">
                              <button type="button" class="btn btn-secondary mb-3">Clear <i
                              class="fa-solid fa-eraser"></i></button></a>
                          </div>
@@ -90,8 +90,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <!-- @if(!empty($report)) -->
-                                 @foreach($report as $key => $value)
+                       
+                                 @forelse($report as $key => $value)
                                      <tr>
                                          <td class="srno-column">{{$key+1}}</td>
                                          <td class="text-center">{{$value->doc}}</td>
@@ -137,27 +137,23 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
                                             @endsection
                                          </td>
                                      </tr>
-                                   
-                                 @endforeach
-                                 <!-- @else -->
+                                     @empty
                                  <tr>
                                      <td class="text-danger text-center" colspan="12">No Record Found</td>
                                  </tr>
-                                 <!-- @endif -->
+                                 @endforelse
+                                 
                         </tbody>
                     </table>
-                    @if(!empty($report))
+                  
                     <div class="py-3 px-2">
                          {{ $report->links() }}
                     </div>
-                    @endif
-                   
-                    
                 </div>
             </div>
         </div>

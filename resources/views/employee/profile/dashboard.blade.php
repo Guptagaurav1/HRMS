@@ -14,9 +14,7 @@
     </div>
     <!-- Employee Profile Card -->
     <div class="d-flex justify-content-center align-items-center bg-white gap-3">
-
         <div class="col-md-12 id-card ">
-
             <div class="container mt-3">
                 <div class="row px-3">
                     <div class="col-4 col-sm-3 col-md-2 text-center border  mh-100">
@@ -24,7 +22,7 @@
                         <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/' . $details->getPersonalDetail->emp_photo) }}"
                             alt="{{ $details->emp_name }}" class="rounded-circle img-fluid">
                         @else
-                        <img src="https://th.bing.com/th/id/OIP.3P9nzziOugJKbq2zOy4WYgAAAA?rs=1&pid=ImgDetMain" alt="Avatar">
+                        <img src="{{asset('assets\images\avtaar_employee.png')}}" alt="Avatar">
                         @endif
                     </div>
                     <div class="col-8 col-sm-9 col-md-10">
@@ -33,8 +31,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <div class="info">
                 <div class="row">
@@ -208,8 +204,6 @@
                     <td class="text-center text-danger">No document found</td>
                 </tr>
                 @endforelse
-
-
             </ul>
         </div>
     </div>

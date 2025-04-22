@@ -23,10 +23,10 @@
                             <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" required>
                         </div>
                         <div class="col-auto col-xs-12">
-                            <button type="submit" class="btn btn-primary mb-3"> Search</button>
+                            <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                         <div class="col-auto col-xs-12">
-                            <a href="{{ route('events.birthday-list') }}" class="btn btn-primary mb-3"> Clear</a>
+                            <a href="{{ route('events.birthday-list') }}" class="btn btn-primary mb-3"> Clear <i class="fa-solid fa-eraser"></i></a>
                         </div>
                     </form>
                 </div>

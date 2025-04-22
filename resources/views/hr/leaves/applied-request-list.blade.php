@@ -1,4 +1,7 @@
 @extends('layouts.master', ['title' => 'Leave Requests'])
+
+
+
 @section('contents')
     <div class="row">
         <div class="col-12">
@@ -31,16 +34,16 @@
                                         value="{{ $search }}" required>
                                 </div>
                                 <div class="col-auto col-xs-12">
-                                    <button type="submit" class="btn btn-primary mb-3">Search</button>
+                                    <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
                                 <div class="col-auto col-xs-12">
-                                    <a href="{{ route('applied-request-list') }}" class="btn btn-primary mb-3">Clear</a>
+                                    <a href="{{ route('applied-request-list') }}" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></a>
                                 </div>
                             </form>
                         </div>
                         @if (auth('employee')->check())
                             <div class="col-auto col-xs-12">
-                                <a href="{{ route('leave.leave_request') }}" class="btn btn-primary">Apply Leave</a>
+                                <a href="{{ route('leave.leave_request') }}" class="btn btn-primary">Apply Leave <i class="fa-solid fa-paper-plane"></i></a>
                             </div>
                         @endif
                     </div>
@@ -234,7 +237,7 @@
                                 <div class="col-md-6">
                                     <div class="field-container shadow-sm">
                                         <label class="fw-bold">Reason Of Absence:</label>
-                                        <span class="reason"></span>
+                                        <span class="reason attr"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -253,7 +256,7 @@
 
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="field-container d-flex align-items-center justify-content-centershadow-sm">
+                                    <div class="field-container d-flex align-items-center justify-content-center shadow-sm">
                                         <label class="fw-bold">Department Head Email:</label>
                                         <span class="head_mail"></span>
                                     </div>

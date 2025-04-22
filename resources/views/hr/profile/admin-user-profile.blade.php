@@ -1,7 +1,4 @@
 @extends('layouts.master')
-
-
-
 @section('contents')
 <div class="container-fluid profile-container shadow">
 
@@ -14,12 +11,14 @@
 
             </div>
             <div>
-                <ul class="breadcrumb">
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Profile Details</a></li>
-                    <li>Italy</li>
-                </ul>
+            <ul class="breadcrumb">
+                        <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                        </li>
+                        <li>Profile Details</li>
+                    </ul>
             </div>
         </div>
 

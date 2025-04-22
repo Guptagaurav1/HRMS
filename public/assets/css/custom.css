@@ -18,7 +18,6 @@
   white-space: normal;
 }
 
-
 #bb {
   background: #2A3F54;
   color: white;
@@ -68,9 +67,6 @@ span.alert-danger {
 .table td {
   text-align: center;
   vertical-align: middle;
-}
-th{
-  text-align: center;
 }
 
 .rec-list_head {
