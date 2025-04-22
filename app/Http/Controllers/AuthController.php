@@ -77,7 +77,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Department Logout. 
+     * Department and employee Logout. 
      */
     public function d_logout(Request $request)
     {
@@ -362,13 +362,11 @@ class AuthController extends Controller
                     'old_value' => '',
                     'new_value' => md5($request->password),
                 ]);
-
             } else {
                 $user = User::where('email', auth()->user()->email)->firstOrFail();
                 $user->password = md5($request->password);
                 $name = $user->first_name . " " . $user->last_name;
                 $email = $user->email;
-
             }
             // Update user password.
             $user->save();
@@ -381,16 +379,16 @@ class AuthController extends Controller
                     <h4>Click Below Button to login your account</h4></br>
                     <h4><a href='" . $url_link . "'>Click Here</a></h4>";
 
-                $maildata = new stdClass();
-                $maildata->subject = "Password Changed";
-                $maildata->name = $name;
-                $maildata->comp_email = $company->email;
-                $maildata->comp_phone = $company->mobile;
-                $maildata->comp_website = $company->website;
-                $maildata->comp_address = $company->address;
-                $maildata->content = $html;
-                $maildata->url = url('/');
-                Mail::to($email)->send(new ShortlistMail($maildata));
+            $maildata = new stdClass();
+            $maildata->subject = "Password Changed";
+            $maildata->name = $name;
+            $maildata->comp_email = $company->email;
+            $maildata->comp_phone = $company->mobile;
+            $maildata->comp_website = $company->website;
+            $maildata->comp_address = $company->address;
+            $maildata->content = $html;
+            $maildata->url = url('/');
+            Mail::to($email)->send(new ShortlistMail($maildata));
 
             DB::commit();
             return redirect()->route('user.change-password')->with(['success' => true, 'message' => 'Password changed successfully.']);

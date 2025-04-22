@@ -44,6 +44,7 @@ use Mail;
 use PDF;
 use Illuminate\Support\Facades\DB;
 use App;
+use Illuminate\Validation\Rule;
 
 class RecruitmentController extends Controller
 {
@@ -2300,13 +2301,15 @@ class RecruitmentController extends Controller
     public function submit_details(Request $request)
     {
         try {
+            $post_req_id = decrypt($request->req_id);
+
             $this->validate($request, [
                 'req_id' => ['required'],
                 'reference' => ['required'],
                 'send_mail_id' => ['required'],
                 'firstname' => ['required', 'string', 'max:255'],
                 'lastname' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'email', 'unique:emp_details,emp_email_first', 'unique:recruitment_forms,email'],
+                'email' => ['required', 'email', 'unique:emp_details,emp_email_first', Rule::unique('recruitment_forms', 'email')->where(fn ($query) => $query->where('pos_req_id', $post_req_id))],
                 'location' => ['required', 'string', 'max:255'],
                 'experience' => ['required'],
                 'dob' => ['required', 'date'],
@@ -2317,11 +2320,10 @@ class RecruitmentController extends Controller
             ]);
 
             // Post data.
-            $post_req_id = decrypt($request->req_id);
             $reference = decrypt($request->reference);
             $send_mail_id = decrypt($request->send_mail_id);
             $position = PositionRequest::select('position_title', 'recruitment_type', 'id', 'department')->findOrFail($post_req_id);
-            $user = User::select('id', 'first_name', 'last_name', 'phone', 'company_id')->where('email', $reference)->first();
+            $user = User::select('id', 'first_name', 'last_name', 'phone','email', 'company_id')->where('email', $reference)->first();
             $formdata = $request->all();
             $data = new RecruitmentForm();
             unset($formdata['req_id']);

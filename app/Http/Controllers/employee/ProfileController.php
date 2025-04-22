@@ -32,10 +32,18 @@ class ProfileController extends Controller
      */
     public function show_profile()
     {
-        $emp_code = auth('employee')->user()->emp_code;
-        $details = EmpDetail::where('emp_code', $emp_code)->firstOrFail();
-        $manager = User::Select('first_name', 'last_name', 'role_id')->where('email', $details->reporting_email)->firstOrFail();
-        return view("employee.profile.employee-users-details", compact('details', 'manager'));
+        try{
+            $emp_code = auth('employee')->user()->emp_code;
+            $details = EmpDetail::where('emp_code', $emp_code)->firstOrFail();
+            $manager = new stdClass;
+            if($details->reporting_email && $details->reporting_email != 'Not Specify'){
+                $manager = User::Select('first_name', 'last_name', 'role_id')->where('email', $details->reporting_email)->firstOrFail();
+            }
+            return view("employee.profile.employee-users-details", compact('details', 'manager'));
+        }
+        catch (Throwable $th){
+            return $th->getMessage();
+        }
     }
 
     /**

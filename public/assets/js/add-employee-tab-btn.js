@@ -491,7 +491,7 @@ $(document).ready(function () {
                             element.closest('div').find('span.code_status').removeClass('text-success').addClass('text-danger').text('Already Exists');
                         }
                         else {
-                            element.closest('div').find('span.code_status').removeClass('text-danger').addClass('text-success').text('Available');
+                            element.closest('div').find('span.code_status').removeClass('text-danger').addClass('text-success').text('');
                         }
                     }
                     else if (response.error) {
@@ -530,7 +530,7 @@ $(document).ready(function () {
                             element.closest('div').find('span.emp_email').removeClass('text-success').addClass('text-danger').text('Already Exists');
                         }
                         else {
-                            element.closest('div').find('span.emp_email').removeClass('text-danger').addClass('text-success').text('Available');
+                            element.closest('div').find('span.emp_email').removeClass('text-danger').addClass('text-success').text('');
                         }
                     }
                     else if (response.error) {
