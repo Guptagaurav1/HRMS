@@ -22,7 +22,7 @@
                         <div class="col-md-6">
                             <div class="leave-box">
                                 <p class="leave-title">Last Updated Attendance</p>
-                                <p>{{ date('jS F, Y', strtotime($attandance->created_at)) }}</p>
+                                <p>{{$attandance ? date('jS F, Y', strtotime($attandance->created_at)) : '' }}</p>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                         <p>Total Approved Leave Taken</p>
                                     </div>
                                     <div class="col-4 text-center">
-                                        <span>{{ $attandance->approve_leave }}</span>
+                                        <span>{{$attandance ? $attandance->approve_leave : '' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                         <p>Total LWOP Leave Taken</p>
                                     </div>
                                     <div class="col-4 text-center">
-                                        <span>{{ $attandance->lwp_leave }}</span>
+                                        <span>{{$attandance ? $attandance->lwp_leave : '' }}</span>
                                     </div>
                                 </div>
                             </div>
