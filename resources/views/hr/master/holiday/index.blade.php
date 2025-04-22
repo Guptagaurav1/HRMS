@@ -5,29 +5,45 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2">Holidays</h3>
+                    <ul class="breadcrumb">
+                        <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                        </li>
+                        <li>Holidays List</li>
+                    </ul>
                 </div>
-                <div class="col-md-12  mt-2">
+                <div class="col-md-12  mt-5">
                     <div class="row mx-2">
                         <div class="col-md-6">
                             <form class="row form">
-                                <div class="col-auto mb-3">
+                                <div class="col-auto col-xs-12 mb-3">
                                     <input type="search" class="form-control" name="search" placeholder="Search by name and type"
                                         value="{{ $search }}" required>
                                 </div>
-                                <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary mb-3">Search <i
+                                <div class="col-auto col-xs-12">
+                                    <button type="submit" class="btn btn-sm btn-primary mb-3">Search <i
                                             class="fa-solid fa-magnifying-glass"></i></button>
-                                    <a href="{{ route('holiday.list') }}" class="btn btn-primary mb-3">Clear <i
-                                            class="fa-solid fa-eraser"></i></a>
+                                  
+                                </div>
+                                <div class="col-auto col-xs-12">
+                                <a href="{{ route('holiday.list') }}" class="btn btn-sm btn-primary mb-3">Clear <i
+                                class="fa-solid fa-eraser"></i></a>
+
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-6 text-end">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <div class="col-xs-12 col-md-6 text-end">
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#addHoliday">Add Holiday</button>
                         </div>
                     </div>
                 </div>
+
+                    <!-- New Search form design  -->
+
+
 
                 <div class="table-responsive vh-100">
                     <div class="col-sm-12">

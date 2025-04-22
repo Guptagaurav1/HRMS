@@ -466,6 +466,7 @@ $(document).ready(function () {
 
     var empCodeRequest;
     // Check availability of employee code.
+    
     $("input[name=emp_code]").keyup(function () {
         var element = $(this);
         var code = element.val();

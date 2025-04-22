@@ -1,8 +1,5 @@
 @extends('layouts.master', ['title' => 'Clients'])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
 
 @section('contents')
     <div class="row">
@@ -10,27 +7,42 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="text-white mt-2">Client List</h3>
+                        <ul class="breadcrumb">
+                            <li> @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
+                            <li>Client List</li>
+                        </ul>
 
                 </div>
-                <div class="text-end px-2 mt-3">
-                    <a href="{{ route('clients.create') }}">
+               
+                <div class="col-md-12 d-flex justify-content-between flex-wrap px-3 mt-5">
+                    <form class="row g-3" method="get">
+                        <div class="col-auto col-xs-12 mb-3">
+                            <input type="text" name="search" value="{{ $search }}" class="form-control"
+                                placeholder="Search" required>
+                        </div>
+                        <div class="col-auto col-xs-12">
+                            <button type="submit" class="btn btn-primary mb-3">Search <i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
+                           
+                        </div>
+                        <div class="col-auto col-xs-12">
+                        <a href="{{ route('clients.index') }}" class="col-xs-12"><button type="button" class="btn btn-primary mb-3">Clear <i
+                        class="fa-solid fa-eraser"></i></button></a>
+
+                        </div>
+                    </form>
+
+
+                    <div class="col-auto col-xs-12">
+                    <a href="{{ route('clients.create') }}" class="col-xs-12">
                         <button type="button" class="btn btn-primary mb-3">Add Client <i
                                 class="fa-solid fa-plus"></i></button>
                     </a>
                 </div>
-                <div class="col-md-12 d-flex justify-content-start px-2">
-                    <form class="row g-3" method="get">
-                        <div class="col-auto mb-3">
-                            <input type="text" name="search" value="{{ $search }}" class="form-control"
-                                placeholder="Search" required>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search <i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                            <a href="{{ route('clients.index') }}"><button type="button" class="btn btn-primary mb-3">Clear <i
-                                        class="fa-solid fa-eraser"></i></button></a>
-                        </div>
-                    </form>
+
                 </div>
                 {{-- Show Messages --}}
 
@@ -83,7 +95,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive mt-5">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                         id="allEmployeeTable">
                         <thead>

@@ -1,15 +1,19 @@
 @extends('layouts.master', ['title' => 'Mail Logs'])
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
-
 @section('contents')
 <div class="row">
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
                 <h2 class="mt-2">Helpdesk Mail Log</h2>
+                <ul class="breadcrumb">
+                        <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                        </li>
+                        <li>Helpdesk Mail Log</li>
+                    </ul>
             </div>
 
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -46,45 +50,43 @@
                 @endif
 
             <div class="col-md-12 d-flex justify-content-start mx-3">
-                <form class="row g-3 py-2 mt-2" >
-                    <div class="col-auto ">
+                <form class="row g-3 py-2 mt-4">
+                    <div class="col-auto col-xs-12">
                         <input type="search" class="form-control" placeholder="Search" name="search" value="{{$search}}" required>
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    <div class="col-auto col-xs-12">
+                        <button type="submit" class="btn btn-sm btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{route('email-list')}}" class="btn btn-primary mb-3">Reset</a>
+                    <div class="col-auto col-xs-12">
+                        <a href="{{route('email-list')}}" class="btn btn-sm btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></a>
                     </div>
                 </form>
             </div>
-            <div class="col-md-12 text-end">
-                <a href="{{route('compose-email')}}" class="btn btn-primary mx-2">Back</a>
-            </div>
+           
             <div class="table-responsive mt-3">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                     <thead>
                         <tr>
-                            <th>S No.</th>
-                            <th>Receiver Mail Id</th>
-                            <th>Subject</th>
-                            <th>Content</th>
-                            <th>CC</th>
-                            <th>Attachment</th>
-                            <th>Sent Date</th>
+                            <th class="text-center">S No.</th>
+                            <th class="text-center">Receiver Mail Id</th>
+                            <th class="text-center">Subject</th>
+                            <th class="text-center">Content</th>
+                            <th class="text-center">CC</th>
+                            <th class="text-center">Attachment</th>
+                            <th class="text-center">Sent Date</th>
                             
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($emails as $email)
                         <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$email->to_mail}}</td>
-                            <td>{{$email->subject}}</td>
-                            <td>{!! $email->content !!}</td>
-                            <td>{{$email->cc}}</td>
-                            <td>{{$email->attatchment}}</td>
-                            <td>{{date('d M Y', strtotime($email->created_at))}}</td>
+                            <td class="text-danger">{{$loop->iteration}}</td>
+                            <td class="text-danger">{{$email->to_mail}}</td>
+                            <td class="text-danger">{{$email->subject}}</td>
+                            <td class="text-danger">{!! $email->content !!}</td>
+                            <td class="text-danger">{{$email->cc}}</td>
+                            <td class="text-danger">{{$email->attatchment}}</td>
+                            <td class="text-danger">{{date('d M Y', strtotime($email->created_at))}}</td>
                         </tr>
                         @empty
                         <tr>

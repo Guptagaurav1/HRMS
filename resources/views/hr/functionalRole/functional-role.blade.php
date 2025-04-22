@@ -7,10 +7,12 @@
                 <h3 class="text-white mt-2">Functional Role</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li>
+                            @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Functional Role</li>
                     </ul>
                 </div>
             </div>
@@ -65,7 +67,7 @@
                             <form method="get">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                        <input type="search" name="search" value="{{$search}}" class="form-control" placeholder="Search"
                                             required>
 
                                     </div>
@@ -75,7 +77,7 @@
                                     </div>
                                     <div class="col-md-6">
 
-                                        <a href="#" class="col-xs-12"><button type="button"
+                                        <a href="{{route('functional-role')}}" class="col-xs-12"><button type="button"
                                                 class="btn btn-primary btn-sm mb-3">Clear <i
                                                     class="fa-solid fa-eraser"></i></button></a>
                                     </div>
@@ -112,7 +114,7 @@
                         @forelse($roles as $role)
                         <tr>
                             <td class='text-center'>{{ $loop->iteration }}</td>
-                            <td class='text-center'>{{ $role->role }}</td>
+                            <td class='text-center attributes-column'>{{ $role->role }}</td>
 
                             <td class="text-center">
                                 <div class="d-flex align-items-center justify-content-center gap-3 flex-xs-column">

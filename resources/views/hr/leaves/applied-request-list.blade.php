@@ -1,7 +1,4 @@
 @extends('layouts.master', ['title' => 'Leave Requests'])
-
-
-
 @section('contents')
     <div class="row">
         <div class="col-12">
@@ -18,7 +15,6 @@
                                 <a href="{{route('hr_dashboard')}}">Dashboard</a>
                                 @endif
                             @endif
-                        
                             </li>
                             <li>Leave Request List</li>
                         </ul>
@@ -228,9 +224,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="field-container shadow-sm">
+                                    <div class="field-container shadow-sm" >
                                         <label class="fw-bold">CC Mail:</label>
-                                        <span class="cc text-wrap"></span>
+                                        <span class="cc text-wrap" style="word-break: break-all;"></span>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +234,7 @@
                                 <div class="col-md-6">
                                     <div class="field-container shadow-sm">
                                         <label class="fw-bold">Reason Of Absence:</label>
-                                        <span class="reason attr"></span>
+                                        <span class="reason"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -257,8 +253,8 @@
 
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="field-container shadow-sm">
-                                        <label class="fw-bold">Department Head Email</label>
+                                    <div class="field-container d-flex align-items-center justify-content-centershadow-sm">
+                                        <label class="fw-bold">Department Head Email:</label>
                                         <span class="head_mail"></span>
                                     </div>
 

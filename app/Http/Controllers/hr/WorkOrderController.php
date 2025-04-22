@@ -664,10 +664,10 @@ class WorkOrderController extends Controller
 
     public function report_log(Request $request){
         // $report= ReportLog::with('user')->orderBy('id', 'desc')->paginate(25);
-        $report = DB::table('report_logs')
-        ->leftJoin('users', 'report_logs.created_by', '=', 'users.id')
-        ->select('report_logs.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
-        ->orderByDesc('report_logs.id')
+        $report = DB::table('report_log')
+        ->leftJoin('users', 'report_log.created_by', '=', 'users.id')
+        ->select('report_log.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
+        ->orderByDesc('report_log.id')
         ->paginate(25);
         // dd($report);
         return view("hr.workOrder.report-log", compact('report'));

@@ -18,12 +18,11 @@
                 </ul>
             </div>
             
-    
-    
         </div>
 
     </div>
     
+    <!-- Search Form with buttons -->
 
     <div class="row mt-3">
         <form method="post" action="{{route('company.store')}}">

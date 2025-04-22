@@ -18,23 +18,23 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-12 d-flex justify-content-start mx-3">
+                <div class="col-md-12 d-flex justify-content-start flex-wrap mx-3 mt-4">
                     <form class="row g-3 mt-2">
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" required>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                             <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
-                        <div class="col-auto">
-                            <a href="{{route('salary-slip')}}" class="btn btn-primary mb-3">Reset</a>
+                        <div class="col-auto col-xs-12">
+                            <a href="{{route('salary-slip')}}" class="btn btn-primary mb-3">Clear</a>
                         </div>
                     </form>
                     <form action="{{route('export_csv')}}" class="row g-3 mt-2 mx-1" method="post">
                         @csrf
-                        <div class="col-auto">
+                        <div class="col-auto col-xs-12">
                            <input type="hidden" name="search" value="{{$search}}">
-                           <button type="submit" class="btn btn-primary mb-3"> CSV</button>
+                           <button type="submit" class="btn btn-primary mb-3 col-xs-12"> CSV</button>
                         </div>
                     </form>
 
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                     @endif
-                <div class="table-responsive mt-3 ">
+                <div class="table-responsive mt-4">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                         id="allEmployeeTable">
                         <thead>

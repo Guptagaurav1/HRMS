@@ -79,8 +79,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(!empty($projects))
-                        @foreach($projects as $key => $value)
+                       
+                        @forelse($projects as $key => $value)
                         <tr>
                             <td class="srno-column">{{$key+1}}</td>
                             <td class="text-center">{{$value->organizations->name}}</td>
@@ -97,12 +97,12 @@
                             </td>
                         </tr>
 
-                        @endforeach
-                        @else
+                       
+                        @empty
                         <tr>
                             <td class="text-danger text-center" colspan="12">No Record Found</td>
                         </tr>
-                        @endif
+                        @endforelse
                     </tbody>
                 </table>
                 <div class="py-3 px-2">
