@@ -9,7 +9,7 @@ class ReportLog extends Model
 {
     use HasFactory;
 
-    protected $table = 'report_logs';
+    // protected $table = 'report_log';
 
     protected $fillable = ['doc'];
     

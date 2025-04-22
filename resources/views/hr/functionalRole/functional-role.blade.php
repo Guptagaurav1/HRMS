@@ -6,11 +6,14 @@
             <div class="panel-header">
                 <h3 class="text-white mt-2">Functional Role</h3>
                 <div>
-                    <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                <ul class="breadcrumb">
+                        <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                        </li>
+                        <li>Functional Role List</li>
+                       
                     </ul>
                 </div>
             </div>

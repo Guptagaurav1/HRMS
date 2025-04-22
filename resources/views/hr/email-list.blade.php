@@ -10,6 +10,14 @@
         <div class="panel">
             <div class="panel-header">
                 <h2 class="mt-2">Helpdesk Mail Log</h2>
+                <ul class="breadcrumb">
+                        <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                        </li>
+                        <li>Helpdesk Mail Log</li>
+                    </ul>
             </div>
 
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

@@ -5,6 +5,14 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2">Holidays</h3>
+                    <ul class="breadcrumb">
+                        <li>
+                        @if (auth()->user()->role->role_name="hr")
+                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        @endif
+                        </li>
+                        <li>Holidays List</li>
+                    </ul>
                 </div>
                 <div class="col-md-12  mt-2">
                     <div class="row mx-2">

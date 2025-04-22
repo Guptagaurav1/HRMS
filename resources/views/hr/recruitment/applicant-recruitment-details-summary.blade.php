@@ -403,7 +403,7 @@
                                                                     value="{{ $data->id }}">
                                                             </div>
                                                             <tr>
-                                                                <td class="bold">Interview Details</td>
+                                                                <td class="bold">Interview Details <span class="text-danger">*</span> </td>
                                                                 <td>
                                                                     <textarea class="form-control" name="interview_details" required></textarea>
                                                                 </td>
@@ -431,7 +431,7 @@
                                                                 <input type="hidden" name="first_submit" value="">
                                                             </div>
                                                             <tr>
-                                                                <td class="bold">Remarks For First Round:</td>
+                                                                <td class="bold">Remarks For First Round: <span class="text-danger">*</span> </td>
                                                                 <td>
                                                                     <input class="form-control" type="text"
                                                                         name="remarks_first_round" required>
@@ -464,7 +464,7 @@
                                                                     value="">
                                                             </div>
                                                             <tr>
-                                                                <td class="bold">Remarks For Second Round:</td>
+                                                                <td class="bold">Remarks For Second Round: <span class="text-danger">*</span> </td>
                                                                 <td>
                                                                     <input class="form-control" type="text"
                                                                         name="remarks_second_round" required>
