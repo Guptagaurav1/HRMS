@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'Leave Regularization'])
 
-@section('style')
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
+
 
 @section('contents')
 <div class="row">
@@ -26,22 +24,28 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 text-center py-3">
+            <div class="col-md-12  text-center py-3">
             <form class="month">
                 <label>Select Month :</label><br>
+                <div class='d-flex align-items-center justify-content-center flex-wrap gap-2'>
                 <input name="month" class="date-picker" placeholder="mm-year" value="{{$previous_month}}" required />
+                <div>
                 <button type="submit" class="btn btn-primary">Check</button>
+                </div>
+                
+                </div>
+                
             </form>
             </div>
-            <div class="col-md-12 d-flex justify-content-start mx-3">
+            <div class="col-md-12 d-flex justify-content-start flex-wrap mx-3">
                 <form class="row g-3 mt-2">
-                    <div class="col-auto mb-3">
+                    <div class="col-auto col-xs-12 mb-3">
                         <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" required>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-auto col-xs-12">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
                     </div>
-                     <div class="col-auto">
+                     <div class="col-auto col-xs-12">
                         <a href="{{route('leave-regularization')}}" class="btn btn-primary mb-3">Clear</a>
                     </div>
                 </form>

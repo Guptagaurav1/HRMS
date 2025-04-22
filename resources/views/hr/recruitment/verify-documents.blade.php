@@ -1,7 +1,4 @@
 @extends('layouts.master', ['title' => 'Verify Documents'])
-@section('style')
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
 
 @section('contents')
 

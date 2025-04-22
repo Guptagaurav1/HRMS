@@ -7,10 +7,12 @@
                 <h3 class="text-white mt-2">Functional Role</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Profile Details</a></li>
-                        <li>Department List</li>
+                        <li>
+                            @if (auth()->user()->role->role_name="hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>Functional Role</li>
                     </ul>
                 </div>
             </div>
@@ -112,7 +114,7 @@
                         @forelse($roles as $role)
                         <tr>
                             <td class='text-center'>{{ $loop->iteration }}</td>
-                            <td class='text-center'>{{ $role->role }}</td>
+                            <td class='text-center attributes-column'>{{ $role->role }}</td>
 
                             <td class="text-center">
                                 <div class="d-flex align-items-center justify-content-center gap-3 flex-xs-column">

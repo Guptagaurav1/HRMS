@@ -29,9 +29,6 @@
                 </svg>
             </div>
             <div class="row">
-
-
-
                 <div class="row mt-5 px-4">
                     <div class="col-md-10">
                         <form method="get">
@@ -53,8 +50,6 @@
                                 </div>
                             </div>
                         </form>
-
-
                     </div>
                     <div class="col-md-2">
                         <a href="{{ route('skills.create') }}" class="col-xs-12 mx-md-4"><button type="button"
@@ -111,7 +106,7 @@
                             @forelse($skills as $skill1)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class='text-center'>
+                                <td class='text-center attributes-column'>
                                     {{ ucwords($skill1->skill) }}
                                 </td>
                                 <td class="text-center">

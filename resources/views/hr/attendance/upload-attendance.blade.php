@@ -57,7 +57,7 @@
                                 <div class="row g-4">
                                     <div class="col-xxl-4 col-lg-8 col-sm-6">
                                         <label for="formFileSm" class="form-label">Select CSV File<span style="color: red"> *</span></label>
-                                    <input class="form-control form-control-sm" name="csv_data" accept=".csv" id="formFileSm" type="file">
+                                    <input class="form-control form-control-sm" name="csv_data" accept=".csv" id="formFileSm" type="file" required>
                                     @error('csv_data')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 text-end">
+                    <div class="col-md-12 text-end py-3 px-3">
                         <button type="submit" class="btn btn-sm btn-primary "> <i class="fa-solid fa-upload"></i> Upload CSV</button>
                     </div>
                 </form>
