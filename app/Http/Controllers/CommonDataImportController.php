@@ -305,6 +305,8 @@ class CommonDataImportController extends Controller
         // Add form_16_fails
         // $status =  $this->form_16_fails($handle);
 
+        $status =  $this->emp_profile_request_log($handle);
+
 
         if (isset($status['error'])) {
             return $status['message'];

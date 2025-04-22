@@ -676,6 +676,7 @@
 
                                                     @if ($data->stage5 == 'yes' && $data->finally != 'joining-formalities-completed')
                                                         <!-- Document Verification Check -->
+                                                        @if ($data->finally != 'backout')
                                                         <tr>
                                                             <td class="bold">Document Verification</td>
                                                             <td>
@@ -709,7 +710,7 @@
                                                             </td>
 
                                                         </tr>
-
+                                                        @endif
                                                         <!-- Reason For Backout Section -->
                                                         <tr>
                                                             <td class="bold text-center bg-white">

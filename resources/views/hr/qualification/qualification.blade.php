@@ -26,7 +26,7 @@
                             <form  method="get">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                        <input type="text" name="search" value="{{$search}}" class="form-control" placeholder="Search"
                                         required>
     
                                     </div>
@@ -35,7 +35,7 @@
     
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="{{ route('organizations.index')}}" class="col-xs-12"><button type="button"
+                                        <a href="{{ route('qualification')}}" class="col-xs-12"><button type="button"
                                                 class="btn btn-primary btn-sm mb-3">Clear <i
                                                     class="fa-solid fa-eraser"></i></button></a>
     

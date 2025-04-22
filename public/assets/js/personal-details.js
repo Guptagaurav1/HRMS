@@ -61,10 +61,10 @@ $(document).ready(function () {
 
     $("#sameas").click(function () {
         if ($(this).is(":checked")) {
-            $("#correspondence").text($("#permanent").val());
+            $("#correspondence").val($("#permanent").val());
         }
         else {
-            $("#correspondence").text("");
+            $("#correspondence").val("");
         }
     });
 

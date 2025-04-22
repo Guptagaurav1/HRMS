@@ -12,7 +12,7 @@ use App\Mail\AddUser;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
@@ -38,7 +38,7 @@ class UserController extends Controller
                 });
             });
         }
-        $users = $users->paginate(25); 
+        $users = $users->paginate(25)->withQueryString(); 
         // dd($users);
       
         return view(" hr.user.users-list",compact('users','search'));
@@ -91,13 +91,15 @@ class UserController extends Controller
         $user->dob = $request->dob;
         
         $role_id = $request->role_id;
-        $name = $request->first_name .''.$request->last_name;
+        $rolename = get_role_name($role_id);
+        $rolename = Str::of($rolename)->headline();
+        $name = $request->first_name .' '.$request->last_name;
             $email = $request->email;
-        $url ='https/hrms';
-       
+        $url = route('login');
+        
         // dd($user);
         if ($email != " ") {
-            Mail::to($email)->send(new AddUser($name, $email, $password, $url, $role_id));    //
+            Mail::to($email)->send(new AddUser($name, $email, $password, $url, $rolename));    //
         }
         $user->save();
         // User::create($request->all());

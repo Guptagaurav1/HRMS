@@ -14,10 +14,15 @@ class QualificationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $qualifications = Qualification::orderByDesc('id')->paginate(10);
-        return view('hr.qualification.qualification', compact('qualifications'));
+        $search = '';
+        $qualifications = Qualification::orderByDesc('id');
+        if ($search = $request->search) {
+            $qualifications = $qualifications->where('qualification', 'LIKE', "%$search%");
+        }
+        $qualifications = $qualifications->paginate(25);
+        return view('hr.qualification.qualification', compact('qualifications', 'search'));
     }
 
     /**
