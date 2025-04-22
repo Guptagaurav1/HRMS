@@ -420,7 +420,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-4 text-wrap">
                                     <label class="form-label text-wrap"> Invoice State</label>
-                                    <select class="form-select form-control" name="invoice_state">
+                                    <select class="form-select form-control" name="invoice_state" id="state">
                                         <option value=""> Select State</option>
                                         @foreach($states as $key => $value)
                                         <option value="{{$value->id}}">{{ $value->state }}</option>

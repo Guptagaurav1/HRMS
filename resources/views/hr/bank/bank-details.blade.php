@@ -1,8 +1,4 @@
 @extends('layouts.master', ['title' => 'Bank Details'])
-
-
-
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -23,7 +19,6 @@
 
             <div class="panel-body">
                 <div class="row ">
-
                     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                             <path
@@ -71,7 +66,7 @@
                             <form method="get">
                                 <div class="row">
                                     <div class="col-auto col-xs-12">
-                                        <input type="text" name="search" value="" class="form-control"
+                                        <input type="text" name="search" value="{{$search}}" class="form-control"
                                             placeholder="Search" required>
 
                                     </div>
@@ -81,15 +76,13 @@
 
                                     </div>
                                     <div class="col-auto col-xs-12">
-                                        <a href="{{ route('organizations.index')}}" class="col-xs-12"><button
+                                        <a href="{{ route('bank-details')}}" class="col-xs-12"><button
                                                 type="button" class="btn btn-primary btn-sm mb-3">Clear <i
                                                     class="fa-solid fa-eraser"></i></button></a>
 
                                     </div>
                                 </div>
                             </form>
-
-
                         </div>
                         <div class="col-auto col-xs-12">
                             @if(auth()->user()->hasPermission('add-bank'))

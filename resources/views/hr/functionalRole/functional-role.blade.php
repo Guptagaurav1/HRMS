@@ -66,7 +66,7 @@
                             <form method="get">
                                 <div class="row">
                                     <div class="col-auto col-xs-12">
-                                        <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                        <input type="search" name="search" value="{{$search}}" class="form-control" placeholder="Search"
                                             required>
 
                                     </div>
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="col-auto col-xs-12">
 
-                                        <a href="#" class="col-xs-12"><button type="button"
+                                        <a href="{{route('functional-role')}}" class="col-xs-12"><button type="button"
                                                 class="btn btn-primary btn-sm mb-3">Clear <i
                                                     class="fa-solid fa-eraser"></i></button></a>
                                     </div>

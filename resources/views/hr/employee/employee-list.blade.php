@@ -219,7 +219,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="14" class="text-center">No Record Found.</td>
+                                        <td colspan="14" class="text-center text-danger">No Record Found.</td>
                                     </tr>
                                 @endempty
                         </tbody>

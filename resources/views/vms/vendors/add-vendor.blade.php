@@ -20,6 +20,16 @@
                 <div class="panel">
                     <div class="panel-header">
                         <h4 class="mt-1">Vendor Details</h4>
+                        <div>
+                            <ul class="breadcrumb">
+                                <li> @if (auth()->user()->role->role_name="hr")
+                                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                    @endif
+                                </li>
+                                <li><a href="{{ route('vendors.index') }}" >Vendor List</a></li>
+                                <li>Add Vendor </li>
+                            </ul>
+                        </div>
                     </div>
                 
                         <div class="panel-body">
