@@ -1,23 +1,23 @@
 (function($) {
     'use strict';
     $(document).ready(function() {
-        $('#productTitle').on('keyup', function(){
+        $('#productTitle').on('keyup', function() {
             var title = $('#productTitle').val().toLowerCase().split(' ').join('-');
             var siteLink = $(this).siblings('p').find('.site-link').attr('data-link');
             $(this).siblings('p').prop('hidden', false).find('.site-link').text(siteLink + title);
             $('#editPermalink').val(title).attr('data-link', title);
-            if($(this).val() == 0){
+            if ($(this).val() == 0) {
                 $(this).siblings('p').prop('hidden', true);
             }
         });
-        $('#editPermaBtn').on('click', function(){
+        $('#editPermaBtn').on('click', function() {
             var siteLink = $('#productTitle').siblings('p').find('.site-link').attr('data-link');
             $('#editPermalink').prop('hidden', false);
             $('#productTitle').unbind('keyup').siblings('p').find('.site-link').text(siteLink);
             $('#createPerma, #cancelPerma').prop('hidden', false);
             $(this).prop('hidden', true);
         });
-        $('#createPerma').on('click', function(){
+        $('#createPerma').on('click', function() {
             var editedTitle = $('#editPermalink').val().toLowerCase().split(' ').join('-');
             var siteLink = $('#productTitle').siblings('p').find('.site-link').attr('data-link');
             var link = $('#editPermalink').val();
@@ -26,7 +26,7 @@
             $('#createPerma, #cancelPerma').prop('hidden', true);
             $('#editPermaBtn').prop('hidden', false);
         });
-        $('#cancelPerma').on('click', function(){
+        $('#cancelPerma').on('click', function() {
             var title = $('#productTitle').val();
             var siteLink = $('#productTitle').siblings('p').find('.site-link').attr('data-link');
             var link = $('#editPermalink').attr('data-link');
@@ -38,7 +38,7 @@
 
 
         let ajaxConfig = {
-            ajaxRequester: function (config, uploadFile, pCall, sCall, eCall) {
+            ajaxRequester: function(config, uploadFile, pCall, sCall, eCall) {
                 let progress = 0
                 let interval = setInterval(() => {
                     progress += 10;
@@ -62,7 +62,7 @@
         });
         $('.jquery-uploader .upload-button').html('<i class="fa-light fa-image"></i><br/><span>Recommended: 800 * 800</a>');
 
-        $('#addAttr').on('click', function(){
+        $('#addAttr').on('click', function() {
             $(this).parent().after(`
                 <div class="form-group rounded border p-3 d-block mt-20">
                     <div class="row g-3">
@@ -89,7 +89,7 @@
                 </div>
             `);
         });
-        $(document).on('click', '.remove-option', function(){
+        $(document).on('click', '.remove-option', function() {
             $(this).parents('.form-group').remove();
         });
 
@@ -112,11 +112,11 @@
             clearButton: true,
             currentDate: new Date(),
         });
-    
+
 
         $('.sub-cat-group').hide();
-        $('.cat-group .has-sub').on('click', function(){
-            if($(this).is(':checked')) {
+        $('.cat-group .has-sub').on('click', function() {
+            if ($(this).is(':checked')) {
                 $(this).parent().parent().children('.sub-cat-group').slideDown();
                 $(this).siblings().find('.fa-plus').removeClass('fa-plus').addClass('fa-minus');
             } else {
@@ -124,26 +124,26 @@
                 $(this).siblings().find('.fa-minus').removeClass('fa-minus').addClass('fa-plus');
             }
         })
-    
+
 
         $('.add-new-category-panel').hide();
-        $('.add-category-btn').on('click', function(){
+        $('.add-category-btn').on('click', function() {
             $(this).find('i').toggleClass('fa-plus fa-minus');
             $(this).parents('.panel-body').find('.add-new-category-panel').slideToggle();
         });
-    
 
-        
+
+
         $('.used-tags').hide();
-        $('.choose-used-tag').on('click', function(){
+        $('.choose-used-tag').on('click', function() {
             $(this).siblings('.all-tags').slideToggle();
         })
-        $('.used-tags .item').each(function(){
-            $(this).on('click', function(){
+        $('.used-tags .item').each(function() {
+            $(this).on('click', function() {
                 $(this).clone().appendTo('#allTags');
                 $(this).removeClass('d-inline-block').addClass('d-none');
                 $('#allTags').addClass('active');
-                if(!$('.used-tags .item.d-inline-block').length) {
+                if (!$('.used-tags .item.d-inline-block').length) {
                     $('.used-tags').removeClass('active');
                 }
             });
@@ -159,15 +159,15 @@
                     text: input
                 }
             }
-        }).on('change', function(){
+        }).on('change', function() {
             $('.selectize-control .item[data-value]').append('<span class="close-tag"><i class="fa-regular fa-xmark"></i></span>');
             $('.selectize-control .item[data-value]').prependTo('#allTags');
             $('#allTags').addClass('active');
         });
         $('.selectize-input>input').addClass('form-control form-control-sm');
-        $(document).on('click', '.close-tag', function(){
+        $(document).on('click', '.close-tag', function() {
             $(this).parent('.item').remove();
-            if(!$('#allTags .item').length) {
+            if (!$('#allTags .item').length) {
                 $('#allTags').removeClass('active');
             }
         });
