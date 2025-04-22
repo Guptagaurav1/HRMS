@@ -19,7 +19,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 mt-4">
                     <div class="row my-2 mx-2">
                         <div class="col-md-6">
                         <form class="row g-3" method="get">
@@ -30,11 +30,11 @@
                                 <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
                             <div class="col-auto">
-                                <a href="{{route('show-assign-work-log', ['id' => $position->id])}}" class="btn btn-primary mb-3"> Reset</a>
+                                <a href="{{route('show-assign-work-log', ['id' => $position->id])}}" class="btn btn-primary mb-3"> Clear</a>
                             </div>
                         </form>
                         </div>
-                            
+                           
                     </div>                  
                 </div>
                 
@@ -59,7 +59,7 @@
                     </div>
                    @endif
 
-                <div class="table-responsive mt-3">
+                <div class="table-responsive mt-4">
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                         id="allEmployeeTable">
                         <thead>

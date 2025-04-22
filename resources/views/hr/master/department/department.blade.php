@@ -40,13 +40,12 @@
                                 <div class="col-md-6">
                                     <a href="{{ route('departments.index') }}" class="col-xs-12"><button type="button"
                                             class="btn btn-primary btn-sm mb-3">Clear <i
-                                                class="fa-solid fa-eraser"></i></button></a>
+                                                class="fa-solid fa-eraser"></i></button>
+                                    </a>
 
                                 </div>
                             </div>
                         </form>
-
-
                     </div>
                     <div class="col-md-2 ">
                         @if(auth()->user()->hasPermission('departments.create'))
@@ -113,8 +112,8 @@
                             <td class="text-center">
                                 {{$loop->iteration}}
                             </td>
-                            <td class="text-center">{{ $value->department }}</td>
-                            <td class="text-center">
+                            <td class="text-center attributes-column">{{ $value->department }}</td>
+                            <td class="text-center attributes-column">
                                 <?php
                                     $skill = $value->skills->pluck('skill')->toArray();
                                     $unique = array_unique($skill);

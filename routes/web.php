@@ -299,7 +299,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/store", 'store')->name("store-functional-role");
         Route::get("/edit/{id}", 'edit')->name("edit-functional-role");
         Route::post("/update/{id}", 'update')->name("update-functional-role");
-        Route::get("/delete/{id}", 'destroy')->name("destroy-functional-role");
+        Route::post("/delete/{id}", 'destroy')->name("destroy-functional-role");
     });
     Route::controller(QualificationController::class)->prefix('qualification')->group(function () {
         Route::get("/", 'index')->name("qualification");

@@ -1,8 +1,4 @@
 @extends('layouts.master', ['title' => 'Preview Salary Slip'])
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-
-@endsection
 
 @section('contents')
 <div class="fluid-container">
@@ -44,7 +40,7 @@
                         <div class="invoice-header">
                             <div class="row justify-content-between align-items-end">
                             
-                                <div class="col-lg-12 col-sm-6">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="shop-address" >
                                         <div class="d-flex align-items-center justify-content-between">
                                            

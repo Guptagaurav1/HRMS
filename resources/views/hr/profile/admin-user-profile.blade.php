@@ -1,10 +1,6 @@
 @extends('layouts.master')
 
-@section('style')
 
-<link rel="stylesheet" href="{{ asset('assets/css/breadcrumb.css')}}"/>
-
-@endsection
 
 @section('contents')
 <div class="container-fluid profile-container shadow">

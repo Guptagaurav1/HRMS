@@ -4,15 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Role extends Model
+class PcgLeadContact extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
 
-    protected $table = 'roles';
-    protected $fillable = ['rid','role_name','menu_id'];
-    
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * Save record of login user on default events of model.
+     */
     public static function boot()
     {
         parent::boot();
@@ -20,7 +26,6 @@ class Role extends Model
             static::creating(function ($model) {
                 $model->created_by = auth()->user()->id;
             });
-
             static::updating(function ($model) {
                 $model->updated_by = auth()->user()->id;
             });
@@ -30,11 +35,6 @@ class Role extends Model
                 $model->save();
             });
         }
-    }
-
-    public function menu()
-    {
-        return $this->belongsTo(Menu::class, 'menu_id');  // 'menu_id' is the foreign key
     }
 
 }

@@ -122,6 +122,11 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{-- pagination --}}
+                <div class="col-md-12 my-2 p-2">
+                    {{$users->links()}}
+                </div>
             </div>
         </div>
     </div>

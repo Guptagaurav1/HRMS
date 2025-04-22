@@ -15,10 +15,16 @@ class FunctionalRoleController extends Controller
     /**
      * Display a listing of the functional role.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = FunctionalRole::orderByDesc('id')->paginate(10);
-        return view('hr.functionalRole.functional-role', compact('roles'));
+        $roles = FunctionalRole::orderByDesc('id');
+        $search = '';
+        if ($search = $request->search) {
+            $roles = $roles->where("role", "LIKE", "%$search%");
+        }
+        $roles = $roles->paginate(25);
+
+    return view('hr.functionalRole.functional-role', compact('roles', 'search'));
     }
 
     /**

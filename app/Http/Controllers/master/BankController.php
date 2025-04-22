@@ -14,10 +14,15 @@ class BankController extends Controller
     /**
      * Display a listing of the bank.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $banks = Bank::orderByDesc('id')->paginate(10);
-        return view('hr.bank.bank-details', compact('banks'));
+        $search = '';
+        $banks = Bank::orderByDesc('id');
+        if ($search = $request->search) {
+           $banks = $banks->where('name_of_bank', 'LIKE', "%$search%");
+        }
+        $banks = $banks->paginate(25);
+        return view('hr.bank.bank-details', compact('banks', 'search'));
     }
 
     /**
