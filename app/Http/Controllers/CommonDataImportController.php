@@ -109,12 +109,12 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_employee_data($handle);
 
         // Add salary details.
-        
+
         // $status =  $this->import_salary_data($handle);
 
         // Add emp Salary
 
-        $status =  $this->emp_salary_slip($handle);
+        // $status =  $this->emp_salary_slip($handle);
 
         // Add Leave Request details.
         // $status =  $this->import_leave_request_data($handle);
@@ -310,7 +310,7 @@ class CommonDataImportController extends Controller
         // Add form_16_fails
         // $status =  $this->form_16_fails($handle);
 
-        $status =  $this->emp_profile_request_log($handle);
+        // $status =  $this->emp_profile_request_log($handle);
 
 
         if (isset($status['error'])) {
@@ -2321,14 +2321,15 @@ class CommonDataImportController extends Controller
 
     // rec rec_address_details
 
-public function rec_address_details($handle){
-    $headers = fgetcsv($handle);
-    try {
-        DB::beginTransaction();
-        while (($data = fgetcsv($handle)) !== FALSE) {
-            $row = array_combine($headers, $data);
+    public function rec_address_details($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = array_combine($headers, $data);
                 $reqForm = RecruitmentForm::where('id',  $row['rec_id'])->first();
-                if($reqForm->emp_code == 'NULL' ||  empty($reqForm->emp_code)){
+                if ($reqForm->emp_code == 'NULL' ||  empty($reqForm->emp_code)) {
                     $empAddress = new EmpAddressDetail();
                     $empAddress->rec_id = empty($row['rec_id'])  || $row['rec_id'] == "NULL" ? null : $row['rec_id'];
                     $empAddress->emp_permanent_address = $row['permanent_add'];
@@ -2349,8 +2350,8 @@ public function rec_address_details($handle){
                 } else {
                     $updateEmpAdd = EmpAddressDetail::where('emp_code', $reqForm->emp_code)->first();
                     // dd($row['permanent_add']);  
-                 
-                    if($updateEmpAdd){         
+
+                    if ($updateEmpAdd) {
                         $updateEmpAdd->rec_id = empty($row['rec_id'])  || $row['rec_id'] == "NULL" ? null : $row['rec_id'];
                         $updateEmpAdd->emp_permanent_address = $row['permanent_add'];
                         $updateEmpAdd->emp_local_address = $row['correspondence_add'];
@@ -2358,8 +2359,8 @@ public function rec_address_details($handle){
                         $updateEmpAdd->updated_at = $row['updated_on'];
                         $updateEmpAdd->save();
                     }
-                    $empIdProofUpdate= EmpIdProof::where('emp_code', $reqForm->emp_code)->first();
-                    if($empIdProofUpdate){
+                    $empIdProofUpdate = EmpIdProof::where('emp_code', $reqForm->emp_code)->first();
+                    if ($empIdProofUpdate) {
                         $empIdProofUpdate->rec_id = empty($row['rec_id'])  || $row['rec_id'] == "NULL" ? null : $row['rec_id'];
                         $empIdProofUpdate->permanent_doc_type = $row['per_doc_type'];
                         $empIdProofUpdate->permanent_add_doc = $row['permanent_add_doc'];
@@ -2369,18 +2370,17 @@ public function rec_address_details($handle){
                         $empIdProofUpdate->updated_at = $row['updated_on'];
                         $empIdProofUpdate->save();
                     }
-
                 }
 
                 // echo "<pre>";
                 // print_r($row['rec_id']);
-        }
-        fclose($handle);
-        DB::commit();
-        return ['success' => true];
-    }catch (Throwable $th) {
+            }
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
             DB::rollback();
-            return ['error' => true, 'message' => $th->getMessage().$th->getLine()];
+            return ['error' => true, 'message' => $th->getMessage() . $th->getLine()];
         }
     }
 
@@ -2557,16 +2557,17 @@ public function rec_address_details($handle){
         }
     }
 
-public function rec_personal_details($handle){
-    $headers = fgetcsv($handle);
-    try {
-        DB::beginTransaction();
-        while (($data = fgetcsv($handle)) !== FALSE) {
-            $row =[];
-            $row = array_combine($headers, $data);
+    public function rec_personal_details($handle)
+    {
+        $headers = fgetcsv($handle);
+        try {
+            DB::beginTransaction();
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $row = [];
+                $row = array_combine($headers, $data);
 
                 $reqForm = RecruitmentForm::where('emp_code', $row['emp_code'])->first();
-                if($reqForm){
+                if ($reqForm) {
                     $empPersonalDetail = new EmpPersonalDetail();
                     $empPersonalDetail->rec_id = $row['rec_id'];
                     $empPersonalDetail->emp_code = empty($row['emp_code']) || $row['emp_code'] == 'NULL' ? null :  $row['emp_code'];
@@ -2612,11 +2613,11 @@ public function rec_personal_details($handle){
                     $empAccountDetail->created_at = $row['created_on'];
                     $empAccountDetail->updated_at = $row['updated_on'];
                     $empAccountDetail->save();
-                }else{
-                    
+                } else {
+
                     $empPersonalDetails = EmpPersonalDetail::where('emp_code', $row['emp_code'])->first();
-                
-                    if($empPersonalDetails){
+
+                    if ($empPersonalDetails) {
                         $empPersonalDetails->rec_id = empty($row['rec_id']) || $row['rec_id'] == 'NULL' ? null :  $row['rec_id'];
                         $empPersonalDetails->emp_gender = $row['gender'];
                         $empPersonalDetails->preferred_location = $row['preferred_location'];
@@ -2639,8 +2640,8 @@ public function rec_personal_details($handle){
 
                     $empIdProofs = EmpIdProof::where('emp_code', $row['emp_code'])->first();
 
-                    if($empIdProofs){
-                        $empIdProofs->rec_id =empty($row['rec_id']) || $row['rec_id'] == 'NULL' ? null :  $row['rec_id'];
+                    if ($empIdProofs) {
+                        $empIdProofs->rec_id = empty($row['rec_id']) || $row['rec_id'] == 'NULL' ? null :  $row['rec_id'];
                         $empIdProofs->emp_aadhaar_no =  $row['emp_aadhaar_no'];
                         $empIdProofs->aadhar_card_doc = $row['aadhar_card_doc'];
                         $empIdProofs->emp_passport_no = $row['passport_no'];
@@ -2658,7 +2659,7 @@ public function rec_personal_details($handle){
                     // update pf No
 
                     $empAccountDetails = EmpAccountDetail::where('emp_code', $row['emp_code'])->first();
-                    if($empAccountDetails){
+                    if ($empAccountDetails) {
                         $empAccountDetails->emp_pf_no = $row['pf_no'];
                         $empAccountDetails->created_at = $row['created_on'];
                         $empAccountDetails->updated_at = $row['updated_on'];
@@ -2666,12 +2667,12 @@ public function rec_personal_details($handle){
                     }
                 }
             }
-        fclose($handle);
-        DB::commit();
-        return ['success' => true];
-    }catch (Throwable $th) {
+            fclose($handle);
+            DB::commit();
+            return ['success' => true];
+        } catch (Throwable $th) {
             DB::rollback();
-            return ['error' => true, 'message' => $th->getMessage().$th->getLine()];
+            return ['error' => true, 'message' => $th->getMessage() . $th->getLine()];
         }
     }
 
@@ -2791,8 +2792,7 @@ public function rec_personal_details($handle){
             DB::rollback();
             return ['error' => true, 'message' => $th->getMessage()];
         }
-
-}
+    }
 
 
     public function emp_wish_mail_log($handle)
@@ -2924,6 +2924,4 @@ public function rec_personal_details($handle){
             return ['error' => true, 'message' => $th->getMessage()];
         }
     }
-
-
 }

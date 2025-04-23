@@ -690,10 +690,14 @@
                                                 href="{{ route('leave-regularization') }}" class="sidebar-link">Leave
                                                 Regularization</a></li>
                                     @endif
+                                    @if (auth()->user()->hasPermission('emp-leaves'))
+                                    <li class="sidebar-dropdown-item"><a href="{{ route('emp-leaves') }}"
+                                            class="sidebar-link">Leave Summary</a></li>
+                                    @endif
                                 </ul>
                             </li>
                         @endif
-                        @if (auth()->user()->hasPermission('employee-month-salary-slip'))
+                        {{-- @if (auth()->user()->hasPermission('employee-month-salary-slip'))
                             <li class="sidebar-dropdown-item">
                                 <a role="button" class="sidebar-link has-sub"
                                     data-dropdown="ecommerceDropdown"><span class="nav-icon"><i
@@ -705,7 +709,7 @@
                                             class="sidebar-link">Employee Salary Slip</a></li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif --}}
                         @if (auth()->user()->hasPermission('salary-slip'))
                             <li class="sidebar-dropdown-item">
                                 <a role="button" class="sidebar-link has-sub"

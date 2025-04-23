@@ -141,23 +141,29 @@ class RecruitmentController extends Controller
     /**
      * Show the listing of position requested.
      */
-    public function recruitment_report()
+    public function recruitment_report(Request $request)
     {
         // to get current roles of the user
-
+        $search = '';
         $user = auth()->user();
         $role = $user->role->role_name;
+       
         if ($role == 'hr_executive') {
             $positions = PositionRequest::whereNotNull('assigned_executive')
                 ->where('recruitment_type', 'fresh')
-                ->where('assigned_executive',  $user->id)
-                ->orderByDesc('id');
+                ->where('assigned_executive',  $user->id);
         } else {
-            $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh')->orderByDesc('id');
+            $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh');
         }
-
-        $positions =  $positions->paginate(20);
-        return view("hr.recruitment.recruitment-report", compact('positions'));
+        if($request->search){
+            $search = $request->search;
+            $positions =  $positions->where(function ($query) use ($search) {
+                $query->where('position_title', 'LIKE', "%$search%")
+                ->orWhere('client_name', 'LIKE', "%$search%");
+            });
+        }
+        $positions =  $positions->orderByDesc('id')->paginate(20);
+        return view("hr.recruitment.recruitment-report", compact('positions', 'search'));
     }
 
     /**
