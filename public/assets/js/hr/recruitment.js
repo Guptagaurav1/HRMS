@@ -11,7 +11,7 @@ $(document).ready(function() {
             allowOutsideClick: () => !Swal.isLoading()
         });
         $.ajax({
-            url : '/guest/submit-details',
+            url : SITE_URL+'/guest/submit-details',
             type : 'POST',
             dataType : 'json',
             cache: false,

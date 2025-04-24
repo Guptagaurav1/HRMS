@@ -10,7 +10,7 @@ $(document).ready(function () {
             allowOutsideClick: () => !Swal.isLoading()
         });
         $.ajax({
-            url: '/guest/' + page,
+            url: SITE_URL+'/guest/' + page,
             type: 'POST',
             dataType: "json",
             data: data,
@@ -309,7 +309,7 @@ $(document).ready(function () {
      // Get Cities.
      $("select[name=state]").change(function (){
         $.ajax({
-            url : '/guest/cities',
+            url : SITE_URL+'/guest/cities',
             type : 'post',
             dataType : 'json',
             data : {
