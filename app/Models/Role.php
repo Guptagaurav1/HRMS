@@ -11,7 +11,7 @@ class Role extends Model
     use HasFactory,SoftDeletes;
 
     protected $table = 'roles';
-    protected $fillable = ['rid','role_name','menu_id'];
+    protected $fillable = ['rid','role_name','menu_id', 'id', 'fullname', 'status', 'created_at'];
     
     public static function boot()
     {

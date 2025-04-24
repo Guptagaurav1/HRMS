@@ -141,7 +141,7 @@ class AuthController extends Controller
      */
     public function forget_password()
     {
-        $roles = Role::select('role_name', 'id')->where('status', '1')->get();
+        $roles = Role::select('role_name', 'id', 'fullname')->where('status', '1')->where('role_name', '!=', '')->get();
         return view('guest.forgot-password', compact('roles'));
     }
 
