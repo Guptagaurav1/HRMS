@@ -106,7 +106,7 @@ class CommonDataImportController extends Controller
         $handle = fopen($file, 'r');
 
         // Add employee details.
-        // $status =  $this->import_employee_data($handle);
+        $status =  $this->import_employee_data($handle);
 
         // Add salary details.
 
