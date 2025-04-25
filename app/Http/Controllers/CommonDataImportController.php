@@ -310,7 +310,7 @@ class CommonDataImportController extends Controller
         // Add form_16_fails
         // $status =  $this->form_16_fails($handle);
 
-        // $status =  $this->emp_profile_request_log($handle);
+        // $status =  $this->import_role_data($handle);
 
 
         if (isset($status['error'])) {
@@ -675,6 +675,7 @@ class CommonDataImportController extends Controller
                     'rid' => $row['rid'],
                     'role_name' => $row['role_name'],
                     'menu_id' => $row['roles_assigned'],
+                    'fullname' => $row['fullname'],
                     'status' => $row['status'],
                     'created_at' => $row['time_stamp']
                 ]);
