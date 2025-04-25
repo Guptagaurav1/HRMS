@@ -35,8 +35,8 @@
                             </div>
                             <div class="col-auto col-xs-12">
                             
-                                <a href="{{ route('departments.create') }}" class="col-xs-12 mx-md-2"><button
-                                        type="button" class="btn btn-sm btn-primary">Add New Project<i
+                                <a href="{{ route('create-new-client') }}" class="col-xs-12 mx-md-2"><button
+                                        type="button" class="btn btn-sm btn-primary">Add New Client <i
                                             class="fa-solid fa-plus"></i></button></a>
                             </div>
                         </div>

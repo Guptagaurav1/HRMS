@@ -869,7 +869,7 @@
                                 </li>
                             @endif
 
-                            <!-- New Pages Add for the sales manager -->
+                            <!-- New Client Pages Add for the sales manager -->
 
                             @if (auth()->user()->hasPermission('posh.complaint-list'))
                                 <li class="sidebar-dropdown-item">
@@ -883,6 +883,25 @@
                                                 </a></li>
                                                 <li class="sidebar-dropdown-item"><a
                                                 href="{{route('client-list')}}" class="sidebar-link">Clients List
+                                                </a></li>
+                                    </ul>
+                                </li>
+                            @endif
+
+
+                            <!-- New Project Page for the Sales manager -->
+
+                            @if (auth()->user()->hasPermission('posh.complaint-list'))
+                                <li class="sidebar-dropdown-item">
+                                    <a role="button" class="sidebar-link has-sub"
+                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-diagram-project"></i></span> <span
+                                            class="sidebar-txt">Projects</span></a>
+                                    <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
+                                        <li class="sidebar-dropdown-item"><a
+                                                href="{{ route('create-new-client') }}" class="sidebar-link">New Project
+                                                </a></li>
+                                                <li class="sidebar-dropdown-item"><a
+                                                href="{{route('client-list')}}" class="sidebar-link">Project List
                                                 </a></li>
                                     </ul>
                                 </li>
@@ -1052,9 +1071,6 @@
 
                         </ul>
                 @endif
-
-               
-
         </ul>
         </li>
         </ul>
