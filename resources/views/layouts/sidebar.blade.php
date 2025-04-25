@@ -865,6 +865,25 @@
                                 </li>
                             @endif
 
+                            <!-- New Pages Add for the sales manager -->
+
+                            @if (auth()->user()->hasPermission('posh.complaint-list'))
+                                <li class="sidebar-dropdown-item">
+                                    <a role="button" class="sidebar-link has-sub"
+                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
+                                                class="fa-solid fa-person"></i></span> <span
+                                            class="sidebar-txt">Clients</span></a>
+                                    <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
+                                        <li class="sidebar-dropdown-item"><a
+                                                href="{{ route('create-new-client') }}" class="sidebar-link">New Client
+                                                </a></li>
+                                                <li class="sidebar-dropdown-item"><a
+                                                href="{{route('client-list')}}" class="sidebar-link">Clients List
+                                                </a></li>
+                                    </ul>
+                                </li>
+                            @endif
+
                             @if (auth()->user()->hasPermission('vendors.index'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
@@ -960,6 +979,7 @@
                             </li>
                         @endif
 
+                        
 
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span
@@ -1028,6 +1048,9 @@
 
                         </ul>
                 @endif
+
+               
+
         </ul>
         </li>
         </ul>

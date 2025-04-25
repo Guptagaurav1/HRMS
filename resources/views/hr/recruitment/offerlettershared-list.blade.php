@@ -30,7 +30,7 @@
                                         class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
                             <div class="col-auto col-xs-12">
-                                <a href="" class="btn btn-primary  mb-3"> Clear </a>
+                                <a href="" class="btn btn-primary  mb-3"> Clear <i class="fa-solid fa-eraser"></i> </a>
                                         
                             </div>
                         </form>

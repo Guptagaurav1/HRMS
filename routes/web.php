@@ -604,6 +604,32 @@ Route::get("temp-profile", function () {
 })->name("temp-profile");
 
 
+// Sales manager Routes
+Route::get("create-new-client", function () {
+    return view("hr.create-new-client");
+})->name("create-new-client");
+
+Route::get("client-list", function () {
+    return view("hr.client-list");
+})->name("client-list");
+
+Route::get("edit-new-client", function () {
+    return view("hr.edit-new-client");
+})->name("edit-new-client");
+
+Route::get("add-lead", function () {
+    return view("hr.add-lead");
+})->name("add-lead");
+
+Route::get("lead-list", function () {
+    return view("hr.lead-list");
+})->name("lead-list");
+
+Route::get("view-client", function () {
+    return view("hr.view-client");
+})->name("view-client");
+
+
 // Employee Routes
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', [EmployeeProfileController::class, 'dashboard'])->name('employee.dashboard');
