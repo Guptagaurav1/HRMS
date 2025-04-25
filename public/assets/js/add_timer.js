@@ -4,7 +4,7 @@ $(document).ready(function() {
         count--;
         document.getElementById('countdown').innerHTML = count;
         if (count == 1) {
-            window.location = '/'; 
+            window.location = SITE_URL; 
         }
     },1000);
 });

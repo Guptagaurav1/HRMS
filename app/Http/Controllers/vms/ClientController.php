@@ -108,14 +108,14 @@ class ClientController extends Controller
      */
     public function update(Request $request)
     {
-        $vendor = Client::findOrFail($request->id);
+        $client = Client::findOrFail($request->id);
 
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => [
                 'required',
-                Rule::unique('users')->where('id', '!=', $vendor->user_id)
+                Rule::unique('users')->ignore($client->user_id)
                     ->whereNull('deleted_at')
             ],
             'phone' => 'required|digits:10',
@@ -130,7 +130,7 @@ class ClientController extends Controller
             unset($data['id']);
 
             // Update User Data.
-            User::where('id', $vendor->user_id)->update($data);
+            User::where('id', $client->user_id)->update($data);
 
             DB::commit();
             return redirect()->route('clients.index')->with(['success' => true, 'message' => 'Client Updated Successfully !']);

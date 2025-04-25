@@ -44,6 +44,7 @@ use Mail;
 use PDF;
 use Illuminate\Support\Facades\DB;
 use App;
+use Illuminate\Validation\Rule;
 
 class RecruitmentController extends Controller
 {
@@ -140,23 +141,29 @@ class RecruitmentController extends Controller
     /**
      * Show the listing of position requested.
      */
-    public function recruitment_report()
+    public function recruitment_report(Request $request)
     {
         // to get current roles of the user
-
+        $search = '';
         $user = auth()->user();
         $role = $user->role->role_name;
+       
         if ($role == 'hr_executive') {
             $positions = PositionRequest::whereNotNull('assigned_executive')
                 ->where('recruitment_type', 'fresh')
-                ->where('assigned_executive',  $user->id)
-                ->orderByDesc('id');
+                ->where('assigned_executive',  $user->id);
         } else {
-            $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh')->orderByDesc('id');
+            $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh');
         }
-
-        $positions =  $positions->paginate(20);
-        return view("hr.recruitment.recruitment-report", compact('positions'));
+        if($request->search){
+            $search = $request->search;
+            $positions =  $positions->where(function ($query) use ($search) {
+                $query->where('position_title', 'LIKE', "%$search%")
+                ->orWhere('client_name', 'LIKE', "%$search%");
+            });
+        }
+        $positions =  $positions->orderByDesc('id')->paginate(20);
+        return view("hr.recruitment.recruitment-report", compact('positions', 'search'));
     }
 
     /**
@@ -2162,7 +2169,7 @@ class RecruitmentController extends Controller
 
             $maildata = new stdClass();
             $maildata->subject = "Mandatory Forms Submission";
-            $maildata->name = '';
+            $maildata->name = $recruitment_data->firstname;
             $maildata->comp_email = $company->email;
             $maildata->comp_phone = $company->mobile;
             $maildata->comp_website = $company->website;
@@ -2300,13 +2307,15 @@ class RecruitmentController extends Controller
     public function submit_details(Request $request)
     {
         try {
+            $post_req_id = decrypt($request->req_id);
+
             $this->validate($request, [
                 'req_id' => ['required'],
                 'reference' => ['required'],
                 'send_mail_id' => ['required'],
                 'firstname' => ['required', 'string', 'max:255'],
                 'lastname' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'email', 'unique:emp_details,emp_email_first', 'unique:recruitment_forms,email'],
+                'email' => ['required', 'email', 'unique:emp_details,emp_email_first', Rule::unique('recruitment_forms', 'email')->where(fn ($query) => $query->where('pos_req_id', $post_req_id))],
                 'location' => ['required', 'string', 'max:255'],
                 'experience' => ['required'],
                 'dob' => ['required', 'date'],
@@ -2317,11 +2326,10 @@ class RecruitmentController extends Controller
             ]);
 
             // Post data.
-            $post_req_id = decrypt($request->req_id);
             $reference = decrypt($request->reference);
             $send_mail_id = decrypt($request->send_mail_id);
             $position = PositionRequest::select('position_title', 'recruitment_type', 'id', 'department')->findOrFail($post_req_id);
-            $user = User::select('id', 'first_name', 'last_name', 'phone', 'company_id')->where('email', $reference)->first();
+            $user = User::select('id', 'first_name', 'last_name', 'phone','email', 'company_id')->where('email', $reference)->first();
             $formdata = $request->all();
             $data = new RecruitmentForm();
             unset($formdata['req_id']);

@@ -62,13 +62,13 @@
                     <div class="mt-3">
                         <form class="row g-3" method="get">
                             <div class="col-auto  col-xs-12 mb-3">
-                                <input type="text" name="search" value="" class="form-control" placeholder="Search"
+                                <input type="text" name="search" value="{{$search}}" class="form-control" placeholder="Search by position and client name"
                                     required>
                             </div>
                             <div class="col-auto col-xs-12">
                                 <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
                                         class="fa-solid fa-magnifying-glass" class="col-xs-12"></i></button>
-                                <a href="{{ route('organizations.index') }}"  class="col-xs-12"><button type="button"
+                                <a href="{{ route('recruitment-report') }}"  class="col-xs-12"><button type="button"
                                         class="btn btn-primary btn-sm mb-3">Clear <i
                                             class="fa-solid fa-eraser"></i></button></a>
                             </div>

@@ -53,6 +53,6 @@ class Vendor extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id')->select('first_name', 'last_name', 'email', 'phone', 'role_id', 'status', 'dob', 'company_id')->with('role');
+        return $this->belongsTo(User::class, 'user_id', 'id')->select('first_name', 'last_name', 'email', 'phone', 'role_id', 'status', 'dob', 'company_id');
     }
 }

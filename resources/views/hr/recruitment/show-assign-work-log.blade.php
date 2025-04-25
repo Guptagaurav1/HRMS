@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="panel">
                 <div class="panel-header  heading-stripe">
-                    <h3 class="mt-2 text-center">{{$position->position_title}} Position Report Log</h3>
+                    <h4 class="mt-2 text-center">{{$position->position_title}} Position Report Log</h4>
                     <div>
                         <ul class="breadcrumb">
                             <li> @if (auth()->user()->role->role_name="hr")

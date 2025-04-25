@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'My Profile'])
 @section('contents')
 <div class="container-fluid profile-container shadow">
 
@@ -34,30 +34,30 @@
                              width="150">
                     </div>
                     <div class="text-center">
-                        <p>First Name: <strong>Super Admin</strong></p>
-                        <p>Last Name: <strong>Super</strong></p>
+                        <p>First Name: <strong>{{auth()->user()->first_name}}</strong></p>
+                        <p>Last Name: <strong>{{auth()->user()->last_name}}</strong></p>
                     </div>
 
                     <div>
                         <div class="info-pair d-flex flex-wrap">
                             <p class="info-title text-dark fw-bold">Email</p>
-                            <p class="info-value">ProfileInformation@gmail.com</p>
+                            <p class="info-value">{{auth()->user()->email}}</p>
                         </div>
                         <div class="info-pair">
                             <p class="info-title text-dark fw-bold">Logged In As</p>
-                            <p class="info-value">Profile Information</p>
+                            <p class="info-value text-capitalize">{{get_role_name(auth()->user()->role_id)}}</p>
                         </div>
                         <div class="info-pair">
                             <p class="info-title text-dark fw-bold">Contact No</p>
-                            <p class="info-value">+91 8738273873</p>
+                            <p class="info-value">{{auth()->user()->phone}}</p>
                         </div>
                         <div class="info-pair">
                             <p class="info-title text-dark fw-bold">Gender</p>
-                            <p class="info-value">Male</p>
+                            <p class="info-value text-capitalize">{{auth()->user()->gender}}</p>
                         </div>
                         <div class="info-pair">
                             <p class="info-title text-dark fw-bold">DOB</p>
-                            <p class="info-value">01 Jan 1990</p>
+                            <p class="info-value">{{date('jS F, Y', strtotime(auth()->user()->dob))}}</p>
                         </div>
                     </div>
                 </div>

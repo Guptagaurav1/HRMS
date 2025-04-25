@@ -67,11 +67,11 @@
                                     <tbody>
                                         <tr>
                                             <td class="bold">Reporting Name:</td>
-                                            <td>{{ $manager->first_name . ' ' . $manager->last_name }}</td>
+                                            <td>{{ isset($manager->first_name) ? $manager->first_name . ' ' . $manager->last_name : '' }}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Reporting Designation:</td>
-                                            <td class="text-capitalize">{{ get_role_name($manager->role_id) }}</td>
+                                            <td class="text-capitalize">{{isset($manager->first_name) ?  get_role_name($manager->role_id) : '' }}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Reporting Email:</td>

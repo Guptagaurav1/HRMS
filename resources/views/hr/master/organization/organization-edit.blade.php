@@ -121,7 +121,7 @@
                                 <label for="postal_code" class="form-label"> Name Of PSU<span class="text-danger">
                                         **</span></label>
                                 <input type="text" name="psu_name" value="{{ $organization->psu_name }}"
-                                    class="form-control form-control-sm" placeholder="Enter a PSU Name" required>
+                                    class="form-control form-control-sm" placeholder="Enter a PSU Name">
                                 <span class="error text-danger" id="error-postalCode"></span>
                                 @error('psu_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -133,6 +133,9 @@
                                         class="text-danger">**</span></label>
                                 <textarea class="form-control" name="address"
                                     placeholder="Enter Complete Address With State, City, and Postal Code">{{ $organization->address }}</textarea>
+                                @error('address')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>

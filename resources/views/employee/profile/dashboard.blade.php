@@ -35,7 +35,7 @@
             <div class="info">
                 <div class="row">
                     <div class="col-md-6">
-                        <strong>Employee Code</strong><br> PSSPL/DEL/2025
+                        <strong>Employee Code</strong><br>  {{auth('employee')->user()->emp_code}}
                     </div>
                     <div class="col-md-6 break-Email">
 
@@ -44,7 +44,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <strong>D.O.B</strong><br> DD/MM/YEAR
+                        <strong>D.O.B</strong><br> {{date('jS F, Y', strtotime(auth('employee')->user()->getPersonalDetail->emp_dob))}}
                     </div>
                     <div class="col-md-6">
                         <strong>Phone</strong><br> {{auth('employee')->user()->emp_phone_first}}
@@ -52,7 +52,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <strong>Joined Date</strong><br> DD/MM/YEAR
+                        <strong>Joined Date</strong><br> {{date('jS F, Y', strtotime(auth('employee')->user()->emp_doj))}}
                     </div>
 
                 </div>

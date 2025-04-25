@@ -84,7 +84,7 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">City</td>
-                                    <td>{{!empty($empdetails->getAddressDetail) ?$empdetails->getAddressDetail->getCity->city_name : ''}}</td>
+                                    <td>{{!empty($empdetails->getAddressDetail) && $empdetails->getAddressDetail->getCity ?$empdetails->getAddressDetail->getCity->city_name : ''}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">State</td>
