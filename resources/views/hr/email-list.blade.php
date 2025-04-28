@@ -80,13 +80,13 @@
                     <tbody>
                         @forelse($emails as $email)
                         <tr>
-                            <td class="text-danger">{{$loop->iteration}}</td>
-                            <td class="text-danger">{{$email->to_mail}}</td>
-                            <td class="text-danger">{{$email->subject}}</td>
-                            <td class="text-danger">{!! $email->content !!}</td>
-                            <td class="text-danger">{{$email->cc}}</td>
-                            <td class="text-danger">{{$email->attatchment}}</td>
-                            <td class="text-danger">{{date('d M Y', strtotime($email->created_at))}}</td>
+                            <td class="text-center">{{$loop->iteration}}</td>
+                            <td class="text-center">{{$email->to_mail}}</td>
+                            <td class="text-center">{{$email->subject}}</td>
+                            <td class="text-center">{!! $email->content !!}</td>
+                            <td class="text-center">{{$email->cc}}</td>
+                            <td class="text-center">{{$email->attatchment}}</td>
+                            <td class="text-center">{{date('d M Y', strtotime($email->created_at))}}</td>
                         </tr>
                         @empty
                         <tr>

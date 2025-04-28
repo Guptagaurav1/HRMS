@@ -22,7 +22,7 @@
                         <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/' . $details->getPersonalDetail->emp_photo) }}"
                             alt="{{ $details->emp_name }}" class="rounded-circle img-fluid">
                         @else
-                        <img src="{{asset('assets\images\avtaar_employee.png')}}" alt="Avatar">
+                        <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user">
                         @endif
                     </div>
                     <div class="col-8 col-sm-9 col-md-10">
@@ -34,24 +34,24 @@
 
             <div class="info">
                 <div class="row">
-                    <div class="col-md">
+                    <div class="col-md-6">
                         <strong>Employee Code</strong><br>  {{auth('employee')->user()->emp_code}}
                     </div>
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-6 break-Email">
 
-                        <strong>Email</strong> {{auth('employee')->user()->emp_email_first}}
+                        <strong >Email</strong><br> {{auth('employee')->user()->emp_email_first}}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md">
+                    <div class="col-md-6">
                         <strong>D.O.B</strong><br> {{date('jS F, Y', strtotime(auth('employee')->user()->getPersonalDetail->emp_dob))}}
                     </div>
-                    <div class="col-md">
+                    <div class="col-md-6">
                         <strong>Phone</strong><br> {{auth('employee')->user()->emp_phone_first}}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md">
+                    <div class="col-md-6">
                         <strong>Joined Date</strong><br> {{date('jS F, Y', strtotime(auth('employee')->user()->emp_doj))}}
                     </div>
 

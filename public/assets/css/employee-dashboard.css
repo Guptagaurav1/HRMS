@@ -16,7 +16,8 @@
 
 .custom-tabs {
     display: flex;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;   
+    align-items: center;
     margin-top: 20px;
     background-color: white;
     flex-wrap: wrap;
@@ -56,9 +57,6 @@
     font-size: 1.8rem;
     color: #007bff;
 }
-
-
-
 
 
 .profile-info {
@@ -169,7 +167,7 @@
 
   @media(min-width:427px) and (max-width:1300px){
       .id-card{
-      width: 80%;
+      width: 50%;
     margin: 40px auto;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -191,3 +189,11 @@
           
       }
   }
+
+  @media(min-width:775px) and (max-width:1292px){
+    .break-Email{
+        word-break: break-all;
+    }
+
+  }
+ 

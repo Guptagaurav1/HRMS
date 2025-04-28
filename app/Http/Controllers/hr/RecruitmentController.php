@@ -2169,7 +2169,7 @@ class RecruitmentController extends Controller
 
             $maildata = new stdClass();
             $maildata->subject = "Mandatory Forms Submission";
-            $maildata->name = '';
+            $maildata->name = $recruitment_data->firstname;
             $maildata->comp_email = $company->email;
             $maildata->comp_phone = $company->mobile;
             $maildata->comp_website = $company->website;

@@ -7,7 +7,7 @@
             <div class="panel-header">
                 <h3 class="mt-2">Create Reimbursement</h3>
             </div>
-            <div class="col-md-12 d-flex justify-content-start mx-3">
+            <div class="col-md-12 d-flex justify-content-start mx-3 mt-3">
                 <form class="row g-3 mt-2">
                     <div class="col-auto">
                         <input type="text" class="form-control" placeholder="Search" required>
