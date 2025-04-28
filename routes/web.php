@@ -342,7 +342,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('work-order/check-salary', 'check_salary');
         Route::post('download-salary-sheet', 'download_salary_sheet')->name('download-salary-sheet');
     });
-
+ 
     /////////// workorder routes end ///////
 
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
