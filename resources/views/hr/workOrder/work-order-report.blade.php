@@ -51,13 +51,13 @@
                 <tbody>
                     @foreach($wo_detail as $value)
                     <tr>
-                        <td>{{$value->wo_number}}</td>
-                        <td>{{$value->wo_project_coordinator}}</td>
-                        <td>{{$value->wo_no_of_resources}}</td>
-                        <td>{{$value->wo_location}}</td>
-                        <td>{{$value->wo_start_date}}</td>
-                        <td>{{$value->wo_end_date}}</td>
-                        <td>INR {{ number_format($value->wo_amount, 2) }}</td>
+                        <td class="attributes-column">{{$value->wo_number}}</td>
+                        <td class="attributes-column">{{$value->wo_project_coordinator}}</td>
+                        <td class="attributes-column">{{$value->wo_no_of_resources}}</td>
+                        <td class="attributes-column">{{$value->wo_location}}</td>
+                        <td class="attributes-column">{{$value->wo_start_date}}</td>
+                        <td class="attributes-column">{{$value->wo_end_date}}</td>
+                        <td class="attributes-column">INR {{ number_format($value->wo_amount, 2) }}</td>
                     </tr>
                     @endforeach
                     <tr class="table-light fw-bold">

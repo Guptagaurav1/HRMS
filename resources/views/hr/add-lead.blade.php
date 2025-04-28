@@ -8,11 +8,13 @@
         <div class="panel">
             <div class="panel-header d-flex">
                 <h3 class="mt-2">Add Lead</h3>
-                <div>
-                  <a href="{{route('lead-list')}}">  <button type="submit" class="btn btn-sm btn-primary">Lead List</button></a>
-                </div>
+               
  
             </div>
+
+            <div class="text-end mt-3 px-3">
+                <a href="{{route('lead-list')}}">  <button type="submit" class="btn btn-sm btn-primary">Lead List</button></a>
+              </div>
 
             <!-- Client Name section -->
             <form>
@@ -28,7 +30,7 @@
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label" class="text-dark">Project Name(Client Name) <span
                                         class="text-danger">*</span></label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value="">Add Project Name</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
@@ -60,7 +62,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4 mt-4">
                                 <label class="form-label" class="text-dark">Source </label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value="">Select Source</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
@@ -70,7 +72,7 @@
                             <div class="col-lg-4 col-md-4 mt-4">
                                 <label class="form-label" class="text-dark">Assign To <span class="text-danger">*</span>
                                 </label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value="">Select Assign To</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
@@ -91,7 +93,7 @@
                         <div class="row g-3">
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label" class="text-dark">Attachment Type</label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value="">Not Specify</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
