@@ -67,7 +67,11 @@ class AuthController extends Controller
 
                 if ($roleName == 'hr_operations') {
                     return redirect()->route('hr_operations_dashboard');
-                } else {
+                }
+                elseif ($roleName == 'sales_manager') {
+                    return redirect()->route('sales.manager_dashboard');
+                }
+                else {
                     return redirect()->route('hr_dashboard');
                 }
             } else {

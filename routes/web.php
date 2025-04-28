@@ -55,6 +55,8 @@ use App\Http\Controllers\employee\ProfileController as EmployeeProfileController
 use App\Http\Controllers\employee\EmployeeLeaveController;
 use App\Http\Controllers\employee\EmployeeDetailController;
 
+use App\Http\Controllers\sales\SalesController;
+
 
 
 /*
@@ -485,6 +487,12 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::resource('tenants', TenantController::class);
 });
 
+// Sales routes
+Route::middleware('auth')->prefix('sales')->group(function () {
+    Route::controller(SalesController::class)->group(function () {
+        Route::get('dashboard', 'manager_dashboard')->name('sales.manager_dashboard');
+    });
+});
 
 // VMS routes
 Route::middleware('auth')->prefix('vms')->group(function () {
@@ -543,8 +551,6 @@ Route::get("reimbursement-list", function () {
 })->name("reimbursement-list");
 
 
-
-
 Route::get("work-order-salary-sheet", function () {
     return view("hr.work-order-salary-sheet");
 })->name("work-order-salary-sheet");
@@ -561,7 +567,6 @@ Route::get("employee-month-salary-slip", function () {
 Route::get("recruitment-plan-page-summary", function () {
     return view("hr.recruitment-plan-page-summary");
 })->name("recruitment-plan-page-summary");
-
 
 
 Route::get("invoice-encloser", function () {
