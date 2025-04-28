@@ -7,12 +7,17 @@
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-header">
-                <h3 class="mt-2">Update Client</h3>
+                <h3 class="mt-2">Update Client List</h3>
             </div>
+
+            <div class="text-end mt-3 px-3">
+                <button class="btn btn-sm btn-primary"><a href="{{route('client-list')}}" class="text-white">Client List</a></button>
+            </div>
+
             <!-- Client Name section -->
             <form>
                 <div class="">
-                    <div class="border-bottom border-bottom-primary px-3 py-1 mt-1 text-dark fw-bold">
+                    <div class="border-bottom border-bottom-primary px-3  text-dark fw-bold py-2">
                         Client Name
                     </div>
                     <div class="mt-3 px-3">
@@ -207,11 +212,41 @@
                     </div>
                 </div>
 
-                <!-- Attachment -->
+                <!-- VIew Attachment -->
 
                 <div class="">
                     <div class="border-bottom border-bottom-primary px-3 py-1 mt-1 text-dark fw-bold">
                         Attachment
+                    </div>
+                    <div class="mt-3 px-3">
+                        <div class="row g-3">
+                            <div class="col-lg-4 col-md-4">
+                                <label class="form-label" class="text-dark">Attachment Type</label>
+                                <select class="form-select">
+                                    <option value="">Not Specify</option>
+                                    <option value="0">Male</option>
+                                    <option value="1">Female</option>
+                                    <option value="2">Others</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <label class="form-label">Action</label>
+                                <button type="button" class="btn btn-sm btn-primary">View</button>
+                                <button type="button" class="btn btn-sm btn-danger">Remove</button>
+                            </div>
+
+                           
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Add New Attachment -->
+
+                <div class="">
+                    <div class="border-bottom border-bottom-primary px-3 py-1 mt-1 text-dark fw-bold">
+                        Add New Attachment
                     </div>
                     <div class="mt-3 px-3 append_add-more-items">
                         <div class="row g-3">
@@ -239,6 +274,9 @@
                         
                     </div>
                 </div>
+                <!-- Submit button -->
+
+
                 <div class="d-flex align-items-cenetr justify-content-end gap-3 px-3 py-2">
                     <div>
                        <a href="{{route('client-list')}}"> <button type="button" class="btn btn-sm btn-primary">Cancel</button></a>

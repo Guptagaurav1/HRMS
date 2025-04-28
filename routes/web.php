@@ -625,6 +625,44 @@ Route::get("view-client", function () {
     return view("hr.view-client");
 })->name("view-client");
 
+Route::get("add-sales-project", function () {
+    return view("hr.add-sales-project");
+})->name("add-sales-project");
+
+Route::get("sales-project-list", function () {
+    return view("hr.sales-project-list");
+})->name("sales-project-list");
+
+Route::get("edit-sales-project", function () {
+    return view("hr.edit-sales-project");
+})->name("edit-sales-project");
+
+Route::get("view-sales-project", function () {
+    return view("hr.view-sales-project");
+})->name("view-sales-project");
+
+
+Route::get("add-tender", function () {
+    return view("hr.add-tender");
+})->name("add-tender");
+
+Route::get("tender-list", function () {
+    return view("hr.tender-list");
+})->name("tender-list");
+
+Route::get("view-tender", function () {
+    return view("hr.view-tender");
+})->name("view-tender");
+
+Route::get("update-tender", function () {
+    return view("hr.update-tender");
+})->name("update-tender");
+
+Route::get("crm-lead-follow-up", function () {
+    return view("hr.crm-lead-follow-up");
+})->name("crm-lead-follow-up");
+
+
 
 // Employee Routes
 Route::middleware('employee')->prefix('employee')->group(function () {

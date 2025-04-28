@@ -8,10 +8,17 @@
         <div class="panel">
             <div class="panel-header">
                 <h3 class="mt-2">Add Client</h3>
+
             </div>
+
+            <div class="text-end mt-3 px-3">
+                <button class="btn btn-sm btn-primary"><a href="{{route('client-list')}}" class="text-white">Client List</a></button>
+            </div>
+
+               
             <!-- Client Name section -->
             <form>
-                <div class="">
+                <div class="mt-3">
                     <div class="border-bottom border-bottom-primary px-3 py-1 mt-1 text-dark fw-bold">
                         Client Name
                     </div>
@@ -139,7 +146,7 @@
 
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label" class="text-dark">State</label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value=""> Select State</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
@@ -148,7 +155,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label" class="text-dark">City</label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value=""> Select City</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
@@ -162,7 +169,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label" class="text-dark">Company Type</label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value="">Not Specify</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
@@ -171,7 +178,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label" class="text-dark">Company Industry</label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value="">Not Specify</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
@@ -180,7 +187,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label" class="text-dark">Reference</label>
-                                <select class="form-select">
+                                <select class="form-select js-example-basic-multiple">
                                     <option value="">Not Specify</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
