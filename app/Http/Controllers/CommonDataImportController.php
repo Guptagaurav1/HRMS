@@ -106,7 +106,7 @@ class CommonDataImportController extends Controller
         $handle = fopen($file, 'r');
 
         // Add employee details.
-        $status =  $this->import_employee_data($handle);
+        // $status =  $this->import_employee_data($handle);
 
         // Add salary details.
 
@@ -1426,6 +1426,7 @@ class CommonDataImportController extends Controller
                 $row['updated_by'] = $row['updated_by'] ? $row['updated_by'] : null;
                 WoAttendance::create($row);
             }
+           
             fclose($handle);
             DB::commit();
             return ['success' => true];

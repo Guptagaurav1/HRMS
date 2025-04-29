@@ -357,6 +357,7 @@
                                     More</button>
                             </div>
                             <div class="addMore">
+                                <div class="addMoreElement">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 text-wrap">
                                         <label class="form-label text-wrap">Person Name</label>
@@ -389,15 +390,11 @@
 
                                 </div>
 
-                                <div class="row mt-3">
-                                    <div class="col-sm-12 col-md-12 text-wrap">
-
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex justify-content-end ">
+                                {{-- <div class="col-12 d-flex justify-content-end ">
                                     <button type="button" class="btn btn-sm btn-primary mx-3 mt-3 delete-btn">Delete <i
                                             class="fa-solid fa-trash"></i></button>
-                                </div>
+                                </div> --}}
+                            </div>
                             </div>
                         </div>
 
