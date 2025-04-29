@@ -367,3 +367,21 @@ if(!function_exists('get_lead_id')){
         }
     }
 }
+
+/**
+ * Get organization_name from project id.
+ * @param integer $project_id
+ * @return string organization_name
+ */ 
+if(!function_exists('get_organization_name')){
+    function get_organization_name($project_id)
+    {
+        try {
+            $organisation = Organization::select('name')->join('projects', 'organizations.id', '=', 'projects.organisation_id')->where('projects.id', $project_id);
+            return $organisation->name;
+        }
+        catch(Throwable $th){
+            return '';
+        }
+    }
+}

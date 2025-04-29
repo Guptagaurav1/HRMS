@@ -197,7 +197,8 @@ class HolidayController extends Controller
                 'absent_dates' => $absentHtml,
                 'emp_name' => $emp_details->emp_name
             ];
-            $cc = ['sagar.tiwari@prakharsoftwares.com'];
+            // $cc = ['sagar.tiwari@prakharsoftwares.com'];     // permanent details
+            $cc = [auth()->user()->email]; // temparory add for testing purpose only
             Mail::to($emp_details->emp_email_first)->cc($cc)->send(new LeaveMail($mailData));
 
             return response()->json(['success' => true, 'message' => 'Mail Sent Successfully.']);
