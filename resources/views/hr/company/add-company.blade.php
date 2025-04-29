@@ -174,30 +174,30 @@
                     <div class="panel-body">
                         <div class="row g-3">
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Twitter Link</label>
+                                <label class="form-label">Twitter Link <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm" placeholder="Enter Twitter Link"
-                                    name="twitter_link">
+                                    name="twitter_link" required>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Facebook Link </label>
+                                <label class="form-label">Facebook Link <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm"
-                                    placeholder="Enter Facebook Link" name="facebook_link">
+                                    placeholder="Enter Facebook Link" name="facebook_link" required>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Linkedin Link</label>
+                                <label class="form-label">Linkedin Link <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm"
-                                    placeholder="Enter Linkedin Link" name="linkedin_link">
+                                    placeholder="Enter Linkedin Link" name="linkedin_link" required>
                             </div>
 
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Youtube Link </label>
+                                <label class="form-label">Youtube Link <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm" placeholder="Enter Youtube Link"
-                                    name="youtube_link">
+                                    name="youtube_link" required>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">Instragram Link </label>
+                                <label class="form-label">Instragram Link <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm"
-                                    placeholder="Enter Instagram Link" name="instagram_link">
+                                    placeholder="Enter Instagram Link" name="instagram_link" required>
                             </div>
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Pinterest Link</label>

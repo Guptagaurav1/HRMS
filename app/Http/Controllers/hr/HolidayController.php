@@ -33,7 +33,6 @@ class HolidayController extends Controller
             $search = $request->search;
             $holidays = $holidays->whereAny([
                 'holiday_name',
-                'holiday_date',
                 'holiday_type'
             ], 'LIKE', '%' . $request->search . '%');
         }
@@ -41,7 +40,7 @@ class HolidayController extends Controller
         $month = '';
         $day = '';
 
-        $holidays = $holidays->paginate(10)->withQueryString();
+        $holidays = $holidays->paginate(25)->withQueryString();
 
         if (auth('employee')->check()) {
             $user = EmpDetail::where('emp_code', auth('employee')->user()->emp_code)->first();

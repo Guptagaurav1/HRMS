@@ -8,10 +8,10 @@
 @section('contents')
 <div class="dashboard-breadcrumb mb-25">
     <h2> Welcome Prakhar Softwares HRMS Dashboard</h2>
-    <div class="input-group dashboard-filter">
+    {{-- <div class="input-group dashboard-filter">
         <input type="text" class="form-control" name="basic" id="dashboardFilter" readonly>
         <label for="dashboardFilter" class="input-group-text"><i class="fa-light fa-calendar-days"></i></label>
-    </div>
+    </div> --}}
 </div>
 <div class="dashboard-breadcrumb mb-3 d-flex justify-content-between align-items-center">
     <h2 class="text-dark">Helpdesk for query <i class="fa-solid fa-arrow-right fs-6"></i></h2>

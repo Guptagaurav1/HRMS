@@ -44,7 +44,7 @@ class SalaryStructureController extends Controller
             });
         })
         ->orderBy('salary.id', 'desc')
-        ->paginate(10)
+        ->paginate(25)
         ->appends(request()->query());
 
     return view("hr.salary.salary-list", compact('salary', 'search'));
@@ -538,7 +538,6 @@ class SalaryStructureController extends Controller
             $salary->accident_insurance_ctc = $accident_insurance_ctc;
             $salary->sal_remark = $request->sal_remark;
 
-            
             $salary->save();
             DB::commit(); 
             return redirect()->route('salary-list')->with('success', 'Salary structure updated successfully!');
@@ -556,7 +555,7 @@ class SalaryStructureController extends Controller
      */
     public function destroy(Request $request, String $id)
     { 
-        User::where('id', $id)->delete();
+        Salary::destroy($id);
         return redirect()->route('salary-list')->with(['success' =>'Salary Deleted Successfully !']);
     }
 

@@ -124,14 +124,14 @@
                                             class="text-danger">*</span></label>
                                     <select name="project_name" id="project_name" class="form-select form-control">
                                         <option value="">Select a Project</option>
-                                        @if($projects)
+                                        {{-- @if($projects)
                                         @foreach ($projects as $project_val)
                                         <option value="{{ $project_val->id }}" {{ (old("project_name", $project_val->id
                                             ?? '') == ($project->id??NULL)) ? 'selected' : '' }}>
                                             {{ $project_val->project_name }}
                                         </option>
                                         @endforeach
-                                        @endif
+                                        @endif --}}
                                     </select>
                                     <span id="project_name_error" class="text-danger"></span>
                                     @error('project_name')
