@@ -198,7 +198,7 @@
                                 <td class="attributes-column text-center">{{$value->wo_date_of_issue}}</td>
                                 <td class="text-center">{{$value->project ? $value->project->project_number : ''}}</td>
                                 <td class="text-center attributes-column">{{$value->project ? $value->project->project_name : ''}}</td>
-                                <td class="text-center">{{$value->wo_project_coordinator}}</td>
+                                <td class="text-center attributes-column">{{$value->wo_project_coordinator}}</td>
                                 <td class="text-center">{{$value->wo_start_date}}</td>
                                 <td class="text-center">{{$value->wo_end_date}}</td>
                                 <td>INR {{ number_format($value->wo_amount, 2) }}</td>

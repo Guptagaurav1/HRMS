@@ -667,6 +667,10 @@ Route::get("crm-lead-follow-up", function () {
     return view("hr.crm-lead-follow-up");
 })->name("crm-lead-follow-up");
 
+Route::get("view-crm-details", function () {
+    return view("hr.view-crm-details");
+})->name("view-crm-details");
+
 
 
 // Employee Routes
