@@ -8,8 +8,6 @@
         <div class="panel">
             <div class="panel-header d-flex">
                 <h3 class="mt-2">Add Lead</h3>
-               
- 
             </div>
 
             <div class="text-end mt-3 px-3">
@@ -176,9 +174,6 @@
 
                 </div>
             </form>
-
-           
-
         </div>
     </div>
 </div>

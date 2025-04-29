@@ -1,4 +1,8 @@
 @extends('layouts.guest.master', ['title' => 'WorkOrder Report '])
+@section('style')
+<link rel="stylesheet" href="{{ asset('assets/css/work-order-report.css')}}" />
+
+@endsection
 
 @section('content')
 <div class="container-fluid px-3">
@@ -39,25 +43,25 @@
                 class="table table-striped table-bordered table-hover align-middle text-center w-100 print-full-width">
                 <thead class="table-primary text-dark fw-bold">
                     <tr>
-                        <th>Work Order No.</th>
-                        <th>Coordinator</th>
-                        <th>No. of Resources</th>
-                        <th>Location</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Amount (INR)</th>
+                        <th class="text-center">Work Order No.</th>
+                        <th class="text-center">Coordinator</th>
+                        <th class="text-center">No. of Resources</th>
+                        <th class="text-center">Location</th>
+                        <th class="text-center">Start Date</th>
+                        <th class="text-center">End Date</th>
+                        <th class="text-center">Amount (INR)</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($wo_detail as $value)
                     <tr>
-                        <td class="attributes-column">{{$value->wo_number}}</td>
-                        <td class="attributes-column">{{$value->wo_project_coordinator}}</td>
-                        <td class="attributes-column">{{$value->wo_no_of_resources}}</td>
-                        <td class="attributes-column">{{$value->wo_location}}</td>
-                        <td class="attributes-column">{{$value->wo_start_date}}</td>
-                        <td class="attributes-column">{{$value->wo_end_date}}</td>
-                        <td class="attributes-column">INR {{ number_format($value->wo_amount, 2) }}</td>
+                        <td class="text-center attributes-column" style="width: 20px;">{{$value->wo_number}}</td>
+                        <td class="text-center" style="word-break: break-all; width: 20px;">{{$value->wo_project_coordinator}}</td>
+                        <td class="text-center attributes-column">{{$value->wo_no_of_resources}}</td>
+                        <td class="text-center attributes-column">{{$value->wo_location}}</td>
+                        <td class="text-center attributes-column">{{$value->wo_start_date}}</td>
+                        <td class="text-center attributes-column">{{$value->wo_end_date}}</td>
+                        <td class="text-center attributes-column">INR {{ number_format($value->wo_amount, 2) }}</td>
                     </tr>
                     @endforeach
                     <tr class="table-light fw-bold">
@@ -130,49 +134,4 @@
 
 @section('script')
 <script src="{{ asset('assets/js/compose.js') }}"></script>
-<style>
-    @media print {
-        .invoice-container {
-            box-shadow: none !important;
-            padding: 0;
-            margin: 0;
-            width: 100% !important;
-        }
-
-        .hide-text,
-        .btn,
-        form,
-        .navbar,
-        .header,
-        .footer {
-            display: none !important;
-        }
-
-        .table,
-        .table th,
-        .table td {
-            border: 1px solid #000 !important;
-            color: #000 !important;
-            background-color: #fff !important;
-        }
-
-        .print-full-width {
-            width: 100% !important;
-            display: table !important;
-        }
-
-        .table th,
-        .table td {
-            display: table-cell !important;
-            vertical-align: middle !important;
-        }
-
-
-        .table td,
-        .table th {
-            font-size: 12px !important;
-            padding: 6px !important;
-        }
-    }
-</style>
 @endsection
