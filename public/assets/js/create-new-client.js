@@ -1,26 +1,29 @@
 $(document).ready(function () {
 
     // Add More Attachment
-    $(".add-more-client").click(function(){
+    $(".add-more-client").click(function () {
         let newRow = `
             <div class="row g-3 attachment-remove">
                 <div class="col-lg-4 col-md-4">
-                    <label class="form-label text-dark">Attachment Type</label>
-                    <select class="form-select">
+                    <select class="form-select" name="file_type[]">
                         <option value="">Not Specify</option>
-                        <option value="0">Male</option>
-                        <option value="1">Female</option>
-                        <option value="2">Others</option>
+                        <option value="Project Requisition Form">Project Requisition Form</option>
+                        <option value="Order Number">Order Number</option>
+                        <option value="Proposal">Proposal</option>
+                        <option value="Calculation">Calculation</option>
+                        <option value="As Per Instruction">As Per Instruction</option>
+                        <option value="Others">Others</option>
+                        <option value="PI(Proforma Invoice)">PI(Proforma Invoice)</option>
+                        <option value="Amendment PI(Proforma Invoice)">Amendment PI(Proforma Invoice)</option>
                     </select>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
-                    <label for="formFile" class="form-label text-dark">Attachment File</label>
-                    <input class="form-control" type="file">
+                    <input class="form-control" type="file" name="file_name[]" accept=".pdf">
+                    <span class="fileerror text-danger"></span>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
-                    <label class="form-label text-dark">Action</label>
                     <button type="button" class="btn btn-sm btn-danger remove-client">Remove</button>
                 </div>
             </div>
@@ -36,10 +39,7 @@ $(document).ready(function () {
 
 
     // SPOC ROW Add more button
-
-
-
-    $("#add-more-spoc").click(function(){
+    $("#add-more-spoc").click(function () {
         let SPOCRow = `
              <div class="row g-3 fadeup-spoc">
                             <div class="col-lg-4 col-md-4">
@@ -77,7 +77,7 @@ $(document).ready(function () {
                             </div>
         `;
 
-        $('.append_add-more-spoc').append(SPOCRow );
+        $('.append_add-more-spoc').append(SPOCRow);
     });
 
     // Remove Attachment
@@ -86,4 +86,58 @@ $(document).ready(function () {
     });
 
 
+    // Get Cities.
+    $("select[name=company_state]").change(function () {
+        $.ajax({
+            url: SITE_URL + '/hr/recruitment/cities',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                '_token': $("meta[name=csrf-token]").attr('content'),
+                'stateid': $(this).val()
+            },
+            success: function (response) {
+                if (response.success) {
+                    var html = '<option value="" selected>Select City</option>';
+                    $.each(response.cities, function (index, value) {
+                        html += '<option value="' + value.id + '">' + value.city_name + '</option>';
+                    });
+                    $('select[name=company_city]').html(html);
+                } else {
+                    var html = '<option value="" selected>Select City</option>';
+                    $('select[name=company_city]').html(html);
+                }
+            }
+        });
+    });
+
+    // Validate file sizes.
+    $(document).on('change', "input[type=file]", function (event) {
+        var file = event.target.files[0];
+        if (file.size > 1048576) {
+            $(this).closest('div').find('.fileerror').text('Invalid file size');
+            $(this).val(null);
+            Swal.fire({
+                icon: "error",
+                title: "File too large!",
+                text: "Please upload a file less than 1MB.",
+                allowOutsideClick: false
+            });
+        }
+        else {
+            $(this).closest('div').find('.fileerror').text('');
+        }
+    });
+
+    // Form submit.
+    $("form.add-client").submit(function (){
+        $(this).find("button[type=submit]").attr('disabled', 'disabled');
+        Swal.fire({
+            title: "Wait..!",
+            didOpen: () => {
+              Swal.showLoading();
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+    });
 });

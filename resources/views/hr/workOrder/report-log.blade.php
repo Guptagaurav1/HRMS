@@ -62,9 +62,9 @@
 
                 <div class="col-md-12 d-flex justify-content-between mx-3">
                   
-                     <form class="row g-3" method="get" action="{{route('project-list')}}">
+                     <form class="row g-3">
                          <div class="col-auto">
-                             <input type="text" name="search" class="form-control" value="" placeholder="Search" required>
+                             <input type="search" name="search" class="form-control" value="{{$search}}" placeholder="Search by added by" required>
                          </div>
                          <div class="col-auto">
                              <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>

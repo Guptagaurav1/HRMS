@@ -44,7 +44,7 @@
                                             <option value="2">Others</option>
                                         </select>
                                             <div class="col-auto">
-                                                <a href="{{route('create-new-client')}}">
+                                                <a href="{{route('sales-clients.add')}}">
                                                     <button type="button" class="btn btn-sm btn-primary">Add Client</button>
                                                 </a>
                                             </div>
@@ -240,7 +240,7 @@
                     </div>
                     <div class="d-flex align-items-cenetr justify-content-end gap-3 px-3 py-2">
                         <div>
-                            <a href="{{route('client-list')}}"><button type="button"
+                            <a href="{{route('sales-clients.list')}}"><button type="button"
                                     class="btn btn-sm btn-primary">Cancel</button></a>
 
                         </div>

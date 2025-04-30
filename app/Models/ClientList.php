@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ClientList extends Model
 {
@@ -38,5 +39,13 @@ class ClientList extends Model
                 $model->save();
             });
         }
+    }
+
+    /**
+     *  Get the user who create the client.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by')->select('first_name', 'last_name');
     }
 }

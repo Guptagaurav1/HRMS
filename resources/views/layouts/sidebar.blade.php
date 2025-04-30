@@ -878,19 +878,21 @@
 
                             <!-- New Client Pages Add for the sales manager -->
 
-                            @if (auth()->user()->hasPermission('posh.complaint-list'))
+                            @if (auth()->user()->hasPermission('sales-clients.list'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
                                         data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
                                                 class="fa-solid fa-person"></i></span> <span
                                             class="sidebar-txt">Clients</span></a>
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                        <li class="sidebar-dropdown-item"><a
-                                                href="{{ route('create-new-client') }}" class="sidebar-link">New Client
+                                        @if (auth()->user()->hasPermission('sales-clients.add'))
+                                            <li class="sidebar-dropdown-item"><a href="{{ route('sales-clients.add') }}"
+                                                    class="sidebar-link">New Client
                                                 </a></li>
-                                                <li class="sidebar-dropdown-item"><a
-                                                href="{{route('client-list')}}" class="sidebar-link">Clients List
-                                                </a></li>
+                                        @endif
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('sales-clients.list') }}"
+                                                class="sidebar-link">Clients List
+                                            </a></li>
                                     </ul>
                                 </li>
                             @endif
@@ -901,15 +903,16 @@
                             @if (auth()->user()->hasPermission('posh.complaint-list'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
-                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-diagram-project"></i></span> <span
+                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
+                                                class="fa-solid fa-diagram-project"></i></span> <span
                                             class="sidebar-txt">Projects</span></a>
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                        <li class="sidebar-dropdown-item"><a
-                                                href="{{ route('add-sales-project') }}" class="sidebar-link">New Project
-                                                </a></li>
-                                                <li class="sidebar-dropdown-item"><a
-                                                href="{{route('sales-project-list')}}" class="sidebar-link">Project List
-                                                </a></li>
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('add-sales-project') }}"
+                                                class="sidebar-link">New Project
+                                            </a></li>
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('sales-project-list') }}"
+                                                class="sidebar-link">Project List
+                                            </a></li>
                                     </ul>
                                 </li>
                             @endif
@@ -919,15 +922,16 @@
                             @if (auth()->user()->hasPermission('posh.complaint-list'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
-                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-leaf"></i></span> <span
+                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
+                                                class="fa-solid fa-leaf"></i></span> <span
                                             class="sidebar-txt">Leads</span></a>
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                        <li class="sidebar-dropdown-item"><a
-                                                href="{{ route('add-lead') }}" class="sidebar-link">New Lead
-                                                </a></li>
-                                                <li class="sidebar-dropdown-item"><a
-                                                href="{{route('lead-list')}}" class="sidebar-link">Leads List
-                                                </a></li>
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('add-lead') }}"
+                                                class="sidebar-link">New Lead
+                                            </a></li>
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('lead-list') }}"
+                                                class="sidebar-link">Leads List
+                                            </a></li>
                                     </ul>
                                 </li>
                             @endif
@@ -937,15 +941,16 @@
                             @if (auth()->user()->hasPermission('posh.complaint-list'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
-                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-leaf"></i></span> <span
+                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
+                                                class="fa-solid fa-leaf"></i></span> <span
                                             class="sidebar-txt">Tender</span></a>
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                        <li class="sidebar-dropdown-item"><a
-                                                href="{{route('add-tender')}}" class="sidebar-link">New Tender
-                                                </a></li>
-                                                <li class="sidebar-dropdown-item"><a
-                                                href="{{route('tender-list')}}" class="sidebar-link">Tender List
-                                                </a>
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('add-tender') }}"
+                                                class="sidebar-link">New Tender
+                                            </a></li>
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('tender-list') }}"
+                                                class="sidebar-link">Tender List
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -957,13 +962,14 @@
                             @if (auth()->user()->hasPermission('posh.complaint-list'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
-                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i class="fa-solid fa-leaf"></i></span> <span
-                                            class="sidebar-txt">CRM Lead Follow Up</span></a>
+                                        data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
+                                                class="fa-solid fa-leaf"></i></span> <span class="sidebar-txt">CRM
+                                            Lead Follow Up</span></a>
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                        <li class="sidebar-dropdown-item"><a
-                                                href="{{route('crm-lead-follow-up')}}" class="sidebar-link">CRM Lead Follow Up
-                                                </a></li>
-                                               
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('crm-lead-follow-up') }}"
+                                                class="sidebar-link">CRM Lead Follow Up
+                                            </a></li>
+
                                     </ul>
                                 </li>
                             @endif
@@ -996,7 +1002,7 @@
                         </ul>
                 </ul>
                 @endif
-                
+
                 <!-- If logged-in user is employee. -->
                 @if (auth('employee')->check())
                     <ul class="sidebar-link-group">
@@ -1066,7 +1072,7 @@
                             </li>
                         @endif
 
-                        
+
 
                         <li class="sidebar-dropdown-item">
                             <a role="button" class="sidebar-link has-sub" data-dropdown="ecommerceDropdown"><span

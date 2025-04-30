@@ -408,7 +408,7 @@ class WorkOrderController extends Controller
             return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Please check at least one checkbox!']);
         }
         // dd($check_workOrders);
-        $wo_details = workOrder::with('project.organizations')
+        $wo_details = WorkOrder::with('project.organizations')
             ->whereIn('id', $check_workOrders)
             ->orderBy('id', 'desc')
             ->get()
@@ -664,13 +664,19 @@ class WorkOrderController extends Controller
 
     public function report_log(Request $request){
         // $report= ReportLog::with('user')->orderBy('id', 'desc')->paginate(25);
+        $search = '';
         $report = DB::table('report_logs')
         ->leftJoin('users', 'report_logs.created_by', '=', 'users.id')
         ->select('report_logs.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
-        ->orderByDesc('report_logs.id')
-        ->paginate(25);
+        ;
+
+        if($request->search){
+            $search = $request->search;
+            $report = $report->where('users.first_name', 'LIKE', "%$request->search%");
+        }
+        $report = $report->orderByDesc('report_logs.id')->paginate(25);
         // dd($report);
-        return view("hr.workOrder.report-log", compact('report'));
+        return view("hr.workOrder.report-log", compact('report', 'search'));
     }
 
     public function send_report_mail(Request $request)
