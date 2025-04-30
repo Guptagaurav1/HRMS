@@ -25,7 +25,7 @@
                 <div class="logo">
                     <img src="{{ 'assets/images/PrakharNEWLogo.png' }}" alt="Logo" width="30%">
                 </div>
-                <a href="{{ '/' }}"><i class="fa-duotone fa-house-chimney"></i></a>
+                <a href="{{route('login')}}"><i class="fa-duotone fa-house-chimney"></i></a>
             </div>
             <div class="bottom">
                 <h3 class="panel-title">Forgot Password</h3>

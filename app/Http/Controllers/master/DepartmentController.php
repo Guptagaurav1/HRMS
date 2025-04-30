@@ -117,6 +117,7 @@ class DepartmentController extends Controller
             DB::beginTransaction();
 
             $department->department = $request->department;
+            $department->reporting_manager_id = $request->reporting_manager_id;
             if (!$department->save()) {
                 return redirect()->back()->with(['error' => 'Failed to update department.']);
             }

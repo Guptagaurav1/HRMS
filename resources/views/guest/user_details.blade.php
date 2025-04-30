@@ -639,15 +639,15 @@
                                     <label class="form-label text-dark">Current CTC <span
                                             class="text-danger fw-bold">*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="salary_ctc" required
-                                        placeholder="Enter Current CTC">
+                                    <input type="number" class="form-control" name="salary_ctc" required
+                                        placeholder="Enter Current CTC" >
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label text-dark">Current Home Salary <span
                                             class="text-danger fw-bold">*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="take_home_salary"
-                                        placeholder="Enter Current Take Home Salary" required>
+                                    <input type="number" class="form-control" name="take_home_salary"
+                                        placeholder="Enter Current Take Home Salary"  required>
                                 </div>
 
                                 <div class="col-md-6">

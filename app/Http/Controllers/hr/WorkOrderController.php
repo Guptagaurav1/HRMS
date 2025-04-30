@@ -471,7 +471,7 @@ class WorkOrderController extends Controller
             ]);
             return redirect()->route('report-log')->with(['success' => true, 'message' => 'Report save Successfully.']);
         } catch (Throwable $th) {
-            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
         
     }
@@ -664,10 +664,10 @@ class WorkOrderController extends Controller
 
     public function report_log(Request $request){
         // $report= ReportLog::with('user')->orderBy('id', 'desc')->paginate(25);
-        $report = DB::table('report_log')
-        ->leftJoin('users', 'report_log.created_by', '=', 'users.id')
-        ->select('report_log.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
-        ->orderByDesc('report_log.id')
+        $report = DB::table('report_logs')
+        ->leftJoin('users', 'report_logs.created_by', '=', 'users.id')
+        ->select('report_logs.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
+        ->orderByDesc('report_logs.id')
         ->paginate(25);
         // dd($report);
         return view("hr.workOrder.report-log", compact('report'));
@@ -892,9 +892,9 @@ class WorkOrderController extends Controller
                         date('d-m-Y', strtotime($employee->emp_doj)),
                         $employee->designation,
                         ($employee->sal_ctc - $employee->sal_pf_employer - $employee->sal_pf_employee - $employee->sal_esi_employer - $employee->sal_esi_employee),
-                        ($employee->net + $employee->tds_deduction + (!empty($employee->sal_recovery) ? $employee->sal_recovery : 0) + $employee->sal_medical_insurance),
+                        ((int) $employee->net + (int) $employee->tds_deduction + (!empty($employee->sal_recovery) ? (int) $employee->sal_recovery : 0) + (int) $employee->sal_medical_insurance),
                         $employee->tds_deduction,
-                        (!empty($employee->sal_recovery) ? $employee->sal_recovery : 0) + $employee->sal_medical_insurance,
+                        (!empty($employee->sal_recovery) ? (int) $employee->sal_recovery : 0) + (int) $employee->sal_medical_insurance,
                         $employee->net,
                         $employee->sal_working_days,
                         $employee->sal_account_no,
@@ -917,7 +917,7 @@ class WorkOrderController extends Controller
                         $employee->sal_pf_employee,
                         $employee->sal_esi_employer,
                         $employee->sal_esi_employee,
-                        ($employee->sal_ctc - $employee->sal_pf_employer - $employee->sal_pf_employee - $employee->sal_esi_employer - $employee->sal_esi_employee),
+                        ((int) $employee->sal_ctc - (int) $employee->sal_pf_employer - (int) $employee->sal_pf_employee - (int) $employee->sal_esi_employer - (int) $employee->sal_esi_employee),
                         $employee->sal_ctc,
                         (!empty($employee->sal_esi_wages) ? $employee->sal_esi_wages : 0),
                         (!empty($employee->sal_pf_wages) ? $employee->sal_pf_wages : 0),
@@ -926,14 +926,14 @@ class WorkOrderController extends Controller
                         $employee->cony,
                         $employee->med_all,
                         $employee->spl_all,
-                        $employee->basic + $employee->hra + $employee->cony + $employee->med_all + $employee->spl_all,
+                        (int) $employee->basic + (int) $employee->hra + (int) $employee->cony + (int) $employee->med_all + (int) $employee->spl_all,
                         $employee->emp_esi,
                         $employee->emp_pf,
                         $employee->tds_deduction,
                         (!empty($employee->sal_recovery) ? $employee->sal_recovery : 0),
                         (!empty($employee->sal_advance) ? $employee->sal_advance : 0),
                         (!empty($employee->sal_medical_insurance) ? $employee->sal_medical_insurance : 0),
-                        $employee->emp_esi + $employee->emp_pf + $employee->tds_deduction + $employee->sal_recovery + $employee->sal_advance + $employee->sal_medical_insurance,
+                        (int) $employee->emp_esi + (int) $employee->emp_pf + (int) $employee->tds_deduction + (int) $employee->sal_recovery + (int) $employee->sal_advance + (int) $employee->sal_medical_insurance,
                         $employee->net
                     ];
                     fputcsv($handle, $data);

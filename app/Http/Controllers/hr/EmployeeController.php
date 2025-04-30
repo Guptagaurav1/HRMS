@@ -1534,10 +1534,7 @@ class EmployeeController extends Controller
             $doe = $workorders->wo_end_date;
             $wo_valid_upto = date("d/m/Y", strtotime($workorders->wo_end_date));
             $data = new stdClass();
-            if ($empdetails->emp_work_order == 'PSSPL Internal Employees') {
-                $template = AppointmentFormat::select('format', 'format_2')->where(['type' => 'appointment', 'name' => 'internal'])->firstOrFail();
-                $message = $template->format;
-                $message_2 = $template->format_2;
+            if ($empdetails->emp_work_order == 'PSSPL Internal Employees') {             
                 $blade = 'hr.templates.appointment-letter.internal';
                 $data->today_date =  $today_date;
                 $data->candidate_name =  $empdetails->emp_name;
@@ -1565,10 +1562,6 @@ class EmployeeController extends Controller
 
 
             } elseif ($organisation == 'GNGPL (Goa Natural Gas Pvt.Ltd)') {
-               
-                $template = AppointmentFormat::select('format', 'format_2')->where(['type' => 'appointment', 'name' => 'GNGPL'])->firstOrFail();
-                $message = $template->format;
-                $message_2 = $template->format_2;
                 $blade = 'hr.templates.appointment-letter.gngpl';
 
                 $bonus = round((8.33 / 100) * $salary->sal_basic);
@@ -1601,10 +1594,6 @@ class EmployeeController extends Controller
                 $data->wo_valid =  $wo_valid_upto;
 
             } else {
-               
-                $template = AppointmentFormat::select('format', 'format_2')->where(['type' => 'appointment', 'name' => 'BECIL'])->firstOrFail();
-                $message = $template->format;
-                $message_2 = $template->format_2;
                 $blade = 'hr.templates.appointment-letter.becil';
 
                 $data->today_date =  $today_date;

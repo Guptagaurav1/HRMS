@@ -39,7 +39,7 @@
                                 <div class="bottom">
                                     <ul class="mt-1">
                                         <li class="text-dark fs-6"><span class="text-dark">Employee
-                                                Code:</span>{{ $details->emp_designation }}</li>
+                                                Code:</span>{{ $details->emp_code }}</li>
                                         <li class="text-dark fs-6"><span>Mobile No:</span>{{ $details->emp_phone_first }}
                                         </li>
                                         <li class="text-dark fs-6"><span>E-Mail ID:</span>{{ $details->emp_email_first }}
