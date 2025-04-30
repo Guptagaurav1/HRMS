@@ -74,7 +74,7 @@
                                         <div class="d-flex gap-3">
                                            <a href="{{route('edit-new-client')}}"><button type="submit" class="btn btn-sm btn-primary">Edit</button></a>
                                            <a href="{{route('view-client')}}"> <button type="submit" class="btn btn-sm btn-primary">View</button></a>
-                                               <a href="{{route('add-project')}}"> <button type="submit" class="btn btn-sm btn-primary">Add Project</button></a>
+                                               <a href="{{route('add-sales-project')}}"> <button type="submit" class="btn btn-sm btn-primary">Add Project</button></a>
                                         </div>
                                         
                                     </td>

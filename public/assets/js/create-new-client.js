@@ -86,4 +86,99 @@ $(document).ready(function () {
     });
 
 
+
+
+    // Auto suggestion for Client Name
+
+    const data = [
+        "Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry",
+        "Boysenberry", "Cantaloupe", "Cherry", "Coconut", "Cranberry",
+        "Cucumber", "Date", "Dragonfruit", "Durian", "Elderberry", "Fig",
+        "Gooseberry", "Grape", "Grapefruit", "Guava", "Honeydew", "Jackfruit",
+        "Kiwi", "Kumquat", "Lemon", "Lime", "Lychee", "Mango", "Melon",
+        "Mulberry", "Nectarine", "Olive", "Orange", "Papaya", "Passionfruit",
+        "Peach", "Pear", "Pineapple", "Plum", "Pomegranate", "Quince",
+        "Raspberry", "Strawberry", "Tangerine", "Watermelon"
+      ];
+
+      $('.search').on('input', function () {
+        const inputVal = $(this).val().toLowerCase();
+        const filtered = data.filter(item =>item.toLowerCase().includes(inputVal));
+        console.log(filtered.length)
+  
+        if (inputVal && filtered.length) {
+          $('.suggestions').show();
+          filtered.forEach(item => {
+            $('.suggestions').append(`<div class="suggestion-item" id="suggestion-item-design">${item}</div>`);
+          });
+        } else {
+          $('.suggestions').hide();
+        }
+      });
+  
+      $(document).on('click', '.suggestion-item', function () {
+        $('.search').val($(this).text());
+        $('.suggestions').hide();
+      });
+  
+      $(document).click(function (e) {
+        if (!$(e.target).closest('.search, .suggestions').length) {
+          $('.suggestions').hide();
+    }
+});
+
+
+
+
+// Department Name
+
+
+const departmentdata = [
+    "Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry",
+    "Boysenberry", "Cantaloupe", "Cherry", "Coconut", "Cranberry",
+    "Cucumber", "Date", "Dragonfruit", "Durian", "Elderberry", "Fig",
+    "Gooseberry", "Grape", "Grapefruit", "Guava", "Honeydew", "Jackfruit",
+    "Kiwi", "Kumquat", "Lemon", "Lime", "Lychee", "Mango", "Melon",
+    "Mulberry", "Nectarine", "Olive", "Orange", "Papaya", "Passionfruit",
+    "Peach", "Pear", "Pineapple", "Plum", "Pomegranate", "Quince",
+    "Raspberry", "Strawberry", "Tangerine", "Watermelon"
+  ];
+
+  $('.department-search').on('input',function(){
+    const departmentval=$(this).val().toLowerCase();
+    const departmentFiltered=departmentdata.filter(item=>item.toLowerCase().includes(departmentval))
+    console.log(departmentFiltered.length)
+
+    if(departmentval&&departmentFiltered.length){
+        $('.department-suggestions').show();
+        departmentFiltered.forEach(item=>{
+            $('.department-suggestions').append(`<div class="department-suggestion-item" id="suggestion-item-design">${item}</div>`);
+        });
+
+    }
+    else{
+        $('.department-suggestions').hide();
+    }
+
+
+  })
+
+  $(document).on('click', '.department-suggestion-item', function () {
+    $('.department-search').val($(this).text());
+    $('.department-suggestions').hide();
+  });
+
+  $(document).click(function (e) {
+    if (!$(e.target).closest('.department-search, .department-suggestions').length) {
+      $('.department-suggestions').hide();
+}
+}
+);
+
+
+
+
+  
+
+
 });

@@ -1,5 +1,8 @@
 @extends('layouts.master')
 
+@section('style')
+
+@endsection
 
 @section('contents')
 
@@ -14,9 +17,9 @@
             <div class="text-end mt-3 px-3">
                 <button class="btn btn-sm btn-primary"><a href="{{route('client-list')}}" class="text-white">Client List</a></button>
             </div>
+        
+             <!-- Client Name section -->
 
-               
-            <!-- Client Name section -->
             <form>
                 <div class="mt-3">
                     <div class="border-bottom border-bottom-primary px-3 py-1 mt-1 text-dark fw-bold">
@@ -26,24 +29,23 @@
                         <div class="row g-3">
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label">Client Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm for_char" name="clientName"
+                                <input type="text" class="form-control form-control-sm search"  name="clientName"
                                     placeholder="Enter Client Name" required>
-                                    <span class="clientName"></span>
+                                    <span class="suggestions" id="suggestion-design" class="mt-1"></span>
                             </div>
+                           
                             <div class="col-lg-4 col-md-4 ">
                                 <label class="form-label">Department Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="department-name"
+                                <input type="text" class="form-control form-control-sm department-search" name="department-name"
                                     placeholder="Enter Department Name" required>
+                                    <span class="department-suggestions" id="suggestion-design" class="mt-1"></span>
                             </div>
                             <div class="col-lg-4 col-md-4 ">
                                 <label class="form-label">Concern Ministry <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm" name="concern-minister"
                                     placeholder="Enter Concern Minister" required>
                             </div>
-
                         </div>
-
-
                     </div>
                 </div>
 
@@ -257,10 +259,6 @@
     
                 </div>
             </form>
-
-            <!-- Add Client Button -->
-            
-
         </div>
     </div>
 </div>
@@ -269,6 +267,4 @@
 @section('script')
 
 <script src="{{ asset('assets/js/create-new-client.js') }}"></script>
-<script src="{{ asset('assets/js/commonValidation.js') }}"></script>
-
 @endsection

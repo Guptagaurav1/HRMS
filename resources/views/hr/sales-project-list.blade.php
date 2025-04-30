@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-auto col-xs-12">
                             
-                                <a href="{{ route('create-new-client') }}" class="col-xs-12 mx-md-2"><button
+                                <a href="{{ route('add-sales-project') }}" class="col-xs-12 mx-md-2"><button
                                         type="button" class="btn btn-sm btn-primary">Add New Project <i
                                             class="fa-solid fa-plus"></i></button></a>
                             </div>

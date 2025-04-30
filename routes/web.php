@@ -671,6 +671,10 @@ Route::get("view-crm-details", function () {
     return view("hr.view-crm-details");
 })->name("view-crm-details");
 
+Route::get("sales-manager-dashboard", function () {
+    return view("hr.sales-manager-dashboard");
+})->name("sales-manager-dashboard");
+
 
 
 // Employee Routes

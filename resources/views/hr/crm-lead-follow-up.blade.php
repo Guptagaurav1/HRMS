@@ -113,7 +113,7 @@
 
             <div class="row" style="position: relative;">
                 <div class="col-md-12 d-flex justify-content-end gap-2 mt-3 mx-3 border border-white bg-dark "
-                    style="max-width: 10%; position:fixed; z-index: 100; right: 0; bottom: 50px;  padding: 10px; border-radius: 10px;">
+                    style="max-width: 10%; position:fixed; z-index: 100; right: 0; bottom: 40px;  padding: 10px; border-radius: 10px;">
                     <div>
                         <button type="button" class="btn btn-sm btn-info">Win</button>
 
