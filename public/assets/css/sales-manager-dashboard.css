@@ -1,0 +1,85 @@
+.dashboard-container {
+    background-color: #f8f9fa;
+    padding: 30px;
+}
+
+.dashboard-breadcrumb h4 {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.contact-info {
+    font-size: 15px;
+    color: #6c757d;
+}
+
+.profile-card {
+    display: flex;
+    gap: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    align-items: center;
+}
+
+.profile-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info h4 {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.profile-info p {
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.profile-info i {
+    margin-right: 6px;
+    color: #2980b9;
+}
+
+.work-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    height: 100%;
+}
+
+.work-card-header {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.assigned-lead {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.assigned-lead .btn {
+    font-size: 14px;
+    padding: 5px 12px;
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .d-flex.flex-wrap-md {
+        flex-wrap: wrap;
+    }
+
+    .col-md-6 {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+}

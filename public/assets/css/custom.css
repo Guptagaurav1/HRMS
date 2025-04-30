@@ -182,7 +182,7 @@ label {
   background-color: whitesmoke;
   border: 1px solid #dcdcdc;
   border-radius: 5px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  /* box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); */
   transition: all 0.3s ease;
 }
 
@@ -865,7 +865,7 @@ color: black;
 
 /* Placeholder Color */
 input::-webkit-input-placeholder {
-color: #4C4646 !important;
+color: #9c9b9b !important;
 font-weight: 500;
 }
 
@@ -1158,4 +1158,30 @@ z-index: 10000 !important;
   position: relative;
   z-index: 2;
 }
+}
+
+
+/* AutoSuggestion CSS For the Sales Profile */
+
+#suggestion-design {
+  border: 1px solid #ccc;
+  display: none;
+  position: absolute;
+  background: white;
+  max-height: 150px;       
+  overflow-y: auto;       
+  max-width: 345px;
+  z-index: 1000;
+  width: 100%;
+  border-radius: 4px;
+  
+  
+}
+#suggestion-item-design {
+  padding: 7px;
+  cursor: pointer;
+ border-bottom: 1px solid #ccc;
+}
+#suggestion-item-design:hover {
+  background-color: #f0f0f0;
 }

@@ -12,7 +12,7 @@
             </div>
 
             <div class="text-end mt-3 px-3">
-                <button class="btn btn-sm btn-primary"><a href="{{route('project-list')}}" class="text-white">Project List</a></button>
+            <a href="{{route('sales-project-list')}}" class="text-white"> <button class="btn btn-sm btn-primary">Project List</button></a>
             </div>
 
 

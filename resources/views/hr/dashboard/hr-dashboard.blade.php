@@ -6,6 +6,7 @@
 @endsection
 
 @section('contents')
+
 <div class="dashboard-breadcrumb mb-25">
     <h2> Welcome Prakhar Softwares HRMS Dashboard</h2>
     {{-- <div class="input-group dashboard-filter">
@@ -16,7 +17,6 @@
 <div class="dashboard-breadcrumb mb-3 d-flex justify-content-between align-items-center">
     <h2 class="text-dark">Helpdesk for query <i class="fa-solid fa-arrow-right fs-6"></i></h2>
     <p class="mt-2"><strong>Email: helpdesk@prakharsoftwares.com | Contact No : 7982363536</strong></p>
-
 </div>
 <div class="fluid-container">
     <div class="row">
@@ -45,7 +45,6 @@
                     <div class="panel">
                         <div class="panel-header">
                             <h5 class="text-white fw-bold text-center">Today Birthday </h5>
-
                         </div>
                         <div class="panel-body">
                             <ul class="upcoming-interview">
@@ -76,10 +75,8 @@
                                             <small><span class="text-muted">Today No Birthday Available in our system </span></small>
                                         </span>
                                     </div>
-
                                 </li>
                                 @endforelse
-
                                 {{ $todayBirthdays->links() }}
                             </ul>
                         </div>
