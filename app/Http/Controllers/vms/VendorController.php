@@ -116,7 +116,7 @@ class VendorController extends Controller
             'last_name' => 'required',
             'email' => [
                 'required',
-                Rule::unique('users')->where('id', '!=', $vendor->user_id)
+                Rule::unique('users')->ignore($vendor->user_id)
                     ->whereNull('deleted_at')
             ],
             'phone' => 'required|digits:10',

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\empDetail;
+use App\Models\EmpDetail;
 use App\Models\EmpLeave;
 use App\Models\LeaveRequest;
 use App\Models\Month;
@@ -34,7 +34,7 @@ class StoreEmployeeLeave extends Command
         $currentMonth = now()->month; 
         $currentYear = now()->year;
 
-        $employees = empDetail::where([
+        $employees = EmpDetail::where([
             ['emp_current_working_status', '=', 'Active'],
             ['emp_work_order', '=', 'PSSPL Internal Employees']
         ])->get();

@@ -117,7 +117,7 @@
                             @forelse ($vendors as $key => $vendor)
                                 <tr>
                                     <td class="srno-column">{{ $loop->iteration }}</td>
-                                    <td class="rid-column">{{ $vendor->user->role->role_name ?? null }}</td>
+                                    <td class="rid-column">{{ $vendor->user->role->role_name }}</td>
                                     <td>{{ $vendor->user->first_name }} {{ $vendor->user->last_name }} /
                                         {{ $vendor->user->email }} /
                                         {{ $vendor->user->phone }}</td>

@@ -55,6 +55,8 @@ use App\Http\Controllers\employee\ProfileController as EmployeeProfileController
 use App\Http\Controllers\employee\EmployeeLeaveController;
 use App\Http\Controllers\employee\EmployeeDetailController;
 
+use App\Http\Controllers\sales\SalesController;
+use App\Http\Controllers\sales\ClientController as SalesClientController;
 
 
 /*
@@ -316,8 +318,6 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post("/activate/{id}", 'activate')->name('activate');
     });
 
-
-
     /////////// workorder routes start ///////
     Route::controller(WorkOrderController::class)->group(function () {
         Route::get("work-order-list", "index")->name("work-order-list");
@@ -340,7 +340,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('work-order/check-salary', 'check_salary');
         Route::post('download-salary-sheet', 'download_salary_sheet')->name('download-salary-sheet');
     });
-
+ 
     /////////// workorder routes end ///////
 
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
@@ -485,6 +485,18 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::resource('tenants', TenantController::class);
 });
 
+// Sales routes
+Route::middleware('auth')->prefix('sales')->group(function () {
+    Route::controller(SalesController::class)->group(function () {
+        Route::get('dashboard', 'manager_dashboard')->name('sales.manager_dashboard');
+    });
+    Route::controller(SalesClientController::class)->prefix('clients')->group(function () {
+        Route::get("add", 'add')->name("sales-clients.add");
+        Route::post("store", 'store')->name("sales-clients.store");
+        Route::get("/", 'index')->name("sales-clients.list");
+        Route::get("edit/{id}", 'edit')->name("sales-clients.edit");
+    });
+});
 
 // VMS routes
 Route::middleware('auth')->prefix('vms')->group(function () {
@@ -543,8 +555,6 @@ Route::get("reimbursement-list", function () {
 })->name("reimbursement-list");
 
 
-
-
 Route::get("work-order-salary-sheet", function () {
     return view("hr.work-order-salary-sheet");
 })->name("work-order-salary-sheet");
@@ -561,7 +571,6 @@ Route::get("employee-month-salary-slip", function () {
 Route::get("recruitment-plan-page-summary", function () {
     return view("hr.recruitment-plan-page-summary");
 })->name("recruitment-plan-page-summary");
-
 
 
 Route::get("invoice-encloser", function () {
@@ -598,6 +607,67 @@ Route::get("acceptance-form", function () {
 Route::get("temp-profile", function () {
     return view("hr.temp-profile");
 })->name("temp-profile");
+
+
+// Sales manager Routes
+
+Route::get("add-lead", function () {
+    return view("hr.add-lead");
+})->name("add-lead");
+
+Route::get("lead-list", function () {
+    return view("hr.lead-list");
+})->name("lead-list");
+
+Route::get("view-client", function () {
+    return view("hr.view-client");
+})->name("view-client");
+
+Route::get("add-sales-project", function () {
+    return view("hr.add-sales-project");
+})->name("add-sales-project");
+
+Route::get("sales-project-list", function () {
+    return view("hr.sales-project-list");
+})->name("sales-project-list");
+
+Route::get("edit-sales-project", function () {
+    return view("hr.edit-sales-project");
+})->name("edit-sales-project");
+
+Route::get("view-sales-project", function () {
+    return view("hr.view-sales-project");
+})->name("view-sales-project");
+
+
+Route::get("add-tender", function () {
+    return view("hr.add-tender");
+})->name("add-tender");
+
+Route::get("tender-list", function () {
+    return view("hr.tender-list");
+})->name("tender-list");
+
+Route::get("view-tender", function () {
+    return view("hr.view-tender");
+})->name("view-tender");
+
+Route::get("update-tender", function () {
+    return view("hr.update-tender");
+})->name("update-tender");
+
+Route::get("crm-lead-follow-up", function () {
+    return view("hr.crm-lead-follow-up");
+})->name("crm-lead-follow-up");
+
+Route::get("view-crm-details", function () {
+    return view("hr.view-crm-details");
+})->name("view-crm-details");
+
+Route::get("sales-manager-dashboard", function () {
+    return view("hr.sales-manager-dashboard");
+})->name("sales-manager-dashboard");
+
 
 
 // Employee Routes

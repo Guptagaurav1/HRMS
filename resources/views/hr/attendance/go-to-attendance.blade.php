@@ -191,7 +191,7 @@
                                     <td><input type="number" step="0.01" name="no_of_work_days" id="no_of_work_days"
                                             value="0" min="0"></td>
                                     <td title="Gender">{{$wo_emp->getPersonalDetail->emp_gender??NULL}}</td>
-                                    <td>{{$wo_emp->getBankDetail->getBankData->name_of_bank}}
+                                    <td>{{$wo_emp->getBankDetail && $wo_emp->getBankDetail->getBankData ? $wo_emp->getBankDetail->getBankData->name_of_bank : ''}}
                                         \{{$wo_emp->getBankDetail->emp_account_no}}</td>
                                     <td>{{$wo_emp->emp_doj??NULL}}</td>
                                     <td>{{$wo_emp->emp_current_working_status}}</td>

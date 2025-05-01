@@ -408,7 +408,7 @@ class WorkOrderController extends Controller
             return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Please check at least one checkbox!']);
         }
         // dd($check_workOrders);
-        $wo_details = workOrder::with('project.organizations')
+        $wo_details = WorkOrder::with('project.organizations')
             ->whereIn('id', $check_workOrders)
             ->orderBy('id', 'desc')
             ->get()
@@ -471,7 +471,7 @@ class WorkOrderController extends Controller
             ]);
             return redirect()->route('report-log')->with(['success' => true, 'message' => 'Report save Successfully.']);
         } catch (Throwable $th) {
-            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
         
     }
@@ -664,13 +664,19 @@ class WorkOrderController extends Controller
 
     public function report_log(Request $request){
         // $report= ReportLog::with('user')->orderBy('id', 'desc')->paginate(25);
-        $report = DB::table('report_log')
-        ->leftJoin('users', 'report_log.created_by', '=', 'users.id')
-        ->select('report_log.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
-        ->orderByDesc('report_log.id')
-        ->paginate(25);
+        $search = '';
+        $report = DB::table('report_logs')
+        ->leftJoin('users', 'report_logs.created_by', '=', 'users.id')
+        ->select('report_logs.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
+        ;
+
+        if($request->search){
+            $search = $request->search;
+            $report = $report->where('users.first_name', 'LIKE', "%$request->search%");
+        }
+        $report = $report->orderByDesc('report_logs.id')->paginate(25);
         // dd($report);
-        return view("hr.workOrder.report-log", compact('report'));
+        return view("hr.workOrder.report-log", compact('report', 'search'));
     }
 
     public function send_report_mail(Request $request)
@@ -776,10 +782,11 @@ class WorkOrderController extends Controller
      */
     public function download_salary_sheet(Request $request)
     {
+        try {
         $month =  $request->{'month-salary'};
         $month_date = date('M-Y', strtotime($month));
-        $salary = EmpDetail::selectRaw('wo_attendances.emp_vendor_rate, wo_details.wo_oraganisation_name, wo_details.wo_start_date, wo_details.wo_end_date, emp_salary_slip.emp_sal_ctc as sal_ctc, emp_details.emp_doj, emp_salary_slip.work_order, emp_details.emp_name, emp_details.emp_place_of_posting, emp_details.emp_code, salary.sal_emp_designation as designation, salary.sal_net, emp_salary_slip.tds_deduction, emp_salary_slip.sal_recovery, emp_salary_slip.sal_working_days, emp_salary_slip.sal_account_no, emp_salary_slip.sal_bank_name, emp_details.emp_phone_first, emp_salary_slip.sal_emp_email, emp_salary_slip.sal_uan_no, emp_salary_slip.sal_esi_number, emp_salary_slip.sal_aadhar_no, emp_salary_slip.sal_pan_no, emp_salary_slip.sal_remarks, salary.sal_basic, salary.sal_hra, salary.sal_conveyance, salary.medical_allowance, salary.sal_special_allowance, salary.sal_gross, salary.sal_pf_employer, salary.sal_pf_employee, salary.sal_esi_employer, salary.sal_esi_employee, salary.sal_net, emp_salary_slip.sal_esi_wages, emp_salary_slip.sal_pf_wages, emp_salary_slip.sal_basic as basic, emp_salary_slip.sal_hra as hra, emp_salary_slip.sal_conveyance as cony, emp_salary_slip.sal_medical_allowance as med_all, emp_salary_slip.sal_special_allowance as spl_all, emp_salary_slip.sal_net as net, emp_salary_slip.sal_esi_employee as emp_esi, emp_salary_slip.sal_pf_employee as emp_pf, emp_salary_slip.sal_advance, emp_salary_slip.sal_medical_insurance')
-            ->join('wo_details', 'emp_details.emp_work_order', '=', 'wo_details.wo_number')
+        $salary = EmpDetail::selectRaw('wo_attendances.emp_vendor_rate, work_orders.project_id, work_orders.wo_start_date, work_orders.wo_end_date, emp_salary_slip.emp_sal_ctc as sal_ctc, emp_details.emp_doj, emp_salary_slip.work_order, emp_details.emp_name, emp_details.emp_place_of_posting, emp_details.emp_code, salary.sal_emp_designation as designation, salary.sal_net, emp_salary_slip.tds_deduction, emp_salary_slip.sal_recovery, emp_salary_slip.sal_working_days, emp_salary_slip.sal_account_no, emp_salary_slip.sal_bank_name, emp_details.emp_phone_first, emp_salary_slip.sal_emp_email, emp_salary_slip.sal_uan_no, emp_salary_slip.sal_esi_number, emp_salary_slip.sal_aadhar_no, emp_salary_slip.sal_pan_no, emp_salary_slip.sal_remarks, salary.sal_basic, salary.sal_hra, salary.sal_conveyance, salary.medical_allowance, salary.sal_special_allowance, salary.sal_gross, salary.sal_pf_employer, salary.sal_pf_employee, salary.sal_esi_employer, salary.sal_esi_employee, salary.sal_net, emp_salary_slip.sal_esi_wages, emp_salary_slip.sal_pf_wages, emp_salary_slip.sal_basic as basic, emp_salary_slip.sal_hra as hra, emp_salary_slip.sal_conveyance as cony, emp_salary_slip.sal_medical_allowance as med_all, emp_salary_slip.sal_special_allowance as spl_all, emp_salary_slip.sal_net as net, emp_salary_slip.sal_esi_employee as emp_esi, emp_salary_slip.sal_pf_employee as emp_pf, emp_salary_slip.sal_advance, emp_salary_slip.sal_medical_insurance')
+            ->join('work_orders', 'emp_details.emp_work_order', '=', 'work_orders.wo_number')
             ->join('emp_salary_slip', 'emp_details.emp_code', '=', 'emp_salary_slip.sal_emp_code')
             ->join('salary', 'emp_details.id', '=', 'salary.sl_emp_id')
             ->join('wo_attendances', function ($join) {
@@ -792,7 +799,7 @@ class WorkOrderController extends Controller
             ->whereHas('getBankDetail', function ($query) {
                 $query->where('emp_sal_structure_status', 'completed');
             });
-         
+        
         // Process for export all data in csv.
         $filename = 'salary-sheet-' . $month . '.csv';
         $headers = [
@@ -870,7 +877,7 @@ class WorkOrderController extends Controller
                 foreach ($employees as $employee) {
                     
                     // Extract data from each employee.
-                    if ($employee->wo_oraganisation_name == 'Becil' || $employee->wo_oraganisation_name == 'BECIL') {
+                    if (get_organization_name($employee->project_id) == 'Becil' || get_organization_name($employee->project_id) == 'BECIL') {
                         $wo_start = date('d-m-Y', strtotime($employee->emp_doj));
                         $wo_end = date('d-m-Y', strtotime('+1 year', strtotime('-1 day', strtotime($employee->emp_doj))));
                     } else {
@@ -891,9 +898,9 @@ class WorkOrderController extends Controller
                         date('d-m-Y', strtotime($employee->emp_doj)),
                         $employee->designation,
                         ($employee->sal_ctc - $employee->sal_pf_employer - $employee->sal_pf_employee - $employee->sal_esi_employer - $employee->sal_esi_employee),
-                        ($employee->net + $employee->tds_deduction + (!empty($employee->sal_recovery) ? $employee->sal_recovery : 0) + $employee->sal_medical_insurance),
+                        ((int) $employee->net + (int) $employee->tds_deduction + (!empty($employee->sal_recovery) ? (int) $employee->sal_recovery : 0) + (int) $employee->sal_medical_insurance),
                         $employee->tds_deduction,
-                        (!empty($employee->sal_recovery) ? $employee->sal_recovery : 0) + $employee->sal_medical_insurance,
+                        (!empty($employee->sal_recovery) ? (int) $employee->sal_recovery : 0) + (int) $employee->sal_medical_insurance,
                         $employee->net,
                         $employee->sal_working_days,
                         $employee->sal_account_no,
@@ -916,7 +923,7 @@ class WorkOrderController extends Controller
                         $employee->sal_pf_employee,
                         $employee->sal_esi_employer,
                         $employee->sal_esi_employee,
-                        ($employee->sal_ctc - $employee->sal_pf_employer - $employee->sal_pf_employee - $employee->sal_esi_employer - $employee->sal_esi_employee),
+                        ((int) $employee->sal_ctc - (int) $employee->sal_pf_employer - (int) $employee->sal_pf_employee - (int) $employee->sal_esi_employer - (int) $employee->sal_esi_employee),
                         $employee->sal_ctc,
                         (!empty($employee->sal_esi_wages) ? $employee->sal_esi_wages : 0),
                         (!empty($employee->sal_pf_wages) ? $employee->sal_pf_wages : 0),
@@ -925,14 +932,14 @@ class WorkOrderController extends Controller
                         $employee->cony,
                         $employee->med_all,
                         $employee->spl_all,
-                        $employee->basic + $employee->hra + $employee->cony + $employee->med_all + $employee->spl_all,
+                        (int) $employee->basic + (int) $employee->hra + (int) $employee->cony + (int) $employee->med_all + (int) $employee->spl_all,
                         $employee->emp_esi,
                         $employee->emp_pf,
                         $employee->tds_deduction,
                         (!empty($employee->sal_recovery) ? $employee->sal_recovery : 0),
                         (!empty($employee->sal_advance) ? $employee->sal_advance : 0),
                         (!empty($employee->sal_medical_insurance) ? $employee->sal_medical_insurance : 0),
-                        $employee->emp_esi + $employee->emp_pf + $employee->tds_deduction + $employee->sal_recovery + $employee->sal_advance + $employee->sal_medical_insurance,
+                        (int) $employee->emp_esi + (int) $employee->emp_pf + (int) $employee->tds_deduction + (int) $employee->sal_recovery + (int) $employee->sal_advance + (int) $employee->sal_medical_insurance,
                         $employee->net
                     ];
                     fputcsv($handle, $data);
@@ -941,6 +948,9 @@ class WorkOrderController extends Controller
             fclose($handle);
         }, 200, $headers);
     }
-    
+    catch(Throwable $th){
+        echo $th->getMessage();
+    }
+    }
    
 }

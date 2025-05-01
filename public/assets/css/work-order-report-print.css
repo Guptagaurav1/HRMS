@@ -1,0 +1,50 @@
+@media print {
+    .invoice-container {
+        box-shadow: none !important;
+        padding: 0;
+        margin: 0;
+        width: 100% !important;
+    }
+
+    .hide-text,
+    .btn,
+    form,
+    .navbar,
+    .header,
+    .footer {
+        display: none !important;
+    }
+
+    .table,
+    .table th,
+    .table td {
+        border: 1px solid #000 !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        word-wrap: break-all !important; 
+        white-space: normal !important;   
+    }
+
+    .print-full-width {
+        width: 100% !important;
+        display: table !important;
+    }
+
+    .table th,
+    .table td {
+        display: table-cell !important;
+        vertical-align: middle !important;
+        font-size: 12px !important;
+        padding: 9px !important;
+                                                                                                                
+
+    }
+
+   
+    .attributes-column {
+        word-break: break-all !important;
+        white-space: normal !important;
+        font-size: 11px !important; 
+        
+    }
+}

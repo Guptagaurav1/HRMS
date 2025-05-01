@@ -69,7 +69,7 @@
                             <div class="col-md-12">
                                 <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
                                     role="alert">
-                                    <svg class="bi flex-shrink-0 me-2" fill="#fff" width="24" height="24" role="img"
+                                    <svg class="bi flex-shrink-0 me-2" fill="#b02a37" width="24" height="24" role="img"
                                         aria-label="Danger:">
                                         <use xlink:href="#exclamation-triangle-fill" />
                                     </svg>

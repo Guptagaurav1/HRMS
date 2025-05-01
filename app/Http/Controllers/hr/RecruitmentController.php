@@ -1210,78 +1210,38 @@ class RecruitmentController extends Controller
             $details = RecruitmentForm::findOrFail($request->recruitment);
 
             // Send Mail.
-            $formats = AppointmentFormat::where(['type' => 'offer letter', 'name' => 'Text', 'employment_type' => $details->employment_type])->first();
-
-            $message = $formats->format;
-            $message_2 = $formats->format_2;
-
             $today_date = date("d/M/Y");
-            $signimg = asset('recruitment/images/sign.png');
-            $img_sign = '<img src="' . $signimg . '" style="height:50px; width:100px" /><br />';
             $details->gender == 'Female' ? $title = 'Ms./Mrs.' :  $title = 'Mr.';
+            
+            $obj = new stdClass();
+            $obj->today_date =  $today_date;
+            $obj->candidate_name =  $details->firstname . " " . $details->lastname;
+            $obj->designation =  $details->job_position;
+            $obj->location =  $details->location;
+            $obj->emp_code =  $details->emp_code;
+            $obj->ctc =  $details->salary;
+            $obj->posting_location =  $details->location;
+            $obj->doj =  date('d-M-Y', strtotime($details->doj));
+            $obj->img_sign =  $details->img_sign;
 
-            $message_new = str_replace('{{today_date}}', $today_date, $message);
-            $message_new = str_replace('{{candidate_name}}', $details->firstname . " " . $details->lastname, $message_new);
-            $message_new = str_replace('{{designation}}', $details->job_position, $message_new);
-            $message_new = str_replace('{{location}}', $details->location, $message_new);
-            $message_new = str_replace('{{emp_code}}', $details->emp_code, $message_new);
-            $message_new = str_replace('{{ctc}}', $details->salary, $message_new);
-            $message_new = str_replace('{{posting_location}}', $details->location, $message_new);
-            $message_new = str_replace('{{doj}}', date('d-M-Y', strtotime($details->doj)), $message_new);
-            $message_new = str_replace('{{img_sign}}', $details->img_sign, $message_new);
-
-            $message_new = str_replace('{{id}}', $details->app_id, $message_new);
-            $message_new = str_replace('{{district}}', $details->getDistrict ? $details->getDistrict->district_name : '', $message_new);
-            $message_new = str_replace('{{state}}', $details->getState ? $details->getState->state : '', $message_new);
-            $message_new = str_replace('{{pincode}}', $details->pincode, $message_new);
-            $message_new = str_replace('{{address}}', $details->candidate_address, $message_new);
-            $message_new = str_replace('{{title}}', $title, $message_new);
-            $message_new = str_replace('{{relation}}', $details->relation, $message_new);
-            $message_new = str_replace('{{relative_name}}', $details->relative_name, $message_new);
-
-            $message_new .= $message_2;
-
-            $message_new = str_replace('{{sow}}', $details->scope_of_work, $message_new);
-            $header_image = asset('recruitment/images/prakhar_header.png');
-            $footer_image = asset('recruitment/images/prakhar_footer.png');
-            $html = '<div backimg="background.jpg" margin-top="10px" backtop="25mm" backleft="20mm" backright="20mm" backbottom="25mm">
-                        <div>
-                            <div class="header" style="text-align:justify;" >
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                        <img src="images/prakhar header.png" width="750" height="100" alt="header-image"/>                                    
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            </div>
-                        </div>
-                         <div>
-                        <div class="footer" style=" margin: bottom 0px; padding-bottom:0px; position: absolute;  bottom:-6; left:-21;">
-                            <table>
-                                <tbody>
-                                    <td>                                        
-                                        <img src="images/prakhar footer.png" width="750" height="100" alt="footer-image"/>                                    
-                                    </td>
-                                </tbody>
-                            </table>
-                            </div>
-                            <br>
-                            <br>
-                        </div>
-                        ' . $message_new . '
-                    </div>';
+            $obj->id =  $details->app_id;
+            $obj->district =  $details->getDistrict ? $details->getDistrict->district_name : '';
+            $obj->state =  $details->getState ? $details->getState->state : '';
+            $obj->pincode =  $details->pincode;
+            $obj->address =  $details->candidate_address;
+            $obj->title =  $title;
+            $obj->relation =  $details->relation;
+            $obj->relative_name =  $details->relative_name;
+            $obj->sow =  $details->scope_of_work;
 
             $pdf = App::make('dompdf.wrapper');
-            $pdf->loadHTML($html);
-            $path = public_path('recruitment/offer-letter');
-            $fileName = 'offer-letter-' . time() . '.pdf';
+            $pdf->loadView('hr.templates.offer-letter.' . strtolower($details->employment_type), ['details' => $obj]);
+            $path = public_path('temp');
+            $fileName = 'temp-offer-letter-' . time() . '.pdf';
             $fullPath = $path . '/' . $fileName;
+            file_put_contents($fullPath, $pdf->output());
 
-            $pdf->save($fullPath)->stream('invoice.pdf');
-            $fileurl = asset('recruitment/offer-letter/' . $fileName);
+            $fileurl = asset('temp/' . $fileName);
             DB::commit();
             return response()->json(['success' => true, 'path' => $fileurl]);
         } catch (Throwable $th) {
@@ -2169,7 +2129,7 @@ class RecruitmentController extends Controller
 
             $maildata = new stdClass();
             $maildata->subject = "Mandatory Forms Submission";
-            $maildata->name = '';
+            $maildata->name = $recruitment_data->firstname;
             $maildata->comp_email = $company->email;
             $maildata->comp_phone = $company->mobile;
             $maildata->comp_website = $company->website;

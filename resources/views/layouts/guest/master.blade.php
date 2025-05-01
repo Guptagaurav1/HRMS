@@ -36,6 +36,9 @@
     });
 
 </script>
+<script>
+    const SITE_URL = "{{ config('js.site_url')}}";
+</script>
 @yield('script')
 </body>
 

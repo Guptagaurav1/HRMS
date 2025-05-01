@@ -237,7 +237,7 @@
                                 <div class="col-md-6">
                                     <div class="field-container shadow-sm">
                                         <label class="fw-bold">Reason Of Absence:</label>
-                                        <span class="reason attr"></span>
+                                        <span class="reason"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

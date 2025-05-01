@@ -58,9 +58,6 @@
 }
 
 
-
-
-
 .profile-info {
     text-align: left;
 }
@@ -169,7 +166,7 @@
 
   @media(min-width:427px) and (max-width:1300px){
       .id-card{
-      width: 80%;
+      width: 50%;
     margin: 40px auto;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -191,3 +188,11 @@
           
       }
   }
+
+  @media(min-width:775px) and (max-width:1292px){
+    .break-Email{
+        word-break: break-all;
+    }
+
+  }
+ 

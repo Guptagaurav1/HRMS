@@ -29,6 +29,9 @@
                 <label>Select Month :</label><br>
                 <div class='d-flex align-items-center justify-content-center flex-wrap gap-2'>
                 <input name="month" class="date-picker" placeholder="mm-year" value="{{$previous_month}}" required />
+                @if($search)
+                <input type="hidden" name="search"  value="{{$search}}" required />
+                @endif
                 <div>
                 <button type="submit" class="btn btn-primary">Check</button>
                 </div>
@@ -41,6 +44,9 @@
                 <form class="row g-3 mt-2">
                     <div class="col-auto col-xs-12 mb-3">
                         <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" required>
+                        @if($previous_month)
+                        <input type="hidden" name="month"  value="{{$previous_month}}" required />
+                        @endif
                     </div>
                     <div class="col-auto col-xs-12">
                         <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>

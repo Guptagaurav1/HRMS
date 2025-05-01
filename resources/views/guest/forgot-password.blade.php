@@ -25,7 +25,7 @@
                 <div class="logo">
                     <img src="{{ 'assets/images/PrakharNEWLogo.png' }}" alt="Logo" width="30%">
                 </div>
-                <a href="{{ '/' }}"><i class="fa-duotone fa-house-chimney"></i></a>
+                <a href="{{route('login')}}"><i class="fa-duotone fa-house-chimney"></i></a>
             </div>
             <div class="bottom">
                 <h3 class="panel-title">Forgot Password</h3>
@@ -47,7 +47,8 @@
                                 <option value="">Select Role</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->role_name }}">
-                                        {{ Illuminate\Support\Str::of($role->role_name)->headline() }}</option>
+                                        {{ $role->fullname}}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('role')

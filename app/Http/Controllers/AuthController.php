@@ -67,7 +67,11 @@ class AuthController extends Controller
 
                 if ($roleName == 'hr_operations') {
                     return redirect()->route('hr_operations_dashboard');
-                } else {
+                }
+                elseif ($roleName == 'sales_manager') {
+                    return redirect()->route('sales.manager_dashboard');
+                }
+                else {
                     return redirect()->route('hr_dashboard');
                 }
             } else {
@@ -141,7 +145,7 @@ class AuthController extends Controller
      */
     public function forget_password()
     {
-        $roles = Role::select('role_name', 'id')->where('status', '1')->get();
+        $roles = Role::select('role_name', 'id', 'fullname')->where('status', '1')->where('role_name', '!=', '')->get();
         return view('guest.forgot-password', compact('roles'));
     }
 

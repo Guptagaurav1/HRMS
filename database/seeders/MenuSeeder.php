@@ -254,6 +254,11 @@ class MenuSeeder extends Seeder
             
             ['mid' => 'M-130', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Export Salary Sheet', 'page' => 'salary-sheet', 'status' => '1', 'parent_id' => '12'],
             ['mid' => 'M-131', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Change Password', 'page' => 'user.change-password', 'status' => '1', 'parent_id' => '25'],
+
+            // Sales Pages.
+            ['mid' => 'M-132', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Add Client', 'page' => 'sales-clients.add', 'status' => '1', 'parent_id' => '31'],
+            ['mid' => 'M-133', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Client List', 'page' => 'sales-clients.list', 'status' => '1', 'parent_id' => '31'],
+            ['mid' => 'M-134', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Edit Client', 'page' => 'sales-clients.edit', 'status' => '1', 'parent_id' => '31'],
             
         ];
 
