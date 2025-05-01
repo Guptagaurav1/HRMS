@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Dashboard'])
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/HR-dashboard.css')}}" />
@@ -52,16 +52,16 @@
                                 <li>
                                     <div class="avatar avatar-lg">
                                         @if(!empty($value->getPersonalDetail->emp_photo))
-                                        <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}" class="rounded" alt="user" title="{{ $value->getPersonalDetail->emp_photo }}">
+                                        <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}" class="img-fluid rounded" alt="user" title="{{ $value->getPersonalDetail->emp_photo }}">
                                         @else
-                                        <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user">
+                                        <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user" style="width: 50px;height:70px;">
                                         @endif
 
                                     </div>
                                     <div class="part-txt">
                                         <span class="applicant-name">{{ $value->emp_name }}</span>
                                         <span class="applicant-role">
-                                            <small><span class="text-muted">{{ $value->emp_designation }} {{ $value->emp_photo }}</span></small>
+                                            <small><span class="text-muted">{{ $value->emp_designation }}</span></small>
                                         </span>
                                     </div>
                                 </li>
