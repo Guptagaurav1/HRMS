@@ -157,8 +157,6 @@ $(document).ready(function () {
       $('.search').on('input', function () {
         const inputVal = $(this).val().toLowerCase();
         const filtered = data.filter(item =>item.toLowerCase().includes(inputVal));
-        console.log(filtered.length)
-  
         if (inputVal && filtered.length) {
           $('.suggestions').show();
           filtered.forEach(item => {

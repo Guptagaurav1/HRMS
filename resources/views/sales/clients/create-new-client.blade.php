@@ -27,17 +27,19 @@
                             <div class="row g-3">
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label">Client Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-sm for_char" name="client_name"
+                                    <input type="text" class="form-control form-control-sm search" name="client_name"
                                         placeholder="Enter Client Name" required>
-                                    <span class="clientName"></span>
+                                        <span class="suggestions" id="suggestion-design" class="mt-1"></span>
                                     @error('client_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Department Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" name="department_name"
+                                    <input type="text" class="form-control form-control-sm department-search" name="department_name"
                                         placeholder="Enter Department Name" required>
+                                        <span class="department-suggestions" id="suggestion-design" class="mt-1"></span>
+
                                     @error('department_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
