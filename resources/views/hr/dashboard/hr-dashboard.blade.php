@@ -366,7 +366,7 @@
                                         <td class="text-center">{{ $value->department }}</td>
                                         <td class="text-center">{{ $value->emp_designation }}</td>
                                         <td class="text-center">{{ $value->emp_email_first }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($value->getPersonalDetail->emp_doj)->format('d-m-Y') }}</td>
+                                        <td class="text-center">{{ \Carbon\Carbon::parse($value->emp_doj)->format('d-m-Y') }}</td>
                                         <td class="text-center">
                                             <button type="button" data-bs-target="#WorkAnniversaryMailModal" data-bs-whatever="{{ $value->emp_email_first }}" data-bs-name="{{ $value->emp_name }}" class="btn btn-sm btn-primary modal-work-anniversary">Send Email</button>
                                         </td>
