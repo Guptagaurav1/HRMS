@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ClientList extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that aren't mass assignable.
@@ -47,5 +49,13 @@ class ClientList extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by')->select('first_name', 'last_name');
+    }
+
+    /**
+     *  Get the client attachments.
+     */
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(ClientAttachment::class, 'client_id', 'id')->select('id', 'file_name', 'file_type', 'created_at');
     }
 }

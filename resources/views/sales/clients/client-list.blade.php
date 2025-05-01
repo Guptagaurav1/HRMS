@@ -140,9 +140,9 @@
                                                 <div class="d-flex gap-3">
                                                     <a href="{{ route('sales-clients.edit', ['id' =>  $client->id ]) }}"><button type="submit"
                                                             class="btn btn-sm btn-primary">Edit</button></a>
-                                                    <a href="{{ route('view-client') }}"> <button type="submit"
+                                                    <a href="{{ route('sales-clients.view', ['id' =>  $client->id ]) }}"> <button type="submit"
                                                             class="btn btn-sm btn-primary">View</button></a>
-                                                    <a href="{{ route('add-sales-project') }}"> <button type="submit"
+                                                    <a href="{{ route('sales-projects.add') }}"> <button type="submit"
                                                             class="btn btn-sm btn-primary">Add Project</button></a>
                                                 </div>
 

@@ -29,16 +29,16 @@
                                     <label class="form-label">Client Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm search" name="client_name"
                                         placeholder="Enter Client Name" required>
-                                        <span class="suggestions" id="suggestion-design" class="mt-1"></span>
+                                    <span class="suggestions" id="suggestion-design" class="mt-1"></span>
                                     @error('client_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Department Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-sm department-search" name="department_name"
-                                        placeholder="Enter Department Name" required>
-                                        <span class="department-suggestions" id="suggestion-design" class="mt-1"></span>
+                                    <input type="text" class="form-control form-control-sm department-search"
+                                        name="department_name" placeholder="Enter Department Name" required>
+                                    <span class="department-suggestions" id="suggestion-design" class="mt-1"></span>
 
                                     @error('department_name')
                                         <span class="text-danger">{{ $message }}</span>
@@ -179,7 +179,7 @@
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label">Postal Code </label>
                                     <input type="text" class="form-control form-control-sm" name="company_pincode"
-                                        placeholder="Enter Pin Code" name="company_pincode"
+                                        placeholder="Enter Pin Code"
                                         oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="6">
                                 </div>
                                 <div class="col-lg-4 col-md-4">

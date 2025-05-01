@@ -129,107 +129,103 @@ $(document).ready(function () {
     });
 
     // Form submit.
-    $("form.add-client").submit(function (){
+    $("form.add-client").submit(function () {
         $(this).find("button[type=submit]").attr('disabled', 'disabled');
         Swal.fire({
             title: "Wait..!",
             didOpen: () => {
-              Swal.showLoading();
+                Swal.showLoading();
             },
             allowOutsideClick: () => !Swal.isLoading()
         });
     });
 
+    var clients = [];
+    var departments = [];
 
-    // Auto suggestion for Client Name
+    $(window).on('load', function () {
 
-    const data = [
-        "Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry",
-        "Boysenberry", "Cantaloupe", "Cherry", "Coconut", "Cranberry",
-        "Cucumber", "Date", "Dragonfruit", "Durian", "Elderberry", "Fig",
-        "Gooseberry", "Grape", "Grapefruit", "Guava", "Honeydew", "Jackfruit",
-        "Kiwi", "Kumquat", "Lemon", "Lime", "Lychee", "Mango", "Melon",
-        "Mulberry", "Nectarine", "Olive", "Orange", "Papaya", "Passionfruit",
-        "Peach", "Pear", "Pineapple", "Plum", "Pomegranate", "Quince",
-        "Raspberry", "Strawberry", "Tangerine", "Watermelon"
-      ];
-
-      $('.search').on('input', function () {
-        const inputVal = $(this).val().toLowerCase();
-        const filtered = data.filter(item =>item.toLowerCase().includes(inputVal));
-        if (inputVal && filtered.length) {
-          $('.suggestions').show();
-          filtered.forEach(item => {
-            $('.suggestions').append(`<div class="suggestion-item" id="suggestion-item-design">${item}</div>`);
-          });
-        } else {
-          $('.suggestions').hide();
-        }
-      });
-  
-      $(document).on('click', '.suggestion-item', function () {
-        $('.search').val($(this).text());
-        $('.suggestions').hide();
-      });
-  
-      $(document).click(function (e) {
-        if (!$(e.target).closest('.search, .suggestions').length) {
-          $('.suggestions').hide();
-    }
-});
-
-
-
-
-// Department Name
-
-
-const departmentdata = [
-    "Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry",
-    "Boysenberry", "Cantaloupe", "Cherry", "Coconut", "Cranberry",
-    "Cucumber", "Date", "Dragonfruit", "Durian", "Elderberry", "Fig",
-    "Gooseberry", "Grape", "Grapefruit", "Guava", "Honeydew", "Jackfruit",
-    "Kiwi", "Kumquat", "Lemon", "Lime", "Lychee", "Mango", "Melon",
-    "Mulberry", "Nectarine", "Olive", "Orange", "Papaya", "Passionfruit",
-    "Peach", "Pear", "Pineapple", "Plum", "Pomegranate", "Quince",
-    "Raspberry", "Strawberry", "Tangerine", "Watermelon"
-  ];
-
-  $('.department-search').on('input',function(){
-    const departmentval=$(this).val().toLowerCase();
-    const departmentFiltered=departmentdata.filter(item=>item.toLowerCase().includes(departmentval))
-    console.log(departmentFiltered.length)
-
-    if(departmentval&&departmentFiltered.length){
-        $('.department-suggestions').show();
-        departmentFiltered.forEach(item=>{
-            $('.department-suggestions').append(`<div class="department-suggestion-item" id="suggestion-item-design">${item}</div>`);
+        // Get Clients and departments
+        $.ajax({
+            url: SITE_URL + '/sales/clients/get-clients',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                '_token': $("meta[name=csrf-token]").attr('content')
+            },
+            success: function (response) {
+                if (response.success) {
+                    clients = response.clients;
+                    departments = response.departments;
+                }
+            }
         });
 
-    }
-    else{
+    });
+    // Auto suggestion for Client Name
+
+
+    $('.search').on('input', function () {
+        const inputVal = $(this).val().toLowerCase();
+        const filtered = clients.filter(item => item.toLowerCase().includes(inputVal));
+        if (inputVal && filtered.length) {
+            $('.suggestions').empty().show();
+            filtered.forEach(item => {
+                $('.suggestions').append(`<div class="suggestion-item" id="suggestion-item-design">${item}</div>`);
+            });
+        } else {
+            $('.suggestions').hide();
+        }
+    });
+
+    $(document).on('click', '.suggestion-item', function () {
+        $('.search').val($(this).text());
+        $('.suggestions').hide();
+    });
+
+    $(document).click(function (e) {
+        if (!$(e.target).closest('.search, .suggestions').length) {
+            $('.suggestions').hide();
+        }
+    });
+
+    // Department Name
+    $('.department-search').on('input', function () {
+        const departmentval = $(this).val().toLowerCase();
+        const departmentFiltered = departments.filter(item => item.toLowerCase().includes(departmentval))
+
+        if (departmentval && departmentFiltered.length) {
+            $('.department-suggestions').empty().show();
+            departmentFiltered.forEach(item => {
+                $('.department-suggestions').append(`<div class="department-suggestion-item" id="suggestion-item-design">${item}</div>`);
+            });
+
+        }
+        else {
+            $('.department-suggestions').hide();
+        }
+
+
+    })
+
+    $(document).on('click', '.department-suggestion-item', function () {
+        $('.department-search').val($(this).text());
         $('.department-suggestions').hide();
-    }
+    });
+
+    $(document).click(function (e) {
+        if (!$(e.target).closest('.department-search, .department-suggestions').length) {
+            $('.department-suggestions').hide();
+        }
+    });
 
 
-  })
-
-  $(document).on('click', '.department-suggestion-item', function () {
-    $('.department-search').val($(this).text());
-    $('.department-suggestions').hide();
-  });
-
-  $(document).click(function (e) {
-    if (!$(e.target).closest('.department-search, .department-suggestions').length) {
-      $('.department-suggestions').hide();
-}
-}
-);
-
-
-
-
-  
-
+    // Remove attachment.
+    $(".remove-button").click(function (){
+        var attachmentId = $(this).data('id');
+        var element = $(this).closest('div.attachments');
+        element.find('input[type=hidden]').val(attachmentId);
+        element.addClass('d-none');
+    })
 
 });

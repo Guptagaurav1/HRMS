@@ -1,6 +1,4 @@
-@extends('layouts.master')
-
-
+@extends('layouts.master', ['title' => 'Add Project'])
 @section('contents')
 
 <div class="row">
@@ -12,7 +10,7 @@
             </div>
 
             <div class="text-end mt-3 px-3">
-            <a href="{{route('sales-project-list')}}" class="text-white"> <button class="btn btn-sm btn-primary">Project List</button></a>
+            <a href="{{route('sales-projects.list')}}" class="text-white"> <button class="btn btn-sm btn-primary">Project List</button></a>
             </div>
 
 

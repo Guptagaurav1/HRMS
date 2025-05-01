@@ -57,6 +57,7 @@ use App\Http\Controllers\employee\EmployeeDetailController;
 
 use App\Http\Controllers\sales\SalesController;
 use App\Http\Controllers\sales\ClientController as SalesClientController;
+use App\Http\Controllers\sales\ProjectController as SalesProjectController;
 
 
 /*
@@ -495,6 +496,15 @@ Route::middleware('auth')->prefix('sales')->group(function () {
         Route::post("store", 'store')->name("sales-clients.store");
         Route::get("/", 'index')->name("sales-clients.list");
         Route::get("edit/{id}", 'edit')->name("sales-clients.edit");
+        Route::post("get-clients", "get_clients");
+        Route::post("update-client", "update")->name("sales-clients.update");
+        Route::get("view/{id}", 'view_details')->name("sales-clients.view");
+    });
+    Route::controller(SalesProjectController::class)->prefix('projects')->group(function () {
+        Route::get("add", 'add')->name("sales-projects.add");
+        Route::get("/", 'index')->name("sales-projects.list");
+        Route::get("edit", 'edit')->name("sales-projects.edit");
+        Route::get("view", 'read')->name("sales-projects.view");
     });
 });
 
@@ -618,26 +628,6 @@ Route::get("add-lead", function () {
 Route::get("lead-list", function () {
     return view("hr.lead-list");
 })->name("lead-list");
-
-Route::get("view-client", function () {
-    return view("hr.view-client");
-})->name("view-client");
-
-Route::get("add-sales-project", function () {
-    return view("hr.add-sales-project");
-})->name("add-sales-project");
-
-Route::get("sales-project-list", function () {
-    return view("hr.sales-project-list");
-})->name("sales-project-list");
-
-Route::get("edit-sales-project", function () {
-    return view("hr.edit-sales-project");
-})->name("edit-sales-project");
-
-Route::get("view-sales-project", function () {
-    return view("hr.view-sales-project");
-})->name("view-sales-project");
 
 
 Route::get("add-tender", function () {

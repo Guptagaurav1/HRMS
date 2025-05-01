@@ -886,8 +886,9 @@
                                             class="sidebar-txt">Clients</span></a>
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
                                         @if (auth()->user()->hasPermission('sales-clients.add'))
-                                            <li class="sidebar-dropdown-item"><a href="{{ route('sales-clients.add') }}"
-                                                    class="sidebar-link">New Client
+                                            <li class="sidebar-dropdown-item"><a
+                                                    href="{{ route('sales-clients.add') }}" class="sidebar-link">New
+                                                    Client
                                                 </a></li>
                                         @endif
                                         <li class="sidebar-dropdown-item"><a href="{{ route('sales-clients.list') }}"
@@ -900,17 +901,20 @@
 
                             <!-- New Project Page for the Sales manager -->
 
-                            @if (auth()->user()->hasPermission('posh.complaint-list'))
+                            @if (auth()->user()->hasPermission('sales-projects.list'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
                                         data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
                                                 class="fa-solid fa-diagram-project"></i></span> <span
                                             class="sidebar-txt">Projects</span></a>
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                        <li class="sidebar-dropdown-item"><a href="{{ route('add-sales-project') }}"
+                                        @if (auth()->user()->hasPermission('sales-projects.add'))
+                                        <li class="sidebar-dropdown-item"><a href="{{ route('sales-projects.add') }}"
                                                 class="sidebar-link">New Project
                                             </a></li>
-                                        <li class="sidebar-dropdown-item"><a href="{{ route('sales-project-list') }}"
+                                            @endif
+                                        <li class="sidebar-dropdown-item"><a
+                                                href="{{ route('sales-projects.list') }}"
                                                 class="sidebar-link">Project List
                                             </a></li>
                                     </ul>
