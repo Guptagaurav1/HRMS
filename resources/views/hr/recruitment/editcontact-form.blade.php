@@ -17,8 +17,14 @@
                 <h5 class="text-white">Edit Details</h5>
                 <div>
                     <ul class="breadcrumb">
-                        <li> @if (auth()->user()->role->role_name="hr")
-                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                        <li> 
+                            @if (auth()->user()->role->role_name == "hr")
+                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
+                            @elseif(auth()->user()->role->role_name == "hr_operations")
+                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
+                            @elseif(auth()->user()->role->role_name == "sales_manager")
+                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
+                            @else
                             @endif
                         </li>
                         <li><a href="{{route('recruitment.call_logs')}}">Edit Contact Candidate By List</a></li>
