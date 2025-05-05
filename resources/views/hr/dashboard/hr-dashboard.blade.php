@@ -58,10 +58,10 @@
                                         <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}"
                                             class="rounded" alt="user"
                                             title="{{ $value->getPersonalDetail->emp_photo }}"
-                                            style="width: 120px; height: 60px; object-fit: cover;">
+                                            style="width:120px; height:60px; object-fit: cover;">
                                         @else
                                         <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user"
-                                            style="width: 120px; height: 60px; object-fit: cover;">
+                                            style="width:120px; height:60px; object-fit: cover;">
                                         @endif
                                     </div>
                                     <div class="part-txt ms-2 mt-3">
@@ -99,15 +99,16 @@
                             <ul class="upcoming-interview">
                                 @forelse($todayAnniversary as $key => $value)
                                 <li class="d-flex align-items-start mb-2">
-                                    <div class="avatar avatar-lg">
+                                    <div class="">
                                         @if(!empty($value->getPersonalDetail->emp_photo))
                                         <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}"
                                             class="rounded" alt="user"
                                             title="{{ $value->getPersonalDetail->emp_photo }}"
-                                            style="width: 60px; height: 60px; object-fit: cover;">
+                                            style="width: 120px; height:60px; object-fit: cover;">
+                                           
                                         @else
                                         <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user"
-                                            style="width: 60px; height: 60px; object-fit: cover;">
+                                            style="width: 120px; height:60px; object-fit: cover;">
                                         @endif
                                     </div>
                                     <div class="part-txt ms-2">
@@ -119,7 +120,7 @@
                                 </li>
                                 @empty
                                 <li class="d-flex align-items-start mb-2">
-                                    <div class="avatar avatar-lg">
+                                    <div class="">
                                     </div>
                                     <div class="part-txt ms-2">
                                         <span class="applicant-role">
@@ -150,10 +151,10 @@
                                         <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}"
                                             class="rounded" alt="user"
                                             title="{{ $value->getPersonalDetail->emp_photo }}"
-                                            style="width: 60px; height: 60px; object-fit: cover;">
+                                            style="width:120px; height:60px; object-fit: cover;">
                                         @else
                                         <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user"
-                                            style="width: 60px; height: 60px; object-fit: cover;">
+                                            style="width: 120px; height: 60px; object-fit: cover;">
                                         @endif
                                     </div>
                                     <div class="part-txt ms-2">
