@@ -16,11 +16,6 @@
                             @if (auth('employee')->check())
                                 <a href="{{route('employee.dashboard')}}">Dashboard</a>
                             @elseif (auth()->check())
-<<<<<<< HEAD
-                                @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                                @endif
-=======
                             @if (auth()->user()->role->role_name == "hr")
                                 <a href="{{ route('hr_dashboard') }}">Dashboard</a>
                             @elseif(auth()->user()->role->role_name == "hr_operations")
@@ -29,7 +24,6 @@
                                 <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
                             @else
                             @endif
->>>>>>> 923c3eb26b24d4ec4bd96ae125d5853604807c1f
                             @endif
                         
                             </li>
