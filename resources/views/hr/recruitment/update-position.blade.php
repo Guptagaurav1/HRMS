@@ -188,7 +188,7 @@
                             <select  class="form-select js-example-basic-multiple" name="education[]" multiple="multiple" required>
                                 <option value="">Nothing Selected</option>
                                 @foreach($qualification as $qualify)
-                                    <option value="{{$qualify->id}}" {{$record->education && in_array($qualify->id, explode(",", $record->education)) ? 'selected' : ''}}>{{$qualify->qualification}}</option>
+                                    <option value="{{$qualify->qualification}}" {{$record->education && in_array($qualify->qualification, explode(",", $record->education)) ? 'selected' : ''}}>{{$qualify->qualification}}</option>
                                  @endforeach
                             </select>
                             @error('education')
@@ -216,7 +216,7 @@
                             <select  class="form-select js-example-basic-multiple" multiple="multiple" name="skill_sets[]" required>
                                 <option value="">Nothing Selected</option>
                                 @foreach($skills as $skill)
-                                <option value="{{$skill->id}}" {{$record->skill_sets && in_array($skill->id, explode(",", $record->skill_sets)) ? 'selected' : ''}}>{{$skill->skill}}</option>
+                                <option value="{{$skill->skill}}" {{$record->skill_sets && in_array($skill->skill, explode(",", $record->skill_sets)) ? 'selected' : ''}}>{{$skill->skill}}</option>
                                  @endforeach
                             </select>
                             @error('skill_sets')

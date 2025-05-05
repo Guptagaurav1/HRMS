@@ -151,10 +151,12 @@ class RecruitmentController extends Controller
         if ($role == 'hr_executive') {
             $positions = PositionRequest::whereNotNull('assigned_executive')
                 ->where('recruitment_type', 'fresh')
-                ->where('assigned_executive',  $user->id);
+                ->whereIn('assigned_executive',  [$user->id]);
         } else {
             $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh');
         }
+
+        //search
         if($request->search){
             $search = $request->search;
             $positions =  $positions->where(function ($query) use ($search) {
@@ -163,6 +165,8 @@ class RecruitmentController extends Controller
             });
         }
         $positions =  $positions->orderByDesc('id')->paginate(20);
+
+
         return view("hr.recruitment.recruitment-report", compact('positions', 'search'));
     }
 
@@ -1555,6 +1559,7 @@ class RecruitmentController extends Controller
                 $q->where('recruitment_forms.recruitment_type', 'fresh');
                 $q->where('position_requests.created_by', $user->id);
             });
+
         } else {
             $candidates->where(function ($q) use ($user) {
                 $q->where('reference', $user->email);
@@ -1564,7 +1569,6 @@ class RecruitmentController extends Controller
         $candidates =   $candidates->orderByDesc('id')
             ->paginate(10)
             ->withQueryString();
-
 
         return view("hr.recruitment.recruitment-list", compact('candidates', 'search'));
     }
@@ -2543,6 +2547,12 @@ class RecruitmentController extends Controller
     {
         $logs = ContactedByCallLog::select('contacted_by_call_logs.name', 'contacted_by_call_logs.email AS candidate_email', 'contacted_by_call_logs.resume', 'contacted_by_call_logs.client_name', 'contacted_by_call_logs.job_position', 'contacted_by_call_logs.remarks', 'contacted_by_call_logs.phone_no', 'contacted_by_call_logs.created_at', 'contacted_by_call_logs.id', 'users.first_name', 'users.last_name', 'users.email')
             ->leftJoin('users', 'contacted_by_call_logs.rec_email', '=', 'users.email');
+
+            // get role name of login user
+            $user = auth()->user();
+            $roleName = get_role_name($user->role_id);
+
+        // search
         $searchvalue = '';
         if ($request->search) {
             $searchvalue = $request->search;
@@ -2557,6 +2567,16 @@ class RecruitmentController extends Controller
                     ->orWhereRaw('CONCAT(users.first_name, " ", users.last_name) LIKE ?', [$search]);
             });
         }
+
+        if ($roleName == 'admin' || $roleName == 'hr' || $roleName == 'hr_operations') {
+            $logs = $logs;
+        }else{
+            // dd($user->email);
+            $logs->where(function ($q) use($user) {
+                $q->where('contacted_by_call_logs.rec_email', $user->email);
+            });
+        }
+
         $logs = $logs->orderByDesc('contacted_by_call_logs.id')->paginate(10)->withQueryString();
         return view("hr.recruitment.Candidate-Contacted-By-Cal-Log", compact('logs', 'searchvalue'));
     }
@@ -2731,28 +2751,35 @@ class RecruitmentController extends Controller
         if ($roleName == 'admin' || $roleName == 'hr' || $roleName == 'it_admin') {
             $data->where(function ($q) {
                 $q->whereNotNull('reference');
-                $q->where('recruitment_forms.recruitment_type', 'fresh');
-                $q->where('recruitment_forms.finally', 'offer-letter-sent');
-                $q->orWhere('recruitment_forms.finally', 'offer_accepted');
-                $q->orWhere('recruitment_forms.finally', 'docs_checked');
+                $q->where('recruitment_forms.recruitment_type', 'fresh')
+                ->where(function ($query) {
+                    $query->where('recruitment_forms.finally', 'offer-letter-sent')
+                          ->orWhere('recruitment_forms.finally', 'offer_accepted')
+                          ->orWhere('recruitment_forms.finally', 'docs_checked');
+                });
             });
         } elseif ($roleName == 'hr_operations') {
             $data->where(function ($q) use ($user) {
                 $q->whereNotNull('reference');
-                $q->where('recruitment_forms.recruitment_type', 'fresh');
-                $q->where('recruitment_forms.finally', 'offer-letter-sent');
-                $q->orWhere('recruitment_forms.finally', 'offer_accepted');
-                $q->orWhere('recruitment_forms.finally', 'docs_checked');
                 $q->where('position_requests.created_by', $user->id);
+                $q->where('recruitment_forms.recruitment_type', 'fresh')
+                ->where(function ($query) {
+                    $query->where('recruitment_forms.finally', 'offer-letter-sent')
+                          ->orWhere('recruitment_forms.finally', 'offer_accepted')
+                          ->orWhere('recruitment_forms.finally', 'docs_checked');
+                });
             });
         } else {
             $data->where(function ($q) use ($user) {
-                $q->where('reference', $user->email);
-                $q->where('recruitment_forms.recruitment_type', 'fresh');
-                $q->where('recruitment_forms.finally', 'offer-letter-sent');
-                $q->orWhere('recruitment_forms.finally', 'offer_accepted');
-                $q->orWhere('recruitment_forms.finally', 'docs_checked');
+                $q->where('recruitment_forms.reference', $user->email)
+                  ->where('recruitment_forms.recruitment_type', 'fresh')
+                  ->where(function ($query) {
+                      $query->where('recruitment_forms.finally', 'offer-letter-sent')
+                            ->orWhere('recruitment_forms.finally', 'offer_accepted')
+                            ->orWhere('recruitment_forms.finally', 'docs_checked');
+                  });
             });
+            
         }
         $data = $data->paginate(10);
         return view("hr.recruitment.offerlettershared-list", compact('data'));
