@@ -16,7 +16,7 @@
                             @if (auth('employee')->check())
                                 <a href="{{route('employee.dashboard')}}">Dashboard</a>
                             @elseif (auth()->check())
-                                @if (auth()->user()->role->role_name="hr")
+                                @if (auth()->user()->role->role_name == "hr")
                                 <a href="{{route('hr_dashboard')}}">Dashboard</a>
                                 @endif
                             @endif

@@ -13,7 +13,7 @@
                                 <h5 class="text-white">Bulk Upload Attendance</h5>
                                 <div>
                                     <ul class="breadcrumb">
-                                        <li> @if (auth()->user()->role->role_name="hr")
+                                        <li> @if (auth()->user()->role->role_name == "hr")
                                             <a href="{{route('hr_dashboard')}}">Dashboard</a>
                                             @endif
                                         </li>
