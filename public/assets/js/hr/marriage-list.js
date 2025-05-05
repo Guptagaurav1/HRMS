@@ -1,6 +1,6 @@
 // Add text editor.
 editor1 = ClassicEditor
-    .create(document.querySelector('#employeebirthday'))
+    .create(document.querySelector('#employeeanniversary'))
     .then(newEditor => {
 
         editor1 = newEditor; // Save instance for later use
@@ -9,25 +9,24 @@ editor1 = ClassicEditor
         console.error(error);
     });
 
-const birthdayMailModal = document.getElementById('birthdayMailModal')
-if (birthdayMailModal) {
-    birthdayMailModal.addEventListener('show.bs.modal', event => {
+const anniversaryMailModal = document.getElementById('anniversaryMailModal')
+if (anniversaryMailModal) {
+    anniversaryMailModal.addEventListener('show.bs.modal', event => {
         // Button that triggered the modal
         const button = event.relatedTarget
         // Extract info from data-bs-* attributes
         const email = button.getAttribute('data-bs-whatever');
         const name = button.getAttribute('data-bs-name');
         // Update the modal's content.
-        const modalBodyInput = birthdayMailModal.querySelector('.modal-body input');
+        const modalBodyInput = anniversaryMailModal.querySelector('.modal-body input');
 
         modalBodyInput.value = email;
         var message = "Dear " + name + "," + "<br><br>";
-        var message1 = "Happy Birthday! May this year bring you everything you've ever wished for"
+        var message1 = "Happy Marriage Anniversary ! May this year bring you everything you've ever wished for";
 
         if (editor1) {
             editor1.setData("<p>" + message + message1 + "</p>");
         }
-
     })
 }
 
@@ -47,7 +46,7 @@ $(document).ready(function () {
         });
         $.ajax({
             type: "POST",
-            url: SITE_URL + "/hr/events/send-birthday-mail",
+            url: SITE_URL + "/hr/anniversary-wishes-mail",
             data: new FormData(this),
             contentType: false,
             processData: false,
@@ -56,7 +55,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     // Close modal after successful send.
-                    $('#birthdayMailModal').modal('hide');
+                    $('#anniversaryMailModal').modal('hide');
                     Swal.hideLoading();
                     Swal.fire({
                         title: "Congratulations!",
