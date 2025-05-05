@@ -8,10 +8,6 @@
                 <h2 class="mt-2">Attendance List</h2>
                 <div>
                     <ul class="breadcrumb">
-<<<<<<< HEAD
-                        <li> @if (auth()->user()->role->role_name == "hr")
-                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
-=======
                         <li> 
                             @if (auth()->user()->role->role_name == "hr")
                             <a href="{{ route('hr_dashboard') }}">Dashboard</a>
@@ -20,7 +16,6 @@
                             @elseif(auth()->user()->role->role_name == "sales_manager")
                                 <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
                             @else
->>>>>>> 923c3eb26b24d4ec4bd96ae125d5853604807c1f
                             @endif
                         </li>
                         <li>Attendance List</li>

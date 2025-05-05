@@ -10,7 +10,7 @@
                 <h2 class="mt-2">Recruiter Detail Change Response Log</h2>
                 <div>
                     <ul class="breadcrumb">
-                        <li> @if (auth()->user()->role->role_name="hr")
+                        <li> @if (auth()->user()->role->role_name == "hr")
                             <a href="{{route('hr_dashboard')}}">Dashboard</a>
                             @endif
                         </li>
