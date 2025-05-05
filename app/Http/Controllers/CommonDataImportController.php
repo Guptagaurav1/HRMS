@@ -2276,6 +2276,7 @@ class CommonDataImportController extends Controller
                 $row = [];
                 $row = array_combine($headers, $data);
                 $row['created_by'] = $row['requested_by'];
+                $row['date_notified'] = $row['date_notified'] ? date('Y-m-d', strtotime($row['date_notified'])) : '';
                 $row['hiring_budget'] = empty($row['hiring_budget'])  || $row['hiring_budget'] == "NULL" ? null : $row['hiring_budget'];
                 $row['city'] = $row['city'] ==  empty($row['city']) || $row['city'] == 'Select City' || $row['city'] == '' ? null : $row['city'];
                 $row['state'] = empty($row['state'])  || $row['state'] == "NULL" ? null : $row['state'];
