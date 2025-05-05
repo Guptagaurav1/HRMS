@@ -55,7 +55,6 @@
                                 <li class="d-flex align-items-start mb-2 gap-3">
                                     <div class="mt-3">
                                         @if(!empty($value->getPersonalDetail->emp_photo))
-<<<<<<< HEAD
                                         <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}"
                                             class="rounded" alt="user"
                                             title="{{ $value->getPersonalDetail->emp_photo }}"
@@ -63,11 +62,6 @@
                                         @else
                                         <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user"
                                             style="width: 120px; height: 60px; object-fit: cover;">
-=======
-                                        <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}" class="img-fluid rounded" alt="user" title="{{ $value->getPersonalDetail->emp_photo }}">
-                                        @else
-                                        <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user" style="width: 50px;height:70px;">
->>>>>>> 3263fee3eddee3f0b24b395fcc5b53e6aebe75b7
                                         @endif
                                     </div>
                                     <div class="part-txt ms-2 mt-3">
@@ -395,7 +389,6 @@
                                     <tr>
                                         <td class="text-center attributes-column">{{ $loop->iteration }}</td>
                                         <td class="text-center attributes-column">{{ $value->emp_code }}</td>
-<<<<<<< HEAD
                                         <td class="text-center attributes-column">{{ $value->emp_name }}</td>
                                         <td class="text-center attributes-column">{{ $value->emp_work_order }}</td>
                                         <td class="text-center attributes-column">{{ $value->department }}</td>
@@ -410,16 +403,6 @@
                                                 data-bs-name="{{ $value->emp_name }}"
                                                 class="btn btn-sm btn-primary modal-work-anniversary">Send
                                                 Email</button>
-=======
-                                        <td class="text-center">{{ $value->emp_name }}</td>
-                                        <td class="text-center">{{ $value->emp_work_order }}</td>
-                                        <td class="text-center">{{ $value->department }}</td>
-                                        <td class="text-center">{{ $value->emp_designation }}</td>
-                                        <td class="text-center">{{ $value->emp_email_first }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($value->emp_doj)->format('d-m-Y') }}</td>
-                                        <td class="text-center">
-                                            <button type="button" data-bs-target="#WorkAnniversaryMailModal" data-bs-whatever="{{ $value->emp_email_first }}" data-bs-name="{{ $value->emp_name }}" class="btn btn-sm btn-primary modal-work-anniversary">Send Email</button>
->>>>>>> 3263fee3eddee3f0b24b395fcc5b53e6aebe75b7
                                         </td>
                                     </tr>
                                     @empty
