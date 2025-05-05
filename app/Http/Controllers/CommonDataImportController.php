@@ -145,7 +145,7 @@ class CommonDataImportController extends Controller
 
         // // Add Position Request 
 
-        // $status =  $this->position_requests($handle);
+        $status =  $this->position_requests($handle);
 
         // Add Invoice Records 
 
@@ -2276,8 +2276,13 @@ class CommonDataImportController extends Controller
                 $row = [];
                 $row = array_combine($headers, $data);
                 $row['created_by'] = $row['requested_by'];
+                $row['date_notified'] = $row['date_notified'] ? date('Y-m-d', strtotime($row['date_notified'])) : '';
                 $row['hiring_budget'] = empty($row['hiring_budget'])  || $row['hiring_budget'] == "NULL" ? null : $row['hiring_budget'];
-                $row['city'] = $row['city'] ==  empty($row['city']) || $row['city'] == 'Select City' || $row['city'] == '' ? null : $row['city'];
+                if($row['city'] == 3030){
+                    continue;
+                }else{
+                    $row['city'] = $row['city'] ==  empty($row['city']) || $row['city'] == 'Select City' || $row['city'] == '' ? null : $row['city'];
+                }
                 $row['state'] = empty($row['state'])  || $row['state'] == "NULL" ? null : $row['state'];
                 $row['department'] = $row['department'] == 'Select Department' ? null : $row['department'];
                 if ($row['department'] == '15' || $row['department'] == '22') {
