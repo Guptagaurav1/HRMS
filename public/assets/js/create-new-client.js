@@ -1,26 +1,29 @@
 $(document).ready(function () {
 
     // Add More Attachment
-    $(".add-more-client").click(function(){
+    $(".add-more-client").click(function () {
         let newRow = `
             <div class="row g-3 attachment-remove">
                 <div class="col-lg-4 col-md-4">
-                    <label class="form-label text-dark">Attachment Type</label>
-                    <select class="form-select">
+                    <select class="form-select" name="file_type[]">
                         <option value="">Not Specify</option>
-                        <option value="0">Male</option>
-                        <option value="1">Female</option>
-                        <option value="2">Others</option>
+                        <option value="Project Requisition Form">Project Requisition Form</option>
+                        <option value="Order Number">Order Number</option>
+                        <option value="Proposal">Proposal</option>
+                        <option value="Calculation">Calculation</option>
+                        <option value="As Per Instruction">As Per Instruction</option>
+                        <option value="Others">Others</option>
+                        <option value="PI(Proforma Invoice)">PI(Proforma Invoice)</option>
+                        <option value="Amendment PI(Proforma Invoice)">Amendment PI(Proforma Invoice)</option>
                     </select>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
-                    <label for="formFile" class="form-label text-dark">Attachment File</label>
-                    <input class="form-control" type="file">
+                    <input class="form-control" type="file" name="file_name[]" accept=".pdf">
+                    <span class="fileerror text-danger"></span>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
-                    <label class="form-label text-dark">Action</label>
                     <button type="button" class="btn btn-sm btn-danger remove-client">Remove</button>
                 </div>
             </div>
@@ -36,10 +39,7 @@ $(document).ready(function () {
 
 
     // SPOC ROW Add more button
-
-
-
-    $("#add-more-spoc").click(function(){
+    $("#add-more-spoc").click(function () {
         let SPOCRow = `
              <div class="row g-3 fadeup-spoc">
                             <div class="col-lg-4 col-md-4">
@@ -77,7 +77,7 @@ $(document).ready(function () {
                             </div>
         `;
 
-        $('.append_add-more-spoc').append(SPOCRow );
+        $('.append_add-more-spoc').append(SPOCRow);
     });
 
     // Remove Attachment
@@ -85,97 +85,147 @@ $(document).ready(function () {
         $(this).closest('.fadeup-spoc').remove();
     });
 
+    // Get Cities.
+    $("select[name=company_state]").change(function () {
+        $.ajax({
+            url: SITE_URL + '/hr/recruitment/cities',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                '_token': $("meta[name=csrf-token]").attr('content'),
+                'stateid': $(this).val()
+            },
+            success: function (response) {
+                if (response.success) {
+                    var html = '<option value="" selected>Select City</option>';
+                    $.each(response.cities, function (index, value) {
+                        html += '<option value="' + value.id + '">' + value.city_name + '</option>';
+                    });
+                    $('select[name=company_city]').html(html);
+                } else {
+                    var html = '<option value="" selected>Select City</option>';
+                    $('select[name=company_city]').html(html);
+                }
+            }
+        });
+    });
 
-
-
-    // Auto suggestion for Client Name
-
-    const data = [
-        "Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry",
-        "Boysenberry", "Cantaloupe", "Cherry", "Coconut", "Cranberry",
-        "Cucumber", "Date", "Dragonfruit", "Durian", "Elderberry", "Fig",
-        "Gooseberry", "Grape", "Grapefruit", "Guava", "Honeydew", "Jackfruit",
-        "Kiwi", "Kumquat", "Lemon", "Lime", "Lychee", "Mango", "Melon",
-        "Mulberry", "Nectarine", "Olive", "Orange", "Papaya", "Passionfruit",
-        "Peach", "Pear", "Pineapple", "Plum", "Pomegranate", "Quince",
-        "Raspberry", "Strawberry", "Tangerine", "Watermelon"
-      ];
-
-      $('.search').on('input', function () {
-        const inputVal = $(this).val().toLowerCase();
-        const filtered = data.filter(item =>item.toLowerCase().includes(inputVal));
-        
-  
-        if (inputVal && filtered.length) {
-          $('.suggestions').empty().show();
-          filtered.forEach(item => {
-            $('.suggestions').append(`<div class="suggestion-item" id="suggestion-item-design">${item}</div>`);
-          });
-        } else {
-          $('.suggestions').hide();
+    // Validate file sizes.
+    $(document).on('change', "input[type=file]", function (event) {
+        var file = event.target.files[0];
+        if (file.size > 1048576) {
+            $(this).closest('div').find('.fileerror').text('Invalid file size');
+            $(this).val(null);
+            Swal.fire({
+                icon: "error",
+                title: "File too large!",
+                text: "Please upload a file less than 1MB.",
+                allowOutsideClick: false
+            });
         }
-      });
-  
-      $(document).on('click', '.suggestion-item', function () {
-        $('.search').val($(this).text());
-        $('.suggestions').hide();
-      });
-  
-      $(document).click(function (e) {
-        if (!$(e.target).closest('.search, .suggestions').length) {
-          $('.suggestions').hide();
-    }
-});
+        else {
+            $(this).closest('div').find('.fileerror').text('');
+        }
+    });
 
+    // Form submit.
+    $("form.add-client").submit(function () {
+        $(this).find("button[type=submit]").attr('disabled', 'disabled');
+        Swal.fire({
+            title: "Wait..!",
+            didOpen: () => {
+                Swal.showLoading();
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+    });
 
+    var clients = [];
+    var departments = [];
 
+    $(window).on('load', function () {
 
-// Department Name
-
-
-const departmentdata = [
-    "Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry",
-    "Boysenberry", "Cantaloupe", "Cherry", "Coconut", "Cranberry",
-    "Cucumber", "Date", "Dragonfruit", "Durian", "Elderberry", "Fig",
-    "Gooseberry", "Grape", "Grapefruit", "Guava", "Honeydew", "Jackfruit",
-    "Kiwi", "Kumquat", "Lemon", "Lime", "Lychee", "Mango", "Melon",
-    "Mulberry", "Nectarine", "Olive", "Orange", "Papaya", "Passionfruit",
-    "Peach", "Pear", "Pineapple", "Plum", "Pomegranate", "Quince",
-    "Raspberry", "Strawberry", "Tangerine", "Watermelon"
-  ];
-
-  $('.department-search').on('input',function(){
-    const departmentval=$(this).val().toLowerCase();
-    const departmentFiltered=departmentdata.filter(item=>item.toLowerCase().includes(departmentval))
-    console.log(departmentFiltered.length)
-
-    if(departmentval&&departmentFiltered.length){
-        $('.department-suggestions').show();
-        departmentFiltered.forEach(item=>{
-            $('.department-suggestions').append(`<div class="department-suggestion-item" id="suggestion-item-design">${item}</div>`);
+        // Get Clients and departments
+        $.ajax({
+            url: SITE_URL + '/sales/clients/get-clients',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                '_token': $("meta[name=csrf-token]").attr('content')
+            },
+            success: function (response) {
+                if (response.success) {
+                    clients = response.clients;
+                    departments = response.departments;
+                }
+            }
         });
 
-    }
-    else{
+    });
+    // Auto suggestion for Client Name
+
+
+    $('.search').on('input', function () {
+        const inputVal = $(this).val().toLowerCase();
+        const filtered = clients.filter(item => item.toLowerCase().includes(inputVal));
+        if (inputVal && filtered.length) {
+            $('.suggestions').empty().show();
+            filtered.forEach(item => {
+                $('.suggestions').append(`<div class="suggestion-item" id="suggestion-item-design">${item}</div>`);
+            });
+        } else {
+            $('.suggestions').hide();
+        }
+    });
+
+    $(document).on('click', '.suggestion-item', function () {
+        $('.search').val($(this).text());
+        $('.suggestions').hide();
+    });
+
+    $(document).click(function (e) {
+        if (!$(e.target).closest('.search, .suggestions').length) {
+            $('.suggestions').hide();
+        }
+    });
+
+    // Department Name
+    $('.department-search').on('input', function () {
+        const departmentval = $(this).val().toLowerCase();
+        const departmentFiltered = departments.filter(item => item.toLowerCase().includes(departmentval))
+
+        if (departmentval && departmentFiltered.length) {
+            $('.department-suggestions').empty().show();
+            departmentFiltered.forEach(item => {
+                $('.department-suggestions').append(`<div class="department-suggestion-item" id="suggestion-item-design">${item}</div>`);
+            });
+
+        }
+        else {
+            $('.department-suggestions').hide();
+        }
+
+
+    })
+
+    $(document).on('click', '.department-suggestion-item', function () {
+        $('.department-search').val($(this).text());
         $('.department-suggestions').hide();
-    }
+    });
+
+    $(document).click(function (e) {
+        if (!$(e.target).closest('.department-search, .department-suggestions').length) {
+            $('.department-suggestions').hide();
+        }
+    });
 
 
-  })
-
-  $(document).on('click', '.department-suggestion-item', function () {
-    $('.department-search').val($(this).text());
-    $('.department-suggestions').hide();
-  });
-
-  $(document).click(function (e) {
-    if (!$(e.target).closest('.department-search, .department-suggestions').length) {
-      $('.department-suggestions').hide();
-}
-}
-
-);
-
-
+    // Remove attachment.
+    $(".remove-button").click(function (){
+        var attachmentId = $(this).data('id');
+        var element = $(this).closest('div.attachments');
+        element.find('input[type=hidden]').val(attachmentId);
+        element.addClass('d-none');
+    })
 
 });

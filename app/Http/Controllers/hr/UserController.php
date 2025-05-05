@@ -49,9 +49,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $departments = Department::orderBy('id','desc')->get();
-        $roles = Role::orderBy('id','desc')->get();
-        $companys = Company::orderBy('id','desc')->get();
+        $departments = Department::select('id','department')->orderBy('id','desc')->get();
+        $roles = Role::select('id','role_name','fullname')->orderBy('id','desc')->get();
+        $companys = Company::select('id','name')->orderBy('id','desc')->get();
         return view(" hr.user.add-user",compact('departments','roles','companys'));
     }
 

@@ -5,12 +5,19 @@
 @section('contents')
 <div class="panel">
 <div class="panel-header">
-        <h2 class="text-white">New Position Request</h2>
+        <h2 class="text-white">New Position Request {{ auth()->user()->role->role_name }}</h2>
         <div>
             <ul class="breadcrumb">
-                <li> @if (auth()->user()->role->role_name="hr")
-                    <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                <li> 
+                    @if (auth()->user()->role->role_name == "hr")
+                        <a href="{{ route('hr_dashboard') }}">Dashboard</a>
+                    @elseif(auth()->user()->role->role_name == "hr_operations")
+                        <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
+                    @elseif(auth()->user()->role->role_name == "sales_manager")
+                        <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
+                    @else
                     @endif
+
                 </li>
                 <li>Position Request</li>
             </ul>

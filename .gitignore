@@ -23,3 +23,4 @@ yarn-error.log
 /public/recruitment/candidate_documents/*
 /public/recruitment/offer-letter/*
 /public/work-order/*
+/public/upload/crm/client/*

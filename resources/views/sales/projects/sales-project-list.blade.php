@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-auto col-xs-12">
                             
-                                <a href="{{ route('add-sales-project') }}" class="col-xs-12 mx-md-2"><button
+                                <a href="{{ route('sales-projects.add') }}" class="col-xs-12 mx-md-2"><button
                                         type="button" class="btn btn-sm btn-primary">Add New Project <i
                                             class="fa-solid fa-plus"></i></button></a>
                             </div>
@@ -74,8 +74,8 @@
                                     <td class='text-center attributes-column'><span class="badge text-bg-primary">Primary</span></td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                           <a href="{{route('edit-new-client')}}"><button type="submit" class="btn btn-sm btn-primary">Edit</button></a>
-                                           <a href="{{route('view-client')}}"> <button type="submit" class="btn btn-sm btn-primary">View</button></a>
+                                           <a href="{{route('sales-projects.edit')}}"><button type="submit" class="btn btn-sm btn-primary">Edit</button></a>
+                                           <a href="{{route('sales-projects.view')}}"> <button type="submit" class="btn btn-sm btn-primary">View</button></a>
                                                <a href="{{route('add-lead')}}"> <button type="submit" class="btn btn-sm btn-primary">Add Lead</button></a>
                                         </div>
                                         
