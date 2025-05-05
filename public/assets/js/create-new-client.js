@@ -104,10 +104,10 @@ $(document).ready(function () {
       $('.search').on('input', function () {
         const inputVal = $(this).val().toLowerCase();
         const filtered = data.filter(item =>item.toLowerCase().includes(inputVal));
-        console.log(filtered.length)
+        
   
         if (inputVal && filtered.length) {
-          $('.suggestions').show();
+          $('.suggestions').empty().show();
           filtered.forEach(item => {
             $('.suggestions').append(`<div class="suggestion-item" id="suggestion-item-design">${item}</div>`);
           });
@@ -173,12 +173,9 @@ const departmentdata = [
       $('.department-suggestions').hide();
 }
 }
+
 );
 
-
-
-
-  
 
 
 });
