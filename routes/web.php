@@ -137,14 +137,13 @@ Route::middleware('all')->prefix('user')->group(function () {
         Route::post("update-password", 'update_password')->name("user.update-password");
         Route::get('d-logout', 'd_logout')->name('department_logout');
     });
-   
 });
 
 // Department users routes.
+
 Route::middleware('auth')->prefix('hr')->group(function () {
     Route::controller(HrController::class)->group(function () {
         Route::get("/", 'dashboard')->name("hr_dashboard");
-        Route::get("/hr-operation-dashboard", 'hr_operation_dashboard')->name("hr_operations_dashboard");
 
         // send mail wishes 
         Route::get("/birthday-wishes-mail-template", 'templateBirthday')->name("sendBirthdayMail");
@@ -341,7 +340,7 @@ Route::middleware('auth')->prefix('hr')->group(function () {
         Route::post('work-order/check-salary', 'check_salary');
         Route::post('download-salary-sheet', 'download_salary_sheet')->name('download-salary-sheet');
     });
- 
+
     /////////// workorder routes end ///////
 
     Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
@@ -486,6 +485,13 @@ Route::middleware('auth')->prefix('hr')->group(function () {
     Route::resource('tenants', TenantController::class);
 });
 
+// Hr operations pages.
+Route::middleware('auth')->prefix('hr-operations')->group(function () {
+    Route::controller(HrController::class)->group(function () {
+        Route::get("/", 'hr_operation_dashboard')->name("hr_operations_dashboard");
+    });
+});
+
 // Sales routes
 Route::middleware('auth')->prefix('sales')->group(function () {
     Route::controller(SalesController::class)->group(function () {
@@ -503,8 +509,10 @@ Route::middleware('auth')->prefix('sales')->group(function () {
     Route::controller(SalesProjectController::class)->prefix('projects')->group(function () {
         Route::get("add/{id?}", 'add')->name("sales-projects.add");
         Route::get("/", 'index')->name("sales-projects.list");
-        Route::get("edit", 'edit')->name("sales-projects.edit");
-        Route::get("view", 'read')->name("sales-projects.view");
+        Route::get("edit/{id}", 'edit')->name("sales-projects.edit");
+        Route::get("view/{id}", 'read')->name("sales-projects.view");
+        Route::post("store", 'store')->name("sales-projects.store");
+        Route::post("update-project", "update")->name("sales-projects.update");
     });
 });
 
@@ -653,11 +661,6 @@ Route::get("crm-lead-follow-up", function () {
 Route::get("view-crm-details", function () {
     return view("hr.view-crm-details");
 })->name("view-crm-details");
-
-Route::get("sales-manager-dashboard", function () {
-    return view("hr.sales-manager-dashboard");
-})->name("sales-manager-dashboard");
-
 
 
 // Employee Routes
