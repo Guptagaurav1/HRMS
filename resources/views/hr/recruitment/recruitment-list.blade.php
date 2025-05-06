@@ -146,18 +146,18 @@
                                       
                                     @endphp
                                     <tr>
-                                        <td class="srno-column text-center">{{$candidate->id}}</td>
-                                        <td class="rid-column text-center">{{$candidate->firstname." ".$candidate->lastname}}</td>
-                                        <td class="text-center">{{$candidate->email." / ".$candidate->phone}}</td>
+                                        <td class="srno-column text-center attributes-column">{{$candidate->id}}</td>
+                                        <td class="rid-column text-center attributes-column">{{$candidate->firstname." ".$candidate->lastname}}</td>
+                                        <td class="text-center attributes-column">{{$candidate->email." / ".$candidate->phone}}</td>
                                         <td class="attributes-column text-center">{{$candidate->job_position}}</td>
-                                        <td class="text-center">{{$candidate->id}}</td>
-                                        <td class="text-center">{{$candidate->dob}}</td>
+                                        <td class="text-center attributes-column">{{$candidate->id}}</td>
+                                        <td class="text-center attributes-column">{{$candidate->dob}}</td>
                                         <td class="attributes-column text-center">{{$candidate->location}}</td>
-                                        <td class="text-center">{{$candidate->experience}}</td>
+                                        <td class="text-center attributes-column">{{$candidate->experience}}</td>
                                         <td class="text-center attributes-column">{{$candidate->skill}}</td>
-                                        <td class="text-center">{{$candidate->education}}</td>
-                                        <td class="text-center"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
-                                        <td class="text-center"> 
+                                        <td class="text-center attributes-column">{{$candidate->education}}</td>
+                                        <td class="text-center attributes-column"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
+                                        <td class="text-center attributes-column"> 
                                             @if (!empty($candidate->emp_current_working_status))
                                                 @if ($candidate->emp_current_working_status == 'active')
                                                     @if(auth()->user()->hasPermission('employee-details'))

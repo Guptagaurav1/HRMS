@@ -72,10 +72,10 @@
                                     required>
                             </div>
                             <div class="col-auto col-xs-12">
-                                <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
+                                <button type="submit" class="btn  btn-primary  mb-3">Search <i
                                         class="fa-solid fa-magnifying-glass" class="col-xs-12"></i></button>
                                 <a href="{{ route('recruitment-report') }}"  class="col-xs-12"><button type="button"
-                                        class="btn btn-primary btn-sm mb-3">Clear <i
+                                        class="btn btn-primary  mb-3">Clear <i
                                             class="fa-solid fa-eraser"></i></button></a>
                             </div>
 
@@ -126,27 +126,27 @@
                                 }
                             @endphp
                             <tr>
-                                <td class="text-center">{{$loop->iteration}}</td>
-                                <td class="text-center">{{$position->position_title}}</td>
-                                <td class="text-center">{{$position->client_name}}</td>
+                                <td class="text-center attributes-column">{{$loop->iteration}}</td>
+                                <td class="text-center attributes-column">{{$position->position_title}}</td>
+                                <td class="text-center attributes-column">{{$position->client_name}}</td>
                                 @if(auth()->user()->hasPermission('show-assign-work-log'))
-                                <td class="attributes-column">
+                                <td class="text-center attributes-column">
                                     <a href="{{route('show-assign-work-log', ['id' => $position->id])}}" class="text-primary">{{get_position_contacts($position->id)}} <span>Contacts</span></a>
                                 </td>
                                 @endif
-                                <td class="text-center">{{date('jS F, Y', strtotime($position->created_at))}}</td>
-                                <td class="text-center">{{$position->date_notified ? date('jS F, Y', strtotime($position->date_notified)) : ''}}</td>
-                                <td class="text-center">{{$position->getCity &&  $position->getState ? $position->getCity->city_name." - ".$position->getState->state : '-'}}</td>
-                                <td class="text-center">{{get_username($position->assigned_executive)}}</td>
-                                <td class="text-center">{{$position->no_of_completed_requirements." / ".$position->no_of_requirements}}</td>
+                                <td class="text-center attributes-column">{{date('jS F, Y', strtotime($position->created_at))}}</td>
+                                <td class="text-center attributes-column">{{$position->date_notified ? date('jS F, Y', strtotime($position->date_notified)) : ''}}</td>
+                                <td class="text-center attributes-column">{{$position->getCity &&  $position->getState ? $position->getCity->city_name." - ".$position->getState->state : '-'}}</td>
+                                <td class="text-center attributes-column">{{get_username($position->assigned_executive)}}</td>
+                                <td class="text-center attributes-column">{{$position->no_of_completed_requirements." / ".$position->no_of_requirements}}</td>
                                 @if(auth()->user()->hasPermission('preview-executive-description'))
-                                <td class="text-center">
+                                <td class="text-center attributes-column">
                                     <a href="{{route('preview-executive-description', ['id' => $position->id])}}">
                                         <button class="btn btn-sm btn-primary" >Share Job Description <i class="fa-solid fa-paper-plane"></i></button>
                                     </a>
                                 </td>
                                 @endif
-                                <td class="text-center"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
+                                <td class="text-center attributes-column"><span class="badge text-bg-{{$color}}">{{$status}}</span></td>
                                 @if(auth()->user()->hasPermission('update_position_request'))
                                     <td><a class="btn  btn-sm btn-primary text-light text-decoration-none" href="{{route('update_position_request', ['id' => $position->id])}}">Edit <i class="fa-solid fa-pen-to-square"></i></a></td>
                                 @endif
