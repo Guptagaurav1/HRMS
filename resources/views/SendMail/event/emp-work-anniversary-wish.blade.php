@@ -15,7 +15,7 @@
         .birthday-container {
             width: auto;
             margin: 0 auto;
-            background-image: url('https://demo.ndgc-etl.com/HRMS/hrm/event_template/work_anniversary/images/work_anniversary_bg_without.jpg');
+            background-image: url('/events/work-anniversary/work_anniversary_bg_without.jpg');
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;

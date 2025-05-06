@@ -65,7 +65,13 @@ class UserController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'department' => 'required',
-            'email' => ['required',Rule::unique('users')->whereNull('deleted_at')],
+            'email' => [
+                        'required',
+                        'email',
+                        Rule::unique('users')->where(function($query) use($request){
+                                return $query->where('role_id', $request->role_id);
+                        })
+                    ],
             'contact' => 'required|digits:10',
             'company_id' => 'required',
             'role_id' => 'required',

@@ -117,7 +117,7 @@ class CommonDataImportController extends Controller
         // $status =  $this->emp_salary_slip($handle);
 
         // Add Leave Request details.
-        // $status =  $this->import_leave_request_data($handle);
+        $status =  $this->import_leave_request_data($handle);
 
         // Add Employee send documents details.
         // $status =  $this->import_emp_send_doc_data($handle);
@@ -1727,13 +1727,13 @@ class CommonDataImportController extends Controller
         try {
             DB::beginTransaction();
             while (($data = fgetcsv($handle)) !== FALSE) {
+
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['updated_at'] = date('Y-m-d', strtotime($row['updated_on']));
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
-                $row['approved_disapproved_by'] = $row['approved_disapproved_by'] ? $row['approved_disapproved_by'] : null;
-                $row['reapproved_redisapproved_by'] = $row['reapproved_redisapproved_by'] ? $row['reapproved_redisapproved_by'] : null;
-
+                $row['approved_disapproved_by'] = empty($row['approved_disapproved_by'])  || $row['approved_disapproved_by'] == "NULL" ? null : $row['approved_disapproved_by'];
+                $row['reapproved_redisapproved_by'] = empty($row['reapproved_redisapproved_by'])  || $row['reapproved_redisapproved_by'] == "NULL" ? null : $row['reapproved_redisapproved_by'];
                 unset($row['updated_on']);
                 unset($row['created_on']);
                 unset($row['deleted_on']);
@@ -2278,7 +2278,11 @@ class CommonDataImportController extends Controller
                 $row['created_by'] = $row['requested_by'];
                 $row['date_notified'] = $row['date_notified'] ? date('Y-m-d', strtotime($row['date_notified'])) : '';
                 $row['hiring_budget'] = empty($row['hiring_budget'])  || $row['hiring_budget'] == "NULL" ? null : $row['hiring_budget'];
-                $row['city'] = $row['city'] ==  empty($row['city']) || $row['city'] == 'Select City' || $row['city'] == '' ? null : $row['city'];
+                if($row['city'] == 3030){
+                    continue;
+                }else{
+                    $row['city'] = $row['city'] ==  empty($row['city']) || $row['city'] == 'Select City' || $row['city'] == '' ? null : $row['city'];
+                }
                 $row['state'] = empty($row['state'])  || $row['state'] == "NULL" ? null : $row['state'];
                 $row['department'] = $row['department'] == 'Select Department' ? null : $row['department'];
                 if ($row['department'] == '15' || $row['department'] == '22') {

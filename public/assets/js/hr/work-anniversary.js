@@ -1,19 +1,35 @@
+// Initialize CKEditor 5
+editor = ClassicEditor
+    .create(document.querySelector('#employeeworkanniversary'))
+    .then(newEditor => {
+        editor = newEditor; // Save instance for later use
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
 const anniversaryMailModal = document.getElementById('anniversaryMailModal')
 if (anniversaryMailModal) {
-  anniversaryMailModal.addEventListener('show.bs.modal', event => {
-    // Button that triggered the modal
-    const button = event.relatedTarget
-    // Extract info from data-bs-* attributes
-    const email = button.getAttribute('data-bs-whatever');
-    // Update the modal's content.
-    const modalBodyInput = anniversaryMailModal.querySelector('.modal-body input');
+    anniversaryMailModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const email = button.getAttribute('data-bs-whatever');
+        const name = button.getAttribute('data-bs-name');
+        // Update the modal's content.
+        const modalBodyInput = anniversaryMailModal.querySelector('.modal-body input');
 
-    // modalBodyInput.value = email;
-    modalBodyInput.value = 'vikas.verma@prakharsoftwares.com';
-  })
+        modalBodyInput.value = email;
+        var message = "Dear " + name + "," + "<br><br>";
+        var message1 = "Happy Work Anniversary ! May this year bring you everything you've ever wished for"
+
+        if (editor) {
+            editor.setData("<p>" + message + message1 + "</p>");
+        }
+    })
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     // After submit send mail form.
     $("form.send-greeting").submit(function (e) {
         e.preventDefault(); // Prevent form submission
@@ -22,13 +38,13 @@ $(document).ready(function() {
         Swal.fire({
             title: "Sending...",
             didOpen: () => {
-              Swal.showLoading();
+                Swal.showLoading();
             },
             allowOutsideClick: () => !Swal.isLoading()
         });
         $.ajax({
             type: "POST",
-            url: SITE_URL +"/hr/events/send-anniversary-mail",
+            url: SITE_URL + "/hr/events/send-anniversary-mail",
             data: new FormData(this),
             contentType: false,
             processData: false,
@@ -45,11 +61,11 @@ $(document).ready(function() {
                         icon: "success",
                         allowOutsideClick: () => false
                     })
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.reload();
-                        }
-                      });
+                        .then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        });
                 }
                 else if (response.error) {
                     Swal.hideLoading();
@@ -61,7 +77,7 @@ $(document).ready(function() {
                         allowOutsideClick: () => false
                     });
                 }
-              
+
             },
             error: function (xhr, status, error) {
                 // Handle error
