@@ -21,7 +21,7 @@
         /* Table wrapper to hold the background image */
         .image-wrapper {
             width: 100%;
-            background-image: url('https://demo.ndgc-etl.com/HRMS/hrm/event_template/marriage_anniversary/ma_image/bg_ma.jpg');
+            background-image: url('/events/marriage/bg_ma.jpg');
             background-size: contain;
             background-position: left;
             text-align: center;

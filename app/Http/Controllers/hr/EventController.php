@@ -6,14 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\EmpDetail;
 use App\Models\EmpWishMailLog;
+use App\Mail\SendMailBirthDay;
 use App\Models\Company;
 use App\Mail\EmpBirthdayWishMail;
 use Illuminate\Validation\Rules\File;
+use App\Mail\EmpMarriageAnniversaryMail;
+use App\Mail\EmpWorkingAnniversaryMailWishSend;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 use stdClass;
 use Mail;
 use Illuminate\Support\Number;
+use Carbon\Carbon;
+
 class EventController extends Controller
 {
     public $cc;
@@ -46,9 +51,9 @@ class EventController extends Controller
                     ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%');
             });
         }
-
+        $imageurl = asset('events/birthday/bg_two.jpg');
         $employees = $employees->paginate(10)->withQueryString();
-        return view("hr.events.birthday-list", compact('employees', 'search'));
+        return view("hr.events.birthday-list", compact('employees', 'search', 'imageurl'));
     }
 
     /**
@@ -139,18 +144,18 @@ class EventController extends Controller
             DB::beginTransaction();
             $request->validate([
                 'emp_mail' => ['required', 'email'],
-                'greeting' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')]
+                // 'greeting' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')]
             ]);
 
-            if($request->hasFile('greeting')){
-                $file = $request->file('greeting');
-                $extension = $file->getClientOriginalExtension();
-                $file_name = 'birthday_'. time(). '.'. $extension;
-                $path = public_path('recruitment/candidate_documents/emp_birthday_wish');
-                $file->move($path, $file_name);
-            }
+            // if($request->hasFile('greeting')){
+            //     $file = $request->file('greeting');
+            //     $extension = $file->getClientOriginalExtension();
+            //     $file_name = 'birthday_'. time(). '.'. $extension;
+            //     $path = public_path('recruitment/candidate_documents/emp_birthday_wish');
+            //     $file->move($path, $file_name);
+            // }
 
-            $empdetails = EmpDetail::select('emp_code', 'emp_name', 'emp_email_first', 'emp_dob')->where('emp_email_first', $request->emp_mail)->first();
+            $empdetails = EmpDetail::select('emp_code', 'emp_name', 'emp_email_first')->where('emp_email_first', $request->emp_mail)->first();
             if(empty($empdetails)){
                 return response()->json(['error' => true,'message' => 'Employee not found.']);
             }
@@ -161,25 +166,31 @@ class EventController extends Controller
                 'emp_name' => $empdetails->emp_name,
                 'emp_email' => $empdetails->emp_email_first,
                 'emp_dob' => $empdetails->emp_dob,
-                'attachment' => $file_name,
+                // 'attachment' => $file_name,
                 'wish_type' => 'Birthday',
             ]);
 
             // Send Mail to user.
-            $user = auth()->user();
-            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
-            $imagelink = asset('recruitment/candidate_documents/emp_birthday_wish').'/'.$file_name;
-            $maildata = new stdClass();
-            $maildata->subject = 'PSSPL Wishes you a Happy Birthday';
-            $maildata->name = "";
-            $maildata->comp_email = $company->email;
-            $maildata->comp_phone = $company->mobile;
-            $maildata->comp_website = $company->website;
-            $maildata->comp_address = $company->address;
-            $maildata->content = $imagelink;
-            $maildata->url = url('/');
+            // $user = auth()->user();
+            // $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+            // $imagelink = asset('recruitment/candidate_documents/emp_birthday_wish').'/'.$file_name;
+            // $maildata = new stdClass();
+            // $maildata->subject = 'PSSPL Wishes you a Happy Birthday';
+            // $maildata->name = "";
+            // $maildata->comp_email = $company->email;
+            // $maildata->comp_phone = $company->mobile;
+            // $maildata->comp_website = $company->website;
+            // $maildata->comp_address = $company->address;
+            // $maildata->content = $imagelink;
+            // $maildata->url = url('/');
 
-            Mail::to($request->emp_mail)->cc($this->cc)->send(new EmpBirthdayWishMail($maildata));
+            // Mail::to($request->emp_mail)->cc($this->cc)->send(new EmpBirthdayWishMail($maildata));
+
+            $mailData = [
+                'message' => $request->message,
+                'name' =>    $empdetails->emp_name
+            ];
+            Mail::to($empdetails->emp_email_first)->send(new SendMailBirthDay($mailData));
             DB::commit();
             return response()->json(['success' => true,'message' => 'Birthday wish sent !']);
         }
@@ -247,18 +258,18 @@ class EventController extends Controller
             DB::beginTransaction();
             $request->validate([
                 'emp_mail' => ['required', 'email'],
-                'greeting' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')]
+                // 'greeting' => ['required', File::types(['jpg', 'jpeg', 'png'])->max('1mb')]
             ]);
 
-            if($request->hasFile('greeting')){
-                $file = $request->file('greeting');
-                $extension = $file->getClientOriginalExtension();
-                $file_name = 'anniversary_'. time(). '.'. $extension;
-                $path = public_path('recruitment/candidate_documents/emp_work_anniversary');
-                $file->move($path, $file_name);
-            }
+            // if($request->hasFile('greeting')){
+            //     $file = $request->file('greeting');
+            //     $extension = $file->getClientOriginalExtension();
+            //     $file_name = 'anniversary_'. time(). '.'. $extension;
+            //     $path = public_path('recruitment/candidate_documents/emp_work_anniversary');
+            //     $file->move($path, $file_name);
+            // }
 
-            $empdetails = EmpDetail::select('emp_code', 'emp_name', 'emp_email_first', 'emp_dob', 'emp_doj')->where('emp_email_first', $request->emp_mail)->first();
+            $empdetails = EmpDetail::select('emp_code', 'emp_name', 'emp_email_first', 'emp_doj')->where('emp_email_first', $request->emp_mail)->first();
             if(empty($empdetails)){
                 return response()->json(['error' => true,'message' => 'Employee not found.']);
             }
@@ -270,25 +281,36 @@ class EventController extends Controller
                 'emp_email' => $empdetails->emp_email_first,
                 'emp_dob' => $empdetails->emp_dob,
                 'emp_doj' => $empdetails->emp_doj,
-                'attachment' => $file_name,
+                // 'attachment' => $file_name,
                 'wish_type' => 'Joining',
             ]);
 
             // Send Mail to user.
-            $user = auth()->user();
-            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
-            $imagelink = asset('recruitment/candidate_documents/emp_work_anniversary').'/'.$file_name;
-            $maildata = new stdClass();
-            $maildata->subject = 'PSSPL Wishes you a Happy Work Anniversary';
-            $maildata->name = "";
-            $maildata->comp_email = $company->email;
-            $maildata->comp_phone = $company->mobile;
-            $maildata->comp_website = $company->website;
-            $maildata->comp_address = $company->address;
-            $maildata->content = $imagelink;
-            $maildata->url = url('/');
+            // $user = auth()->user();
+            // $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+            // $imagelink = asset('recruitment/candidate_documents/emp_work_anniversary').'/'.$file_name;
+            // $maildata = new stdClass();
+            // $maildata->subject = 'PSSPL Wishes you a Happy Work Anniversary';
+            // $maildata->name = "";
+            // $maildata->comp_email = $company->email;
+            // $maildata->comp_phone = $company->mobile;
+            // $maildata->comp_website = $company->website;
+            // $maildata->comp_address = $company->address;
+            // $maildata->content = $imagelink;
+            // $maildata->url = url('/');
 
-            Mail::to($request->emp_mail)->cc($this->cc)->send(new EmpBirthdayWishMail($maildata));
+            // Mail::to($request->emp_mail)->cc($this->cc)->send(new EmpBirthdayWishMail($maildata));
+            $date = Carbon::parse($empdetails->emp_doj);
+            $diffYear = Carbon::now()->diffInYears($date);
+
+            $mailData = [
+                'name' =>    $empdetails->emp_name,
+                'message' => $request->message,
+                'designation' => $empdetails->emp_designation,
+                'year' =>  $diffYear
+            ];
+            Mail::to($empdetails->emp_email_first)->send(new EmpWorkingAnniversaryMailWishSend($mailData));
+
             DB::commit();
             return response()->json(['success' => true,'message' => 'Work Anniversary wish sent !']);
         }

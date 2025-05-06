@@ -4,6 +4,9 @@ namespace App\Http\Controllers\sales;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ClientList;
+use App\Models\LeadCategoryList;
+use App\Models\ClientAttachType;
 
 class ProjectController extends Controller
 {
@@ -34,8 +37,12 @@ class ProjectController extends Controller
     /**
      * Add Project.
      */
-    public function add()
+    public function add($client_id = null)
     {
-        return view("sales.projects.add-sales-project");
+        $clients = ClientList::select('id', 'client_name')->get();
+        $category_lists = LeadCategoryList::select('id', 'category_name')->get();
+        $attachment_type = ClientAttachType::select('attach_type')->get();
+
+        return view("sales.projects.add-sales-project", compact('clients', 'client_id', 'category_lists', 'attachment_type'));
     }
 }

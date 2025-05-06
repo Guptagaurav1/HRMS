@@ -21,7 +21,7 @@
         /* Table wrapper to hold the background image */
         .image-wrapper {
             width: 100%;
-            background-image: url('https://demo.ndgc-etl.com/HRMS/hrm/event_template/birthday/b_image/bg_two.jpg');
+            background-image: url('/events/birthday/bg_two.jpg');
             background-size: cover;
             background-position: left;
             text-align: center;

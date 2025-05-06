@@ -93,14 +93,14 @@
                                             src="{{ asset('recruitment/candidate_documents/passport_size_photo') . '/' . $employee->getPersonalDetail->emp_photo }}"
                                             alt="no-photo" width="100" height="100"></td>
                                     <td>
-                                        <a
+                                        {{-- <a
                                             href="{{ route('events.birthday-template', ['emp_code' => $employee->emp_code]) }}"><button
-                                                class="btn btn-sm btn-primary">View Template Image</button></a>
+                                                class="btn btn-sm btn-primary">View Template Image</button></a> --}}
 
                                                 
                                         <a href="#"><button type="button" data-bs-toggle="modal"
                                                 data-bs-target="#birthdayMailModal"
-                                                data-bs-whatever="{{ $employee->emp_email_first }}"
+                                                data-bs-whatever="{{ $employee->emp_email_first }}" data-bs-name="{{ $employee->emp_name }}"
                                                 class="btn btn-sm btn-primary">Send Email</button></a>
                                     </td>
                                 </tr>
@@ -137,12 +137,17 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">To</label>
-                            <input type="email" class="form-control" name="emp_mail" value="" required>
+                            <input type="email" class="form-control" name="emp_mail" value="" readonly required>
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="message-text" class="col-form-label">Attach Greeting <span
                                     class="text-danger fw-bold">*</span></label>
                             <input type="file" class="form-control" name="greeting" accept=".jpg, .png, .jpeg" required>
+                        </div> --}}
+                        <div class="mb-3">
+                            <label for="body" class="form-label">Message / Query</label>
+                            <textarea class="form-control" id="employeebirthday" value="" name="message" rows="6"
+                                placeholder="Write your message here"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

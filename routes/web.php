@@ -501,7 +501,7 @@ Route::middleware('auth')->prefix('sales')->group(function () {
         Route::get("view/{id}", 'view_details')->name("sales-clients.view");
     });
     Route::controller(SalesProjectController::class)->prefix('projects')->group(function () {
-        Route::get("add", 'add')->name("sales-projects.add");
+        Route::get("add/{id?}", 'add')->name("sales-projects.add");
         Route::get("/", 'index')->name("sales-projects.list");
         Route::get("edit", 'edit')->name("sales-projects.edit");
         Route::get("view", 'read')->name("sales-projects.view");

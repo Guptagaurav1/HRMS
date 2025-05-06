@@ -8,7 +8,7 @@
                 <div class="panel-header">
                     <h3 class="text-white mt-2">Client List</h3>
                         <ul class="breadcrumb">
-                            <li> @if (auth()->user()->role->role_name="hr")
+                            <li> @if (auth()->user()->role->role_name == "hr")
                                 <a href="{{route('hr_dashboard')}}">Dashboard</a>
                                 @endif
                             </li>

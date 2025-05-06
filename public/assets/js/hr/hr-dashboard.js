@@ -127,7 +127,7 @@ $(document).ready(function() {
         var form = $(this);
         form.find("btn.sendbutton").attr('disabled', 'disabled');
         Swal.fire({
-            title: "Sending birthday wishing mail...",
+            title: "Sending marriage wishing mail...",
             didOpen: () => {
                 Swal.showLoading();
             },

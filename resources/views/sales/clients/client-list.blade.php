@@ -142,7 +142,7 @@
                                                             class="btn btn-sm btn-primary">Edit</button></a>
                                                     <a href="{{ route('sales-clients.view', ['id' =>  $client->id ]) }}"> <button type="submit"
                                                             class="btn btn-sm btn-primary">View</button></a>
-                                                    <a href="{{ route('sales-projects.add') }}"> <button type="submit"
+                                                    <a href="{{ route('sales-projects.add', ['id' =>  $client->id ]) }}"> <button type="submit"
                                                             class="btn btn-sm btn-primary">Add Project</button></a>
                                                 </div>
 
