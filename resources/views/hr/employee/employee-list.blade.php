@@ -151,7 +151,7 @@
                             <tbody>
                                 @forelse($employees as $employee)
                                     <tr>
-                                        <td class='text-center'>
+                                        <td class='text-center attributes-column'>
                                             <div class="form-check">
                                                 @if ($employee->getBankDetail && $employee->getBankDetail->emp_sal_structure_status == 'completed')
                                                     <input class="form-check-input emp_check" name="emp_ids[]"
@@ -160,7 +160,7 @@
                                             </div>
                                         </td>
 
-                                        <td class='text-center'>
+                                        <td class='text-center attributes-column'>
                                             @if (
                                                 ($employee->getBankDetail &&
                                                     (empty($employee->getBankDetail->emp_sal_structure_status) ||
@@ -173,27 +173,27 @@
                                         </td>
 
 
-                                        <td class='text-center'>{{ $employee->emp_name }} </td>
-                                        <td class='text-center'>
+                                        <td class='text-center attributes-column'>{{ $employee->emp_name }} </td>
+                                        <td class='text-center attributes-column'>
                                             {{ $employee->emp_work_order }}
                                         </td>
                                         <td class='text-center attributes-column'>{{ $employee->emp_designation }}</td>
-                                        <td class='text-center'>{{ $employee->emp_phone_first }}</td>
-                                        <td class='text-center'>{{ $employee->emp_email_first }}</td>
-                                        <td class='text-center'>
+                                        <td class='text-center attributes-column'>{{ $employee->emp_phone_first }}</td>
+                                        <td class='text-center attributes-column'>{{ $employee->emp_email_first }}</td>
+                                        <td class='text-center attributes-column'>
                                             <span
                                                 class="address-txt">{{ date('jS F,Y', strtotime($employee->emp_doj)) }}</span>
                                         </td>
-                                        <td class='text-center'>{{ $employee->emp_place_of_posting }}</td>
-                                        <td class='text-center'>{{ $employee->experience ? $employee->experience->emp_experience . ' yr' : '-' }}
+                                        <td class='text-center attributes-column'>{{ $employee->emp_place_of_posting }}</td>
+                                        <td class='text-center attributes-column'>{{ $employee->experience ? $employee->experience->emp_experience . ' yr' : '-' }}
                                         </td>
-                                        <td class='text-center'>{{ $employee->education ? $employee->education->emp_highest_qualification : '-' }}
+                                        <td class='text-center attributes-column'>{{ $employee->education ? $employee->education->emp_highest_qualification : '-' }}
                                         </td>
-                                        <td class="text-capitalize text-center">{{ $employee->emp_current_working_status }}</td>
-                                        <td class='text-center'> <a href="{{ route('employee.edit-employee', ['id' => $employee->id]) }}"><button
+                                        <td class="text-capitalize text-center attributes-column">{{ $employee->emp_current_working_status }}</td>
+                                        <td class='text-center attributes-column'> <a href="{{ route('employee.edit-employee', ['id' => $employee->id]) }}"><button
                                                     class="btn btn-sm btn-primary"> <i
                                                         class="fa-solid fa-pen-to-square"></i> Edit</button></td></a>
-                                        <td class=" text-center">
+                                        <td class=" text-center ">
                                             
                                                 <div class="d-flex align-items-center justify-content-center gap-3">
                                                     <div>

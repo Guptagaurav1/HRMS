@@ -79,23 +79,24 @@
                         <tbody>
                             @forelse($data as $record)
                             <tr>
-                                <td class="srno-column text-center">{{$loop->iteration}}</td>
-                                <td class="rid-column text-center">{{$record->firstname." ".$record->lastname}}</td>
+                                <td class="srno-column text-center attributes-column">{{$loop->iteration}}</td>
+                                <td class="rid-column text-center attributes-column">{{$record->firstname." ".$record->lastname}}</td>
                                 <td class="text-center attributes-column">{{$record->email." / ".$record->phone}}</td>
-                                <td class="text-center">{{$record->job_position}}</td>
-                                <td class="text-center">{{$record->getPositionDetail ? $record->getPositionDetail->client_name : ''}}</td>
-                                <td class="text-center"> 
+                                <td class="text-center attributes-column">{{$record->job_position}}</td>
+                                <td class="text-center attributes-column">{{$record->getPositionDetail ? $record->getPositionDetail->client_name : ''}}</td>
+                                <td class="text-center attributes-column"> 
                                     {{$record->location}}
                                 </td>
-                                <td class="text-center">{{$record->experience}}</td>
-                                <td class="text-center">
+                                <td class="text-center attributes-column">{{$record->experience}}</td>
+                                <td class="text-center attributes-column">
                                     @if($record->recruitment_status == 0)
-                                    <span class="badge alert-success">Recruitment Process</span>
+                                    
+                                    <span class="badge bg-primary">Recruitment Process</span>
                                     @else
-                                    <span class="badge alert-info">Direct Process</span>
+                                    <span class="badge bg-secondary">Direct Process</span>
                                     @endif
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center attributes-column">
                                     @if(auth()->user()->hasPermission('applicant-recruitment-details-summary'))
                                     <a href="{{route('applicant-recruitment-details-summary', ['rec_id' => $record->id, 'position' => $record->pos_req_id])}}"><button class="btn btn-sm btn-primary">View  <i class="fa-solid fa-eye"></i></button></a>
                                     @endif
@@ -111,7 +112,7 @@
                     </table>
                 </div>
 
-                <div class="col-md-12 d-flex justify-content-center my-2">
+                <div class="col-md-12 d-flex my-2">
                     {{$data->links()}}
                 </div>
             </div>

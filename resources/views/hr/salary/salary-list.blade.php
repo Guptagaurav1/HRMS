@@ -63,67 +63,66 @@
                             id="allEmployeeTable">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Employee Code</th>
-                                    <th class="text-center">Work Order</th>
-                                    <th class="text-center">Date of Joining</th>
-                                   
-                                    <th class="text-center">Employee Name</th>
-                                    <th class="text-center">Designation</th>
-                                    <th class="text-center">CTC</th>
-                                    <th class="text-center">Gross Pay</th>
-                                    <th class="text-center">Net Pay</th>
-                                    <th class="text-center">Basic Pay</th>
-                                    <th class="text-center">HRA</th>
-                                    <th class="text-center">DA</th>
-                                    <th class="text-center">Conveyance</th>
-                                    <th class="text-center">Special Allowance</th>
-                                    <th class="text-center">Medical Allowance</th>
-                                    <th class="text-center">PF Employer</th>
-                                    <th class="text-center">ESI Employer</th>
-                                    <th class="text-center">TAX</th>
-                                    <th class="text-center">TDS Deduction</th>
-                                    <th class="text-center">PF No.</th>
-                                    <th class="text-center">ESI No.</th>
-                                    <th class="text-center">Bank name</th>
-                                    <th class="text-center">Account no</th>
-                                    <th class="text-center">IFSC Code</th>
-                                    <th class="text-center">Contact No</th>
-                                    <th class="text-center">Email Id</th>
-                                    <th class="text-center">Remarks</th>
-                                    <th class="text-center">Action</th>
+                                    <th class="text-center attributes-column">Employee Code</th>
+                                    <th class="text-center attributes-column">Work Order</th>
+                                    <th class="text-center attributes-column">Date of Joining</th>
+                                    <th class="text-center attributes-column">Employee Name</th>
+                                    <th class="text-center attributes-column">Designation</th>
+                                    <th class="text-center attributes-column">CTC</th>
+                                    <th class="text-center attributes-column">Gross Pay</th>
+                                    <th class="text-center attributes-column">Net Pay</th>
+                                    <th class="text-center attributes-column">Basic Pay</th>
+                                    <th class="text-center attributes-column">HRA</th>
+                                    <th class="text-center attributes-column">DA</th>
+                                    <th class="text-center attributes-column">Conveyance</th>
+                                    <th class="text-center attributes-column">Special Allowance</th>
+                                    <th class="text-center attributes-column">Medical Allowance</th>
+                                    <th class="text-center attributes-column">PF Employer</th>
+                                    <th class="text-center attributes-column">ESI Employer</th>
+                                    <th class="text-center attributes-column">TAX</th>
+                                    <th class="text-center attributes-column">TDS Deduction</th>
+                                    <th class="text-center attributes-column">PF No.</th>
+                                    <th class="text-center attributes-column">ESI No.</th>
+                                    <th class="text-center attributes-column">Bank name</th>
+                                    <th class="text-center attributes-column">Account no</th>
+                                    <th class="text-center attributes-column">IFSC Code</th>
+                                    <th class="text-center attributes-column">Contact No</th>
+                                    <th class="text-center attributes-column">Email Id</th>
+                                    <th class="text-center attributes-column">Remarks</th>
+                                    <th class="text-center attributes-column">Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($salary as $key => $value)
                                     <tr>
-                                        <td title="Emp. Code" class="text-center">{{$value->sl_emp_code}}</td>
-                                        <td title="Work Order" class="text-center">{{$value->empDetail->emp_work_order}}</td>
-                                        <td title="D.O.J" class="text-center">{{$value->sa_emp_doj}}</td>
-                                        <td title="EMp. Name" class="text-center">{{$value->sal_emp_name}}</td>
-                                        <td title="Dessination" class="text-center">{{$value->sal_emp_designation}}	</td>
-                                        <td title="CTC" class="text-center">{{$value->sal_ctc}}</td>
-                                        <td title="Gross" class="text-center">{{$value->sal_gross}}</td>
-                                        <td title="Net Salary" class="text-center">{{$value->sal_net}}</td>
-                                        <td title="Basic Salary" class="text-center">{{$value->sal_basic}}</td>
-                                        <td title="HRA" class="text-center">{{$value->sal_hra}}</td>
-                                        <td title="Salary DA" class="text-center">{{$value->sal_da}}</td>
-                                        <td title="Salary Conveyance" class="text-center">{{$value->sal_conveyance}}</td>
-                                        <td title="Salary Special allowance" class="text-center">{{$value->sal_special_allowance}}</td>
-                                        <td title="Medical Allowance" class="text-center">{{$value->medical_allowance}}</td>
-                                        <td title="Salary PF Employer" class="text-center">{{$value->sal_pf_employer}}</td>
-                                        <td title="ESI Employer" class="text-center">{{$value->sal_esi_employer}}</td>
-                                        <td title="TDS Tax Amount">{{$value->tds_tax_amount}}</td>
+                                        <td title="Emp. Code" class="text-center attributes-column">{{$value->sl_emp_code}}</td>
+                                        <td title="Work Order" class="text-center attributes-column">{{$value->empDetail->emp_work_order}}</td>
+                                        <td title="D.O.J" class="text-center attributes-column">{{$value->sa_emp_doj}}</td>
+                                        <td title="EMp. Name" class="text-center attributes-column">{{$value->sal_emp_name}}</td>
+                                        <td title="Dessination" class="text-center attributes-column">{{$value->sal_emp_designation}}	</td>
+                                        <td title="CTC" class="text-center attributes-column">{{$value->sal_ctc}}</td>
+                                        <td title="Gross" class="text-center attributes-column">{{$value->sal_gross}}</td>
+                                        <td title="Net Salary" class="text-center attributes-column">{{$value->sal_net}}</td>
+                                        <td title="Basic Salary" class="text-center attributes-column">{{$value->sal_basic}}</td>
+                                        <td title="HRA" class="text-center attributes-column">{{$value->sal_hra}}</td>
+                                        <td title="Salary DA" class="text-center attributes-column">{{$value->sal_da}}</td>
+                                        <td title="Salary Conveyance" class="text-center attributes-column">{{$value->sal_conveyance}}</td>
+                                        <td title="Salary Special allowance" class="text-center attributes-column">{{$value->sal_special_allowance}}</td>
+                                        <td title="Medical Allowance" class="text-center attributes-column">{{$value->medical_allowance}}</td>
+                                        <td title="Salary PF Employer" class="text-center attributes-column">{{$value->sal_pf_employer}}</td>
+                                        <td title="ESI Employer" class="text-center attributes-column">{{$value->sal_esi_employer}}</td>
+                                        <td title="TDS Tax Amount" class="attributes-column">{{$value->tds_tax_amount}}</td>
 
-                                        <td title="TDS Deduction" class="text-center">{{$value->tds_deduction}}</td>
-                                        <td title="PF No." class="text-center">{{$value->empDetail->getBankDetail->emp_pf_no??NULL}}</td>
-                                        <td title="ESI No." class="text-center">{{$value->empDetail->getBankDetail->emp_esi_no??NULL}}</td>
-                                        <td title="Bank No." class="text-center">{{$value->empDetail->getBankDetail->getBankData->name_of_bank??NULL}}</td>
-                                        <td title="Account No." class="text-center">{{$value->empDetail->getBankDetail->emp_account_no??NULL}}</td>
-                                        <td class="text-center">{{$value->empDetail->getBankDetail->emp_ifsc}}</td>
-                                        <td title="Phone" class="text-center">{{$value->empDetail->emp_phone_first}}</td>
-                                        <td title="Email" class="text-center">{{$value->empDetail->emp_email_first}}</td>
-                                        <td title="Remark" class="text-center">{{$value->sal_remark}}</td>
+                                        <td title="TDS Deduction" class="text-center attributes-column">{{$value->tds_deduction}}</td>
+                                        <td title="PF No." class="text-center attributes-column">{{$value->empDetail->getBankDetail->emp_pf_no??NULL}}</td>
+                                        <td title="ESI No." class="text-center attributes-column">{{$value->empDetail->getBankDetail->emp_esi_no??NULL}}</td>
+                                        <td title="Bank No." class="text-center attributes-column">{{$value->empDetail->getBankDetail->getBankData->name_of_bank??NULL}}</td>
+                                        <td title="Account No." class="text-center attributes-column">{{$value->empDetail->getBankDetail->emp_account_no??NULL}}</td>
+                                        <td class="text-center attributes-column">{{$value->empDetail->getBankDetail->emp_ifsc}}</td>
+                                        <td title="Phone" class="text-center attributes-column">{{$value->empDetail->emp_phone_first}}</td>
+                                        <td title="Email" class="text-center attributes-column">{{$value->empDetail->emp_email_first}}</td>
+                                        <td title="Remark" class="text-center attributes-column">{{$value->sal_remark}}</td>
                                         <td class="text-center"><a href="{{route('edit-salary',$value->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                                         <a data-id="{{ $value->id }}"  class="delete-salary"><button class="btn btn-sm btn-danger"  title="Delete">Delete <i class="fa-solid fa-trash"></i></button></a>
                                         </td>
