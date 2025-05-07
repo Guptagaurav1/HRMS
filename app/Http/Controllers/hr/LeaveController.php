@@ -26,7 +26,7 @@ class LeaveController extends Controller
         if(auth('employee')->check()){
             $data = $data->where('emp_code', auth('employee')->user()->emp_code);
         }
-        $data = $data->get();
+        $data = $data->paginate(25);
         return view("hr.leaves.emp-leaves",compact('data'));
     }
 

@@ -50,7 +50,7 @@ class UserController extends Controller
     public function create()
     {
         $departments = Department::select('id','department')->orderBy('id','desc')->get();
-        $roles = Role::select('id','role_name','fullname')->orderBy('id','desc')->get();
+        $roles = Role::select('id','role_name','fullname')->where('role_name' , '!=', '')->orderBy('id','desc')->get();
         $companys = Company::select('id','name')->orderBy('id','desc')->get();
         return view(" hr.user.add-user",compact('departments','roles','companys'));
     }
@@ -133,7 +133,7 @@ class UserController extends Controller
     {
         $user = user::find($id);
         $departments = Department::orderBy('id','desc')->get();
-        $roles = Role::orderBy('id','desc')->get();
+        $roles = Role::where('role_name' , '!=', '')->orderBy('id','desc')->get();
         $companys = Company::orderBy('id','desc')->get();
         return view('hr.user.edit-user', compact('user','departments','roles','companys'));
     }

@@ -408,7 +408,11 @@ if (!function_exists('get_dashboard')) {
                     return route('hr_operations_dashboard');
                 } elseif ($role == 'sales_manager') {
                     return route('sales.manager_dashboard');
-                } else {
+                }
+                elseif ($role == 'it') {
+                    return route('it-head.dashboard');
+                }
+                 else {
                     return route('hr_dashboard');
                 }
             } elseif (auth('employee')->check()) {

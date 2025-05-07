@@ -15,7 +15,7 @@ class TeamController extends Controller
     public function index(Request $request){
         $user_email = auth()->user()->email;
         $user_id = auth()->user()->id;
-        $employees = EmpDetail::select('emp_name', 'emp_email_first', 'emp_phone_first', 'department', 'user_type', 'created_at AS adding_date')->where('reporting_email', $user_email);
+        $employees = EmpDetail::select('emp_name', 'emp_email_first', 'emp_phone_first', 'department', 'user_type', 'created_at AS adding_date')->where('reporting_email', $user_email)->where('emp_current_working_status', 'active');
             $search = '';
         if ($request->search) {
             $search = $request->search;
