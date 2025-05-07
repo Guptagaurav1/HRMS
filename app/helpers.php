@@ -404,6 +404,7 @@ if (!function_exists('get_dashboard')) {
         try {
             if (auth()->check()) {
                 $role = get_role_name(auth()->user()->role_id);
+             
                 if ($role == 'hr_operations') {
                     return route('hr_operations_dashboard');
                 } elseif ($role == 'sales_manager') {

@@ -11,6 +11,7 @@ class ItController extends Controller
      * Show IT Head Dashboard
      */
     public function dashboard(){
+       
         return view('it.dashboard');
     }
 }

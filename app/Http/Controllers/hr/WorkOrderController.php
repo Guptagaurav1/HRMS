@@ -235,9 +235,14 @@ class WorkOrderController extends Controller
         if (!empty($wo_state)) {
             $cities = City::select('id', 'city_name')->orderBy('city_name')->where('state_code', $wo_state)->get();
         }
+
+        $invoice_cities = "";
+        if (!empty($workOrder->wo_invoice_state)) {
+            $invoice_cities = City::select('id', 'city_name')->orderBy('city_name')->where('state_code', $workOrder->wo_invoice_state)->get();
+        }
         // dd($workOrder->wo_city);
         $projects = project::select('id', 'project_name')->orderBy('id', 'desc')->get();
-        return view("hr.workOrder.edit-work-order", compact('workOrder', 'organization', 'states', 'projects', 'cities'));
+        return view("hr.workOrder.edit-work-order", compact('workOrder', 'organization', 'states', 'projects', 'cities', 'invoice_cities'));
     }
     public function update(Request $request, string $id)
     {

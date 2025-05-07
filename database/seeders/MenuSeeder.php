@@ -267,7 +267,7 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-140', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Sales Manager Dashboard', 'page' => 'sales.manager_dashboard', 'status' => '1', 'parent_id' => '31'],
 
             // Users Pages.
-            ['mid' => 'M-141', 'section' => 'User & Role', 'section_icon' => '', 'name' => 'Department Users Listing', 'page' => 'users', 'status' => '1', 'parent_id' => '20'],
+            ['mid' => 'M-141', 'section' => 'User & Role', 'section_icon' => '', 'name' => 'Users Listing', 'page' => 'users', 'status' => '1', 'parent_id' => '20'],
 
             // Home Routes.
             ['mid' => 'M-142', 'section' => 'Home', 'section_icon' => '', 'name' => 'Logout', 'page' => 'department_logout', 'status' => '1', 'parent_id' => '1'],
