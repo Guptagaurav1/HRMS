@@ -17,13 +17,35 @@
                         </ul>
                     </div>
                 </div>
-                <!-- <div class="col-md-12 text-center py-3">
-                <form class="month">
-                    <label>Select Month :</label><br>
-                    <input name="month" class="date-picker" placeholder="mm-year" value="" required />
-                    <button type="submit" class="btn btn-primary">Check</button>
-                </form>
-                </div> -->
+
+
+                <div class="row  mt-4 px-4">
+                        <div class="col-md-10">
+                            <form method="get">
+                                <div class="row">
+                                    <div class="col-auto col-xs-12">
+                                        <input type="text" name="search" value="" class="form-control"
+                                            placeholder="Search" required>
+
+                                    </div>
+                                    <div class="col-auto col-xs-12">
+                                        <button type="submit" class="btn  btn-primary  mb-3">Search <i
+                                                class="fa-solid fa-magnifying-glass"></i></button>
+
+                                    </div>
+                                    <div class="col-auto col-xs-12">
+                                        <a href="{{ route('bank-details')}}" class="col-xs-12"><button
+                                                type="button" class="btn btn-primary  mb-3">Clear <i
+                                                    class="fa-solid fa-eraser"></i></button></a>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+               
+             
 
                 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
                     <symbol id="check-circle-fill" viewBox="0 0 16 16">
@@ -51,7 +73,8 @@
                     </div>
                 @endif
                 <div class="table-responsive py-3">
-                    <table class="table table-bordered table-hover digi-dataTable table-striped" id="allEmployeeTable">
+                <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
+                id="allEmployeeTable">
                         <thead>
                             <tr>
                                 <th class="text-center">S No.</th>
@@ -78,15 +101,15 @@
                                        $balance_leave =  ($record->casual_leave + $record->privilege_leave + $record->carry_forward_cl + $record->carry_forward_pl) - $record->leave_taken;
                                     @endphp
                                     <tr class="group">
-                                        <td class="text-center"> {{ $key + 1 }}</td>
-                                        <td class="text-center"> {{ $record->emp_code }}</td>
-                                        <td class="text-center">{{$record->month->month}}</td>
-                                        <td class="text-center">{{ $record->casual_leave }}</td>
-                                        <td class="attributes-column"> {{ $record->privilege_leave }}</td>
-                                        <td class="text-center">{{ $record->carry_forward_cl }}</td>
-                                        <td class="text-center">{{ $record->carry_forward_pl }}</td>
-                                        <td class="text-center">{{ $record->leave_taken }}</td>
-                                        <td class="text-center">
+                                        <td class="text-center attributes-column"> {{ $key + 1 }}</td>
+                                        <td class="text-center attributes-column"> {{ $record->emp_code }}</td>
+                                        <td class="text-center attributes-column">{{$record->month->month}}</td>
+                                        <td class="text-center attributes-column">{{ $record->casual_leave }}</td>
+                                        <td class=" text-center attributes-column"> {{ $record->privilege_leave }}</td>
+                                        <td class="text-center attributes-column">{{ $record->carry_forward_cl }}</td>
+                                        <td class="text-center attributes-column">{{ $record->carry_forward_pl }}</td>
+                                        <td class="text-center attributes-column">{{ $record->leave_taken }}</td>
+                                        <td class="text-center attributes-column">
                                             {{ $record->casual_leave + $record->privilege_leave + $record->carry_forward_cl + $record->carry_forward_pl - $record->leave_taken }}
                                         </td>
                                     </tr>

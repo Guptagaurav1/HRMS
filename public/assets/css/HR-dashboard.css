@@ -1,6 +1,5 @@
 
 /* HR Dashboard CSS */
-
 .card {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -91,7 +90,7 @@
 }
 
 
-@media(max-width:426px){
+@media(max-width:775px){
 
     .profile-card {
         text-align: center;
@@ -104,12 +103,13 @@
         background: #fff;
         border-radius: 15px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 75%;
+        width: 100%;
     }
 
     .hr-dashboard-heading{
         font-size: 15px !important;
         font-weight: bold !important;
+        
     
       }
     
@@ -127,18 +127,23 @@
 
 .profile-info {
     text-align: left;
+ 
+
+   
 }
 
 .profile-info h4 {
     margin: 0;
     font-size: 1.8rem;
     color: #333;
+   
 }
 
 .profile-info p {
     margin: 5px 0;
     color: #555;
     font-size: 0.95rem;
+   
 }
 
 .list-group-item {

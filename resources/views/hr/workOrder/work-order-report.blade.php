@@ -1,7 +1,78 @@
 @extends('layouts.guest.master', ['title' => 'WorkOrder Report '])
 @section('style')
-<link rel="stylesheet" href="{{ asset('assets/css/work-order-report.css')}}" />
+<!-- <link rel="stylesheet" href="{{ asset('assets/css/work-order-report.css')}}" /> -->
+<style>
 
+@media print {
+    .invoice-container {
+        box-shadow: none !important;
+        padding: 0;
+        margin: 0;
+        width: 100% !important;
+    }
+
+    .hide-text,
+    .btn,
+    form,
+    .navbar,
+    .header,
+    .footer {
+        display: none !important;
+    }
+
+    .table,
+    .table th,
+    .table td {
+        border: 1px solid #000 !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        word-wrap: break-all !important; 
+        white-space: normal !important;   
+    }
+
+    .print-full-width {
+        width: 100% !important;
+        display: table !important;
+    }
+
+    .table th,
+    .table td {
+        display: table-cell !important;
+        vertical-align: middle !important;
+        font-size: 12px !important;
+        padding: 9px !important;
+                                                                                                                
+
+    }
+
+   
+    .attributes-column {
+        word-break: break-all !important;
+        white-space: normal !important;
+        font-size: 11px !important; 
+        
+    }
+
+    #text-wrapping{
+        
+        word-break: break-all !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+       
+      
+        width: 70px !important;
+    
+    }
+    .amount-wrapping{
+        word-break: break-all !important;
+        white-space: normal !important;
+       
+      
+        width: 20px !important;
+
+    }
+}
+</style>
 @endsection
 
 @section('content')
@@ -13,7 +84,7 @@
             <img src="{{ asset('assets/images/11years.png') }}" alt="logo right" style="height: 60px;">
         </div>
         <div class="text-center my-3">
-            <h3 class="text-primary fw-bold">Work Order Report</h3>
+            <h3 class="text-dark fw-bold">Work Order Report</h3>
         </div>
 
         <!-- Download ZIP Section -->
@@ -55,13 +126,13 @@
                 <tbody>
                     @foreach($wo_detail as $value)
                     <tr>
-                        <td class="text-center attributes-column" style="width: 20px;">{{$value->wo_number}}</td>
-                        <td class="text-center" style="word-break: break-all; width: 20px;">{{$value->wo_project_coordinator}}</td>
-                        <td class="text-center attributes-column">{{$value->wo_no_of_resources}}</td>
+                        <td class="text-center attributes-column" id="text-wrapping">{{$value->wo_number}}</td>
+                        <td class="text-center amount-wrapping">{{$value->wo_project_coordinator}}</td>
+                        <td class="text-center attributes-column amount-wrapping">{{$value->wo_no_of_resources}}</td>
                         <td class="text-center attributes-column">{{$value->wo_location}}</td>
                         <td class="text-center attributes-column">{{$value->wo_start_date}}</td>
                         <td class="text-center attributes-column">{{$value->wo_end_date}}</td>
-                        <td class="text-center attributes-column">INR {{ number_format($value->wo_amount, 2) }}</td>
+                        <td class="text-center attributes-column" >INR {{ number_format($value->wo_amount, 2) }}</td>
                     </tr>
                     @endforeach
                     <tr class="table-light fw-bold">
@@ -124,6 +195,7 @@
                     @csrf
                     <input type="hidden" name="check_workOrders" value="{{ implode(',', $check_workOrders ?? []) }}">
                     <button type="submit" class="btn btn-sm btn-warning">Download CSV</button>
+                    
                 </form>
             </div>
             @endif
