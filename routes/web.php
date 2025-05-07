@@ -491,14 +491,21 @@ Route::middleware('page.permission')->group(function () {
         Route::resource('tenants', TenantController::class);
     });
 
-    // Hr operations pages.
+    // HR operations pages.
     Route::middleware('auth')->prefix('hr-operations')->group(function () {
         Route::controller(HrController::class)->group(function () {
             Route::get("/", 'hr_operation_dashboard')->name("hr_operations_dashboard");
         });
     });
 
-    // Hr operations pages.
+    // HR executive pages.
+    Route::middleware('auth')->prefix('hr-executive')->group(function () {
+        Route::controller(HrController::class)->group(function () {
+            Route::get("/", 'hr_executive_dashboard')->name("hr-executive.dashboard");
+        });
+    });
+
+    // IT Head pages.
     Route::middleware('auth')->prefix('it-head')->group(function () {
         Route::controller(ItHeadController::class)->group(function () {
             Route::get("/", 'dashboard')->name("it-head.dashboard");
@@ -734,75 +741,12 @@ Route::get("view-crm-details", function () {
     return view("hr.view-crm-details");
 })->name("view-crm-details");
 
-// Hr Ecxecutive Dashboard Routes
-
-Route::get("hr-executive-dashboard", function () {
-    return view("hr.hr-executive-dashboard");
-})->name("hr-executive-dashboard");
 
 
-// IT Manager Dashboard 
-Route::get("it-manager-dashboard", function () {
-    return view("hr.it-manager-dashboard");
-})->name("it-manager-dashboard");
+// $namedRoutes = collect(Route::getRoutes())->filter(function ($route) {
+//     return $route->getName() !== null;
+// })->map(function ($route) {
+//     return $route->getName();
+// });
 
-
-
-
-// Employee Routes
-Route::middleware('employee')->prefix('employee')->group(function () {
-    Route::get('/', [EmployeeProfileController::class, 'dashboard'])->name('employee.dashboard');
-
-    Route::controller(EmployeeProfileController::class)->prefix('profile')->group(function () {
-        Route::get("myprofile", 'show_profile')->name("employee.myprofile");
-        Route::post("add-certificate", 'save_certificates');
-        Route::post("update-image", 'update_image');
-        Route::get('modify-profile', 'profile_update_request')->name("profile.modify-profile-request");
-        Route::post('submit-profile-request', 'submit_update_request')->name("profile.submit-profile-request");
-        Route::get("profile-update-request-list", 'request_list')->name("profile.profile-detail-request-list");
-    });
-
-    Route::controller(EmployeeLeaveController::class)->prefix('leave')->group(function () {
-        Route::get("leave-request", 'leave_request')->name("leave.leave_request");
-        Route::post("store-request", 'store_leave_request')->name("leave.store_request");
-        Route::get("leave-taken", 'leave_taken')->name("leave.leave-taken");
-        Route::get("modify-leave/{id}", 'edit_leave')->name("leave.modify_leave");
-        Route::post("update-request", 'update_leave_request')->name("leave.update_request");
-    });
-
-    Route::controller(EmployeeDetailController::class)->prefix('details')->group(function () {
-        Route::get("salary-slip", 'salary_slip')->name("details.employee-salary-slip");
-    });
-
-    // Route::get("employee-compose-email", function () {
-    //     return view("employee.employee-compose-email");
-    // })->name("employee-compose-email");
-
-    // Route::get("employee-holiday-list", function () {
-    //     return view("employee.employee-holiday-list");
-    // })->name("employee-holiday-list");
-
-    Route::get("employee-reimbursement-list", function () {
-        return view("employee.employee-reimbursement-list");
-    })->name("employee-reimbursement-list");
-
-    Route::get("employee-modify-profile-request", function () {
-        return view("employee.employee-modify-profile-request");
-    })->name("employee-modify-profile-request");
-
-
-    Route::get("employee-profile-detail-request-list", function () {
-        return view("employee.employee-profile-detail-request-list");
-    })->name("employee-profile-detail-request-list");
-
-    Route::get("create-reimbursement", function () {
-        return view("employee.create-reimbursement");
-    })->name("create-reimbursement");
-
-
-    Route::get("reiembursement-list-employee", function () {
-        return view("employee.reiembursement-list-employee");
-    })->name("reiembursement-list-employee");
-});
-
-
+// dd($namedRoutes);

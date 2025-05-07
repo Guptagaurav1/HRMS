@@ -413,6 +413,9 @@ if (!function_exists('get_dashboard')) {
                 elseif ($role == 'it') {
                     return route('it-head.dashboard');
                 }
+                elseif($role == 'hr_executive'){
+                    return route('hr-executive.dashboard');
+                }
                  else {
                     return route('hr_dashboard');
                 }

@@ -274,6 +274,12 @@ class MenuSeeder extends Seeder
 
             // IT Routes.
             ['mid' => 'M-143', 'section' => 'IT', 'section_icon' => '', 'name' => 'IT Head Dashboard', 'page' => 'it-head.dashboard', 'status' => '1', 'parent_id' => '32'],
+
+             // HR Executive.
+             ['mid' => 'M-144', 'section' => 'Home', 'section_icon' => '', 'name' => 'HR Executive Dashboard', 'page' => 'hr-executive.dashboard', 'status' => '1', 'parent_id' => '1'],
+
+             // HR Executive.
+             ['mid' => 'M-145', 'section' => 'Home', 'section_icon' => '', 'name' => 'HR Operation Dashboard', 'page' => 'hr_operations_dashboard', 'status' => '1', 'parent_id' => '1'],
         ];
 
         foreach ($data as $routeData) {
