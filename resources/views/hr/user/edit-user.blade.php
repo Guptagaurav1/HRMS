@@ -57,7 +57,7 @@
                                         @foreach($roles as $role)
                                         <option value="{{ $role->id }}" 
                                             @if ($role->id == old('role', $user->role_id)) selected @endif>
-                                            {{ $role->role_name }}
+                                            {{ $role->fullname }}
                                         </option>
                                         @endforeach
                                     </select>

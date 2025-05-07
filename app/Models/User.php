@@ -87,6 +87,7 @@ class User extends Authenticatable
             return false; 
         }
         $menu = Menu::where('page', $routeName)->first();
+       
         if (!$menu) {
             return false; 
         }

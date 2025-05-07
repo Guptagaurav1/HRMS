@@ -6,12 +6,12 @@
                     <div class="logo-big">
                     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                        <a href="index.html">
+                        <a href="{{get_dashboard()}}">
                             <img src="{{asset('assets/images/PrakharNEWLogo.png')}}" alt="Logo" width="105px" class="mt-1">
                         </a>
                     </div>
                     <div class="logo-small">
-                        <a href="index.html">
+                        <a href="{{get_dashboard()}}">
                             <img src="{{asset('assets/images/PrakharNEWLogo.png')}}" alt="Logo" width="105px" class="mt-1">
                         </a>
                     </div>
@@ -25,7 +25,7 @@
             </div>
             <div class="col-4 d-lg-none">
                 <div class="mobile-logo">
-                    <a href="index.html">
+                    <a href="{{get_dashboard()}}">
                         <img src="{{asset('assets/images/PrakharNEWLogo.png')}}" alt="Logo" width="70px">
                     </a>
                 </div>
@@ -242,7 +242,7 @@
                             <li>
                                 <div class="dropdown-txt text-center">
                                     @if(auth()->check())
-                                    <p class="mb-0">{{auth()->user()->first_name. " ".auth()->user()->last_name }}</p>
+                                    <p class="mb-0">{{auth()->user()->first_name. " ".auth()->user()->last_name }} <br> ({{get_role_fullname(auth()->user()->role_id)}})</p>
                                     <span class="d-block text-capitalize">{{auth()->user()->user_type }}</span>
                                     @elseif(auth('employee')->check())
                                     <p class="mb-0">{{auth('employee')->user()->emp_name}}</p>

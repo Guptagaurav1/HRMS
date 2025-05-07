@@ -15,7 +15,7 @@ class MenuSeeder extends Seeder
     {
         $data = [
             // Course
-            ['mid' => 'M-1', 'section' => 'Home', 'section_icon' => '', 'name' => 'Dashboard', 'page' => 'hr_dashboard', 'status' => '1', 'parent_id' => '1'],
+            ['mid' => 'M-1', 'section' => 'Home', 'section_icon' => '', 'name' => 'HR Dashboard', 'page' => 'hr_dashboard', 'status' => '1', 'parent_id' => '1'],
             ['mid' => 'M-2', 'section' => 'Master - Skill', 'section_icon' => '', 'name' => 'Skill Listing', 'page' => 'skills.index', 'status' => '1', 'parent_id' => '2'],
             ['mid' => 'M-3', 'section' => 'Master - Skill', 'section_icon' => '', 'name' => 'Skill Create', 'page' => 'skills.create', 'status' => '1', 'parent_id' => '2'],
             ['mid' => 'M-4', 'section' => 'Master - Skill', 'section_icon' => '', 'name' => 'Skill Edit', 'page' => 'skills.edit', 'status' => '1', 'parent_id' => '2'],
@@ -251,7 +251,7 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-127', 'section' => 'Upcoming Events', 'section_icon' => '', 'name' => 'Anniversary Wish List', 'page' => 'events.marriage-anniversary-list', 'status' => '1', 'parent_id' => '30'],
             ['mid' => 'M-128', 'section' => 'Upcoming Events', 'section_icon' => '', 'name' => 'Birthday Wish List', 'page' => 'events.birthday-list', 'status' => '1', 'parent_id' => '30'],
             ['mid' => 'M-129', 'section' => 'Upcoming Events', 'section_icon' => '', 'name' => 'Work Anniversary Wish List', 'page' => 'events.work-anniversary-list', 'status' => '1', 'parent_id' => '30'],
-            
+
             ['mid' => 'M-130', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Export Salary Sheet', 'page' => 'salary-sheet', 'status' => '1', 'parent_id' => '12'],
             ['mid' => 'M-131', 'section' => 'Profile', 'section_icon' => '', 'name' => 'Change Password', 'page' => 'user.change-password', 'status' => '1', 'parent_id' => '25'],
 
@@ -264,7 +264,16 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-137', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Edit Project', 'page' => 'sales-projects.edit', 'status' => '1', 'parent_id' => '31'],
             ['mid' => 'M-138', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Project List', 'page' => 'sales-projects.list', 'status' => '1', 'parent_id' => '31'],
             ['mid' => 'M-139', 'section' => 'Sales', 'section_icon' => '', 'name' => 'View Project', 'page' => 'sales-projects.view', 'status' => '1', 'parent_id' => '31'],
-            
+            ['mid' => 'M-140', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Sales Manager Dashboard', 'page' => 'sales.manager_dashboard', 'status' => '1', 'parent_id' => '31'],
+
+            // Users Pages.
+            ['mid' => 'M-141', 'section' => 'User & Role', 'section_icon' => '', 'name' => 'Department Users Listing', 'page' => 'users', 'status' => '1', 'parent_id' => '20'],
+
+            // Home Routes.
+            ['mid' => 'M-142', 'section' => 'Home', 'section_icon' => '', 'name' => 'Logout', 'page' => 'department_logout', 'status' => '1', 'parent_id' => '1'],
+
+            // IT Routes.
+            ['mid' => 'M-143', 'section' => 'IT', 'section_icon' => '', 'name' => 'IT Head Dashboard', 'page' => 'it-head.dashboard', 'status' => '1', 'parent_id' => '32'],
         ];
 
         foreach ($data as $routeData) {

@@ -1827,11 +1827,11 @@ class CommonDataImportController extends Controller
                 $personaldetails->emp_gender = $row['emp_gender'];
                 $personaldetails->emp_category = $row['emp_category'] ? $row['emp_category'] : 'general';
                 $personaldetails->emp_dob = date('Y-m-d', strtotime($row['emp_dob']));
+                $personaldetails->emp_dom = date('Y-m-d', strtotime($row['emp_dom']));
                 $personaldetails->emp_blood_group = $row['emp_blood_group'];
                 $personaldetails->emp_father_mobile = $row['emp_emergency_contact'];
                 $personaldetails->emp_father_name = $row['emp_father_name'];
                 $personaldetails->emp_marital_status = $row['emp_martial_status'];
-                $personaldetails->emp_dom = $row['emp_dom'];
                 $personaldetails->emp_husband_wife_name = $row['emp_husband_wife_name'];
                 $personaldetails->created_by = $row['added_by'] ? $row['added_by'] : null;
                 $personaldetails->created_at = $row['adding_date'];
