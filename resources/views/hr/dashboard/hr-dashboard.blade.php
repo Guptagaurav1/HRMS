@@ -21,13 +21,14 @@
 <div class="fluid-container">
     <div class="row">
         <div class="col-md-12">
+            
             <div class="panel chart-panel-1">
                 <div class="d-flex justify-content-center flex-wrap gap-5 px-5">
                     <div class="card profile-card border">
                         <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
                             alt="Profile" />
                         <div class="profile-info">
-                            <h4 class="text-center">{{ auth()->user()->first_name." ".auth()->user()->last_name}}</h4>
+                            <h4 class="text-center" >{{ auth()->user()->first_name." ".auth()->user()->last_name}}</h4>
                             <p><i class="fas fa-user"></i> {{ ucwords(str_replace("_", '
                                 ',auth()->user()->role->role_name)) }}</p>
                             <p><i class="fas fa-envelope"></i> {{ auth()->user()->email }}</p>
@@ -47,7 +48,7 @@
 
                 <!-- Birthday -->
 
-                <div class="col-md-4 d-flex border">
+                <div class="col-md-4 d-flex">
                     <div class="panel h-100 w-100">
                         <div class="panel-header">
                             <h5 class="text-white fw-bold text-center">Today Birthday</h5>
@@ -128,7 +129,7 @@
                                     <div class="part-txt" style="line-height: 1.2;">
 
                                         <div class="applicant-role">
-                                            <small class="text-muted">No Marriage Anniversary Right Now</small>
+                                            <small class="text-muted text-dark fw-bold">No Marriage Anniversary Right Now</small>
                                         </div>
                                     </div>
                                 </li>

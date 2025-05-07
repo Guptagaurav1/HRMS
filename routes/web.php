@@ -660,6 +660,18 @@ Route::get("sales-manager-dashboard", function () {
 
 
 
+// Hr Ecxecutive Dashboard Routes
+
+Route::get("hr-executive-dashboard", function () {
+    return view("hr.hr-executive-dashboard");
+})->name("hr-executive-dashboard");
+
+
+// IT Manager Dashboard 
+Route::get("it-manager-dashboard", function () {
+    return view("hr.it-manager-dashboard");
+})->name("it-manager-dashboard");
+
 // Employee Routes
 Route::middleware('employee')->prefix('employee')->group(function () {
     Route::get('/', [EmployeeProfileController::class, 'dashboard'])->name('employee.dashboard');

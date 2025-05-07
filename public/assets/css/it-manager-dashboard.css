@@ -115,10 +115,43 @@
     font-size: 0.95rem;
     margin-bottom: 6px;
     color: #dcdde1;
+    
 }
 
-.executive-job-icon {
-    font-size: 1.5rem;
+
+.custom-card {
+    background: linear-gradient(135deg, #f8f8f8, #ffffff);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    width: 100%;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.card-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.card-info i {
+    color: #1976d2;
     margin-right: 10px;
-    color: #a4b0be;
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
 }
