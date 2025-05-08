@@ -55,7 +55,6 @@
                                     <th class='text-center'>Assigned</th>
                                     <th class='text-center'>Status</th>
                                     <th class='text-center'>Created At</th>
-                                    
                                     <th class='text-center'>Action</th>
                                     
                                 </tr>

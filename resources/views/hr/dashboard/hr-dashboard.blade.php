@@ -124,7 +124,7 @@
                                 </li>
 
                                 @empty
-                                <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">>
+                                <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
 
                                     <div class="part-txt" style="line-height: 1.2;">
 
