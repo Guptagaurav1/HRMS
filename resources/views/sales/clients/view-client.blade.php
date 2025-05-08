@@ -6,6 +6,16 @@
             <div class="panel">
                 <div class="panel-header">
                     <h2 class="mt-2">Company Details</h2>
+                    <div>
+                        <ul class="breadcrumb">
+                        
+                            <li>
+                                <a href="{{get_dashboard()}}">Dashboard</a>
+                            </li>
+                            <li><a href="{{route('sales-clients.list')}}">Client List</a></li>
+                            <li>Client Details</li>
+                        </ul>
+                    </div>
 
                 </div>
                 <div class="panel-body p-3">

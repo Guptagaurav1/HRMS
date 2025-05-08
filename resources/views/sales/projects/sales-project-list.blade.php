@@ -5,7 +5,15 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="text-white mt-2">Project List</h3>
-
+                    <div>
+                        <ul class="breadcrumb">
+                        
+                            <li>
+                                <a href="{{get_dashboard()}}">Dashboard</a>
+                            </li>
+                            <li>Project List</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="panel-body">

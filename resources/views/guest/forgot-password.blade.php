@@ -23,7 +23,7 @@
         <div class="login-body">
             <div class="top d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <img src="{{ 'assets/images/PrakharNEWLogo.png' }}" alt="Logo" width="30%">
+                    <img src="{{ asset('assets/images/PrakharNEWLogo.png') }}" alt="Logo" width="30%">
                 </div>
                 <a href="{{route('login')}}"><i class="fa-duotone fa-house-chimney"></i></a>
             </div>

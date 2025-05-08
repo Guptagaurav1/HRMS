@@ -342,7 +342,7 @@ Route::middleware('page.permission')->group(function () {
             Route::get('report-log', 'report_log')->name("report-log");
             Route::get('complete-salary-sheet', 'salary_sheet')->name("salary-sheet");
             Route::post('send-report-mail', 'send_report_mail')->name("send-report-mail");
-            Route::get('get-exist-wo/{wo_number}', 'get_exist_wo')->name("get-exist-wo");
+            Route::post('get-exist-wo', 'get_exist_wo')->name("get-exist-wo");
             Route::post('work-order/check-salary', 'check_salary');
             Route::post('download-salary-sheet', 'download_salary_sheet')->name('download-salary-sheet');
         });
@@ -520,7 +520,7 @@ Route::middleware('page.permission')->group(function () {
         Route::controller(SalesClientController::class)->prefix('clients')->group(function () {
             Route::get("add", 'add')->name("sales-clients.add");
             Route::post("store", 'store')->name("sales-clients.store");
-            Route::get("/", 'index')->name("sales-clients.list");
+        Route::get("/", 'index')->name("sales-clients.list");
             Route::get("edit/{id}", 'edit')->name("sales-clients.edit");
             Route::post("get-clients", "get_clients");
             Route::post("update-client", "update")->name("sales-clients.update");

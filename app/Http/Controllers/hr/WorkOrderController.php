@@ -134,8 +134,6 @@ class WorkOrderController extends Controller
         return view("hr.workOrder.work-order-list", compact('totalWorkOrders', 'searchValue', 'woStart', 'woEnd', 'organization_data', 'organisation', 'project_name', 'projects'));
     }
 
-
-
     public function create(Request $request)
     {
         $project_id = $request->project_id ?? NULL;

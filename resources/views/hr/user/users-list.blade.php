@@ -7,16 +7,7 @@
                     <h3 class="text-white mt-2">Users List</h3>
                     <div>
                         <ul class="breadcrumb">
-                            <li> 
-                                @if (auth()->user()->role->role_name == "hr")
-                                    <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                                @elseif(auth()->user()->role->role_name == "hr_operations")
-                                    <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                                @elseif(auth()->user()->role->role_name == "sales_manager")
-                                    <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                                @else
-                                @endif
-                            </li>
+                            <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                             <li>Users List</li>
                         </ul>
                     </div>
@@ -92,7 +83,7 @@
                             @forelse ($users as $key => $user)
                                 <tr>
                                     <td class="srno-column text-center">{{$key+1}}</td>
-                                    <td class="rid-column text-center">{{$user->role->role_name??NULL}}</td>
+                                    <td class="rid-column text-center">{{$user->role->fullname??NULL}}</td>
                                     <td class="text-center attributes-column">{{$user->first_name}} {{$user->last_name}} / {{$user->email}} / {{$user->phone}}</td>
                                     <td class="attributes-column text-center">{{$user->created_at}}</td>
                                     <td class="text-center">{{$user->updated_at}}</td>

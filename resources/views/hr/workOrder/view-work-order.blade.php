@@ -9,9 +9,9 @@
             <h3>View Work Order</h3>
             <div>
                 <ul class="breadcrumb">
-                    <li> @if (auth()->user()->role->role_name == "hr")
-                        <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                        @endif
+                
+                    <li>
+                        <a href="{{get_dashboard()}}">Dashboard</a>
                     </li>
                     <li><a href="{{route('work-order-list')}}">Work Order List</a></li>
                     <li>View Work Order</li>
