@@ -23,7 +23,10 @@ $('#state').on('change', function() {
     if (id) {
         $.ajax({
             url: SITE_URL + '/hr/organizations/get-city/' + id,
-            type: "Get",
+            type: "post",
+            data:{
+                '_token' : $("meta[name=csrf-token]").attr('content')
+            },
             success: function(res) {
                 console.log(res.data);
 

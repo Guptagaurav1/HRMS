@@ -157,7 +157,7 @@ Route::middleware('page.permission')->group(function () {
             Route::post("/anniversary-wishes-mail", 'sendMarriageAnniversaryMail')->name("sendMarriageAnniversaryMail");
             Route::post("/work-anniversary-wishes-mail", 'sendWorkAnniversaryMail')->name("sendWorkAnniversaryMail");
 
-            Route::get("/leave-details/{id}", 'leaveDetails')->name("leaveDetails");
+            Route::post("/leave-details/{id}", 'leaveDetails')->name("leaveDetails");
             Route::get("/leave-details-status/{id}", 'leaveDetailsStatus')->name("leaveDetailsStatus");
         });
 
@@ -193,7 +193,7 @@ Route::middleware('page.permission')->group(function () {
             Route::post("/update/{organization}", 'update')->name("organizations.update");
             Route::get("/delete/{organization}", 'destroy')->name("organizations.destroy");
 
-            Route::get("/get-city/{id}", 'GetCity')->name("organizations.GetCity");
+            Route::post("/get-city/{id}", 'GetCity')->name("organizations.GetCity");
         });
 
         Route::controller(DesignationController::class)->prefix('designations')->group(function () {

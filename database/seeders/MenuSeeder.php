@@ -280,6 +280,16 @@ class MenuSeeder extends Seeder
 
              // HR Executive.
              ['mid' => 'M-145', 'section' => 'Home', 'section_icon' => '', 'name' => 'HR Operation Dashboard', 'page' => 'hr_operations_dashboard', 'status' => '1', 'parent_id' => '1'],
+
+             // Employee edit.
+             ['mid' => 'M-146', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Edit Employee', 'page' => 'employee.edit-employee',  'status' => '1', 'parent_id' => '23'],
+             ['mid' => 'M-147', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Employee View Letters', 'page' => 'employee.view-letter', 'status' => '1', 'parent_id' => '23'],
+             ['mid' => 'M-148', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Employee View Letters', 'page' => 'employee.view-letter', 'status' => '1', 'parent_id' => '23'],
+
+            //  Company
+             ['mid' => 'M-149', 'section' => 'Master - Company', 'section_icon' => '', 'name' => 'Company View', 'page' => 'company.view', 'status' => '1', 'parent_id' => '28'],
+
+
         ];
 
         foreach ($data as $routeData) {
