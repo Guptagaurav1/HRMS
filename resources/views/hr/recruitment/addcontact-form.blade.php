@@ -5,16 +5,7 @@
     <h2>Contact Candidate By Call Form</h2>
     <div>
                             <ul class="breadcrumb">
-                                <li>
-                                    @if (auth()->user()->role->role_name == "hr")
-                                        <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                                    @elseif(auth()->user()->role->role_name == "hr_operations")
-                                        <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                                    @elseif(auth()->user()->role->role_name == "sales_manager")
-                                        <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                                    @else
-                                    @endif
-                                </li>
+                                <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                                 <li>Contact Candidate By Call Form</li>
                             </ul>
                         </div>
@@ -80,8 +71,8 @@
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Experience</label>
-                        <input type="text" class="form-control form-control-sm" name="experience" value="{{old('experience')}}" min="0" placeholder="Enter Experience" required>
+                        <label class="form-label">Experience <span class="text-danger">**</span></label>
+                        <input type="number" class="form-control form-control-sm" name="experience" value="{{old('experience')}}" min="0" required>
                         @error('experience')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -93,8 +84,8 @@
                     <div class="col-xxl-3 col-lg-4 col-sm-6 d-flex flex-wrap">
                         <label class="form-label w-100">CTC </label>
                         <div class="d-flex w-100">
-                            <input type="number" class="form-control form-control-sm me-2" name="curr_ctc" placeholder="Current CTC" min="0" value="{{old('curr_ctc')}}" required>
-                            <input type="number" class="form-control form-control-sm" name="exp_ctc" value="{{old('exp_ctc')}}" min="0" placeholder="Expected CTC" required>
+                            <input type="number" class="form-control form-control-sm me-2" name="curr_ctc" placeholder="Current CTC" min="0" value="{{old('curr_ctc')}}">
+                            <input type="number" class="form-control form-control-sm" name="exp_ctc" value="{{old('exp_ctc')}}" min="0" placeholder="Expected CTC">
                         </div>
                         <div class="d-flex w-100">
                             @error('curr_ctc')
@@ -126,7 +117,7 @@
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label class="form-label">Location</label>
+                        <label class="form-label">Location <span class="text-danger">**</span></label>
                         <input type="text" class="form-control form-control-sm" name="location" value="{{old('location')}}" placeholder="Enter the Location" required>
                         @error('location')
                             <span class="text-danger">{{$message}}</span>

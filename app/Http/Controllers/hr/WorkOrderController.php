@@ -338,7 +338,7 @@ class WorkOrderController extends Controller
             return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'WorkOrder updated successfully.']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error.']);
+            return redirect()->route('work-order-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
     }
     public function show(String $id)
@@ -380,21 +380,20 @@ class WorkOrderController extends Controller
             ], 200);
         }
     }
-    
+
     public function work_order_report(Request $request)
     {
-        try{
-            if(empty($request->checkbox)){
+        try {
+            if (empty($request->checkbox)) {
                 return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Please check at least one checkbox!']);
             }
-        
+
             $validatedData = $this->processWorkOrders($request);
             $unq_no = now()->format('Ymdhisa');
             $file_name = "WorkOrderReport_{$unq_no}.pdf";
-            
-            return view("hr.workOrder.work-order-report", $validatedData,compact('file_name'));
-        }
-        catch (Throwable $e){
+
+            return view("hr.workOrder.work-order-report", $validatedData, compact('file_name'));
+        } catch (Throwable $e) {
             return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Server Error']);
         }
     }
@@ -437,37 +436,37 @@ class WorkOrderController extends Controller
 
         // $zipFilePath = count($wo_doc) > 0 ? downloadWorkOrderDocumentsAsZip($wo_doc) : null;
         $zipFilePath = null;
-            if (count($wo_doc) > 0) {
-                // Call the helper function to create a zip of the work order documents
-                $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
-            }
+        if (count($wo_doc) > 0) {
+            // Call the helper function to create a zip of the work order documents
+            $zipFilePath = downloadWorkOrderDocumentsAsZip($wo_doc);
+        }
         $show_report = "showReport";
-        return compact('wo_details', 'overallSum', 'zipFilePath', 'check_workOrders','show_report');
+        return compact('wo_details', 'overallSum', 'zipFilePath', 'check_workOrders', 'show_report');
     }
 
 
-    public function save_wo_report(Request $request){
-        
+    public function save_wo_report(Request $request)
+    {
+
         try {
             $workOrder = $this->processWorkOrders($request);
-            $wo_details =$workOrder['wo_details'];
-            $overallSum =$workOrder['overallSum'];
+            $wo_details = $workOrder['wo_details'];
+            $overallSum = $workOrder['overallSum'];
             $message_new = view('hr/workOrder/work-order-report', [
                 'wo_details' => $wo_details,
                 'overallSum' => $overallSum,
-            ])->render(); 
+            ])->render();
             // dd($message_new);
             $unq_no = now()->format('Ymdhisa');
-            if($request->report_name){
-               
-                $file_name = $request->report_name . "_" . $unq_no . ".pdf";
+            if ($request->report_name) {
 
-            }else{
+                $file_name = $request->report_name . "_" . $unq_no . ".pdf";
+            } else {
                 $file_name = "WorkOrderReport_{$unq_no}.pdf";
             }
             $pdf = App::make('dompdf.wrapper');
             $pdf->loadHTML($message_new);
-        
+
             $pdf->save(public_path("work-order/wo-report/{$file_name}"));
             ReportLog::create([
                 'doc' => $file_name
@@ -476,56 +475,55 @@ class WorkOrderController extends Controller
         } catch (Throwable $th) {
             return redirect()->route('work-order-list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
-        
     }
-    
-//     public function save_wo_report(Request $request)
-// {
-//     try {
-//         // Process the work orders
-//         $workOrder = $this->processWorkOrders($request);
-//         $wo_details = $workOrder['wo_details'];
-//         $overallSum = $workOrder['overallSum'];
 
-//         // Render the report view
-//         $message_new = view('hr.workOrder.work-order-report', [
-//             'wo_details' => $wo_details,
-//             'overallSum' => $overallSum,
-//         ])->render();
+    //     public function save_wo_report(Request $request)
+    // {
+    //     try {
+    //         // Process the work orders
+    //         $workOrder = $this->processWorkOrders($request);
+    //         $wo_details = $workOrder['wo_details'];
+    //         $overallSum = $workOrder['overallSum'];
 
-//         // Generate unique report filename
-//         $unq_no = now()->format('Ymdhisa');
-//         $file_name = $request->report_name 
-//             ? $request->report_name . "_" . $unq_no . ".pdf"
-//             : "WorkOrderReport_{$unq_no}.pdf";
+    //         // Render the report view
+    //         $message_new = view('hr.workOrder.work-order-report', [
+    //             'wo_details' => $wo_details,
+    //             'overallSum' => $overallSum,
+    //         ])->render();
 
-//         // Generate PDF from the HTML content
-//         $pdf = App::make('dompdf.wrapper');
-//         $pdf->loadHTML($message_new);
+    //         // Generate unique report filename
+    //         $unq_no = now()->format('Ymdhisa');
+    //         $file_name = $request->report_name 
+    //             ? $request->report_name . "_" . $unq_no . ".pdf"
+    //             : "WorkOrderReport_{$unq_no}.pdf";
 
-//         // Save PDF to a specific location
-//         $pdf->save(public_path("work-order/wo-report/{$file_name}"));
+    //         // Generate PDF from the HTML content
+    //         $pdf = App::make('dompdf.wrapper');
+    //         $pdf->loadHTML($message_new);
 
-//         // Log the report in the database
-//         ReportLog::create([
-//             'doc' => $file_name
-//         ]);
+    //         // Save PDF to a specific location
+    //         $pdf->save(public_path("work-order/wo-report/{$file_name}"));
 
-//         // Return success message
-//         return redirect()->route('report-log')->with([
-//             'success' => true, 
-//             'message' => 'Report saved successfully.',
-//             'pdf_file' => asset("work-order/wo-report/{$file_name}")
-//         ]);
-        
-//     } catch (Throwable $th) {
-//         // Handle any errors
-//         return redirect()->route('work-order-list')->with([
-//             'error' => true, 
-//             'message' => 'Server Error.'
-//         ]);
-//     }
-// }
+    //         // Log the report in the database
+    //         ReportLog::create([
+    //             'doc' => $file_name
+    //         ]);
+
+    //         // Return success message
+    //         return redirect()->route('report-log')->with([
+    //             'success' => true, 
+    //             'message' => 'Report saved successfully.',
+    //             'pdf_file' => asset("work-order/wo-report/{$file_name}")
+    //         ]);
+
+    //     } catch (Throwable $th) {
+    //         // Handle any errors
+    //         return redirect()->route('work-order-list')->with([
+    //             'error' => true, 
+    //             'message' => 'Server Error.'
+    //         ]);
+    //     }
+    // }
 
 
     /**
@@ -665,15 +663,16 @@ class WorkOrderController extends Controller
         }, 200, $headers);
     }
 
-    public function report_log(Request $request){
+    public function report_log(Request $request)
+    {
         // $report= ReportLog::with('user')->orderBy('id', 'desc')->paginate(25);
         $search = '';
         $report = DB::table('report_logs')
-        ->leftJoin('users', 'report_logs.created_by', '=', 'users.id')
-        ->select('report_logs.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
+            ->leftJoin('users', 'report_logs.created_by', '=', 'users.id')
+            ->select('report_logs.*', 'users.first_name as first_name', 'users.email as user_email') // select required fields
         ;
 
-        if($request->search){
+        if ($request->search) {
             $search = $request->search;
             $report = $report->where('users.first_name', 'LIKE', "%$request->search%");
         }
@@ -733,16 +732,14 @@ class WorkOrderController extends Controller
             ]);
             Mail::to($to)->cc($cc)->send(new ReportMail($maildata));
             DB::commit();
-       
-        // return response()->json(['success' => true, 'message' => 'Mail Sent Successfully']);
-        return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'Report Mail Sent Successfully.']);
-        // return redirect()->route('work-order-list')->with('success', 'Report Mail Sent Successfully');
-        }
-        catch(Throwable $th){
+
+            // return response()->json(['success' => true, 'message' => 'Mail Sent Successfully']);
+            return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'Report Mail Sent Successfully.']);
+            // return redirect()->route('work-order-list')->with('success', 'Report Mail Sent Successfully');
+        } catch (Throwable $th) {
             DB::rollBack();
             // return response()->json(['error' => true, 'message' => 'Server Error']);
             return redirect()->route('work-order-list')->with(['success' => true, 'message' => 'Server Error.']);
-
         }
     }
 
@@ -765,7 +762,7 @@ class WorkOrderController extends Controller
         ], 200);
     }
 
-    
+
     /**
      * Check whether salary is generated or not.
      * @param $month string
@@ -786,174 +783,172 @@ class WorkOrderController extends Controller
     public function download_salary_sheet(Request $request)
     {
         try {
-        $month =  $request->{'month-salary'};
-        $month_date = date('M-Y', strtotime($month));
-        $salary = EmpDetail::selectRaw('wo_attendances.emp_vendor_rate, work_orders.project_id, work_orders.wo_start_date, work_orders.wo_end_date, emp_salary_slip.emp_sal_ctc as sal_ctc, emp_details.emp_doj, emp_salary_slip.work_order, emp_details.emp_name, emp_details.emp_place_of_posting, emp_details.emp_code, salary.sal_emp_designation as designation, salary.sal_net, emp_salary_slip.tds_deduction, emp_salary_slip.sal_recovery, emp_salary_slip.sal_working_days, emp_salary_slip.sal_account_no, emp_salary_slip.sal_bank_name, emp_details.emp_phone_first, emp_salary_slip.sal_emp_email, emp_salary_slip.sal_uan_no, emp_salary_slip.sal_esi_number, emp_salary_slip.sal_aadhar_no, emp_salary_slip.sal_pan_no, emp_salary_slip.sal_remarks, salary.sal_basic, salary.sal_hra, salary.sal_conveyance, salary.medical_allowance, salary.sal_special_allowance, salary.sal_gross, salary.sal_pf_employer, salary.sal_pf_employee, salary.sal_esi_employer, salary.sal_esi_employee, salary.sal_net, emp_salary_slip.sal_esi_wages, emp_salary_slip.sal_pf_wages, emp_salary_slip.sal_basic as basic, emp_salary_slip.sal_hra as hra, emp_salary_slip.sal_conveyance as cony, emp_salary_slip.sal_medical_allowance as med_all, emp_salary_slip.sal_special_allowance as spl_all, emp_salary_slip.sal_net as net, emp_salary_slip.sal_esi_employee as emp_esi, emp_salary_slip.sal_pf_employee as emp_pf, emp_salary_slip.sal_advance, emp_salary_slip.sal_medical_insurance')
-            ->join('work_orders', 'emp_details.emp_work_order', '=', 'work_orders.wo_number')
-            ->join('emp_salary_slip', 'emp_details.emp_code', '=', 'emp_salary_slip.sal_emp_code')
-            ->join('salary', 'emp_details.id', '=', 'salary.sl_emp_id')
-            ->join('wo_attendances', function ($join) {
-                $join->on('emp_salary_slip.work_order', '=', 'wo_attendances.wo_number');
-                $join->on('emp_salary_slip.sal_emp_code', '=', 'wo_attendances.emp_code');
-                $join->on('emp_salary_slip.sal_month', '=', 'wo_attendances.attendance_month');
-            })
-            ->where('emp_salary_slip.sal_month', $month)
-            ->where('emp_details.emp_current_working_status', 'active')
-            ->whereHas('getBankDetail', function ($query) {
-                $query->where('emp_sal_structure_status', 'completed');
-            });
-        
-        // Process for export all data in csv.
-        $filename = 'salary-sheet-' . $month . '.csv';
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename=\"$filename\"",
-            'Pragma' => 'no-cache',
-            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Expires' => '0',
-        ];
+            $month =  $request->{'month-salary'};
+            $month_date = date('M-Y', strtotime($month));
+            $salary = EmpDetail::selectRaw('wo_attendances.emp_vendor_rate, work_orders.project_id, work_orders.wo_start_date, work_orders.wo_end_date, emp_salary_slip.emp_sal_ctc as sal_ctc, emp_details.emp_doj, emp_salary_slip.work_order, emp_details.emp_name, emp_details.emp_place_of_posting, emp_details.emp_code, salary.sal_emp_designation as designation, salary.sal_net, emp_salary_slip.tds_deduction, emp_salary_slip.sal_recovery, emp_salary_slip.sal_working_days, emp_salary_slip.sal_account_no, emp_salary_slip.sal_bank_name, emp_details.emp_phone_first, emp_salary_slip.sal_emp_email, emp_salary_slip.sal_uan_no, emp_salary_slip.sal_esi_number, emp_salary_slip.sal_aadhar_no, emp_salary_slip.sal_pan_no, emp_salary_slip.sal_remarks, salary.sal_basic, salary.sal_hra, salary.sal_conveyance, salary.medical_allowance, salary.sal_special_allowance, salary.sal_gross, salary.sal_pf_employer, salary.sal_pf_employee, salary.sal_esi_employer, salary.sal_esi_employee, salary.sal_net, emp_salary_slip.sal_esi_wages, emp_salary_slip.sal_pf_wages, emp_salary_slip.sal_basic as basic, emp_salary_slip.sal_hra as hra, emp_salary_slip.sal_conveyance as cony, emp_salary_slip.sal_medical_allowance as med_all, emp_salary_slip.sal_special_allowance as spl_all, emp_salary_slip.sal_net as net, emp_salary_slip.sal_esi_employee as emp_esi, emp_salary_slip.sal_pf_employee as emp_pf, emp_salary_slip.sal_advance, emp_salary_slip.sal_medical_insurance')
+                ->join('work_orders', 'emp_details.emp_work_order', '=', 'work_orders.wo_number')
+                ->join('emp_salary_slip', 'emp_details.emp_code', '=', 'emp_salary_slip.sal_emp_code')
+                ->join('salary', 'emp_details.id', '=', 'salary.sl_emp_id')
+                ->join('wo_attendances', function ($join) {
+                    $join->on('emp_salary_slip.work_order', '=', 'wo_attendances.wo_number');
+                    $join->on('emp_salary_slip.sal_emp_code', '=', 'wo_attendances.emp_code');
+                    $join->on('emp_salary_slip.sal_month', '=', 'wo_attendances.attendance_month');
+                })
+                ->where('emp_salary_slip.sal_month', $month)
+                ->where('emp_details.emp_current_working_status', 'active')
+                ->whereHas('getBankDetail', function ($query) {
+                    $query->where('emp_sal_structure_status', 'completed');
+                });
 
-        return response()->stream(function () use ($salary, $month, $month_date) {
-            $handle = fopen('php://output', 'w');
+            // Process for export all data in csv.
+            $filename = 'salary-sheet-' . $month . '.csv';
+            $headers = [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => "attachment; filename=\"$filename\"",
+                'Pragma' => 'no-cache',
+                'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+                'Expires' => '0',
+            ];
 
-            // Add CSV headers
-            fputcsv($handle, [
+            return response()->stream(function () use ($salary, $month, $month_date) {
+                $handle = fopen('php://output', 'w');
 
-                'S.No.',
-                'Location',
-                'Work Order Value',
-                'CTC',
-                'Wo Start',
-                'Wo end',
-                'Work Order',
-                'Employee Name',
-                'Employee Code',
-                'DOJ',
-                'Designation',
-                'Net Pay',
-                $month_date,
-                'TAX as per Account',
-                'Recovery',
-                $month . ' Net Payable',
-                'Working Days, ' . $month_date,
-                'Account No.',
-                'Account Name',
-                'IFSC Code',
-                'Mobile no.',
-                'Email Id',
-                'UAN No',
-                'ESIC No.',
-                'Aadhar No',
-                'Pan No.',
-                'Remarks',
-                'Basic Pay',
-                'HRA',
-                'Conveyance',
-                'Medical Allow.',
-                'Spl Allow.',
-                'Gross Salary',
-                'PF (Employer)',
-                'PF (Employee)',
-                'ESI (Employer)',
-                'ESI (Employee)',
-                'Net Pay',
-                'CTC',
-                'ESI WAGES',
-                'PF WAGES',
-                'Basic Payable',
-                'HRA Payable',
-                'Con. Payable',
-                'Med. Allow. Payable',
-                'Spl Allow. Payable',
-                'TOTAL',
-                'ESI (Employee)',
-                'PF (Employee)',
-                'TAX as per Account',
-                'Recovery',
-                'Advance',
-                'Medical Insurance',
-                'Total Deduction',
-                'Net Payable'
-            ]);
-            // Fetch and process data in chunks
-            $salary->chunk(100, function ($employees) use ($handle) {
-                foreach ($employees as $employee) {
-                    
-                    // Extract data from each employee.
-                    if (get_organization_name($employee->project_id) == 'Becil' || get_organization_name($employee->project_id) == 'BECIL') {
-                        $wo_start = date('d-m-Y', strtotime($employee->emp_doj));
-                        $wo_end = date('d-m-Y', strtotime('+1 year', strtotime('-1 day', strtotime($employee->emp_doj))));
-                    } else {
-                        $wo_start = date('d-m-Y', strtotime($employee->wo_start_date));
-                        $wo_end = date('d-m-Y', strtotime($employee->wo_end_date));
+                // Add CSV headers
+                fputcsv($handle, [
+
+                    'S.No.',
+                    'Location',
+                    'Work Order Value',
+                    'CTC',
+                    'Wo Start',
+                    'Wo end',
+                    'Work Order',
+                    'Employee Name',
+                    'Employee Code',
+                    'DOJ',
+                    'Designation',
+                    'Net Pay',
+                    $month_date,
+                    'TAX as per Account',
+                    'Recovery',
+                    $month . ' Net Payable',
+                    'Working Days, ' . $month_date,
+                    'Account No.',
+                    'Account Name',
+                    'IFSC Code',
+                    'Mobile no.',
+                    'Email Id',
+                    'UAN No',
+                    'ESIC No.',
+                    'Aadhar No',
+                    'Pan No.',
+                    'Remarks',
+                    'Basic Pay',
+                    'HRA',
+                    'Conveyance',
+                    'Medical Allow.',
+                    'Spl Allow.',
+                    'Gross Salary',
+                    'PF (Employer)',
+                    'PF (Employee)',
+                    'ESI (Employer)',
+                    'ESI (Employee)',
+                    'Net Pay',
+                    'CTC',
+                    'ESI WAGES',
+                    'PF WAGES',
+                    'Basic Payable',
+                    'HRA Payable',
+                    'Con. Payable',
+                    'Med. Allow. Payable',
+                    'Spl Allow. Payable',
+                    'TOTAL',
+                    'ESI (Employee)',
+                    'PF (Employee)',
+                    'TAX as per Account',
+                    'Recovery',
+                    'Advance',
+                    'Medical Insurance',
+                    'Total Deduction',
+                    'Net Payable'
+                ]);
+                // Fetch and process data in chunks
+                $salary->chunk(100, function ($employees) use ($handle) {
+                    foreach ($employees as $employee) {
+
+                        // Extract data from each employee.
+                        if (get_organization_name($employee->project_id) == 'Becil' || get_organization_name($employee->project_id) == 'BECIL') {
+                            $wo_start = date('d-m-Y', strtotime($employee->emp_doj));
+                            $wo_end = date('d-m-Y', strtotime('+1 year', strtotime('-1 day', strtotime($employee->emp_doj))));
+                        } else {
+                            $wo_start = date('d-m-Y', strtotime($employee->wo_start_date));
+                            $wo_end = date('d-m-Y', strtotime($employee->wo_end_date));
+                        }
+
+                        $data = [
+                            1,
+                            $employee->emp_place_of_posting,
+                            (!empty($employee->emp_vendor_rate) ? $employee->emp_vendor_rate : "NA"),
+                            $employee->sal_ctc,
+                            $wo_start,
+                            $wo_end,
+                            $employee->work_order,
+                            $employee->emp_name,
+                            $employee->emp_code,
+                            date('d-m-Y', strtotime($employee->emp_doj)),
+                            $employee->designation,
+                            ($employee->sal_ctc - $employee->sal_pf_employer - $employee->sal_pf_employee - $employee->sal_esi_employer - $employee->sal_esi_employee),
+                            ((int) $employee->net + (int) $employee->tds_deduction + (!empty($employee->sal_recovery) ? (int) $employee->sal_recovery : 0) + (int) $employee->sal_medical_insurance),
+                            $employee->tds_deduction,
+                            (!empty($employee->sal_recovery) ? (int) $employee->sal_recovery : 0) + (int) $employee->sal_medical_insurance,
+                            $employee->net,
+                            $employee->sal_working_days,
+                            $employee->sal_account_no,
+                            $employee->sal_bank_name,
+                            $employee->emp_ifsc,
+                            $employee->emp_phone_first,
+                            $employee->sal_emp_email,
+                            (!empty($employee->sal_uan_no) ? $employee->sal_uan_no : "NA"),
+                            (!empty($employee->sal_esi_number) ? $employee->sal_esi_number : "NA"),
+                            $employee->sal_aadhar_no,
+                            $employee->sal_pan_no,
+                            $employee->sal_remarks,
+                            $employee->sal_basic,
+                            $employee->sal_hra,
+                            $employee->sal_conveyance,
+                            $employee->medical_allowance,
+                            $employee->sal_special_allowance,
+                            $employee->sal_gross,
+                            $employee->sal_pf_employer,
+                            $employee->sal_pf_employee,
+                            $employee->sal_esi_employer,
+                            $employee->sal_esi_employee,
+                            ((int) $employee->sal_ctc - (int) $employee->sal_pf_employer - (int) $employee->sal_pf_employee - (int) $employee->sal_esi_employer - (int) $employee->sal_esi_employee),
+                            $employee->sal_ctc,
+                            (!empty($employee->sal_esi_wages) ? $employee->sal_esi_wages : 0),
+                            (!empty($employee->sal_pf_wages) ? $employee->sal_pf_wages : 0),
+                            $employee->basic,
+                            $employee->hra,
+                            $employee->cony,
+                            $employee->med_all,
+                            $employee->spl_all,
+                            (int) $employee->basic + (int) $employee->hra + (int) $employee->cony + (int) $employee->med_all + (int) $employee->spl_all,
+                            $employee->emp_esi,
+                            $employee->emp_pf,
+                            $employee->tds_deduction,
+                            (!empty($employee->sal_recovery) ? $employee->sal_recovery : 0),
+                            (!empty($employee->sal_advance) ? $employee->sal_advance : 0),
+                            (!empty($employee->sal_medical_insurance) ? $employee->sal_medical_insurance : 0),
+                            (int) $employee->emp_esi + (int) $employee->emp_pf + (int) $employee->tds_deduction + (int) $employee->sal_recovery + (int) $employee->sal_advance + (int) $employee->sal_medical_insurance,
+                            $employee->net
+                        ];
+                        fputcsv($handle, $data);
                     }
-
-                    $data = [
-                        1,
-                        $employee->emp_place_of_posting,
-                        (!empty($employee->emp_vendor_rate) ? $employee->emp_vendor_rate : "NA"),
-                        $employee->sal_ctc,
-                        $wo_start,
-                        $wo_end,
-                        $employee->work_order,
-                        $employee->emp_name,
-                        $employee->emp_code,
-                        date('d-m-Y', strtotime($employee->emp_doj)),
-                        $employee->designation,
-                        ($employee->sal_ctc - $employee->sal_pf_employer - $employee->sal_pf_employee - $employee->sal_esi_employer - $employee->sal_esi_employee),
-                        ((int) $employee->net + (int) $employee->tds_deduction + (!empty($employee->sal_recovery) ? (int) $employee->sal_recovery : 0) + (int) $employee->sal_medical_insurance),
-                        $employee->tds_deduction,
-                        (!empty($employee->sal_recovery) ? (int) $employee->sal_recovery : 0) + (int) $employee->sal_medical_insurance,
-                        $employee->net,
-                        $employee->sal_working_days,
-                        $employee->sal_account_no,
-                        $employee->sal_bank_name,
-                        $employee->emp_ifsc,
-                        $employee->emp_phone_first,
-                        $employee->sal_emp_email,
-                        (!empty($employee->sal_uan_no) ? $employee->sal_uan_no : "NA"),
-                        (!empty($employee->sal_esi_number) ? $employee->sal_esi_number : "NA"),
-                        $employee->sal_aadhar_no,
-                        $employee->sal_pan_no,
-                        $employee->sal_remarks,
-                        $employee->sal_basic,
-                        $employee->sal_hra,
-                        $employee->sal_conveyance,
-                        $employee->medical_allowance,
-                        $employee->sal_special_allowance,
-                        $employee->sal_gross,
-                        $employee->sal_pf_employer,
-                        $employee->sal_pf_employee,
-                        $employee->sal_esi_employer,
-                        $employee->sal_esi_employee,
-                        ((int) $employee->sal_ctc - (int) $employee->sal_pf_employer - (int) $employee->sal_pf_employee - (int) $employee->sal_esi_employer - (int) $employee->sal_esi_employee),
-                        $employee->sal_ctc,
-                        (!empty($employee->sal_esi_wages) ? $employee->sal_esi_wages : 0),
-                        (!empty($employee->sal_pf_wages) ? $employee->sal_pf_wages : 0),
-                        $employee->basic,
-                        $employee->hra,
-                        $employee->cony,
-                        $employee->med_all,
-                        $employee->spl_all,
-                        (int) $employee->basic + (int) $employee->hra + (int) $employee->cony + (int) $employee->med_all + (int) $employee->spl_all,
-                        $employee->emp_esi,
-                        $employee->emp_pf,
-                        $employee->tds_deduction,
-                        (!empty($employee->sal_recovery) ? $employee->sal_recovery : 0),
-                        (!empty($employee->sal_advance) ? $employee->sal_advance : 0),
-                        (!empty($employee->sal_medical_insurance) ? $employee->sal_medical_insurance : 0),
-                        (int) $employee->emp_esi + (int) $employee->emp_pf + (int) $employee->tds_deduction + (int) $employee->sal_recovery + (int) $employee->sal_advance + (int) $employee->sal_medical_insurance,
-                        $employee->net
-                    ];
-                    fputcsv($handle, $data);
-                }
-            });
-            fclose($handle);
-        }, 200, $headers);
+                });
+                fclose($handle);
+            }, 200, $headers);
+        } catch (Throwable $th) {
+            echo $th->getMessage();
+        }
     }
-    catch(Throwable $th){
-        echo $th->getMessage();
-    }
-    }
-   
 }

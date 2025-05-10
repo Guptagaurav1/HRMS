@@ -151,7 +151,7 @@ class RecruitmentController extends Controller
         if ($role == 'hr_executive') {
             $positions = PositionRequest::whereNotNull('assigned_executive')
                 ->where('recruitment_type', 'fresh')
-                ->whereIn('assigned_executive',  [$user->id]);
+                ->whereRaw('FIND_IN_SET(?, assigned_executive)',  [$user->id]);
         } else {
             $positions = PositionRequest::whereNotNull('assigned_executive')->where('recruitment_type', 'fresh');
         }
