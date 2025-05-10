@@ -14,16 +14,7 @@
                     <h5 class="text-white">Create Billing Structure</h5>
                     <div>
                     <ul class="breadcrumb">
-                        <li> 
-                            @if (auth()->user()->role->role_name == "hr")
-                            <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "hr_operations")
-                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "sales_manager")
-                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                            @else
-                            @endif
-                        </li>
+                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                         <li>Create Billing Structure</li>
                     </ul>
                 </div>

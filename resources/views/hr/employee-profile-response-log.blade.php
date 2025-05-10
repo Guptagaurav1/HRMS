@@ -9,10 +9,8 @@
 
                 <div>
                     <ul class="breadcrumb">
-                        <li> @if (auth()->user()->role->role_name == "hr")
-                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                            @endif
-                        </li>
+                      
+                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                         <li>Employee Profile Response Log</li>
                     </ul>
                 </div>

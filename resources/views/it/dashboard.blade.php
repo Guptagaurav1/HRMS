@@ -1,9 +1,7 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Dashboard'])
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/it-manager-dashboard.css')}}" />
-
-
 @endsection
 
 @section('contents')
@@ -23,10 +21,10 @@
                 <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
                     alt="Profile" />
                 <div class="profile-info">
-                    <h4>John Doe</h4>
-                    <p>IT Manager</p>
-                    <p><i class="fas fa-envelope"></i> john.doe@example.com</p>
-                    <p><i class="fas fa-phone"></i> +123 456 7890</p>
+                    <h4>{{$user->first_name." ".$user->last_name}}</h4>
+                    <p>{{get_role_fullname($user->role_id)}}</p>
+                    <p><i class="fas fa-envelope"></i>{{$user->email}}</p>
+                    <p><i class="fas fa-phone"></i>{{$user->phone}}</p>
                 </div>
             </div>
         </div>
@@ -37,7 +35,7 @@
                 <div class="work-card-header">IT Team</div>
                 <div class="assigned-lead">
                     <strong>IT Team Size : </strong>
-                    <span class="py-2 px-3 bg-primary text-white rounded">5</span>
+                    <span class="py-2 px-3 bg-primary text-white rounded">{{$team_count}}</span>
                 </div>
             </div>
         </div>
@@ -59,8 +57,8 @@
                 <i class="fas fa-calendar-alt"></i> Total No of Leaves
             </div>
             <div class="card-info"><i class="fas fa-building"></i>IT Department</div>
-            <div class="card-info"><i class="fas fa-leaf"></i>Total IT Leaves Raised : <strong>12</strong></div>
-            <div class="card-info"><i class="fas fa-check-circle"></i>Approved: <strong>8</strong></div>
+            <div class="card-info"><i class="fas fa-leaf"></i>Total IT Leaves Raised : <strong>{{$leave_raised}}</strong></div>
+            <div class="card-info"><i class="fas fa-check-circle"></i>Approved: <strong>{{$approved_leaves}}</strong></div>
         </div>
     </div>
 

@@ -159,7 +159,8 @@ class WorkOrderController extends Controller
 
             $file = $request->file('attachment');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('uploadWorkOrder', $fileName, 'public');
+            $path = public_path('uploadWorkOrder');
+            $file->move($path, $fileName);
         } else {
             $fileName = "";
         }
@@ -260,7 +261,8 @@ class WorkOrderController extends Controller
 
                 $file = $request->file('attachment');
                 $fileName = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('uploadWorkOrder', $fileName, 'public');
+                $path = public_path('uploadWorkOrder');
+                $file->move($path, $fileName);
             } else {
                 $fileName =  $workOrder->wo_attached_file ?? NULL;
             }

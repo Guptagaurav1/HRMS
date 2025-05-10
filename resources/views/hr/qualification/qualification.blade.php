@@ -1,6 +1,4 @@
 @extends('layouts.master', ['title' => 'Qualifications'])
-
-
 @section('contents')
 <div class="row">
     <div class="col-12">
@@ -9,16 +7,7 @@
                 <h3 class="mt-2">Qualifications</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li>
-                            @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "hr_operations")
-                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "sales_manager")
-                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                            @else
-                            @endif
-                        </li>
+                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                         <li>Qualifications List</li>
                     </ul>
                 </div>
