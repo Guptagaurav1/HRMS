@@ -6,16 +6,7 @@
         <h3 class="text-white">Updating Employee Details</h3>
         <div>
             <ul class="breadcrumb">
-                <li>
-                    @if (auth()->user()->role->role_name == "hr")
-                    <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                    @elseif(auth()->user()->role->role_name == "hr_operations")
-                        <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                    @elseif(auth()->user()->role->role_name == "sales_manager")
-                        <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                    @else
-                    @endif
-                </li>
+                <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                 <li><a href="{{route('employee.employee-list')}}">Employee List</a></li>
                 <li>Update Employee </li>
             </ul>
@@ -159,8 +150,13 @@
                         <label class="form-label">Reporting Email <span class="text-danger">*</span></label>
                         <select class="form-select" name="reporting_email" required>
                             {{-- @foreach ($reporting_managers as $manager) --}}
+                            
+                            @if($employee_details->reporting_email && $employee_details->reporting_email != 'Not Specify')
                             <option value="{{ $employee_details->reporting_email }}">
                                 {{ $employee_details->reporting_email }}</option>
+                            @else
+                            <option value="">Not Specify</option>
+                            @endif
                             {{-- @endforeach --}}
                         </select>
                         @error('reporting_email')

@@ -7,23 +7,16 @@
                 <div class="panel-header">
                     <h2 class="mt-2 text-center">Employee List</h2>
                     <div>
-                            <ul class="breadcrumb">
-                                <li>
-                                    @if (auth()->user()->role->role_name == "hr")
-                                    <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                                    @elseif(auth()->user()->role->role_name == "hr_operations")
-                                        <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                                    @elseif(auth()->user()->role->role_name == "sales_manager")
-                                        <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                                    @else
-                                    @endif
-                                </li>
-                                <li>Employee List</li>
-                            </ul>
-                        </div>
+                        <ul class="breadcrumb">
+
+                            <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
+                            <li>Employee List</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="row" class="mt-5">
-                    <p class="text-danger " id="search-applicable"> <strong class="fw-bold text-dark">Note :</strong> Search applicable on Emp Id/Name/Work Order
+                    <p class="text-danger " id="search-applicable"> <strong class="fw-bold text-dark">Note :</strong> Search
+                        applicable on Emp Id/Name/Work Order
                         Number/Designation/Contact/Email (Official/ Personal )/Job Place/Qualification</p>
                 </div>
                 <div class="panel-body">
@@ -42,15 +35,14 @@
                                         </div>
                                         <div class="col-auto col-xs-12">
                                             <a href="{{ route('employee.employee-list') }}"
-                                                class="btn btn-primary mb-3">Clear <i
-                                                class="fa-solid fa-eraser"></i></a>
+                                                class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></a>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="row g-3">
                                     <div class="col-auto col-xs-12 flex-1">
-                                       
-                                        <form class="export-csv" action="{{route('employee.export')}}" method="post">
+
+                                        <form class="export-csv" action="{{ route('employee.export') }}" method="post">
                                             @csrf
                                             <div class="d-none">
                                                 <input type="hidden" name="search" value="{{ $search }}">
@@ -68,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-2 col-3 col-xs-12 text-end ">
-                                <a href="{{route('employee.add-employee')}}" class="btn btn-primary">Add Employee</a>
+                                <a href="{{ route('employee.add-employee') }}" class="btn btn-primary">Add Employee</a>
                             </div>
                         </div>
                     </div>
@@ -184,40 +176,46 @@
                                             <span
                                                 class="address-txt">{{ date('jS F,Y', strtotime($employee->emp_doj)) }}</span>
                                         </td>
-                                        <td class='text-center attributes-column'>{{ $employee->emp_place_of_posting }}</td>
-                                        <td class='text-center attributes-column'>{{ $employee->experience ? $employee->experience->emp_experience . ' yr' : '-' }}
+                                        <td class='text-center attributes-column'>{{ $employee->emp_place_of_posting }}
                                         </td>
-                                        <td class='text-center attributes-column'>{{ $employee->education ? $employee->education->emp_highest_qualification : '-' }}
+                                        <td class='text-center attributes-column'>
+                                            {{ $employee->experience ? $employee->experience->emp_experience . ' yr' : '-' }}
                                         </td>
-                                        <td class="text-capitalize text-center attributes-column">{{ $employee->emp_current_working_status }}</td>
-                                        <td class='text-center attributes-column'> <a href="{{ route('employee.edit-employee', ['id' => $employee->id]) }}"><button
+                                        <td class='text-center attributes-column'>
+                                            {{ $employee->education ? $employee->education->emp_highest_qualification : '-' }}
+                                        </td>
+                                        <td class="text-capitalize text-center attributes-column">
+                                            {{ $employee->emp_current_working_status }}</td>
+                                        <td class='text-center attributes-column'> <a
+                                                href="{{ route('employee.edit-employee', ['id' => $employee->id]) }}"><button
                                                     class="btn btn-sm btn-primary"> <i
                                                         class="fa-solid fa-pen-to-square"></i> Edit</button></td></a>
                                         <td class=" text-center ">
-                                            
-                                                <div class="d-flex align-items-center justify-content-center gap-3">
-                                                    <div>
+
+                                            <div class="d-flex align-items-center justify-content-center gap-3">
+                                                <div>
                                                     {{-- <a href="{{ route('employee.send-letter', ['id' => $employee->id]) }}"> --}}
                                                     @if (Illuminate\Support\Str::lower($employee->emp_current_working_status) == 'active' &&
-                                                    $employee->getBankDetail &&
-                                                    $employee->getBankDetail->emp_sal_structure_status == 'completed')
-                                                <button class="btn btn-sm btn-primary send-letter"
-                                                    data-id={{ $employee->id }}>Send Letter <i
-                                                        class="fa-solid fa-paper-plane"></i></button>
-                                            @endif
-                                                    </div> 
-                                                    <div>
-                                                    {{-- </a> --}}
-                                            <a href="{{ route('employee.view-letter', ['id' => $employee->id]) }}"><button
-                                                    class="btn btn-sm btn-primary">View Letter <i
-                                                        class="fa-solid fa-eye"></i></button>
-                                            </a>
-
-                                                    </div>
-                                                    
+                                                            $employee->getBankDetail &&
+                                                            $employee->getBankDetail->emp_sal_structure_status == 'completed')
+                                                        <button class="btn btn-sm btn-primary send-letter"
+                                                            data-id={{ $employee->id }}>Send Letter <i
+                                                                class="fa-solid fa-paper-plane"></i></button>
+                                                    @endif
                                                 </div>
-                                          
-                                           
+                                                <div>
+                                                    {{-- </a> --}}
+                                                    <a
+                                                        href="{{ route('employee.view-letter', ['id' => $employee->id]) }}"><button
+                                                            class="btn btn-sm btn-primary">View Letter <i
+                                                                class="fa-solid fa-eye"></i></button>
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+
+
                                         </td>
                                     </tr>
                                 @empty
@@ -239,5 +237,5 @@
 </div>
 @endsection
 @section('script')
-<script src="{{asset('assets/js/hr/employee-list.js')}}"></script>
+<script src="{{ asset('assets/js/hr/employee-list.js') }}"></script>
 @endsection

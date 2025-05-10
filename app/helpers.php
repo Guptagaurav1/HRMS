@@ -224,7 +224,8 @@ if (! function_exists('downloadWorkOrderDocumentsAsZip')) {
         // Create a new Zip file
         $zip = new ZipArchive;
         $zipFileName = 'work_order_documents_' . time() . '.zip';
-        $zipFilePath = storage_path('app/public/uploadWorkOrder/' . $zipFileName);
+        // $zipFilePath = storage_path('app/public/uploadWorkOrder/' . $zipFileName);
+        $zipFilePath = public_path('uploadWorkOrder/' . $zipFileName);
 
         if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
             foreach ($workOrderFiles as $file) {

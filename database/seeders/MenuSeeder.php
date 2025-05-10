@@ -295,6 +295,10 @@ class MenuSeeder extends Seeder
              
              ['mid' => 'M-155', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Edit Attendance', 'page' => 'edit-attendance', 'status' => '1', 'parent_id' => '15'],
 
+            
+             ['mid' => 'M-151', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Work Order Report', 'page' => 'work-order-report', 'status' => '1', 'parent_id' => '12'],
+
+             ['mid' => 'M-152', 'section' => 'Leave', 'section_icon' => '', 'name' => 'Modify Leave', 'page' => 'leave.modify_leave', 'status' => '1', 'parent_id' => '7']
         ];
 
         foreach ($data as $routeData) {

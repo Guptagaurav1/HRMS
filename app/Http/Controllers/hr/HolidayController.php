@@ -59,7 +59,9 @@ class HolidayController extends Controller
     {
         //    $leave_requests = LeaveRequest::select('leave_request.*', 'emp_details.emp_name', 'emp_details.department', 'users.email as reporting_mail')->join('emp_details', 'leave_request.emp_code', '=', 'emp_details.emp_code')->leftJoin('users', 'leave_request.approved_disapproved_by', '=', 'users.id');
         if (auth()->check()) {
-            $leave_requests = LeaveRequest::where('department_head_email', auth()->user()->email);
+            $leave_requests = LeaveRequest::where('department_head_email', auth()->user()->email)->whereHas('employee', function ($q) {
+                $q->where('emp_current_working_status', 'active');
+            });
         } else {
             $leave_requests = LeaveRequest::where('emp_code', auth('employee')->user()->emp_code);
         }
@@ -230,10 +232,10 @@ class HolidayController extends Controller
             if ($request_detail->cc) {
                 $cc = explode(',', $request_detail->cc);
             }
-            if(!in_array($user->email, $cc)){
+            if (!in_array($user->email, $cc)) {
                 $cc[] = $user->email;
             }
-            
+
             $cc[] = 'leaves@prakharsoftwares.com';
 
             // Define mail Subject.
