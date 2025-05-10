@@ -1,9 +1,18 @@
 @extends('layouts.master', ['title' => 'Update Call Details'])
 @section('contents')
-<div class="panel-header">
+<div class="panel">
+<div class="dashboard-breadcrumb">
     <h2 class="mt-2 px-2">Edit Candidate Details Contacted By Call</h2>
+    @if(auth()->user()->hasPermission('recruitment.call_logs'))
+                <div class="text-end mt-2 px-2">
+                    <a href="{{ route('recruitment.call_logs')}}"><button type="button" class="btn btn-sm btn-primary">Contacted Candidate List <i class="fa-solid fa-list"></i></button></a>
+                </div>
+            @endif
 
 </div>
+
+</div>
+
 
 <div class="row mt-4">
     <form action="{{route('recruitment.update-call_log')}}" method="post" class="form" enctype="multipart/form-data">
@@ -14,7 +23,7 @@
     <div class="col-12">
         <div class="panel">
             <div class="panel-header">
-                <h5 class="text-white">Edit Details</h5>
+                <h3 class="text-white mt-2">Edit Details</h3>
                 <div>
                     <ul class="breadcrumb">
                         <li> 
@@ -32,11 +41,11 @@
                     </ul>
                 </div>
             </div>
-            @if(auth()->user()->hasPermission('recruitment.call_logs'))
-                <div class="text-end mt-2 px-2">
-                    <a href="{{ route('recruitment.call_logs')}}"><button type="button" class="btn btn-sm btn-primary">Contacted Candidate List <i class="fa-solid fa-list"></i></button></a>
-                </div>
-            @endif
+
+            
+
+
+           
             <div class="panel-body">
                 <div class="row g-3">
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
@@ -102,7 +111,7 @@
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Notice Period</label>
-                        <input type="text" class="form-control form-control-sm" name="notice_period" value="{{$log->notice_period}}">
+                        <input type="text" class="form-control form-control-sm" name="notice_period" value="{{$log->notice_period}}" placeholder="Notice Period" required>
                         @error('notice_period')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -147,8 +156,14 @@
             </div>
         </div>
     </div>
-    <div class="col-12 d-flex justify-content-end ">
-        <button class="btn btn-sm btn-primary">Update <i class="fa-solid fa-arrow-right"></i></button>
+    <div class="col-12 d-flex justify-content-end gap-3 mt-3">
+        <div>
+            <a href="{{ route('recruitment.call_logs') }}"><button type="button" class="btn btn-sm btn-secondary">Cancel</button></a>
+        </div>
+        <div class="ms-2">
+        <button class="btn btn-sm btn-primary">Update </button>
+        </div>
+        
     </div>
     </form>
 </div>

@@ -22,6 +22,7 @@
                     </ul>
                 </div>
             </div>
+          
             <div class="row">
                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -34,6 +35,7 @@
                     </symbol>
                 </svg>
             </div>
+            
             <div class="col-md-12 d-flex justify-content-between flex-wrap px-4 mt-5">
                 <form class="row g-3" method="get">
                     <div class="col-auto col-xs-12 mb-3">

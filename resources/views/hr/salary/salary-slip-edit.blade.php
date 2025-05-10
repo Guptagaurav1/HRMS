@@ -184,8 +184,15 @@
                             <input type="number" class="form-control form-control-sm" value="{{$slip->sal_net}}" name="sal_net" required>
                         </div>
                     </div>
-                     <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-primary">Update <i class="fa-solid fa-rotate-right"></i></button>
+                     <div class="col-12 d-flex justify-content-end gap-3">
+                        <div>
+                        <a href="{{ route('salary-slip') }}"><button type="button" class="btn btn-sm btn-secondary">Cancel</button></a>
+                        </div>
+                           
+                        <div>
+                        <button type="submit" class="btn btn-sm btn-primary">Update </button>
+                        </div>
+                        
                     </div>
                 </form>
                 </div>

@@ -81,11 +81,14 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Experience</label>
-                        <input type="number" class="form-control form-control-sm" name="experience" value="{{old('experience')}}" min="0" required>
+                        <input type="text" class="form-control form-control-sm" name="experience" value="{{old('experience')}}" min="0" placeholder="Enter Experience" required>
                         @error('experience')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
 
+                        
+
+                    
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6 d-flex flex-wrap">
                         <label class="form-label w-100">CTC </label>
@@ -105,7 +108,7 @@
 
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Notice Period</label>
-                        <input type="text" class="form-control form-control-sm" name="notice_period" value="{{old('notice_period')}}">
+                        <input type="text" class="form-control form-control-sm" name="notice_period" value="{{old('notice_period')}}" placeholder="Enter Notice Period">
                         @error('notice_period')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -150,7 +153,7 @@
     <div class="col-12 d-flex justify-content-end gap-3 ">
         <div>
             <a href="">
-                <button type="button" class="btn btn-sm btn-primary">Cancel</button>
+                <button type="button" class="btn btn-sm btn-secondary">Cancel</button>
             </a>
         </div>
         <div>
