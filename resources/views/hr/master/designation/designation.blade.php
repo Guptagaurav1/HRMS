@@ -44,13 +44,13 @@
                                     placeholder="Search" required>
                             </div>
                             <div class="col-auto col-xs-12">
-                                <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i
+                                <button type="submit" class="btn  btn-primary mb-3">Search <i
                                         class="fa-solid fa-magnifying-glass"></i></button>
 
                             </div>
                             <div class="col-auto col-xs-12">
                                 <a href="{{ route('designations.index') }}" class="col-xs-12">
-                                    <button type="button" class="btn btn-primary btn-sm ">Clear <i
+                                    <button type="button" class="btn btn-primary">Clear <i
                                             class="fa-solid fa-eraser"></i>
                                     </button>
                                 </a>
@@ -63,7 +63,7 @@
                 @if(auth()->user()->hasPermission('designations.create'))
                 <div class="col-auto col-xs-12">
                     <a href="{{ route('designations.create') }}" class="col-xs-12"><button type="button"
-                            class="btn btn-primary btn-sm mb-3">Add
+                            class="btn btn-primary  mb-3">Add
                             Designation <i class="fa-solid fa-plus"></i></button></a>
                 </div>
                 @endif
@@ -115,9 +115,9 @@
 
                             @forelse($designations as $key => $value)
                             <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center">{{ ucwords($value->name) }}</td>
-                                <td class="text-center">
+                                <td class="text-center attributes-column">{{ $loop->iteration }}</td>
+                                <td class="text-center attributes-column">{{ ucwords($value->name) }}</td>
+                                <td class="text-center attributes-column">
                                     @if(auth()->user()->hasPermission('designations.edit'))
                                     <a href="{{ route('designations.edit',['designation' => $value->id ]) }}"><button
                                             type="button" class="btn btn-sm btn-primary">Edit <i
@@ -125,7 +125,7 @@
                                     @endif
                                     @if(auth()->user()->hasPermission('designations.destroy'))
                                     <a class="delete-designation" data-id="{{ $value->id }}"><button type="button"
-                                            class="btn btn-sm btn-primary">Delete <i
+                                            class="btn btn-sm btn-danger">Delete <i
                                                 class="fa-solid fa-trash"></i></button></a>
                                     @endif
                                 </td>
@@ -138,7 +138,11 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{ $designations->withQueryString()->links() }}
+                    <div class="mt-2">
+
+                         {{ $designations->withQueryString()->links() }}
+                    </div>
+                   
                 </div>
             </div>
         </div>

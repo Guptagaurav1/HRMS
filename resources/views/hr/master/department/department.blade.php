@@ -12,11 +12,11 @@
                     <ul class="breadcrumb">
                         <li>
                             @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
+                            <a href="{{ route('hr_dashboard') }}">Dashboard</a>
                             @elseif(auth()->user()->role->role_name == "hr_operations")
-                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
+                            <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
                             @elseif(auth()->user()->role->role_name == "sales_manager")
-                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
+                            <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
                             @else
                             @endif
                         </li>
@@ -40,77 +40,68 @@
             </div>
 
             <!-- Form Search and button -->
-
             <div class="row mt-4 px-3">
-                <div class="row px-2">
-                    <div class="col-md-10">
-                        <form  method="get">
-                            <div class="row">
-                                <div class="col-auto col-xs-12">
-                                    <input type="text" name="search" value="{{ $search }}" class="form-control" placeholder="Search"
-                                        required>
-
-                                </div>
-                                <div class="col-auto col-xs-12">
-                                    <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
-
-                                </div>
-                                <div class="col-auto col-xs-12">
-                                    <a href="{{ route('departments.index') }}" class="col-xs-12"><button type="button"
-                                            class="btn btn-primary btn-sm mb-3">Clear <i
-                                                class="fa-solid fa-eraser"></i></button>
-                                    </a>
-
-                                </div>
+                <div class="col-md-12">
+                    <form method="get">
+                        <div class="row align-items-end g-2">
+                            <!-- Search Field -->
+                            <div class="col-md-auto">
+                                <input type="text" name="search" value="{{ $search }}" class="form-control"
+                                    placeholder="Search" required>
                             </div>
-                        </form>
-                    </div>
-                    <div class="col-auto col-xs-12">
-                        @if(auth()->user()->hasPermission('departments.create'))
 
-                        <a href="{{ route('departments.create') }}" class="col-xs-12 mx-md-2"><button type="button"
-                                class="btn btn-sm btn-primary">Add Department <i
-                                    class="fa-solid fa-plus"></i></button></a>
+                            <!-- Search Button -->
+                            <div class="col-md-auto">
+                                <button type="submit" class="btn btn-primary">
+                                    Search <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
 
-                        @endif
+                            <!-- Clear Button -->
+                            <div class="col-md-auto">
+                                <a href="{{ route('departments.index') }}" class="btn btn-primary">
+                                    Clear <i class="fa-solid fa-eraser"></i>
+                                </a>
+                            </div>
 
-                    </div>
+                            <!-- Add Department Button -->
+                            @if(auth()->user()->hasPermission('departments.create'))
+                            <div class="col-md-auto ms-auto">
+                                <a href="{{ route('departments.create') }}" class="btn btn-primary">
+                                    Add Department <i class="fa-solid fa-plus"></i>
+                                </a>
+                            </div>
+                            @endif
+                        </div>
+                    </form>
                 </div>
 
-                <!-- Error Message -->
-
+                <!-- Success Message -->
                 @if($message = Session::get('success'))
-                <div class="col-md-12">
+                <div class="col-md-12 mt-3">
                     <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
                             <use xlink:href="#check-circle-fill" />
                         </svg>
-                        <div>
-                            {{ $message }}
-                        </div>
+                        <div>{{ $message }}</div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </div>
                 @endif
 
-
-
+                <!-- Error Message -->
                 @if($message = Session::get('error'))
-                <div class="col-md-12">
-                    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
                             <use xlink:href="#exclamation-triangle-fill" />
                         </svg>
-                        <div>
-                            {{ $message }}
-                        </div>
-
+                        <div>{{ $message }}</div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </div>
                 @endif
             </div>
-
             <!-- Table Start -->
 
             <div class="table-responsive">
@@ -147,7 +138,7 @@
                                 @endif
                                 @if(auth()->user()->hasPermission('departments.destroy'))
                                 <a class="delete-department" data-id="{{ $value->id }}"><button type="button"
-                                        class="btn btn-sm btn-primary">Delete <i
+                                        class="btn btn-sm btn-danger">Delete <i
                                             class="fa-solid fa-trash"></i></button></a>
                                 @endif
                             </td>
