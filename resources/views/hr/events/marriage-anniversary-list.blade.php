@@ -1,7 +1,5 @@
 @extends('layouts.master', ['title' => 'Upcoming Marriage Anniversary'])
 
-
-
 @section('contents')
     <div class="row">
         <div class="col-12">
@@ -124,7 +122,7 @@
                 </div>
 
                 {{-- Pagination --}}
-                <div class="col-md-12 my-2 d-flex justify-content-center">
+                <div class="col-md-12 my-2">
                     {{ $employees->links() }}
                 </div>
             </div>

@@ -127,10 +127,10 @@
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label for="formFileSm" class="form-label">Resume <span class="text-danger">*</span>
+                        <label for="formFileSm" class="form-label">Resume
                             <span class="px-5"> <a href="{{asset('resume')."/".$log->resume}}" class="btn btn-sm btn-primary" target="_blank">View <i class="fa-solid fa-eye"></i></a></span>
                         </label>
-                        <input class="form-control form-control-sm" name="resume" type="file" accept=".pdf" required>
+                        <input class="form-control form-control-sm" name="resume" type="file" accept=".pdf">
                         @error('resume')
                             <span class="text-danger">{{$message}}</span>
                         @enderror

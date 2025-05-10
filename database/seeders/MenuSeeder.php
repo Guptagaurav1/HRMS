@@ -288,7 +288,8 @@ class MenuSeeder extends Seeder
 
             //  Company
              ['mid' => 'M-149', 'section' => 'Master - Company', 'section_icon' => '', 'name' => 'Company View', 'page' => 'company.view', 'status' => '1', 'parent_id' => '28'],
-
+             
+             ['mid' => 'M-150', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Edit Attendance', 'page' => 'edit-attendance', 'status' => '1', 'parent_id' => '15'],
 
         ];
 

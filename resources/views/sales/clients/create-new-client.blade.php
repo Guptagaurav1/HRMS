@@ -37,7 +37,7 @@
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label">Client Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm search" name="client_name"
-                                        placeholder="Enter Client Name" required>
+                                        placeholder="Enter Client Name" value="{{old('client_name')}}" required>
                                     <span class="suggestions" id="suggestion-design" class="mt-1"></span>
                                     @error('client_name')
                                         <span class="text-danger">{{ $message }}</span>
@@ -46,7 +46,7 @@
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Department Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm department-search"
-                                        name="department_name" placeholder="Enter Department Name" required>
+                                        name="department_name" placeholder="Enter Department Name" value="{{old('department_name')}}" required>
                                     <span class="department-suggestions" id="suggestion-design" class="mt-1"></span>
 
                                     @error('department_name')
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Concern Ministry <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" name="consern_ministry"
+                                    <input type="text" class="form-control form-control-sm" name="consern_ministry" value="{{old('consern_ministry')}}"
                                         placeholder="Enter Concern Minister" required>
                                     @error('consern_ministry')
                                         <span class="text-danger">{{ $message }}</span>
@@ -79,35 +79,38 @@
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label">Name </label>
                                     <input type="text" class="form-control form-control-sm" name="contact_name"
-                                        placeholder="Enter Name">
+                                        placeholder="Enter Name" value="{{old('contact_name')}}">
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Designation </label>
                                     <input type="text" class="form-control form-control-sm" name="contact_designation"
-                                        placeholder="Enter Designation">
+                                        placeholder="Enter Designation" value="{{old('contact_designation')}}">
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Email </label>
                                     <input type="email" class="form-control form-control-sm" name="contact_email"
-                                        placeholder="Enter email">
+                                        placeholder="Enter email" value="{{old('contact_email')}}">
+                                    @error('contact_email') 
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Mobile Number</label>
                                     <input type="text" class="form-control form-control-sm" name="contact_phone"
                                         placeholder="Enter Mobile No" maxlength="10"
-                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" value="{{old('contact_phone')}}">
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Landline/Phone</label>
                                     <input type="text" class="form-control form-control-sm" name="contact_landline"
                                         placeholder="Enter Landline/Phone"
-                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10">
+                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10" value="{{old('contact_landline')}}">
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Fax</label>
                                     <input type="text" class="form-control form-control-sm" name="contact_fax"
                                         placeholder="Enter Fax" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                                        maxlength="10">
+                                        maxlength="10" value="{{old('contact_fax')}}">
                                 </div>
 
                             </div>
@@ -126,18 +129,18 @@
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label">Name</label>
                                     <input type="text" class="form-control form-control-sm" name="d_maker_name"
-                                        placeholder="Enter Decision Maker Name">
+                                        placeholder="Enter Decision Maker Name" value="{{old('d_maker_name')}}">
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Email </label>
                                     <input type="email" class="form-control form-control-sm" name="d_maker_email"
-                                        placeholder="Enter Decision Maker Name">
+                                        placeholder="Enter Decision Maker Name" value="{{old('d_maker_email')}}">
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Mobile </label>
                                     <input type="text" class="form-control form-control-sm" name="d_maker_phone"
                                         placeholder="Enter Decision Maker Mobile" maxlength="10"
-                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" value="{{old('d_maker_phone')}}">
                                 </div>
 
                             </div>
@@ -156,18 +159,21 @@
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label">Company Name</label>
                                     <input type="text" class="form-control form-control-sm" name="company_name"
-                                        placeholder="Enter Primary Name">
+                                        placeholder="Enter Primary Name" value="{{old('company_name')}}">
                                 </div>
                                 <div class="col-lg-4 col-md-4 ">
                                     <label class="form-label">Company Email </label>
                                     <input type="email" class="form-control form-control-sm" name="p_email"
-                                        placeholder="Enter Primary Email">
+                                        placeholder="Enter Primary Email" value="{{old('p_email')}}">
+                                        @error('p_email')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
                                 </div>
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label">Company Contact No </label>
                                     <input type="text" class="form-control form-control-sm" name="p_contact"
                                         placeholder="Enter Primary Mobile"
-                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10">
+                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10" value="{{old('p_contact')}}">
                                 </div>
 
                                 <div class="col-lg-4 col-md-4">
@@ -189,14 +195,14 @@
                                     <label class="form-label">Postal Code </label>
                                     <input type="text" class="form-control form-control-sm" name="company_pincode"
                                         placeholder="Enter Pin Code"
-                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="6">
+                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="6" value="{{old('company_pincode')}}">
                                 </div>
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label" class="text-dark">Company Type</label>
                                     <select class="form-select js-example-basic-multiple" name="company_type">
                                         <option value="">Not Specify</option>
                                         @foreach ($company_type as $type)
-                                            <option value="{{ $type->type_name }}">{{ $type->type_name }}</option>
+                                            <option value="{{ $type->type_name }}" {{old('company_type') == $type->type_name ? 'selected' : ''}}>{{ $type->type_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -205,7 +211,7 @@
                                     <select class="form-select js-example-basic-multiple" name="company_industry">
                                         <option value="">Not Specify</option>
                                         @foreach ($industries as $industry)
-                                            <option value="{{ $industry->id }}">{{ $industry->category_name }}</option>
+                                            <option value="{{ $industry->id }}" {{old('company_industry') == $industry->id ? 'selected' : ''}}>{{ $industry->category_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -213,24 +219,24 @@
                                     <label class="form-label" class="text-dark">Reference</label>
                                     <select class="form-select js-example-basic-multiple" name="reference">
                                         <option value="">Not Specify</option>
-                                        @foreach ($references as $references)
-                                            <option value="{{ $references->id }}">{{ $references->ref_name }}</option>
+                                        @foreach ($references as $reference)
+                                            <option value="{{ $reference->id }}" {{old('reference') == $reference->id ? 'selected' : ''}}>{{ $reference->ref_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="col-md-6 col-lg-6">
                                     <label for="exampleTextarea" class="form-label">Address</label>
-                                    <textarea class="form-control" name="company_address" placeholder="Enter Address"></textarea>
+                                    <textarea class="form-control" name="company_address" placeholder="Enter Address">{{old('company_address')}}</textarea>
                                 </div>
                                 <div class="col-md-6 col-lg-6">
                                     <label for="exampleTextarea" class="form-label">Remarks</label>
-                                    <textarea class="form-control" name="remarks" placeholder="Enter Remarks"></textarea>
+                                    <textarea class="form-control" name="remarks" placeholder="Enter Remarks">{{old('remarks')}}</textarea>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <label class="form-label">GSTIN No</label>
                                     <input type="text" class="form-control form-control-sm" name="gst_no"
-                                        placeholder="Enter GST No" maxlength="15">
+                                        placeholder="Enter GST No" maxlength="15" value="{{old('gst_no')}}">
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Create Salary'])
 
 @section('contents')
 <div class="fluid-container">

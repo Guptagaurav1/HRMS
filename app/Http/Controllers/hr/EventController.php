@@ -52,7 +52,7 @@ class EventController extends Controller
             });
         }
         $imageurl = asset('events/birthday/bg_two.jpg');
-        $employees = $employees->paginate(10)->withQueryString();
+        $employees = $employees->paginate(25)->withQueryString();
         return view("hr.events.birthday-list", compact('employees', 'search', 'imageurl'));
     }
 
@@ -81,7 +81,7 @@ class EventController extends Controller
             });
         }
 
-        $employees = $employees->paginate(10)->withQueryString();
+        $employees = $employees->paginate(25)->withQueryString();
         return view("hr.events.marriage-anniversary-list", compact('employees', 'search'));
     }
 
@@ -109,7 +109,7 @@ class EventController extends Controller
             });
         }
 
-        $employees = $employees->paginate(10)->withQueryString();
+        $employees = $employees->paginate(25)->withQueryString();
         return view("hr.events.work-anniversary-list", compact('employees', 'search', 'comingdate'));   
     }
 

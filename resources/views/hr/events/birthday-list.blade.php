@@ -113,7 +113,7 @@
                     </table>
                 </div>
 
-                <div class="col-md-12 d-flex justify-content-center my-2 p-4">
+                <div class="col-md-12 my-2 p-4">
                     {{ $employees->links() }}
                 </div>
 

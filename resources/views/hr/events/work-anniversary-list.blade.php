@@ -126,6 +126,10 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="col-md-12 my-2 p-4">
+                {{ $employees->links() }}
+            </div>
         </div>
     </div>
 </div>

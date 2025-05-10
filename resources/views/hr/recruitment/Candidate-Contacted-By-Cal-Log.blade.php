@@ -9,16 +9,8 @@
                     <h2 class="text-white mt-2">Contact Candidate By Call List</h2>
                     <div>
                         <ul class="breadcrumb">
-                            <li> 
-                                @if (auth()->user()->role->role_name == "hr")
-                                    <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                                @elseif(auth()->user()->role->role_name == "hr_operations")
-                                    <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                                @elseif(auth()->user()->role->role_name == "sales_manager")
-                                    <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                                @else
-                                @endif
-                            </li>
+                         
+                            <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                             <li>Contact Candidate By Call List</li>
                         </ul>
                     </div>
@@ -71,7 +63,7 @@
                 <div class="col-md-12">
                     <div class="alert alert-success d-flex align-items-center alert-dismissible fade show justify-content-between" role="alert">
                         <div class="d-flex">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                        <svg class="bi flex-shrink-0 me-2" fill="#fff" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                         <div>
                           {{session()->get('message')}}
                       </div>

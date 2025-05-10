@@ -14,6 +14,7 @@ use App\Mail\EmpMarriageAnniversaryMail;
 use App\Mail\EmpWorkingAnniversaryMailWishSend;
 use Carbon\Carbon;
 use Throwable;
+use App\Models\RecruitmentForm;
 
 class HrController extends Controller
 {
@@ -138,6 +139,9 @@ class HrController extends Controller
         );
     }
 
+    /**
+     * Hr Operation Dashboard
+     */
     public function hr_operation_dashboard()
     {
         // to get current user
@@ -149,15 +153,18 @@ class HrController extends Controller
         return view("hr.dashboard.hr-operation-dashboard", compact('countPositions'));
     }
 
+    /**
+     * Hr Executive Dashboard
+     */
     public function hr_executive_dashboard()
     {
         // to get current user
         $user = auth()->user();
-        // count of position request by current user
-        $countPositions = PositionRequest::select('created_by')
-            ->where('created_by', $user->id)
-            ->count();
-        return view("hr.dashboard.hr-executive-dashboard", compact('countPositions'));
+        $id = $user->id;
+        // Get position assigned to hr executive.
+        $positions = PositionRequest::whereRaw('FIND_IN_SET(?, assigned_executive)', [$id])->orderByDesc('id')->paginate(10);
+        $total_hired = RecruitmentForm::where(['reference' => $user->email, 'finally' => 'joined'])->count();
+        return view("hr.dashboard.hr-executive-dashboard", compact('positions', 'total_hired'));
     }
 
 
