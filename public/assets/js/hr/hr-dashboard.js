@@ -273,13 +273,15 @@ $(document).ready(function() {
     $('.modal-leave-details').click(function() {
         var url = $(this).data('url');
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: url,
             cache: false,
             dataType: 'json',
+            data : {
+                '_token' : $("meta[name=csrf-token]").attr('content')
+            },
             success: function(response) {
                 $('#leaveDetailsModal').modal('show');
-
                 var date = new Date(response.data.created_at);
                 var month = ((date.getDate() > 8) ? (date.getDate() + 1) : ('0' + (date.getDate() + 1))) + '-' + ((date.getMonth() > 9) ? date.getMonth() : ('0' + date.getMonth())) + '-' + date.getFullYear();
                 if (response.success) {

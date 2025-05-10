@@ -493,7 +493,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td class="text-center" colspan="9"><span class="text-danger"> Record not
+                                        <td class="text-center" colspan="10"><span class="text-danger"> Record not
                                                 found</span></td>
                                     </tr>
                                     @endforelse

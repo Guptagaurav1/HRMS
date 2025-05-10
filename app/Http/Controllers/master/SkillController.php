@@ -77,13 +77,13 @@ class SkillController extends Controller
 
     // delete Skill
 
-
     public function destroy($id){
-        $departments = DepartmentSkill::where('department_id', $id)->get();
+        $departments = DepartmentSkill::where('skill_id', $id)->get();
         foreach($departments as $department){
             $data = DepartmentSkill::find($department->id);
             $data->delete();
         }
+        Skill::destroy($id);
 
         return redirect()->back()->with('success','Skill Deleted Successfully !');
     }

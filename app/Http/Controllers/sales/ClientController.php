@@ -20,10 +20,27 @@ class ClientController extends Controller
     /**
      * Clients listing.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = ClientList::select('id', 'client_name', 'department_name', 'company_address', 'd_maker_name', 'd_maker_email', 'd_maker_phone', 'created_by', 'created_at')->orderByDesc('id')->paginate(25);
-        return view("sales.clients.client-list", compact('clients'));
+        $clients = ClientList::select('id', 'client_name', 'department_name', 'company_address', 'd_maker_name', 'd_maker_email', 'd_maker_phone', 'created_by', 'created_at');
+
+        $search = '';
+        if ($request->search) {
+            $search = $request->search;
+            $clients = $clients->where('client_name', 'LIKE', "%$search%")
+                        ->orWhere('id', 'LIKE', "%$search%")
+                        ->orWhere('department_name', 'LIKE', "%$search%")
+                        ->orWhere('company_address', 'LIKE', "%$search%")
+                        ->orWhere('d_maker_name', 'LIKE', "%$search%")
+                        ->orWhere('d_maker_email', 'LIKE', "%$search%")
+                        ->orWhere('d_maker_phone', 'LIKE', "%$search%")
+                        ->orWhereHas('user',  function ($query) use ($search) {
+                            $query->whereRaw("CONCAT(first_name, ' ',last_name) LIKE ?", ["%$search%"]);
+                        });
+        }
+        $clients = $clients->orderByDesc('id')->paginate(25)->withQueryString();
+
+        return view("sales.clients.client-list", compact('clients', 'search'));
     }
 
     /**

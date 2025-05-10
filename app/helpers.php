@@ -104,7 +104,7 @@ if (!function_exists('get_education')) {
     function get_education($educationid)
     {
         $education = explode(",", $educationid);
-        $education = Qualification::select('qualification')->whereIn('id', $education)->pluck('qualification')->implode(', ');
+        $education = Qualification::select('qualification')->whereIn('qualification', $education)->pluck('qualification')->implode(', ');
         return $education;
     }
 }
@@ -118,7 +118,7 @@ if (!function_exists('get_skills')) {
     function get_skills($skillid)
     {
         $skills = explode(",", $skillid);
-        $skills = Skill::select('skill')->whereIn('id', $skills)->pluck('skill')->implode(', ');
+        $skills = Skill::select('skill')->whereIn('skill', $skills)->pluck('skill')->implode(', ');
         return $skills;
     }
 }

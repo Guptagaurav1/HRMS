@@ -11,7 +11,7 @@ $('.delete-skill').click(function(){
         confirmButtonText: "Confirm"
     }).then((result) => {
         if (result.isConfirmed) {
-        window.location.href = SITE_URL+'/hr/skills/delete/'+ id;
+        window.location.href = SITE_URL+'/hr/skills/destroy/'+ id;
         }
     });
 })

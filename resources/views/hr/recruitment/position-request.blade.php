@@ -242,7 +242,7 @@
                               id="education"  required>
                                 <option value="">Nothing Selected</option>
                                 @foreach($qualification as $qualify)
-                                <option value="{{$qualify->id}}" {{old('education') && in_array($qualify->id,
+                                <option value="{{$qualify->qualification}}" {{old('education') && in_array($qualify->qualification,
                                     old('education')) ? 'selected' : ''}}>{{$qualify->qualification}}</option>
                                 @endforeach
                             </select>
@@ -282,7 +282,7 @@
                                 name="skill_sets[]" id="placeholder" required>
                                 <option value="">Nothing Selected</option>
                                 @foreach($skills as $skill)
-                                <option value="{{$skill->id}}" {{old('skill_sets') && in_array($skill->id,
+                                <option value="{{$skill->skill}}" {{old('skill_sets') && in_array($skill->skill,
                                     old('skill_sets')) ? 'selected' : ''}}>{{$skill->skill}}</option>
                                 @endforeach
                             </select>
