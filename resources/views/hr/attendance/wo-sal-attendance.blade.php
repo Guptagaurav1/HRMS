@@ -71,15 +71,15 @@
                     <!-- <div class="col-md-12 px-3">
                         <p class="text-danger fs-6">Total Hrs Applicable Only For Some Cases</p>
                     </div> -->
-                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-3 gap-2">
-                        <div class="col-auto">
+                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-3 gap-2 flex-wrap">
+                        <div class="col-auto col-xs-12">
                             <input name="search" type="text" class="form-control" placeholder="Search">
                         </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search</button>
+                        <div class="col-auto col-xs-12">
+                            <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
-                        <div class="col-auto">
-                            <button type="button" class="btn btn-primary mb-3">Clear</button>
+                        <div class="col-auto col-xs-12">
+                            <button type="button" class="btn btn-primary mb-3 col-xs-12">Clear <i class="fa-solid fa-eraser"></i></button>
                         </div>
                     </div>
                 </form>

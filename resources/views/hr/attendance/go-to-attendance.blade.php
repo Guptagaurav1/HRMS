@@ -83,8 +83,7 @@
 
                         <!-- Submit Button -->
                         <div class="col-md-2 col-12  pt-4 d-flex justify-content-center align-items-center">
-                            <button type="submit" class="btn btn-primary ">Check <i
-                                    class="fa-solid fa-square-check"></i></button>
+                            <button type="submit" class="btn btn-primary ">Check </button>
                         </div>
                         <div class="col-md-2 col-6 ">
                         </div>
@@ -92,17 +91,17 @@
 
                 </form>
                 <form method="get" action="{{ route('go-to-attendance',$wo_id)}}">
-                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-3 gap-2">
-                        <div class="col-auto">
+                    <div class="col-md-12 d-flex justify-content-start mx-3 mt-3 gap-2 flex-wrap">
+                        <div class="col-auto col-xs-12">
                             <input name="search" type="text" class="form-control" placeholder="Search">
                         </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Search </button>
+                        <div class="col-auto col-xs-12">
+                            <button type="submit" class="btn btn-primary mb-3">Search  <i class="fa-solid fa-magnifying-glass"></i></button>
                            
                         </div>
 
-                        <div class="col-auto">
-                            <a href="{{route('go-to-attendance',$wo_id)}}" class="btn btn-primary mb-3">Clear </a>
+                        <div class="col-auto col-xs-12">
+                            <a href="{{route('go-to-attendance',$wo_id)}}" class="btn btn-primary mb-3 col-xs-12">Clear <i class="fa-solid fa-eraser"></i> </a>
 
                         </div>
                     </div>

@@ -20,14 +20,14 @@
                 <div class="col-md-10 col-xs-12">
                     <form class="" method="get">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-auto col-xs-12">
                                 <input type="text" name="search" value="{{ $searchValue }}" class="form-control"
                                     placeholder="Search" required>
                             </div>
-                            <div class="col-md-1">
-                                <button type="submit" class="btn btn-primary mb-3">Search </button>
+                            <div class="col-auto col-xs-12">
+                                <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i> </button>
                             </div>
-                            <div class="col-md-4 mx-md-3 col-xs-12">
+                            <div class="col-auto col-xs-12">
                                 @if(auth()->user()->hasPermission('work-order-list'))
 
                                 <a href="{{ route('work-order-list') }}" class="col-xs-12">
@@ -43,7 +43,7 @@
             </div>
 
 
-            <div class="col-md-2 col-sm-12 col-xs-12">
+            <div class="col-auto col-xs-12">
                 @if(auth()->user()->hasPermission('add-work-order'))
                 <a href="{{'add-work-order'}}" class="col-xs-12"><button class="btn btn-sm btn-primary">Add Work
                         Order <i class="fa-solid fa-plus"></i></button></a>
