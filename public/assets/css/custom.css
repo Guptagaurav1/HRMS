@@ -12,10 +12,11 @@
 /* Optionally, set column width for specific columns (for example, the "Attributes" column) */
 
 .table td.attributes-column {
-  max-width: 300px;
+  max-width: 250px;
   /* Adjust this width as needed */
-  word-wrap: break-word;
+  word-wrap:break-word;
   white-space: normal;
+ 
 }
 
 #bb {
@@ -1183,4 +1184,11 @@ z-index: 10000 !important;
 }
 #suggestion-item-design:hover {
   background-color: #f0f0f0;
+}
+
+
+/* Event HR Like birthday  */
+
+.event-list-dashaboard-hr{
+  
 }

@@ -21,13 +21,14 @@
 <div class="fluid-container">
     <div class="row">
         <div class="col-md-12">
+            
             <div class="panel chart-panel-1">
                 <div class="d-flex justify-content-center flex-wrap gap-5 px-5">
                     <div class="card profile-card border">
                         <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
                             alt="Profile" />
                         <div class="profile-info">
-                            <h4 class="text-center">{{ auth()->user()->first_name." ".auth()->user()->last_name}}</h4>
+                            <h4 class="text-center" >{{ auth()->user()->first_name." ".auth()->user()->last_name}}</h4>
                             <p><i class="fas fa-user"></i> {{ ucwords(str_replace("_", '
                                 ',auth()->user()->role->role_name)) }}</p>
                             <p><i class="fas fa-envelope"></i> {{ auth()->user()->email }}</p>
@@ -42,91 +43,94 @@
                 </div>
             </div>
 
+
             <div class="row d-flex align-items-stretch">
-                <!-- Birthday Card -->
+
+                <!-- Birthday -->
+
                 <div class="col-md-4 d-flex">
                     <div class="panel h-100 w-100">
                         <div class="panel-header">
                             <h5 class="text-white fw-bold text-center">Today Birthday</h5>
                         </div>
                         <div class="panel-body">
-                            <ul class="upcoming-interview">
+                            <ul class="upcoming-interview list-unstyled">
                                 @forelse($todayBirthdays as $key => $value)
-                                <li class="d-flex align-items-start mb-2 gap-3">
-                                    <div class="mt-3">
+                                <li class="d-flex align-items-start mb-3">
+                                    <div style="flex-shrink: 0;">
                                         @if(!empty($value->getPersonalDetail->emp_photo))
-                                        <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}"
+                                        <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/' . $value->getPersonalDetail->emp_photo) }}"
                                             class="rounded" alt="user"
                                             title="{{ $value->getPersonalDetail->emp_photo }}"
-                                            style="width:120px; height:60px; object-fit: cover;">
+                                            style="width: 60px; height: 60px; object-fit: cover;">
                                         @else
                                         <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user"
-                                            style="width:120px; height:60px; object-fit: cover;">
+                                            style="width: 60px; height: 60px; object-fit: cover;">
                                         @endif
                                     </div>
-                                    <div class="part-txt ms-2 mt-3">
-                                        <span class="applicant-name d-block">{{ $value->emp_name }}</span>
-                                        <span class="applicant-role">
-                                            <small><span class="text-muted">{{ $value->emp_designation }}</span></small>
-                                        </span>
+                                    <div class="ms-3 flex-grow-1"
+                                        style="line-height: 1.2; display: flex; flex-direction: column; word-break: break-word;">
+                                        <div class="fw-bold">{{ $value->emp_name }}</div>
+                                        <div class="text-muted mt-1" style="word-break: break-word;">{{
+                                            $value->emp_designation }}</div>
                                     </div>
                                 </li>
+
                                 @empty
-                                <li class="d-flex align-items-start mb-2">
-                                    <div class="avatar avatar-lg">
-                                    </div>
-                                    <div class="part-txt ms-2">
-                                        <span class="applicant-role">
-                                            <small><span class="text-muted">Today No Birthday Available in our
-                                                    system</span></small>
-                                        </span>
-                                    </div>
+                                <li class="d-flex align-items-start mb-3">
+                                    <div class="text-muted">No Birthday Available Right Now</div>
                                 </li>
                                 @endforelse
-                                {{ $todayBirthdays->links() }}
                             </ul>
+                            <div class="mt-3">
+                                {{ $todayBirthdays->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Marriage Anniversary Card -->
+
+                <!-- Marriage Anniversary -->
+
                 <div class="col-md-4 d-flex">
                     <div class="panel h-100 w-100">
                         <div class="panel-header">
-                            <h5 class="text-white fw-bold">Today Marriage Anniversary</h5>
+                            <h5 class="text-white fw-bold text-center">Today Marriage Anniversary</h5>
                         </div>
                         <div class="panel-body">
                             <ul class="upcoming-interview">
                                 @forelse($todayAnniversary as $key => $value)
-                                <li class="d-flex align-items-start mb-2">
-                                    <div class="">
+                                <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                    <div style="flex-shrink: 0;">
                                         @if(!empty($value->getPersonalDetail->emp_photo))
                                         <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}"
                                             class="rounded" alt="user"
                                             title="{{ $value->getPersonalDetail->emp_photo }}"
-                                            style="width: 120px; height:60px; object-fit: cover;">
-                                           
+                                            style="width: 60px; height:60px; object-fit: cover;">
+
                                         @else
                                         <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user"
-                                            style="width: 120px; height:60px; object-fit: cover;">
+                                            style="width: 60px; height: 60px; object-fit: cover;">
                                         @endif
+
                                     </div>
-                                    <div class="part-txt ms-2">
-                                        <span class="applicant-name d-block">{{ $value->emp_name }}</span>
-                                        <span class="applicant-role">
-                                            <small><span class="text-muted">{{ $value->emp_designation }}</span></small>
-                                        </span>
+                                    <div class="ms-3 flex-grow-1"
+                                        style="line-height: 1.2; display: flex; flex-direction: column; word-break: break-word;">
+                                        <div class="applicant-name fw-bold">{{ $value->emp_name }}</div>
+
+                                        <div class="text-muted mt-1" style="word-break: break-word;">{{
+                                            $value->emp_designation }}</div>
                                     </div>
                                 </li>
+
                                 @empty
-                                <li class="d-flex align-items-start mb-2">
-                                    <div class="">
-                                    </div>
-                                    <div class="part-txt ms-2">
-                                        <span class="applicant-role">
-                                            <small><span class="text-muted">Today No Marriage Anniversary Available in
-                                                    our system</span></small>
-                                        </span>
+                                <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+
+                                    <div class="part-txt" style="line-height: 1.2;">
+
+                                        <div class="applicant-role">
+                                            <small class="text-muted text-dark fw-bold">No Marriage Anniversary Right Now</small>
+                                        </div>
                                     </div>
                                 </li>
                                 @endforelse
@@ -136,54 +140,57 @@
                     </div>
                 </div>
 
-                <!-- Work Anniversary Card -->
+                <!-- Work Anniversary -->
+
                 <div class="col-md-4 d-flex">
                     <div class="panel h-100 w-100">
                         <div class="panel-header">
-                            <h5 class="text-white fw-bold">Today Work Anniversary</h5>
+                            <h5 class="text-white fw-bold text-center">Today Work Anniversary</h5>
                         </div>
                         <div class="panel-body">
                             <ul class="upcoming-interview">
                                 @forelse($todayWorkAnniversarys as $key => $value)
-                                <li class="d-flex align-items-start mb-2">
-                                    <div class="avatar avatar-lg">
+                                <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                    <div style="flex-shrink: 0;">
                                         @if(!empty($value->getPersonalDetail->emp_photo))
                                         <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/'. $value->getPersonalDetail->emp_photo) }}"
                                             class="rounded" alt="user"
                                             title="{{ $value->getPersonalDetail->emp_photo }}"
-                                            style="width:120px; height:60px; object-fit: cover;">
+                                            style="width:60px; height:60px; object-fit: cover;">
+
                                         @else
                                         <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user"
-                                            style="width: 120px; height: 60px; object-fit: cover;">
+                                            style="width: 60px; height: 60px; object-fit: cover;">
                                         @endif
+
                                     </div>
-                                    <div class="part-txt ms-2">
-                                        <span class="applicant-name d-block">{{ $value->emp_name }}</span>
-                                        <span class="applicant-role">
-                                            <small><span class="text-muted">{{ $value->emp_designation }}</span></small>
-                                        </span>
+
+                                    <div class="ms-3 flex-grow-1"
+                                        style="line-height: 1.2; display: flex; flex-direction: column; word-break: break-word;">
+                                        <div class="applicant-name fw-bold">{{ $value->emp_name }}</div>
+
+                                        <div class="text-muted mt-1" style="word-break: break-word;">{{
+                                            $value->emp_designation }}</div>
                                     </div>
                                 </li>
+
                                 @empty
-                                <li class="d-flex align-items-start mb-2">
-                                    <div class="avatar avatar-lg">
-                                    </div>
-                                    <div class="part-txt ms-2">
-                                        <span class="applicant-role">
-                                            <small><span class="text-muted">Today No Work Anniversary Available in our
-                                                    system</span></small>
-                                        </span>
+                                <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+
+                                    <div class="part-txt" style="line-height: 1.2;">
+
+                                        <div class="applicant-role">
+                                            <small class="text-muted">No Work Anniversary Right Now</small>
+                                        </div>
                                     </div>
                                 </li>
                                 @endforelse
-                                {{ $todayWorkAnniversarys->links() }}
+                                {{ $todayWorkAnniversarys->links()}}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
-
 
             <ul class="custom-tabs" id="dashboardTabs">
                 <li class="tab-item active" data-id="dashboard"><i class="fas fa-home"></i> Dashboard</li>
@@ -215,7 +222,8 @@
                         <div class="col-lg-3 col-6 col-xs-12">
                             <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
                                 <div class="left">
-                                    <p class="d-flex justify-content-between mb-2 text-dark fw-bold">Internal Employee</p>
+                                    <p class="d-flex justify-content-between mb-2 text-dark fw-bold">Internal Employee
+                                    </p>
                                     <h3 class="fw-normal text-dark fw-bold">{{ $totalCountInternalEmployees }}</h3>
                                 </div>
                                 <div class="right">
@@ -228,7 +236,8 @@
                         <div class="col-lg-3 col-6 col-xs-12">
                             <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
                                 <div class="left">
-                                    <p class="d-flex justify-content-between mb-2 text-dark fw-bold">External Employee</p>
+                                    <p class="d-flex justify-content-between mb-2 text-dark fw-bold">External Employee
+                                    </p>
                                     <h3 class="fw-normal text-dark fw-bold">{{ $totalCountExternalEmployees }}</h3>
                                 </div>
                                 <div class="right">
@@ -241,7 +250,8 @@
                         <div class="col-lg-3 col-6 col-xs-12">
                             <div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
                                 <div class="left">
-                                    <p class="d-flex justify-content-between mb-2 text-dark fw-bold">Total Work Orders</p>
+                                    <p class="d-flex justify-content-between mb-2 text-dark fw-bold">Total Work Orders
+                                    </p>
                                     <h3 class="fw-normal text-dark fw-bold">{{ $totalCountWorkOrders }}</h3>
                                 </div>
                                 <div class="right">
@@ -483,7 +493,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td class="text-center" colspan="9"><span class="text-danger"> Record not
+                                        <td class="text-center" colspan="10"><span class="text-danger"> Record not
                                                 found</span></td>
                                     </tr>
                                     @endforelse

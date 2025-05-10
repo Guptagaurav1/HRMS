@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CrmActionLog extends Model
 {
@@ -36,5 +37,17 @@ class CrmActionLog extends Model
             });
         }
     }
+
+
+    public function assignedUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'assigned_user_id','id')->select('id','first_name','last_name');
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by','id')->select('id','first_name','last_name');
+    }
+    
 
 }

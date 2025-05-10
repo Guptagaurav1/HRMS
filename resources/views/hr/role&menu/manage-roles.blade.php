@@ -101,7 +101,7 @@
                         @forelse($rolesWithMenus as $key => $role)
                         <tr>
                             <td class="srno-column text-center"> {{ $key +1 }} </td>
-                            <td class="text-center">{{ $role->role_name}}</td>
+                            <td class="text-center">{{ $role->fullname}}</td>
                             <td class="text-center">{{ $role->created_at}}</td>
                             <td class="text-center">{{ $role->updated_at}}</td>
                             <td class="text-center">

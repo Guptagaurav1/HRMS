@@ -6,7 +6,16 @@
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="mt-2">Add Client</h3>
-
+                    <div>
+                        <ul class="breadcrumb">
+                        
+                            <li>
+                                <a href="{{get_dashboard()}}">Dashboard</a>
+                            </li>
+                            <li><a href="{{route('sales-clients.list')}}">Client List</a></li>
+                            <li>Add Client</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="text-end mt-3 px-3">

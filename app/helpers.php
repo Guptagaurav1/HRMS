@@ -24,14 +24,14 @@ use App\Models\State;
  * Get role id from role name.
  * @param $role_name
  * @return $roleid
- */ 
-if(!function_exists('get_role_id')){
+ */
+if (!function_exists('get_role_id')) {
     function get_role_id($role_name)
     {
-    	$roleid = Role::where('role_name', $role_name)->value('id');
-    	if ($roleid) {
-    		return $roleid;
-    	}
+        $roleid = Role::where('role_name', $role_name)->value('id');
+        if ($roleid) {
+            return $roleid;
+        }
         return false;
     }
 }
@@ -40,8 +40,8 @@ if(!function_exists('get_role_id')){
  * Get role name from role id.
  * @param $roleid
  * @return $role_name
- */ 
-if(!function_exists('get_role_name')){
+ */
+if (!function_exists('get_role_name')) {
     function get_role_name($roleid)
     {
         $rolename = Role::where('id', $roleid)->value('role_name');
@@ -53,11 +53,27 @@ if(!function_exists('get_role_name')){
 }
 
 /**
+ * Get role full name from role id.
+ * @param $roleid
+ * @return $fullname
+ */
+if (!function_exists('get_role_fullname')) {
+    function get_role_fullname($roleid)
+    {
+        $rolename = Role::where('id', $roleid)->value('fullname');
+        if ($rolename) {
+            return $rolename;
+        }
+        return false;
+    }
+}
+
+/**
  * Get department user names from user ids.
  * @param comma seperated userids, $userids
  * @return usernames
- */ 
-if(!function_exists('get_username')){
+ */
+if (!function_exists('get_username')) {
     function get_username($userids)
     {
         $users = explode(",", $userids);
@@ -70,8 +86,8 @@ if(!function_exists('get_username')){
  * Get contacted person of position requested.
  * @param position request id, $requestid
  * @return contacts
- */ 
-if(!function_exists('get_position_contacts')){
+ */
+if (!function_exists('get_position_contacts')) {
     function get_position_contacts($requestid)
     {
         $count = SendMailLog::where('job_position', $requestid)->count();
@@ -83,12 +99,12 @@ if(!function_exists('get_position_contacts')){
  * Get educations from multiple ids.
  * @param comma seperated educationid, $educationid
  * @return qualification name
- */ 
-if(!function_exists('get_education')){
+ */
+if (!function_exists('get_education')) {
     function get_education($educationid)
     {
         $education = explode(",", $educationid);
-        $education = Qualification::select('qualification')->whereIn('id', $education)->pluck('qualification')->implode(', ');
+        $education = Qualification::select('qualification')->whereIn('qualification', $education)->pluck('qualification')->implode(', ');
         return $education;
     }
 }
@@ -97,12 +113,12 @@ if(!function_exists('get_education')){
  * Get skills from multiple ids.
  * @param comma seperated skillid, $skillid
  * @return skills
- */ 
-if(!function_exists('get_skills')){
+ */
+if (!function_exists('get_skills')) {
     function get_skills($skillid)
     {
         $skills = explode(",", $skillid);
-        $skills = Skill::select('skill')->whereIn('id', $skills)->pluck('skill')->implode(', ');
+        $skills = Skill::select('skill')->whereIn('skill', $skills)->pluck('skill')->implode(', ');
         return $skills;
     }
 }
@@ -111,8 +127,8 @@ if(!function_exists('get_skills')){
  * Get functional roles from multiple ids.
  * @param comma seperated functional_roleid, $functional_roleid
  * @return roles
- */ 
-if(!function_exists('get_functional_roles')){
+ */
+if (!function_exists('get_functional_roles')) {
     function get_functional_roles($functional_roleid)
     {
         $roles = explode(",", $functional_roleid);
@@ -125,12 +141,12 @@ if(!function_exists('get_functional_roles')){
  * Format experience years from comma seperated number.
  * @param comma seperated number, $years
  * @return formatted years
- */ 
-if(!function_exists('format_experience')){
+ */
+if (!function_exists('format_experience')) {
     function format_experience($years)
     {
         $year = explode(",", $years);
-        return $year[0]."-".$year[1]." years";
+        return $year[0] . "-" . $year[1] . " years";
     }
 }
 
@@ -138,11 +154,11 @@ if(!function_exists('format_experience')){
  * Format status of position's contacts.
  * @param raw status, $status
  * @return formatted status
- */ 
-if(!function_exists('format_contact_status')){
+ */
+if (!function_exists('format_contact_status')) {
     function format_contact_status($status)
     {
-        
+
         if ($status == "first-selected") {
             return "CV Shortlisted";
         } elseif ($status == "send_interview_details") {
@@ -189,48 +205,48 @@ if(!function_exists('format_contact_status')){
  * Get position title from position request id.
  */
 if (!function_exists('get_position_title')) {
-     function get_position_title($req_id)
-     {
+    function get_position_title($req_id)
+    {
         $title = PositionRequest::where('req_id', $req_id)->value('position_title');
         if ($title) {
             return $title;
         }
         return 'Na';
-     }
- } 
- 
+    }
+}
 
- if (! function_exists('downloadWorkOrderDocumentsAsZip')) {
-     function downloadWorkOrderDocumentsAsZip($workOrderFiles)
-     {
-         // Path where the files are stored
-         $storagePath = storage_path('app/public/uploadWorkOrder/');  
-         // Create a new Zip file
-         $zip = new ZipArchive;
-         $zipFileName = 'work_order_documents_' . time() . '.zip';
-         $zipFilePath = storage_path('app/public/uploadWorkOrder/' . $zipFileName);
- 
-         if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
-             foreach ($workOrderFiles as $file) {
-                 // Get the full file path
-                 $filePath = $storagePath . $file;
- 
-                 // Check if the file exists before adding to zip
-                 if (file_exists($filePath)) {
-                     // Add the file to the zip archive
-                     $zip->addFile($filePath, basename($filePath));
-                 }
-             }
-             $zip->close(); // Close the zip file
- 
-             // Return the path of the generated ZIP file
-             return $zipFilePath;
-         }
- 
-         // Return null if the zip couldn't be created
-         return null;
-     }
- }
+
+if (! function_exists('downloadWorkOrderDocumentsAsZip')) {
+    function downloadWorkOrderDocumentsAsZip($workOrderFiles)
+    {
+        // Path where the files are stored
+        $storagePath = storage_path('app/public/uploadWorkOrder/');
+        // Create a new Zip file
+        $zip = new ZipArchive;
+        $zipFileName = 'work_order_documents_' . time() . '.zip';
+        $zipFilePath = storage_path('app/public/uploadWorkOrder/' . $zipFileName);
+
+        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
+            foreach ($workOrderFiles as $file) {
+                // Get the full file path
+                $filePath = $storagePath . $file;
+
+                // Check if the file exists before adding to zip
+                if (file_exists($filePath)) {
+                    // Add the file to the zip archive
+                    $zip->addFile($filePath, basename($filePath));
+                }
+            }
+            $zip->close(); // Close the zip file
+
+            // Return the path of the generated ZIP file
+            return $zipFilePath;
+        }
+
+        // Return null if the zip couldn't be created
+        return null;
+    }
+}
 
 /**
  * Add employee code in all employee tables
@@ -251,14 +267,12 @@ if (!function_exists('update_employee_code')) {
             EmpExperienceDetail::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
             DB::commit();
             return true;
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
             return false;
         }
-       
     }
-} 
+}
 
 /**
  * Check department role assignment
@@ -276,42 +290,39 @@ if (!function_exists('check_department_role_assignment')) {
                 return true;
             }
             return false;
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             return false;
         }
     }
 }
- 
+
 /**
  * Get organization_id from organization name.
  * @param string $organization
  * @return integer organization_id
- */ 
-if(!function_exists('get_organization_id')){
+ */
+if (!function_exists('get_organization_id')) {
     function get_organization_id($name)
     {
         try {
             return Organization::where('name', $name)->value('id');
-        }
-        catch(Throwable $th){
+        } catch (Throwable $th) {
             return '';
         }
     }
 }
- 
+
 /**
  * Get project_id from project number.
  * @param string $project_number
  * @return integer project_id
- */ 
-if(!function_exists('get_project_id')){
+ */
+if (!function_exists('get_project_id')) {
     function get_project_id($project_number)
     {
         try {
             return Project::where('project_number', $project_number)->value('id');
-        }
-        catch(Throwable $th){
+        } catch (Throwable $th) {
             return '';
         }
     }
@@ -321,14 +332,13 @@ if(!function_exists('get_project_id')){
  * Get city_id from city name.
  * @param string $city_name
  * @return integer city_id
- */ 
-if(!function_exists('get_city_id')){
+ */
+if (!function_exists('get_city_id')) {
     function get_city_id($city_name)
     {
         try {
             return City::where('city_name', $city_name)->value('id');
-        }
-        catch(Throwable $th){
+        } catch (Throwable $th) {
             return '';
         }
     }
@@ -338,14 +348,13 @@ if(!function_exists('get_city_id')){
  * Get state_id from state name.
  * @param string $state
  * @return integer state_id
- */ 
-if(!function_exists('get_state_id')){
+ */
+if (!function_exists('get_state_id')) {
     function get_state_id($state)
     {
         try {
             return State::where('state', $state)->value('id');
-        }
-        catch(Throwable $th){
+        } catch (Throwable $th) {
             return '';
         }
     }
@@ -355,14 +364,13 @@ if(!function_exists('get_state_id')){
  * Get lead_id from lead_uni_id.
  * @param string $lead
  * @return integer lead_id
- */ 
-if(!function_exists('get_lead_id')){
+ */
+if (!function_exists('get_lead_id')) {
     function get_lead_id($lead)
     {
         try {
             return LeadList::where('lead_uni_id', $lead)->value('id');
-        }
-        catch(Throwable $th){
+        } catch (Throwable $th) {
             return '';
         }
     }
@@ -372,17 +380,52 @@ if(!function_exists('get_lead_id')){
  * Get organization_name from project id.
  * @param integer $project_id
  * @return string organization_name
- */ 
-if(!function_exists('get_organization_name')){
+ */
+if (!function_exists('get_organization_name')) {
     function get_organization_name($project_id)
     {
         try {
             $organisation = Organization::select('name')->join('projects', 'organizations.id', '=', 'projects.organisation_id')->where('projects.id', $project_id)->first();
 
             return $organisation ? $organisation->name : '';
-        }
-        catch(Throwable $th){
+        } catch (Throwable $th) {
             return '';
+        }
+    }
+}
+
+/**
+ * Get dashboard page link as per current user.
+ * @return string $link
+ */
+if (!function_exists('get_dashboard')) {
+    function get_dashboard()
+    {
+        try {
+            if (auth()->check()) {
+                $role = get_role_name(auth()->user()->role_id);
+             
+                if ($role == 'hr_operations') {
+                    return route('hr_operations_dashboard');
+                } elseif ($role == 'sales_manager') {
+                    return route('sales.manager_dashboard');
+                }
+                elseif ($role == 'it') {
+                    return route('it-head.dashboard');
+                }
+                elseif($role == 'hr_executive'){
+                    return route('hr-executive.dashboard');
+                }
+                 else {
+                    return route('hr_dashboard');
+                }
+            } elseif (auth('employee')->check()) {
+                return route('employee.dashboard');
+            } else {
+                return route('login');
+            }
+        } catch (Throwable $th) {
+            return route('login');
         }
     }
 }

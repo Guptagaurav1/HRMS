@@ -149,6 +149,17 @@ class HrController extends Controller
         return view("hr.dashboard.hr-operation-dashboard", compact('countPositions'));
     }
 
+    public function hr_executive_dashboard()
+    {
+        // to get current user
+        $user = auth()->user();
+        // count of position request by current user
+        $countPositions = PositionRequest::select('created_by')
+            ->where('created_by', $user->id)
+            ->count();
+        return view("hr.dashboard.hr-executive-dashboard", compact('countPositions'));
+    }
+
 
     public function templateBirthday()
     {

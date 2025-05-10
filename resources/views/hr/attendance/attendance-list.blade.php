@@ -77,31 +77,31 @@
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                     <thead>
                         <tr>
-                            <th>Employee Code</th>
-                            <th>Emp Name</th>
-                            <th>Month Year (Days in Month)</th>
-                            <th>Work Order</th>
-                            <th>Marked as Absent</th>
-                            <th>Working Days</th>
-                            <th>Approved Leave</th>
-                            <th>LWOP Leave</th>
-                            <th>Designation</th>
-                            <th>Action</th>
+                            <th class="text-cenetr">Employee Code</th>
+                            <th class="text-cenetr">Emp Name</th>
+                            <th class="text-cenetr">Month Year (Days in Month)</th>
+                            <th class="text-cenetr">Work Order</th>
+                            <th class="text-cenetr">Marked as Absent</th>
+                            <th class="text-cenetr">Working Days</th>
+                            <th class="text-cenetr">Approved Leave</th>
+                            <th class="text-cenetr">LWOP Leave</th>
+                            <th class="text-cenetr">Designation</th>
+                            <th class="text-cenetr">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                          @forelse($wo_attendances as $key => $wo_attendance)
                         <tr>
-                            <td>{{$wo_attendance->empDetail->emp_code??NULL}}</td>
-                            <td>{{$wo_attendance->empDetail->emp_name??NULL}}</td>
-                            <td>{{$wo_attendance->attendance_m_y??NULL}}</td>
-                            <td>{{$wo_attendance->wo_number??NULL}}</td>
-                            <td>{{$wo_attendance->gap_in_service??NULL}}</td>
-                            <td>{{$wo_attendance->working_days??NULL}}</td>
-                            <td>{{$wo_attendance->approve_leave??NULL}}</td>
-                            <td>{{$wo_attendance->lwp_leave??NULL}}</td>
-                            <td>{{$wo_attendance->empDetail->emp_designation??NULL}}</td>
-                            <td>
+                            <td class="text-center attributes-column">{{$wo_attendance->empDetail->emp_code??NULL}}</td>
+                            <td class="text-center attributes-column">{{$wo_attendance->empDetail->emp_name??NULL}}</td>
+                            <td class="text-center attributes-column">{{$wo_attendance->attendance_m_y??NULL}}</td>
+                            <td class="text-center attributes-column">{{$wo_attendance->wo_number??NULL}}</td>
+                            <td class="text-center attributes-column">{{$wo_attendance->gap_in_service??NULL}}</td>
+                            <td class="text-center attributes-column">{{$wo_attendance->working_days??NULL}}</td>
+                            <td class="text-center attributes-column">{{$wo_attendance->approve_leave??NULL}}</td>
+                            <td class="text-center attributes-column">{{$wo_attendance->lwp_leave??NULL}}</td>
+                            <td class="text-center attributes-column">{{$wo_attendance->empDetail->emp_designation??NULL}}</td>
+                            <td class="text-center attributes-column">
                                 <a href="{{route('edit-attendance',$wo_attendance->id)}}"><button class="btn btn-sm btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i></button></a>
                             </td>
                         </tr>

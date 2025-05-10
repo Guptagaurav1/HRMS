@@ -62,18 +62,19 @@ class AuthController extends Controller
             $user = User::where(['email' => $request->email, 'status' => '1'])->first();
             if ($user && $user->password === md5($request->password)) {
                 Auth::login($user);
-                $user = auth()->user();
-                $roleName = get_role_name($user->role_id);
+                return redirect()->to(get_dashboard());
 
-                if ($roleName == 'hr_operations') {
-                    return redirect()->route('hr_operations_dashboard');
-                }
-                elseif ($roleName == 'sales_manager') {
-                    return redirect()->route('sales.manager_dashboard');
-                }
-                else {
-                    return redirect()->route('hr_dashboard');
-                }
+                // $user = auth()->user();
+                // $roleName = get_role_name($user->role_id);
+
+                // if ($roleName == 'hr_operations') {
+                //     return redirect()->route('hr_operations_dashboard');
+                // }
+                // elseif ($roleName == 'sales_manager') {
+                //     return redirect()->route('sales.manager_dashboard');
+                // }
+                // else {
+                // }
             } else {
                 return redirect()->route('login')->with(['error' => true, 'message' => 'Invalid Credentials.']);
             }

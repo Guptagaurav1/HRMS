@@ -7,9 +7,8 @@
                 <h2 class="mt-md-2">WorkOrder Report</h2>
                 <div>
                     <ul class="breadcrumb">
-                        <li> @if (auth()->user()->role->role_name == "hr")
-                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                            @endif
+                        <li>
+                            <a href="{{get_dashboard()}}">Dashboard</a>
                         </li>
                         <li>Work Order Report</li>
                     </ul>

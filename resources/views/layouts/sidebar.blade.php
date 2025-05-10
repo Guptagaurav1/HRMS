@@ -963,7 +963,7 @@
 
                             <!-- CRM Lead Follow Up Sales Manager -->
 
-                            @if (auth()->user()->hasPermission('posh.complaint-list'))
+                            {{-- @if (auth()->user()->hasPermission('posh.complaint-list'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
                                         data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
@@ -976,7 +976,7 @@
 
                                     </ul>
                                 </li>
-                            @endif
+                            @endif --}}
 
 
 

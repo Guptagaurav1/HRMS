@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function index(Request $request){
      
-        $roles = Role::with('menu')
+        $roles = Role::with('menu')->where('role_name', '!=', '')
         ->orderBy('id', 'desc');
     
     $search = $request->search;
@@ -27,7 +27,7 @@ class RoleController extends Controller
         });
     }
     
-        $roles = $roles->paginate(10);
+        $roles = $roles->paginate(25);
         $roles->getCollection()->transform(function ($role) {
         $menu_ids = explode(',', $role->menu_id); // Convert string to array
         $menus = Menu::whereIn('id', $menu_ids)->pluck('name')->toArray(); // Get menu names

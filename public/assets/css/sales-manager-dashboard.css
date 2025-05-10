@@ -83,3 +83,42 @@
         margin-bottom: 20px;
     }
 }
+
+
+
+/* HR executive dashboard */
+
+.executive-job-card{
+    background: linear-gradient(135deg, #2f3542, #57606f);
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    
+    
+}
+
+.executive-job-card:hover {
+    transform: translateY(-5px);
+}
+
+.executive-job-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.executive-job-info {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    color: #dcdde1;
+}
+
+.executive-job-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    color: #a4b0be;
+}

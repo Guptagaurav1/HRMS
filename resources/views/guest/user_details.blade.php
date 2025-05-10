@@ -151,7 +151,7 @@
                                     <label class="form-label text-dark">Father's Contact No. <span
                                             class="text-danger fw-bold">*</span></label>
                                     <input type="text" name="emp_father_mobile" class="form-control for_char "
-                                        placeholder="Enter father's contact number"   maxlength="10" minlength="10"
+                                        placeholder="Enter father's contact number" maxlength="10" minlength="10"
                                         oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
                                         
 

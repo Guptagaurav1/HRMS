@@ -7,21 +7,9 @@
                 <h3 class="mt-2">Holiday List</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li>
-                        @if (auth('employee')->check())
-                            <a href="{{route('employee.dashboard')}}">Dashboard</a>
-                        @elseif (auth()->check())
-                            @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "hr_operations")
-                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "sales_manager")
-                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                            @else
-                            @endif
-                        @endif
-                       
-                        </li>
+                     
+                        <li><a href="{{get_dashboard()}}">Dashboard</a></li>
+
                         <li>Holiday List</li>
                     </ul>
                 </div>
@@ -46,21 +34,21 @@
                     <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                         <thead>
                             <tr>
-                                <th>Holiday Name</th>
-                                <th>Date</th>
-                                <th>Month</th>
-                                <th>Day</th>
-                                <th class="text-start">Type</th>
+                                <th class="text-center">Holiday Name</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">Day</th>
+                                <th class="text-center">Type</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($holidays as $holiday)
                             <tr>
-                                <td>{{$holiday->holiday_name}}</td>
-                                <td>{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
-                                <td>{{date('F', strtotime($holiday->holiday_date))}}</td>
-                                <td>{{date('l', strtotime($holiday->holiday_date))}}</td>
-                                <td>{{$holiday->holiday_type}}</td>
+                                <td class="text-center attributes-column">{{$holiday->holiday_name}}</td>
+                                <td class="text-center attributes-column">{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
+                                <td class="text-center attributes-column">{{date('F', strtotime($holiday->holiday_date))}}</td>
+                                <td class="text-center attributes-column">{{date('l', strtotime($holiday->holiday_date))}}</td>
+                                <td class="text-center attributes-column">{{$holiday->holiday_type}}</td>
                             </tr>
                             @empty
                             @if (auth()->check())

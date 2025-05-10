@@ -7,16 +7,9 @@
             <div class="panel-header">
                 <h2 class="mt-2">Helpdesk Mail Log</h2>
                 <ul class="breadcrumb">
-                    @if (auth()->check() && auth()->user()->role->role_name="hr")
-                        <li>
-                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                        </li>
-                    @endif
-                    @if (auth('employee')->check())
-                        <li>
-                            <a href="{{route('employee.dashboard')}}">Dashboard</a>
-                        </li>
-                    @endif
+                    <li>
+                        <a href="{{get_dashboard()}}">Dashboard</a>
+                    </li>
                         <li>Helpdesk Mail Log</li>
                     </ul>
             </div>

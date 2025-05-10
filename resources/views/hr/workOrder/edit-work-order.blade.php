@@ -10,9 +10,8 @@
 
                 <div>
                     <ul class="breadcrumb">
-                        <li> @if (auth()->user()->role->role_name == "hr")
-                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                            @endif
+                        <li>
+                            <a href="{{get_dashboard()}}">Dashboard</a>
                         </li>
                         <li><a href="{{route('work-order-list')}}">Work Order List</a></li>
                         <li>Update Work Order</li>
@@ -460,7 +459,7 @@
                                         <option value=""> Select State</option>
                                         @if(!empty($states))
                                         @foreach($states as $key => $value)
-                                        <option value="{{$value->id}}">{{ $value->state }}</option>
+                                        <option value="{{$value->id}}" {{$workOrder->wo_invoice_state == $value->id ? 'selected' : ''}}>{{ $value->state }}</option>
                                         @endforeach
                                         @endif
                                     </select>
@@ -470,7 +469,11 @@
 
                                     <select class="form-select" id="cities" name="invoice_city">
                                         <option value="">Select City</option>
-
+                                        @if($invoice_cities)
+                                        @foreach($invoice_cities as $key => $value)
+                                        <option value="{{$value->id}}" {{$workOrder->wo_invoice_city == $value->id ? 'selected' : ''}}>{{ $value->city_name }}</option>
+                                        @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>

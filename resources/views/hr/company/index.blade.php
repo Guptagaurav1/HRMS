@@ -44,12 +44,14 @@
                                 </div>
 
 
-                                <div class="col-auto col-xs-12">
-                                    <a href="{{ route('company.create') }}" class="col-xs-12 mx-md-2"><button
-                                            type="button" class="btn btn-sm btn-primary">Add Company
-                                            <i class="fa-solid fa-plus"></i></button></a>
+                               
+                        </div>
 
-                                </div>
+                        <div class="col-auto col-xs-12">
+                            <a href="{{ route('company.create') }}" class="col-xs-12 mx-md-2"><button
+                                    type="button" class="btn btn-sm btn-primary">Add Company
+                                    <i class="fa-solid fa-plus"></i></button></a>
+
                         </div>
 
                     </div>

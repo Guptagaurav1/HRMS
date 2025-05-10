@@ -8,10 +8,8 @@
                 <h3 class="mt-2">My Team User List ( You Are <span class="text-uppercase">{{auth()->user()->role->role_name}}</span> Head )</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li> @if (auth()->user()->role->role_name == "hr")
-                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                            @endif
-                        </li>
+                     
+                        <li><a href="{{get_dashboard()}}">Dashboard</a></li>
                         <li>My Team User List</li>
                     </ul>
                 </div>
