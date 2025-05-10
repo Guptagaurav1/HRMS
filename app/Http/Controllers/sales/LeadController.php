@@ -536,6 +536,52 @@ class LeadController extends Controller
     }
 
 
+    // update lead status win and lose
+
+
+    public function updateLeadStatus(Request $request, $id){
+
+        $request->validate([
+            'lead_status' => 'required',
+             'wo_no' => 'required',
+             'clos_amt' => 'required',
+            // 'status_remarks' => 'required',
+            // 'lose_remarks' => 'required',
+        ]);
+
+          try {
+            DB::beginTransaction();
+
+            $leadList = LeadList::find($id);
+            $leadList->wo_no = $request->wo_no ? $request->wo_no : '0'; 
+            $leadList->status_remarks = $request->status_remarks; 
+            $leadList->lose_remarks = $request->lose_remarks; 
+            $leadList->closing_amount = $request->clos_amt; 
+            $leadList->lead_status = strtolower($request->lead_status); 
+            $leadList->save();
+
+             if($leadList){
+                $LeadStatusActionLog = new CrmActionLog();
+                $LeadStatusActionLog->lead_id = $id;
+                $LeadStatusActionLog->action_type = strtolower($request->lead_status);
+                $LeadStatusActionLog->assigned_user_id = $request->assigned_user_id;
+                $LeadStatusActionLog->save();
+             }
+
+            
+            DB::commit();
+
+            return redirect()->back()->with(['success' => true, 'message' => 'Lead Status Updated successfully']);
+        } catch (Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => true, 'message' => $th->getMessage()]);
+        }
+
+
+    }
+
+
+
 
 
 

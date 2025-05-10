@@ -2,7 +2,9 @@
         $(".myModel").click(function() {
             var status = $(this).data("status");
             var lead_id = $(this).data("lead_id");
+
             document.getElementById('status').value = status;
+
             if (status == "Lose") {
                 document.getElementById('wo_no_id').style.display = 'none';
                 document.getElementById('wo_no_lab').style.display = 'none';
@@ -30,8 +32,7 @@
             }
             //set as Model heading
             document.getElementById('lead_name').innerHTML = lead_id;
-
-            $("#myModal").modal('show');
+            $("#myModalOpen").modal('show');
         });
 
         var dtToday = new Date();
