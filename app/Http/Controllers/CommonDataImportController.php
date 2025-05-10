@@ -117,7 +117,7 @@ class CommonDataImportController extends Controller
         // $status =  $this->emp_salary_slip($handle);
 
         // Add Leave Request details.
-        $status =  $this->import_leave_request_data($handle);
+        // $status =  $this->import_leave_request_data($handle);
 
         // Add Employee send documents details.
         // $status =  $this->import_emp_send_doc_data($handle);
@@ -266,7 +266,7 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_lead_category_data($handle);
 
         // Add crm project list.
-        // $status =  $this->import_crm_project_list_data($handle);
+        $status =  $this->import_crm_project_list_data($handle);
 
         // Add crm lead list.
         // $status =  $this->import_lead_list_data($handle);

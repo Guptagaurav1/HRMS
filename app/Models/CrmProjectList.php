@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class CrmProjectList extends Model
 {
@@ -13,7 +15,10 @@ class CrmProjectList extends Model
      * The attributes that aren't mass assignable.
      *
      * @var array
+     * 
+     * 
      */
+    protected $table = 'crm_project_lists';
     protected $guarded = [];
 
     /**
@@ -36,4 +41,18 @@ class CrmProjectList extends Model
             });
         }
     }
+
+
+     /**
+     *  Get the client name.
+     */
+
+     public function client()
+     {
+         return $this->belongsTo(ClientList::class, 'client_id', 'id');
+     }
+
+      /**
+     *  Get the client name.
+     */
 }

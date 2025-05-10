@@ -58,6 +58,7 @@ use App\Http\Controllers\employee\EmployeeDetailController;
 use App\Http\Controllers\sales\SalesController;
 use App\Http\Controllers\sales\ClientController as SalesClientController;
 use App\Http\Controllers\sales\ProjectController as SalesProjectController;
+use App\Http\Controllers\sales\LeadController as SalesLeadController;
 
 
 /*
@@ -506,6 +507,20 @@ Route::middleware('auth')->prefix('sales')->group(function () {
         Route::get("edit", 'edit')->name("sales-projects.edit");
         Route::get("view", 'read')->name("sales-projects.view");
     });
+
+    Route::controller(SalesLeadController::class)->prefix('leads')->group(function () {
+        Route::get("/", 'index')->name("leads.list");
+        Route::get("create", 'create')->name("leads.create");
+        Route::post("store", 'store')->name("leads.store");
+        Route::post("store-lead-followup", 'storeLeadFollowUp')->name("leads.storeLeadFollowUp");
+        Route::get("show/{id}", 'show')->name("leads.show");
+        Route::get("edit/{id}", 'edit')->name("leads.edit");
+        Route::put("update/{id}", 'update')->name("leads.update");
+        Route::get("crm-lead-follow-up/{id}", 'crmLeadFollowUp')->name("leads.crmLeadFollowUp");
+        Route::get("delete-lead-attachment/{id}", 'removeLeadAttachment')->name("leads.removeLeadAttachment");
+        Route::get("delete-lead-spoc/{id}", 'deleteLeadSpoc')->name("leads.deleteLeadSpoc");
+
+    });
 });
 
 // VMS routes
@@ -621,13 +636,13 @@ Route::get("temp-profile", function () {
 
 // Sales manager Routes
 
-Route::get("add-lead", function () {
-    return view("hr.add-lead");
-})->name("add-lead");
+// Route::get("add-lead", function () {
+//     return view("hr.add-lead");
+// })->name("add-lead");
 
-Route::get("lead-list", function () {
-    return view("hr.lead-list");
-})->name("lead-list");
+// Route::get("lead-list", function () {
+//     return view("hr.lead-list");
+// })->name("lead-list");
 
 
 Route::get("add-tender", function () {
@@ -646,9 +661,9 @@ Route::get("update-tender", function () {
     return view("hr.update-tender");
 })->name("update-tender");
 
-Route::get("crm-lead-follow-up", function () {
-    return view("hr.crm-lead-follow-up");
-})->name("crm-lead-follow-up");
+// Route::get("crm-lead-follow-up", function () {
+//     return view("hr.crm-lead-follow-up");
+// })->name("crm-lead-follow-up");
 
 Route::get("view-crm-details", function () {
     return view("hr.view-crm-details");
@@ -715,11 +730,3 @@ Route::middleware('employee')->prefix('employee')->group(function () {
         return view("employee.reiembursement-list-employee");
     })->name("reiembursement-list-employee");
 });
-
-// $namedRoutes = collect(Route::getRoutes())->filter(function ($route) {
-//     return $route->getName() !== null;
-// })->map(function ($route) {
-//     return $route->getName();
-// });
-
-// dd($namedRoutes);

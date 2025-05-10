@@ -70,7 +70,8 @@
 
           
             <div class="col-md-8 px-4">
-                <form class="mt-4">
+                <form class="mt-4" method="post">
+                    @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="profile-label">City</label>

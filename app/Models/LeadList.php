@@ -37,5 +37,26 @@ class LeadList extends Model
         }
     }
 
+    public function leadAssignUser(){
+        return $this->hasOne(LeadAssignUser::class, 'lead_id','id');
+    }
+
+    public function projectDetails(){
+        return $this->belongsTo(CrmProjectList::class, 'project_id','id');
+    }
+
+    public function getCategory(){
+        return $this->belongsTo(LeadCategoryList::class, 'category_id','id');
+    }
+
+    public function getSource(){
+        return $this->belongsTo(LeadSourceList::class, 'source_id','id');
+    }
+
+    public function getAttachment(){
+        return $this->belongsTo(LeadAttachment::class, 'lead_id','id');
+    }
+
+
 
 }

@@ -36,4 +36,8 @@ class LeadFollowUpList extends Model
             });
         }
     }
+
+    public function leadAssignUser(){
+        return $this->hasOne(LeadAssignUser::class, 'lead_id','id');
+    }
 }
