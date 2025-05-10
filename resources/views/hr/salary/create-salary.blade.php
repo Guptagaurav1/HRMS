@@ -145,11 +145,12 @@
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6" id="pf_no_field">
                                 <label class="form-label">PF UAN No</label>
-                                <input type="number" name="pf_no" id="pf_no" class="form-control form-control-sm" placeholder="Enter PF UAN No">
+                                <input type="text" name="pf_no" id="pf_no" class="form-control form-control-sm" placeholder="Enter PF UAN No">
                             </div>
                             <div class="col-xxl-3 col-lg-6 col-sm-6" id="esi_no_field">
                                 <label for="formFile" class="form-label">ESI No</label>
-                                <input type="number" name="esi_no"  id="esi_no" class="form-control form-control-sm" pattern="^(\d{2})[\–\-](\d{2})[\–\-](\d{6})[\–\-](\d{3})[\–\-](\d{4})$" placeholder="Enter ESI No">
+                                <input type="text" name="esi_no"  id="esi_no" class="form-control form-control-sm for_char"  placeholder="Enter ESI format Like 00-00-000000-000-0000" maxlength="21">
+                                <span class="esi_no"></span>
                             </div>
                         </div>
                     </div>
@@ -434,4 +435,6 @@
 
 <script src="{{asset('assets/js/checkbox.js')}}"></script>
 <script src="{{asset('assets/js/hr/salary/add-salary-structure.js')}}"></script>
+<script src="{{asset('assets/js/commonValidation.js')}}"></script>
 @endsection
+

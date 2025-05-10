@@ -17,6 +17,9 @@ class ClientList extends Model
      *
      * @var array
      */
+
+     protected $table = 'client_lists';
+
     protected $guarded = [];
 
 
@@ -58,4 +61,6 @@ class ClientList extends Model
     {
         return $this->hasMany(ClientAttachment::class, 'client_id', 'id')->select('id', 'file_name', 'file_type', 'created_at');
     }
+
+
 }

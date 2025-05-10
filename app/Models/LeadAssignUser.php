@@ -36,4 +36,9 @@ class LeadAssignUser extends Model
             });
         }
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'assigned_user_id', 'id');
+    }
 }

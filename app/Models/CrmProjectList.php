@@ -16,7 +16,10 @@ class CrmProjectList extends Model
      * The attributes that aren't mass assignable.
      *
      * @var array
+     * 
+     * 
      */
+    protected $table = 'crm_project_lists';
     protected $guarded = [];
 
     /**
@@ -40,6 +43,9 @@ class CrmProjectList extends Model
         }
     }
 
+      /**
+     *  Get the client name.
+     */
     /**
      * Get the client associated with the project.
      */

@@ -265,31 +265,35 @@ class MenuSeeder extends Seeder
             ['mid' => 'M-138', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Project List', 'page' => 'sales-projects.list', 'status' => '1', 'parent_id' => '31'],
             ['mid' => 'M-139', 'section' => 'Sales', 'section_icon' => '', 'name' => 'View Project', 'page' => 'sales-projects.view', 'status' => '1', 'parent_id' => '31'],
             ['mid' => 'M-140', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Sales Manager Dashboard', 'page' => 'sales.manager_dashboard', 'status' => '1', 'parent_id' => '31'],
-
+            ['mid' => 'M-141', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Lead List', 'page' => 'leads.list', 'status' => '1', 'parent_id' => '31'],
+            ['mid' => 'M-142', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Add Lead', 'page' => 'leads.create', 'status' => '1', 'parent_id' => '31'],
+            ['mid' => 'M-143', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Edit Lead', 'page' => 'leads.edit', 'status' => '1', 'parent_id' => '31'],
+            ['mid' => 'M-144', 'section' => 'Sales', 'section_icon' => '', 'name' => 'View Lead', 'page' => 'leads.show', 'status' => '1', 'parent_id' => '31'],
+            ['mid' => 'M-145', 'section' => 'Sales', 'section_icon' => '', 'name' => 'Add Follow Up', 'page' => 'leads.crmLeadFollowUp', 'status' => '1', 'parent_id' => '31'],
             // Users Pages.
-            ['mid' => 'M-141', 'section' => 'User & Role', 'section_icon' => '', 'name' => 'Users Listing', 'page' => 'users', 'status' => '1', 'parent_id' => '20'],
+            ['mid' => 'M-146', 'section' => 'User & Role', 'section_icon' => '', 'name' => 'Users Listing', 'page' => 'users', 'status' => '1', 'parent_id' => '20'],
 
             // Home Routes.
-            ['mid' => 'M-142', 'section' => 'Home', 'section_icon' => '', 'name' => 'Logout', 'page' => 'department_logout', 'status' => '1', 'parent_id' => '1'],
+            ['mid' => 'M-147', 'section' => 'Home', 'section_icon' => '', 'name' => 'Logout', 'page' => 'department_logout', 'status' => '1', 'parent_id' => '1'],
 
             // IT Routes.
-            ['mid' => 'M-143', 'section' => 'IT', 'section_icon' => '', 'name' => 'IT Head Dashboard', 'page' => 'it-head.dashboard', 'status' => '1', 'parent_id' => '32'],
+            ['mid' => 'M-148', 'section' => 'IT', 'section_icon' => '', 'name' => 'IT Head Dashboard', 'page' => 'it-head.dashboard', 'status' => '1', 'parent_id' => '32'],
 
              // HR Executive.
-             ['mid' => 'M-144', 'section' => 'Home', 'section_icon' => '', 'name' => 'HR Executive Dashboard', 'page' => 'hr-executive.dashboard', 'status' => '1', 'parent_id' => '1'],
+             ['mid' => 'M-149', 'section' => 'Home', 'section_icon' => '', 'name' => 'HR Executive Dashboard', 'page' => 'hr-executive.dashboard', 'status' => '1', 'parent_id' => '1'],
 
              // HR Executive.
-             ['mid' => 'M-145', 'section' => 'Home', 'section_icon' => '', 'name' => 'HR Operation Dashboard', 'page' => 'hr_operations_dashboard', 'status' => '1', 'parent_id' => '1'],
+             ['mid' => 'M-150', 'section' => 'Home', 'section_icon' => '', 'name' => 'HR Operation Dashboard', 'page' => 'hr_operations_dashboard', 'status' => '1', 'parent_id' => '1'],
 
              // Employee edit.
-             ['mid' => 'M-146', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Edit Employee', 'page' => 'employee.edit-employee',  'status' => '1', 'parent_id' => '23'],
-             ['mid' => 'M-147', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Employee View Letters', 'page' => 'employee.view-letter', 'status' => '1', 'parent_id' => '23'],
-             ['mid' => 'M-148', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Employee View Letters', 'page' => 'employee.view-letter', 'status' => '1', 'parent_id' => '23'],
+             ['mid' => 'M-151', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Edit Employee', 'page' => 'employee.edit-employee',  'status' => '1', 'parent_id' => '23'],
+             ['mid' => 'M-152', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Employee View Letters', 'page' => 'employee.view-letter', 'status' => '1', 'parent_id' => '23'],
+             ['mid' => 'M-153', 'section' => 'Employee', 'section_icon' => '', 'name' => 'Employee View Letters', 'page' => 'employee.view-letter', 'status' => '1', 'parent_id' => '23'],
 
             //  Company
-             ['mid' => 'M-149', 'section' => 'Master - Company', 'section_icon' => '', 'name' => 'Company View', 'page' => 'company.view', 'status' => '1', 'parent_id' => '28'],
+             ['mid' => 'M-154', 'section' => 'Master - Company', 'section_icon' => '', 'name' => 'Company View', 'page' => 'company.view', 'status' => '1', 'parent_id' => '28'],
              
-             ['mid' => 'M-150', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Edit Attendance', 'page' => 'edit-attendance', 'status' => '1', 'parent_id' => '15'],
+             ['mid' => 'M-155', 'section' => 'Attendance', 'section_icon' => '', 'name' => 'Edit Attendance', 'page' => 'edit-attendance', 'status' => '1', 'parent_id' => '15'],
 
             
              ['mid' => 'M-151', 'section' => 'Work Order', 'section_icon' => '', 'name' => 'Work Order Report', 'page' => 'work-order-report', 'status' => '1', 'parent_id' => '12'],

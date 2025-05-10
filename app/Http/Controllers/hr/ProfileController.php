@@ -24,4 +24,6 @@ class ProfileController extends Controller
     {
         return view('hr.profile.admin-user-profile');
     }
+
+    
 }
