@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('contents')
+
 <div class="row">
     <div class="col-md-12">
         <div class="panel shadow-sm">
@@ -219,7 +220,7 @@
                 <div class="col-md-12 d-flex justify-content-end gap-2 mt-3 mx-3 border border-white bg-dark "
                     style="max-width: 10%; position:fixed; z-index: 100; right: 0; bottom: 40px;  padding: 10px; border-radius: 10px;">
                     <div>
-                        <button type="button" class="btn btn-sm btn-info">Win</button>
+                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Win</button>
 
                     </div>
                     <div>
@@ -229,10 +230,106 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 
+
+
+
+
+
 @endsection
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title fs-5 text-white" id="staticBackdropLabel">Update Status: <span>value</span></h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+    <div class="modal-body">
+  <div class="container">
+    
+    <!-- Equal-height Project Cards -->
+    <div class="row mb-4">
+      <div class="col-md-4 d-flex">
+        <div class="card  shadow-sm border bg-light">
+          <div class="card-body d-flex">
+            <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
+            <div>
+              <div class="fw-semibold text-secondary small">Project Name</div>
+              <div class="text-dark">Their Values</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card  shadow-sm border bg-light">
+          <div class="card-body d-flex">
+            <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
+            <div>
+              <div class="fw-semibold text-secondary small">Project Name</div>
+              <div class="text-dark">A much longer value that spans multiple lines to demonstrate automatic height alignment of cards across this row.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="card  shadow-sm border bg-light">
+          <div class="card-body d-flex">
+            <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
+            <div>
+              <div class="fw-semibold text-secondary small">Project Name</div>
+              <div class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing dolor sit amet consectetur adipisicing elit. Eligendi laborum, voluptatem ipsum asperiores hic id at veritatis reprehenderit eaque amet aspernatur dolor, earum sed ab voluptatum error laudantium deleniti molestiae? elit. Eligendi laborum, voluptatem ipsum asperiores hic id at veritatis reprehenderit eaque amet aspernatur dolor, earum sed ab voluptatum error laudantium deleniti molestiae?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <p class="text-success fs-5 fw-semibold">You Have Selected Win</p>
+      </div>
+    </div>
+
+    <!-- Input Fields -->
+    <div class="row g-3">
+      <div class="col-md-12">
+        <label class="form-label">Work Order No</label>
+        <input type="text" class="form-control" placeholder="Enter Work Order No">
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Closing Amount <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter Closing Amount">
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Remarks <span class="text-danger">*</span></label>
+        <textarea class="form-control" placeholder="Enter Remarks" rows="3"></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
+        <button type="button" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 
 
 @section('script')
