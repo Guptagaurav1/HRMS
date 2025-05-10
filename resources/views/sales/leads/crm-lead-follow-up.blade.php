@@ -7,6 +7,39 @@
             <div class="panel-header">
                 <h3 class="mt-2">Lead Tracker Data</h3>
             </div>
+             @if (session()->has('success'))
+                    <div class="col-md-12 mt-3">
+                        <div class="alert alert-success d-flex align-items-center alert-dismissible fade show"
+                            role="alert">
+                            <svg class="bi flex-shrink-0 me-2" fill="#fff" width="24" height="24" role="img"
+                                aria-label="Success:">
+                                <use xlink:href="#check-circle-fill" />
+                            </svg>
+                            <div>
+                                {{ session()->get('message') }}
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                    </div>
+                @endif
+                @if (session()->has('error'))
+                    <div class="col-md-12">
+                        <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
+                            role="alert">
+                            <svg class="bi flex-shrink-0 me-2" fill="#b02a37" width="24" height="24" role="img"
+                                aria-label="Danger:">
+                                <use xlink:href="#exclamation-triangle-fill" />
+                            </svg>
+                            <div>
+                                {{ session()->get('message') }}
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                    </div>
+                @endif
+
             <div class="row mt-3 px-3">
                 <!-- Lead Summary Section -->
                 <div class="col-md-9">
@@ -21,7 +54,9 @@
                                 <div class="col-sm-6 col-md-4"><strong>Deadline:</strong> {{ \Carbon\Carbon::parse($leads->deadline)->format('d-m-Y'); }}</div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-sm-6 col-md-4"><strong>Category:</strong> {{ $leads->getCategory ? $leads->getCategory->category_name : '' }}</div>
+                                @if(auth()->user()->company_id == '2')
+                                    <div class="col-sm-6 col-md-4"><strong>Category:</strong> {{ $leads->getCategory ? $leads->getCategory->category_name : '' }}</div>
+                                @endif
                                 <div class="col-sm-6 col-md-4"><strong>Source:</strong> {{ $leads->getSource ? $leads->getSource->source_name : '' }}</div>
                                 <div class="col-sm-6 col-md-4"><strong>Lead Created On:</strong> {{ $leads->created_at->format('d-m-Y') }}</div>
                             </div>
@@ -31,6 +66,16 @@
                                     <strong>Follow Up Status:</strong>
                                     <span class="badge bg-danger" style="font-size: 10px;"> {{ $leads->leadAssignUser ? ucwords($leads->leadAssignUser->follow_up_status) : '' }}</span>
                                 </div>
+                                @if($leads->lead_status == 'win')
+                                    <div class="col-sm-6 col-md-4">
+                                        <strong>Work Order No.:</strong>
+                                        <span class="badge bg-danger" style="font-size: 10px;"> {{ $leads->wo_no ? $leads->wo_no : 'Not Available' }}</span>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4">
+                                        <strong>Closing Amount :</strong>
+                                        <span class="badge bg-danger" style="font-size: 10px;"> {{ number_format($leads->closing_amount, 2) }}</span>
+                                    </div>
+                                @endif
                                 <div class="col-sm-6 col-md-4">
                                     <a href="{{route('leads.show', ['id' => $leads->id])}}"> <button type="button"
                                             class="btn btn-sm btn-outline-primary">
@@ -119,44 +164,10 @@
             
            
             <!-- Comment Section -->
-
+            @if(auth()->user()->role->role_name != "sales_admin" &&   $leads->lead_status != 'win'  && $leads->lead_status != 'lose')
 
             <form action="{{ route('leads.storeLeadFollowUp') }}" method="post" enctype="multipart/form-data">
                 @csrf 
-
-                @if (session()->has('success'))
-                    <div class="col-md-12">
-                        <div class="alert alert-success d-flex align-items-center alert-dismissible fade show"
-                            role="alert">
-                            <svg class="bi flex-shrink-0 me-2" fill="#fff" width="24" height="24" role="img"
-                                aria-label="Success:">
-                                <use xlink:href="#check-circle-fill" />
-                            </svg>
-                            <div>
-                                {{ session()->get('message') }}
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    </div>
-                @endif
-                @if (session()->has('error'))
-                    <div class="col-md-12">
-                        <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
-                            role="alert">
-                            <svg class="bi flex-shrink-0 me-2" fill="#b02a37" width="24" height="24" role="img"
-                                aria-label="Danger:">
-                                <use xlink:href="#exclamation-triangle-fill" />
-                            </svg>
-                            <div>
-                                {{ session()->get('message') }}
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    </div>
-                @endif
-
             <div class="row px-3">
                 <div class="col-md-12">
                    
@@ -213,21 +224,24 @@
             </div>
             </form>
 
+            @endif
+
             <!-- Win or / Lose -->
+            @if(auth()->user()->role->role_name != 'sales_admin')
+                <div class="row" style="position: relative;">
+                    <div class="col-md-12 d-flex justify-content-end gap-2 mt-3 mx-3 border border-white bg-dark "
+                        style="max-width: 10%; position:fixed; z-index: 100; right: 0; bottom: 40px;  padding: 10px; border-radius: 10px;">
+                        <div>
+                            <button type="button" class="btn btn-sm btn-info">Win</button>
 
-            <div class="row" style="position: relative;">
-                <div class="col-md-12 d-flex justify-content-end gap-2 mt-3 mx-3 border border-white bg-dark "
-                    style="max-width: 10%; position:fixed; z-index: 100; right: 0; bottom: 40px;  padding: 10px; border-radius: 10px;">
-                    <div>
-                        <button type="button" class="btn btn-sm btn-info">Win</button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-danger">Lose</button>
+                        </div>
 
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-sm btn-danger">Lose</button>
-                    </div>
-
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
