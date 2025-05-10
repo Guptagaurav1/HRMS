@@ -12,7 +12,7 @@
                         
                     </div> -->
 
-                    <div class="text-end px-4">
+                    <!-- <div class="text-end px-4">
                         @if(auth()->check())
                     <a href="{{ route('salary-slip') }}">
                         <div class="back-button-box">
@@ -30,7 +30,7 @@
                         </div>
                     </a>
                     @endif
-                </div>
+                </div> -->
                     </div>
                     
                     <div class="panel-body invoice printarea" id="invoiceBody">
@@ -135,7 +135,23 @@
 
                     <div class="panel-body border-top">
                         <p class="invoice-note text-end mb-0 text-danger">Computer generated payslip, No signature required</p>
-                        <div class="btn-box d-flex justify-content-end gap-2 mt-3">
+                        <div class="btn-box d-flex justify-content-end gap-3 mt-3">
+                        @if(auth()->check())
+                        <a href="{{ route('salary-slip') }}">
+                            <button class="btn btn-sm btn-secondary" >
+                                Cancel
+                            </button>
+                            </a>
+                        @else
+                        <a href="{{ url()->previous() }}">
+                        <div class="back-button-box">
+                            <button type="button" class="btn btn-sm btn-secondary">
+                            Cancel
+                                
+                            </button>
+                        </div>
+                    </a>
+                    @endif
                             <button class="btn btn-sm btn-primary" id="printInvoice" onclick="printmydoc()">
                                 <i class="fa-light fa-print"></i> Print
                             </button>

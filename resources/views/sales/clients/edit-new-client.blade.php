@@ -279,9 +279,7 @@
                                 <div class="row g-3 attachments">
                                     <input type="hidden" name="remove_attachment[]" value="">
                                     <div class="col-lg-4 col-md-4">
-                                        <select class="form-select">
-                                            <option>{{ $attachment->file_type }}</option>
-                                        </select>
+                                        <input type="text" value="{{ $attachment->file_type }}" class="form-control form-control-sm" disabled>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <a href="{{ asset('upload/crm/client') . '/' . $attachment->file_name }}"

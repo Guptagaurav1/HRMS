@@ -1,4 +1,5 @@
 @extends('layouts.master', ['title' => 'Add Project'])
+
 @section('contents')
     <div class="row">
         <div class="col-md-12">
@@ -48,26 +49,28 @@
 
                                 <div class="col-lg-4 col-md-4">
                                     <label class="form-label">Client Name <span class="text-danger">*</span></label>
-                                    <div class="d-flex gap-2">
+                                    
                                         <select class="form-select form-lavel js-example-basic-multiple" name="client_id"
-                                            required>
+                                            required >
                                             <option value=""> Select Client</option>
                                             @foreach ($clients as $client)
-                                                <option value="{{ $client->id }}"
+                                                <option  value="{{ $client->id }}"
                                                     {{ $client_id == $client->id ? 'selected' : '' }}>
-                                                    {{ $client->client_name }}</option>
+                                                    {{ $client->client_name }}
+                                                 
+                                               
+                                                </option>
+                                                    
                                             @endforeach
                                         </select>
-                                        <div class="col-auto">
+                                        <div class="col-auto mt-2">
                                             <a href="{{ route('sales-clients.add') }}">
                                                 <button type="button" class="btn btn-sm btn-primary">Add Client</button>
                                             </a>
                                         </div>
                                         @error('client_id')
                                             <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-
-                                    </div>
+                                        @enderror                                
 
                                 </div>
 

@@ -88,8 +88,10 @@ class ClientController extends Controller
             'client_name' => ['required', 'string'],
             'department_name' => ['required', 'string'],
             'consern_ministry' => ['required', 'string'],
-            'contact_email' => ['email'],
-            'p_email' => ['email'],
+            'contact_email' => ['nullable', 'email'],
+            'p_email' => ['nullable', 'email'],
+        ], [
+            'p_email.email' => 'Company email must be a valid email address.'
         ]);
 
         try {

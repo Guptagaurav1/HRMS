@@ -5,7 +5,10 @@ $(document).ready(function() {
     $.ajax({
         // url: '{{ route("emp-data", ":id") }}'.replace(':id', emp_id),
         url :SITE_URL +"/hr/invoice-billling/emp-data/"+ emp_id,
-        type: 'GET',
+        type: 'POST',
+        data:{
+          '_token' : $("meta[name=csrf-token]").attr('content')
+        },
         success: function(response) {
                 let emp_code =response.data.emp_code;
                 let emp_name =response.data.emp_name;

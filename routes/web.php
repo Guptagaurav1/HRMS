@@ -417,7 +417,7 @@ Route::middleware('page.permission')->group(function () {
             Route::get("form16-list", 'form16')->name('form16');
             Route::get("add-new-form16", 'addForm16')->name('add-new-form16');
             Route::post("create-form16", 'create')->name('create-form16');
-            Route::get("emp-data/{id}", 'emp_data')->name('emp-data');
+            Route::post("emp-data/{id}", 'emp_data')->name('emp-data');
             Route::post("upload-form16", 'uploadForm16')->name('upload-form16');
         });
 

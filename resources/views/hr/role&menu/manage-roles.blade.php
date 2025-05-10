@@ -22,6 +22,7 @@
                     </ul>
                 </div>
             </div>
+          
             <div class="row">
                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -34,6 +35,7 @@
                     </symbol>
                 </svg>
             </div>
+            
             <div class="col-md-12 d-flex justify-content-between flex-wrap px-4 mt-5">
                 <form class="row g-3" method="get">
                     <div class="col-auto col-xs-12 mb-3">
@@ -56,33 +58,32 @@
 
                 </div>
             </div>
-            <div class="row px-3">
+            
+                     <!-- Success Message -->
                 @if($message = Session::get('success'))
-                <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:">
-                        <use xlink:href="#check-circle-fill" />
-                    </svg>
-                    <div>
-                        {{ $message }}
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                            <use xlink:href="#check-circle-fill" />
+                        </svg>
+                        <div>{{ $message }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-
                 @endif
+
+                <!-- Error Message -->
                 @if($message = Session::get('error'))
-
-                <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:">
-                        <use xlink:href="#exclamation-triangle-fill" />
-                    </svg>
-                    <div>
-                        {{$message}}
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                            <use xlink:href="#exclamation-triangle-fill" />
+                        </svg>
+                        <div>{{ $message }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
-            </div>
 
             <div class="panel-body">
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
