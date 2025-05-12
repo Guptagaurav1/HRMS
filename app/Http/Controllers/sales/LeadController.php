@@ -143,7 +143,7 @@ class LeadController extends Controller
             'attach_typ' => 'required',
             'attach_file' => 'required',
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required',
             'contact' => 'required',
             'sp_remarks' => 'required',
             // 'set_as_def' => 'required',
@@ -200,9 +200,17 @@ class LeadController extends Controller
          
             // spoc persion add
     
+            if($request->set_as_def == null){
+                return redirect()->route('leads.list')->with(['error' => true, 'message' => 'Please select at least one Spoc persion']);
+            }
+
                 if ($request->name && count($request->name) > 0) {
                     for ($i = 0; $i < count($request->name); $i++) {
+
                         // Store lead spock persion
+
+                        // dd($request->set_as_def[$i]);
+
                         LeadSpocPerson::create([
                             'lead_id' => $leadList->id,
                             'name' => $request->name[$i],

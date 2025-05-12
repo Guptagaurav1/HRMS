@@ -51,7 +51,7 @@ class CrmProjectList extends Model
      */
     public function client(): BelongsTo
     {
-        return $this->belongsTo(ClientList::class, 'client_id', 'id')->select('client_name');
+        return $this->belongsTo(ClientList::class, 'client_id', 'id')->select('id','client_name');
     }
 
     /**

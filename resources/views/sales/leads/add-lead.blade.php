@@ -173,7 +173,7 @@
                             <div class="col-lg-4 col-md-4">
                                 <label class="form-label" class="text-dark">Contact</label>
                                 <input type="text" class="form-control form-control-sm " name="contact[]"
-                                    placeholder="Enter Contact">
+                                    placeholder="Enter Contact" maxlength="10">
                                 @error('contact')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
