@@ -5,8 +5,18 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel shadow-sm">
-            <div class="panel-header">
+            <div class="panel-header d-flex">
                 <h3 class="mt-2">Lead Tracker Data</h3>
+                <div>
+                    <ul class="breadcrumb">
+
+                        <li>
+                            <a href="{{get_dashboard()}}">Dashboard</a>
+                        </li>
+                        <li><a href="{{route('leads.list')}}">Lead List</a></li>
+                         <li><a href="#">Lead Tracker Data</a></li>
+                    </ul>
+                </div>
             </div>
             @if (session()->has('success'))
             <div class="col-md-12 mt-3">

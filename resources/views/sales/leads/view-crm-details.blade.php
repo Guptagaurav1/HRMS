@@ -4,8 +4,18 @@
 <div class="row">
     <div class="col-12">
         <div class="panel">
-            <div class="panel-header">
-                <h2 class="mt-2">CRM Details</h2>
+            <div class="panel-header d-flex">
+                <h2 class="mt-2">Lead Details</h2>
+                <div>
+                    <ul class="breadcrumb">
+
+                        <li>
+                            <a href="{{get_dashboard()}}">Dashboard</a>
+                        </li>
+                        <li><a href="{{route('leads.list')}}">Lead List</a></li>
+                        <li>Lead Details</li>
+                    </ul>
+                </div>
 
             </div>
 
@@ -130,7 +140,7 @@
                                 <tr>
                                     <td class='text-center'>1</td>
                                     <td class='text-center attributes-column'>{{ $lead->leadAssignUser ? ucwords($lead->leadAssignUser->user->first_name." ".$lead->leadAssignUser->user->last_name) : '' }}</td>
-                                    <td class='text-center attributes-column'>{{ $lead->leadAssignUser ? ucwords($lead->leadAssignUser->user->phone." ".$lead->leadAssignUser->user->phone) : '' }}</td>
+                                    <td class='text-center attributes-column'>{{ $lead->leadAssignUser ? $lead->leadAssignUser->user->phone : '' }}</td>
                                     <td class='text-center attributes-column'>
                                         {{ $lead->leadAssignUser->created_at->format('d-m-Y') }}
                                     </td>

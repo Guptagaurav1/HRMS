@@ -135,18 +135,16 @@ class LeadController extends Controller
             'lead_title' => 'required | string',
             'project_id' => 'required',
             'deadline' => 'required',
-            'description' => 'required',
-            'remarks' => 'required',
-            // 'category_id' => 'required',
-            'source_id' => 'required',
+            // 'description' => 'required',
+            // 'remarks' => 'required',
             'assign_user_id' => 'required',
-            'attach_typ' => 'required',
-            'attach_file' => 'required',
+           'attach_file' => 'required|array',
+            'attach_file.*' => 'required|file|mimes:pdf',
             'name' => 'required',
             'email' => 'required',
             'contact' => 'required',
-            'sp_remarks' => 'required',
-            // 'set_as_def' => 'required',
+            // 'sp_remarks' => 'required',
+            'set_as_def' => 'required',
         ]);
 
         try {
@@ -201,7 +199,7 @@ class LeadController extends Controller
             // spoc persion add
     
             if($request->set_as_def == null){
-                return redirect()->route('leads.list')->with(['error' => true, 'message' => 'Please select at least one Spoc persion']);
+                return redirect()->route('leads.list')->with(['error' => true, 'message' => 'Please checked Set As Default field']);
             }
 
                 if ($request->name && count($request->name) > 0) {
@@ -246,7 +244,7 @@ class LeadController extends Controller
             return redirect()->route('leads.list')->with(['success' => true, 'message' => 'Lead added successfully']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return redirect()->route('leads.list')->with(['error' => true, 'message' => $th->getLine() . "-" .$th->getMessage()]);
+            return redirect()->route('leads.list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
 
     }
@@ -415,21 +413,19 @@ class LeadController extends Controller
         // dd('fdsfdsf');
 
         $validation = $request->validate([
-            'lead_title' => 'required | string',
+              'lead_title' => 'required | string',
             'project_id' => 'required',
             'deadline' => 'required',
-            'description' => 'required',
-            'remarks' => 'required',
-            // 'category_id' => 'required',
-            'source_id' => 'required',
+            // 'description' => 'required',
+            // 'remarks' => 'required',
             'assign_user_id' => 'required',
-            'attach_typ' => 'required',
-            'attach_file' => 'nullable',
+           'attach_file' => 'required|array',
+            'attach_file.*' => 'required|file|mimes:pdf',
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required',
             'contact' => 'required',
-            'sp_remarks' => 'required',
-            // 'set_as_def' => 'required',
+            // 'sp_remarks' => 'required',
+            'set_as_def' => 'required',
         ]);
 
         try {
