@@ -644,6 +644,7 @@ Route::middleware('page.permission')->group(function () {
 
     Route::controller(SalesLeadController::class)->prefix('leads')->group(function () {
         Route::get("/", 'index')->name("leads.list");
+        Route::post("create", 'create')->name("projectLeads.create");
         Route::get("create", 'create')->name("leads.create");
         Route::post("store", 'store')->name("leads.store");
         Route::post("store-lead-followup", 'storeLeadFollowUp')->name("leads.storeLeadFollowUp");

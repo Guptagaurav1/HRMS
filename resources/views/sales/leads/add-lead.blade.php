@@ -44,9 +44,17 @@
                                 <label class="form-label" class="text-dark">Project Name(Client Name) <span class="text-danger">*</span></label>
                                 <select class="form-select js-example-basic-multiple form-control" name="project_id">
                                     <option value="">Select Project Name</option>
+
+                                    @if(count($projects) == 1)
                                     @foreach($projects as $key => $value)
-                                    <option value="{{ $value->id }}" {{ old('project_id') == $value->id ? 'selected' : ''}}>{{ $value->project_name }} ({{ $value->client ? $value->client->client_name : ''   }})</option>
+                                        <option value="{{ $value->id }}" {{ old('project_id') == $value->id ? 'selected' : ''}} selected>{{ $value->project_name }} ({{ $value->client ? $value->client->client_name : ''   }})</option>
                                     @endforeach
+                                    @else
+                                        @foreach($projects as $key => $value)
+                                            <option value="{{ $value->id }}" {{ old('project_id') == $value->id ? 'selected' : ''}}>{{ $value->project_name }} ({{ $value->client ? $value->client->client_name : ''   }})</option>
+                                        @endforeach
+                                    @endif
+                                   
                                 </select>
                                 @error('project_id')
                                 <span class="text-danger">{{ $message }}</span>

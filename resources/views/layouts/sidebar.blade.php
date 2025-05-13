@@ -923,22 +923,29 @@
 
                             <!-- Leads Pages For the Sales Manager -->
 
-                            {{-- @if (auth()->user()->hasPermission('posh.complaint-list')) --}}
+                            @if (auth()->user()->hasPermission('leads.list'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
                                         data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
                                                 class="fa-solid fa-leaf"></i></span> <span
                                             class="sidebar-txt">Leads</span></a>
+
                                     <ul class="sidebar-dropdown-menu" id="advanceUiDropdown">
-                                        <li class="sidebar-dropdown-item"><a href="{{ route('leads.create') }}"
-                                                class="sidebar-link">New Lead
-                                            </a></li>
-                                        <li class="sidebar-dropdown-item"><a href="{{ route('leads.list') }}"
-                                                class="sidebar-link">Leads List
-                                            </a></li>
+                                         @if (auth()->user()->hasPermission('leads.create'))
+                                            <li class="sidebar-dropdown-item"><a href="{{ route('leads.create') }}"
+                                                    class="sidebar-link">New Lead
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if (auth()->user()->hasPermission('leads.list'))
+                                            <li class="sidebar-dropdown-item"><a href="{{ route('leads.list') }}"
+                                                    class="sidebar-link">Leads List
+                                                </a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </li>
-                            {{-- @endif --}}
+                            @endif
 
                             <!-- Tenders Pages For the Sales Manager -->
 
