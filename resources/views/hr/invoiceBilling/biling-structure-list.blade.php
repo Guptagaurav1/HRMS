@@ -9,16 +9,7 @@
                     <h3 class="mt-2">Invoice Billing Structure</h3>
                     <div>
                         <ul class="breadcrumb">
-                            <li> 
-                                @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                                @elseif(auth()->user()->role->role_name == "hr_operations")
-                                    <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                                @elseif(auth()->user()->role->role_name == "sales_manager")
-                                    <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                                @else
-                                @endif
-                            </li>
+                            <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                             <li>Invoice Billing Structure</li>
                         </ul>
                     </div>
@@ -93,13 +84,16 @@
                                     <td colspan="5" class="text-center"><span class="text-danger">No Record Found</span></td>
                                 </tr>
                                 @endforelse
-                                <div>
-                                {{ $billing_strut->links() }}
-                                </div>
+                               
                             </tbody>
                         </table>
                     </div>
                     
+                </div>
+
+                {{-- Show pagination --}}
+                <div class="col-md-12 my-2 p-2">
+                    {{ $billing_strut->links() }}
                 </div>
             </div>
         </div>

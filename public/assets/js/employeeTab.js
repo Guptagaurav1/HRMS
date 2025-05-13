@@ -90,7 +90,7 @@ $(document).ready(function () {
             });
         }
       },
-      error: function (xhr) {
+      error: function (xhr, key) {
         console.log("Error in " + key, xhr.responseText);
       }
     });

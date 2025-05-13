@@ -10,21 +10,7 @@
                 <h2 class="mt-2">Leave Regularization List</h2>
                 <div>
                     <ul class="breadcrumb">
-                        <li>
-                        @if (auth('employee')->check())
-                            <a href="{{route('employee.dashboard')}}">Dashboard</a>
-                        @elseif (auth()->check())
-                            @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "hr_operations")
-                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "sales_manager")
-                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                            @else
-                            @endif
-                        @endif
-                    
-                        </li>
+                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                         <li>Leave Regularization List</li>
                     </ul>
                 </div>

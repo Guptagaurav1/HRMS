@@ -8,24 +8,15 @@
                 <div class="panel-header">
                     <h2 class="mt-1">Salary List</h2>
                     <div>
-                        <ul class="breadcrumb">
-                            <li>
-                                @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                                @elseif(auth()->user()->role->role_name == "hr_operations")
-                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                                @elseif(auth()->user()->role->role_name == "sales_manager")
-                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                                @else
-                                @endif
-                            </li>
-                            <li>Salary List</li>
-                        </ul>
+                    <ul class="breadcrumb">
+                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
+                        <li>Salary List</li>
+                    </ul>
                     </div>
                 </div>
 
 
-                <p class="text-danger px-3 py-2">** Seacrh applicable on Emp Id/Name/Work Order Number/Designation</p>
+                <p class="text-danger px-3 py-2">** Search applicable on Emp Id/Name/Work Order Number/Designation</p>
 
 
 

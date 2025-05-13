@@ -15,6 +15,7 @@ use App\Models\EmpAddressDetail;
 use App\Models\EmpIdProof;
 use App\Models\EmpEducationDetail;
 use App\Models\EmpExperienceDetail;
+use App\Models\EmpSendDoc;
 use App\Models\LeadList;
 use App\Models\Organization;
 use App\Models\Project;
@@ -224,7 +225,8 @@ if (! function_exists('downloadWorkOrderDocumentsAsZip')) {
         // Create a new Zip file
         $zip = new ZipArchive;
         $zipFileName = 'work_order_documents_' . time() . '.zip';
-        $zipFilePath = storage_path('app/public/uploadWorkOrder/' . $zipFileName);
+        // $zipFilePath = storage_path('app/public/uploadWorkOrder/' . $zipFileName);
+        $zipFilePath = public_path('uploadWorkOrder/' . $zipFileName);
 
         if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
             foreach ($workOrderFiles as $file) {
@@ -265,6 +267,7 @@ if (!function_exists('update_employee_code')) {
             EmpIdProof::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
             EmpEducationDetail::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
             EmpExperienceDetail::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
+            EmpSendDoc::where('rec_id', $req_id)->update(['emp_code' => $employeeCode]);
             DB::commit();
             return true;
         } catch (Throwable $e) {

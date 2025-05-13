@@ -108,6 +108,8 @@
                         </thead>
                         <tbody>
                             @forelse($leave_requests as $leave_request)
+                           
+                                
                                 @php
                                     if (
                                         $leave_request->status == 'Approved' ||

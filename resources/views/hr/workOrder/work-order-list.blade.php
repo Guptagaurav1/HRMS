@@ -205,7 +205,7 @@
                                 <td class="text-center">{{$value->created_at}}</td>
                                 <td>
                                     @if(!empty($value->wo_attached_file))
-                                    <a href="{{ asset('storage/uploadWorkOrder/' . $value->wo_attached_file) }}"
+                                    <a href="{{ asset('uploadWorkOrder/' . $value->wo_attached_file) }}"
                                         target="_blank" class="btn btn-primary mb-3">
                                         <span class="badge badge-primary">Download <i
                                                 class="fa-solid fa-download"></i></span>

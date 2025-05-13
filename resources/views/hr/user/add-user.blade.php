@@ -12,16 +12,7 @@
                         <h4 class="mt-1">Add User</h4>
                         <div>
                             <ul class="breadcrumb">
-                                <li> 
-                                    @if (auth()->user()->role->role_name == "hr")
-                                        <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                                    @elseif(auth()->user()->role->role_name == "hr_operations")
-                                        <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                                    @elseif(auth()->user()->role->role_name == "sales_manager")
-                                        <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                                    @else
-                                    @endif
-                                </li>
+                                <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                                 <li><a href="{{route('users')}}">Users List</a></li>
                                 <li>Add Users</li>
                             </ul>

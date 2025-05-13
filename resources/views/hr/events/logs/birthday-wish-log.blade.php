@@ -14,10 +14,7 @@
                 <h2 class="mt-2">Birthday Wish Log</h2>
                 <div>
                         <ul class="breadcrumb">
-                            <li> @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                                @endif
-                            </li>
+                            <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                             <li>Birthday Wish Log</li>
                         </ul>
                     </div>
@@ -55,7 +52,7 @@
                             <td>{{$log->emp_code}}</td>
                             <td>{{$log->emp_name}}</td>
                             <td>{{$log->emp_email}}</td>
-                            <td>{{date('jS F, Y', strtotime($log->emp_dob))}}</td>
+                            <td>{{$log->emp_dob ? date('jS F, Y', strtotime($log->emp_dob)) : ''}}</td>
                             <td>{{$log->message}}</td>
                             <td><span class="badge alert-success">{{date('jS F, Y', strtotime($log->created_at))}}</span></td>
                         </tr>

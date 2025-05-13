@@ -3,8 +3,17 @@
 <div class="row">
     <div class="col-12">
         <div class="panel">
-            <div class="panel-header">
+            <div class="panel-header d-flex">
                 <h3 class="text-white mt-2">Lead List</h3>
+                 <div>
+                    <ul class="breadcrumb">
+
+                        <li>
+                            <a href="{{get_dashboard()}}">Dashboard</a>
+                        </li>
+                        <li><a href="{{route('leads.list')}}">Lead List</a></li>
+                    </ul>
+                </div>
                 
             </div>
             <div class="panel-body">
@@ -41,38 +50,34 @@
                         </div>
                     </div>
 
-                @if (session()->has('success'))
-                    <div class="col-md-12">
-                        <div class="alert alert-success d-flex align-items-center alert-dismissible fade show"
-                            role="alert">
-                            <svg class="bi flex-shrink-0 me-2" fill="#fff" width="24" height="24" role="img"
-                                aria-label="Success:">
-                                <use xlink:href="#check-circle-fill" />
-                            </svg>
-                            <div>
-                                {{ session()->get('message') }}
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
+
+                     <!-- Success Message -->
+                @if($message = Session::get('success'))
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                            <use xlink:href="#check-circle-fill" />
+                        </svg>
+                        <div> {{ session()->get('message') }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
+                </div>
                 @endif
-                @if (session()->has('error'))
-                    <div class="col-md-12">
-                        <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
-                            role="alert">
-                            <svg class="bi flex-shrink-0 me-2" fill="#b02a37" width="24" height="24" role="img"
-                                aria-label="Danger:">
-                                <use xlink:href="#exclamation-triangle-fill" />
-                            </svg>
-                            <div>
-                                {{ session()->get('message') }}
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
+
+                <!-- Error Message -->
+                @if($message = Session::get('error'))
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                            <use xlink:href="#exclamation-triangle-fill" />
+                        </svg>
+                        <div> {{ session()->get('message') }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
+                </div>
                 @endif
+
+               
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                             id="allEmployeeTable">

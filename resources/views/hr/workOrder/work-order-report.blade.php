@@ -90,7 +90,7 @@
         <!-- Download ZIP Section -->
         <div class="text-end hide-text mb-2">
             @if(!empty($wo_details) && !empty($zipFilePath))
-            <a href="{{ asset('storage/uploadWorkOrder/' . basename($zipFilePath)) }}" class="btn btn-success"
+            <a href="{{ asset('uploadWorkOrder/' . basename($zipFilePath)) }}" class="btn btn-success"
                 target="_blank">Download ZIP</a>
             @endif
         </div>
