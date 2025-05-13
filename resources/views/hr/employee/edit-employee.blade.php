@@ -373,7 +373,7 @@
                                 class="text-danger">*</span></label>
                         <input type="date" class="form-control" name="emp_dob"
                             value="{{ !empty($employee_details->getPersonalDetail) ? $employee_details->getPersonalDetail->emp_dob : '' }}"
-                            max="{{ date('y-m-d', time()) }}" required>
+                             max="{{ date('Y-m-d', strtotime('18 years ago')) }}" required>
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Guardian Name(Parents/Others)</label>
@@ -608,7 +608,7 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Salary / CTC(Per Month) <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-sm" name="emp_salary"
+                        <input type="number" min="0" class="form-control form-control-sm" name="emp_salary"
                             placeholder="Enter CTC"
                             value="{{ !empty($employee_details->getBankDetail) ? $employee_details->getBankDetail->emp_salary : '' }}"
                             required>

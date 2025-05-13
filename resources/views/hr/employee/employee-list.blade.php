@@ -179,7 +179,7 @@
                                         <td class='text-center attributes-column'>{{ $employee->emp_place_of_posting }}
                                         </td>
                                         <td class='text-center attributes-column'>
-                                            {{ $employee->experience ? $employee->experience->emp_experience . ' yr' : '-' }}
+                                            {{ $employee->experience && $employee->experience->emp_experience ? $employee->experience->emp_experience . ' yr' : '-' }}
                                         </td>
                                         <td class='text-center attributes-column'>
                                             {{ $employee->education ? $employee->education->emp_highest_qualification : '-' }}

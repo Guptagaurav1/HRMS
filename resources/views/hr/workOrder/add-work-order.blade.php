@@ -235,9 +235,11 @@
                                                 value="{{ old('amount') }}">
                                         </div>
                                         <div class="col-sm-12 col-md-4 text-wrap">
-                                            <label class="form-label text-wrap"> Date of Issue </label>
+                                            <label class="form-label text-wrap"> Date of Issue <span class="text-danger">*</span>
+                                                 </label>
                                             <input name="issue_date" id="issue_date" type="date"
-                                                class="form-control form-control-sm" value="{{ old('issue_date') }}">
+                                                class="form-control form-control-sm" value="{{ old('issue_date') }}" max="{{date('Y-m-d')}}" required>
+                                            <span id="issue_date_error" class="text-danger"></span>
                                         </div>
                                         <div class="col-sm-12 col-md-4 text-wrap">
                                             <label class="form-label text-wrap"> Project Duration (In months)
@@ -258,14 +260,16 @@
                                                 value="{{ old('project_duration_days') }}">
                                         </div>
                                         <div class="col-sm-12 col-md-4 text-wrap">
-                                            <label class="form-label text-wrap"> Start Date</label>
+                                            <label class="form-label text-wrap"> Start Date <span class="text-danger">*</span></label>
                                             <input name="start_date" id="start_date" type="date"
-                                                class="form-control form-control-sm" value="{{ old('start_date') }}">
+                                                class="form-control form-control-sm" value="{{ old('start_date') }}" required>
+                                                <span id="start_date_error" class="text-danger"></span>
                                         </div>
                                         <div class="col-sm-12 col-md-4 text-wrap">
-                                            <label class="form-label text-wrap"> End Date </label>
+                                            <label class="form-label text-wrap"> End Date <span class="text-danger">*</span></label>
                                             <input name="end_date" id="end_date" type="date"
-                                                class="form-control form-control-sm" value="{{ old('end_date') }}">
+                                                class="form-control form-control-sm" value="{{ old('end_date') }}" required>
+                                                <span id="end_date_error" class="text-danger"></span>
                                         </div>
 
                                     </div>

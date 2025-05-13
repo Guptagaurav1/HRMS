@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="col-lg-4 col-sm-6">
                                     <label for="dob" class="form-label">Date of Birth <span class="text-danger"> ** </span></label>
-                                    <input type="date" id="dob" name="dob" class="form-control"  value="{{ old('dob') }}" required>
+                                    <input type="date" id="dob" name="dob" class="form-control"  value="{{ old('dob') }}" max="{{ date('Y-m-d', strtotime('18 years ago')) }}" required>
                                     @error('dob')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

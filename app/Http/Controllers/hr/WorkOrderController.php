@@ -385,12 +385,14 @@ class WorkOrderController extends Controller
 
     public function work_order_report(Request $request)
     {
+        
         try {
             if (empty($request->checkbox)) {
                 return redirect()->route('work-order-list')->with(['error' => true, 'message' => 'Please check at least one checkbox!']);
             }
 
             $validatedData = $this->processWorkOrders($request);
+          
             $unq_no = now()->format('Ymdhisa');
             $file_name = "WorkOrderReport_{$unq_no}.pdf";
 
@@ -435,6 +437,8 @@ class WorkOrderController extends Controller
                 }
             }
         }
+    
+        
 
         // $zipFilePath = count($wo_doc) > 0 ? downloadWorkOrderDocumentsAsZip($wo_doc) : null;
         $zipFilePath = null;

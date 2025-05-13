@@ -93,7 +93,7 @@
                                     <th class="text-center">Total Contacted Person</th>
                                 @endif
                                 <th class="text-center">Date of Request</th>
-                                <th class="text-center">Date of Fulfillment</th>
+                                <th class="text-center">Requirement Close Date</th>
                                 <th class="text-center">Location</th>
                                 <th class="text-center">Work Assigned</th>
                                 <th class="text-center">Completed/Required</th>

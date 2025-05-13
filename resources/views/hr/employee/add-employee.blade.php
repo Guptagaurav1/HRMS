@@ -187,9 +187,10 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Current Working Status <span
                                         class="text-danger">*</span></label>
-                                <select class="form-select" name="emp_current_working_status" required>
+                                {{-- <select class="form-select" name="emp_current_working_status" required>
                                     <option value="active" selected>Active</option>
-                                </select>
+                                </select> --}}
+                                <input type="text" class="form-control form-control-sm text-capitalize" name="emp_current_working_status" readonly value="active">
                             </div>
 
                             <div class="col-lg-12 col-sm-6">
@@ -504,8 +505,8 @@
                             <div class="col-xxl-3 col-lg-4 col-sm-6">
                                 <label class="form-label">Salary / CTC(Per Month) <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="emp_salary"
-                                    placeholder="Enter CTC" value="{{!empty($recruitment_details->salary) ? $recruitment_details->salary : ''}}" required>
+                                <input type="number" class="form-control form-control-sm" name="emp_salary"
+                                    placeholder="Enter CTC" min="0" value="{{!empty($recruitment_details->salary) ? $recruitment_details->salary : ''}}" required>
                             </div>
 
                             <div class="col-xxl-3 col-lg-4 col-sm-6">

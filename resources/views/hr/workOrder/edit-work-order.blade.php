@@ -193,7 +193,8 @@
                                             <label class="form-label text-wrap"> Date of Issue </label>
                                             <input name="issue_date" id="issue_date" type="date"
                                                 class="form-control form-control-sm"
-                                                value="{{ old('issue_date', $workOrder->wo_date_of_issue) }}">
+                                                value="{{ old('issue_date', $workOrder->wo_date_of_issue) }}" max="{{date('Y-m-d')}}" required>
+                                            <span id="issue_date_error" class="text-danger"></span>
                                         </div>
                                         <div class="col-sm-12 col-md-4 text-wrap">
                                             <label class="form-label text-wrap">
@@ -223,7 +224,8 @@
                                             </label>
                                             <input name="start_date" id="start_date" type="date"
                                                 class="form-control form-control-sm"
-                                                value="{{ old('start_date', $workOrder->wo_start_date) }}">
+                                                value="{{ old('start_date', $workOrder->wo_start_date) }}" required>
+                                                <span id="start_date_error" class="text-danger"></span>
                                         </div>
                                         <div class="col-sm-12 col-md-4 text-wrap">
                                             <label class="form-label text-wrap">
@@ -231,7 +233,8 @@
                                             </label>
                                             <input name="end_date" id="end_date" type="date"
                                                 class="form-control form-control-sm"
-                                                value="{{ old('end_date', $workOrder->wo_end_date) }}">
+                                                value="{{ old('end_date', $workOrder->wo_end_date) }}" required>
+                                                <span id="end_date_error" class="text-danger"></span>
                                         </div>
                                     </div>
 

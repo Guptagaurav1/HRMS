@@ -314,7 +314,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="bold">DOB</td>
-                                                    <td>{{ $data->dob }}</td>
+                                                    <td>{{ date('jS F, Y', strtotime($data->dob)) }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bold">Education</td>

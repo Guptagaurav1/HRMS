@@ -107,7 +107,7 @@
                                 </div>
                                 <div class=" col-lg-4 col-sm-6">
                                     <label for="dob" class="form-label">Date of Birth </label>
-                                    <input type="date" id="dob" name="dob" class="form-control"  value="{{ old('dob',$user->dob) }}">
+                                    <input type="date" id="dob" name="dob" class="form-control"  value="{{ old('dob',$user->dob) }}" max="{{ date('Y-m-d', strtotime('18 years ago')) }}">
                                 </div>
                                 <div class=" col-lg-4 col-sm-6">
                                     <label for="email" class="form-label">Email <span class="text-danger"> ** </span> </label>
