@@ -135,18 +135,16 @@ class LeadController extends Controller
             'lead_title' => 'required | string',
             'project_id' => 'required',
             'deadline' => 'required',
-            'description' => 'required',
-            'remarks' => 'required',
-            // 'category_id' => 'required',
-            'source_id' => 'required',
+            // 'description' => 'required',
+            // 'remarks' => 'required',
             'assign_user_id' => 'required',
-            'attach_typ' => 'required',
-            'attach_file' => 'required',
+           'attach_file' => 'required|array',
+            'attach_file.*' => 'required|file|mimes:pdf',
             'name' => 'required',
             'email' => 'required',
             'contact' => 'required',
-            'sp_remarks' => 'required',
-            // 'set_as_def' => 'required',
+            // 'sp_remarks' => 'required',
+            'set_as_def' => 'required',
         ]);
 
         try {
@@ -200,9 +198,17 @@ class LeadController extends Controller
          
             // spoc persion add
     
+            if($request->set_as_def == null){
+                return redirect()->route('leads.list')->with(['error' => true, 'message' => 'Please checked Set As Default field']);
+            }
+
                 if ($request->name && count($request->name) > 0) {
                     for ($i = 0; $i < count($request->name); $i++) {
+
                         // Store lead spock persion
+
+                        // dd($request->set_as_def[$i]);
+
                         LeadSpocPerson::create([
                             'lead_id' => $leadList->id,
                             'name' => $request->name[$i],
@@ -238,7 +244,7 @@ class LeadController extends Controller
             return redirect()->route('leads.list')->with(['success' => true, 'message' => 'Lead added successfully']);
         } catch (Throwable $th) {
             DB::rollBack();
-            return redirect()->route('leads.list')->with(['error' => true, 'message' => $th->getLine() . "-" .$th->getMessage()]);
+            return redirect()->route('leads.list')->with(['error' => true, 'message' => $th->getMessage()]);
         }
 
     }
@@ -407,21 +413,19 @@ class LeadController extends Controller
         // dd('fdsfdsf');
 
         $validation = $request->validate([
-            'lead_title' => 'required | string',
+              'lead_title' => 'required | string',
             'project_id' => 'required',
             'deadline' => 'required',
-            'description' => 'required',
-            'remarks' => 'required',
-            // 'category_id' => 'required',
-            'source_id' => 'required',
+            // 'description' => 'required',
+            // 'remarks' => 'required',
             'assign_user_id' => 'required',
-            'attach_typ' => 'required',
-            'attach_file' => 'nullable',
+           'attach_file' => 'required|array',
+            'attach_file.*' => 'required|file|mimes:pdf',
             'name' => 'required',
             'email' => 'required',
             'contact' => 'required',
-            'sp_remarks' => 'required',
-            // 'set_as_def' => 'required',
+            // 'sp_remarks' => 'required',
+            'set_as_def' => 'required',
         ]);
 
         try {
@@ -534,6 +538,52 @@ class LeadController extends Controller
         $leadSpocPersion->delete();
         return redirect()->back()->with(['success' => true, 'message' => 'Lead Spoc Persion Deleted successfully']);
     }
+
+
+    // update lead status win and lose
+
+
+    public function updateLeadStatus(Request $request, $id){
+
+        $request->validate([
+            'lead_status' => 'required',
+             'wo_no' => 'required',
+             'clos_amt' => 'required',
+            // 'status_remarks' => 'required',
+            // 'lose_remarks' => 'required',
+        ]);
+
+          try {
+            DB::beginTransaction();
+
+            $leadList = LeadList::find($id);
+            $leadList->wo_no = $request->wo_no ? $request->wo_no : '0'; 
+            $leadList->status_remarks = $request->status_remarks; 
+            $leadList->lose_remarks = $request->lose_remarks; 
+            $leadList->closing_amount = $request->clos_amt; 
+            $leadList->lead_status = strtolower($request->lead_status); 
+            $leadList->save();
+
+             if($leadList){
+                $LeadStatusActionLog = new CrmActionLog();
+                $LeadStatusActionLog->lead_id = $id;
+                $LeadStatusActionLog->action_type = strtolower($request->lead_status);
+                $LeadStatusActionLog->assigned_user_id = $request->assigned_user_id;
+                $LeadStatusActionLog->save();
+             }
+
+            
+            DB::commit();
+
+            return redirect()->back()->with(['success' => true, 'message' => 'Lead Status Updated successfully']);
+        } catch (Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => true, 'message' => $th->getMessage()]);
+        }
+
+
+    }
+
 
 
 

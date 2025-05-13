@@ -7,7 +7,17 @@
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-header d-flex">
-                <h3 class="mt-2">Add Lead</h3>
+                <h3 class="mt-2">Edit Lead</h3>
+                  <div>
+                    <ul class="breadcrumb">
+
+                        <li>
+                            <a href="{{get_dashboard()}}">Dashboard</a>
+                        </li>
+                        <li><a href="{{route('leads.list')}}">Lead List</a></li>
+                        <li>Add Edit</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="text-end mt-3 px-3">
@@ -122,7 +132,7 @@
                         @foreach($leadAttachments as $key => $value)
                             <div class="row g-3">
                                 <div class="col-lg-4 col-md-4">
-                                    <label class="form-label" class="text-dark">Attachment Type</label>
+                                    <label class="form-label" class="text-dark">Attachment Type <span class="text-danger">*</span></label>
                                     <input type="text" id="attach_typ" name="attach_typ[]" class="form-control" value="{{ $value->file_type}}" placeholder="Enter Attachment Type" >
                                     @error('attach_typ')
                                         <span class="text-danger">{{ $message }}</span>
@@ -157,7 +167,7 @@
                     <div class="mt-3 px-3 append_add-more-items">
                         <div class="row g-3">
                             <div class="col-lg-4 col-md-4">
-                                <label class="form-label" class="text-dark">Attachment Type</label>
+                                <label class="form-label" class="text-dark">Attachment Type <span class="text-danger">*</span></label>
                                 <input type="text" id="attach_typ" name="attach_typ[]" class="form-control" placeholder="Enter Attachment Type" >
                                 @error('attach_typ')
                                     <span class="text-danger">{{ $message }}</span>
@@ -165,11 +175,16 @@
                             </div>
 
                             <div class="col-lg-4 col-md-4">
-                                <label for="formFile" class="form-label">Attachment File</label>
-                                <input class="form-control" type="file" name="attach_file[]">
+                                <label for="formFile" class="form-label">Attachment File <span class="text-danger">(only pdf allowed) *</span></label>
+                                <input class="form-control" type="file" name="attach_file[]" >
                                 @error('attach_file')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
+                                 @foreach ($errors->get('attach_file.*') as $messages)
+                                    @foreach ($messages as $message)
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @endforeach
+                                @endforeach
                             </div>
 
                             <div class="col-lg-4 col-md-4">

@@ -650,6 +650,7 @@ Route::middleware('page.permission')->group(function () {
         Route::get("show/{id}", 'show')->name("leads.show");
         Route::get("edit/{id}", 'edit')->name("leads.edit");
         Route::put("update/{id}", 'update')->name("leads.update");
+        Route::put("update-lead-status/{id}", 'updateLeadStatus')->name("leads.updateLeadStatus");
         Route::get("crm-lead-follow-up/{id}", 'crmLeadFollowUp')->name("leads.crmLeadFollowUp");
         Route::get("delete-lead-attachment/{id}", 'removeLeadAttachment')->name("leads.removeLeadAttachment");
         Route::get("delete-lead-spoc/{id}", 'deleteLeadSpoc')->name("leads.deleteLeadSpoc");
