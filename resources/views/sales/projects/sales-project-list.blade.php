@@ -147,10 +147,14 @@
                                                         class="btn btn-sm btn-primary">Edit</button></a>
                                                 <a href="{{ route('sales-projects.view', ['id' => $project->id]) }}"> <button type="button"
                                                         class="btn btn-sm btn-primary">View</button></a>
-                                                <a href="{{ route('add-lead') }}"> <button type="button"
-                                                        class="btn btn-sm btn-primary">Add Lead</button></a>
-                                            </div>
 
+                                                <form action="{{route('projectLeads.create') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$project->id}}" >
+                                                    <button type="submit"  class="btn btn-sm btn-primary">Add Lead</button>
+                                                </form>
+                                            </div>
+  
                                         </td>
                                     </tr>
                                     @empty
