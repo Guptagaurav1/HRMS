@@ -148,7 +148,7 @@
                                     </td>
                                     <td title="Work Order" class="text-center attributes-column">
                                         {{$value->empDetail->emp_work_order}}</td>
-                                    <td title="D.O.J" class="text-center attributes-column">{{$value->sa_emp_doj}}</td>
+                                    <td title="D.O.J" class="text-center attributes-column">{{date('jS F, Y', strtotime($value->sa_emp_doj))}}</td>
                                     <td title="EMp. Name" class="text-center attributes-column">{{$value->sal_emp_name}}
                                     </td>
                                     <td title="Dessination" class="text-center attributes-column">

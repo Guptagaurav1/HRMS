@@ -84,7 +84,7 @@
                             <td class="text-center">{!! $email->content !!}</td>
                             <td class="text-center">{{$email->cc}}</td>
                             <td class="text-center">{{$email->attatchment}}</td>
-                            <td class="text-center">{{date('d M Y', strtotime($email->created_at))}}</td>
+                            <td class="text-center">{{date('jS F, Y', strtotime($email->created_at))}}</td>
                         </tr>
                         @empty
                         <tr>

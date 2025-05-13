@@ -194,15 +194,15 @@
                                 <td class="srno-column text-center">{{$value->project ? $value->project->organizations->name : ''}}</td>
                                 <td class="rid-column text-center attributes-column">{{$value->wo_number}}</td>
                                 <td class="text-center">{{$value->project ? $value->project->empanelment_reference : ''}}</td>
-                                <td class="attributes-column text-center">{{$value->wo_date_of_issue}}</td>
+                                <td class="attributes-column text-center">{{$value->wo_date_of_issue ? date('jS F, Y', strtotime($value->wo_date_of_issue)) : ''}}</td>
                                 <td class="text-center">{{$value->project ? $value->project->project_number : ''}}</td>
                                 <td class="text-center attributes-column">{{$value->project ? $value->project->project_name : ''}}</td>
                                 <td class="text-center attributes-column">{{$value->wo_project_coordinator}}</td>
-                                <td class="text-center">{{$value->wo_start_date}}</td>
-                                <td class="text-center">{{$value->wo_end_date}}</td>
+                                <td class="text-center">{{$value->wo_start_date ? date('jS F, Y', strtotime($value->wo_start_date)) : ''}}</td>
+                                <td class="text-center">{{$value->wo_end_date ? date('jS F, Y', strtotime($value->wo_end_date)) : ''}}</td>
                                 <td>INR {{ number_format($value->wo_amount, 2) }}</td>
                                 <td class="text-center attributes-column">{{ $value->contacts_details }}</td>
-                                <td class="text-center">{{$value->created_at}}</td>
+                                <td class="text-center">{{date('jS F, Y', strtotime($value->created_at))}}</td>
                                 <td>
                                     @if(!empty($value->wo_attached_file))
                                     <a href="{{ asset('uploadWorkOrder/' . $value->wo_attached_file) }}"

@@ -94,8 +94,8 @@
                         <tr>
                             <td class="srno-column text-center"> {{ $key +1 }} </td>
                             <td class="text-center">{{ $role->fullname}}</td>
-                            <td class="text-center">{{ $role->created_at}}</td>
-                            <td class="text-center">{{ $role->updated_at}}</td>
+                            <td class="text-center">{{ date('jS F, Y', strtotime($role->created_at))}}</td>
+                            <td class="text-center">{{ date('jS F, Y', strtotime($role->updated_at))}}</td>
                             <td class="text-center">
                                 {{-- @if(auth()->user()->hasPermission('edit-manage-role')) --}}
                                 <a href="{{route('edit-manage-role',$role->id)}}" title="Edit"><button

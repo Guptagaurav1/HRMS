@@ -93,7 +93,7 @@
                                          <td class="srno-column">{{$key+1}}</td>
                                          <td class="text-center">{{$value->doc}}</td>
                                          <td class="text-center">{{$value->first_name??NULL }}</td>
-                                         <td class="text-center">{{$value->created_at??NULL }}</td>
+                                         <td class="text-center">{{date('jS F, Y', strtotime($value->created_at)) ??NULL }}</td>
                                          <td class="text-center">
                                          <button type="button" class="btn btn-primary hide-text" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                          share</button>
