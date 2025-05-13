@@ -136,7 +136,7 @@
                                     <td class="text-center"><span
                                             class="badge alert-{{ $color }}">{{ $leave_request->status }}</span>
                                     </td>
-                                    <td class="text-center">{{ date('d-M-Y', strtotime($leave_request->created_at)) }}
+                                    <td class="text-center">{{ date('jS F, Y', strtotime($leave_request->created_at)) }}
                                     </td>
                                     <td class="text-center ">
                                         

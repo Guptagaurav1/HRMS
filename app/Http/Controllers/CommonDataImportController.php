@@ -1807,8 +1807,8 @@ class CommonDataImportController extends Controller
                 $empdetails->emp_place_of_posting = $row['emp_place_of_posting'];
                 $empdetails->emp_designation = $row['emp_designation'];
                 $empdetails->department = $row['department'];
-                $empdetails->emp_doj = date('Y-m-d', strtotime($row['emp_doj']));
-                $empdetails->emp_dor = date('Y-m-d', strtotime($row['emp_dor']));
+                $empdetails->emp_doj = $row['emp_doj'] ? date('Y-m-d', strtotime($row['emp_doj'])) : null;
+                $empdetails->emp_dor = $row['emp_dor'] ? date('Y-m-d', strtotime($row['emp_dor'])) : null;
                 $empdetails->emp_phone_first = $row['emp_phone_first'];
                 $empdetails->emp_phone_second = $row['emp_phone_second'];
                 $empdetails->emp_email_first = $row['emp_email_first'];
@@ -1826,8 +1826,8 @@ class CommonDataImportController extends Controller
                 $personaldetails->emp_code = $row['emp_code'];
                 $personaldetails->emp_gender = $row['emp_gender'];
                 $personaldetails->emp_category = $row['emp_category'] ? $row['emp_category'] : 'general';
-                $personaldetails->emp_dob = date('Y-m-d', strtotime($row['emp_dob']));
-                $personaldetails->emp_dom = date('Y-m-d', strtotime($row['emp_dom']));
+                $personaldetails->emp_dob = $row['emp_dob'] ? date('Y-m-d', strtotime($row['emp_dob'])) : '';
+                $personaldetails->emp_dom = $row['emp_dom'] ? date('Y-m-d', strtotime($row['emp_dom'])) : '';
                 $personaldetails->emp_blood_group = $row['emp_blood_group'];
                 $personaldetails->emp_father_mobile = $row['emp_emergency_contact'];
                 $personaldetails->emp_father_name = $row['emp_father_name'];

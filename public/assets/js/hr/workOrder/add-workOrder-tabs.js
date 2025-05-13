@@ -37,8 +37,7 @@ $(document).ready(function () {
     }
 
     // Event listener for change event on select fields
-    $("#organisation, #project_name, #wo_number").on("change", function () {
-        console.log('click outside');
+    $("#organisation, #project_name, #wo_number, #issue_date, #start_date, #end_date").on("change", function () {
         validateTab(currentTab);
     });
 
@@ -46,17 +45,17 @@ $(document).ready(function () {
     // Function to validate the form
     let isValid = true;
     function validateTab(currentTab) {
-        if(currentTab === 0){
+        if (currentTab === 0) {
             // Validate Organisation
             var organisation = $("#organisation").val();
-                if (organisation === "" || organisation === null) {
-                    showError("organisation", "Please select an organisation.");
-                    isValid = false;
-                } else {
-                    isValid = true;
-                    hideError("organisation");
-                }
-           
+            if (organisation === "" || organisation === null) {
+                showError("organisation", "Please select an organisation.");
+                isValid = false;
+            } else {
+                isValid = true;
+                hideError("organisation");
+            }
+
             // Validate Project Name
             var project = $("#project_name").val();
             if (project === "" || project === null) {
@@ -65,65 +64,121 @@ $(document).ready(function () {
             } else {
                 hideError("project_name");
             }
-            
-           
-        }else if(currentTab == 1){
+
+
+        } else if (currentTab == 1) {
             // Validate workorder Number
-            if ($("#wo_number").val() === "") {
+            var wo_number = $("#wo_number").val();
+            var issue_date = $("#issue_date").val();
+            var start_date = $("#start_date").val();
+            var end_date = $("#end_date").val();
+
+            if (wo_number && issue_date && start_date && end_date) {
+                isValid = true;
+            }
+
+            if (!wo_number) {
                 showError("wo_number", "Please add work-order number.");
                 isValid = false;
             }
+            else {
+                hideError("wo_number");
+            }
 
-            $('#wo_number').on('input',function(){
+            // Validate issue date.
+            if (!issue_date) {
+                showError("issue_date", "Please add issue date.");
+                isValid = false;
+            }
+            else {
+                hideError("issue_date");
+            }
+
+            if (!start_date) {
+                showError("start_date", "Please add start date.");
+                isValid = false;
+            }
+            else {
+                 if (issue_date) {
+                    var startDateObj = new Date(start_date);
+                    var issueDateObj = new Date(issue_date);
+
+                    if (startDateObj < issueDateObj) {
+                        showError("start_date", "Start date must be greater than or equal to issue date.");
+                        isValid = false;
+                    }
+                    else {
+                        hideError("start_date");
+                    }
+                }
+            }
+
+            if (!end_date) {
+                showError("end_date", "Please add end date.");
+                isValid = false;
+            }
+            else {
+                if (start_date) {
+                    var startDateObj = new Date(start_date);
+                    var endDateObj = new Date(end_date);
+
+                    if (endDateObj < startDateObj) {
+                        showError("end_date", "End date must be greater than or equal to start date.");
+                        isValid = false;
+                    }
+                    else {
+                        hideError("end_date");
+                    }
+                }
+            }
+
+            $('#wo_number').on('input', function () {
                 var wo_number = $(this).val();
-                
-                if(wo_number){
+
+                if (wo_number) {
                     if (jqxhr) {
                         jqxhr.abort();
                     }
 
-                    jqxhr =  $.ajax({
-                        url :SITE_URL +"/hr/get-exist-wo",
-                        type:'post',
-                        data : {
-                            '_token' : $("meta[name=csrf-token]").attr('content'),
-                            'wo_number' : wo_number
+                    jqxhr = $.ajax({
+                        url: SITE_URL + "/hr/get-exist-wo",
+                        type: 'post',
+                        data: {
+                            '_token': $("meta[name=csrf-token]").attr('content'),
+                            'wo_number': wo_number
                         },
-                        success : function(response){
+                        success: function (response) {
 
                             // alert(ex_wo_number);
                             if (response.data && response.data.wo_number !== "") {
                                 showError("wo_number", "The Work Order has already been taken.");
                                 isValid = false;
-                                console.log(isValid);
                             }
-                            else if(!response.data){
-                                console.log('response not come');
-                                    showError("wo_number", "");
-                                    isValid = true;
-                            } 
+                            else if (!response.data) {
+                                showError("wo_number", "");
+                                isValid = true;
+                            }
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             isValid = false;
                             console.log("Error:", error);
                         }
                     });
 
-                }else {
+                } else {
                     isValid = false;
                     showError("wo_number", "Please add work-order number.");
                 }
             });
+
         }
 
-            if (isValid) {
-                $(".next-btn").prop("disabled", false);  // Enable next button if valid
-                console.log('valid');
-            } else {
-                console.log('invalid');
-                $(".next-btn").prop("disabled", true);  // Disable next button if invalid
-            }
-        
+        if (isValid) {
+            $(".next-btn").prop("disabled", false);  // Enable next button if valid
+        } else {
+            $(".next-btn").prop("disabled", true);  // Disable next button if invalid
+        }
+
     }
     // validateTab(currentTab);
 

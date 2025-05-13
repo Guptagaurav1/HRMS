@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-auto col-xs-12">
                             
-                                <a href="{{ route('leads.create') }}" class="col-xs-12 mx-md-2"><button
+                                <a href="{{ route('leads.create', [$id = null]) }}" class="col-xs-12 mx-md-2"><button
                                         type="button" class="btn btn-sm btn-primary">Add Lead <i
                                             class="fa-solid fa-plus"></i></button></a>
                             </div>
@@ -111,15 +111,16 @@
                                         <td class='text-center attributes-column'>{{ $value->status }}</td>
                                         <td class='text-center attributes-column'>{{ $value->created_at->format('d-m-Y') }}</td>
                                         <td class='text-center attributes-column'>
-                                        <a href="{{ route('leads.crmLeadFollowUp', ['id' => $value->id ]) }}">
-                                            <span class="badge text-bg-primary">Follow Up</span>
-                                        </a>
-
-                                        {{-- @if(auth()->user()->role->role_name == 'sales_manager' && auth()->user()->role->role_name == 'IIDT-Coordinator') --}}
+                                        @if (auth()->user()->hasPermission('leads.crmLeadFollowUp'))
+                                            <a href="{{ route('leads.crmLeadFollowUp', ['id' => $value->id ]) }}">
+                                                <span class="badge text-bg-primary">Follow Up</span>
+                                            </a>
+                                        @endif
+                                        @if (auth()->user()->hasPermission('leads.edit'))
                                             <a href="{{ route('leads.edit', ['id' => $value->id ]) }}">
                                                 <span class="badge text-bg-primary">Edit</span>
                                             </a>
-                                        {{-- @endif --}}
+                                        @endif
                                         
                                         </td> 
                                     </tr>

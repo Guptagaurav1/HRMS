@@ -92,11 +92,19 @@ class LeadController extends Controller
      * Add Client Form.
      */
 
-    public function create(){
-        
-        $projects = CrmProjectList::with('client')
+    public function create(Request $request){
+
+        if(!empty($request->id)){
+            $projects = CrmProjectList::with('client')
+                    ->where('status','1')
+                    ->where('id',$request->id)
+                    ->get();
+        }else{
+            $projects = CrmProjectList::with('client')
                     ->where('status','1')
                     ->get();
+        }
+ 
 
         $leadSources = LeadSourceList::select('id','source_name','status')
                         ->where('status','1')

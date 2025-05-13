@@ -45,7 +45,7 @@
                             @forelse($holidays as $holiday)
                             <tr>
                                 <td class="text-center attributes-column">{{$holiday->holiday_name}}</td>
-                                <td class="text-center attributes-column">{{date('d-M-Y', strtotime($holiday->holiday_date))}}</td>
+                                <td class="text-center attributes-column">{{date('jS F, Y', strtotime($holiday->holiday_date))}}</td>
                                 <td class="text-center attributes-column">{{date('F', strtotime($holiday->holiday_date))}}</td>
                                 <td class="text-center attributes-column">{{date('l', strtotime($holiday->holiday_date))}}</td>
                                 <td class="text-center attributes-column">{{$holiday->holiday_type}}</td>

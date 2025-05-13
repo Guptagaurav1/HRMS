@@ -1,7 +1,4 @@
 @extends('layouts.master', ['title' => 'Leave Regularization'])
-
-
-
 @section('contents')
 <div class="row">
     <div class="col-12">

@@ -141,8 +141,8 @@
                                         <td class="rid-column text-center attributes-column">{{$candidate->firstname." ".$candidate->lastname}}</td>
                                         <td class="text-center attributes-column">{{$candidate->email." / ".$candidate->phone}}</td>
                                         <td class="attributes-column text-center">{{$candidate->job_position}}</td>
-                                        <td class="text-center attributes-column">{{$candidate->id}}</td>
-                                        <td class="text-center attributes-column">{{$candidate->dob}}</td>
+                                        <td class="text-center attributes-column text-capitalize">{{$candidate->client_name}}</td>
+                                        <td class="text-center attributes-column">{{date('jS F, Y', strtotime($candidate->dob))}}</td>
                                         <td class="attributes-column text-center">{{$candidate->location}}</td>
                                         <td class="text-center attributes-column">{{$candidate->experience}}</td>
                                         <td class="text-center attributes-column">{{$candidate->skill}}</td>

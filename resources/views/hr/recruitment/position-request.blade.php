@@ -1,7 +1,4 @@
 @extends('layouts.master', ['title' => 'Position Request Form'])
-
-
-
 @section('contents')
 <div class="panel">
 <div class="panel-header">
@@ -132,7 +129,7 @@
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Last Date Of Fulfilment</label>
                             <input type="date" name="date_notified" value="{{old('date_notified')}}"
-                                class="form-control form-control-sm">
+                                class="form-control form-control-sm" min="{{date('Y-m-d')}}">
                             @error('date_notified')
                             <span class="text-danger">{{$message}}</span>
                             @enderror

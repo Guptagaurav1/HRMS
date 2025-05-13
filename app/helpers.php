@@ -221,7 +221,8 @@ if (! function_exists('downloadWorkOrderDocumentsAsZip')) {
     function downloadWorkOrderDocumentsAsZip($workOrderFiles)
     {
         // Path where the files are stored
-        $storagePath = storage_path('app/public/uploadWorkOrder/');
+        // $storagePath = storage_path('app/public/uploadWorkOrder/');
+        $storagePath = public_path('uploadWorkOrder');
         // Create a new Zip file
         $zip = new ZipArchive;
         $zipFileName = 'work_order_documents_' . time() . '.zip';
@@ -231,7 +232,7 @@ if (! function_exists('downloadWorkOrderDocumentsAsZip')) {
         if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
             foreach ($workOrderFiles as $file) {
                 // Get the full file path
-                $filePath = $storagePath . $file;
+                $filePath = $storagePath ."/". $file;
 
                 // Check if the file exists before adding to zip
                 if (file_exists($filePath)) {
