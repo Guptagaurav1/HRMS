@@ -165,7 +165,7 @@ class EventController extends Controller
                 'emp_code' => $empdetails->emp_code,
                 'emp_name' => $empdetails->emp_name,
                 'emp_email' => $empdetails->emp_email_first,
-                'emp_dob' => $empdetails->emp_dob,
+                'emp_dob' => $empdetails->getPersonalDetail ? $empdetails->getPersonalDetail->emp_dob : null,
                 // 'attachment' => $file_name,
                 'wish_type' => 'Birthday',
             ]);
@@ -249,7 +249,7 @@ class EventController extends Controller
 
     
     /**
-     * Send birthday mail.
+     * Send anniversary mail.
      */
     public function send_anniversary_mail(Request $request)
     {
@@ -279,7 +279,7 @@ class EventController extends Controller
                 'emp_code' => $empdetails->emp_code,
                 'emp_name' => $empdetails->emp_name,
                 'emp_email' => $empdetails->emp_email_first,
-                'emp_dob' => $empdetails->emp_dob,
+                'emp_dob' => $empdetails->getPersonalDetail ? $empdetails->getPersonalDetail->emp_dob : null,
                 'emp_doj' => $empdetails->emp_doj,
                 // 'attachment' => $file_name,
                 'wish_type' => 'Joining',

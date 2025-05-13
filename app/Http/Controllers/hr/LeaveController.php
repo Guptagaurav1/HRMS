@@ -17,17 +17,23 @@ class LeaveController extends Controller
         date_default_timezone_set('Asia/Kolkata');  // Set timezone
     }
 
-    public function index(){
+    public function index(Request $request){
        
         $currentMonth = now()->month; 
         $currentYear = now()->year; 
 
-        $data = EmpLeave::where('year','=',$currentYear);
+        $search = '';
+        $data = EmpLeave::where('year','=', $currentYear);
         if(auth('employee')->check()){
             $data = $data->where('emp_code', auth('employee')->user()->emp_code);
         }
-        $data = $data->paginate(25);
-        return view("hr.leaves.emp-leaves",compact('data'));
+
+        if ($request->search) {
+            $search = $request->search;
+            $data = $data->where('emp_code', 'LIKE', "%$search%");
+        }
+        $data = $data->paginate(25)->withQueryString();
+        return view("hr.leaves.emp-leaves",compact('data', 'search'));
     }
 
     

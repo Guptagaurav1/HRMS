@@ -12,10 +12,11 @@
                         <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                         <li>Salary List</li>
                     </ul>
+                    </div>
                 </div>
 
 
-                <p class="text-danger px-3 py-2">** Seacrh applicable on Emp Id/Name/Work Order Number/Designation</p>
+                <p class="text-danger px-3 py-2">** Search applicable on Emp Id/Name/Work Order Number/Designation</p>
 
 
 

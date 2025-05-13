@@ -1,17 +1,17 @@
 @extends('layouts.master', ['title' => 'Leave Request Form'])
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/jquery-ui.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
+
 
 @section('contents')
     <div class="container-fluid">
         <div class="row align-items-center justify-content-center ">
             <div class="col-lg-8 col-md-10">
                 <div class="card">
-                    <div class="panel-header py-3 px-2 ">
-                        <h5 class="mb-0">Apply Leave</h5>
+                    <div class="panel">
+                         <div class="panel-header ">
+                        <h2 class="mb-0">Apply Leave</h2>
                     </div>
+                    </div>
+                   
 
                     <form class="form apply-leave" action="{{ route('leave.store_request') }}" method="POST">
                         @csrf
@@ -56,9 +56,9 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-md-12">
-                                    <input type="text" name="absence_dates"
-                                        class="btn btn-sm btn-primary multiDatePicker text-light"
+                                <div class="col-md-12" >
+                                    <input  type="text" name="absence_dates"
+                                        class="btn btn-sm btn-secondary  multiDatePicker text-white"
                                         style="color: white; width: 100%;" placeholder="Select Date" autocomplete="off"
                                         value="" required>
                                     @error('absence_dates')
@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end pb-3 px-3">
-                            <a href="{{route('applied-request-list')}}" class="btn btn-primary mx-2">Cancel</a>
+                            <a href="{{route('applied-request-list')}}" class="btn btn-secondary mx-2">Cancel</a>
                             <button type="submit" class="btn btn-primary ">Confirm <i
                                     class="fa-solid fa-paper-plane"></i></button>
                         </div>

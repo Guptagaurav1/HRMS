@@ -154,55 +154,7 @@
 </div>
 
 @endsection
-@section('modal')
 
-<!-- Modal -->
-<div class="modal fade" id="userShowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Organization Detail</h5>
-                <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="form-label">Name</label> <span id="name"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Email</label> <span id="email"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Contact</label> <span id="contact"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">State</label> <span id="state"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">City</label> <span id="city"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">PSU</label> <span id="psu"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">PSU Name</label> <span id="psu_name"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Postal Code</label> <span id="postal_code"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Date</label> <span id="date"></span>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="form-label">Address</label> <span id="address"></span>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
 @section('script')
 <script src={{asset('assets/js/masters/organization.js')}}></script>
 @endsection
