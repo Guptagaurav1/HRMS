@@ -90,7 +90,7 @@
                             <td class="text-center">
                                 <div class="mbsc-form-group">
                                     <input type="text" name="leave_dates"
-                                        class="btn btn-sm  multiDatePicker " style="color:black; border:1px solid gray;" placeholder="Select Date" autocomplete="off" value="">
+                                        class="btn btn-sm  multiDatePicker"  style="color:black; border:1px solid gray;" placeholder="Select Date" autocomplete="off" value="">
                                     <div class="d-none">
                                     <input type="hidden" class="emp_id" value="{{$record->emp_code}}" />
                                     <input type="hidden" class="current_month" value="{{$previous_month}}" />
@@ -111,7 +111,7 @@
                 </table>
             </div>
 
-            <div class="col-md-12 d-flex justify-content-center my-3 py-3">
+            <div class="col-md-12 d-flex justify-content-start my-3 py-3">
                 {{$data->links()}}
             </div>
         </div>
