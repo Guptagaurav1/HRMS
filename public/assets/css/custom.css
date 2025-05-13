@@ -1187,9 +1187,19 @@ z-index: 10000 !important;
 }
 
 
-/* Event HR Like birthday  */
+/*multi date picker color  */
 
  .multiDatePicker::placeholder {
-        color: white !important;
+        color: black !important;
         opacity: 1 !important;
+    }
+
+    /* Month and Year Calender Color */
+
+    .ui-datepicker-month{
+      color: black;
+    }
+
+    .ui-datepicker-year{
+      color: black;
     }
