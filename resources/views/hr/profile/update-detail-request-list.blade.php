@@ -1,15 +1,13 @@
 @extends('layouts.master', ['title' => 'Update Details Request List'])
 
-@section('style')
-<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
-@endsection
+
 @section('contents')
 
 <div class="fluid-container">
     <div class="row">
         <div class="col-12">
             <div class="panel">
-                <div class="panel-header  heading-stripe">
+                <div class="panel-header ">
                     <h3 class="mt-2 text-center" >Profile Detail Change Request Log</h3>
                 </div>
                 <div class="col-md-12 d-flex justify-content-start mx-3">
@@ -21,7 +19,7 @@
                             <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                         <div class="col-auto">
-                            <a href="{{route('profile.profile-detail-request-list')}}" class="btn btn-primary mb-3">Reset</a>
+                            <a href="{{route('profile.profile-detail-request-list')}}" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></a>
                         </div>
                     </form>
                 </div>

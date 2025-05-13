@@ -17,20 +17,28 @@
                         </div>
                         <div class="card-body">
                             <div class="row mb-2">
-                                <div class="col-sm-6 col-md-4"><strong>Project Name:</strong> {{ $leads->projectDetails ? $leads->projectDetails->project_name : '' }}</div>
-                                <div class="col-sm-6 col-md-4"><strong>Client Name:</strong> {{ $leads->projectDetails ? $leads->projectDetails->client->client_name : '' }}</div>
-                                <div class="col-sm-6 col-md-4"><strong>Deadline:</strong> {{ \Carbon\Carbon::parse($leads->deadline)->format('d-m-Y'); }}</div>
+                                <div class="col-sm-6 col-md-4"><strong>Project Name:</strong> {{ $leads->projectDetails
+                                    ? $leads->projectDetails->project_name : '' }}</div>
+                                <div class="col-sm-6 col-md-4"><strong>Client Name:</strong> {{ $leads->projectDetails ?
+                                    $leads->projectDetails->client->client_name : '' }}</div>
+                                <div class="col-sm-6 col-md-4"><strong>Deadline:</strong> {{
+                                    \Carbon\Carbon::parse($leads->deadline)->format('d-m-Y'); }}</div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-sm-6 col-md-4"><strong>Category:</strong> {{ $leads->getCategory ? $leads->getCategory->category_name : '' }}</div>
-                                <div class="col-sm-6 col-md-4"><strong>Source:</strong> {{ $leads->getSource ? $leads->getSource->source_name : '' }}</div>
-                                <div class="col-sm-6 col-md-4"><strong>Lead Created On:</strong> {{ $leads->created_at->format('d-m-Y') }}</div>
+                                <div class="col-sm-6 col-md-4"><strong>Category:</strong> {{ $leads->getCategory ?
+                                    $leads->getCategory->category_name : '' }}</div>
+                                <div class="col-sm-6 col-md-4"><strong>Source:</strong> {{ $leads->getSource ?
+                                    $leads->getSource->source_name : '' }}</div>
+                                <div class="col-sm-6 col-md-4"><strong>Lead Created On:</strong> {{
+                                    $leads->created_at->format('d-m-Y') }}</div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-sm-6 col-md-4"><strong>Lead Status:</strong> {{ ucwords($leads->lead_status) }} </div>
+                                <div class="col-sm-6 col-md-4"><strong>Lead Status:</strong> {{
+                                    ucwords($leads->lead_status) }} </div>
                                 <div class="col-sm-6 col-md-4">
                                     <strong>Follow Up Status:</strong>
-                                    <span class="badge bg-danger" style="font-size: 10px;"> {{ $leads->leadAssignUser ? ucwords($leads->leadAssignUser->follow_up_status) : '' }}</span>
+                                    <span class="badge bg-danger" style="font-size: 10px;"> {{ $leads->leadAssignUser ?
+                                        ucwords($leads->leadAssignUser->follow_up_status) : '' }}</span>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <a href="{{route('leads.show', ['id' => $leads->id])}}"> <button type="button"
@@ -51,7 +59,9 @@
                             <strong>Information</strong>
                         </div>
                         <div class="card-body">
-                            <div><strong>Currently Assigned:</strong> {{ $leads->leadAssignUser ? ucwords($leads->leadAssignUser->user->first_name ." ".$leads->leadAssignUser->user->last_name) : '' }}</div>
+                            <div><strong>Currently Assigned:</strong> {{ $leads->leadAssignUser ?
+                                ucwords($leads->leadAssignUser->user->first_name ."
+                                ".$leads->leadAssignUser->user->last_name) : '' }}</div>
                         </div>
                     </div>
                 </div>
@@ -65,14 +75,17 @@
                 <hr>
             </div>
             <div class="col-md-12">
-             
+
                 @forelse ($leadFollowups as $value)
                 <div class="card shadow-sm mb-3 mt-3">
                     <div class="card-header bg-light">
                         <div class="row mb-2">
-                            <div class="col-sm-6 col-md-4"><strong>Date:</strong> {{ $value->created_at->format('d-m-Y') }}</div>
-                            <div class="col-sm-6 col-md-4"><strong>Next Follow Up:</strong> {{ \Carbon\Carbon::parse($value->next_follow_up)->format('d-m-Y'); }} </div>
-                            <div class="col-sm-6 col-md-4"><strong>By:</strong> {{ $value->first_name ." ".$value->last_name }}</div>
+                            <div class="col-sm-6 col-md-4"><strong>Date:</strong> {{ $value->created_at->format('d-m-Y')
+                                }}</div>
+                            <div class="col-sm-6 col-md-4"><strong>Next Follow Up:</strong> {{
+                                \Carbon\Carbon::parse($value->next_follow_up)->format('d-m-Y'); }} </div>
+                            <div class="col-sm-6 col-md-4"><strong>By:</strong> {{ $value->first_name ."
+                                ".$value->last_name }}</div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -85,9 +98,10 @@
                                 $attachments = explode(",", $value->comment_file);
                                 ?>
                                 @foreach($attachments as $key => $value)
-                                <a href="{{ asset('upload/crm/follow_up/'.$value) }}" class="btn btn-sm btn-primary"><button class="btn btn-sm btn-primary">
-                                    View Attachment
-                                </button></a>
+                                <a href="{{ asset('upload/crm/follow_up/'.$value) }}"
+                                    class="btn btn-sm btn-primary"><button class="btn btn-sm btn-primary">
+                                        View Attachment
+                                    </button></a>
                                 @endforeach
                             </div>
                         </div>
@@ -102,30 +116,35 @@
                     </div>
                 </div>
                 @endforelse
-           
+
             </div>
 
-            
-           
+
+
             <div class="col-md-12   text-center fs-6 fw-bold text-dark mt-2 mb-2">
                 <div class="card shadow-sm mb-3 mt-3">
                     <div class="card-header bg-light">
                         <div class="row mb-2">
-                            <div class="col-sm-6 col-md-6">Lead Status updated as {{ $changed_lead_status->action_type }} on {{ $changed_lead_status->created_at->format('d-m-Y h:i a') }}</div>
-                            <div class="col-sm-6 col-md-3">Assigned to: {{ ucwords($changed_lead_status->assignedUser->first_name) ." ".ucwords($changed_lead_status->assignedUser->last_name)  }}</span> </div>
-                            <div class="col-sm-6 col-md-3"><span>Changed By: {{ ucwords($changed_lead_status->createdBy->first_name) ." ".ucwords($changed_lead_status->createdBy->last_name)  }}</div>
+                            <div class="col-sm-6 col-md-6">Lead Status updated as {{ $changed_lead_status->action_type
+                                }} on {{ $changed_lead_status->created_at->format('d-m-Y h:i a') }}</div>
+                            <div class="col-sm-6 col-md-3">Assigned to: {{
+                                ucwords($changed_lead_status->assignedUser->first_name) ."
+                                ".ucwords($changed_lead_status->assignedUser->last_name) }}</span> </div>
+                            <div class="col-sm-6 col-md-3"><span>Changed By: {{
+                                    ucwords($changed_lead_status->createdBy->first_name) ."
+                                    ".ucwords($changed_lead_status->createdBy->last_name) }}</div>
                         </div>
                     </div>
-            </div>
-            
-           
-            <!-- Comment Section -->
+                </div>
 
 
-            <form action="{{ route('leads.storeLeadFollowUp') }}" method="post" enctype="multipart/form-data">
-                @csrf 
+                <!-- Comment Section -->
 
-                @if (session()->has('success'))
+
+                <form action="{{ route('leads.storeLeadFollowUp') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+
+                    @if (session()->has('success'))
                     <div class="col-md-12">
                         <div class="alert alert-success d-flex align-items-center alert-dismissible fade show"
                             role="alert">
@@ -136,12 +155,11 @@
                             <div>
                                 {{ session()->get('message') }}
                             </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
-                @endif
-                @if (session()->has('error'))
+                    @endif
+                    @if (session()->has('error'))
                     <div class="col-md-12">
                         <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
                             role="alert">
@@ -152,176 +170,207 @@
                             <div>
                                 {{ session()->get('message') }}
                             </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
-                @endif
+                    @endif
 
-            <div class="row px-3">
-                <div class="col-md-12">
-                   
-                    <label for="body" class="form-label">Comment <span class="text-danger">*</span></label>
-                    <textarea class="form-control" name="comment" rows="6" id="body"
-                        placeholder="Write your message here"></textarea>
-                    @error('comment')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                    <div class="row px-3">
+                        <div class="col-md-12">
 
-                    <input type="hidden" name="lead_id" value="{{ $leads->id }}"> 
-                    <input type="hidden" name="lead_assign_user_id" value="{{ $leads->leadAssignUser->user->id }}"> 
+                            <label for="body" class="form-label">Comment <span class="text-danger">*</span></label>
+                            <textarea class="form-control" name="comment" rows="6" id="body"
+                                placeholder="Write your message here"></textarea>
+                            @error('comment')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <input type="hidden" name="lead_id" value="{{ $leads->id }}">
+                            <input type="hidden" name="lead_assign_user_id"
+                                value="{{ $leads->leadAssignUser->user->id }}">
+                        </div>
+                    </div>
+
+                    <!-- Follow Up Date -->
+                    <div class="row px-3">
+                        <div class="col-md-6 mb-3">
+
+                            <label for="followUpDate" class="form-label">Next Follow Up Date <span
+                                    class="text-danger">*</span></label>
+                            <input type="date" class="form-control" name="next_follow_up" required>
+                            @error('next_follow_up')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">Attachment</label>
+                            <input type="file" multiple class="form-control" name="comment_file[]"
+                                accept="application/pdf">
+                            @error('comment_file')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="row px-3 py-4">
+                        <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
+
+                            <div>
+                                <button type="button" class="btn btn-sm btn-primary">Cancel</button>
+
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-sm btn-primary">Add Follow Up</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Win or / Lose -->
+
+                <div class="row" style="position: relative;">
+                    <div class="col-md-12 d-flex justify-content-end gap-2 mt-3 mx-3 border border-white bg-dark "
+                        style="max-width: 10%; position:fixed; z-index: 100; right: 0; bottom: 40px;  padding: 10px; border-radius: 10px;">
+                        <div>
+                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">Win</button>
+
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-danger">Lose</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
-            <!-- Follow Up Date -->
-            <div class="row px-3">
-                <div class="col-md-6 mb-3">
+        </div>
+    </div>
 
-                    <label for="followUpDate" class="form-label">Next Follow Up Date <span
-                            class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="next_follow_up" required>
-                    @error('next_follow_up')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
 
+
+
+
+
+    @endsection
+
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title fs-5 text-white" id="staticBackdropLabel">Update Status: <span>value</span>
+                    </h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+
+                        <!-- Equal-height Project Cards -->
+                        <div class="row mb-4">
+                            <div class="col-md-4 d-flex">
+                                <div class="card  shadow-sm border bg-light">
+                                    <div class="card-body d-flex">
+                                        <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
+                                        <div>
+                                            <div class="fw-semibold text-secondary small">Project Name</div>
+                                            <div class="text-dark">Their Values</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex">
+                                <div class="card  shadow-sm border bg-light">
+                                    <div class="card-body d-flex">
+                                        <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
+                                        <div>
+                                            <div class="fw-semibold text-secondary small">Client Name</div>
+                                            <div class="text-dark">A much longer value that spans multiple lines to
+                                                demonstrate automatic height alignment of cards across this row.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex">
+                                <div class="card  shadow-sm border bg-light">
+                                    <div class="card-body d-flex">
+                                        <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
+                                        <div>
+                                            <div class="fw-semibold text-secondary small">Deadline</div>
+                                            <div class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing
+                                                dolor sit amet consectetur adipisicing elit. Eligendi laborum,
+                                                voluptatem ipsum asperiores hic id at veritatis reprehenderit eaque amet
+                                                aspernatur dolor, earum sed ab voluptatum error laudantium deleniti
+                                                molestiae? elit. Eligendi laborum, voluptatem ipsum asperiores hic id at
+                                                veritatis reprehenderit eaque amet aspernatur dolor, earum sed ab
+                                                voluptatum error laudantium deleniti molestiae?</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4 d-flex">
+                                
+                                    <div class="card-body d-flex">
+                                        <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
+                                        <div>
+                                            <div class="fw-semibold text-secondary small">Work Order No</div>
+                                            <div class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing
+                                                dolor sit amet consectetur adipisicing elit. Eligendi laborum,
+                                                voluptatem ipsum asperiores hic id at veritatis reprehenderit eaque amet
+                                                aspernatur dolor, earum sed ab voluptatum error laudantium deleniti
+                                                molestiae? elit. Eligendi laborum, voluptatem ipsum asperiores hic id at
+                                                veritatis reprehenderit eaque amet aspernatur dolor, earum sed ab
+                                                voluptatum error laudantium deleniti molestiae?</div>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Success Message -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <p class="text-success fs-5 fw-semibold">You Have Selected Win</p>
+                            </div>
+                        </div>
+
+                        <!-- Input Fields -->
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Work Order No</label>
+                                <input type="text" class="form-control" placeholder="Enter Work Order No">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Closing Amount <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Closing Amount">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Remarks <span class="text-danger">*</span></label>
+                                <textarea class="form-control" placeholder="Enter Remarks" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="col-md-6 mb-3">
-
-                    <label class="form-label">Attachment</label>
-                    <input type="file" multiple class="form-control" name="comment_file[]" accept="application/pdf">
-                    @error('comment_file')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-
-                </div>
-            </div>
-
-            <!-- Submit button -->
-            <div class="row px-3 py-4">
-                <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
-
-                    <div>
-                        <button type="button" class="btn btn-sm btn-primary">Cancel</button>
-
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-sm btn-primary">Add Follow Up</button>
-
-                    </div>
-
-                </div>
-            </div>
-            </form>
-
-            <!-- Win or / Lose -->
-
-            <div class="row" style="position: relative;">
-                <div class="col-md-12 d-flex justify-content-end gap-2 mt-3 mx-3 border border-white bg-dark "
-                    style="max-width: 10%; position:fixed; z-index: 100; right: 0; bottom: 40px;  padding: 10px; border-radius: 10px;">
-                    <div>
-                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Win</button>
-
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-sm btn-danger">Lose</button>
-                    </div>
-
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
+                    <button type="button" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </div>
-        
-    </div>
-</div>
-
-
-
-
-
-
-@endsection
-
-
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title fs-5 text-white" id="staticBackdropLabel">Update Status: <span>value</span></h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-    <div class="modal-body">
-  <div class="container">
-    
-    <!-- Equal-height Project Cards -->
-    <div class="row mb-4">
-      <div class="col-md-4 d-flex">
-        <div class="card  shadow-sm border bg-light">
-          <div class="card-body d-flex">
-            <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
-            <div>
-              <div class="fw-semibold text-secondary small">Project Name</div>
-              <div class="text-dark">Their Values</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 d-flex">
-        <div class="card  shadow-sm border bg-light">
-          <div class="card-body d-flex">
-            <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
-            <div>
-              <div class="fw-semibold text-secondary small">Project Name</div>
-              <div class="text-dark">A much longer value that spans multiple lines to demonstrate automatic height alignment of cards across this row.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 d-flex">
-        <div class="card  shadow-sm border bg-light">
-          <div class="card-body d-flex">
-            <i class="bi bi-briefcase-fill text-primary fs-4 me-3"></i>
-            <div>
-              <div class="fw-semibold text-secondary small">Project Name</div>
-              <div class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing dolor sit amet consectetur adipisicing elit. Eligendi laborum, voluptatem ipsum asperiores hic id at veritatis reprehenderit eaque amet aspernatur dolor, earum sed ab voluptatum error laudantium deleniti molestiae? elit. Eligendi laborum, voluptatem ipsum asperiores hic id at veritatis reprehenderit eaque amet aspernatur dolor, earum sed ab voluptatum error laudantium deleniti molestiae?</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- Success Message -->
-    <div class="row mb-3">
-      <div class="col-12">
-        <p class="text-success fs-5 fw-semibold">You Have Selected Win</p>
-      </div>
-    </div>
-
-    <!-- Input Fields -->
-    <div class="row g-3">
-      <div class="col-md-12">
-        <label class="form-label">Work Order No</label>
-        <input type="text" class="form-control" placeholder="Enter Work Order No">
-      </div>
-      <div class="col-md-12">
-        <label class="form-label">Closing Amount <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="Enter Closing Amount">
-      </div>
-      <div class="col-md-12">
-        <label class="form-label">Remarks <span class="text-danger">*</span></label>
-        <textarea class="form-control" placeholder="Enter Remarks" rows="3"></textarea>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
-        <button type="button" class="btn btn-primary">Update</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -331,8 +380,7 @@
 
 
 
-
-@section('script')
-<script src="{{asset('assets/js/compose.js')}}"></script>
-<script src="{{asset('assets/js/crm-lead-followup.js')}}"></script>
-@endsection
+    @section('script')
+    <script src="{{asset('assets/js/compose.js')}}"></script>
+    <script src="{{asset('assets/js/crm-lead-followup.js')}}"></script>
+    @endsection

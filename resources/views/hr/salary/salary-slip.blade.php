@@ -1,5 +1,34 @@
 @extends('layouts.master', ['title' => 'Salary Slip'])
 
+@section('style')
+<style>
+    @media print {
+    body, * {
+        color: #000000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .payment li {
+        font-weight: bold !important;
+        color: #000000 !important;
+    }
+
+    .payment li span {
+        font-weight: bold !important;
+        color: #000000 !important;
+    }
+
+    .payment li.d-flex span {
+        font-weight: bold !important;
+        color: #000000 !important;
+    }
+
+  
+}
+
+</style>
+@endsection
 @section('contents')
 
 <div class="fluid-container">

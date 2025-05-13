@@ -1189,6 +1189,7 @@ z-index: 10000 !important;
 
 /* Event HR Like birthday  */
 
-.event-list-dashaboard-hr{
-  
-}
+ .multiDatePicker::placeholder {
+        color: white !important;
+        opacity: 1 !important;
+    }

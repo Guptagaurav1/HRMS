@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header  heading-stripe">
-                        <h3 class="mt-2 text-center">My Attendance List</h3>
+                        <h3 class="mt-2 text-center">Leave Taken List</h3>
                     </div>
                     <div class="row mb-4 mt-2">
                         <div class="col-md-6">
@@ -65,7 +65,7 @@
                                         class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
                             <div class="col-auto">
-                                <a href="{{ route('leave.leave-taken') }}" class="btn btn-primary mb-3"> Reset</a>
+                                <a href="{{ route('leave.leave-taken') }}" class="btn btn-primary mb-3"> Clear <i class="fa-solid fa-eraser"></i></a>
                             </div>
                         </form>
                     </div>

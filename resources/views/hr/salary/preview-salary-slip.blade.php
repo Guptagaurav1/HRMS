@@ -1,5 +1,39 @@
 @extends('layouts.master', ['title' => 'Preview Salary Slip'])
 
+@section('style')
+<style>
+    @media print {
+    
+
+    .payment li {
+        font-weight: bold !important;
+        color: #000000 !important;
+    }
+
+    .payment li span {
+        font-weight: bold !important;
+        color: #000000 !important;
+    }
+
+    .payment li {
+        font-weight: bold !important;
+        color: #000000 !important;
+    }
+
+    .part-txt p{
+        color: black;
+    }
+
+    .styled-list li{
+        color: black;
+    }
+  
+}
+
+</style>
+@endsection
+
+
 @section('contents')
 <div class="fluid-container">
     <div class="main-content">

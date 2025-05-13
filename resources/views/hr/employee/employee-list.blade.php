@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-2 col-3 col-xs-12 text-end ">
-                                <a href="{{route('employee.add-employee')}}" class="btn btn-primary">Add Employee</a>
+                                <a href="{{route('employee.add-employee')}}" class="btn btn-primary">Add Employee <i class="fa-solid fa-plus"></i></a>
                             </div>
                         </div>
                     </div>

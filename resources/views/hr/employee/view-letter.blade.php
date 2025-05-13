@@ -34,7 +34,7 @@
                                 <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
                             <div class="col-auto col-xs-12">
-                                <a href="{{route('employee.view-letter', ['id' => $id])}}" class="btn btn-primary mb-3">Clear</a>
+                                <a href="{{route('employee.view-letter', ['id' => $id])}}" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></a>
                             </div>
                         </form>
                     </div>

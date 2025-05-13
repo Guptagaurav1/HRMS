@@ -13,18 +13,25 @@
 
     </div>
     <!-- Employee Profile Card -->
-    <div class="d-flex justify-content-center align-items-center bg-white gap-3">
-        <div class="col-md-12 id-card ">
-            <div class="container mt-3">
-                <div class="row px-3">
-                    <div class="col-4 col-sm-3 col-md-2 text-center border  mh-100">
-                        @if (!empty($details->getPersonalDetail) && $details->getPersonalDetail->emp_photo)
-                        <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/' . $details->getPersonalDetail->emp_photo) }}"
-                            alt="{{ $details->emp_name }}" class="rounded-circle img-fluid">
-                        @else
-                        <img src="{{ asset('assets/images/avatar-2.png') }}" class="rounded" alt="user">
-                        @endif
-                    </div>
+          <div class="d-flex justify-content-center align-items-center bg-white gap-3">
+              <div class="col-md-12 id-card ">
+                  <div class="container mt-3">
+                      <div class="row px-3">
+                          <div class="col-4 col-sm-3 col-md-2 text-center">
+                <div style="height: auto; width: 100%;    border: 1px solid black; display: flex; align-items: center; justify-content: center; background: #fff;">
+              @if (!empty($details->getPersonalDetail) && $details->getPersonalDetail->emp_photo)
+                  <img src="{{ asset('recruitment/candidate_documents/passport_size_photo/' . $details->getPersonalDetail->emp_photo) }}"
+                       alt="{{ $details->emp_name }}"
+                       style="max-height: 100%; max-width:100% auto; object-fit: cover;" />
+              @else
+                  <img src="https://th.bing.com/th/id/OIP.2wQ-9J3D4TocYQ7Sazuf9gHaLH?cb=iwc2&rs=1&pid=ImgDetMain"
+                       alt="user"
+                       style="max-width:100%; max-height: 100%; object-fit: cover;" />
+              @endif
+          </div>
+         </div>
+
+
                     <div class="col-8 col-sm-9 col-md-10">
                         <h5 class="mb-1">{{ auth('employee')->user()->emp_name }}</h5>
                         <p class="text-muted mb-0 fw-bold">{{ auth('employee')->user()->emp_designation }}</p>
