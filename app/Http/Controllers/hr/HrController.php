@@ -15,6 +15,7 @@ use App\Mail\EmpWorkingAnniversaryMailWishSend;
 use Carbon\Carbon;
 use Throwable;
 use App\Models\RecruitmentForm;
+use App\Models\EmpWishMailLog;
 
 class HrController extends Controller
 {
@@ -184,11 +185,21 @@ class HrController extends Controller
                 'message' => 'required|max:255',
             ]);
 
-            $employee = EmpDetail::select('id', 'emp_name', 'emp_email_first')->where('emp_email_first', $request->emp_mail)->first();
+            $employee = EmpDetail::select('id', 'emp_code', 'emp_name', 'emp_email_first')->where('emp_email_first', $request->emp_mail)->first();
             $mailData = [
                 'message' => $request->message,
                 'name' =>    $employee->emp_name
             ];
+
+            // Save the log of employee wish.
+            EmpWishMailLog::create([
+                'emp_code' => $employee->emp_code,
+                'emp_name' => $employee->emp_name,
+                'emp_email' => $employee->emp_email_first,
+                'emp_dob' => $employee->getPersonalDetail ? $employee->getPersonalDetail->emp_dob : null,
+                'wish_type' => 'Birthday',
+            ]);
+
             Mail::to($employee->emp_email_first)->send(new SendMailBirthDay($mailData));
             return response()->json(['success' => true, 'message' => 'Birthday wish sent !']);
         } catch (Throwable $e) {
@@ -199,11 +210,21 @@ class HrController extends Controller
     public function sendMarriageAnniversaryMail(Request $request)
     {
         try {
-            $employee = EmpDetail::select('id', 'emp_name', 'emp_email_first')->where('emp_email_first', $request->emp_mail)->first();
+            $employee = EmpDetail::select('id', 'emp_code', 'emp_name', 'emp_email_first')->where('emp_email_first', $request->emp_mail)->first();
             $mailData = [
                 'name' =>    $employee->emp_name,
                 'message' => $request->message
             ];
+
+            // Save the log of employee wish.
+            EmpWishMailLog::create([
+                'emp_code' => $employee->emp_code,
+                'emp_name' => $employee->emp_name,
+                'emp_email' => $employee->emp_email_first,
+                'emp_dom' => $employee->getPersonalDetail ? $employee->getPersonalDetail->emp_dom : null,
+                'wish_type' => 'Marriage',
+            ]);
+
             Mail::to($employee->emp_email_first)->send(new EmpMarriageAnniversaryMail($mailData));
             return response()->json(['success' => true, 'message' => 'Marriage Anniversary wishes sent !']);
         } catch (Throwable $e) {
@@ -214,7 +235,7 @@ class HrController extends Controller
     public function sendWorkAnniversaryMail(Request $request)
     {
         try {
-            $employee = EmpDetail::select('id', 'emp_name', 'emp_email_first', 'emp_designation', 'emp_doj')->where('emp_email_first', $request->emp_mail)->first();
+            $employee = EmpDetail::select('id', 'emp_code', 'emp_name', 'emp_email_first', 'emp_designation', 'emp_doj')->where('emp_email_first', $request->emp_mail)->first();
             $date = Carbon::parse($employee->emp_doj);
             $diffYear = Carbon::now()->diffInYears($date);
 
@@ -224,6 +245,16 @@ class HrController extends Controller
                 'designation' => $employee->emp_designation,
                 'year' =>  $diffYear
             ];
+
+            // Save the log of employee wish.
+            EmpWishMailLog::create([
+                'emp_code' => $employee->emp_code,
+                'emp_name' => $employee->emp_name,
+                'emp_email' => $employee->emp_email_first,
+                'emp_doj' => $employee->emp_doj,
+                'wish_type' => 'Joining',
+            ]);
+
             Mail::to($employee->emp_email_first)->send(new EmpWorkingAnniversaryMailWishSend($mailData));
             return response()->json(['success' => true, 'message' => 'Work Anniversary wishes sent !']);
         } catch (Throwable $e) {
