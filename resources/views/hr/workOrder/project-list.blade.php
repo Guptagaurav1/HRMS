@@ -7,10 +7,7 @@
                 <h2 class="mt-2">Project List</h2>
                 <div>
                     <ul class="breadcrumb">
-                        <li> @if (auth()->user()->role->role_name == "hr")
-                            <a href="{{route('hr_dashboard')}}">Dashboard</a>
-                            @endif
-                        </li>
+                        <li><a href="{{get_dashboard()}}">Dashboard</a></li>
                         <li>Project List</li>
                     </ul>
                 </div>
@@ -119,11 +116,11 @@
                         @forelse($projects as $key => $value)
                         <tr>
                             <td class="srno-column">{{$key+1}}</td>
-                            <td class="text-center">{{$value->organizations->name}}</td>
+                            <td class="text-center">{{$value->organizations ? $value->organizations->name : ''}}</td>
                             <td class="text-center attributes-column">{{$value->project_name}}</td>
                             <td class="text-center">{{$value->project_number}}</td>
                             <td class="text-center attributes-column">{{$value->empanelment_reference }}</td>
-                            <td class="text-center">{{$value->created_at }}</td>
+                            <td class="text-center">{{date('jS F, Y', strtotime($value->created_at)) }}</td>
                             <td class="text-center">
                                 <a href="{{route('edit-project',$value->id)}}"><button type="submit"
                                         class="btn btn-sm btn-primary"> Edit <i

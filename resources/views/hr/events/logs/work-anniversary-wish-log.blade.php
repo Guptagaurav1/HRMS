@@ -1,6 +1,11 @@
 @extends('layouts.master', ['title' => 'Work Anniversary Wish Log'])
 
+@section('style')
+<link rel="stylesheet" href="{{asset('assets/vendor/css/jquery-ui.min.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/css/select2.min.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" />
 
+@endsection
 
 @section('contents')
 <div class="row">
@@ -21,10 +26,10 @@
                         <input type="search" class="form-control" placeholder="Search" name="search" value="{{$search}}" required>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button type="submit" class="btn btn-primary mb-3">Search</button>
                     </div>
                     <div class="col-auto">
-                        <a href="{{route('work-anniversary-wish-log')}}" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></a>
+                        <a href="{{route('work-anniversary-wish-log')}}" class="btn btn-primary mb-3">Reset</a>
                     </div>
                 </form>
             </div>
@@ -47,13 +52,13 @@
                     <tbody>
                           @forelse($logs as $log)
                         <tr>
-                            <td class="text-center attributes-column">{{$loop->iteration}}</td>
-                            <td class="text-center attributes-column">{{$log->emp_code}}</td>
-                            <td class="text-center attributes-column">{{$log->emp_name}}</td>
-                            <td class="text-center attributes-column">{{$log->emp_email}}</td>
-                            <td class="text-center attributes-column">{{date('jS F, Y', strtotime($log->emp_doj))}}</td>
-                            <td class="text-center attributes-column">{{$log->message}}</td>
-                            <td class="text-center attributes-column"><span class="badge alert-success">{{date('jS F, Y', strtotime($log->created_at))}}</span></td>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$log->emp_code}}</td>
+                            <td>{{$log->emp_name}}</td>
+                            <td>{{$log->emp_email}}</td>
+                            <td>{{date('jS F, Y', strtotime($log->emp_doj))}}</td>
+                            <td>{{$log->message}}</td>
+                            <td><span class="badge alert-success">{{date('jS F, Y', strtotime($log->created_at))}}</span></td>
                         </tr>
                         @empty
                         <tr>
@@ -72,7 +77,7 @@
 @endsection
 
 @section('script')
-<script src="{{asset('assets/vendor/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/vendor/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2-init.js')}}"></script>
+    <script src="{{ asset('assets/vendor/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/select2-init.js') }}"></script>
 @endsection

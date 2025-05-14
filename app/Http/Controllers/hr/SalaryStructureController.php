@@ -556,7 +556,8 @@ class SalaryStructureController extends Controller
     public function destroy(Request $request, String $id)
     { 
         Salary::destroy($id);
-        return redirect()->route('salary-list')->with(['success' =>'Salary Deleted Successfully !']);
+        // return redirect()->route('salary-list')->with(['success' =>'Salary Deleted Successfully !']);
+        return response()->json(['success' => true, 'message' => 'Salary deleted successfully']);
     }
 
      /**

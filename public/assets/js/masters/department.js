@@ -1,5 +1,5 @@
-$('.delete-department').click(function(){
-   var id = $(this).data('id');
+$('.delete-department').click(function () {
+    var id = $(this).data('id');
 
     Swal.fire({
         title: "Are you sure?",
@@ -11,9 +11,42 @@ $('.delete-department').click(function(){
         confirmButtonText: "Confirm"
     }).then((result) => {
         if (result.isConfirmed) {
-        window.location.href = SITE_URL+'/hr/departments/delete/'+ id;
+            // window.location.href = SITE_URL+'/hr/departments/delete/'+ id;
+            $.ajax({
+                url: SITE_URL + '/hr/departments/delete/' + id,
+                dataType: 'json',
+                type: 'GET',
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: "Congratulations!",
+                            text: response.message,
+                            icon: "success"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+
+                    }
+                    else if (response.error) {
+                        $(this).attr('disabled', '');
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: response.message,
+                        })
+                            .then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                    }
+                }
+            });
         }
     });
 })
-  
+
 

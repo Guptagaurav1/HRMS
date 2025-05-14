@@ -71,6 +71,7 @@ class RoleController extends Controller
         $roles = new Role();
         $roles->rid = "R"."-".$currentCount;
         $roles->role_name = $request->role_name;
+        $roles->fullname = $request->fullname;
         $roles->menu_id =$checkString;
 
         $roles->save();
@@ -108,6 +109,7 @@ class RoleController extends Controller
         $checkString = implode(',', $checkMenuArray);
     }
     $role->menu_id =$checkString;
+    $role->fullname = $request->fullname;
     $role->save();
     return redirect()->route('manage-roles')->with('success','Role updated successfully !');
     }

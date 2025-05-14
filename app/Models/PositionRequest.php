@@ -21,24 +21,24 @@ class PositionRequest extends Model
     /**
      * Save User id on CRUD operation.
      */
-    // public static function boot()
-    // {
-    //     parent::boot();
-    //     if (auth()->check()) {
-    //         static::creating(function ($model) {
-    //             $model->created_by = auth()->user()->id;
-    //         });
+    public static function boot()
+    {
+        parent::boot();
+        if (auth()->check()) {
+            static::creating(function ($model) {
+                $model->created_by = auth()->user()->id;
+            });
 
-    //         static::updating(function ($model) {
-    //             $model->updated_by = auth()->user()->id;
-    //         });
+            static::updating(function ($model) {
+                $model->updated_by = auth()->user()->id;
+            });
 
-    //         static::deleting(function ($model) {
-    //             $model->deleted_by = auth()->user()->id;
-    //             $model->save();
-    //         });
-    //     }
-    // }
+            static::deleting(function ($model) {
+                $model->deleted_by = auth()->user()->id;
+                $model->save();
+            });
+        }
+    }
 
     /**
      * Get State.

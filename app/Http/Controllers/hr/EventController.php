@@ -165,6 +165,7 @@ class EventController extends Controller
                 'emp_code' => $empdetails->emp_code,
                 'emp_name' => $empdetails->emp_name,
                 'emp_email' => $empdetails->emp_email_first,
+                'message' => $request->message,
                 'emp_dob' => $empdetails->getPersonalDetail ? $empdetails->getPersonalDetail->emp_dob : null,
                 // 'attachment' => $file_name,
                 'wish_type' => 'Birthday',
@@ -281,6 +282,7 @@ class EventController extends Controller
                 'emp_email' => $empdetails->emp_email_first,
                 'emp_dob' => $empdetails->getPersonalDetail ? $empdetails->getPersonalDetail->emp_dob : null,
                 'emp_doj' => $empdetails->emp_doj,
+                'message' => $request->message,
                 // 'attachment' => $file_name,
                 'wish_type' => 'Joining',
             ]);

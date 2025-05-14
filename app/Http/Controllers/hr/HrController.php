@@ -196,6 +196,7 @@ class HrController extends Controller
                 'emp_code' => $employee->emp_code,
                 'emp_name' => $employee->emp_name,
                 'emp_email' => $employee->emp_email_first,
+                'message' => $request->message,
                 'emp_dob' => $employee->getPersonalDetail ? $employee->getPersonalDetail->emp_dob : null,
                 'wish_type' => 'Birthday',
             ]);
@@ -221,6 +222,7 @@ class HrController extends Controller
                 'emp_code' => $employee->emp_code,
                 'emp_name' => $employee->emp_name,
                 'emp_email' => $employee->emp_email_first,
+                'message' => $request->message,
                 'emp_dom' => $employee->getPersonalDetail ? $employee->getPersonalDetail->emp_dom : null,
                 'wish_type' => 'Marriage',
             ]);
@@ -252,6 +254,7 @@ class HrController extends Controller
                 'emp_name' => $employee->emp_name,
                 'emp_email' => $employee->emp_email_first,
                 'emp_doj' => $employee->emp_doj,
+                'message' => $request->message,
                 'wish_type' => 'Joining',
             ]);
 

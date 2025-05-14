@@ -14,14 +14,19 @@
                         </ul>
                     </div>
                 </div>
-               
-                <div class="col-sm-12 col-md-4 mx-3 mt-3">
-                    <label class="form-label">Role Name</label>
-                    <input type="text" class="form-control" readonly value="{{$role->role_name}}">
-                </div>
                 
                 <form action="{{ route('update-manage-role', $role->id) }}" method="post">
                     @csrf
+                    <div class="row my-2 mx-2">
+                        <div class="col-sm-12 col-md-6">
+                            <label class="form-label">Role Short Name</label>
+                            <input type="text" class="form-control" readonly value="{{$role->role_name}}">
+                        </div>
+                         <div class="col-sm-12 col-md-6">
+                            <label class="form-label">Role Full Name</label>
+                            <input type="text" name="fullname" class="form-control" value="{{$role->fullname}}">
+                        </div>
+                    </div>
                     <div class="col-12 panel_1 mt-5">
                         <label class="form-label">Select Roles *</label>
                         <div class="row mt-3">

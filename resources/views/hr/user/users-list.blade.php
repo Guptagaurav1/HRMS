@@ -85,8 +85,8 @@
                                     <td class="srno-column text-center">{{$key+1}}</td>
                                     <td class="rid-column text-center">{{$user->role->fullname??NULL}}</td>
                                     <td class="text-center attributes-column">{{$user->first_name}} {{$user->last_name}} / {{$user->email}} / {{$user->phone}}</td>
-                                    <td class="attributes-column text-center">{{$user->created_at}}</td>
-                                    <td class="text-center">{{$user->updated_at}}</td>
+                                    <td class="attributes-column text-center">{{date('jS F, Y', strtotime($user->created_at))}}</td>
+                                    <td class="text-center">{{date('jS F, Y', strtotime($user->updated_at))}}</td>
                                     <td data-id="{{ $user->id }}" class="status-text text-center">
                                         @if ($user->status == '1')
                                            {{ 'Active' }} 

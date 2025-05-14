@@ -106,8 +106,8 @@
 
                                 </div> -->
 
-                               
-                                <div class="header-btn-box">
+                               {{-- Notification icon --}}
+                                {{-- <div class="header-btn-box">
                                 
                                     <button class="header-btn" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-light fa-bell"></i>
@@ -180,7 +180,9 @@
                                             <a href="#" class="show-all-btn">Show all message</a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> --}}
+
+                                
                                 <div class="header-btn-box">
                                     <div class="dropdown">
                                         <button class="header-btn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
@@ -246,7 +248,7 @@
                                     <span class="d-block text-capitalize">{{auth()->user()->user_type }}</span>
                                     @elseif(auth('employee')->check())
                                     <p class="mb-0">{{auth('employee')->user()->emp_name}}</p>
-                                    <span class="d-block">{{auth('employee')->user()->emp_designation}}</span>
+                                    <span class="d-block">({{auth('employee')->user()->emp_designation}})</span>
                                     @endif
                                 </div>
                             </li>

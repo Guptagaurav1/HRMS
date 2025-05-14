@@ -21,7 +21,6 @@ class AttendanceController extends Controller
 {
     public function index(Request $request ,string $wo_id)
     {
-    
         $workOrder= WorkOrder::find($wo_id);
         $wo_number= $workOrder->wo_number??NULL;
       
@@ -106,7 +105,7 @@ class AttendanceController extends Controller
             $totalRecords="";
         }
             // dd($wo_emps);
-        return view("hr.attendance.go-to-attendance",compact('wo_emps','wo_id','wo_number','month','totalRecords'));
+        return view("hr.attendance.go-to-attendance",compact('wo_emps','wo_id','wo_number','month','totalRecords', 'search', 'emp_status'));
     }
 
     public function add_attendance(Request $request, string $wo_id){
