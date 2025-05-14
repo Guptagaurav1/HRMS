@@ -326,7 +326,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="bold">Skill</td>
-                                                    <td>{{ $data->skill }}</td>
+                                                    <td class="attributes-column">{{ $data->skill }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bold">Location</td>

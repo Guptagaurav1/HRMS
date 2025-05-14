@@ -25,7 +25,7 @@
                         <button type="submit" class="btn btn-primary mb-3"> Search <i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                     <div class="col-auto">
-                        <a href="{{route('reimbursement.list')}}" class="btn btn-primary mb-3"> Reset </a>
+                        <a href="{{route('reimbursement.list')}}" class="btn btn-primary mb-3"> Clear <i class="fa-solid fa-eraser"></i> </a>
                     </div>
                 </form>
             </div>
@@ -121,13 +121,13 @@
                                 }   
                             @endphp
                         <tr>
-                            <td class="text-nowrap text-center">{{$reimbursment->rem_id}}</td>
-                            <td class="text-nowrap text-center">{{$reimbursment->emp_id}}</td>
-                            <td class="text-nowrap text-center">{{$reimbursment->name}}</td>
-                            <td class="text-nowrap text-center">{{Illuminate\Support\Number::currency($reimbursment->total_amount, 'inr')}}</td>
-                            <td class="text-nowrap text-center">{{Illuminate\Support\Number::currency($reimbursment->advance_amount, 'inr')}}</td>
-                            <td class="text-nowrap text-center">{{date('jS F,Y', strtotime($reimbursment->created_at))}}</td>
-                            <td class="text-nowrap text-center">
+                            <td class="text-nowrap text-center attributes-column">{{$reimbursment->rem_id}}</td>
+                            <td class="text-nowrap text-center attributes-column">{{$reimbursment->emp_id}}</td>
+                            <td class="text-nowrap text-center attributes-column">{{$reimbursment->name}}</td>
+                            <td class="text-nowrap text-center attributes-column">{{Illuminate\Support\Number::currency($reimbursment->total_amount, 'inr')}}</td>
+                            <td class="text-nowrap text-center attributes-column">{{Illuminate\Support\Number::currency($reimbursment->advance_amount, 'inr')}}</td>
+                            <td class="text-nowrap text-center attributes-column">{{date('jS F,Y', strtotime($reimbursment->created_at))}}</td>
+                            <td class="text-nowrap text-center attributes-column">
                                 <span class="badge alert-success">{{$verifiedby}}</span>
                             </td>
                             <td class="text-nowrap text-center">

@@ -39,7 +39,16 @@
                     <h3 class="mt-2 text-center" >Salary Slip</h3>
                     <div>
                         <ul class="breadcrumb">
-                            <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
+                            <li> 
+                                @if (auth()->user()->role->role_name == "hr")
+                                    <a href="{{ route('hr_dashboard') }}">Dashboard</a>
+                                @elseif(auth()->user()->role->role_name == "hr_operations")
+                                    <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
+                                @elseif(auth()->user()->role->role_name == "sales_manager")
+                                    <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
+                                @else
+                                @endif
+                            </li>
                             <li>Salary Slip</li>
                         </ul>
                     </div>
@@ -125,13 +134,13 @@
                                 <td class="text-center">{{$slip->sal_emp_name}}</td>
                                 <td class="attributes-column text-center">{{$slip->sal_month}}</td>
                                 <td class="text-center">{{$slip->sal_working_days}}</td>
-                                <td class="text-center">{{$slip->sal_designation}}</td>
-                                <td class="text-center">{{$slip->work_order}}</td>
-                                <td class="text-center">{{$slip->emp_sal_ctc}}</td>
-                                <td class="text-center">{{$slip->sal_gross}}</td>
-                                <td class="text-center">{{$slip->sal_net}}</td>
-                                <td class="text-center">{{$slip->sal_basic}}</td>
-                                <td class="text-center">
+                                <td class="text-center attributes-column">{{$slip->sal_designation}}</td>
+                                <td class="text-center attributes-column">{{$slip->work_order}}</td>
+                                <td class="text-center attributes-column">{{$slip->emp_sal_ctc}}</td>
+                                <td class="text-center attributes-column">{{$slip->sal_gross}}</td>
+                                <td class="text-center attributes-column">{{$slip->sal_net}}</td>
+                                <td class="text-center attributes-column">{{$slip->sal_basic}}</td>
+                                <td class="text-center attributes-column">
                                     @if($slip->status)
                                     <span class="badge text-bg-success">Active</span>
                                     @else

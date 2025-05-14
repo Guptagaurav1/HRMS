@@ -22,7 +22,7 @@
                         <div class="row g-3">
                             <div class="col-lg-4 col-sm-6">
                                 <label for="company_id" class="form-label">Organization Name <span
-                                        class="text-danger">**</span></label>
+                                        class="text-danger">*</span></label>
                                 <input type="text" name="name" class="form-control form-control-sm"
                                     placeholder="Enter Organization Name" required>
                                 <span class="error text-danger" id="error-organization"></span>
@@ -33,7 +33,7 @@
 
                             <div class="col-lg-4 col-sm-6">
                                 <label for="contact" class="form-label">Contact Number<span class="text-danger">
-                                        **</span></label>
+                                        *</span></label>
                                 <input type="text" name="contact" class="form-control form-control-sm for_char"
                                     placeholder="Enter Contact No" maxlength="10" required>
                                 <span class="contact"></span>
@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="col-lg-4 col-sm-6">
-                                <label for="email" class="form-label">Email <span class="text-danger"> **</span></label>
+                                <label for="email" class="form-label">Email <span class="text-danger"> *</span></label>
                                 <input type="text" name="email" class="form-control form-control-sm for_char"
                                     value="{{ old('email') }}" placeholder="Enter Email" required>
                                 <span class="email"></span>
@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="col-lg-4 col-sm-6 mt-3">
-                                <label for="state" class="form-label">State <span class="text-danger"> **</span></label>
+                                <label for="state" class="form-label">State <span class="text-danger"> *</span></label>
                                 <select name="state_id" id="state" class="form-select" required>
                                     <option value="">Select State</option>
                                     @foreach($states as $key => $value)
@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="col-lg-4 col-sm-6 mt-3">
-                                <label for="city" class="form-label">City <span class="text-danger"> **</span></label>
+                                <label for="city" class="form-label">City <span class="text-danger"> *</span></label>
                                 <select name="city_id" id="city" class="form-select" required>
 
                                 </select>
@@ -80,7 +80,7 @@
 
                             <div class="col-lg-4 col-sm-6 mt-3">
                                 <label for="postal_code" class="form-label">Postal Code <span class="text-danger">
-                                    **</span></label>
+                                    *</span></label>
                                 <input type="text" name="postal_code" class="form-control form-control-sm"
                                     placeholder="Enter a Postal Code" pattern="^[1-9]{1}[0-9]{2}\s?[0-9]{3}$"
                                     maxlength="6" title="Please enter a 6-digit Postal Code like 000 000"
@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="col-lg-4 col-sm-6 mt-3">
-                                <label for="state" class="form-label">PSU<span class="text-danger"> **</span></label>
+                                <label for="state" class="form-label">PSU<span class="text-danger"> *</span></label>
                                 <select name="psu" id="psu" class="form-select" required>
                                     <option value="">-- Select --</option>
                                     <option value="yes">Yes</option>
@@ -107,7 +107,7 @@
 
                             <div class="col-lg-4 col-sm-6 mt-3" style="display:none;" id="psu_name">
                                 <label for="postal_code" class="form-label"> Name Of PSU<span class="text-danger">
-                                        **</span></label>
+                                        *</span></label>
                                 <input type="text" name="psu_name" class="form-control form-control-sm"
                                     placeholder="Enter a PSU Name">
                                 <span class="error text-danger" id="error-postalCode"></span>
@@ -119,7 +119,7 @@
 
                             <div class="col-md-12 col-sm-6">
                                 <label for="emp_remark" class="form-label">Address <span
-                                        class="text-danger">**</span></label>
+                                        class="text-danger">*</span></label>
                                 <textarea class="form-control" name="address"
                                     placeholder="Enter Complete Address With State, City, and Postal Code"
                                     required></textarea>

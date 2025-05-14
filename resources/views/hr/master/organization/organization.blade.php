@@ -26,69 +26,75 @@
                 </svg>
             </div>
 
-            <div class="row  mt-5 px-3">
-                <div class="col-md-10">
+            
+
+            <div class="row mt-4 px-3 py-3 g-2 ">
+                <!-- Form Section -->
+                <div class="col">
                     <form method="get">
-                        <div class="row">
-                            <div class="col-auto col-xs-12">
+                        <div class="row align-items-end g-2">
+                            <!-- Search Field -->
+                            <div class="col-auto">
                                 <input type="text" name="search" value="{{ $search }}" class="form-control"
-                                    placeholder="Search" required>
-
+                                    placeholder="Search" >
                             </div>
-                            <div class="col-auto col-xs-12">
-                                <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
 
+                            <!-- Search Button -->
+                            <div class="col-auto">
+                               <button type="submit" class="btn  btn-primary">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
-                            <div class="col-auto col-xs-12">
-                                <a href="{{ route('organizations.index') }}" class="col-xs-12"><button type="button"
-                                        class="btn btn-primary btn-sm mb-3">Clear <i
+
+                            <!-- Clear Button -->
+                            <div class="col-auto">
+                                  <a href="{{ route('organizations.index') }}" class="col-xs-12"><button type="button"
+                                        class="btn btn-primary">Clear <i
                                             class="fa-solid fa-eraser"></i></button></a>
-
                             </div>
                         </div>
                     </form>
-
-
                 </div>
-                <div class="col-md-2 ">
-                    @if(auth()->user()->hasPermission('organizations.create'))
 
-                    <a href="{{ route('organizations.create') }}" class="col-xs-12"><button type="button"
-                            class="btn btn-primary btn-sm">Add Organization <i
+            
+                  @if(auth()->user()->hasPermission('organizations.create'))
+                <div class="col-md-auto">
+                   <a href="{{ route('organizations.create') }}" class="col-xs-12"><button type="button"
+                            class="btn btn-primary ">Add Organization <i
                                 class="fa-solid fa-plus"></i></button></a>
 
-                    @endif
-
+                
                 </div>
-            </div>
+                @endif
 
-            @if($message = Session::get('success'))
-            <div class="col-md-12">
-                <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:">
-                        <use xlink:href="#check-circle-fill" />
-                    </svg>
-                    <div>
-                        {{ $message }}
+                <!-- Success Message -->
+                @if($message = Session::get('success'))
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                            <use xlink:href="#check-circle-fill" />
+                        </svg>
+                        <div>
+                              {{ $message }}
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            </div>
-            @endif
-            @if($message = Session::get('error'))
-            <div class="col-md-12">
-                <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:">
-                        <use xlink:href="#exclamation-triangle-fill" />
-                    </svg>
-                    <div>
-                        {{$message}}
-                    </div>
+                @endif
 
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <!-- Error Message -->
+                @if($message = Session::get('error'))
+                <div class="col-md-12 mt-3">
+                    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                            <use xlink:href="#exclamation-triangle-fill" />
+                        </svg>
+                        <div>
+                           {{$message}}
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
+                @endif
             </div>
-            @endif
 
             <div class="table-responsive">
                 <div class="col-sm-12">
@@ -121,7 +127,7 @@
                                     @endif
                                     @if(auth()->user()->hasPermission('organizations.destroy'))
                                     <a class="delete-organization" data-id="{{ $value->id }}"><button type="button"
-                                            class="btn btn-sm btn-primary">Delete <i
+                                            class="btn btn-sm btn-danger">Delete <i
                                                 class="fa-solid fa-trash"></i></button></a>
                                     @endif
                                     @if(auth()->user()->hasPermission('organizations.show'))
@@ -141,8 +147,11 @@
 
                         </tbody>
                     </table>
+                    <div class="py-2 px-1">
+                         {{ $organizations->withQueryString()->links() }}
+                    </div>
 
-                    {{ $organizations->withQueryString()->links() }}
+                   
                 </div>
 
             </div>
@@ -154,7 +163,55 @@
 </div>
 
 @endsection
+@section('modal')
 
+<!-- Modal -->
+<div class="modal fade" id="userShowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Organization Detail</h5>
+                <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Name</label> <span id="name"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label> <span id="email"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Contact</label> <span id="contact"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">State</label> <span id="state"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">City</label> <span id="city"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">PSU</label> <span id="psu"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">PSU Name</label> <span id="psu_name"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Postal Code</label> <span id="postal_code"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Date</label> <span id="date"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Address</label> <span id="address"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 @section('script')
 <script src={{asset('assets/js/masters/organization.js')}}></script>
 @endsection

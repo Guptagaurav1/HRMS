@@ -10,7 +10,7 @@
         <div class="panel">
 
         <div class="panel-header">
-            <h3 class="text-white">Updating Employee Details</h3>
+            <h3 class="text-white mt-2"> Employee Details</h3>
             <div>
                 <ul class="breadcrumb">
                     <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
@@ -22,8 +22,12 @@
 
             <div class="table-responsive mt-4">
                 <div class="row px-2">
+                    <div class="dashboard-breadcrumb shadow">
+                          <h4>Personal Details</h4>
+                    </div>
+                  
                     <div class="col-sm-6 col-xs-12">
-                        <h4 class="panel-header">Employee Details</h4>
+                        
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                             id="allEmployeeTable">
                             <tbody>
@@ -62,7 +66,7 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">Functional Role:</td>
-                                    <td>{{$empdetails->emp_functional_role}}</td>
+                                    <td class="attributes-column">{{$empdetails->emp_functional_role}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Date of Joining:</td>
@@ -70,7 +74,7 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">Skills:</td>
-                                    <td>{{!empty($empdetails->experience) ? $empdetails->experience->emp_skills : ''}}
+                                    <td class="attributes-column">{{!empty($empdetails->experience) ? $empdetails->experience->emp_skills : ''}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -86,7 +90,7 @@
                         </table>
                     </div>
                     <div class="col-sm-6 col-xs-12 px-2">
-                        <h4 class="panel-header">Personal Details</h4>
+                       
                         <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
                             id="allEmployeeTable">
                             <tbody>
@@ -98,11 +102,11 @@
                                 </tr>
                                 <tr>
                                     <td class="bold">Correspondence Address:</td>
-                                    <td>{{$empdetails->getAddressDetail->emp_local_address}}</td>
-                                </tr>
+                                    <td class="attributes-column">{{$empdetails->getAddressDetail->emp_local_address}}</td>
+                                </tr> 
                                 <tr>
                                     <td class="bold">Date of birth:</td>
-                                    <td>{{date('jS F, Y', strtotime($empdetails->getPersonalDetail->emp_dob))}}</td>
+                                    <td class="attributes-column">{{date('jS F, Y', strtotime($empdetails->getPersonalDetail->emp_dob))}}</td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Personal Contact no:</td>

@@ -68,16 +68,16 @@
                 <table class="table table-bordered table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
                     <thead>
                         <tr>
-                            <th class="text-cenetr">Employee Code</th>
-                            <th class="text-cenetr">Emp Name</th>
-                            <th class="text-cenetr">Month Year (Days in Month)</th>
-                            <th class="text-cenetr">Work Order</th>
-                            <th class="text-cenetr">Marked as Absent</th>
-                            <th class="text-cenetr">Working Days</th>
-                            <th class="text-cenetr">Approved Leave</th>
-                            <th class="text-cenetr">LWOP Leave</th>
-                            <th class="text-cenetr">Designation</th>
-                            <th class="text-cenetr">Action</th>
+                            <th class="text-center">Employee Code</th>
+                            <th class="text-center">Emp Name</th>
+                            <th class="text-center">Month Year (Days in Month)</th>
+                            <th class="text-center">Work Order</th>
+                            <th class="text-center">Marked as Absent</th>
+                            <th class="text-center">Working Days</th>
+                            <th class="text-center">Approved Leave</th>
+                            <th class="text-center">LWOP Leave</th>
+                            <th class="text-center">Designation</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>

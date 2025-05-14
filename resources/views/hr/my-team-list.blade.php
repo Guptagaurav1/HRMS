@@ -21,11 +21,11 @@
                         <input type="search" class="form-control" name="search" placeholder="Search" value="{{$search}}" required>
                     </div>
                     <div class="col-auto col-xs-12 mb-3">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                        
                     </div>
                     <div class="col-auto col-xs-12">
-                    <a href="{{route('my-team-list')}}" class="btn btn-primary">Clear</a>
+                    <a href="{{route('my-team-list')}}" class="btn btn-primary">Clear <i class="fa-solid fa-eraser"></i></a>
 
                     </div>
                 </form>
@@ -46,11 +46,11 @@
                         <tbody>
                             @forelse($employees as $employee)
                             <tr>
-                                <td class="text-center">{{$employee->emp_name}}</td>
+                                <td class="text-center attributes-column">{{$employee->emp_name}}</td>
                                 <td class="text-center attributes-column">{{$employee->emp_email_first."/".$employee->emp_phone_first}}</td>
-                                <td class="text-center">{{$employee->department}}</td>
-                                <td class="text-center">{{$employee->user_type}}</td>
-                                <td class="text-center">{{date('d-M-Y', strtotime($employee->adding_date))}}</td>
+                                <td class="text-center attributes-column">{{$employee->department}}</td>
+                                <td class="text-center attributes-column">{{$employee->user_type}}</td>
+                                <td class="text-center attributes-column">{{date('d-M-Y', strtotime($employee->adding_date))}}</td>
                             </tr>
                             @empty
                             <tr>

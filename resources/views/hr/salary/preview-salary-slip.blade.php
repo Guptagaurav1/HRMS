@@ -3,8 +3,15 @@
 @section('style')
 <style>
     @media print {
-    
-
+ 
+    @page :footer {
+        display: none
+    }
+ 
+    @page :header {
+        display: none
+    }
+}
     .payment li {
         font-weight: bold !important;
         color: #000000 !important;

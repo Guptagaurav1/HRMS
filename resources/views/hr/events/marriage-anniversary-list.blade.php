@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-auto col-xs-12">
                             <a href="{{ route('events.marriage-anniversary-list') }}"
-                                class="btn  btn-primary mb-3 col-xs-12">Clear</a>
+                                class="btn  btn-primary mb-3 col-xs-12">Clear <i class="fa-solid fa-eraser"></i></a>
                         </div>
                     </form>
                 </div>
@@ -72,23 +72,23 @@
                                 <th class="rid-column">EMP Code</th>
                                 <th>Work Order</th>
                                 <th class="attributes-column">Name</th>
-                                <th>Email</th>
-                                <th>Date of Marriage</th>
-                                <th>Image</th>
-                                <th>Action</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Date of Marriage</th>
+                                <th class="text-center">Image</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             @forelse ($employees as $employee)
                                 <tr>
-                                    <td class="srno-column">{{ $loop->iteration }}</td>
-                                    <td class="rid-column">{{ $employee->emp_code }}</td>
-                                    <td>{{ $employee->emp_work_order }}</td>
-                                    <td class="attributes-column">{{ $employee->emp_name }}</td>
-                                    <td>{{ $employee->emp_email_first }}</td>
-                                    <td>{{ date('jS F, Y', strtotime($employee->getPersonalDetail->emp_dom)) }}</td>
-                                    <td><img class="img-fluid border rounded"
+                                    <td class="srno-column text-center">{{ $loop->iteration }}</td>
+                                    <td class="rid-column text-center">{{ $employee->emp_code }}</td>
+                                    <td class="attributes-column text-center">{{ $employee->emp_work_order }}</td>
+                                    <td class="attributes-column text-center">{{ $employee->emp_name }}</td>
+                                    <td class="attributes-column text-center">{{ $employee->emp_email_first }}</td>
+                                    <td class="attributes-column text-center">{{ date('jS F, Y', strtotime($employee->getPersonalDetail->emp_dom)) }}</td>
+                                    <td class="text-center"><img class="img-fluid border rounded"
                                             src="{{ asset('recruitment/candidate_documents/passport_size_photo') . '/' . $employee->getPersonalDetail->emp_photo }}"
                                             alt="no-photo" width="100" height="100"></td>
                                     <td>

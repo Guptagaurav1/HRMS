@@ -113,7 +113,7 @@
                                 </tr>
                                 @empty
                                 <tr >
-                                    <td colspan="5" class="text-center"><span class="text-danger">No Record Found</span></td>
+                                    <td colspan="12" class="text-center"><span class="text-danger">No Record Found</span></td>
                                 </tr> 
                             @endforelse
                         </tbody>

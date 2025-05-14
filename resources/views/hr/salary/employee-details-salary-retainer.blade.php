@@ -5,13 +5,21 @@
 <div class="row">
     <div class="col-12">
         <div class="panel">
-            <div class="panel-header">
+        <div class="panel-header">
+            <h2>Employee Details Retainer</h2>       
+        </div>
+    </div>
+
+    </div>
+    
+    <div class="col-12">
+         <div class="dashboard-breadcrumb mb-25">
                 <p class="mt-3">EMP CODE : {{$empdetails->emp_code}}</p>
                 <p class="mt-3">Name : {{$empdetails->emp_name}}</p>
             </div>
-            <div class="col-md-12 d-flex justify-content-end my-2 mr-2">
-                <a href="{{route('salary-slip')}}" class="btn btn-primary">Back</a>
-            </div>
+        <div class="panel">
+          
+            
             <div class="table-responsive mt-3">
                 <div class="row px-4">
                     <div class="col-sm-12 col-xs-12">
@@ -125,6 +133,10 @@
     </div>
     <div class="row mt-2">
         <div class="col-md-12 d-flex justify-content-end gap-2 mb-2">
+            <div class="">
+                  <a href="{{route('salary-slip')}}"> <button class="btn btn-sm btn-secondary">Cancel </button></a>  
+
+            </div>
             @if(auth()->user()->hasPermission('employee-code-retainer'))
                 <a href="{{route('employee-code-retainer', ['id' => $salaryid])}}"> <button class="btn btn-sm btn-primary">Print Salary Slip <i class="fa-solid fa-print"></i></button></a>  
             @endif

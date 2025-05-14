@@ -27,10 +27,11 @@
                         <input type="search" class="form-control" name="search" value="{{$search}}" placeholder="Search" name="search" >
                     </div>
                     <div class="col-auto col-xs-12">
-                        <button type="submit" class="btn btn-primary mb-3">Search</button>
+                        <button type="submit" class="btn btn-primary mb-3">Search <i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                     <div class="col-auto col-xs-12">
-                        <a href="{{route('events.work-anniversary-list')}}" class="btn btn-primary mb-3">Clear</a>
+                        <a href="{{route('events.work-anniversary-list')}}" class="btn btn-primary mb-3">Clear <i class="fa-solid fa-eraser"></i></a>
                     </div>
                     
                 </form>
@@ -68,28 +69,28 @@
                     id="allEmployeeTable">
                     <thead>
                         <tr>
-                            <th class="srno-column">S.No.</th>
-                            <th class="rid-column">EMP Code</th>
-                            <th>Work Order</th>
+                            <th class="srno-column text-center">S.No.</th>
+                            <th class="rid-column text-center attributes-column">EMP Code</th>
+                            <th class="text-center attributes-column">Work Order</th>
                             <th class="attributes-column">Name</th>
-                            <th>Email</th>
-                            <th>Date of Joining</th>
-                            <th>Year Completed</th>
-                            <th>Image</th>
-                            <th>Action</th>
+                            <th class="text-center attributes-column">Email</th>
+                            <th class="text-center attributes-column">Date of Joining</th>
+                            <th class="text-center attributes-column">Year Completed</th>
+                            <th class="text-center">Image</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($employees as $employee)
                                 <tr>
                                     <td class="srno-column">{{ $loop->iteration }}</td>
-                                    <td class="rid-column">{{ $employee->emp_code }}</td>
-                                    <td>{{ $employee->emp_work_order }}</td>
-                                    <td class="attributes-column">{{ $employee->emp_name }}</td>
-                                    <td>{{ $employee->emp_email_first }}</td>
-                                    <td>{{ date('jS F, Y', strtotime($employee->emp_doj)) }}</td>
-                                    <td>
-                                        @php
+                                    <td class="rid-column attributes-column">{{ $employee->emp_code }}</td>
+                                    <td class="attributes-column text-center">{{ $employee->emp_work_order }}</td>
+                                    <td class="attributes-column text-center">{{ $employee->emp_name }}</td>
+                                    <td class="attributes-column text-center">{{ $employee->emp_email_first }}</td>
+                                    <td class="attributes-column text-center">{{ date('jS F, Y', strtotime($employee->emp_doj)) }}</td>
+                                    <td class="attributes-column text-center">
+                                         @php
                                         $dateOfJoining = $employee->emp_doj;
                                         $today = date("Y-m-d");
                                         $diff = date_diff(date_create($dateOfJoining), date_create($comingdate));
