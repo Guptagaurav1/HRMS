@@ -1,5 +1,6 @@
-$('.delete-organization').click(function() {
+$('.delete-organization').click(function () {
     var id = $(this).data('id');
+    $(this).attr('disabled', 'disabled');
 
     Swal.fire({
         title: "Are you sure?",
@@ -11,27 +12,60 @@ $('.delete-organization').click(function() {
         confirmButtonText: "Confirm"
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = SITE_URL + '/hr/organizations/delete/' + id;
+            $.ajax({
+                url: SITE_URL + '/hr/organizations/delete/' + id,
+                dataType: 'json',
+                type: 'GET',
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: "Congratulations!",
+                            text: response.message,
+                            icon: "success"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+
+                    }
+                    else if (response.error) {
+                        $(this).attr('disabled', '');
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: response.message,
+                        })
+                            .then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                    }
+                }
+            });
+            // window.location.href = SITE_URL + '/hr/organizations/delete/' + id;
         }
     });
 })
 
 // Select City on behalf of state
 
-$('#state').on('change', function() {
+$('#state').on('change', function () {
     var id = $('#state').val();
     if (id) {
         $.ajax({
             url: SITE_URL + '/hr/organizations/get-city/' + id,
             type: "post",
-            data:{
-                '_token' : $("meta[name=csrf-token]").attr('content')
+            data: {
+                '_token': $("meta[name=csrf-token]").attr('content')
             },
-            success: function(res) {
+            success: function (res) {
                 console.log(res.data);
 
                 $('#city').html('<option value="">-- Select City --</option>');
-                $.each(res.data, function(key, value) {
+                $.each(res.data, function (key, value) {
 
                     $("#city").append('<option value="' + value
 
@@ -49,7 +83,7 @@ $('#state').on('change', function() {
 
 // this code for psu
 
-$('#psu').on('change', function() {
+$('#psu').on('change', function () {
     var psuData = $(this).val();
     if (psuData === 'yes') {
         $('#psu_name').show()
@@ -60,12 +94,12 @@ $('#psu').on('change', function() {
 
 // display details of organization
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     /* When click show user */
-    $('body').on('click', '#show-user', function() {
+    $('body').on('click', '#show-user', function () {
         var userURL = $(this).data('url');
-        $.get(userURL, function(data) {
+        $.get(userURL, function (data) {
             var respData = data.data;
             // display created Date
             var date = new Date(respData.created_at);

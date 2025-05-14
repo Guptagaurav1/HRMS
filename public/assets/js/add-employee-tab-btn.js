@@ -344,29 +344,39 @@ $(document).ready(function () {
                     if (response.success) {
                         var html = '';
                         var validfile = true;
-                        $.each(response.data, function (index, value) {
-                            if (value.status_color == 'danger') {
-                                validfile = false;
-                            }
-                            html += '<tr class="table-' + value.status_color + '">';
-                            html += '<td>' + value.emp_work_order + '</td>';
-                            html += '<td>' + value.emp_code + '</td>';
-                            html += '<td>' + value.emp_name + '</td>';
-                            html += '<td>' + value.emp_gender + '</td>';
-                            html += '<td>' + value.emp_category + '</td>';
-                            html += '<td>' + value.emp_dob + '</td>';
-                            html += '<td>' + value.emp_doj + '</td>';
-                            html += '<td>' + value.emp_phone_first + '</td>';
-                            html += '<td class="text-start">' + value.emp_email_first + '</td>';
-                            html += '<td class="text-start">' + value.reporting_email + '</td>';
-                            html += '<td>' + value.status + '</td>';
-                            html += '</tr>';
-                        });
+                        var errorTitle = "Invalid File Content";
+                        var errorText = "Please fix errors and try again";
+                        if (response.data.length > 0) {
+                            $.each(response.data, function (index, value) {
+                                if (value.status_color == 'danger') {
+                                    validfile = false;
+                                }
+                                html += '<tr class="table-' + value.status_color + '">';
+                                html += '<td>' + value.emp_work_order + '</td>';
+                                html += '<td>' + value.emp_code + '</td>';
+                                html += '<td>' + value.emp_name + '</td>';
+                                html += '<td>' + value.emp_gender + '</td>';
+                                html += '<td>' + value.emp_category + '</td>';
+                                html += '<td>' + value.emp_dob + '</td>';
+                                html += '<td>' + value.emp_doj + '</td>';
+                                html += '<td>' + value.emp_phone_first + '</td>';
+                                html += '<td class="text-start">' + value.emp_email_first + '</td>';
+                                html += '<td class="text-start">' + value.reporting_email + '</td>';
+                                html += '<td>' + value.status + '</td>';
+                                html += '</tr>';
+                            });
+                        }
+                        else {
+                            validfile = false;
+                            errorTitle = "Invalid File Content";
+                            errorText = "No Record Found";
+                            html += '<tr><td colspan="11" class="text-center text-danger">No Record Found</td></tr>';
+                        }
                         if (!validfile) {
                             Swal.fire({
                                 icon: "error",
-                                title: "Invalid File Content",
-                                text: 'Please fix errors and try again',
+                                title: errorTitle,
+                                text: errorText,
                                 allowOutsideClick: () => false
                             });
                         }

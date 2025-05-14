@@ -1,4 +1,4 @@
-@extends('layouts.master')
+    @extends('layouts.master')
 @section('contents')
 <div class="fluid-container">
     <form method="post" action="{{ route('store-manage-role') }}">
@@ -19,17 +19,25 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <label class="form-label">Add Role</label>
+                                <label class="form-label">Role Short Name</label>
                                 <input type="text" name="role_name" class="form-control form-control-sm"
-                                    placeholder="Enter a Role">
+                                    placeholder="Enter a unique short name">
                                 @error('role_name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                             <div class="col-md-6">
+                                <label class="form-label">Role Full Name</label>
+                                <input type="text" name="fullname" class="form-control form-control-sm"
+                                    placeholder="Enter a full name">
+                                @error('fullname')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 panel_1 ">
-                        <label class="form-label">Select Roles *</label>
+                        <label class="form-label">Select Menus *</label>
                         <div class="col-12">
                             <div class="row h-auto">
                                 @foreach ($menus as $section => $menu )

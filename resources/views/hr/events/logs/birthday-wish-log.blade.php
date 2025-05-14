@@ -53,7 +53,7 @@
                             <td>{{$log->emp_name}}</td>
                             <td>{{$log->emp_email}}</td>
                             <td>{{$log->emp_dob ? date('jS F, Y', strtotime($log->emp_dob)) : ''}}</td>
-                            <td>{{$log->message}}</td>
+                            <td>{!! $log->message !!}</td>
                             <td><span class="badge alert-success">{{date('jS F, Y', strtotime($log->created_at))}}</span></td>
                         </tr>
                         @empty

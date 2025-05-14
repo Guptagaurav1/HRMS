@@ -87,7 +87,8 @@ class DesignationController extends Controller
 
     public function destroy(Designation $designation){
         $data = $designation->delete();
-        return redirect()->back()->with('success','Designation Deleted Successfully !');
+        // return redirect()->back()->with('success','Designation Deleted Successfully !');
+        return response()->json(['success' => true, 'message' => 'Designation deleted successfully']);
     }
 
     /**

@@ -116,7 +116,7 @@
                         @forelse($projects as $key => $value)
                         <tr>
                             <td class="srno-column">{{$key+1}}</td>
-                            <td class="text-center">{{$value->organizations->name}}</td>
+                            <td class="text-center">{{$value->organizations ? $value->organizations->name : ''}}</td>
                             <td class="text-center attributes-column">{{$value->project_name}}</td>
                             <td class="text-center">{{$value->project_number}}</td>
                             <td class="text-center attributes-column">{{$value->empanelment_reference }}</td>

@@ -191,7 +191,7 @@
                             @forelse($totalWorkOrders as $value)
                             <tr>
                                 <td><input type="checkbox" name="checkbox[]" value="{{$value->id}}"></td>
-                                <td class="srno-column text-center">{{$value->project ? $value->project->organizations->name : ''}}</td>
+                                <td class="srno-column text-center">{{$value->project && $value->project->organizations ? $value->project->organizations->name : ''}}</td>
                                 <td class="rid-column text-center attributes-column">{{$value->wo_number}}</td>
                                 <td class="text-center">{{$value->project ? $value->project->empanelment_reference : ''}}</td>
                                 <td class="attributes-column text-center">{{$value->wo_date_of_issue ? date('jS F, Y', strtotime($value->wo_date_of_issue)) : ''}}</td>

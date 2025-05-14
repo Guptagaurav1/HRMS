@@ -773,7 +773,7 @@
                                 </ul>
                             </li>
                         @endif
-                        @if (auth()->user()->hasPermission('reimbursement.list'))
+                        {{-- @if (auth()->user()->hasPermission('reimbursement.list'))
                             <li class="sidebar-dropdown-item">
                                 <a role="button" class="sidebar-link has-sub"
                                     data-dropdown="ecommerceDropdown"><span class="nav-icon"><i
@@ -787,7 +787,7 @@
 
                                 </ul>
                             </li>
-                        @endif
+                        @endif --}}
                         @if (auth()->user()->hasPermission('my-team-list'))
                             <li class="sidebar-dropdown-item">
                                 <a role="button" class="sidebar-link has-sub"
@@ -987,7 +987,7 @@
 
 
 
-                            @if (auth()->user()->hasPermission('vendors.index'))
+                            {{-- @if (auth()->user()->hasPermission('vendors.index'))
                                 <li class="sidebar-dropdown-item">
                                     <a role="button" class="sidebar-link has-sub"
                                         data-dropdown="advanceUiDropdown"><span class="nav-icon"><i
@@ -1003,7 +1003,7 @@
 
                                     </ul>
                                 </li>
-                            @endif
+                            @endif --}}
                             {{-- <li class="help-center">
                         <li class="help-center">
                             <h3>Help Center</h3>

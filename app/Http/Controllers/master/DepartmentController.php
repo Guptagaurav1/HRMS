@@ -161,7 +161,8 @@ class DepartmentController extends Controller
     {
         DepartmentSkill::where('department_id', $department->id)->delete();
         Department::where('id', $department->id)->delete();
-        return redirect()->route('departments.index')->with(['success' => 'Department Deleted !']);
+        return response()->json(['success' => true, 'message' => 'Department deleted successfully']);
+        // return redirect()->route('departments.index')->with(['success' => 'Department Deleted !']);
     }
 
     /**

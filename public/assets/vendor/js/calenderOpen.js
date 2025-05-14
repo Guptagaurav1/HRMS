@@ -11,6 +11,7 @@ $(function () {
     changeYear: true,
     showButtonPanel: true,
     dateFormat: 'MM yy',
+    maxDate: new Date(),
     onClose: function (dateText, inst) {
       // $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
     }

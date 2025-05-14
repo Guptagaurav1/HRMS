@@ -98,7 +98,7 @@
                                 <td class="text-center">{{$contact->receiver_email}}</td>
                                 <td class="attributes-column"><a href="{{route('preview-job-description', ['id' => $contact->job_position])}}" class="text-primary">Preview JD</a></td>
                                 <td class="text-center">{{$contact->sender_email}}</td>
-                                <td class="text-center">{{$contact->doj ? $contact->doj : 'Not Yet Decided'}}</td>
+                                <td class="text-center">{{$contact->doj ? date('jS F, Y', strtotime($contact->doj)) : 'Not Yet Decided'}}</td>
                                 <td class="text-center"><span class="badge rounded-pill text-bg-{{$color}}">{{$status}}</span></td>
                                 <td class="text-center">
                                     @if($contact->sender_email == auth()->user()->email && !empty($contact->rec_id))

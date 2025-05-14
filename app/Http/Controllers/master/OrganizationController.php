@@ -120,7 +120,8 @@ class OrganizationController extends Controller
 
     public function destroy(Organization $organization){
         $data = $organization->delete();
-        return redirect()->back()->with('success','Deleted Successfully !');
+        return response()->json(['success' => true, 'message' => 'Organization deleted successfully']);
+        // return redirect()->back()->with('success','Deleted Successfully !');
     }
 
     public function GetCity($id){

@@ -84,8 +84,8 @@ class SkillController extends Controller
             $data->delete();
         }
         Skill::destroy($id);
-
-        return redirect()->back()->with('success','Skill Deleted Successfully !');
+        return response()->json(['success' => true, 'message' => 'Skill Deleted Successfully']);
+        // return redirect()->back()->with('success','Skill Deleted Successfully !');
     }
 
 }

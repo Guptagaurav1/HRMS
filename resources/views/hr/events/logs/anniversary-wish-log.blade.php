@@ -58,7 +58,7 @@
                             <td>{{$log->emp_name}}</td>
                             <td>{{$log->emp_email}}</td>
                             <td>{{date('jS F, Y', strtotime($log->emp_dom))}}</td>
-                            <td>{{$log->message}}</td>
+                            <td>{!! $log->message !!}</td>
                             <td><span class="badge alert-success">{{date('jS F, Y', strtotime($log->created_at))}}</span></td>
                         </tr>
                         @empty
