@@ -106,7 +106,7 @@ class RecruitmentForm extends Model
      * Get Position Request Details.
      */ 
     public function getPositionDetail(): BelongsTo{
-        return $this->belongsTo(PositionRequest::class, 'pos_req_id', 'req_id')->select('position_title', 'client_name');
+        return $this->belongsTo(PositionRequest::class, 'pos_req_id', 'id')->select('position_title', 'client_name');
     }
 
     /**
