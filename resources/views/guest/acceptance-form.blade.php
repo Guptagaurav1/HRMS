@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="mt-3 d-flex justify-content-between">
                                     <label for="designation">Designation</label>
-                                    <span>{{ $details->pos_req_id ? $details->getPositionDetail->position_title : '' }}</span>
+                                    <span>{{ $details->pos_req_id && $details->getPositionDetail ? $details->getPositionDetail->position_title : '' }}</span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
