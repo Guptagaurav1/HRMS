@@ -19,17 +19,17 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <label class="form-label">Role Short Name</label>
+                                <label class="form-label">Role Short Name <span class="text-danger">*</span></label>
                                 <input type="text" name="role_name" class="form-control form-control-sm"
-                                    placeholder="Enter a unique short name">
+                                    placeholder="Enter a unique short name" required>
                                 @error('role_name')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                              <div class="col-md-6">
-                                <label class="form-label">Role Full Name</label>
+                                <label class="form-label">Role Full Name <span class="text-danger">*</span></label>
                                 <input type="text" name="fullname" class="form-control form-control-sm"
-                                    placeholder="Enter a full name">
+                                    placeholder="Enter a full name" required>
                                 @error('fullname')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror

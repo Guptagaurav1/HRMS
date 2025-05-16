@@ -19,16 +19,19 @@
                     @csrf
                     <div class="row my-2 mx-2">
                         <div class="col-sm-12 col-md-6">
-                            <label class="form-label">Role Short Name</label>
-                            <input type="text" class="form-control" readonly value="{{$role->role_name}}">
+                            <label class="form-label">Role Short Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" readonly value="{{$role->role_name}}" required>
                         </div>
                          <div class="col-sm-12 col-md-6">
-                            <label class="form-label">Role Full Name</label>
-                            <input type="text" name="fullname" class="form-control" value="{{$role->fullname}}">
+                            <label class="form-label">Role Full Name <span class="text-danger">*</span></label>
+                            <input type="text" name="fullname" class="form-control" value="{{$role->fullname}}" required>
+                            @error('fullname')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-12 panel_1 mt-5">
-                        <label class="form-label">Select Roles *</label>
+                        <label class="form-label">Select Roles <span class="text-danger">*</span></label>
                         <div class="row mt-3">
                             @foreach ($menus as $section => $menu)
                                 <div class="col-12">

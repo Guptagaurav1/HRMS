@@ -209,7 +209,7 @@
                     </tr>
                     <tr>
                         <td class="bold">Last Date Of Fulfillment</td>
-                        <td>{{ $request->date_notified }}</td>
+                        <td>{{ date('jS F, Y', strtotime($request->date_notified)) }}</td>
                     </tr>
                     <tr>
                         <td class="bold">Education</td>

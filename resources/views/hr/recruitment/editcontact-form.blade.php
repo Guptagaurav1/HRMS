@@ -26,16 +26,7 @@
                 <h3 class="text-white mt-2">Edit Details</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li> 
-                            @if (auth()->user()->role->role_name == "hr")
-                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "hr_operations")
-                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                            @elseif(auth()->user()->role->role_name == "sales_manager")
-                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                            @else
-                            @endif
-                        </li>
+                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                         <li><a href="{{route('recruitment.call_logs')}}">Edit Contact Candidate By List</a></li>
                         <li>Edit Contact Candidate By Call</li>
                     </ul>
@@ -118,7 +109,7 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Education</label>
-                        <select class="form-select js-example-basic-multiple" name="qualification[]" multiple required>
+                        <select class="form-select js-example-basic-multiple" name="qualification[]" multiple>
                             <option value=""> Nothing Selected</option>
                             @foreach($qualification as $education)
                                 <option value="{{$education->qualification}}" {{$log->qualification && in_array($education->qualification, explode(",", $log->qualification)) ? 'selected' : ''}}>{{$education->qualification}}</option>
