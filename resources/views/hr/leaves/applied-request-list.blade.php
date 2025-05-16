@@ -139,18 +139,20 @@
                                     <td class="text-center">{{ date('jS F, Y', strtotime($leave_request->created_at)) }}
                                     </td>
                                     <td class="text-center ">
-                                        
                                         {{-- View Requested Leave --}}
-                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#leaveDetailsModal"
-                                            data-bs-whatever="{{ $leave_request->id }}">View <i
-                                                class="fa-solid fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#leaveDetailsModal"
+                                                data-bs-whatever="{{ $leave_request->id }}">View <i
+                                                    class="fa-solid fa-eye"></i></button>
+
 
                                         {{-- Print the requested leave --}}
-                                        <a href="{{ route('leave-request-reciept', ['id' => $leave_request->id]) }}">
-                                            <button class="btn btn-sm btn-primary mx-3">Print <i
-                                                    class="fa-solid fa-print"></i></button>
-                                        </a>
+                                        @if (auth()->user()->hasPermission('leave-request-reciept'))
+                                            <a href="{{ route('leave-request-reciept', ['id' => $leave_request->id]) }}">
+                                                <button class="btn btn-sm btn-primary mx-3">Print <i
+                                                        class="fa-solid fa-print"></i></button>
+                                            </a>
+                                        @endif
 
                                         {{-- Permission for response the leave --}}
                                         @if (
