@@ -101,7 +101,7 @@
                                 <td class="text-center">{{$contact->doj ? date('jS F, Y', strtotime($contact->doj)) : 'Not Yet Decided'}}</td>
                                 <td class="text-center"><span class="badge rounded-pill text-bg-{{$color}}">{{$status}}</span></td>
                                 <td class="text-center">
-                                    @if($contact->sender_email == auth()->user()->email && !empty($contact->rec_id))
+                                    @if(($contact->sender_email == auth()->user()->email || get_role_fullname(auth()->user()->role_id) == 'HR') && !empty($contact->rec_id))
                                     <a href="{{route('applicant-recruitment-details-summary', ['rec_id' => $contact->rec_id, 'position' => $id])}}"><button class="btn btn-sm btn-primary"> View <i class="fa-solid fa-eye"></i></button></a>
                                     @elseif(empty($contact->rec_id))
                                     <span class="btn btn-info">Not Generated</span>

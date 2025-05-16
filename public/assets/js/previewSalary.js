@@ -25,7 +25,7 @@ $("#sendMail").click(function () {
       });
         $(this).attr('disabled', 'disabled');
         $.ajax({
-            url: SITE_URL+'/hr/salary-slip/send-mail/'+salarySlipId,
+            url: SITE_URL+'/user/salary-slip/send-mail/'+salarySlipId,
             method : 'post',
             dataType : 'json',
             data : {
@@ -45,11 +45,11 @@ $("#sendMail").click(function () {
                         }
                     })
                 }
-                else {
+                else if(res.error) {
                      Swal.fire({
                       icon: "error",
                       title: "Oops...",
-                      text: "Something went wrong!",
+                      text: res.message
                     });
                 }
                
