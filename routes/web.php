@@ -133,6 +133,7 @@ Route::middleware('page.permission')->group(function () {
         });
         Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
             Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
+            Route::post('send-mail/{id}', 'send_mail')->name('salary-slip.sendmail');
         });
 
         Route::controller(LeaveController::class)->prefix('leaves')->group(function () {

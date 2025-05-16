@@ -34,7 +34,7 @@
 
 <p>&nbsp;</p>
 
-<p><strong>For Prakhar Software Solutions Pvt.&nbsp;Ltd.</strong></p>
+<p><strong>For Prakhar Software Solutions &nbsp;Ltd.</strong></p>
 
 <p>&nbsp;</p>
 

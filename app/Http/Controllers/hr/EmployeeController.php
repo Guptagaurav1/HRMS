@@ -115,7 +115,7 @@ class EmployeeController extends Controller
 
             // Update recruitment if needed.
             if ($request->rec_id) {
-                PositionRequest::where('req_id', $request->position_id)->increment('no_of_completed_requirements');
+                PositionRequest::where('id', $request->position_id)->increment('no_of_completed_requirements');
                 RecruitmentForm::where('id', $request->rec_id)->update(['finally' => 'joined', 'emp_code' => $request->emp_code]);
             }
             DB::commit();
