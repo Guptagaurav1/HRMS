@@ -21,16 +21,16 @@ class DepartmentController extends Controller
     {
         $departments = Department::orderBy('id', 'desc');
         $search = $request->search;
-        if($search){
-            $departments->where(function($query) use ($search){
-                        $query->where('department','like', '%'.$search.'%')
-                        ->orWhereHas('skills', function ($query) use ($search) {
-                            $query->where('skill', 'like', "%$search%");
-                        });
+        if ($search) {
+            $departments->where(function ($query) use ($search) {
+                $query->where('department', 'like', '%' . $search . '%')
+                    ->orWhereHas('skills', function ($query) use ($search) {
+                        $query->where('skill', 'like', "%$search%");
+                    });
             });
         }
         $departments = $departments->paginate(10)->withQueryString();;
-        return view('hr.master.department.department', compact('departments','search'));
+        return view('hr.master.department.department', compact('departments', 'search'));
     }
 
     // display skill list on department-add form
@@ -101,7 +101,14 @@ class DepartmentController extends Controller
     {
         $id = $department->id;
         $request->validate([
-            'department' => 'required|max:255|unique:departments,department,' . $department->id,
+            'department' => [
+                'required',
+                Rule::unique('departments')->where(function ($query) use ($id) {
+                    $query->whereNull('deleted_at')
+                        ->where('id', '!=', $id);
+                }),
+                'max:255'
+            ],
             'skill' => 'required|max:255',
             'reporting_manager_id' => [
                 'required',
@@ -210,7 +217,8 @@ class DepartmentController extends Controller
         }
     }
 
-    public function get_departments(Request $request){
+    public function get_departments(Request $request)
+    {
         $departments = Department::select('id', 'department')->whereHas('skills')->get();
         return response()->json(['success' => true, 'departments' => $departments]);
     }

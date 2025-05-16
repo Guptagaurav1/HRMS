@@ -53,7 +53,7 @@
                             <td class="text-center attributes-column">{{$log->emp_name}}</td>
                             <td class="text-center attributes-column">{{$log->emp_email}}</td>
                             <td class="text-center attributes-column">{{date('jS F, Y', strtotime($log->emp_dom))}}</td>
-                            <td class="text-center attributes-column">{{$log->message}}</td>
+                            <td class="text-center attributes-column">{!! $log->message !!}</td>
                             <td class="text-center attributes-column"><span class="badge alert-success">{{date('jS F, Y', strtotime($log->created_at))}}</span></td>
                         </tr>
                         @empty
