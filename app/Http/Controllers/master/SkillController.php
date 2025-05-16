@@ -8,78 +8,85 @@ use App\Models\Skill;
 use App\Models\Department;
 use App\Models\DepartmentSkill;
 use DB;
+use Illuminate\Validation\Rule;
 
 
 class SkillController extends Controller
 {
     // display latest skill lists
 
-    public function index(Request $request){
-        $skills = Skill::select('id','skill')->orderBy('id','desc');
-        $search = $request->search; 
+    public function index(Request $request)
+    {
+        $skills = Skill::select('id', 'skill')->orderBy('id', 'desc');
+        $search = $request->search;
 
-        if($request->search){
-            $skills->where(function($query) use ($search){
-                $query->where('skill', 'like', '%'.$search.'%');
+        if ($request->search) {
+            $skills->where(function ($query) use ($search) {
+                $query->where('skill', 'like', '%' . $search . '%');
             });
         }
-        
+
         $skills = $skills->paginate(10)->withQueryString();
-        return view("hr.master.skills.skill", compact('skills','search'));
+        return view("hr.master.skills.skill", compact('skills', 'search'));
     }
 
     // create form of skills
 
-    public function create(){
+    public function create()
+    {
         return view("hr.master.skills.skill-add");
     }
 
     // create new skills
 
-    public function save(Request $request){
-            $request->validate([
-                'skill' => 'required|max:255|unique:skills'
-            ]);
+    public function save(Request $request)
+    {
+        $request->validate([
+            'skill' => ['required', 'max:255', Rule::unique('skills')->whereNull('deleted_at')]
+        ]);
 
-            $skill = new Skill();
-            $skill->skill = $request->skill;
-            $skill->status = '1';
-            $skill->save();
-            if($skill){
-                return redirect()->route('skills.index')->with('success','Skill Added Successfully !');
-            }
+        $skill = new Skill();
+        $skill->skill = $request->skill;
+        $skill->status = '1';
+        $skill->save();
+        if ($skill) {
+            return redirect()->route('skills.index')->with('success', 'Skill Added Successfully !');
+        }
     }
 
 
     // edit skill
 
 
-    public function edit(Skill $skill){
+    public function edit(Skill $skill)
+    {
 
         return view("hr.master.skills.skill-edit", compact('skill'));
     }
 
-// update skill
+    // update skill
 
-    public function update(Skill $skill, Request $request){
-       
+    public function update(Skill $skill, Request $request)
+    {
+
         $request->validate([
-            'skill' => 'required|max:255|unique:skills,skill,'.$skill->id,
+            'skill' => ['required', 'max:255', Rule::unique('skills')->ignore($skill->id)->whereNull('deleted_at')]
         ]);
         $skill->skill = $request->skill;
         $skill->status = '1';
         $skill->save();
-        
-        if($skill){
-            return redirect()->route('skills.index')->with('success','Skill updated Successfully !');
+
+        if ($skill) {
+            return redirect()->route('skills.index')->with('success', 'Skill updated Successfully !');
         }
     }
 
     // delete Skill
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $departments = DepartmentSkill::where('skill_id', $id)->get();
-        foreach($departments as $department){
+        foreach ($departments as $department) {
             $data = DepartmentSkill::find($department->id);
             $data->delete();
         }
@@ -87,5 +94,4 @@ class SkillController extends Controller
         return response()->json(['success' => true, 'message' => 'Skill Deleted Successfully']);
         // return redirect()->back()->with('success','Skill Deleted Successfully !');
     }
-
 }

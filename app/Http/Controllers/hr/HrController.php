@@ -8,6 +8,7 @@ use App\Models\PositionRequest;
 use App\Models\EmpDetail;
 use App\Models\WorkOrder;
 use App\Models\LeaveRequest;
+use App\Models\Company;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailBirthDay;
 use App\Mail\EmpMarriageAnniversaryMail;
@@ -184,11 +185,18 @@ class HrController extends Controller
             $validate = $request->validate([
                 'message' => 'required|max:255',
             ]);
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
 
             $employee = EmpDetail::select('id', 'emp_code', 'emp_name', 'emp_email_first')->where('emp_email_first', $request->emp_mail)->first();
             $mailData = [
                 'message' => $request->message,
-                'name' =>    $employee->emp_name
+                'name' =>    $employee->emp_name,
+                'comp_email' => $company->email,
+                'comp_phone' => $company->mobile,
+                'comp_website' => $company->website,
+                'comp_address' => $company->address,
+                'url' => url('/')
             ];
 
             // Save the log of employee wish.
@@ -211,10 +219,18 @@ class HrController extends Controller
     public function sendMarriageAnniversaryMail(Request $request)
     {
         try {
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+        
             $employee = EmpDetail::select('id', 'emp_code', 'emp_name', 'emp_email_first')->where('emp_email_first', $request->emp_mail)->first();
             $mailData = [
                 'name' =>    $employee->emp_name,
-                'message' => $request->message
+                'message' => $request->message,
+                'comp_email' => $company->email,
+                'comp_phone' => $company->mobile,
+                'comp_website' => $company->website,
+                'comp_address' => $company->address,
+                'url' => url('/')
             ];
 
             // Save the log of employee wish.
@@ -237,6 +253,9 @@ class HrController extends Controller
     public function sendWorkAnniversaryMail(Request $request)
     {
         try {
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+            
             $employee = EmpDetail::select('id', 'emp_code', 'emp_name', 'emp_email_first', 'emp_designation', 'emp_doj')->where('emp_email_first', $request->emp_mail)->first();
             $date = Carbon::parse($employee->emp_doj);
             $diffYear = Carbon::now()->diffInYears($date);
@@ -245,7 +264,12 @@ class HrController extends Controller
                 'name' =>    $employee->emp_name,
                 'message' => $request->message,
                 'designation' => $employee->emp_designation,
-                'year' =>  $diffYear
+                'year' =>  $diffYear,
+                'comp_email' => $company->email,
+                'comp_phone' => $company->mobile,
+                'comp_website' => $company->website,
+                'comp_address' => $company->address,
+                'url' => url('/')
             ];
 
             // Save the log of employee wish.

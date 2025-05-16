@@ -17,16 +17,18 @@ class AddUser extends Mailable
     public $password;
     public $url;
     public $user_type;
+    public $mailData;
     /**
      * Create a new message instance.
      */
-    public function __construct($name, $email, $password, $url, $user_type)
+    public function __construct($name, $email, $password, $url, $user_type, $mailData)
     {
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
         $this->url = $url;
         $this->user_type = $user_type;
+        $this->mailData = $mailData;
     }
 
     /**

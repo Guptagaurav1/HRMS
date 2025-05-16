@@ -26,7 +26,7 @@ class EventController extends Controller
     public function __construct()
     {
         $this->cc = 'vikas.verma@prakharsoftwares.com';  // Replace this with info@prakharsoftwares.com
-    } 
+    }
     /**
      * Show the list of upcoming birthday list in coming 40 days.
      */
@@ -35,20 +35,20 @@ class EventController extends Controller
         $comingdate = date('Y-m-d', strtotime('+40 days'));
         $currentdate = date('Y-m-d');
         $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first')
-                    ->where('emp_current_working_status', 'Active')
-                    ->whereHas('getPersonalDetail', function ($query) use ($comingdate, $currentdate) {
-                        $query->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
-                        ->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
-                        ->orderByRaw('DATE_FORMAT(emp_dob,"%m-%d")');
-                    });
+            ->where('emp_current_working_status', 'Active')
+            ->whereHas('getPersonalDetail', function ($query) use ($comingdate, $currentdate) {
+                $query->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
+                    ->whereRaw("DATE_FORMAT(emp_dob,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
+                    ->orderByRaw('DATE_FORMAT(emp_dob,"%m-%d")');
+            });
         $search = '';
-        if($request->search){
+        if ($request->search) {
             $search = $request->search;
             $employees->where(function ($query) use ($search) {
-                $query->where('emp_details.emp_code', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_name', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_work_order', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%');
+                $query->where('emp_details.emp_code', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_work_order', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%' . $search . '%');
             });
         }
         $imageurl = asset('events/birthday/bg_two.jpg');
@@ -64,20 +64,20 @@ class EventController extends Controller
         $comingdate = date('Y-m-d', strtotime('+15 days'));
         $currentdate = date('Y-m-d');
         $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first')
-                    ->where('emp_current_working_status', 'Active')
-                    ->whereHas('getPersonalDetail', function ($query) use ($comingdate, $currentdate) {
-                        $query->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
-                        ->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
-                        ->orderByRaw('DATE_FORMAT(emp_dom,"%m-%d")');
-                    });
+            ->where('emp_current_working_status', 'Active')
+            ->whereHas('getPersonalDetail', function ($query) use ($comingdate, $currentdate) {
+                $query->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
+                    ->whereRaw("DATE_FORMAT(emp_dom,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
+                    ->orderByRaw('DATE_FORMAT(emp_dom,"%m-%d")');
+            });
         $search = '';
-        if($request->search){
+        if ($request->search) {
             $search = $request->search;
             $employees->where(function ($query) use ($search) {
-                $query->where('emp_details.emp_code', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_name', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_work_order', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%');
+                $query->where('emp_details.emp_code', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_work_order', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%' . $search . '%');
             });
         }
 
@@ -93,24 +93,24 @@ class EventController extends Controller
         $comingdate = date('Y-m-d', strtotime('+40 days'));
         $currentdate = date('Y-m-d');
         $employees = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_work_order', 'emp_details.emp_name', 'emp_details.emp_email_first', 'emp_details.emp_doj')
-                    ->where('emp_current_working_status', 'Active')
-                    ->whereRaw("DATE_FORMAT(emp_doj,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
-                    ->whereRaw("DATE_FORMAT(emp_doj,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
-                    ->orderByRaw('DATE_FORMAT(emp_doj,"%m-%d")');
+            ->where('emp_current_working_status', 'Active')
+            ->whereRaw("DATE_FORMAT(emp_doj,'%m-%d') <= DATE_FORMAT(? ,'%m-%d')", [$comingdate])
+            ->whereRaw("DATE_FORMAT(emp_doj,'%m-%d') >= DATE_FORMAT(? ,'%m-%d')", [$currentdate])
+            ->orderByRaw('DATE_FORMAT(emp_doj,"%m-%d")');
         $search = '';
-        if($request->search){
+        if ($request->search) {
             $search = $request->search;
             $employees->where(function ($query) use ($search) {
-                $query->where('emp_details.emp_code', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_name', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_work_order', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%'. $search. '%')
-                    ->orWhere('emp_details.emp_doj', 'LIKE', '%'. $search. '%');
+                $query->where('emp_details.emp_code', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_work_order', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_email_first', 'LIKE', '%' . $search . '%')
+                    ->orWhere('emp_details.emp_doj', 'LIKE', '%' . $search . '%');
             });
         }
 
         $employees = $employees->paginate(25)->withQueryString();
-        return view("hr.events.work-anniversary-list", compact('employees', 'search', 'comingdate'));   
+        return view("hr.events.work-anniversary-list", compact('employees', 'search', 'comingdate'));
     }
 
     /**
@@ -118,19 +118,18 @@ class EventController extends Controller
      */
     public function birthday_template(Request $request)
     {
-        try{
+        try {
             $request->validate([
-                'emp_code' =>'required'
+                'emp_code' => 'required'
             ]);
 
             $employee = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_name', 'rec_personal_details.photograph')->leftJoin('rec_personal_details', 'emp_details.emp_code', '=', 'rec_personal_details.emp_code')->where('emp_details.emp_code', $request->emp_code)->first();
-            if(empty($employee)){
-                return redirect()->route('events.birthday-list')->with(['error' => true,'message' => 'Employee not found.']);
+            if (empty($employee)) {
+                return redirect()->route('events.birthday-list')->with(['error' => true, 'message' => 'Employee not found.']);
             }
             return view("hr.events.birthday-template", compact('employee'));
-        }
-        catch(Throwable $e) {
-            return redirect()->route('events.birthday-list')->with(['error' => true,'message' => 'Server Error']);
+        } catch (Throwable $e) {
+            return redirect()->route('events.birthday-list')->with(['error' => true, 'message' => 'Server Error']);
         }
     }
 
@@ -139,8 +138,7 @@ class EventController extends Controller
      */
     public function send_birthday_mail(Request $request)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
             $request->validate([
                 'emp_mail' => ['required', 'email'],
@@ -156,8 +154,8 @@ class EventController extends Controller
             // }
 
             $empdetails = EmpDetail::select('emp_code', 'emp_name', 'emp_email_first')->where('emp_email_first', $request->emp_mail)->first();
-            if(empty($empdetails)){
-                return response()->json(['error' => true,'message' => 'Employee not found.']);
+            if (empty($empdetails)) {
+                return response()->json(['error' => true, 'message' => 'Employee not found.']);
             }
 
             // Save the log of employee wish.
@@ -172,8 +170,8 @@ class EventController extends Controller
             ]);
 
             // Send Mail to user.
-            // $user = auth()->user();
-            // $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
             // $imagelink = asset('recruitment/candidate_documents/emp_birthday_wish').'/'.$file_name;
             // $maildata = new stdClass();
             // $maildata->subject = 'PSSPL Wishes you a Happy Birthday';
@@ -189,13 +187,17 @@ class EventController extends Controller
 
             $mailData = [
                 'message' => $request->message,
-                'name' =>    $empdetails->emp_name
+                'name' =>    $empdetails->emp_name,
+                'comp_email' => $company->email,
+                'comp_phone' => $company->mobile,
+                'comp_website' => $company->website,
+                'comp_address' => $company->address,
+                'url' => url('/')
             ];
             Mail::to($empdetails->emp_email_first)->send(new SendMailBirthDay($mailData));
             DB::commit();
-            return response()->json(['success' => true,'message' => 'Birthday wish sent !']);
-        }
-        catch(Throwable $e) {
+            return response()->json(['success' => true, 'message' => 'Birthday wish sent !']);
+        } catch (Throwable $e) {
             DB::rollBack();
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
@@ -206,19 +208,18 @@ class EventController extends Controller
      */
     public function marriage_template(Request $request)
     {
-        try{
+        try {
             $request->validate([
-                'emp_code' =>'required'
+                'emp_code' => 'required'
             ]);
 
             $employee = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_name', 'rec_personal_details.photograph')->leftJoin('rec_personal_details', 'emp_details.emp_code', '=', 'rec_personal_details.emp_code')->where('emp_details.emp_code', $request->emp_code)->first();
-            if(empty($employee)){
-                return redirect()->route('events.marriage-anniversary-list')->with(['error' => true,'message' => 'Employee not found.']);
+            if (empty($employee)) {
+                return redirect()->route('events.marriage-anniversary-list')->with(['error' => true, 'message' => 'Employee not found.']);
             }
             return view("hr.events.marriage-anniversary-template", compact('employee'));
-        }
-        catch(Throwable $e) {
-            return redirect()->route('events.marriage-anniversary-list')->with(['error' => true,'message' => 'Server Error']);
+        } catch (Throwable $e) {
+            return redirect()->route('events.marriage-anniversary-list')->with(['error' => true, 'message' => 'Server Error']);
         }
     }
 
@@ -227,14 +228,14 @@ class EventController extends Controller
      */
     public function work_anniversary_template(Request $request)
     {
-        try{
+        try {
             $request->validate([
-                'emp_code' =>'required'
+                'emp_code' => 'required'
             ]);
 
             $employee = EmpDetail::select('emp_details.emp_code', 'emp_details.emp_name', 'emp_details.emp_designation', 'emp_details.emp_doj', 'rec_personal_details.photograph')->leftJoin('rec_personal_details', 'emp_details.emp_code', '=', 'rec_personal_details.emp_code')->where('emp_details.emp_code', $request->emp_code)->first();
-            if(empty($employee)){
-                return redirect()->route('events.work-anniversary-list')->with(['error' => true,'message' => 'Employee not found.']);
+            if (empty($employee)) {
+                return redirect()->route('events.work-anniversary-list')->with(['error' => true, 'message' => 'Employee not found.']);
             }
             $comingdate = date('Y-m-d', strtotime('+15 days'));
             $dateOfJoining = $employee->emp_doj;
@@ -242,20 +243,18 @@ class EventController extends Controller
             $diff = date_diff(date_create($dateOfJoining), date_create($comingdate));
             $nth = Number::ordinal($diff->format('%y'));
             return view("hr.events.work-anniversary-template", compact('employee', 'nth'));
-        }
-        catch(Throwable $e) {
-            return redirect()->route('events.work-anniversary-list')->with(['error' => true,'message' => 'Server Error']);
+        } catch (Throwable $e) {
+            return redirect()->route('events.work-anniversary-list')->with(['error' => true, 'message' => 'Server Error']);
         }
     }
 
-    
+
     /**
      * Send anniversary mail.
      */
     public function send_anniversary_mail(Request $request)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
             $request->validate([
                 'emp_mail' => ['required', 'email'],
@@ -271,8 +270,8 @@ class EventController extends Controller
             // }
 
             $empdetails = EmpDetail::select('emp_code', 'emp_name', 'emp_email_first', 'emp_doj')->where('emp_email_first', $request->emp_mail)->first();
-            if(empty($empdetails)){
-                return response()->json(['error' => true,'message' => 'Employee not found.']);
+            if (empty($empdetails)) {
+                return response()->json(['error' => true, 'message' => 'Employee not found.']);
             }
 
             // Save the log of employee wish.
@@ -288,8 +287,8 @@ class EventController extends Controller
             ]);
 
             // Send Mail to user.
-            // $user = auth()->user();
-            // $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
             // $imagelink = asset('recruitment/candidate_documents/emp_work_anniversary').'/'.$file_name;
             // $maildata = new stdClass();
             // $maildata->subject = 'PSSPL Wishes you a Happy Work Anniversary';
@@ -309,14 +308,18 @@ class EventController extends Controller
                 'name' =>    $empdetails->emp_name,
                 'message' => $request->message,
                 'designation' => $empdetails->emp_designation,
-                'year' =>  $diffYear
+                'year' =>  $diffYear,
+                'comp_email' => $company->email,
+                'comp_phone' => $company->mobile,
+                'comp_website' => $company->website,
+                'comp_address' => $company->address,
+                'url' => url('/')
             ];
             Mail::to($empdetails->emp_email_first)->send(new EmpWorkingAnniversaryMailWishSend($mailData));
 
             DB::commit();
-            return response()->json(['success' => true,'message' => 'Work Anniversary wish sent !']);
-        }
-        catch(Throwable $e) {
+            return response()->json(['success' => true, 'message' => 'Work Anniversary wish sent !']);
+        } catch (Throwable $e) {
             DB::rollBack();
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
