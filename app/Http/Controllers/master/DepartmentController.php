@@ -19,7 +19,7 @@ class DepartmentController extends Controller
 
     public function index(Request $request)
     {
-        $departments = Department::whereHas('skills')->orderBy('id', 'desc');
+        $departments = Department::orderBy('id', 'desc');
         $search = $request->search;
         if($search){
             $departments->where(function($query) use ($search){
