@@ -55,7 +55,7 @@
                                                     
                                                     <div class="part-txt">
 
-                                                        <p class="mb-1 text-dark fw-bold">Prakhar Software Solutions Pvt. Ltd.</p>
+                                                        <p class="mb-1 text-dark fw-bold">Prakhar Software Solutions Ltd.</p>
                                                         <p class="mb-1 text-dark fw-bold">C - 11, LGF, Opp. State Bank of India, Malviya
                                                             Nagar<br> New Delhi - 110017</p>
                                                     </div>
@@ -238,7 +238,7 @@
                             </div>
 
                             <div class="text-end px-5">
-                                <p class="text-dark fw-bold">For Prakhar Software Solutions Pvt. Ltd.</p>
+                                <p class="text-dark fw-bold">For Prakhar Software Solutions Ltd.</p>
                                 <p class="text-dark fw-bold">Authorised Signatory</p>
                             </div>
                         </div>

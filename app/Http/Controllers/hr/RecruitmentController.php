@@ -569,7 +569,7 @@ class RecruitmentController extends Controller
                 $details->save();
 
                 // Content.
-                $html = "<h4>Greeting from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+                $html = "<h4>Greeting from Prakhar Software Solutions Ltd.!!</h4></br>
                   <h4>We feel regret to share that your profile is not selected for the position of " . $details->job_position . " role.</h4></br>
                   <h4>We have your CV for future reference. We will get back to you with a better opportunity as per your profile.</h4></br>
                   <h4>Best of luck.</h4></br>
@@ -743,7 +743,7 @@ class RecruitmentController extends Controller
                 $sender_name = $user->first_name . " " . $user->last_name;
 
                 // Content.
-                $html = "<h4>Greeting from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+                $html = "<h4>Greeting from Prakhar Software Solutions Ltd.!!</h4></br>
                     <h4>We feel regret to share that your profile is not selected for the position of " . $details->job_position . " role.</h4></br>
                     <h4>We have your CV for future reference. We will get back to you with a better opportunity as per your profile.</h4></br>
                   <h4>Best of luck.</h4></br>
@@ -841,7 +841,7 @@ class RecruitmentController extends Controller
                 $details->save();
 
                 // Content.
-                $html = "<h4><h4>Greeting from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+                $html = "<h4><h4>Greeting from Prakhar Software Solutions Ltd.!!</h4></br>
                   <h4>We feel regret to share that your profile is not selected for the position of " . $details->job_position . " role.</h4></br>
                   <h4>We have your CV for future reference. We will get back to you with a better opportunity as per your profile.</h4></br>
                   <h4>Best of luck.</h4></br>
@@ -907,7 +907,7 @@ class RecruitmentController extends Controller
             // Content.
             $html = "<h4>Congratulations to $details->firstname</h4></br></br>
   
-            <h4>We are pleased to inform you that you have been selected for the profile of " . $details->job_position . " at Prakhar Software Solutions Pvt. Ltd. </h4></br></br>
+            <h4>We are pleased to inform you that you have been selected for the profile of " . $details->job_position . " at Prakhar Software Solutions Ltd. </h4></br></br>
            
             <h4>You are therefore requested to report to our office for joining formalities. Also, you will be briefed about the services and profile of the client organization.</h4></br></br>
              
@@ -1011,7 +1011,7 @@ class RecruitmentController extends Controller
             $sender_name = $user->first_name . " " . $user->last_name;
             $acceptance_form = route('guest.acceptance_form', ['id' => encrypt($request->recruitment)]);
             // Content.
-            $mail_html = "<div style='text-align: left;margin-left: 10px;'><h4>Congratulation from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+            $mail_html = "<div style='text-align: left;margin-left: 10px;'><h4>Congratulation from Prakhar Software Solutions Ltd.!!</h4></br>
   
             <h4>You have been selected for the position of " . $details->job_position . " role at " . $details->location . ". </h4></br>
            

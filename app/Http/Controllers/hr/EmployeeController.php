@@ -971,7 +971,7 @@ class EmployeeController extends Controller
                 // Send Mail.
                 $user = auth()->user();
                 $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
-                $mail_html = "<h4>Greetings from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+                $mail_html = "<h4>Greetings from Prakhar Software Solutions Ltd.!!</h4></br>
                
                 <h4>Please find the attached Releiving Letter</h4></br>
                  
@@ -1183,7 +1183,7 @@ class EmployeeController extends Controller
                 // Send Mail.
                 $user = auth()->user();
                 $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
-                $mail_html = "<h4>Greetings from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+                $mail_html = "<h4>Greetings from Prakhar Software Solutions Ltd.!!</h4></br>
                
                 <h4>Please find the attached Releiving Letter</h4></br>
                  
@@ -1479,7 +1479,7 @@ class EmployeeController extends Controller
             // Send Mail.
             $user = auth()->user();
             $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
-            $mail_html = "<h4>Greetings from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+            $mail_html = "<h4>Greetings from Prakhar Software Solutions Ltd.!!</h4></br>
            
             <h4>Please find the attached Appointment Letter</h4></br>
              
@@ -1649,7 +1649,7 @@ class EmployeeController extends Controller
             // Send Mail.
             $user = auth()->user();
             $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
-            $mail_html = "<h4>Greetings from Prakhar Software Solutions Pvt Ltd.!!</h4></br>
+            $mail_html = "<h4>Greetings from Prakhar Software Solutions Ltd.!!</h4></br>
            
             <h4>Please find the attached Appointment Letter</h4></br>
              

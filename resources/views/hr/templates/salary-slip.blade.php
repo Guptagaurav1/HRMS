@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <img src="{{public_path('assets/images/PrakharNEWLogo.png')}}" alt="PSSPL" style="height:50px; width:100px">
-        <h1 class="mainTitle">Prakhar Software Solutions Pvt. Ltd.</h1>
+        <h1 class="mainTitle">Prakhar Software Solutions Ltd.</h1>
         <p>C - 11, LGF, Opp. State Bank of India, Malviya Nagar New Delhi - 110017</p>
         <span class="mainDescription"><u>Pay Slip</u></span>
     </div>

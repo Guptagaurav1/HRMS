@@ -83,7 +83,7 @@
                                             <img src="{{asset('assets\images\11years.png')}}" alt="Logo" style="width:90px">
                                         </div>
                                         <div class="part-txt">
-                                            <p class="mb-1">Prakhar Software Solutions Pvt. Ltd.</p>
+                                            <p class="mb-1">Prakhar Software Solutions Ltd.</p>
                                             <p class="mb-1">C - 11, LGF, Opp. State Bank of India, Malviya Nagar New Delhi - 110017</p>
                                         </div>
                                     </div>

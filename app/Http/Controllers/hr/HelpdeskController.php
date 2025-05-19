@@ -8,6 +8,7 @@ use Mail;
 use App\Mail\ComposeMail;
 use stdclass;
 use App\Models\EmailHistory;
+use App\Models\Company;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\DB;
 
@@ -41,11 +42,18 @@ class HelpdeskController extends Controller
 
         try {
             DB::beginTransaction();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail(1);
 
             $maildata = new stdclass();
             $maildata->from = $request->from;
             $maildata->subject = $request->subject;
             $maildata->body = $request->body;
+            $maildata->email = $company->email;
+            $maildata->phone = $company->mobile;
+            $maildata->website = $company->website;
+            $maildata->address = $company->address;
+            $maildata->url = url('/');
+
             $cc = [];
             if ($request->cc) {
                 $cc = explode(",", $request->cc);
@@ -62,8 +70,8 @@ class HelpdeskController extends Controller
                 $request->attachment->move($filepath, $filename);
             }
 
-             $maildata->file = $file ;
-            $maildata->attachment = str_replace('\\', '/', public_path("attachments/{$filename}"));
+            // $maildata->file = $file;
+            $maildata->attachment = $filename ? str_replace('\\', '/', public_path("attachments/{$filename}")) : '';
 
             EmailHistory::create([
                 'from_mail' => $request->from,

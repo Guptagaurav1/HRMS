@@ -293,7 +293,7 @@
 
                                                 Rahul Verma <br>
                                                 Human Resource - Team <br>
-                                                Prakhar Software Solutions Pvt Ltd <br>
+                                                Prakhar Software Solutions Ltd <br>
                                                 T: 011-79626411 <br>
                                                 E: hr@prakharsoftwares.com <br>
                                                 Web: www.prakharsoftwares.com <br>

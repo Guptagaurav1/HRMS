@@ -32,7 +32,7 @@
     <br>
     <p><em>With reference to your application and subsequent discussion, it gives us immense pleasure to offer you
             an
-            appointment in <strong>Prakhar Software Solutions Pvt Ltd.</strong></em>
+            appointment in <strong>Prakhar Software Solutions Ltd.</strong></em>
     </p>
     <p><em>This is in reference to your employment engagement with us under our Contract with Goa Natural Gas
             Private
@@ -57,7 +57,7 @@
             </em>
         </li>
     </ol>
-    <p><em>We welcome you to Prakhar Software Solutions Pvt Ltd and look forward to a long term association. </em>
+    <p><em>We welcome you to Prakhar Software Solutions Ltd and look forward to a long term association. </em>
     </p>
     <br>
     <p style='text-align: center;'><samp><strong>Annexure A</strong>(Salary Structure)</samp></p>
@@ -179,7 +179,7 @@
         timesheets as instructed by the clients officers supervising the work who will approve the timesheet. </p>
     <p><strong>Note: Any issues please mail on helpdesk@prakharsoftwares.com</strong></p>
     <br><br>
-    <p><samp>For <strong>Prakhar Software Solutions Pvt.&nbsp;Ltd.</strong></samp><br />
+    <p><samp>For <strong>Prakhar Software Solutions Ltd.</strong></samp><br />
         <em><samp>
                 <img src='images/sign.png' style='height:40px; width:100px' /><br />
                 <strong>Rahul verma</strong><br />Head - HR &amp; Operations&nbsp;</samp></em>
@@ -301,7 +301,7 @@
             /D/o
             /W/o&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.Sincerely
             assure you to maintain complete discipline and do my best to perform my duties. I also authorize the
-            management of Prakhar Software Solutions Pvt Ltd to ask me to leave any time without any notice, in case of
+            management of Prakhar Software Solutions Ltd to ask me to leave any time without any notice, in case of
             any misconduct on my part or if I am found violating any rules and regulations laid by the company from time
             to time or fail to meet the defined performance standards during the training and employment. </samp></p>
 

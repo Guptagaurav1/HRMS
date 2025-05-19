@@ -30,7 +30,7 @@
         <p style='line-height: 21px;'><em>Your employment duration would be from {{$empdetails->start_date}} to {{$empdetails->end_date}} and the Appointment stands withdrawn thereafter, unless the date is extended and communicated to you in writing.</em></p>
         <p style='line-height: 21px;'><em>Please return one copy of the letter dully signed by you as token of your acceptance to this extension letter.</em></p>
         <p style='line-height: 21px;'><em>We look forward to a long and mutually beneficial association.</em></p>
-        <p style='line-height: 21px;'><em>For&nbsp;</em><strong><em>Prakhar Software Solutions Pvt Ltd</em></strong></p>
+        <p style='line-height: 21px;'><em>For&nbsp;</em><strong><em>Prakhar Software Solutions Ltd</em></strong></p>
         <p style='text-align:justify; line-height:normal;'><img src='images/sign.png' style='height:50px; width:100px' /></p>
         <p style='line-height: 5px;'><em>Rahul Kumar</em></p>
         <p style='line-height: 5px;'><em>Manager-</em>HR<em>&nbsp;&amp; Operation&rsquo;s</em></p>

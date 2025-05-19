@@ -150,7 +150,7 @@
                     <div class="col-md-12 mt-4 px-3">
                         <div class="">
                             <p class="pera-design"><strong class="
-                                text-danger">NOTE : </strong> Please make all payment by Netbanking in favour of <strong>PRAKHAR SOFTWARE SOLUTIONS PVT. LTD.</strong>, Payable at New Delhi.<br>
+                                text-danger">NOTE : </strong> Please make all payment by Netbanking in favour of <strong>PRAKHAR SOFTWARE SOLUTIONS LTD.</strong>, Payable at New Delhi.<br>
                                 <strong><u>BANK DETAILS:</u> <br>
                                     Bank Name: YES BANK LTD. | ACCOUNT NO. 010 7838 0000 3722 | IFSC CODE: YESB0000107</strong><br>
                                 <strong>Branch: Mother Diary Road, Shakarpur, Delhi – 110092</strong>
@@ -158,7 +158,7 @@
                         </div>
         
                         <div class="text-end px-5">
-                            <p>For Prakhar Software Solutions Pvt. Ltd.</p>
+                            <p>For Prakhar Software Solutions Ltd.</p>
                             <p class="">Authorised Signatory</p>
                         </div>
                     </div>
