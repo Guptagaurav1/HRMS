@@ -62,6 +62,9 @@ class HelpdeskController extends Controller
                 $request->attachment->move($filepath, $filename);
             }
 
+             $maildata->file = $file ;
+            $maildata->attachment = str_replace('\\', '/', public_path("attachments/{$filename}"));
+
             EmailHistory::create([
                 'from_mail' => $request->from,
                 'to_mail' => $request->to,

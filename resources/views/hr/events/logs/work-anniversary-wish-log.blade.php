@@ -1,18 +1,17 @@
 @extends('layouts.master', ['title' => 'Work Anniversary Wish Log'])
 
-
-
 @section('contents')
-<div class="row">
-    <div class="col-12">
-        <div class="panel">
-            <div class="panel-header">
-                <h2 class="mt-2">Work Anniversary Wish Log</h2>
-                <div>
-                    <ul class="breadcrumb">
-                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
-                        <li>Work Anniversary Wish Log</li>
-                    </ul>
+    <div class="row">
+        <div class="col-12">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="mt-2">Work Anniversary Wish Log</h2>
+                    <div>
+                        <ul class="breadcrumb">
+                            <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
+                            <li>Work Anniversary Wish Log</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-start mx-3">
@@ -42,33 +41,42 @@
                             <th class="text-center">Wished On</th>
 
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                          @forelse($logs as $log)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$log->emp_code}}</td>
-                            <td>{{$log->emp_name}}</td>
-                            <td>{{$log->emp_email}}</td>
-                            <td>{{date('jS F, Y', strtotime($log->emp_doj))}}</td>
-                            <td>{{$log->message}}</td>
-                            <td><span class="badge alert-success">{{date('jS F, Y', strtotime($log->created_at))}}</span></td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td class="text-danger text-center" colspan="7">No Record Found</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-12 d-flex justify-content-center my-3">
-                {{$logs->links()}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($logs as $log)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $log->emp_code }}</td>
+                                    <td>{{ $log->emp_name }}</td>
+                                    <td>{{ $log->emp_email }}</td>
+                                    <td>{{ date('jS F, Y', strtotime($log->emp_doj)) }}</td>
+                                    <td class="text-center"> 
+                                        @php
+                                        $dateOfJoining = $log->emp_doj;
+                                        $today = date('Y-m-d');
+                                        $diff = date_diff(date_create($dateOfJoining), date_create($today));
+                                        echo $diff->format('%y');
+                                    @endphp
+                                    </td>
+                                    <td><span
+                                            class="badge alert-success">{{ date('jS F, Y', strtotime($log->created_at)) }}</span>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-danger text-center" colspan="7">No Record Found</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center my-3">
+                    {{ $logs->links() }}
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 

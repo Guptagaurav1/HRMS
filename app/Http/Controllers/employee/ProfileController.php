@@ -37,8 +37,10 @@ class ProfileController extends Controller
             $details = EmpDetail::where('emp_code', $emp_code)->firstOrFail();
             $manager = new stdClass;
             if($details->reporting_email && $details->reporting_email != 'Not Specify'){
-                $manager = User::Select('first_name', 'last_name', 'role_id')->where('email', $details->reporting_email)->firstOrFail();
+        
+                $manager = User::Select('first_name', 'last_name', 'role_id')->where('email', $details->reporting_email)->first();
             }
+          
             return view("employee.profile.employee-users-details", compact('details', 'manager'));
         }
         catch (Throwable $th){

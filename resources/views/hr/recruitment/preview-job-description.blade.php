@@ -57,7 +57,7 @@
                                         </tr>
                                         <tr>
                                             <td class="bold">Last Date Of Fullfillment</td>
-                                            <td>{{$position->date_notified}}</td>
+                                            <td>{{date('jS F, Y', strtotime($position->date_notified))}}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold">Education</td>

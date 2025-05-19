@@ -2520,7 +2520,7 @@ class RecruitmentController extends Controller
             $obj->fill($request->all());
             $obj->job_position = $job_pos_title;
             $obj->client_name = $client_name;
-            $obj->qualification = implode(",", $request->qualification);
+            $obj->qualification = $request->qualification ? implode(",", $request->qualification) : '';
 
             if ($request->hasFile('resume')) {
                 $file = $request->file('resume');
@@ -2605,10 +2605,8 @@ class RecruitmentController extends Controller
         $this->validate($request, [
             'id' => ['required', 'integer'],
             'job_position' => ['required'],
-            'remarks' => ['required'],
             'resume' => [File::types(['pdf'])->max('2mb')],
             'location' => ['required'],
-            'qualification' => ['required'],
             'notice_period' => ['required'],
             'exp_ctc' => ['required'],
             'curr_ctc' => ['required'],
@@ -2626,7 +2624,7 @@ class RecruitmentController extends Controller
             $obj->fill($request->all());
             $obj->job_position = $job_pos_title;
             $obj->client_name = $client_name;
-            $obj->qualification = implode(",", $request->qualification);
+            $obj->qualification = $request->qualification ? implode(",", $request->qualification) : '';
 
             if ($request->hasFile('resume')) {
                 $file = $request->file('resume');

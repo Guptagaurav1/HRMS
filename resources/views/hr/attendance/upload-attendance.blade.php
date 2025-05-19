@@ -47,7 +47,7 @@
                             </div>
                             <div class="row text-end px-2">
                             <div class="btn-box">
-                                    <a href="" class="btn btn-sm btn-primary"><i class="fa-solid fa-download"></i> Download CSV Format</a>
+                                    <a href="{{asset('sample/attendance_bulk_upload.csv')}}" class="btn btn-sm btn-primary" download><i class="fa-solid fa-download"></i> Download CSV Format</a>
                                 </div>
                             </div>
                            

@@ -133,6 +133,7 @@ Route::middleware('page.permission')->group(function () {
         });
         Route::controller(SalarySlipController::class)->prefix('salary-slip')->group(function () {
             Route::get("preview/{id}", 'show_preview')->name("preview-salary-slip");
+            Route::post('send-mail/{id}', 'send_mail')->name('salary-slip.sendmail');
         });
 
         Route::controller(LeaveController::class)->prefix('leaves')->group(function () {
@@ -400,7 +401,6 @@ Route::middleware('page.permission')->group(function () {
         });
 
 
-
         Route::controller(InvoiceBillingController::class)->prefix('invoice-billling')->group(function () {
             Route::get("/", 'index')->name('generate-invoice');
             Route::post("invoice-details", 'invoice_details')->name('invoice-details');
@@ -521,7 +521,7 @@ Route::middleware('page.permission')->group(function () {
         Route::controller(SalesClientController::class)->prefix('clients')->group(function () {
             Route::get("add", 'add')->name("sales-clients.add");
             Route::post("store", 'store')->name("sales-clients.store");
-        Route::get("/", 'index')->name("sales-clients.list");
+            Route::get("/", 'index')->name("sales-clients.list");
             Route::get("edit/{id}", 'edit')->name("sales-clients.edit");
             Route::post("get-clients", "get_clients");
             Route::post("update-client", "update")->name("sales-clients.update");
@@ -655,7 +655,6 @@ Route::middleware('page.permission')->group(function () {
         Route::get("crm-lead-follow-up/{id}", 'crmLeadFollowUp')->name("leads.crmLeadFollowUp");
         Route::get("delete-lead-attachment/{id}", 'removeLeadAttachment')->name("leads.removeLeadAttachment");
         Route::get("delete-lead-spoc/{id}", 'deleteLeadSpoc')->name("leads.deleteLeadSpoc");
-
     });
 });
 

@@ -310,7 +310,7 @@
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">
                                     <label class="form-label">ESIC</label>
-                                    <input type="number" name="sal_esi_employee" id="sal_esi" required onkeyup="cal_gross();" value="{{$salary->sal_esi_employee}}" class="form-control form-control-sm">
+                                    <input type="number" name="sal_esi_employee" id="sal_esi" onkeyup="cal_gross();" value="{{$salary->sal_esi_employee}}" class="form-control form-control-sm">
                                     
                                 </div>
                                 <div class="col-xxl-3 col-lg-4 col-sm-6">

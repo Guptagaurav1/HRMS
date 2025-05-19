@@ -92,7 +92,12 @@ $(document).ready(function () {
 				},
 				success: function (res) {
 					if (res.success) {
-						console.log(res.data);
+						const dateObj = new Date(res.data.created_at);
+						const day = dateObj.getDate();
+						const month = dateObj.toLocaleString("default", { month: "long" });
+						const year = dateObj.getFullYear();
+
+						const appliedDate = `${day} ${month}, ${year}`;
 						// Update the modal's content.
 						const leaveCode = leaveDetailsModal.querySelector('.leave_code');
 						const empCode = leaveDetailsModal.querySelector('.emp_code');
@@ -118,11 +123,11 @@ $(document).ready(function () {
 						totalDays.textContent = res.data.total_days;
 						headMail.textContent = res.data.department_head_email;
 						revertBy.textContent = res.data.revert_by;
-						revertComment.textContent = res.data.approved_disapproved_comment;
+						revertComment.innerHTML = res.data.approved_disapproved_comment;
 						approvedBy.textContent = res.data.reapproved_by;
 						approvedComment.textContent = res.data.reapproved_redisapproved_comment;
 						status.textContent = res.data.status;
-						applyDate.textContent = new Date(res.data.created_at).toLocaleDateString();
+						applyDate.textContent = appliedDate;
 						leaveComment.innerHTML = res.data.comment;
 					}
 				}

@@ -9,7 +9,7 @@ use App\Models\EmpWishMailLog;
 class MailLogController extends Controller
 {
     /**
-     * Show the listing of anniversary wish logs.
+     * Show the listing of marriage anniversary wish logs.
      */
     public function anniversary_logs(Request $request){
        $logs = EmpWishMailLog::select('emp_code', 'emp_name', 'emp_email',  'emp_dom', 'message', 'created_at')->where('wish_type', 'Marriage');
@@ -29,7 +29,7 @@ class MailLogController extends Controller
     }   
 
     /**
-     * Show the listing of anniversary wish logs.
+     * Show the listing of birthday wish logs.
      */
     public function birthday_logs(Request $request){
        $logs = EmpWishMailLog::select('emp_code', 'emp_name', 'emp_email',  'emp_dob', 'message', 'created_at')->where('wish_type', 'Birthday');
@@ -49,7 +49,7 @@ class MailLogController extends Controller
     }   
 
     /**
-     * Show the listing of anniversary wish logs.
+     * Show the listing of work anniversary wish logs.
      */
     public function work_anniversary_logs(Request $request){
        $logs = EmpWishMailLog::select('emp_code', 'emp_name', 'emp_email',  'emp_doj', 'message', 'created_at')->where('wish_type', 'Joining');
