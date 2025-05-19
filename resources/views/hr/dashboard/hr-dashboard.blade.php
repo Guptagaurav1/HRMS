@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-12">
             
-            <div class="panel chart-panel-1">
+            <!-- <div class="panel chart-panel-1">
                 <div class="d-flex justify-content-center flex-wrap gap-5 px-5">
                     <div class="card profile-card border">
                         <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
@@ -41,8 +41,39 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
+        <div class="row">
+
+    <!-- Profile Card -->
+    <div class="col-md-6 mb-3">
+        <div class="custom-card d-flex align-items-center">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
+                alt="Profile" class="profile-img me-3" />
+            <div class="profile-info">
+                 <h4 class="text-center" >{{ auth()->user()->first_name." ".auth()->user()->last_name}}</h4>
+                 <p><i class="fas fa-user"></i> {{ ucwords(str_replace("_", '',auth()->user()->role->role_name)) }}</p>
+                  <p><i class="fas fa-envelope"></i> {{ auth()->user()->email }}</p>
+                 <p><i class="fas fa-phone"></i> {{ auth()->user()->phone }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HR Management Card -->
+    <div class="col-md-6 mb-3">
+        <div class="custom-card">
+            <h4 class="mb-3 px-4"><i class="fas fa-user-cog me-2 text-primary"></i> HR Management</h4>
+            <ul class="custom-list mb-0 px-4">
+                <li><i class="fas fa-users me-2 text-info"></i> <a href="{{route('employee.employee-list')}}">Manage Employees</a></li>
+                <li><i class="fas fa-calendar-check me-2 text-success"></i> <a href="{{route('applied-request-list')}}">Leave Requests <span class="badge bg-danger">3</span></a></li>
+                <li><i class="fas fa-file-alt me-2 text-warning"></i> <a href="{{route('attendance-list')}}">Attendance Reports</a></li>
+                <li><i class="fas fa-chart-line me-2 text-danger"></i> <a href="#">Performance Reviews</a></li>
+                <li><i class="fas fa-cog me-2 text-secondary"></i> <a href="{{route('profile.admin-profile')}}">HR Settings</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 
             <div class="row d-flex align-items-stretch">
 

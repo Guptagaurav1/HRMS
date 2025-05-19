@@ -1,9 +1,6 @@
 @extends('layouts.master', ['title' => 'Leave Request List'])
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/jquery-ui.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-@endsection
+
 
 @section('contents')
     <div class="row">
