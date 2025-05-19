@@ -128,7 +128,7 @@
     <div class="greeting_msg">
         <p>{!! $mailData['message'] !!}</p>
     </div>
-    <div class="birthday-container">
+    <div class="birthday-container" style="background-image: url({{asset('events/work-anniversary/work_anniversary_bg_without.jpg')}})">
         <div class="highlight">
             ON COMPLETING YOUR {{ $mailData['year'] }} YEAR AT WORK
         </div>
