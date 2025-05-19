@@ -2,7 +2,7 @@
 @section('contents')
 <div class="panel">
     <div class="panel-header">
-    <h2>Contact Candidate By Call Form</h2>
+    <h2 class="mt-2">Contact Candidate By Call Form</h2>
     <div>
                             <ul class="breadcrumb">
                                 <li><a href="{{ get_dashboard() }}">Dashboard</a></li>

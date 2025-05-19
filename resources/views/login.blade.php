@@ -72,7 +72,7 @@
                             @endif
                         </div>
                     
-                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit <i class="fa-solid fa-check"></i></button>
+                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit </button>
                     </form>
                 </div>
 
@@ -106,7 +106,7 @@
                                <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit <i class="fa-solid fa-check"></i></button>
+                        <button type="submit" class="btn btn-primary w-100 login-btn">Submit </button>
                     </form>
                 </div>
                

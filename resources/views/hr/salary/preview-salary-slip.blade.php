@@ -3,15 +3,8 @@
 @section('style')
 <style>
     @media print {
- 
-    @page :footer {
-        display: none
-    }
- 
-    @page :header {
-        display: none
-    }
-}
+    
+
     .payment li {
         font-weight: bold !important;
         color: #000000 !important;
@@ -116,7 +109,7 @@
                                     <div class="col-md-6 col-sm-6">
                                         <div class="info-card">
                                             <ul class="styled-list">
-                                                <li><span>Date Of Joining</span>{{date('jS F, Y', strtotime($salary_slip_record->sal_doj))}}</li>
+                                                <li><span>Date Of Joining</span>{{$salary_slip_record->sal_doj}}</li>
                                                 <li><span>Salary Month</span>{{$salary_slip_record->sal_month}}</li>
                                                 <li><span>Days Worked</span>{{$salary_slip_record->sal_working_days}}</li>
                                                 <li><span>Aadhaar No.</span>{{$salary_slip_record->sal_aadhar_no}}</li>
