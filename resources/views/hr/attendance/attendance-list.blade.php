@@ -66,7 +66,7 @@
                                 value="{{ $search }}" required>
                         </div>
                         <div class="col-auto col-xs-12">
-                            <button type="submit" class="btn btn-primary mb-3">Search</button>
+                            <button type="submit" class="btn btn-primary mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
 
                         </div>
                         <div class="col-auto col-xs-12">

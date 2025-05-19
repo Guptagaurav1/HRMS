@@ -213,3 +213,79 @@
     background-color: #ffc107;
     color: #333;
 }
+
+
+
+
+    .custom-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    transition: transform 0.3s ease;
+}
+
+.custom-card:hover .profile-img {
+    transform: scale(1.05);
+}
+
+.profile-info h4 {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.profile-info p {
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
+.custom-list li {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.custom-list li a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.custom-list li a:hover {
+    color: #007bff;
+}
+
+.badge {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+@media (max-width: 767.98px) {
+    .profile-img {
+        width: 80px;
+        height: 80px;
+    }
+    .custom-card {
+        padding: 15px;
+    }
+}

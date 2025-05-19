@@ -747,7 +747,7 @@
                                 <div class="ESI_Input-field">
                                     <label class="form-label mt-2 text-dark">ESI Number <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <input type="text" class="form-control for_char" placeholder="Enter ESI format Like 00-00-123456-000-0001 "
+                                    <input type="text" class="form-control for_char" placeholder="Enter ESI format Like 00-00-123456-000-0001"
                                         name="emp_esi_no">
                                         <span class="emp_esi_no"></span>
                                 </div>

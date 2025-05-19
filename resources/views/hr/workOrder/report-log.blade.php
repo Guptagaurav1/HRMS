@@ -7,7 +7,10 @@
                     <h2 class="mt-2">Report Logs</h2>
                     <div>
                         <ul class="breadcrumb">
-                            <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
+                            <li> @if (auth()->user()->role->role_name == "hr")
+                                <a href="{{route('hr_dashboard')}}">Dashboard</a>
+                                @endif
+                            </li>
                             <li>Report Logs</li>
                         </ul>
                     </div>
@@ -93,12 +96,12 @@
                                          <td class="srno-column">{{$key+1}}</td>
                                          <td class="text-center">{{$value->doc}}</td>
                                          <td class="text-center">{{$value->first_name??NULL }}</td>
-                                         <td class="text-center">{{date('jS F, Y', strtotime($value->created_at)) ??NULL }}</td>
+                                         <td class="text-center">{{$value->created_at??NULL }}</td>
                                          <td class="text-center">
                                          <button type="button" class="btn btn-primary hide-text" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                          share</button>
                                          
-                                            @section('modal')
+                                            
 
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -142,7 +145,7 @@
                                      @empty
                                  <tr>
                                      <td class="text-danger text-center" colspan="12">No Record Found</td>
-                                 </tr>
+                                 </tr>@section('modal')
                                  @endforelse
                                  
                         </tbody>

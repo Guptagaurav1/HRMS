@@ -28,7 +28,7 @@
 
 <!-- New bank details -->
 
- <div class="row mt-4 px-3  g-2 ">
+             <div class="row mt-4 px-3  g-2 ">
                 <!-- Form Section -->
                 <div class="col">
                     <form method="get">
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 @endif
-            </div>
+             </div>
 
 
                   
