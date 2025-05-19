@@ -619,7 +619,7 @@
 {{-- Leave Details Show --}}
 
 
-<div class="modal fade" id="leaveDetailsModal" tabindex="-1" aria-labelledby="leaveDetailsLabel" aria-hidden="true">
+<div class="modal fade leaveDetailsModal" tabindex="-1" aria-labelledby="leaveDetailsLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

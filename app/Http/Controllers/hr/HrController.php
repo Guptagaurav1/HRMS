@@ -294,12 +294,18 @@ class HrController extends Controller
     public function leaveDetails($id)
     {
 
-        $employeeLeaves = LeaveRequest::with('employee')->select('leave_requests.id', 'department_head_email', 'leave_code', 'emp_code', 'cc', 'total_days', 'reason_for_absence', 'absence_dates', 'status', 'created_at', 'comment')
-            ->where('status', 'Wait')
-            ->where('id', $id)
-            ->orWhere('status', 'Modified')
-            ->orderByDesc('id')
-            ->first();
+        $employeeLeaves = LeaveRequest::with('employee')
+        ->select('leave_requests.id', 'department_head_email', 'leave_code', 'emp_code', 'cc', 'total_days', 'reason_for_absence', 'absence_dates', 'status', 'created_at', 'comment')
+        ->where(function ($query) use ($id) {
+            $query->where('status', 'Wait')
+                ->orWhere(function ($query) use ($id) {
+                    $query->where('status', 'Modified')
+                            ->where('id', $id);
+                });
+        })
+        ->where('id', $id)
+        ->orderByDesc('id')
+        ->first();
 
         return response()->json([
             'success' => true,
