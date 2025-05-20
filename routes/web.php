@@ -535,6 +535,21 @@ Route::middleware('page.permission')->group(function () {
             Route::post("store", 'store')->name("sales-projects.store");
             Route::post("update-project", "update")->name("sales-projects.update");
         });
+        
+        Route::controller(SalesLeadController::class)->prefix('leads')->group(function () {
+        Route::get("/", 'index')->name("leads.list");
+        Route::post("create", 'create')->name("projectLeads.create");
+        Route::get("create", 'create')->name("leads.create");
+        Route::post("store", 'store')->name("leads.store");
+        Route::post("store-lead-followup", 'storeLeadFollowUp')->name("leads.storeLeadFollowUp");
+        Route::get("show/{id}", 'show')->name("leads.show");
+        Route::get("edit/{id}", 'edit')->name("leads.edit");
+        Route::put("update/{id}", 'update')->name("leads.update");
+        Route::put("update-lead-status/{id}", 'updateLeadStatus')->name("leads.updateLeadStatus");
+        Route::get("crm-lead-follow-up/{id}", 'crmLeadFollowUp')->name("leads.crmLeadFollowUp");
+        Route::get("delete-lead-attachment/{id}", 'removeLeadAttachment')->name("leads.removeLeadAttachment");
+        Route::get("delete-lead-spoc/{id}", 'deleteLeadSpoc')->name("leads.deleteLeadSpoc");
+    });
     });
 
     // VMS routes
@@ -642,20 +657,7 @@ Route::middleware('page.permission')->group(function () {
         })->name("reiembursement-list-employee");
     });
 
-    Route::controller(SalesLeadController::class)->prefix('leads')->group(function () {
-        Route::get("/", 'index')->name("leads.list");
-        Route::post("create", 'create')->name("projectLeads.create");
-        Route::get("create", 'create')->name("leads.create");
-        Route::post("store", 'store')->name("leads.store");
-        Route::post("store-lead-followup", 'storeLeadFollowUp')->name("leads.storeLeadFollowUp");
-        Route::get("show/{id}", 'show')->name("leads.show");
-        Route::get("edit/{id}", 'edit')->name("leads.edit");
-        Route::put("update/{id}", 'update')->name("leads.update");
-        Route::put("update-lead-status/{id}", 'updateLeadStatus')->name("leads.updateLeadStatus");
-        Route::get("crm-lead-follow-up/{id}", 'crmLeadFollowUp')->name("leads.crmLeadFollowUp");
-        Route::get("delete-lead-attachment/{id}", 'removeLeadAttachment')->name("leads.removeLeadAttachment");
-        Route::get("delete-lead-spoc/{id}", 'deleteLeadSpoc')->name("leads.deleteLeadSpoc");
-    });
+
 });
 
 

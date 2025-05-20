@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('lead_category_lists');
             $table->unsignedBigInteger('source_id');
-            $table->foreign('source_id')->references('id')->on('lead_source_lists');
+            $table->foreign('source_id')->references('id')->on('lead_source_lists')->nullable();
             $table->string('lead_file')->nullable();
             $table->text('description')->nullable();
             $table->text('remarks')->nullable();
