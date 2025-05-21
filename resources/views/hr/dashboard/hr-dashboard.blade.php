@@ -61,14 +61,15 @@
 
     <!-- HR Management Card -->
     <div class="col-md-6 mb-3">
-        <div class="custom-card">
+        <div class="custom-card d-flex gap-3 flex-column">
             <h4 class="mb-3 px-4"><i class="fas fa-user-cog me-2 text-primary"></i> HR Management</h4>
-            <ul class="custom-list mb-0 px-4">
-                <li><i class="fas fa-users me-2 text-info"></i> <a href="{{route('employee.employee-list')}}">Manage Employees</a></li>
-                <li><i class="fas fa-calendar-check me-2 text-success"></i> <a href="{{route('applied-request-list')}}">Leave Requests </li>
-                <li><i class="fas fa-file-alt me-2 text-warning"></i> <a href="{{route('attendance-list')}}">Attendance Reports</a></li>
-                <li><i class="fas fa-cog me-2 text-secondary"></i> <a href="{{route('profile.admin-profile')}}">HR Settings</a></li>
-            </ul>
+            <div class="px-4"><i class="fas fa-users me-2 text-info"></i><a href="{{route('employee.employee-list')}}" class="text-dark"> Manage Employee</a></div>
+            <div class="px-4"><i class="fas fa-calendar-check me-2 text-success"></i><a href="{{route('applied-request-list')}}" class="text-dark"> Leave Requests</a></div>
+            <div class="px-4"><i class="fas fa-file-alt me-2 text-warning"></i><a href="{{route('attendance-list')}}" class="text-dark"> Attendance Reports</a></div>
+            <div class="px-4"><i class="fas fa-cog me-2 text-secondary"></i><a href="{{route('profile.admin-profile')}}" class="text-dark"> HR Settings</a></div>
+            
+               
+           
         </div>
     </div>
 
