@@ -7,7 +7,16 @@
                 <h3 class="mt-2">Organization List</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
+                        <li>
+                            @if (auth()->user()->role->role_name == "hr")
+                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
+                            @elseif(auth()->user()->role->role_name == "hr_operations")
+                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
+                            @elseif(auth()->user()->role->role_name == "sales_manager")
+                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
+                            @else
+                            @endif
+                        </li>
                         <li>Organization List</li>
                     </ul>
                 </div>
@@ -26,75 +35,69 @@
                 </svg>
             </div>
 
-            
-
-            <div class="row mt-4 px-3 py-3 g-2 ">
-                <!-- Form Section -->
-                <div class="col">
+            <div class="row  mt-5 px-3">
+                <div class="col-md-10">
                     <form method="get">
-                        <div class="row align-items-end g-2">
-                            <!-- Search Field -->
-                            <div class="col-auto">
+                        <div class="row">
+                            <div class="col-auto col-xs-12">
                                 <input type="text" name="search" value="{{ $search }}" class="form-control"
-                                    placeholder="Search" >
-                            </div>
+                                    placeholder="Search" required>
 
-                            <!-- Search Button -->
-                            <div class="col-auto">
-                               <button type="submit" class="btn  btn-primary">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
+                            <div class="col-auto col-xs-12">
+                                <button type="submit" class="btn  btn-primary btn-sm mb-3">Search <i class="fa-solid fa-magnifying-glass"></i></button>
 
-                            <!-- Clear Button -->
-                            <div class="col-auto">
-                                  <a href="{{ route('organizations.index') }}" class="col-xs-12"><button type="button"
-                                        class="btn btn-primary">Clear <i
+                            </div>
+                            <div class="col-auto col-xs-12">
+                                <a href="{{ route('organizations.index') }}" class="col-xs-12"><button type="button"
+                                        class="btn btn-primary btn-sm mb-3">Clear <i
                                             class="fa-solid fa-eraser"></i></button></a>
+
                             </div>
                         </div>
                     </form>
-                </div>
 
-            
-                  @if(auth()->user()->hasPermission('organizations.create'))
-                <div class="col-md-auto">
-                   <a href="{{ route('organizations.create') }}" class="col-xs-12"><button type="button"
-                            class="btn btn-primary ">Add Organization <i
+
+                </div>
+                <div class="col-md-2 ">
+                    @if(auth()->user()->hasPermission('organizations.create'))
+
+                    <a href="{{ route('organizations.create') }}" class="col-xs-12"><button type="button"
+                            class="btn btn-primary btn-sm">Add Organization <i
                                 class="fa-solid fa-plus"></i></button></a>
 
-                
-                </div>
-                @endif
+                    @endif
 
-                <!-- Success Message -->
-                @if($message = Session::get('success'))
-                <div class="col-md-12 mt-3">
-                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
-                            <use xlink:href="#check-circle-fill" />
-                        </svg>
-                        <div>
-                              {{ $message }}
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
                 </div>
-                @endif
-
-                <!-- Error Message -->
-                @if($message = Session::get('error'))
-                <div class="col-md-12 mt-3">
-                    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                            <use xlink:href="#exclamation-triangle-fill" />
-                        </svg>
-                        <div>
-                           {{$message}}
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-                @endif
             </div>
+
+            @if($message = Session::get('success'))
+            <div class="col-md-12">
+                <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Success:">
+                        <use xlink:href="#check-circle-fill" />
+                    </svg>
+                    <div>
+                        {{ $message }}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
+            @if($message = Session::get('error'))
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="12" role="img" aria-label="Danger:">
+                        <use xlink:href="#exclamation-triangle-fill" />
+                    </svg>
+                    <div>
+                        {{$message}}
+                    </div>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
 
             <div class="table-responsive">
                 <div class="col-sm-12">
@@ -127,7 +130,7 @@
                                     @endif
                                     @if(auth()->user()->hasPermission('organizations.destroy'))
                                     <a class="delete-organization" data-id="{{ $value->id }}"><button type="button"
-                                            class="btn btn-sm btn-danger">Delete <i
+                                            class="btn btn-sm btn-primary">Delete <i
                                                 class="fa-solid fa-trash"></i></button></a>
                                     @endif
                                     @if(auth()->user()->hasPermission('organizations.show'))
@@ -147,11 +150,8 @@
 
                         </tbody>
                     </table>
-                    <div class="py-2 px-1">
-                         {{ $organizations->withQueryString()->links() }}
-                    </div>
 
-                   
+                    {{ $organizations->withQueryString()->links() }}
                 </div>
 
             </div>

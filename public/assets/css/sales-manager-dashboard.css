@@ -115,7 +115,12 @@
     font-size: 0.95rem;
     margin-bottom: 6px;
     color: #dcdde1;
-    
+}
+
+.executive-job-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    color: #a4b0be;
 }
 
 

@@ -26,7 +26,16 @@
                 <h3 class="text-white mt-2">Edit Details</h3>
                 <div>
                     <ul class="breadcrumb">
-                        <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
+                        <li> 
+                            @if (auth()->user()->role->role_name == "hr")
+                                <a href="{{ route('hr_dashboard') }}">Dashboard</a>
+                            @elseif(auth()->user()->role->role_name == "hr_operations")
+                                <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
+                            @elseif(auth()->user()->role->role_name == "sales_manager")
+                                <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
+                            @else
+                            @endif
+                        </li>
                         <li><a href="{{route('recruitment.call_logs')}}">Edit Contact Candidate By List</a></li>
                         <li>Edit Contact Candidate By Call</li>
                     </ul>
@@ -109,7 +118,7 @@
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
                         <label class="form-label">Education</label>
-                        <select class="form-select js-example-basic-multiple" name="qualification[]" multiple>
+                        <select class="form-select js-example-basic-multiple" name="qualification[]" multiple required>
                             <option value=""> Nothing Selected</option>
                             @foreach($qualification as $education)
                                 <option value="{{$education->qualification}}" {{$log->qualification && in_array($education->qualification, explode(",", $log->qualification)) ? 'selected' : ''}}>{{$education->qualification}}</option>
@@ -127,10 +136,10 @@
                         @enderror
                     </div>
                     <div class="col-xxl-3 col-lg-4 col-sm-6">
-                        <label for="formFileSm" class="form-label">Resume
+                        <label for="formFileSm" class="form-label">Resume <span class="text-danger">*</span>
                             <span class="px-5"> <a href="{{asset('resume')."/".$log->resume}}" class="btn btn-sm btn-primary" target="_blank">View <i class="fa-solid fa-eye"></i></a></span>
                         </label>
-                        <input class="form-control form-control-sm" name="resume" type="file" accept=".pdf">
+                        <input class="form-control form-control-sm" name="resume" type="file" accept=".pdf" required>
                         @error('resume')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
