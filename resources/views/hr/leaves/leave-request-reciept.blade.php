@@ -61,7 +61,7 @@ label{
                     <div class="invoice-header d-flex justify-content-center align-items-centerSS">
                         <div class="row justify-content-center w-100">
                             <div class="col-xl-7 col-lg-12 col-sm-12 text-center" id="invoice-center">
-                                <h3 class="prakhrar-heading color-dark">PRAKHAR SOFTWARE SOLUTIONS PVT. LTD</h3>
+                                <h3 class="prakhrar-heading color-dark">PRAKHAR SOFTWARE SOLUTIONS LTD</h3>
                                 <p class="color-dark">LGF, C-11, Malviya Nagar (Opp. SBI Bank), New Delhi - 110017</p>
                                 <p class="color-dark">Ph.No. 01140631622 &nbsp;&nbsp; Mail: hr@prakharsoftwares.com</p>
                             </div>

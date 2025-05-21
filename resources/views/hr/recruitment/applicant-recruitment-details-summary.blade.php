@@ -203,7 +203,7 @@
 
                                                                     We are pleased to inform you that you have been selected
                                                                     for the profile of {{ $data->job_position }} with our
-                                                                    organisation i.e. Prakhar Software Solutions Pvt.
+                                                                    organisation i.e. Prakhar Software Solutions
                                                                     Ltd.</br></br>
 
                                                                     You are therefore requested to report at Prakhar

@@ -494,7 +494,7 @@
                                                 mandatory and please
                                                 follow the writing rules while filing this information. No Experience
                                                 Please.</u></b>
-                                        <b>Prakhar Software Solutions Pvt Ltd and it subsidiary has the rights to go for
+                                        <b>Prakhar Software Solutions Ltd and it subsidiary has the rights to go for
                                             any reference check
                                             without intimation resource to validate the information</b>.
                                     </p>

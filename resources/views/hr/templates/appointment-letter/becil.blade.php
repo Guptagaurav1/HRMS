@@ -29,7 +29,7 @@
             Date of joining: <strong>{{ $empdetails->doj }}</strong></samp></p>
 
     <p><em>With reference to your application and subsequent discussion, it gives us immense pleasure to offer you an
-            appointment in <strong>Prakhar Software Solutions Pvt Ltd.</strong></em></p>
+            appointment in <strong>Prakhar Software Solutions Ltd.</strong></em></p>
 
     <p><em>This is in reference to your employment engagement with us On-going &amp; Up-coming eGovernance &amp; IT
             related Projects on contractual basis.</em>
@@ -48,7 +48,7 @@
                 the left corner, and return to the Human resource Department of our Corporate Office at Delhi.</em></li>
     </ol>
 
-    <p><em>We welcome you to Prakhar Software Solutions Pvt Ltd and look forward to a long term association. </em></p>
+    <p><em>We welcome you to Prakhar Software Solutions Ltd and look forward to a long term association. </em></p>
 
     <p><samp><strong>Salary Structure(Annexure A)</strong></samp></p>
 
@@ -133,7 +133,7 @@
         </tbody>
     </table>
 
-    <p><samp>For <strong>Prakhar Software Solutions Pvt.&nbsp;Ltd.</strong></samp><br />
+    <p><samp>For <strong>Prakhar Software Solutions Ltd.</strong></samp><br />
         <em><samp>
                 <img src="images/sign.png" style="height:40px; width:100px" /><br />
                 <strong>Rahul verma</strong><br />Head - HR &amp; Operations&nbsp;</samp></em>
@@ -213,7 +213,7 @@
             /D/o
             /W/o&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.Sincerely
             assure you to maintain complete discipline and do my best to perform my duties. I also authorize the
-            management of Prakhar Software Solutions Pvt Ltd to ask me to leave any time without any notice, in case of
+            management of Prakhar Software Solutions Ltd to ask me to leave any time without any notice, in case of
             any misconduct on my part or if I am found violating any rules and regulations laid by the company from time
             to time or fail to meet the defined performance standards during the training and employment. </samp></p>
 

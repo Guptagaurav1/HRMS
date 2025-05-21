@@ -29,20 +29,20 @@
 
 
     <p>1. We are pleased to appoint you as <strong>{{$empdetails->designation}}</strong> Operating out of our <strong>Prakhar Software
-            Solutions Pvt Ltd, {{$empdetails->place_of_posting}}</strong> branch.</p>
+            Solutions Ltd, {{$empdetails->place_of_posting}}</strong> branch.</p>
     <p>2. Your &ldquo;Annual compensation&rdquo; is attached herewith as in Annexure-A</p>
     <p>3. Your employment with us will be governed by terms and conditions referred in Annexure-B </p>
     <p>4. Your services are effective from the date of your joining i.e. <strong>{{$empdetails->doj}}</strong>.</p>
     <p>5. Please sign in the duplicate copy of the letter (Photo copy enclosed) on all the sheets at the bottom on the
         left corner, and return to the Human resource Dept.</p>
     <p>6. You are requested to report to Reporting head at <strong>{{$empdetails->doj}} at 9:30 am</strong> to complete the joining
-        formalities at <strong>Prakhar Software Solutions Pvt Ltd,</strong> C-11, LGF, Malviya Nagar, New Delhi-110017.
+        formalities at <strong>Prakhar Software Solutions Ltd,</strong> C-11, LGF, Malviya Nagar, New Delhi-110017.
     </p>
 
 
-    <p>We welcome you to Prakhar Software Solutions Pvt Ltd, and look forward to a long and mutually beneficial
+    <p>We welcome you to Prakhar Software Solutions Ltd, and look forward to a long and mutually beneficial
         association.</p>
-    <p>For <strong>Prakhar Software Solutions Pvt.&nbsp;Ltd.</strong></p>
+    <p>For <strong>Prakhar Software Solutions Ltd.</strong></p>
     <br />
 
     <p><img src="images/sign.png" style="height:50px; width:100px" /><br /><br />
@@ -173,7 +173,7 @@
 
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <p>For <strong>Prakhar Software Solutions Pvt.&nbsp;Ltd.</strong></p>
+        <p>For <strong>Prakhar Software Solutions Ltd.</strong></p>
 
         <p><img src="images/sign.png" style="height:50px; width:100px" /><br /><br />
             Rahul Verma<br />Manager - HR &amp; Operations&nbsp;</p>
@@ -415,7 +415,7 @@
         <li style="margin-left:36pt; padding-left:0pt; font-size:12pt;">PAN&nbsp; ID No<strong>&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;,&nbsp;</strong></li>
         <li style="margin-left:35.32pt; padding-left:0.68pt; font-size:12pt;">Aadhaar&nbsp; No: <strong>&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;</strong>,&nbsp; an Indian (the &ldquo;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;&rdquo;) and</li>
     </ol>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">(b) <strong>Prakhar Software Solutions Pvt Ltd</strong>. an Indian corporation.</p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">(b) <strong>Prakhar Software Solutions Ltd</strong>. an Indian corporation.</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">&nbsp;</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">WHEREAS, both the parties mutually agree to the following terms and conditions:</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>&nbsp;</strong></p>
@@ -489,7 +489,7 @@
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">Herein above written.<span style="font-size:11pt;">&nbsp;</span></p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;">&nbsp;</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;">&nbsp;</p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">Name: <span style="width:1.01pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><strong>Prakhar Software Solutions Pvt Ltd</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">Name: <span style="width:1.01pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><span style="width:36pt; display:inline-block;">&nbsp;</span><strong>Prakhar Software Solutions Ltd</strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">Date:</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>&nbsp;</strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">Please confirm that the above terms and conditions are acceptable to you, and that you accept the appointment by signing a copy of the appointment letter.</p>
@@ -569,7 +569,7 @@
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">Company reserves the right, in its sole discretion, to modify the policies stated above anytime and employees would be notified.</p>
     <p style="margin-top:0pt; margin-left:36pt; margin-bottom:0pt; font-size:12pt;"><strong>&nbsp;</strong></p>
     <p style="margin-top:0pt; margin-left:36pt; margin-bottom:0pt; font-size:12pt;"><strong>&nbsp;</strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>Welcome to Prakhar Software Solutions Pvt Ltd.</strong></p>
+    <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><strong>Welcome to Prakhar Software Solutions Ltd.</strong></p>
     <h2 style="margin-top:0pt; margin-left:36pt; margin-bottom:0pt; page-break-after:avoid; widows:0; orphans:0; font-size:12pt;">&nbsp;</h2>
     <p style="margin-top:0pt; margin-left:36pt; margin-bottom:0pt;">&nbsp;</p>
     <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">Yours faithfully,</p>

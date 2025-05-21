@@ -33,12 +33,12 @@
         <br>
         <p style="text-align:center;"><strong><u>Relieving from the Services</u></strong></p><br>
         <p style="line-height: 21px;">This is with reference to your letter of resignation from the services of Prakhar
-            Software Solutions Pvt. Ltd. In this connection, we wish to inform you that the company has accepted your
-            resignation. Accordingly, you stand relieved from the services of Prakhar Software Solutions Pvt. Ltd. with
+            Software Solutions Ltd. In this connection, we wish to inform you that the company has accepted your
+            resignation. Accordingly, you stand relieved from the services of Prakhar Software Solutions Ltd. with
             effect from close of office hours on {{$empdetails->dol}}.</p>
-        <p style="line-height: 21px;">All of us at Prakhar Software Solutions Pvt. Ltd. convey our best wishes to you in
+        <p style="line-height: 21px;">All of us at Prakhar Software Solutions Ltd. convey our best wishes to you in
             all your future endeavors.</p><br><br><br><br>
-        <p>For <strong>Prakhar Software Solutions Pvt Ltd</strong></p>
+        <p>For <strong>Prakhar Software Solutions Ltd</strong></p>
         <p><img src='images/sign.png' style='height:50px; width:100px' /></p>
         <p>Rahul Kumar</p>
         <p>Manager &ndash; HR &amp; Operations</p>
@@ -65,7 +65,7 @@
         <p style="line-height: 21px;">This is to certify that <strong>{{$empdetails->candidate_name}}</strong> was working with us from {{$empdetails->doj}} to {{$empdetails->dol}}. {{$empdetails->gen}} last designation held was <strong>{{$empdetails->designation}}</strong>. <br>
         According to {{$empdetails->gen}} performance reports received from {{$empdetails->gen}} reporting manager {{$empdetails->gen}} performance during the said period has been satisfactory. <br>
         We wish {{$empdetails->gen}} all the best in {{$empdetails->gen}} future endeavor.</p><br><br><br>
-        <p>For <strong>Prakhar Software Solutions Pvt Ltd</strong></p>
+        <p>For <strong>Prakhar Software Solutions Ltd</strong></p>
         <p><img src='images/sign.png' style='height:50px; width:100px' /></p>
         <p>Rahul Kumar</p>
         <p>Manager &ndash; HR &amp; Operations</p>

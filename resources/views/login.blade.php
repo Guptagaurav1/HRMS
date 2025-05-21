@@ -13,8 +13,8 @@
     <link rel="stylesheet" id="primaryColor" href="{{asset('assets/css/blue-color.css')}}">
     <link rel="stylesheet" id="rtlStyle" href="#">
     <title>Login</title>
-    {{-- <script async src="https://www.google.com/recaptcha/api.js"></script> --}}
-    <script async src="{{asset('assets/js/captcha/api.js')}}"></script>
+     <script async src="https://www.google.com/recaptcha/api.js"></script> 
+    <!-- <script async src="{{asset('assets/js/captcha/api.js')}}"></script> -->
 </head>
 <body class="light-theme">
     <div class="main-content login-panel">

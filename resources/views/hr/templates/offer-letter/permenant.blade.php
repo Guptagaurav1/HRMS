@@ -49,7 +49,7 @@
     Please sign and return the duplicate copy of this offer of your engagement as a token of your acceptance of&nbsp;<br />
     the terms and conditions of this engagement.&nbsp;<br />
     &nbsp;<br />
-    For Prakhar Software Solutions Pvt Ltd&nbsp;<br />
+    For Prakhar Software Solutions Ltd&nbsp;<br />
     {{$details->img_sign}}<br />
     <br />
     Rahul verma &nbsp;<br />

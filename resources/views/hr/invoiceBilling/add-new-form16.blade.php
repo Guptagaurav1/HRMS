@@ -7,16 +7,7 @@
         <h2 class="px-2 mt-2">Form 16</h2>
         <div>
             <ul class="breadcrumb">
-                <li> 
-                    @if (auth()->user()->role->role_name == "hr")
-                    <a href="{{ route('hr_dashboard') }}">Dashboard</a>
-                    @elseif(auth()->user()->role->role_name == "hr_operations")
-                        <a href="{{ route('hr_operations_dashboard') }}">Dashboard</a>
-                    @elseif(auth()->user()->role->role_name == "sales_manager")
-                        <a href="{{ route('sales.manager_dashboard') }}">Dashboard</a>
-                    @else
-                    @endif
-                </li>
+                <li><a href="{{ get_dashboard() }}">Dashboard</a></li>
                 <li><a href="{{route('form16')}}">Form 16 List</a></li>
                 <li>Add Form 16</li>
             </ul>
@@ -51,7 +42,7 @@
                             <select id="emp_id" class=" selectpicker form-select" name="emp_pan" value required>
                                 <option value="">Select Employee</option>
                                 @foreach($empDetail as $key => $value)
-                                <option value="{{$value->id}}">{{$value->emp_pan}}</option>
+                                <option value="{{$value->id}}">{{$value->getBankDetail->emp_pan}}</option>
                                 @endforeach
                                 @error('emp_pan')
                                         <div class="text-danger">{{ $message }}</div>
@@ -73,7 +64,7 @@
                         </div>
                         <div class="col-xxl-3 col-lg-4 col-sm-6">
                             <label class="form-label">Financial Year <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control form-control-sm" name="financial_year" placeholder="Enter Finacial Yea" required>
+                            <input type="text" class="form-control form-control-sm" name="financial_year" placeholder="Enter Finacial Yea" required>
                             @error('financial_year')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -107,7 +98,7 @@
                 <div class="panel-header">
                     <h5 class="text-white">Bulk Upload Form 16</h5>
                     <div class="btn-box">
-                        <a href="" class="btn btn-sm btn-primary"><i
+                        <a href="{{ asset('sample/form16_bulk_upload.csv')}}" class="btn btn-sm btn-primary"><i
                                 class="fa-solid fa-download"></i> Download CSV Format</a>
                     </div>
                 </div>
@@ -141,14 +132,16 @@
 <script src="{{asset('assets/js/tab-changes.js')}}"></script>
 <script>
     $(document).ready(function() {
-    
-
     $('#emp_id').change(function(e) {
       var emp_id = document.getElementById("emp_id").value;
       
       $.ajax({
         url: '{{ route("emp-data", ":id") }}'.replace(':id', emp_id),
-        type: 'GET',
+        type: 'POST',
+        dataType : 'json',
+        data : {
+            '_token' : $("meta[name=csrf-token]").attr('content')
+        },
         success: function(response) {
                 let emp_code =response.data.emp_code;
                 let emp_work_order =response.data.emp_work_order;

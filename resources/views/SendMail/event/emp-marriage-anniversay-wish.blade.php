@@ -22,7 +22,6 @@
         /* Table wrapper to hold the background image */
         .image-wrapper {
             width: 100%;
-            background-image: url('/events/marriage/bg_ma.jpg');
             background-size: contain;
             background-position: left;
             text-align: center;
@@ -173,7 +172,7 @@
         </div>
 
         <!-- Image Wrapper Section with Background Image -->
-        <table class="image-wrapper" role="presentation" cellpadding="0" cellspacing="0">
+        <table class="image-wrapper" role="presentation" cellpadding="0" cellspacing="0" style="background-image: url({{asset('events/marriage/bg_ma.jpg')}})">
             <tr>
                 <td>
                     <!-- Username Text Over Image -->

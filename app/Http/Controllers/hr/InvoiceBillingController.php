@@ -443,6 +443,7 @@ class InvoiceBillingController extends Controller
                 $query->select('id', 'emp_code', 'emp_name', 'emp_work_order');
         }
         ])
+           // $form16 = Form16::with(['empDetail'])
         ->when($search, function ($query, $search) {
             $query->where(function ($q) use ($search) {
                 $q->whereHas('empDetail', function ($que) use ($search) {
@@ -457,8 +458,8 @@ class InvoiceBillingController extends Controller
                     
             });
         })
-      
-        ->paginate(10);
+        ->orderby('id','desc')->paginate(25);
+        // dd($form16);
      
         return view("hr.invoiceBilling.form16",compact('form16','search'));
     }
@@ -561,86 +562,96 @@ class InvoiceBillingController extends Controller
     
             // Define directories for processed and failed files
             $folderName = pathinfo($zipFileName, PATHINFO_FILENAME);
+            // dd($folderName);
+            
+            // dd($folderName);
+            // $currentDir = public_path('recruitment/candidate_documents/form_16/'. $folderName);
             $currentDir = public_path('recruitment/candidate_documents/form_16') . '/' . $folderName;
             $failedDir = public_path('recruitment/candidate_documents/form_16/failed');
-    
+            // $path = $file->move(public_path("recruitment/candidate_documents/form_16/"), $fileName);
+           
             if (!File::exists($failedDir)) {
                 File::makeDirectory($failedDir, 0777, true);
             }
-    
+            
             // Get all files from the extracted folder
-            $files = File::allFiles($currentDir);
-    
-            foreach ($files as $file) {
-                $fileName = $file->getFilename();
-                $filePath = $file->getRealPath();
-                $destinationPath = public_path('recruitment/candidate_documents/form_16') . '/' . $fileName;
-                
-                $failedPath = $failedDir . '/' . $fileName;
-    
-                // Process the file only if it is a PDF, DOC, or DOCX
-                $extension = strtolower($file->getExtension());
-                if (!in_array($extension, ['pdf', 'doc', 'docx'])) {
-                    File::move($filePath, $failedPath);
-                    $failedCount++;
-                    continue;
-                }
-    
-                // Extract PAN and financial year from the filename
-                $fileData = explode('_', pathinfo($fileName, PATHINFO_FILENAME));
-    
-                if (count($fileData) >= 2) {
-                    $panNo = $fileData[0];
-                    $financialYear = $fileData[1];
-    
-                    $form16 = Form16::where('pan_no', $panNo)->where('financial_year', $financialYear)->first();
-    
-                    if (!$form16) {
-                        // check for employee ID
-                        $employee = EmpDetail::where('emp_pan', $panNo)->first();
-                       
-                        if ($employee) {
-                            // Move file to the correct directory and insert data into the database
-                            File::move($filePath, $destinationPath);
-    
-                            Form16::create([
-                                'id' => $employee->emp_id,
-                                'pan_no' => $panNo,
-                                'financial_year' => $financialYear,
-                                'attachment' => $fileName,
-                                'source' => 'bulk_upload',
-                              
-                            ]);
-                            $total++;
-                        } 
-                        else {
-                            // Move to failed directory if no employee found
+            //  dd($files);
+            if(File::isDirectory($currentDir)){
+                $files = File::allFiles($currentDir);
+              
+                foreach ($files as $file) {
+                    $fileName = $file->getFilename();
+                    $filePath = $file->getRealPath();
+                    $destinationPath = public_path('recruitment/candidate_documents/form_16') . '/' . $fileName;
+                    
+                    $failedPath = $failedDir . '/' . $fileName;
+        
+                    // Process the file only if it is a PDF, DOC, or DOCX
+                    $extension = strtolower($file->getExtension());
+                    if (!in_array($extension, ['pdf', 'doc', 'docx'])) {
+                        File::move($filePath, $failedPath);
+                        $failedCount++;
+                        continue;
+                    }
+        
+                    // Extract PAN and financial year from the filename
+                    $fileData = explode('_', pathinfo($fileName, PATHINFO_FILENAME));
+        
+                    if (count($fileData) >= 2) {
+                        $panNo = $fileData[0];
+                        $financialYear = $fileData[1];
+        
+                        $form16 = Form16::where('pan_no', $panNo)->where('financial_year', $financialYear)->first();
+        
+                        if (!$form16) {
+                            // check for employee ID
+                            $employee = EmpAccountDetail::where('emp_pan', $panNo)->first();
+                        
+                            if ($employee) {
+                                // Move file to the correct directory and insert data into the database
+                                File::move($filePath, $destinationPath);
+        
+                                Form16::create([
+                                    'emp_id' => $employee->id,
+                                    'pan_no' => $panNo,
+                                    'financial_year' => $financialYear,
+                                    'attachment' => $fileName,
+                                    'source' => 'bulk_upload',
+                                
+                                ]);
+                                $total++;
+                            } 
+                            else {
+                                // Move to failed directory if no employee found
+                                File::move($filePath, $failedPath);
+        
+                                Form16Failed::create([
+                                    'pan_no' => $panNo,
+                                    'financial_year' => $financialYear,
+                                    'attachment' => $fileName,
+                                    'source' => 'bulk_upload',
+                                    'added_by' => auth()->id(),
+                                ]);
+                                $failedCount++;
+                            }
+                        } else {
+                            // If duplicate entry found, move to the failed directory
                             File::move($filePath, $failedPath);
-    
-                            Form16Failed::create([
-                                'pan_no' => $panNo,
-                                'financial_year' => $financialYear,
-                                'attachment' => $fileName,
-                                'source' => 'bulk_upload',
-                                'added_by' => auth()->id(),
-                            ]);
                             $failedCount++;
                         }
                     } else {
-                        // If duplicate entry found, move to the failed directory
+                        // If filename format is incorrect, move to failed directory
                         File::move($filePath, $failedPath);
                         $failedCount++;
                     }
-                } else {
-                    // If filename format is incorrect, move to failed directory
-                    File::move($filePath, $failedPath);
-                    $failedCount++;
                 }
-            }
-    
-            // Return response with result
-            return redirect()->route('form16')->with('success', "Total: $total & Failed Count: $failedCount Form16 Added");
         
+                // Return response with result
+                return redirect()->route('form16')->with('success', "Total: $total & Failed Count: $failedCount Form16 Added");
+            }else{
+                
+                return redirect()->route('form16')->with('error', "Please upload a valid ZIP File.");
+            }
     }
     
 

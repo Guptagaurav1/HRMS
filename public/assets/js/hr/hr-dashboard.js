@@ -277,14 +277,15 @@ $(document).ready(function() {
             url: url,
             cache: false,
             dataType: 'json',
-            data : {
-                '_token' : $("meta[name=csrf-token]").attr('content')
+            data: {
+                '_token': $("meta[name=csrf-token]").attr('content')
             },
             success: function(response) {
-                $('#leaveDetailsModal').modal('show');
+                console.log(response);
                 var date = new Date(response.data.created_at);
                 var month = ((date.getDate() > 8) ? (date.getDate() + 1) : ('0' + (date.getDate() + 1))) + '-' + ((date.getMonth() > 9) ? date.getMonth() : ('0' + date.getMonth())) + '-' + date.getFullYear();
-                if (response.success) {
+                if (response.success == true) {
+                    $('.leaveDetailsModal').modal('show');
                     $('#leave_code').html(response.data.leave_code)
                     $('#employee_code').html(response.data.emp_code)
                     $('#employee_name').html(response.data.employee.emp_name)

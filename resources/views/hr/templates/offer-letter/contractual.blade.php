@@ -46,7 +46,7 @@
     <br /> <br />
     <b>From and on behalf of  </b>
     <br />
-    <b>Prakhar Software Solutions Private Limited  </b><br /><br />
+    <b>Prakhar Software Solutions Limited  </b><br /><br />
     {{$details->img_sign}}<br /><br />
     <br />
     <b>Rahul Verma <br />

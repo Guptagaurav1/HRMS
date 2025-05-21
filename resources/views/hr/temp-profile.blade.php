@@ -135,7 +135,7 @@
 
                                     <tr>
                                         <td colspan="2">
-                                            <h3 style="color: green; font-weight: bold; font-size: 15px; font-family:arial; margin: 0px; padding: 0px;">Prakhar Software Solutions Pvt. Ltd.</h3>
+                                            <h3 style="color: green; font-weight: bold; font-size: 15px; font-family:arial; margin: 0px; padding: 0px;">Prakhar Software Solutions Ltd.</h3>
                                         </td>
                                     </tr>
                                     <tr>

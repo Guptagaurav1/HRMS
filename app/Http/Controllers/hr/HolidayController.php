@@ -178,7 +178,7 @@ class HolidayController extends Controller
                 'month' => ['required'],
                 'absent_dates' => ['required']
             ]);
-            $emp_details = EmpDetail::select('emp_work_order', 'emp_id', 'emp_code', 'emp_email_first', 'emp_name')->where('emp_code', $request->emp_id)->first();
+            $emp_details = EmpDetail::select('emp_work_order', 'id AS emp_id', 'emp_code', 'emp_email_first', 'emp_name')->where('emp_code', $request->emp_id)->first();
 
             LeaveRegularization::create([
                 'wo_number' => $emp_details->emp_work_order,
@@ -193,10 +193,17 @@ class HolidayController extends Controller
             for ($i = 0; $i < count($absents); $i++) {
                 $absentHtml .= $absents[$i] . " - Absents " . "<br>";
             }
+            $user = auth()->user();
+            $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
 
             $mailData = [
                 'absent_dates' => $absentHtml,
-                'emp_name' => $emp_details->emp_name
+                'emp_name' => $emp_details->emp_name,
+                'email' => $company->email,
+                'phone' => $company->mobile,
+                'website' => $company->website,
+                'address' => $company->address,
+                'url' => url('/')
             ];
             // $cc = ['sagar.tiwari@prakharsoftwares.com'];     // permanent details
             $cc = [auth()->user()->email]; // temparory add for testing purpose only
