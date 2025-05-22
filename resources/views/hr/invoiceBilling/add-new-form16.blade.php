@@ -98,7 +98,7 @@
                 <div class="panel-header">
                     <h5 class="text-white">Bulk Upload Form 16</h5>
                     <div class="btn-box">
-                        <a href="" class="btn btn-sm btn-primary"><i
+                        <a href="{{ asset('sample/form16_bulk_upload.csv')}}" class="btn btn-sm btn-primary"><i
                                 class="fa-solid fa-download"></i> Download CSV Format</a>
                     </div>
                 </div>

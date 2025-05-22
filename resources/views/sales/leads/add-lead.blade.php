@@ -225,7 +225,7 @@
 
                 <div class="d-flex align-items-cenetr justify-content-end gap-3 px-3 py-2">
                     <div>
-                        <a href="#"><button type="button" class="btn btn-sm btn-primary">Cancel</button></a>
+                        <a href="{{ route('leads.list') }}"><button type="button" class="btn btn-sm btn-primary">Cancel</button></a>
 
                     </div>
                     <div>

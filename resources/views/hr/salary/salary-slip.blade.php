@@ -3,11 +3,11 @@
 @section('style')
 <style>
     @media print {
-    body, * {
+    /* body, * {
         color: #000000 !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-    }
+    } */
 
     .payment li {
         font-weight: bold !important;
@@ -134,13 +134,13 @@
                                 <td class="text-center">{{$slip->sal_emp_name}}</td>
                                 <td class="attributes-column text-center">{{$slip->sal_month}}</td>
                                 <td class="text-center">{{$slip->sal_working_days}}</td>
-                                <td class="text-center attributes-column">{{$slip->sal_designation}}</td>
-                                <td class="text-center attributes-column">{{$slip->work_order}}</td>
-                                <td class="text-center attributes-column">{{$slip->emp_sal_ctc}}</td>
-                                <td class="text-center attributes-column">{{$slip->sal_gross}}</td>
-                                <td class="text-center attributes-column">{{$slip->sal_net}}</td>
-                                <td class="text-center attributes-column">{{$slip->sal_basic}}</td>
-                                <td class="text-center attributes-column">
+                                <td class="text-center">{{$slip->sal_designation}}</td>
+                                <td class="text-center">{{$slip->work_order}}</td>
+                                <td class="text-center">{{$slip->emp_sal_ctc}}</td>
+                                <td class="text-center">{{$slip->sal_gross}}</td>
+                                <td class="text-center">{{$slip->sal_net}}</td>
+                                <td class="text-center">{{$slip->sal_basic}}</td>
+                                <td class="text-center">
                                     @if($slip->status)
                                     <span class="badge text-bg-success">Active</span>
                                     @else
