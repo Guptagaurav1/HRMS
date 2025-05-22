@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-12">
             
-            <!-- <div class="panel chart-panel-1">
+            <div class="panel chart-panel-1">
                 <div class="d-flex justify-content-center flex-wrap gap-5 px-5">
                     <div class="card profile-card border">
                         <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
@@ -41,12 +41,12 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
         <div class="row">
 
     <!-- Profile Card -->
-    <div class="col-md-6 mb-3">
+    <!-- <div class="col-md-6 mb-3">
         <div class="custom-card d-flex align-items-center">
             <img src="https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg"
                 alt="Profile" class="profile-img me-3" />
@@ -57,10 +57,10 @@
                  <p><i class="fas fa-phone"></i> {{ auth()->user()->phone }}</p>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- HR Management Card -->
-    <div class="col-md-6 mb-3">
+    <!-- <div class="col-md-6 mb-3">
         <div class="custom-card">
             <h4 class="mb-3 px-4"><i class="fas fa-user-cog me-2 text-primary"></i> HR Management</h4>
             <ul class="custom-list mb-0 px-4">
@@ -71,7 +71,7 @@
                 <li><i class="fas fa-cog me-2 text-secondary"></i> <a href="{{route('profile.admin-profile')}}">HR Settings</a></li>
             </ul>
         </div>
-    </div>
+    </div> -->
 
 </div>
 

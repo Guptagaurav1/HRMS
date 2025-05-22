@@ -38,4 +38,11 @@
 			return date("jS F, Y", strtotime($num));
 		}
 	}
+	if(!function_exists('websiteUrl')){
+		function websiteUrl(){
+			$url ="https://prakharsoftwares.com/";
+			return $url;
+		}
+	}
+	
 ?>
