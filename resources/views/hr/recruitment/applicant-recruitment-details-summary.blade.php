@@ -253,7 +253,7 @@
                                                             <h2 class="panel-header">Joining Formalties</h2>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <iframe src="{{ asset('resume/' . $data->resume . '') }}"
+                                                            <iframe src="{{ $data->resume ? asset('recruitment/candidate_documents/employee_resume/' . $data->resume . '') : ''  }}"
                                                                 title="Resume" frameborder="0" allowfullscreen
                                                                 style="width:100%" ; height="700px">
                                                             </iframe>
