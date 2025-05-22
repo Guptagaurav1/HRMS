@@ -243,7 +243,7 @@
                         <tr>
                             <td class="email-footer" align="center" style="padding: 15px; color: #333;">
                                 <p style="margin: 0; font-weight: bold;">Copyright © {{ date('Y') }} <a
-                                        href="{{ $mailData['url'] }}" style="color: #4CAF50;">Prakhar Software
+                                        href="{{ websiteUrl() }}" style="color: #4CAF50;">Prakhar Software
                                         Solutions</a>. All rights reserved.</p>
                             </td>
                         </tr>

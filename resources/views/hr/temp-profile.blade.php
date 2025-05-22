@@ -184,7 +184,7 @@
                                 <!-- COPYRIGHT -->
                                 <tr>
                                     <td align="center" style="padding: 30px 30px 30px 30px; color: #333333; font-family: " Poppins", sans-serif; font-size: 12px; font-weight: 400; line-height: 18px;">
-                                        <p style="margin: 0;">Copyright © {{date('Y')}} <a href="{{$mailData->url}}">PSSPL</a>. All rights reserved.</p>
+                                        <p style="margin: 0;">Copyright © {{date('Y')}} <a href="{{ websiteUrl() }}">PSSL</a>. All rights reserved.</p>
                                     </td>
                                 </tr>
                             </table>

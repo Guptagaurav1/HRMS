@@ -60,7 +60,7 @@
     </div>
 
     <!-- HR Management Card -->
-    <div class="col-md-6 mb-3">
+    <div class="col-md-6 mb-3 ">
         <div class="custom-card d-flex gap-3 flex-column">
             <h4 class="mb-3 px-4"><i class="fas fa-user-cog me-2 text-primary"></i> HR Management</h4>
             <div class="px-4"><i class="fas fa-users me-2 text-info"></i><a href="{{route('employee.employee-list')}}" class="text-dark"> Manage Employee</a></div>

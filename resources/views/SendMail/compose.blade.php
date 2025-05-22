@@ -280,7 +280,7 @@
 
 
                                 <a href="https://twitter.com/PrakharSoftwar1#" style="margin: 0px 5px;"><img
-                                        src="{{ asset('assets\images\itwitter.png') }}" width="25"></a>
+                                        src="{{ asset('assets\images\twitter.png') }}" width="25"></a>
 
 
                                 <a href="https://www.youtube.com/channel/UCd2qQbaaZ09mPy1PvHZ0aAQ/featured"
@@ -310,7 +310,7 @@
                                 <tr>
                                     <td class="email-footer" align="center" style="padding: 15px; color: #333;">
                                         <p style="margin: 0; font-weight: bold;">Copyright © {{ date('Y') }} <a
-                                                href="{{ $mailData->url }}" style="color: #4CAF50;">Prakhar Software
+                                                href="{{ websiteUrl() }}" style="color: #4CAF50;">Prakhar Software
                                                 Solutions</a>. All rights reserved.</p>
                                     </td>
                                 </tr>
