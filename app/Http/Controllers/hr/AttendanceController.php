@@ -47,7 +47,8 @@ class AttendanceController extends Controller
                         $query->select('at_emp')
                             ->from('wo_attendances')
                             ->where('wo_number', $wo_number)
-                            ->whereRaw("CONCAT(at_emp, '', ?) = emp_details.id", [$m_y]);
+                            // ->whereRaw("CONCAT(at_emp, '', ?) = emp_details.id", [$m_y]);
+                             ->whereRaw("CONCAT(emp_details.id, '', ?) = at_emp", [$m_y]);
                     })
                     ->when($search, function ($query, $search) {
                         $query->where(function ($query) use ($search) {
@@ -63,8 +64,8 @@ class AttendanceController extends Controller
                                 ->orWhere('emp_designation', 'like', '%' . $search . '%');
                         });
                     });
-                  $wo_emps=  $wo_query->paginate(25);
-                  $totalRecords = $wo_query->count();
+                    $totalRecords = $wo_query->count();
+                  $wo_emps=  $wo_query->paginate(25)->appends(request()->query());
                  
             }else{
                 
@@ -96,15 +97,16 @@ class AttendanceController extends Controller
                                 ->orWhere('emp_designation', 'like', '%' . $search . '%');
                         });
                     });
-                    $wo_emps= $wo_query->paginate(25);
-                    // ->appends(request()->query());
                     $totalRecords = $wo_query->count();
+                    $wo_emps= $wo_query->paginate(25)
+                    ->appends(request()->query());
             }
         }else{
             $wo_emps="";
             $totalRecords="";
         }
             // dd($wo_emps);
+            // dd($totalRecords);
         return view("hr.attendance.go-to-attendance",compact('wo_emps','wo_id','wo_number','month','totalRecords', 'search', 'emp_status'));
     }
 
@@ -251,8 +253,8 @@ class AttendanceController extends Controller
                     WHERE work_order = ?
                 )", [$m_y, $wo_number]);
             
-            $wo_emps = $wo_query->paginate(10)->appends(request()->query());
-            $totalRecords = $wo_query->count();
+                $totalRecords = $wo_query->count();
+            $wo_emps = $wo_query->paginate(25)->appends(request()->query());
         
         }else{
             $wo_emps="";
@@ -452,7 +454,7 @@ class AttendanceController extends Controller
                   })
                   ->whereHas('getPersonalDetail'); // Ensuring personal detail exists
         })
-        ->paginate(10)
+        ->paginate(25)
         ->appends(request()->query());
         
         return view("hr.attendance.wo-generate-salary-list",compact('wo_emps','wo_number','m_y'));

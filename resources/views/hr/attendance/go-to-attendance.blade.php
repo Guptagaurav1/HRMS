@@ -57,8 +57,7 @@
                             <!-- Select Month Input -->
                             <div class="col-md-2 col-12 ">
                                 <label for="month" class="form-label">Select Month:</label>
-                                <input name="month" class="form-control date-picker month_year" placeholder="mm-yyyy"
-                                    value="{{ $month }}" />
+                                <input name="month" class="form-control date-picker month_year" placeholder="mm-yyyy" value="{{ str_replace(' ', '-', $month) }}" />
                             </div>
 
                             <!-- Status Select Input -->
@@ -84,6 +83,8 @@
                         </div>
 
                     </form>
+                  
+
                     <form method="get">
                         @if ($month)
                             <input type="hidden" name="month" value="{{ $month }}" />
@@ -189,7 +190,7 @@
                                 </thead>
                                 <tbody>
 
-                                    @if (!empty($wo_emps) && $totalRecords > 0)
+                                    @if (!empty($wo_emps) )
                                         <input type="hidden" name="attendance_month" id="attendance_month"
                                             value="{{ $month }}">
                                         @foreach ($wo_emps as $wo_emp)
@@ -248,7 +249,7 @@
                                     @endif
                                 </tbody>
                             </table>
-                            @if (!empty($wo_emps) && $totalRecords > 0)
+                            @if (!empty($wo_emps))
                                 <div>
                                     {{ $wo_emps->links() }}
                                 </div>

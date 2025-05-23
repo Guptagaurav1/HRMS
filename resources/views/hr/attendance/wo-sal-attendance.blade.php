@@ -38,7 +38,7 @@
                         <div class="col-md-2 col-12 ">
                             <label for="month" class="form-label">Select Month:</label>
                             <input name="month" class=" form-control date-picker month_year" placeholder="mm-year"
-                                value="{{$month}}" />
+                                value="{{ str_replace(' ', '-', $month) }}" />
                         </div>
                         <div class="col-md-2 col-12 ">
                             <label for="work_order" class="form-label">Select Work Order</label>

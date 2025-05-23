@@ -115,7 +115,7 @@ class WorkOrderController extends Controller
                     });
             });
         }
-        $totalWorkOrders = $totalWorkOrders->orderBy('id', 'desc')->paginate(25);
+        $totalWorkOrders = $totalWorkOrders->orderBy('id', 'desc')->paginate(25)->withQueryString();
 
         // Add contact details for each work order
         foreach ($totalWorkOrders as $key => $value) {
