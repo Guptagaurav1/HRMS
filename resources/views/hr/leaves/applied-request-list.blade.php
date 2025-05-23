@@ -147,7 +147,7 @@
 
 
                                         {{-- Print the requested leave --}}
-                                        @if (auth()->user()->hasPermission('leave-request-reciept'))
+                                        @if (auth()->check() && auth()->user()->hasPermission('leave-request-reciept') || auth('employee')->check() && auth('employee')->user()->hasPermission('leave-request-reciept'))
                                             <a href="{{ route('leave-request-reciept', ['id' => $leave_request->id]) }}">
                                                 <button class="btn btn-sm btn-primary mx-3">Print <i
                                                         class="fa-solid fa-print"></i></button>
