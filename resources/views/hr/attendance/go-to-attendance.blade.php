@@ -214,8 +214,7 @@
                                                     \{{ $wo_emp->getBankDetail->emp_account_no }}</td>
                                                 <td>{{ $wo_emp->emp_doj ?? null }}</td>
                                                 <td>{{ $wo_emp->emp_current_working_status }}</td>
-                                                <td><input type="date" name="dor" id="dor"
-                                                        class="form-control" value="{{ $wo_emp->emp_dor }}"></td>
+                                                <td>{{ $wo_emp->emp_dor }}</td>
                                                 <input type="hidden" name="emp_designation" id="emp_designation"
                                                     value="{{ $wo_emp->emp_designation }}">
                                                 <input type="hidden" name="emp_vendor_rate" id="emp_vendor_rate"

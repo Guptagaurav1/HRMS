@@ -5,7 +5,7 @@ $(document).ready(function() {
       var appr_leave = parseInt(outer_ele.children().eq(4).children().val());
       var lwd = parseInt(outer_ele.children().eq(5).children().val());
       var no_of_work_days = outer_ele.children().eq(6).children().val();
-      month_date = $('.month_year').val().split(' ');
+      month_date = $('.month_year').val().split('-');
       month = new Date(Date.parse(month_date[0].replace(/ .*/,'') +" 1, 2022")).getMonth()+1;
       year = month_date[1];
       total_days = new Date(year, month, 0).getDate();
