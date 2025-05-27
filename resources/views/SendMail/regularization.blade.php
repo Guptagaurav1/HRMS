@@ -211,8 +211,8 @@
         .email-footer .social-icons {
             margin-top: 10px;
         }
-        
-        h4{
+
+        h4 {
             font-weight: normal !important;
         }
     </style>
@@ -263,18 +263,27 @@
                                                 per
                                                 biometric
                                                 system for the following dates given below:-</h4>
+                                            <h4 class="fw-bold"><u>Full Day Leaves</u></h4>
                                             <h4>{!! $mailData['absent_dates'] !!}</h4>
-                                            <h4>In the event that you are on leave as per the above dates, please reply
+                                            @if ($mailData['half_day_dates'])
+                                                <h4 class="fw-bold"><u>Half Day Leaves</u></h4>
+                                                <h4>{!! $mailData['half_day_dates'] !!}</h4>
+                                            @endif
+                                            <h4>In the event that you are on leave as per the above dates, please
+                                                reply
                                                 and
                                                 submit the
                                                 HRMS Leave application with approval as soon as possible.</h4>
                                             <h4><u>Attendance / Log</u></h4>
-                                            <h4>All employees are requested to record their first Log IN (first entry to
+                                            <h4>All employees are requested to record their first Log IN (first
+                                                entry to
                                                 office
                                                 for the
-                                                day) & last Log OUT (last log out for the day) timings using the thumb
+                                                day) & last Log OUT (last log out for the day) timings using the
+                                                thumb
                                                 impression in
-                                                Biometrics which is available at work location on daily basis to capture
+                                                Biometrics which is available at work location on daily basis to
+                                                capture
                                                 employee daily
                                                 attendance.</h4>
                                             <h4><span style="color:red;font-weight:bold;"><u>Note:-</u></span> <br>
@@ -283,7 +292,8 @@
                                                     <li>If he/she does not submit the form/revert untill 4th of the
                                                         month then
                                                         it is
-                                                        considered as Leave without Pay for that particular date.</li>
+                                                        considered as Leave without Pay for that particular date.
+                                                    </li>
                                                 </ul>
                                             </h4>
                                             <h4>Let me know for any further assistance. </h4>
