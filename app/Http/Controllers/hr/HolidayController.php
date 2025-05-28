@@ -189,18 +189,27 @@ class HolidayController extends Controller
                 'emp_id' => $emp_details->emp_id,
                 'emp_code' => $emp_details->emp_code,
                 'leave_month' => $request->month,
-                'leave_dates' => $request->absent_dates
+                'leave_dates' => $request->absent_dates,
+                'half_day_leave_dates' => $request->half_day_dates,
             ]);
             $absents = explode(",", $request->absent_dates);
+            $half_days = '';
             $absentHtml = '';
+            if ($request->half_day_dates) {
+                $half_absents = explode(",", $request->half_day_dates);
+                for ($i = 0; $i < count($half_absents); $i++) {
+                    $half_days .= date('jS F, Y', strtotime($half_absents[$i])) . "<br>";
+                }
+            }
             for ($i = 0; $i < count($absents); $i++) {
-                $absentHtml .= $absents[$i] . " - Absents " . "<br>";
+                $absentHtml .= date('jS F, Y', strtotime($absents[$i])). "<br>";
             }
             $user = auth()->user();
             $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
 
             $mailData = [
                 'absent_dates' => $absentHtml,
+                'half_day_dates' => $half_days,
                 'emp_name' => $emp_details->emp_name,
                 'email' => $company->email,
                 'phone' => $company->mobile,

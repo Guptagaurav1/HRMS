@@ -1189,7 +1189,7 @@ z-index: 10000 !important;
 
 /*multi date picker color  */
 
- .multiDatePicker::placeholder {
+ .multiDatePicker::placeholder, .halfDayDate::placeholder {
         color: black !important;
         opacity: 1 !important;
     }

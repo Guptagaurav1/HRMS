@@ -71,7 +71,8 @@
                             <th class="text-center">Name</th>
                             <th class="text-center">Designation</th>
                             <th class="text-center">Contact Details</th>
-                            <th class="text-center">Leave Dates</th>
+                            <th class="text-center">Leaves Date</th>
+                            <th class="text-center">Half Day Leaves Date</th>
                             <th class="text-center">Send Mail</th>
                         </tr>
                     </thead>
@@ -95,6 +96,13 @@
                                     <input type="hidden" class="emp_id" value="{{$record->emp_code}}" />
                                     <input type="hidden" class="current_month" value="{{$previous_month}}" />
                                     </div>
+                                </div>
+
+                            </td>
+                                <td class="text-center">
+                                <div class="mbsc-form-group">
+                                    <input type="text" name="half_day_dates"
+                                        class="btn btn-sm  halfDayDate"  style="color:black; border:1px solid gray;" placeholder="Select Date" autocomplete="off" value="">
                                 </div>
 
                             </td>

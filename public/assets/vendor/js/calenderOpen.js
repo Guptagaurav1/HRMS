@@ -5,6 +5,12 @@ $(function () {
       // console.log("Selected Dates:", $(this).multiDatesPicker('getDates'));
     }
   });
+  $('.halfDayDate').multiDatesPicker({
+    dateFormat: "yy-mm-dd",
+    onSelect: function (dateText) {
+      // console.log("Selected Dates:", $(this).multiDatesPicker('getDates'));
+    }
+  });
 
   $('.date-picker').datepicker({
     changeMonth: true,
@@ -18,8 +24,11 @@ $(function () {
 
   });
 
+  // Send leave regularization mail.
+
   $(".send_mail").click(function () {
     var dates = $(this).closest(".group").find(".multiDatePicker").val();
+    var halfDayDates = $(this).closest(".group").find(".halfDayDate").val();
     var emp_id = $(this).closest(".group").find(".emp_id").val();
     var month = $(this).closest(".group").find(".current_month").val();
     var button = $(this);
@@ -51,7 +60,8 @@ $(function () {
               '_token': $("meta[name=csrf-token]").attr('content'),
               'emp_id': emp_id,
               'month': month,
-              'absent_dates': dates
+              'absent_dates': dates,
+              'half_day_dates': halfDayDates
             },
             success: function (res) {
               if (res.success) {
