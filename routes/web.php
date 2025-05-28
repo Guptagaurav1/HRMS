@@ -481,15 +481,6 @@ Route::middleware('page.permission')->group(function () {
             Route::post('view-complaint', 'complaint_details');
             Route::post('complaint-response', 'response');
         });
-
-
-
-
-
-
-
-        //tenants
-        Route::resource('tenants', TenantController::class);
     });
 
     // HR operations pages.

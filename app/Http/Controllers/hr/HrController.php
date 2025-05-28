@@ -82,10 +82,21 @@ class HrController extends Controller
             ->paginate(25);
         // dd($employeeWorkAnniversary);
 
-        $employeeLeaves = LeaveRequest::with('employee')->select('id', 'leave_code', 'emp_code', 'department_head_email', 'reason_for_absence', 'absence_dates', 'status', 'created_at')
-            ->where('status', 'Wait')
-            ->orWhere('status', 'Modified')
-            ->orderByDesc('id');
+    if (auth()->check()) {
+       $employeeLeaves = LeaveRequest::with('employee')
+        ->select('id', 'leave_code', 'emp_code', 'department_head_email', 'reason_for_absence', 'absence_dates', 'status', 'created_at')
+        ->where(function ($query) {
+            $query->where('status', 'Wait')
+                ->orWhere('status', 'Modified');
+            })->whereHas('employee', function ($q) {
+                $q->where('emp_current_working_status', 'active');
+            })
+        ->where('department_head_email', auth()->user()->email)
+        ->orderByDesc('id');
+
+    }else{
+        $employeeLeaves = LeaveRequest::where('emp_code', auth('employee')->user()->emp_code);
+    }
 
         $employeeLeaves = $employeeLeaves->paginate(25);
 

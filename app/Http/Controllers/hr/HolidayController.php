@@ -58,6 +58,7 @@ class HolidayController extends Controller
     public function leave_requests(Request $request)
     {
         //    $leave_requests = LeaveRequest::select('leave_request.*', 'emp_details.emp_name', 'emp_details.department', 'users.email as reporting_mail')->join('emp_details', 'leave_request.emp_code', '=', 'emp_details.emp_code')->leftJoin('users', 'leave_request.approved_disapproved_by', '=', 'users.id');
+
         if (auth()->check()) {
             $leave_requests = LeaveRequest::where('department_head_email', auth()->user()->email)->whereHas('employee', function ($q) {
                 $q->where('emp_current_working_status', 'active');
@@ -102,9 +103,11 @@ class HolidayController extends Controller
         $prev_month_startdate = $pre_month_year->format("Y-m-01");
         $prev_month_enddate = $pre_month_year->format("Y-m-$last_date"); // format last date.
         $search = '';
-        $data = EmpDetail::select('id', 'emp_name', 'emp_email_first', 'emp_phone_first', 'emp_code', 'emp_designation')->where('emp_work_order', 'PSSPL Internal Employees')
+        $data = EmpDetail::select('id', 'emp_name', 'emp_email_first', 'emp_phone_first', 'emp_code', 'emp_designation')
+            ->where('emp_work_order', 'PSSPL Internal Employees')
             ->where('emp_current_working_status', 'Active')
             ->where('emp_doj', '<', $prev_month_enddate)
+            ->where('emp_name', '!=', 'Shakuntala Namdeo')
             ->whereRaw("CONCAT(id, '', ?) NOT IN (SELECT at_emp FROM leave_regularizations)", [$previous_month])
             ->where(function ($query) use ($prev_month_startdate) {
                 $query->where('emp_dor', '>', $prev_month_startdate)
