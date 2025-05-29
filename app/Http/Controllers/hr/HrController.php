@@ -80,10 +80,15 @@ class HrController extends Controller
             ->whereRaw("DATE_FORMAT(emp_doj, '%m-%d') BETWEEN ? AND ?", [$current_date, $addNineDays])
             ->orderByRaw('DATE_FORMAT(emp_doj,"%m-%d")')
             ->paginate(25);
-        // dd($employeeWorkAnniversary);
+
+            // dd($employeeWorkAnniversary);
 
     if (auth()->check()) {
-       $employeeLeaves = LeaveRequest::with('employee')
+
+        $roleId = auth()->user()->role_id;
+        $roleName = get_role_name($roleId);
+        if($roleName == 'it_admin'){
+        $employeeLeaves = LeaveRequest::with('employee')
         ->select('id', 'leave_code', 'emp_code', 'department_head_email', 'reason_for_absence', 'absence_dates', 'status', 'created_at')
         ->where(function ($query) {
             $query->where('status', 'Wait')
@@ -91,8 +96,22 @@ class HrController extends Controller
             })->whereHas('employee', function ($q) {
                 $q->where('emp_current_working_status', 'active');
             })
-        ->where('department_head_email', auth()->user()->email)
         ->orderByDesc('id');
+        }else{
+              $employeeLeaves = LeaveRequest::with('employee')
+            ->select('id', 'leave_code', 'emp_code', 'department_head_email', 'reason_for_absence', 'absence_dates', 'status', 'created_at')
+            ->where(function ($query) {
+                $query->where('status', 'Wait')
+                    ->orWhere('status', 'Modified');
+                })->whereHas('employee', function ($q) {
+                    $q->where('emp_current_working_status', 'active');
+                })
+            ->where('department_head_email', auth()->user()->email)
+            ->orderByDesc('id');
+        }
+
+
+      
 
     }else{
         $employeeLeaves = LeaveRequest::where('emp_code', auth('employee')->user()->emp_code);

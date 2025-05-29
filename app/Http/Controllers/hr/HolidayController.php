@@ -105,7 +105,7 @@ class HolidayController extends Controller
         $search = '';
         $data = EmpDetail::select('id', 'emp_name', 'emp_email_first', 'emp_phone_first', 'emp_code', 'emp_designation')
             ->where('emp_work_order', 'PSSPL Internal Employees')
-            ->where('emp_current_working_status', 'Active')
+            ->where('emp_current_working_status', 'active')
             ->where('emp_doj', '<', $prev_month_enddate)
             ->where('emp_name', '!=', 'Shakuntala Namdeo')
             ->whereRaw("CONCAT(id, '', ?) NOT IN (SELECT at_emp FROM leave_regularizations)", [$previous_month])
