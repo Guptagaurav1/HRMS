@@ -127,7 +127,11 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{ $wo_attendances->links() }}
+                  
+                </div>
+
+                <div class="col-md-12 my-2 mb-2">
+                      {{ $wo_attendances->links() }}
                 </div>
 
             </div>

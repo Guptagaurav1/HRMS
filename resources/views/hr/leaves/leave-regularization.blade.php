@@ -119,7 +119,7 @@
                 </table>
             </div>
 
-            <div class="col-md-12 d-flex justify-content-start my-3 py-3">
+            <div class="col-md-12 justify-content-start my-3 py-3">
                 {{$data->links()}}
             </div>
         </div>

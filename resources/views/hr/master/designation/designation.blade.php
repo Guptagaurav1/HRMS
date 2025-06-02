@@ -134,12 +134,13 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <div class="mt-2">
-
-                         {{ $designations->withQueryString()->links() }}
-                    </div>
                    
                 </div>
+                <div class="col-md-12 my-2">
+
+                         {{ $designations->withQueryString()->links() }}
+                </div>
+
             </div>
         </div>
     </div>

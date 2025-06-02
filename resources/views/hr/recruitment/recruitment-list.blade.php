@@ -186,7 +186,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-12 d-flex justify-content-start my-2">
+                    <div class="col-md-12 justify-content-start my-2">
                         {{$candidates->links()}}
                     </div>
                 </div>

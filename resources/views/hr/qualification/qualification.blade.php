@@ -156,7 +156,7 @@
             </div>
 
 
-            <div class="col-md-12 mt-3">
+           <div class="col-md-12 justify-content-start my-2">
                 {{$qualifications->links()}}
             </div>
 

@@ -104,7 +104,7 @@
                     </table>
                 </div>
 
-                <div class="col-md-12 d-flex my-2">
+                <div class="col-md-12 my-2">
                     {{$data->links()}}
                 </div>
             </div>
