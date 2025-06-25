@@ -105,7 +105,8 @@ class UserController extends Controller
         $url = route('login');
 
         // dd($user);
-        if ($email != " ") {
+        // if ($email != " ") {
+        if ($user->save()) {
             $user = auth()->user();
             $company = Company::select('name', 'mobile', 'address', 'website', 'email')->findOrFail($user->company_id);
 
@@ -115,12 +116,13 @@ class UserController extends Controller
             $mailData->website = $company->website;
             $mailData->address = $company->address;
 
-
             Mail::to($email)->send(new AddUser($name, $email, $password, $url, $rolename, $mailData));    //
+            return redirect()->route('users')->with(['success' => true, 'message' => 'User Added  successfully.']);
+        }else{
+            return redirect()->route('users')->with(['error' => true, 'message' => 'User Added  Unsuccessful.']);
         }
-        $user->save();
+        // $user->save();
         // User::create($request->all());
-        return redirect()->route('users')->with(['success' => true, 'message' => 'User Added  successfully.']);
     }
 
     /**
