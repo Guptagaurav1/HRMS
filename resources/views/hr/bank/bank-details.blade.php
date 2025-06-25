@@ -135,7 +135,7 @@
                             </tbody>
                         </table>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 my-2">
                             {{$banks->links()}}
                         </div>
                     </div>

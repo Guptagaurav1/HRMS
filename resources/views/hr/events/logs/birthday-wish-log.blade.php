@@ -60,7 +60,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-12 d-flex justify-content-center my-3">
+            <div class="col-md-12  my-3">
                 {{$logs->links()}}
             </div>
         </div>

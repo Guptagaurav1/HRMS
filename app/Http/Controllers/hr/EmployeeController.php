@@ -770,7 +770,7 @@ class EmployeeController extends Controller
      */
     public function show_employees(Request $request)
     {
-        $employees = EmpDetail::where('emp_current_working_status', 'active');
+        $employees = EmpDetail::orderByDesc('id');
 
         $search = '';
         if ($request->search) {
@@ -786,7 +786,7 @@ class EmployeeController extends Controller
             ], 'LIKE', '%' . $request->search . '%');
         }
 
-        $employees = $employees->orderByDesc('id')->paginate(10)->withQueryString();
+        $employees = $employees->paginate(10)->withQueryString();
         return view("hr.employee.employee-list", compact('employees', 'search'));
     }
 

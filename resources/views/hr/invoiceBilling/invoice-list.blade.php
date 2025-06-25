@@ -60,13 +60,16 @@
                                 </tr>
                             @endforelse
                             <div>
-                            {{ $invoices->links() }}
+                          
                             </div>
                            
                         </tbody>
                     </table>
                 </div>
                 
+                <div class="col-md-12 my-2">
+                        {{ $invoices->links() }}
+                </div>
             </div>
         </div>
     </div>

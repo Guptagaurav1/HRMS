@@ -125,7 +125,7 @@
             </div>
 
             {{-- Pagination --}}
-            <div class="col-md-12 d-flex justify-content-start my-2">
+            <div class="col-md-12 justify-content-start my-2">
                 {{ $companies->links() }}
             </div>
 

@@ -297,7 +297,7 @@
 
                 <div class="tab-content-section" id="employee-Birthday">
                     <div class="card p-4">
-                        <h4 class="text-center">Employee Birthday List</h4>
+                        <h4 class="text-center">Employee Birthday List (10 Days)</h4>
                         <div class="table-responsive mt-3">
                             <table
                                 class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
@@ -352,7 +352,7 @@
 
                 <div class="tab-content-section" id="employee-marriage-anniversary">
                     <div class="card p-4">
-                        <h4 class="text-center">Employee Marriage Anniversary List</h4>
+                        <h4 class="text-center">Employee Marriage Anniversary List(10 Days)</h4>
                         <div class="table-responsive mt-3">
                             <table
                                 class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
@@ -381,9 +381,11 @@
                                         {{-- <td class="text-center attributes-column">{{ $value->emp_designation }}
                                         </td> --}}
                                         <td class="text-center attributes-column">{{ $value->emp_email_first }}</td>
-                                        <td class="text-center attributes-column">{{
+                                        <td class="text-center attributes-column">
+                                            {{
                                             \Carbon\Carbon::parse($value->getPersonalDetail->emp_dom)->format('d-m-Y')
-                                            }}</td>
+                                            }}
+                                        </td>
                                         <td class="text-center attributes-column">
                                             <button type="button" data-bs-target="#MarriageMailModal"
                                                 data-bs-whatever="{{ $value->emp_email_first }}"
@@ -400,13 +402,14 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                              {{ $employeeMarriageAnni->links() }}
                         </div>
                     </div>
                 </div>
 
                 <div class="tab-content-section" id="employee-work-anniversary">
                     <div class="card p-4">
-                        <h4 class="text-center">Employee Work Anniversary List</h4>
+                        <h4 class="text-center">Employee Work Anniversary List (10 Days)</h4>
                         <div class="table-responsive mt-3">
                             <table
                                 class="table table-bordered table-hover digi-dataTable all-employee-table table-striped"
@@ -436,9 +439,12 @@
                                         <td class="text-center attributes-column">{{ $value->department }}</td>
                                         <td class="text-center attributes-column">{{ $value->emp_designation }}</td>
                                         <td class="text-center attributes-column">{{ $value->emp_email_first }}</td>
-                                        <td class="text-center attributes-column">{{
-                                            \Carbon\Carbon::parse($value->getPersonalDetail->emp_doj)->format('d-m-Y')
-                                            }}</td>
+                                        <td class="text-center attributes-column">
+                                         {{
+                                            \Carbon\Carbon::parse($value->emp_doj)->format('d-m-Y')
+                                            }}
+
+                                        </td>
                                         <td class="text-center attributes-column">
                                             <button type="button" data-bs-target="#WorkAnniversaryMailModal"
                                                 data-bs-whatever="{{ $value->emp_email_first }}"
@@ -457,6 +463,8 @@
 
                                 </tbody>
                             </table>
+
+                            {{ $employeeWorkAnniversary->links() }}
                         </div>
                     </div>
                 </div>
@@ -531,6 +539,8 @@
 
                                 </tbody>
                             </table>
+
+                               {{ $employeeLeaves->links() }}
                         </div>
                     </div>
                 </div>

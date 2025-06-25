@@ -122,7 +122,7 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <div class="col-md-12 d-flex justify-content-start my-4">
+                    <div class="col-md-12 justify-content-start my-4">
                         {{$skills->links() }}
                     </div>
                 </div>

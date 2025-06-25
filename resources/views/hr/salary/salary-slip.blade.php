@@ -161,7 +161,7 @@
                         </tbody>
                     </table>
                 </div>
-                 <div class="col-md-12 d-flex justify-content-start my-2">
+                 <div class="col-md-12 my-3">
                     {{$slips->links()}}
                 </div>
             </div>

@@ -69,7 +69,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-12 my-2 d-flex justify-content-center">
+                 <div class="col-md-12 justify-content-start my-2">
                     {{$holidays->links()}}
                 </div>
             </div>

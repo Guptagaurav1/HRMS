@@ -104,8 +104,55 @@ class CommonDataImportController extends Controller
 
         $file = $request->file('import_csv');
         $handle = fopen($file, 'r');
-
+        
+        // import skills
+        
+        // $status = $this->import_skill_data($handle);
+        
+        // import departments
+        
+        //  $status = $this->import_department_data($handle);
+        
+        // import department_skill data
+        
+        // $status = $this->import_department_skill_data($handle);
+        
+        //import company data 
+         
+        // $status = $this->import_company_data($handle);
+        
+        //import user data
+        
+        //  $status = $this->users($handle);
+        
+        //organizations
+        
+        // $status = $this->oranizations($handle);
+        
+        
+         //designation
+        
+        // $status = $this->designation($handle);
+        
+        //import import_functional_role_data
+        
+        // $status = $this->import_functional_role_data($handle);
+        
+          //import banks
+        
+        // $status = $this->bank_details($handle);
+        
+        // import qualification
+        
+        // $status = $this->import_qualification_data($handle);
+        
+         //state
+        
+        // $status = $this->state($handle);
+        
         // Add employee details.
+        
+        
         // $status =  $this->import_employee_data($handle);
 
         // Add salary details.
@@ -117,9 +164,11 @@ class CommonDataImportController extends Controller
         // $status =  $this->emp_salary_slip($handle);
 
         // Add Leave Request details.
+        
         // $status =  $this->import_leave_request_data($handle);
 
         // Add Employee send documents details.
+        
         // $status =  $this->import_emp_send_doc_data($handle);
 
         // Add Employee certificate data details.
@@ -132,7 +181,8 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_emp_credential_log_data($handle);
 
         // Add leave regularisation details.
-
+        // $status =  $this->import_leave_regularisation_data($handle); 
+        //pending to import
 
         // $status =  $this->notification($handle);
 
@@ -141,11 +191,12 @@ class CommonDataImportController extends Controller
         // $status =  $this->user_request_log($handle);
 
         // Add cities
-        //  $status =  $this->cities($handle);
+        
+            // $status =  $this->import_cities_data($handle);
 
         // // Add Position Request 
 
-        // $status =  $this->position_requests($handle);
+            // $status =  $this->position_requests($handle);
 
         // Add Invoice Records 
 
@@ -158,7 +209,7 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_project_data($handle);
 
         // Add Work Order details.
-        // $status =  $this->import_work_order_data($handle);
+        $status =  $this->import_work_order_data($handle);
 
         // Add Work Order contact details.
         // $status =  $this->import_work_order_contact_data($handle);
@@ -169,15 +220,14 @@ class CommonDataImportController extends Controller
         // Add Work Order attendance details.
         // $status =  $this->import_work_order_attendance_data($handle);
 
-        // Add Work Order attendance details.
-        // $status =  $this->import_holiday_data($handle);
         // Add Holiday details.
+        
         // $status =  $this->import_holiday_data($handle);
 
         // Add Industry details.
         // $status =  $this->import_industry_data($handle);
 
-        // Add Industry details.
+        // Add client details.
         // $status =  $this->import_client_data($handle);
 
         // Add client reference details.
@@ -193,7 +243,7 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_company_type_data($handle);
 
         // Add company type details.
-        // $status =  $this->import_company_role_mapping_data($handle);
+            // $status =  $this->import_company_role_mapping_data($handle);
 
         // $status =  $this->import_city_data($handle);
 
@@ -226,8 +276,6 @@ class CommonDataImportController extends Controller
 
         //    // Add rec_educational_details
         // $status =  $this->rec_educational_details($handle);
-        //    // Add rec_educational_details
-        //     $status =  $this->rec_educational_details($handle);
 
         // Add rec_esi_details
         // $status =  $this->rec_esi_details($handle);
@@ -250,15 +298,6 @@ class CommonDataImportController extends Controller
         //Add  imp_email_lists
         // $status =  $this->imp_email_lists($handle);
 
-        // Add rec_previous_companies
-        // $status =  $this->rec_previous_companies($handle);
-
-        // Add leave_policies
-        // $status =  $this->leave_policies($handle);
-
-        // Add send_mail_log
-        // $status =  $this->send_mail_log($handle);
-
         // Add lead source list.
         // $status =  $this->import_lead_source_data($handle);
 
@@ -266,7 +305,7 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_lead_category_data($handle);
 
         // Add crm project list.
-        $status =  $this->import_crm_project_list_data($handle);
+        // $status =  $this->import_crm_project_list_data($handle);
 
         // Add crm lead list.
         // $status =  $this->import_lead_list_data($handle);
@@ -293,12 +332,13 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_tender_list_data($handle);
 
         // Add PCG lead list data.
-        // $status =  $this->import_pcg_lead_list_data($handle);
+            // $status =  $this->import_pcg_lead_list_data($handle);
 
         // Add PCG lead contacts.
         // $status =  $this->import_pcg_lead_contact_data($handle);
 
         // Add PCG lead contacts.
+        
         // $status =  $this->import_pcg_client_list_data($handle);
 
         // Add PCG client contacts.
@@ -308,7 +348,9 @@ class CommonDataImportController extends Controller
         // $status =  $this->import_crm_project_attachment_data($handle);
 
         // Add form_16_fails
-        // $status =  $this->form_16_fails($handle);
+            // $status =  $this->form_16_fails($handle);
+            
+        // $status =  $this->emailHistory($handle);
 
         // $status =  $this->import_role_data($handle);
 
@@ -329,25 +371,7 @@ class CommonDataImportController extends Controller
             $row = array_combine($headers, $data); // Map headers to values
 
             // Store user record.
-            // $dob = date_create($row['dob']);
-            // User::create([
-            //     'id' => $row['id'] ?? null,
-            //     'first_name' => $row['first_name'] ?? null,
-            //     'last_name' => $row['last_name'] ?? null,
-            //     'email' => $row['email'] ?? null,
-            //     'remember_token' => $row['remember_token'] ?? null,
-            //     'email_verified_at' => $row['email_verified_at'] ?? null,
-            //     'password' => $row['password'] ?? null,
-            //     'gender' => $row['gender'] ?? null,
-            //     'phone' => $row['phone'] ?? null,
-            //     'dob' => date_format($dob,'Y-m-d') ?? null,
-            //     'role_id' => get_role_id($row['user_type']),
-            //     'department_id' => $row['department_id'] == NULL ? null : $row['department_id'],
-            //     'status' => $row['status'] ?? null,
-            //     'created_at' => $row['created'] ?? null,
-            //     'updated_at' => $row['created'] ?? null,
-            //     'company_id' => $row['company_id'] ? $row['company_id'] : '1',
-            // ]);
+           
 
 
             // department
@@ -490,6 +514,9 @@ class CommonDataImportController extends Controller
         fclose($handle);
         return back()->with('success', 'CSV Imported Successfully!');
     }
+    
+
+
     /**
      * Import qualification details.
      */
@@ -586,6 +613,10 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
+                
+                if($row['dept_id'] == 38 || $row['dept_id'] == 15 || $row['dept_id'] == 25 || $row['dept_id'] == 26 || $row['dept_id'] == 27){
+                    continue;
+                }
 
                 DepartmentSkill::create([
                     'id' => $row['id'],
@@ -690,7 +721,7 @@ class CommonDataImportController extends Controller
     }
 
     /**
-     * Import cities details.
+     * Import company details.
      */
     public function import_company_data($handle)
     {
@@ -757,7 +788,7 @@ class CommonDataImportController extends Controller
                 City::create([
                     'id' => $row['id'],
                     'city_name' => $row['city_name'],
-                    'city_code' => $row['city_code'] ? $row['city_code'] : null,
+                    'city_code' =>empty($row['city_code'])  || $row['city_code'] == "NULL" ? null : $row['city_code'],
                     'state_code' => $row['state_code']
                 ]);
             }
@@ -810,7 +841,7 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-                $row['updated_by'] = $row['updated_by'] ? $row['updated_by'] : null;
+                $row['updated_by'] = empty($row['updated_by']) || $row['updated_by'] == "NULL" ? null : $row['updated_by'];
                 PcgClientContact::create($row);
             }
             fclose($handle);
@@ -835,7 +866,8 @@ class CommonDataImportController extends Controller
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_datetime']));
                 $row['updated_at'] = $row['updated_datetime'] ? date('Y-m-d h:i:s', strtotime($row['updated_datetime'])) : null;
-                $row['updated_by'] = $row['updated_by'] ? $row['updated_by'] : null;
+                $row['updated_by'] = empty($row['updated_by']) || $row['updated_by'] == "NULL"  ? null : $row['updated_by'];
+                $row['created_by'] = empty($row['created_by']) || $row['created_by'] == "NULL"  ? null : $row['created_by'];
                 unset($row['created_datetime']);
                 unset($row['updated_datetime']);
                 PcgClientList::create($row);
@@ -860,7 +892,7 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-                $row['updated_by'] = $row['updated_by'] ? $row['updated_by'] : null;
+                $row['updated_by'] = empty($row['updated_by']) || $row['updated_by'] == 'NULL'  ? null : $row['updated_by'];
                 PcgLeadContact::create($row);
             }
             fclose($handle);
@@ -885,7 +917,7 @@ class CommonDataImportController extends Controller
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_datetime']));
                 $row['updated_at'] = $row['updated_datetime'] ? date('Y-m-d h:i:s', strtotime($row['updated_datetime'])) : null;
-                $row['updated_by'] = $row['updated_by'] ? $row['updated_by'] : null;
+                $row['updated_by'] = empty($row['updated_by']) || $row['updated_by'] == 'NULL' ? null : $row['updated_by'];
                 unset($row['created_datetime']);
                 unset($row['updated_datetime']);
                 PcgLeadList::create($row);
@@ -938,9 +970,9 @@ class CommonDataImportController extends Controller
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['lead_id'] = get_lead_id($row['lead_id']) ? get_lead_id($row['lead_id']) : null;
-                $row['assigned_user_id'] = $row['assigned_user_id'] ? $row['assigned_user_id'] : null;
-                $row['follow_up_id'] = $row['follow_up_id'] ? $row['follow_up_id'] : null;
-                $row['updated_by'] = $row['changed_by'] ? $row['changed_by'] : null;
+                $row['assigned_user_id'] = empty($row['assigned_user_id']) ||  $row['assigned_user_id'] == 'NULL' ? null : $row['assigned_user_id'];
+                $row['follow_up_id'] = empty($row['follow_up_id']) || $row['follow_up_id'] == "NULL"  ? null : $row['follow_up_id'];
+                $row['updated_by'] = empty($row['changed_by']) || $row['changed_by'] == 'NULL'  ? null : $row['changed_by'] ;
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_time']));
 
                 unset($row['created_time']);
@@ -999,7 +1031,7 @@ class CommonDataImportController extends Controller
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['lead_id'] = get_lead_id($row['lead_id']);
-                $row['created_by'] = $row['added_by'] ? $row['added_by'] : null;
+                $row['created_by'] = empty($row['added_by']) || $row['added_by'] == 'NULL' ? null  : $row['added_by'];
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
                 $row['next_follow_up'] = date('Y-m-d', strtotime($row['date']));
 
@@ -1061,7 +1093,6 @@ class CommonDataImportController extends Controller
 
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
                 $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
-
                 unset($row['created_on']);
                 unset($row['updated_on']);
                 if (LeadList::where('id', $row['lead_id'])->exists()) {
@@ -1090,8 +1121,8 @@ class CommonDataImportController extends Controller
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['created_by'] = $row['added_by'];
-                $row['category_id'] = $row['category_id'] ? $row['category_id'] : null;
-                $row['closing_amount'] = $row['closing_amount'] ? $row['closing_amount'] : 0;
+                $row['category_id'] = empty($row['category_id']) || $row['category_id'] == 'NULL' ? null  : $row['category_id'];
+                $row['closing_amount'] = empty($row['closing_amount']) || $row['closing_amount'] == 'NULL' ? 0  : $row['closing_amount'];
                 $row['deadline'] = !empty($row['deadline']) ? date('Y-m-d', strtotime($row['deadline'])) : null;
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
                 $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_on']));
@@ -1121,7 +1152,7 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-                $row['created_by'] = $row['added_by'];
+                $row['created_by'] = $row['added_by'] == '93' ? '25' : $row['added_by'];
                 $row['per_inv_date'] = !empty($row['per_inv_date']) ? date('Y-m-d', strtotime($row['per_inv_date'])) : null;
                 $row['letter_ref_date'] = !empty($row['letter_ref_date']) ? date('Y-m-d', strtotime($row['letter_ref_date'])) : null;
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['added_time']));
@@ -1367,7 +1398,7 @@ class CommonDataImportController extends Controller
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
-                $row['created_by'] = $row['added_by'];
+                $row['created_by'] = $row['added_by'] == '93' ? '25' : $row['added_by'];
                 $row['company_industry'] = $row['company_industry'] == 'not_specify' || empty($row['company_industry']) ? null : $row['company_industry'];
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['added_time']));
                 $row['updated_at'] = date('Y-m-d h:i:s', strtotime($row['updated_time']));
@@ -1423,7 +1454,7 @@ class CommonDataImportController extends Controller
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_date']));
                 unset($row['created_date']);
-                $row['updated_by'] = $row['updated_by'] ? $row['updated_by'] : null;
+                $row['updated_by'] = empty($row['updated_by']) || $row['updated_by'] == 'NULL' ? null : $row['updated_by'];
                 WoAttendance::create($row);
             }
            
@@ -1479,8 +1510,12 @@ class CommonDataImportController extends Controller
                 $row['work_order_id'] = $row['wo_id'];
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_date']));
 
+                if ($row['wo_id'] == '2341') {
+                    continue;
+                }
                 unset($row['created_date']);
                 unset($row['wo_id']);
+
                 WoContactDetail::create($row);
             }
             fclose($handle);
@@ -1535,7 +1570,7 @@ class CommonDataImportController extends Controller
                 $row['id'] = $row['wo_id'];
                 $row['wo_state'] = get_state_id($row['wo_state']) ? get_state_id($row['wo_state']) : null;
                 $row['id'] = $row['wo_id'];
-                $row['created_by'] = $row['wo_entry_by'] ? $row['wo_entry_by'] : null;
+                $row['created_by'] = empty($row['wo_entry_by']) || $row['wo_entry_by'] == "NULL"  ? null  : $row['wo_entry_by'];
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['wo_created_date']));
                 $row['wo_start_date'] = date('Y-m-d', strtotime($row['wo_start_date']));
                 $row['wo_end_date'] = date('Y-m-d', strtotime($row['wo_end_date']));
@@ -1608,8 +1643,10 @@ class CommonDataImportController extends Controller
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_at']));
                 $row['created_by'] = $row['added_by'];
+                $row['half_day_leave_dates'] = $row['halfday_dates'] ? $row['halfday_dates'] : null;
 
                 unset($row['added_by']);
+                unset($row['halfday_dates']);
                 LeaveRegularization::create($row);
             }
             fclose($handle);
@@ -1658,8 +1695,11 @@ class CommonDataImportController extends Controller
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
                 $row['start_date'] = date('Y-m-d', strtotime($row['start_date']));
-
+                $row['emp_code'] = $row['emp_code'] ? $row['emp_code'] : null;
                 unset($row['created_on']);
+                if ($row['emp_code'] == 'Bilques Bano' || $row['emp_code'] == 'PSSPL/DEL.2022-23/0239') {
+                    continue;
+                }
                 EmpChangeLog::create($row);
             }
             fclose($handle);
@@ -1705,8 +1745,14 @@ class CommonDataImportController extends Controller
                 $row = [];
                 $row = array_combine($headers, $data); // Map headers to values
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
+                $row['emp_code'] = $row['emp_code'] ? $row['emp_code'] : null;
 
                 unset($row['created_on']);
+                if ($row['emp_code'] == 'Bilques Bano' || $row['emp_code'] == '121' || $row['emp_code'] == '1234' || $row['emp_code'] == 'PSSPL/DEL.2022-23/0239' ||  $row['emp_code'] == 'PSSPL/DEL/2023-24/-263') {
+                    continue;
+                }
+                
+                
                 EmpSendDoc::create($row);
             }
             fclose($handle);
@@ -1734,6 +1780,9 @@ class CommonDataImportController extends Controller
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['created_on']));
                 $row['approved_disapproved_by'] = empty($row['approved_disapproved_by'])  || $row['approved_disapproved_by'] == "NULL" ? null : $row['approved_disapproved_by'];
                 $row['reapproved_redisapproved_by'] = empty($row['reapproved_redisapproved_by'])  || $row['reapproved_redisapproved_by'] == "NULL" ? null : $row['reapproved_redisapproved_by'];
+                if($row['emp_code'] == 'PSSPL/DEL/2023-24/-263'){
+                    continue;
+                }
                 unset($row['updated_on']);
                 unset($row['created_on']);
                 unset($row['deleted_on']);
@@ -1764,13 +1813,20 @@ class CommonDataImportController extends Controller
                 $row['sa_emp_doj'] = date('Y-m-d', strtotime($row['sa_emp_doj']));
                 $row['created_at'] = date('Y-m-d h:i:s', strtotime($row['sal_add_date']));
                 $row['sal_add_date'] = date('Y-m-d h:i:s', strtotime($row['sal_add_date']));
-                $row['taxable_salary'] = $row['taxable_salary'] ? $row['taxable_salary'] : 0;
-                $row['tds_tax_amount'] = $row['tds_tax_amount'] ? $row['tds_tax_amount'] : 0;
-                $row['tax_credit'] = $row['tax_credit'] ? $row['tax_credit'] : 0;
-                $row['e_cess'] = $row['e_cess'] ? $row['e_cess'] : 0;
-                $row['pf_wages'] = $row['pf_wages'] ? $row['pf_wages'] : 0;
-                $row['medical_insurance'] = $row['medical_insurance'] ? $row['medical_insurance'] : 0;
-                $row['accident_insurance'] = $row['accident_insurance'] ? $row['accident_insurance'] : 0;
+                // $row['taxable_salary'] = $row['taxable_salary'] ? $row['taxable_salary'] : 0;
+                $row['taxable_salary'] = empty($row['taxable_salary'])  || $row['taxable_salary'] == "NULL" ? 0 : $row['taxable_salary'];
+                // $row['tds_tax_amount'] = $row['tds_tax_amount'] ? $row['tds_tax_amount'] : 0;
+                $row['tds_tax_amount'] = empty($row['tds_tax_amount'])  || $row['tds_tax_amount'] == "NULL" ? 0 : $row['tds_tax_amount'];
+                // $row['tax_credit'] = $row['tax_credit'] ? $row['tax_credit'] : 0;
+                $row['tax_credit'] = empty($row['tax_credit'])  || $row['tax_credit'] == "NULL" ? 0 : $row['tax_credit'];
+                // $row['e_cess'] = $row['e_cess'] ? $row['e_cess'] : 0;
+                $row['e_cess'] =  empty($row['e_cess'])  || $row['e_cess'] == "NULL" ? 0 : $row['tax_credit'];
+                // $row['pf_wages'] = $row['pf_wages'] ? $row['pf_wages'] : 0;
+                $row['pf_wages'] = empty($row['pf_wages'])  || $row['pf_wages'] == "NULL" ? 0 : $row['pf_wages'];
+                // $row['medical_insurance'] = $row['medical_insurance'] ? $row['medical_insurance'] : 0;
+                $row['medical_insurance'] = empty($row['medical_insurance'])  || $row['medical_insurance'] == "NULL" ? 0 : $row['medical_insurance'];
+                // $row['accident_insurance'] = $row['accident_insurance'] ? $row['accident_insurance'] : 0;
+                $row['accident_insurance'] = empty($row['accident_insurance'])  || $row['accident_insurance'] == "NULL" ? 0 : $row['accident_insurance'];
 
                 unset($row['salary_id']);
                 unset($row['source']);
@@ -1958,6 +2014,10 @@ class CommonDataImportController extends Controller
                 $dob = date_create($row['dob']);
 
                 // var_dump($row['department_id']);
+                
+                  if($row['department_id'] == 38 || $row['department_id'] == 15 || $row['department_id'] == 25 || $row['department_id'] == 26 || $row['department_id'] == 27){
+                   $row['department_id'] = null;
+                }
 
                 User::create([
                     'id' => $row['id'] ?? null,
@@ -2002,7 +2062,7 @@ class CommonDataImportController extends Controller
                     'name' => $row['organisation_name'] ? $row['organisation_name'] : null,
                     'address' => $row['address'] ? $row['address'] : null,
                     'email' => $row['email'] ? $row['email'] : null,
-                    'contact' => $row['contact'] ? $row['contact'] : null,
+                    'contact' =>  empty($row['contact'])  || $row['contact'] == "NULL" ? null : $row['contact'],
                     'state_id' => null,
                     'city_id' => null,
                     'postal_code' => null,
@@ -2227,6 +2287,8 @@ class CommonDataImportController extends Controller
                 $row = array_combine($headers, $data);
                 $row['id'] = $row['id'];
                 $row['created_at'] = $row['time'];
+
+                unset($row['time']);
                 Notification::create($row);
             }
             fclose($handle);
@@ -2253,6 +2315,10 @@ class CommonDataImportController extends Controller
                 $row['id'] = $row['id'];
                 $row['created_at'] = $row['created_on'];
                 $row['updated_at'] = $row['updated_on'];
+                
+                if($row['user_id'] == 24){
+                    continue;
+                }
                 UserRequestLog::create($row);
             }
             fclose($handle);
@@ -2278,11 +2344,11 @@ class CommonDataImportController extends Controller
                 $row['created_by'] = $row['requested_by'];
                 $row['date_notified'] = $row['date_notified'] ? date('Y-m-d', strtotime($row['date_notified'])) : '';
                 $row['hiring_budget'] = empty($row['hiring_budget'])  || $row['hiring_budget'] == "NULL" ? null : $row['hiring_budget'];
-                if($row['city'] == 3030){
-                    continue;
-                }else{
+                // if($row['city'] == 3030){
+                //     continue;
+                // }else{
                     $row['city'] = $row['city'] ==  empty($row['city']) || $row['city'] == 'Select City' || $row['city'] == '' ? null : $row['city'];
-                }
+                // }
                 $row['state'] = empty($row['state'])  || $row['state'] == "NULL" ? null : $row['state'];
                 $row['department'] = $row['department'] == 'Select Department' ? null : $row['department'];
                 if ($row['department'] == '15' || $row['department'] == '22') {
@@ -2778,7 +2844,6 @@ class CommonDataImportController extends Controller
 
     public function form16($handle)
     {
-
         $headers = fgetcsv($handle);
         try {
             DB::beginTransaction();
@@ -2800,7 +2865,6 @@ class CommonDataImportController extends Controller
             return ['error' => true, 'message' => $th->getMessage()];
         }
     }
-
 
     public function emp_wish_mail_log($handle)
     {
@@ -2890,6 +2954,8 @@ class CommonDataImportController extends Controller
                     $dob = Carbon::parse($row['dob']);
                     $row['dob'] = $dob->format('Y-m-d');
                 }
+                
+               
 
                 $row['salary'] =   empty($row['salary']) || $row['salary'] == 'NULL' ?  null :  $row['salary'];
                 $row['fixed'] =   empty($row['fixed']) || $row['fixed'] == 'NULL' ?  null :  $row['fixed'];
@@ -2898,6 +2964,7 @@ class CommonDataImportController extends Controller
                 $row['finally'] =   empty($row['finally']) || $row['finally'] == 'NULL' ?  null :  $row['finally'];
                 $row['read_status'] =   empty($row['read_status']) || $row['read_status'] == 'NULL' ?  null :  $row['read_status'];
 
+                unset($row['add_time']);
                 RecruitmentForm::create($row);
             }
             fclose($handle);

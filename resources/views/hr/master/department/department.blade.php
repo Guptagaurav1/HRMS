@@ -143,9 +143,9 @@
                         @endforelse
                     </tbody>
                 </table>
-                <div class="table-bottom-control">
+            </div>
+             <div class="col-md-12 justify-content-start my-2 mt-3">
                     {{ $departments->links() }}
-                </div>
             </div>
 
             <!-- Table End -->

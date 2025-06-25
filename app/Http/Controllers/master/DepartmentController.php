@@ -19,7 +19,7 @@ class DepartmentController extends Controller
 
     public function index(Request $request)
     {
-        $departments = Department::orderBy('id', 'desc');
+        $departments = Department::paginate(10);
         $search = $request->search;
         if ($search) {
             $departments->where(function ($query) use ($search) {
@@ -29,7 +29,7 @@ class DepartmentController extends Controller
                     });
             });
         }
-        $departments = $departments->paginate(10)->withQueryString();;
+        $departments = $departments->withQueryString();;
         return view('hr.master.department.department', compact('departments', 'search'));
     }
 
